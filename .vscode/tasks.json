@@ -1,0 +1,82 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Plugin",
+            "type": "shell",
+            "command": "mvn",
+            "args": [
+                "package",
+                "-DskipTests"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Deploy Plugin",
+            "type": "shell",
+            "command": "Copy-Item",
+            "args": [
+                "-Path",
+                "${workspaceFolder}\\target\\Hyforged-1.0.0.jar",
+                "-Destination",
+                "C:\\Users\\JBurl\\AppData\\Roaming\\Hytale\\UserData\\Mods\\",
+                "-Force"
+            ],
+            "dependsOn": "Build Plugin",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Build and Deploy Plugin",
+            "dependsOn": [
+                "Build Plugin",
+                "Deploy Plugin"
+            ],
+            "dependsOrder": "sequence",
+            "group": "build",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Clean Build",
+            "type": "shell",
+            "command": "mvn",
+            "args": [
+                "clean",
+                "package",
+                "-DskipTests"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Clean Build and Deploy Plugin",
+            "type": "shell",
+            "command": "mvn clean package -DskipTests; Copy-Item -Path '${workspaceFolder}\\target\\Hyforged-1.0.0.jar' -Destination 'C:\\Users\\JBurl\\AppData\\Roaming\\Hytale\\UserData\\Mods\\' -Force",
+            "group": "build",
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        }
+    ]
+}
