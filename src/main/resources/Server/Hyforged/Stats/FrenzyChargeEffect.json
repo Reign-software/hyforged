@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:frenzy-charge-effect-bps",
+  "Category": "utility",
+  "DisplayName": "Frenzy Charge Effect",
+  "Description": "Increased effect of frenzy charges.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["utility", "charge", "frenzy", "percent"]
+}

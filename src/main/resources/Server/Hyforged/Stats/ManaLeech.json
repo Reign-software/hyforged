@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:mana-leech-bps",
+  "Category": "offense",
+  "DisplayName": "Mana Leech",
+  "Description": "Percentage of damage leeched as mana.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["offense", "leech", "mana", "percent"]
+}

@@ -11,7 +11,7 @@ import reign.software.hyforged.stats.component.HyforgedStatComponent;
  * Uses Hytale's BuilderCodec pattern for persistence.
  * <p>
  * Persistence Strategy:
- * - Only ability score allocations are persisted (player-owned state)
+ * - Base values (including ability scores) are persisted as parallel arrays
  * - Modifiers are NOT persisted (reapplied by equipment/buffs systems on load)
  * - Computed/cached values are NOT persisted (recomputed by systems on load)
  * <p>
@@ -31,11 +31,12 @@ public final class HyforgedStatCodec {
     /**
      * The codec for HyforgedStatComponent.
      * <p>
-     * Schema:
+     * Schema (v2):
      * <pre>
      * {
-     *   "Version": int,           // Schema version for migration
-     *   "AbilityScores": int[7]   // STR, DEX, INT, CON, WIS, SPI, LCK
+     *   "Version": int,              // Schema version for migration
+     *   "BaseStatIndices": int[],    // Stat indices with explicit base values
+     *   "BaseStatValues": int[]      // Corresponding base values
      * }
      * </pre>
      */
@@ -44,15 +45,29 @@ public final class HyforgedStatCodec {
             .versioned()
             .codecVersion(HyforgedStatComponent.SCHEMA_VERSION)
             .append(
-                    new KeyedCodec<>("AbilityScores", Codec.INT_ARRAY),
-                    // Setter: apply loaded ability scores
-                    (component, scores) -> {
-                        if (scores != null && scores.length == 7) {
-                            component.setAbilityScores(scores);
+                    new KeyedCodec<>("BaseStatIndices", Codec.INT_ARRAY),
+                    (component, indices) -> {
+                        // Stored temporarily for use with values
+                        if (indices != null) {
+                            component.setTempLoadIndices(indices);
                         }
                     },
-                    // Getter: retrieve ability scores for saving
-                    HyforgedStatComponent::getAbilityScores
+                    HyforgedStatComponent::getBaseValueIndices
+            )
+            .add()
+            .append(
+                    new KeyedCodec<>("BaseStatValues", Codec.INT_ARRAY),
+                    (component, values) -> {
+                        // Apply with previously loaded indices
+                        int[] indices = component.getTempLoadIndices();
+                        if (indices != null && values != null && indices.length == values.length) {
+                            for (int i = 0; i < indices.length; i++) {
+                                component.setBaseValue(indices[i], values[i]);
+                            }
+                        }
+                        component.clearTempLoadIndices();
+                    },
+                    HyforgedStatComponent::getBaseValueValues
             )
             .add()
             .afterDecode((component, extraInfo) -> {

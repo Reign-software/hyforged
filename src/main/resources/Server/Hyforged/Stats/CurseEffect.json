@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:curse-effect-bps",
+  "Category": "offense",
+  "DisplayName": "Curse Effect",
+  "Description": "Increased effect of curses you inflict.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 100000,
+  "IsRating": false,
+  "Tags": ["offense", "curse", "percent"]
+}

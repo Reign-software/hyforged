@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:ignite-chance-bps",
+  "Category": "offense",
+  "DisplayName": "Ignite Chance",
+  "Description": "Chance to ignite enemies on hit with fire damage.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["offense", "ailment", "fire", "ignite", "percent"]
+}

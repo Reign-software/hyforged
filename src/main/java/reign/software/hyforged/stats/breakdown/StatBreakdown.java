@@ -12,14 +12,16 @@ import java.util.Objects;
 /**
  * Complete breakdown of a stat's computed value for UI display.
  * <p>
- * Shows the base value, all contributors, intermediate values,
+ * Shows the base value, scaling contributions, all modifiers, intermediate values,
  * and final result.
  * <p>
  * This is pure data for UI display - no behavior.
  *
  * @param statId The stat this breakdown is for
  * @param displayName Human-readable name for the stat
- * @param baseValue The stat's base value before any modifiers
+ * @param baseValue The stat's base value before any modifiers (including scaling)
+ * @param scalingContributions List of scaling contributions from source stats
+ * @param scaledBase Total base value including scaling contributions
  * @param entries List of all modifier contributions
  * @param flatTotal Total of all flat modifiers
  * @param afterFlat Value after applying flat modifiers
@@ -35,6 +37,8 @@ public record StatBreakdown(
     @Nonnull StatId statId,
     @Nonnull String displayName,
     int baseValue,
+    @Nonnull List<ScalingContribution> scalingContributions,
+    int scaledBase,
     @Nonnull List<BreakdownEntry> entries,
     int flatTotal,
     int afterFlat,
@@ -50,10 +54,28 @@ public record StatBreakdown(
     public StatBreakdown {
         Objects.requireNonNull(statId, "statId cannot be null");
         Objects.requireNonNull(displayName, "displayName cannot be null");
+        Objects.requireNonNull(scalingContributions, "scalingContributions cannot be null");
         Objects.requireNonNull(entries, "entries cannot be null");
         
-        // Make defensive copy
+        // Make defensive copies
+        scalingContributions = List.copyOf(scalingContributions);
         entries = List.copyOf(entries);
+    }
+    
+    /**
+     * Check if this stat has scaling from other stats.
+     */
+    public boolean hasScaling() {
+        return !scalingContributions.isEmpty();
+    }
+    
+    /**
+     * Get the total scaling contribution.
+     */
+    public int getScalingTotal() {
+        return scalingContributions.stream()
+            .mapToInt(ScalingContribution::contribution)
+            .sum();
     }
     
     /**
@@ -115,6 +137,8 @@ public record StatBreakdown(
         private StatId statId;
         private String displayName = "";
         private int baseValue = 0;
+        private List<ScalingContribution> scalingContributions = new ArrayList<>();
+        private int scaledBase = 0;
         private List<BreakdownEntry> entries = new ArrayList<>();
         private int flatTotal = 0;
         private int afterFlat = 0;
@@ -139,6 +163,21 @@ public record StatBreakdown(
         
         public Builder baseValue(int value) {
             this.baseValue = value;
+            return this;
+        }
+        
+        public Builder addScalingContribution(@Nonnull ScalingContribution contribution) {
+            this.scalingContributions.add(contribution);
+            return this;
+        }
+        
+        public Builder scalingContributions(@Nonnull List<ScalingContribution> contributions) {
+            this.scalingContributions = new ArrayList<>(contributions);
+            return this;
+        }
+        
+        public Builder scaledBase(int value) {
+            this.scaledBase = value;
             return this;
         }
         
@@ -194,8 +233,8 @@ public record StatBreakdown(
         
         public StatBreakdown build() {
             return new StatBreakdown(
-                statId, displayName, baseValue, entries,
-                flatTotal, afterFlat, increasedTotalBps, afterIncreased,
+                statId, displayName, baseValue, scalingContributions, scaledBase,
+                entries, flatTotal, afterFlat, increasedTotalBps, afterIncreased,
                 afterMore, afterCap, finalValue, isRating, effectivenessBps
             );
         }

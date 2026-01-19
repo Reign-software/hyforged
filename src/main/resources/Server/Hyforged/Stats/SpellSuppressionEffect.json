@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:suppression-effect-bps",
+  "Category": "defense",
+  "DisplayName": "Spell Suppression Effect",
+  "Description": "Increased spell suppression effect.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["defense", "suppression", "spell", "percent"]
+}

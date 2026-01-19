@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:chaos-damage-increased-bps",
+  "Category": "offense",
+  "DisplayName": "Chaos Damage",
+  "Description": "Increased chaos damage dealt.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 100000,
+  "IsRating": false,
+  "Tags": ["offense", "elemental", "chaos", "damage", "percent"]
+}

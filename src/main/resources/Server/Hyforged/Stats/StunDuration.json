@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:stun-duration-bps",
+  "Category": "offense",
+  "DisplayName": "Stun Duration",
+  "Description": "Increased stun duration on enemies.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["offense", "stun", "duration", "percent"]
+}

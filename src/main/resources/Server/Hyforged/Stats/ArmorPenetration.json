@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:armor-penetration-bps",
+  "Category": "offense",
+  "DisplayName": "Armor Penetration",
+  "Description": "Physical damage penetrates enemy armor.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["offense", "penetration", "physical", "percent"]
+}

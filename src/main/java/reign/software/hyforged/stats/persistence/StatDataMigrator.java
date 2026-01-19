@@ -1,5 +1,7 @@
 package reign.software.hyforged.stats.persistence;
 
+import reign.software.hyforged.stats.CoreStats;
+import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 
 import javax.annotation.Nonnull;
@@ -16,6 +18,11 @@ import java.util.logging.Logger;
 public final class StatDataMigrator {
 
     private static final Logger LOGGER = Logger.getLogger(StatDataMigrator.class.getName());
+
+    /**
+     * Default base value for ability scores.
+     */
+    private static final int DEFAULT_ABILITY_BASE = 10;
 
     private StatDataMigrator() {
         // Utility class
@@ -56,24 +63,18 @@ public final class StatDataMigrator {
      * Apply a single migration step and return the new version.
      */
     private static int applyMigration(@Nonnull HyforgedStatComponent component, int fromVersion) {
-        switch (fromVersion) {
-            case 0:
-                // Version 0 -> 1: Initial schema, no migration needed
-                // This handles very old data that might not have version field
-                return migrateV0ToV1(component);
-            
-            // Future migrations go here:
-            // case 1:
-            //     return migrateV1ToV2(component);
-            
-            default:
+        return switch (fromVersion) {
+            case 0 -> migrateV0ToV1(component);
+            case 1 -> migrateV1ToV2(component);
+            default -> {
                 // Unknown version, try to continue
                 LOGGER.warning(() -> String.format(
                         "Unknown schema version %d, attempting to continue",
                         fromVersion
                 ));
-                return fromVersion + 1;
-        }
+                yield fromVersion + 1;
+            }
+        };
     }
 
     /**
@@ -83,37 +84,43 @@ public final class StatDataMigrator {
      * Version 1: First versioned schema with ability scores array
      */
     private static int migrateV0ToV1(@Nonnull HyforgedStatComponent component) {
-        // Version 0 data might have:
-        // - Missing ability scores (use defaults)
-        // - Ability scores stored differently
+        // V0 -> V1: Just ensure data exists, nothing special to migrate
+        LOGGER.fine("V0->V1 migration complete (minimal changes)");
+        return 1;
+    }
+
+    /**
+     * Migrate from version 1 to version 2.
+     * <p>
+     * Version 1: Used fixed-size ability scores array
+     * Version 2: Uses baseValues map (Int2IntOpenHashMap) with stat indices
+     * <p>
+     * This migration is a no-op for new projects since no V1 data exists.
+     */
+    private static int migrateV1ToV2(@Nonnull HyforgedStatComponent component) {
+        // V1 -> V2: Old ability scores array replaced by baseValues map
+        // For new project, there's no legacy data to migrate.
+        // If baseValues is empty, set defaults for ability scores.
         
-        int[] scores = component.getAbilityScores();
-        boolean needsDefaults = true;
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        int[] abilityStats = {
+            registry.getIndex(CoreStats.STRENGTH),
+            registry.getIndex(CoreStats.DEXTERITY),
+            registry.getIndex(CoreStats.INTELLIGENCE),
+            registry.getIndex(CoreStats.CONSTITUTION),
+            registry.getIndex(CoreStats.WISDOM),
+            registry.getIndex(CoreStats.SPIRIT),
+            registry.getIndex(CoreStats.LUCK)
+        };
         
-        // Check if any ability scores are set
-        for (int score : scores) {
-            if (score != 0) {
-                needsDefaults = false;
-                break;
+        for (int statIndex : abilityStats) {
+            if (statIndex >= 0 && component.getBaseValue(statIndex) == 0) {
+                component.setBaseValue(statIndex, DEFAULT_ABILITY_BASE);
             }
         }
         
-        if (needsDefaults) {
-            // Set default ability scores (10 each)
-            int[] defaults = {10, 10, 10, 10, 10, 10, 10};
-            component.setAbilityScores(defaults);
-            LOGGER.fine("Applied default ability scores during V0->V1 migration");
-        }
-        
-        // Clear any stale modifiers that might have persisted incorrectly
-        // In V0, modifiers might have been persisted when they shouldn't be
-        // V1+ only persists ability score allocations
-        if (component.getModifierCount() > 0) {
-            component.clearModifiers();
-            LOGGER.fine("Cleared legacy modifiers during V0->V1 migration");
-        }
-        
-        return 1;
+        LOGGER.fine("V1->V2 migration complete (baseValues map now used)");
+        return 2;
     }
 
     /**
@@ -126,22 +133,34 @@ public final class StatDataMigrator {
      */
     public static boolean validateAndRepair(@Nonnull HyforgedStatComponent component) {
         boolean wasRepaired = false;
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
 
-        // Validate ability scores
-        int[] scores = component.getAbilityScores();
-        for (int i = 0; i < scores.length; i++) {
-            if (scores[i] < 1) {
-                scores[i] = 1; // Minimum ability score
+        // Validate ability score base values
+        int[] abilityStats = {
+            registry.getIndex(CoreStats.STRENGTH),
+            registry.getIndex(CoreStats.DEXTERITY),
+            registry.getIndex(CoreStats.INTELLIGENCE),
+            registry.getIndex(CoreStats.CONSTITUTION),
+            registry.getIndex(CoreStats.WISDOM),
+            registry.getIndex(CoreStats.SPIRIT),
+            registry.getIndex(CoreStats.LUCK)
+        };
+        
+        for (int statIndex : abilityStats) {
+            if (statIndex < 0) continue;
+            
+            int value = component.getBaseValue(statIndex);
+            if (value < 1) {
+                component.setBaseValue(statIndex, 1); // Minimum
                 wasRepaired = true;
-            } else if (scores[i] > 999) {
-                scores[i] = 999; // Maximum ability score
+            } else if (value > 999) {
+                component.setBaseValue(statIndex, 999); // Maximum
                 wasRepaired = true;
             }
         }
         
         if (wasRepaired) {
-            component.setAbilityScores(scores);
-            LOGGER.warning("Repaired invalid ability scores");
+            LOGGER.warning("Repaired invalid ability score base values");
         }
 
         // Mark all stats dirty to ensure recomputation after load

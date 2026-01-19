@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:stamina-cost-bps",
+  "Category": "utility",
+  "DisplayName": "Stamina Cost",
+  "Description": "Reduced stamina cost of skills.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["utility", "stamina", "cost", "percent"]
+}

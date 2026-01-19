@@ -11,10 +11,13 @@ import com.hypixel.hytale.codec.KeyedCodec;
 import reign.software.hyforged.stats.CoreCategories;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatId;
+import reign.software.hyforged.stats.scaling.ScalingRule;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * JSON asset definition for Hyforged stats.
@@ -107,6 +110,13 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
                     (asset, parent) -> asset.tags = parent.tags
             )
             .add()
+            .appendInherited(
+                    new KeyedCodec<>("Scaling", ScalingRuleAssetCodec.ARRAY_CODEC),
+                    (asset, value) -> asset.scalingAssets = value,
+                    asset -> asset.scalingAssets,
+                    (asset, parent) -> asset.scalingAssets = parent.scalingAssets
+            )
+            .add()
             .build();
 
     private static AssetStore<String, StatDefinitionAsset, IndexedLookupTableAssetMap<String, StatDefinitionAsset>> ASSET_STORE;
@@ -124,6 +134,7 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
     private int maxValue = Integer.MAX_VALUE;
     private boolean isRating = false;
     private String[] tags = new String[0];
+    private ScalingRuleAsset[] scalingAssets = new ScalingRuleAsset[0];
 
     public StatDefinitionAsset() {
     }
@@ -186,11 +197,31 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
     }
 
     /**
+     * Get the scaling rule assets (raw, unconverted).
+     */
+    @Nonnull
+    public ScalingRuleAsset[] getScalingAssets() {
+        return scalingAssets;
+    }
+
+    /**
      * Convert this asset to a StatDefinition for registration.
+     * <p>
+     * Scaling rules are converted from their asset representations.
+     * Invalid or unresolvable scaling rules are skipped with a warning.
      */
     @Nonnull
     public StatDefinition toStatDefinition() {
         StatId statId = StatId.parse(id);
+        
+        // Convert scaling rules
+        List<ScalingRule> scalingRules = new ArrayList<>();
+        if (scalingAssets != null) {
+            for (ScalingRuleAsset scalingAsset : scalingAssets) {
+                scalingAsset.toScalingRule(id).ifPresent(scalingRules::add);
+            }
+        }
+        
         return new StatDefinition.Builder(statId)
                 .category(category)
                 .displayName(displayName)
@@ -199,6 +230,7 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
                 .bounds(minValue, maxValue)
                 .rating(isRating)
                 .tags(new HashSet<>(Arrays.asList(tags)))
+                .scaling(scalingRules)
                 .build();
     }
 }

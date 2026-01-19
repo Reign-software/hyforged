@@ -1,0 +1,19 @@
+{
+  "Id": "hyforged:movement-speed-bps",
+  "Category": "utility",
+  "DisplayName": "Movement Speed",
+  "Description": "Increased movement speed. Scales with Dexterity.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["utility", "movement", "percent", "derived"],
+  "Scaling": [
+    {
+      "Type": "threshold",
+      "Source": "hyforged:dexterity",
+      "PerPoints": 10,
+      "BonusBps": 50
+    }
+  ]
+}

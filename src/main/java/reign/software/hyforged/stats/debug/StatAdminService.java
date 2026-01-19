@@ -6,6 +6,7 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.stats.CoreStats;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
@@ -88,12 +89,18 @@ public final class StatAdminService {
         sb.append(String.format("Entity Index: %d\n", entityIndex));
         sb.append(String.format("Schema Version: %d\n", HyforgedStatComponent.SCHEMA_VERSION));
         
-        // Ability Scores
-        sb.append("\n--- Ability Scores ---\n");
+        // Base Values (Ability Scores)
+        sb.append("\n--- Base Values ---\n");
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         String[] abilityNames = {"STR", "DEX", "INT", "CON", "WIS", "SPI", "LCK"};
-        int[] scores = component.getAbilityScores();
-        for (int i = 0; i < scores.length && i < abilityNames.length; i++) {
-            sb.append(String.format("  %s: %d\n", abilityNames[i], scores[i]));
+        StatId[] abilityStats = {
+            CoreStats.STRENGTH, CoreStats.DEXTERITY, CoreStats.INTELLIGENCE,
+            CoreStats.CONSTITUTION, CoreStats.WISDOM, CoreStats.SPIRIT, CoreStats.LUCK
+        };
+        for (int i = 0; i < abilityStats.length && i < abilityNames.length; i++) {
+            int statIndex = registry.getIndex(abilityStats[i]);
+            int value = statIndex >= 0 ? component.getBaseValue(statIndex) : 0;
+            sb.append(String.format("  %s: %d\n", abilityNames[i], value));
         }
         
         // Modifiers
@@ -135,7 +142,6 @@ public final class StatAdminService {
         
         // Sample Stats
         sb.append("\n--- Sample Stat Values ---\n");
-        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         appendStatValue(sb, registry, component, "hyforged:max-health");
         appendStatValue(sb, registry, component, "hyforged:max-mana");
         appendStatValue(sb, registry, component, "hyforged:max-stamina");

@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:physical-damage-taken-bps",
+  "Category": "defense",
+  "DisplayName": "Physical Damage Taken",
+  "Description": "Reduced physical damage taken.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["defense", "damage-taken", "physical", "percent"]
+}

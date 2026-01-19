@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:elemental-penetration-bps",
+  "Category": "offense",
+  "DisplayName": "Elemental Penetration",
+  "Description": "Elemental damage penetrates enemy elemental resistances.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["offense", "penetration", "elemental", "percent"]
+}

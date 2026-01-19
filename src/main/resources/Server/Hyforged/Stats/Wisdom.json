@@ -2,7 +2,7 @@
   "Id": "hyforged:wisdom",
   "Category": "ability-score",
   "DisplayName": "Wisdom",
-  "Description": "Increases crafting efficiency and enchanting success.",
+  "Description": "Increases all elemental resistances and cooldown recovery.",
   "DefaultValue": 10,
   "MinValue": 1,
   "MaxValue": 999,

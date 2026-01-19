@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:leech-rate-bps",
+  "Category": "utility",
+  "DisplayName": "Leech Rate",
+  "Description": "Rate at which leeched resources are recovered.",
+  "DefaultValue": 1000,
+  "MinValue": 0,
+  "MaxValue": 100000,
+  "IsRating": false,
+  "Tags": ["utility", "leech", "percent"]
+}

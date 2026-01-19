@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:aura-skill-levels",
+  "Category": "skill",
+  "DisplayName": "+Level to Aura Skills",
+  "Description": "Adds levels to all aura skills.",
+  "DefaultValue": 0,
+  "MinValue": -100,
+  "MaxValue": 100,
+  "IsRating": false,
+  "Tags": ["skill", "skill-level", "aura"]
+}

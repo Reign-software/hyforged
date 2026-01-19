@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:elemental-damage-taken-bps",
+  "Category": "defense",
+  "DisplayName": "Elemental Damage Taken",
+  "Description": "Reduced elemental damage taken.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["defense", "damage-taken", "elemental", "percent"]
+}

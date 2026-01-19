@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:culling-strike-threshold-bps",
+  "Category": "offense",
+  "DisplayName": "Culling Strike Threshold",
+  "Description": "Kill enemies when they reach this percentage of life.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 5000,
+  "IsRating": false,
+  "Tags": ["offense", "culling", "percent"]
+}

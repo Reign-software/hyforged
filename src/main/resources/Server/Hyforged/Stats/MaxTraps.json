@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:max-traps",
+  "Category": "utility",
+  "DisplayName": "Maximum Traps",
+  "Description": "Maximum number of traps you can have placed.",
+  "DefaultValue": 3,
+  "MinValue": 0,
+  "MaxValue": 100,
+  "IsRating": false,
+  "Tags": ["utility", "trap"]
+}

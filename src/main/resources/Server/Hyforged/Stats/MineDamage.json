@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:mine-damage-bps",
+  "Category": "offense",
+  "DisplayName": "Mine Damage",
+  "Description": "Increased damage dealt by your mines.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 100000,
+  "IsRating": false,
+  "Tags": ["offense", "mine", "damage", "percent"]
+}

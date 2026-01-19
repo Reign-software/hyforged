@@ -2,9 +2,13 @@ package reign.software.hyforged.stats.component;
 
 import com.hypixel.hytale.component.Component;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
+import reign.software.hyforged.stats.scaling.ScalingRule;
+import reign.software.hyforged.stats.engine.ScalingEngine;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,16 +31,16 @@ import java.util.List;
 public class HyforgedStatComponent implements Component<EntityStore> {
     
     /** Schema version for persistence migration */
-    public static final int SCHEMA_VERSION = 1;
+    public static final int SCHEMA_VERSION = 2;
     
     /** Maximum number of modifiers per entity (guard against explosion) */
     public static final int MAX_MODIFIERS = 256;
     
-    // ========== ABILITY SCORE BASE VALUES ==========
-    // These are the player-allocated base values for the 7 ability scores
-    // Indexed by ability score order: STR=0, DEX=1, INT=2, CON=3, WIS=4, SPI=5, LCK=6
+    // ========== BASE VALUES ==========
+    // Base values for stats without scaling (e.g., ability scores, manually-set bases)
+    // Keyed by stat index; stats not in this map use their definition's defaultValue
     
-    private int[] abilityScores = new int[7];
+    private final Int2IntMap baseValues = new Int2IntOpenHashMap();
     
     // ========== MODIFIERS ==========
     // List of all active modifiers on this entity
@@ -63,59 +67,127 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     private int lastBridgedMaxStamina = 0;
     
     public HyforgedStatComponent() {
-        // Initialize ability scores to default value of 10
-        for (int i = 0; i < abilityScores.length; i++) {
-            abilityScores[i] = 10;
-        }
-        
         // Initialize cache based on registry size
         int statCount = StatDefinitionRegistry.get().getStatCount();
         cachedValues = new int[Math.max(statCount, 64)]; // Minimum size for safety
     }
     
-    // ========== ABILITY SCORE ACCESSORS ==========
+    // ========== BASE VALUE ACCESSORS ==========
     
     /**
-     * Get ability score base value by index.
-     * @param index 0=STR, 1=DEX, 2=INT, 3=CON, 4=WIS, 5=SPI, 6=LCK
+     * Get the base value for a stat.
+     * <p>
+     * For stats without scaling, this returns the stored base value (e.g., allocated
+     * ability score points). If no base value is set, returns the stat's defaultValue.
+     * <p>
+     * For stats with scaling, the base value is computed from source stats by the
+     * ScalingEngine - this method returns 0 for such stats (they don't have stored bases).
+     *
+     * @param statIndex The stat index
+     * @return The base value, or the stat's defaultValue if not set
      */
-    public int getAbilityScore(int index) {
-        if (index < 0 || index >= abilityScores.length) {
-            return 0;
+    public int getBaseValue(int statIndex) {
+        if (baseValues.containsKey(statIndex)) {
+            return baseValues.get(statIndex);
         }
-        return abilityScores[index];
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        StatDefinition statDef = registry.getStat(statIndex);
+        if (statDef != null) {
+            return statDef.defaultValue();
+        }
+        return 0;
     }
     
     /**
-     * Set ability score base value by index.
-     * Marks relevant derived stats as dirty.
+     * Set the base value for a stat.
+     * <p>
+     * This is used for stats without scaling (e.g., ability scores, manually-set bases).
+     * Setting a base value marks the stat and its dependents as dirty.
+     *
+     * @param statIndex The stat index
+     * @param value The base value to set
      */
-    public void setAbilityScore(int index, int value) {
-        if (index < 0 || index >= abilityScores.length) {
-            return;
+    public void setBaseValue(int statIndex, int value) {
+        baseValues.put(statIndex, value);
+        markStatDirty(statIndex);
+        // Also mark any stats that depend on this stat
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        for (int dependent : registry.getDependentStats(statIndex)) {
+            markStatDirty(dependent);
         }
-        abilityScores[index] = value;
-        // Mark all stats dirty since ability scores can affect many derived stats
-        markAllDirty();
     }
     
     /**
-     * Get all ability scores as array (copy).
+     * Check if a base value is explicitly set for a stat.
+     *
+     * @param statIndex The stat index
+     * @return true if a base value is set (not using defaultValue)
+     */
+    public boolean hasBaseValue(int statIndex) {
+        return baseValues.containsKey(statIndex);
+    }
+    
+    /**
+     * Remove the explicit base value for a stat, reverting to defaultValue.
+     *
+     * @param statIndex The stat index
+     */
+    public void removeBaseValue(int statIndex) {
+        if (baseValues.remove(statIndex) != baseValues.defaultReturnValue()) {
+            markStatDirty(statIndex);
+            StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+            for (int dependent : registry.getDependentStats(statIndex)) {
+                markStatDirty(dependent);
+            }
+        }
+    }
+    
+    // ========== BASE VALUE PERSISTENCE HELPERS ==========
+    // Temporary storage for codec deserialization
+    
+    private transient int[] tempLoadIndices = null;
+    
+    /**
+     * Get all stat indices with explicit base values (for persistence).
      */
     @Nonnull
-    public int[] getAbilityScores() {
-        return abilityScores.clone();
+    public int[] getBaseValueIndices() {
+        return baseValues.keySet().toIntArray();
     }
     
     /**
-     * Set all ability scores from array.
+     * Get all base values in the same order as getBaseValueIndices() (for persistence).
      */
-    public void setAbilityScores(@Nonnull int[] scores) {
-        if (scores.length != abilityScores.length) {
-            throw new IllegalArgumentException("Expected " + abilityScores.length + " ability scores");
+    @Nonnull
+    public int[] getBaseValueValues() {
+        int[] indices = getBaseValueIndices();
+        int[] values = new int[indices.length];
+        for (int i = 0; i < indices.length; i++) {
+            values[i] = baseValues.get(indices[i]);
         }
-        System.arraycopy(scores, 0, abilityScores, 0, abilityScores.length);
-        markAllDirty();
+        return values;
+    }
+    
+    /**
+     * Set temporary indices for codec load (internal use).
+     */
+    public void setTempLoadIndices(int[] indices) {
+        this.tempLoadIndices = indices;
+    }
+    
+    /**
+     * Get temporary indices for codec load (internal use).
+     */
+    @Nullable
+    public int[] getTempLoadIndices() {
+        return tempLoadIndices;
+    }
+    
+    /**
+     * Clear temporary indices after codec load (internal use).
+     */
+    public void clearTempLoadIndices() {
+        this.tempLoadIndices = null;
     }
     
     // ========== MODIFIER ACCESSORS ==========
@@ -390,7 +462,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
      * Get a detailed breakdown of a stat's value for UI display.
      * <p>
      * This computes the stat value with full breakdown information,
-     * showing all contributors and intermediate values.
+     * showing all contributors, scaling contributions, and intermediate values.
      *
      * @param statIndex The stat index
      * @param targetLevel The target level (for rating effectiveness calculation)
@@ -405,6 +477,42 @@ public class HyforgedStatComponent implements Component<EntityStore> {
             return null;
         }
         
+        // Calculate base value and scaling contributions
+        int rawBase = 0;
+        List<reign.software.hyforged.stats.breakdown.ScalingContribution> scalingContribs = new ArrayList<>();
+        
+        if (statDef.hasScaling()) {
+            // Compute scaling contributions from source stats
+            for (ScalingRule rule : statDef.scaling()) {
+                int sourceIndex = registry.getIndex(rule.source());
+                if (sourceIndex >= 0) {
+                    int sourceValue = getCachedValue(sourceIndex);
+                    int contribution = ScalingEngine.computeContribution(rule, sourceValue);
+                    
+                    StatDefinition sourceDef = registry.getStat(sourceIndex);
+                    String sourceDisplayName = sourceDef != null ? sourceDef.displayName() : rule.source().fullId();
+                    
+                    scalingContribs.add(new reign.software.hyforged.stats.breakdown.ScalingContribution(
+                        rule.source(),
+                        sourceDisplayName,
+                        contribution,
+                        rule.type()
+                    ));
+                }
+            }
+            // Raw base for scaling stats is the sum of contributions
+            rawBase = scalingContribs.stream()
+                .mapToInt(reign.software.hyforged.stats.breakdown.ScalingContribution::contribution)
+                .sum();
+        } else {
+            // Non-scaling stat: use base value or default
+            rawBase = getBaseValue(statIndex);
+        }
+        
+        // Add any explicit base value on top of scaling
+        int explicitBase = hasBaseValue(statIndex) ? getBaseValue(statIndex) : 0;
+        int scaledBase = rawBase + (statDef.hasScaling() ? explicitBase : 0);
+        
         // Get applicable modifiers
         List<StatModifier> applicable = new ArrayList<>();
         for (StatModifier mod : modifiers) {
@@ -418,17 +526,19 @@ public class HyforgedStatComponent implements Component<EntityStore> {
             }
         }
         
-        // Compute with breakdown
+        // Compute with breakdown using the scaled base
         reign.software.hyforged.stats.engine.StackingEngine.ComputeResult result =
             reign.software.hyforged.stats.engine.StackingEngine.computeWithBreakdown(
-                statDef.defaultValue(), applicable, statDef
+                scaledBase, applicable, statDef
             );
         
         // Build breakdown entries
         reign.software.hyforged.stats.breakdown.StatBreakdown.Builder builder = 
             reign.software.hyforged.stats.breakdown.StatBreakdown.builder(statDef.id())
                 .from(statDef)
-                .baseValue(result.baseValue)
+                .baseValue(statDef.hasScaling() ? 0 : rawBase)
+                .scalingContributions(scalingContribs)
+                .scaledBase(scaledBase)
                 .flatTotal(result.flatTotal)
                 .afterFlat(result.afterFlat)
                 .increasedTotalBps(result.increasedTotalBps)
@@ -476,7 +586,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     @Override
     public Component<EntityStore> clone() {
         HyforgedStatComponent copy = new HyforgedStatComponent();
-        copy.abilityScores = this.abilityScores.clone();
+        copy.baseValues.putAll(this.baseValues);
         copy.modifiers.addAll(this.modifiers);
         copy.cachedValues = this.cachedValues.clone();
         copy.dirtyFlags.or(this.dirtyFlags);

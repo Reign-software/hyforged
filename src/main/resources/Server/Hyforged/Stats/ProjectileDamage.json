@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:projectile-damage-bps",
+  "Category": "offense",
+  "DisplayName": "Projectile Damage",
+  "Description": "Increased damage with projectiles.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 100000,
+  "IsRating": false,
+  "Tags": ["offense", "projectile", "damage", "percent"]
+}

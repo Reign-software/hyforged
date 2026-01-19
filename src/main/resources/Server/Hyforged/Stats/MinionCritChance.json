@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:minion-crit-chance-bps",
+  "Category": "offense",
+  "DisplayName": "Minion Critical Chance",
+  "Description": "Increased critical strike chance of your minions.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["offense", "minion", "critical", "percent"]
+}

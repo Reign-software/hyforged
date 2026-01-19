@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:fire-penetration-bps",
+  "Category": "offense",
+  "DisplayName": "Fire Penetration",
+  "Description": "Fire damage penetrates enemy fire resistance.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["offense", "penetration", "fire", "elemental", "percent"]
+}

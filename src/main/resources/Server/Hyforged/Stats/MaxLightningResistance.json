@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:maximum-resistance-lightning-bps",
+  "Category": "elemental",
+  "DisplayName": "Maximum Lightning Resistance",
+  "Description": "Increases maximum lightning resistance cap.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 2500,
+  "IsRating": false,
+  "Tags": ["defense", "elemental", "lightning", "resistance", "cap", "percent"]
+}

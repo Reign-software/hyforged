@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:shock-chance-bps",
+  "Category": "offense",
+  "DisplayName": "Shock Chance",
+  "Description": "Chance to shock enemies on hit with lightning damage.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["offense", "ailment", "lightning", "shock", "percent"]
+}

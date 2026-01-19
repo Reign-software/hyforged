@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:dual-wield-damage-bps",
+  "Category": "offense",
+  "DisplayName": "Dual Wield Damage",
+  "Description": "Increased damage while dual wielding.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 100000,
+  "IsRating": false,
+  "Tags": ["offense", "dual-wield", "damage", "percent"]
+}

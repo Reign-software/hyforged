@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:charge-duration-bps",
+  "Category": "utility",
+  "DisplayName": "Charge Duration",
+  "Description": "Increased duration of all charges.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["utility", "charge", "duration", "percent"]
+}

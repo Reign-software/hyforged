@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:max-curses",
+  "Category": "utility",
+  "DisplayName": "Maximum Curses",
+  "Description": "Maximum number of curses you can inflict on an enemy.",
+  "DefaultValue": 1,
+  "MinValue": 0,
+  "MaxValue": 100,
+  "IsRating": false,
+  "Tags": ["utility", "curse"]
+}

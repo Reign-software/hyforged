@@ -6,22 +6,24 @@
 ## Goals
 - Entity stat container
   - Every combat-capable entity (player or NPC) has a stat container (component) that holds:
-    - Base stats (intrinsic to the entity or template)
+    - Base stat values (for stats without scaling, e.g., player-allocated attribute points)
     - Active modifiers from all sources
-    - Cached effective stat values
+    - Cached effective stat values for all stats
+  - Ability scores (Strength, Dexterity, etc.) are regular stats tagged `attribute`; players allocate points that set their base value.
   - The stat container is the single source of truth for an entity's current stats.
   - The container supports querying any stat's effective value and its breakdown by source.
 - Stat source aggregation
-  - The system aggregates stats from multiple sources in a defined order:
-    1. Base stats (entity template or player-allocated ability scores)
+  - The system aggregates modifiers from multiple sources:
+    1. Base values (entity template or player-allocated points for attributes)
     2. Level-derived bonuses (from character level)
     3. Class bonuses (from class level and class identity)
     4. Equipment (from worn items and their affixes)
     5. Passive tree allocations
     6. Buffs and debuffs (temporary modifiers)
     7. Environmental/situational modifiers (region effects, weather, etc.)
-  - Each source is tagged for UI breakdown and debugging.
+  - Each modifier is tagged with its source type for UI breakdown and debugging.
   - The evaluation order follows the Stats System's modifier stacking rules.
+  - Scaling (derived stats) is computed using the final values of source stats, not raw bases.
 - Player entity lifecycle
   - On player join/load:
     - Load persisted allocations (ability scores, class levels, passive selections, equipment).
@@ -53,6 +55,23 @@
     - Class level up or class change (weapon swap)
     - Environmental modifier zone enter/exit
   - Batch recalculations when multiple changes occur in the same tick (e.g., equipping a full gear set).
+- Stat dependency resolution
+  - Stats can scale from other stats (e.g., Attack Power scales from Strength). See [Stats System](stats-system.md) for the scaling model and dependency graph.
+  - Recalculation uses the Stats System's dependency DAG to determine evaluation order:
+    1. Collect all dirty (invalidated) stats.
+    2. Expand to include any stats that depend on dirty stats (transitive closure via scaling rules).
+    3. Topologically sort the affected stats by dependency order.
+    4. For each stat in order:
+       a. Compute base value:
+          - If stat has no scaling: use `defaultValue` from definition.
+          - If stat has scaling rules: sum contributions from already-computed source stats.
+       b. Collect all modifiers targeting this stat (by ID or by tag).
+       c. Apply modifiers in type order (flat → percent → more/less → caps).
+       d. Cache the effective value.
+    5. Emit change events for all stats whose effective value changed.
+  - Scaling contributions use the **final** (post-modifier) values of source stats, not raw bases.
+  - Tag-based modifiers (e.g., "+5% to all Attributes") are resolved by the Stats System; the Entity Stats container applies them to each matching stat during recalculation.
+  - Circular dependencies are prevented at stat registration time (Stats System responsibility); recalculation assumes a valid DAG.
 - API and integration
   - Provide an API for other plugins/systems to:
     - Retrieve an entity's stat container
@@ -101,6 +120,8 @@
 - Recalculation
   - Trigger definitions
   - Batching and dirty-flag model
+  - Dependency resolution (DAG traversal)
+  - Tag-based modifier expansion
 - API surface
   - Query effective stats
   - Add/remove modifiers
@@ -111,4 +132,6 @@
   - System responsibilities
 
 ## Change Log
+- 2026-01-19: Updated to reflect ability scores as regular stats; clarified scaling vs modifier distinction.
+- 2026-01-19: Expanded stat dependency resolution and tag-based modifier handling.
 - 2026-01-19: Initial version drafted.

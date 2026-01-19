@@ -1,5 +1,7 @@
 package reign.software.hyforged.stats;
 
+import reign.software.hyforged.stats.scaling.ScalingRule;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
@@ -31,6 +33,15 @@ public final class StatDefinitionRegistry {
     
     // Reverse lookup: category -> stats in that category
     private final Map<String, Set<Integer>> categoryToStatIndices = new ConcurrentHashMap<>();
+    
+    // Dependency graph: stat index -> set of stat indices that depend on it (reverse lookup)
+    private final Map<Integer, Set<Integer>> dependents = new HashMap<>();
+    
+    // Dependency graph: stat index -> set of stat indices it depends on (forward lookup)
+    private final Map<Integer, Set<Integer>> dependencies = new HashMap<>();
+    
+    // Topological order for evaluating stats (computed at freeze time)
+    private int[] evaluationOrder = new int[0];
     
     private boolean frozen = false;
     
@@ -84,8 +95,51 @@ public final class StatDefinitionRegistry {
         // Register stat under its category
         categoryToStatIndices.computeIfAbsent(stat.category(), k -> new HashSet<>()).add(index);
         
+        // Build dependency graph edges from scaling rules
+        // Note: source stats may not be registered yet, so we store StatIds and resolve later
+        if (stat.hasScaling()) {
+            for (ScalingRule rule : stat.scaling()) {
+                String sourceFullId = rule.source().fullId();
+                Integer sourceIndex = fullIdToIndex.get(sourceFullId);
+                if (sourceIndex != null) {
+                    // Source already registered - add edge now
+                    addDependencyEdge(sourceIndex, index);
+                }
+                // If source not registered yet, edge will be added when we call resolvePendingDependencies()
+            }
+        }
+        
+        // Check if any already-registered stats depend on this newly registered stat
+        resolvePendingDependencies(stat.id(), index);
+        
         LOGGER.fine("Registered stat: " + fullId + " at index " + index);
         return index;
+    }
+    
+    /**
+     * Add a dependency edge: targetIndex depends on sourceIndex.
+     */
+    private void addDependencyEdge(int sourceIndex, int targetIndex) {
+        dependents.computeIfAbsent(sourceIndex, k -> new HashSet<>()).add(targetIndex);
+        dependencies.computeIfAbsent(targetIndex, k -> new HashSet<>()).add(sourceIndex);
+    }
+    
+    /**
+     * Check if any already-registered stats have scaling rules referencing the newly registered stat.
+     */
+    private void resolvePendingDependencies(StatId newStatId, int newIndex) {
+        String newFullId = newStatId.fullId();
+        for (int i = 0; i < statsByIndex.size(); i++) {
+            if (i == newIndex) continue;
+            StatDefinition stat = statsByIndex.get(i);
+            if (stat.hasScaling()) {
+                for (ScalingRule rule : stat.scaling()) {
+                    if (rule.source().fullId().equals(newFullId)) {
+                        addDependencyEdge(newIndex, i);
+                    }
+                }
+            }
+        }
     }
     
     /**
@@ -110,12 +164,100 @@ public final class StatDefinitionRegistry {
     
     /**
      * Freeze the registry to prevent further modifications.
+     * Builds the topological evaluation order and validates no circular dependencies exist.
      * Should be called after all stats are loaded.
+     * @throws IllegalStateException if circular dependencies are detected
      */
     public synchronized void freeze() {
+        validateDependencies();
+        buildEvaluationOrder();
         this.frozen = true;
         LOGGER.info("StatDefinitionRegistry frozen with " + statsByIndex.size() + " stats, " + 
                 tagToStatIndices.size() + " unique tags, and " + categoriesById.size() + " categories");
+    }
+    
+    /**
+     * Validate that all scaling rule sources reference registered stats.
+     */
+    private void validateDependencies() {
+        List<String> errors = new ArrayList<>();
+        for (int i = 0; i < statsByIndex.size(); i++) {
+            StatDefinition stat = statsByIndex.get(i);
+            if (stat.hasScaling()) {
+                for (ScalingRule rule : stat.scaling()) {
+                    String sourceFullId = rule.source().fullId();
+                    if (!fullIdToIndex.containsKey(sourceFullId)) {
+                        errors.add("Stat '" + stat.id().fullId() + "' references unknown source stat: " + sourceFullId);
+                    }
+                }
+            }
+        }
+        if (!errors.isEmpty()) {
+            throw new IllegalStateException("Invalid scaling dependencies:\n" + String.join("\n", errors));
+        }
+    }
+    
+    /**
+     * Build topological evaluation order using Kahn's algorithm (BFS).
+     * Stats with no dependencies come first, then stats that depend on them, etc.
+     * @throws IllegalStateException if a circular dependency is detected
+     */
+    private void buildEvaluationOrder() {
+        int n = statsByIndex.size();
+        if (n == 0) {
+            evaluationOrder = new int[0];
+            return;
+        }
+        
+        // Compute in-degree for each stat (number of stats it depends on)
+        int[] inDegree = new int[n];
+        for (int i = 0; i < n; i++) {
+            Set<Integer> deps = dependencies.get(i);
+            inDegree[i] = deps != null ? deps.size() : 0;
+        }
+        
+        // Queue of stats with no remaining dependencies
+        Queue<Integer> queue = new ArrayDeque<>();
+        for (int i = 0; i < n; i++) {
+            if (inDegree[i] == 0) {
+                queue.add(i);
+            }
+        }
+        
+        // Process in topological order
+        int[] result = new int[n];
+        int count = 0;
+        
+        while (!queue.isEmpty()) {
+            int current = queue.poll();
+            result[count++] = current;
+            
+            // Reduce in-degree for all stats that depend on this one
+            Set<Integer> deps = dependents.get(current);
+            if (deps != null) {
+                for (int dependent : deps) {
+                    inDegree[dependent]--;
+                    if (inDegree[dependent] == 0) {
+                        queue.add(dependent);
+                    }
+                }
+            }
+        }
+        
+        // Check for cycles
+        if (count != n) {
+            // Find the cycle for error reporting
+            List<String> cycleStats = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                if (inDegree[i] > 0) {
+                    cycleStats.add(statsByIndex.get(i).id().fullId());
+                }
+            }
+            throw new IllegalStateException("Circular dependency detected among stats: " + cycleStats);
+        }
+        
+        evaluationOrder = result;
+        LOGGER.fine("Built evaluation order for " + n + " stats");
     }
     
     /**
@@ -264,5 +406,72 @@ public final class StatDefinitionRegistry {
      */
     public boolean hasTag(@Nonnull String tag) {
         return tagToStatIndices.containsKey(tag);
+    }
+    
+    // ========== Dependency Graph Methods ==========
+    
+    /**
+     * Get the set of stat indices that depend on the given stat.
+     * These are stats that have scaling rules referencing the source stat.
+     * 
+     * @param statIndex The source stat index
+     * @return Unmodifiable set of dependent stat indices (may be empty)
+     */
+    @Nonnull
+    public Set<Integer> getDependentStats(int statIndex) {
+        Set<Integer> deps = dependents.get(statIndex);
+        return deps != null ? Collections.unmodifiableSet(deps) : Collections.emptySet();
+    }
+    
+    /**
+     * Get the set of stat indices that the given stat depends on.
+     * These are the source stats referenced in the stat's scaling rules.
+     * 
+     * @param statIndex The target stat index
+     * @return Unmodifiable set of dependency stat indices (may be empty)
+     */
+    @Nonnull
+    public Set<Integer> getDependencies(int statIndex) {
+        Set<Integer> deps = dependencies.get(statIndex);
+        return deps != null ? Collections.unmodifiableSet(deps) : Collections.emptySet();
+    }
+    
+    /**
+     * Get the topological evaluation order for stats.
+     * Stats with no dependencies come first, followed by stats that depend on them.
+     * This order ensures that when evaluating a stat, all its source stats have
+     * already been computed.
+     * 
+     * @return Array of stat indices in evaluation order
+     * @throws IllegalStateException if registry is not frozen
+     */
+    @Nonnull
+    public int[] getEvaluationOrder() {
+        if (!frozen) {
+            throw new IllegalStateException("Registry must be frozen before getting evaluation order");
+        }
+        return evaluationOrder.clone();
+    }
+    
+    /**
+     * Check if a stat has scaling rules defined.
+     * 
+     * @param statIndex The stat index
+     * @return true if the stat has scaling rules
+     */
+    public boolean hasScaling(int statIndex) {
+        StatDefinition stat = getStat(statIndex);
+        return stat != null && stat.hasScaling();
+    }
+    
+    /**
+     * Check if a stat has any dependents (other stats that scale from it).
+     * 
+     * @param statIndex The stat index
+     * @return true if any stats depend on this stat
+     */
+    public boolean hasDependents(int statIndex) {
+        Set<Integer> deps = dependents.get(statIndex);
+        return deps != null && !deps.isEmpty();
     }
 }

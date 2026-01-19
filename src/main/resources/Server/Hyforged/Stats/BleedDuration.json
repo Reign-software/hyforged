@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:bleed-duration-bps",
+  "Category": "utility",
+  "DisplayName": "Bleed Duration",
+  "Description": "Increased bleeding duration.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["utility", "ailment", "physical", "bleed", "duration", "percent"]
+}

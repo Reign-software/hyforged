@@ -15,10 +15,12 @@ import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.component.StatModifier;
+import reign.software.hyforged.stats.engine.ScalingEngine;
 import reign.software.hyforged.stats.engine.StackingEngine;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.List;
 import java.util.Set;
 
@@ -101,17 +103,29 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
     }
 
     /**
-     * Recompute all stats that have been marked dirty.
+     * Recompute all stats that have been marked dirty, in topological order.
+     * <p>
+     * This ensures that source stats are computed before stats that scale from them.
+     * Dirty flags are expanded to include all transitive dependents.
      */
     private void recomputeDirtyStats(@Nonnull HyforgedStatComponent component) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         List<StatModifier> allModifiers = component.getModifiers();
         
         int statCount = registry.getStatCount();
+        if (statCount == 0) {
+            return;
+        }
         
-        // Process each dirty stat
-        for (int statIdx = 0; statIdx < statCount; statIdx++) {
-            if (!component.isStatDirty(statIdx)) {
+        // Build expanded dirty set (includes transitive dependents)
+        BitSet expandedDirty = expandDirtyStats(component, registry, statCount);
+        
+        // Get evaluation order (topological sort: sources before dependents)
+        int[] evalOrder = registry.getEvaluationOrder();
+        
+        // Process stats in topological order
+        for (int statIdx : evalOrder) {
+            if (!expandedDirty.get(statIdx)) {
                 continue; // Skip non-dirty stats
             }
             
@@ -121,27 +135,80 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
             }
             
             // Compute the new value
-            int newValue = computeStatValue(statIdx, statDef, allModifiers, registry);
+            int newValue = computeStatValue(statIdx, statDef, allModifiers, component, registry);
             
             // Update cache
             component.setCachedValue(statIdx, newValue);
         }
     }
+    
+    /**
+     * Expand dirty flags to include all transitive dependents.
+     * <p>
+     * If stat A is dirty and stat B depends on A (scales from A),
+     * then B must also be recomputed.
+     */
+    private BitSet expandDirtyStats(
+            @Nonnull HyforgedStatComponent component,
+            @Nonnull StatDefinitionRegistry registry,
+            int statCount
+    ) {
+        BitSet expanded = new BitSet(statCount);
+        
+        // Start with directly dirty stats
+        for (int statIdx = 0; statIdx < statCount; statIdx++) {
+            if (component.isStatDirty(statIdx)) {
+                expanded.set(statIdx);
+            }
+        }
+        
+        // Expand to include dependents (BFS from dirty stats)
+        // Use evaluation order to ensure we process in correct order
+        int[] evalOrder = registry.getEvaluationOrder();
+        for (int statIdx : evalOrder) {
+            if (expanded.get(statIdx)) {
+                // This stat is dirty, so all its dependents must also be dirty
+                for (int dependent : registry.getDependentStats(statIdx)) {
+                    expanded.set(dependent);
+                }
+            }
+        }
+        
+        return expanded;
+    }
 
     /**
      * Compute the value for a single stat.
      * <p>
-     * This collects all applicable modifiers (direct and tag-based)
+     * This handles both scaling and non-scaling stats:
+     * - For stats with scaling: compute base from source stats using ScalingEngine
+     * - For stats without scaling: use component's base value or stat's defaultValue
+     * <p>
+     * Then collects all applicable modifiers (direct and tag-based)
      * and applies them using the StackingEngine.
      */
     private int computeStatValue(
             int statIdx,
             @Nonnull StatDefinition statDef,
             @Nonnull List<StatModifier> allModifiers,
+            @Nonnull HyforgedStatComponent component,
             @Nonnull StatDefinitionRegistry registry
     ) {
-        // Get base value from stat definition (defaultValue is the base)
-        int baseValue = statDef.defaultValue();
+        // Compute base value
+        int baseValue;
+        
+        if (statDef.hasScaling()) {
+            // Stat derives its base from other stats via scaling rules
+            // Source value provider reads from cached values (already computed in topo order)
+            baseValue = ScalingEngine.computeScaledBase(
+                statDef,
+                component::getCachedValue,
+                registry
+            );
+        } else {
+            // Stat uses stored base value or defaultValue
+            baseValue = component.getBaseValue(statIdx);
+        }
         
         // Collect applicable modifiers
         List<StatModifier> applicable = tempModifierList.get();

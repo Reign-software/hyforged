@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:chance-to-deal-double-damage-bps",
+  "Category": "offense",
+  "DisplayName": "Double Damage Chance",
+  "Description": "Chance to deal double damage.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["offense", "damage", "double", "percent"]
+}

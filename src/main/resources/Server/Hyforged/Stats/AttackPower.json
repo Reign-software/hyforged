@@ -2,10 +2,17 @@
   "Id": "hyforged:attack-power",
   "Category": "offense",
   "DisplayName": "Attack Power",
-  "Description": "Base physical attack damage.",
-  "DefaultValue": 10,
+  "Description": "Base physical attack damage. Scales with Strength.",
+  "DefaultValue": 0,
   "MinValue": 0,
   "MaxValue": 2147483647,
   "IsRating": false,
-  "Tags": ["offense", "attack"]
+  "Tags": ["offense", "attack", "derived"],
+  "Scaling": [
+    {
+      "Type": "linear",
+      "Source": "hyforged:strength",
+      "Ratio": 2.0
+    }
+  ]
 }

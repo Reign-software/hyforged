@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:banner-effect-bps",
+  "Category": "utility",
+  "DisplayName": "Banner Effect",
+  "Description": "Increased effect of banners.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["utility", "banner", "percent"]
+}

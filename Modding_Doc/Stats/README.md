@@ -19,6 +19,7 @@ This guide explains how to add custom stats to the Hyforged stat system. The sys
 - [Adding Modifiers via Code](#adding-modifiers-via-code)
 - [Tags and Tag Targeting](#tags-and-tag-targeting)
 - [Rating Stats](#rating-stats)
+- [Scaling (Derived Stats)](#scaling-derived-stats)
 - [Built-in Stats Reference](#built-in-stats-reference)
 - [Examples](#examples)
 
@@ -319,6 +320,177 @@ int targetLevel = 50;
 int effectivenessBps = stats.getEffectiveness(armorIndex, targetLevel);
 // e.g., 2500 = 25% damage reduction
 ```
+
+---
+
+## Scaling (Derived Stats)
+
+Scaling allows stats to derive their base value from other stats. This is how ability scores affect derived stats like Attack Power (from Strength) or Critical Chance (from Luck).
+
+### Scaling Types
+
+| Type | Description | Use Case |
+|------|-------------|----------|
+| `linear` | Multiplies source value by a ratio | Attack Power = Strength × 2 |
+| `threshold` | Grants bonus per X points of source | Every 5 Luck = +1% Crit Chance |
+| `diminishing` | Uses a rating curve for soft caps | Defense ratings with diminishing returns |
+
+### Defining Scaling in JSON
+
+Add a `Scaling` array to your stat definition:
+
+```json
+{
+  "Id": "yourmod:custom-attack",
+  "Category": "offense",
+  "DisplayName": "Custom Attack",
+  "Scaling": [
+    {
+      "Type": "linear",
+      "Source": "hyforged:strength",
+      "Ratio": 1.5
+    }
+  ]
+}
+```
+
+### Linear Scaling
+
+Multiplies the source stat's computed value by a ratio.
+
+```json
+{
+  "Type": "linear",
+  "Source": "hyforged:strength",
+  "Ratio": 2.0
+}
+```
+
+**Fields:**
+| Field | Type | Description |
+|-------|------|-------------|
+| `Type` | string | Must be `"linear"` |
+| `Source` | string | Source stat ID (namespaced) |
+| `Ratio` | number | Multiplier (can be fractional) |
+
+**Formula:** `contribution = floor(sourceValue × ratio)`
+
+**Example:** With Strength = 25 and Ratio = 2.0:
+- Contribution = floor(25 × 2.0) = 50
+
+### Threshold Scaling
+
+Grants a fixed bonus for every X points of the source stat.
+
+```json
+{
+  "Type": "threshold",
+  "Source": "hyforged:luck",
+  "PerPoints": 5,
+  "BonusBps": 100
+}
+```
+
+**Fields:**
+| Field | Type | Description |
+|-------|------|-------------|
+| `Type` | string | Must be `"threshold"` |
+| `Source` | string | Source stat ID (namespaced) |
+| `PerPoints` | int | Points of source stat per bonus |
+| `BonusBps` | int | Bonus granted per threshold (basis points for % stats) |
+
+**Formula:** `contribution = (sourceValue / perPoints) × bonusBps`
+
+**Example:** With Luck = 25, PerPoints = 5, BonusBps = 100:
+- Contribution = (25 / 5) × 100 = 500 bps = 5% crit chance
+
+### Diminishing Scaling
+
+Uses a rating curve for soft-capped scaling (PoE-style diminishing returns).
+
+```json
+{
+  "Type": "diminishing",
+  "Source": "hyforged:armor-rating",
+  "Curve": "armor",
+  "Scale": 100.0,
+  "CapBps": 9000
+}
+```
+
+**Fields:**
+| Field | Type | Description |
+|-------|------|-------------|
+| `Type` | string | Must be `"diminishing"` |
+| `Source` | string | Source stat ID (namespaced) |
+| `Curve` | string | Rating curve name (see below) |
+| `Scale` | number | Output multiplier |
+| `CapBps` | int | Maximum contribution in basis points |
+
+**Available Curves:**
+| Curve | k Value | Use Case |
+|-------|---------|----------|
+| `armor` | 20 | Physical damage reduction |
+| `evasion` | 25 | Dodge chance |
+| `resistance` | 30 | Elemental resistances |
+| `accuracy` | 15 | Hit chance |
+| `crit` | 40 | Critical from rating |
+| `default` | 20 | General purpose |
+
+**Formula:** `effectiveness = rating / (rating + k × targetLevel)`
+
+### Multiple Scaling Rules
+
+Stats can have multiple scaling sources. All contributions are summed:
+
+```json
+{
+  "Id": "yourmod:hybrid-damage",
+  "DisplayName": "Hybrid Damage",
+  "Scaling": [
+    {
+      "Type": "linear",
+      "Source": "hyforged:strength",
+      "Ratio": 1.0
+    },
+    {
+      "Type": "linear",
+      "Source": "hyforged:intelligence",
+      "Ratio": 0.5
+    }
+  ]
+}
+```
+
+This stat gains 1 point per Strength plus 0.5 points per Intelligence.
+
+### Evaluation Order
+
+Stats are evaluated in **dependency order** using topological sorting:
+1. Source stats (no dependencies) are computed first
+2. Derived stats are computed after their sources
+3. Circular dependencies are detected and rejected at load time
+
+This means if Attack Power scales from Strength, Strength is always computed before Attack Power.
+
+### Stat Breakdown
+
+The stat breakdown UI shows scaling contributions separately:
+
+```
+Attack Power: 70
+  Base: 0
+  + 50 from Strength (linear ×2)
+  + 20 flat from equipment
+  = 70
+```
+
+### Tips for Scaling
+
+1. **Use `derived` tag** — Tag stats with scaling as `derived` for clarity
+2. **Source must exist** — The source stat must be registered before the derived stat loads
+3. **Order matters** — Define source stats before derived stats in your mod's load order
+4. **Integer math** — All scaling uses integer arithmetic; use appropriate ratios
 
 ---
 

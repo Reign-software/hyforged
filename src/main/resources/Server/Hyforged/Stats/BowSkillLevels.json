@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:bow-skill-levels",
+  "Category": "skill",
+  "DisplayName": "+Level to Bow Skills",
+  "Description": "Adds levels to all bow skills.",
+  "DefaultValue": 0,
+  "MinValue": -100,
+  "MaxValue": 100,
+  "IsRating": false,
+  "Tags": ["skill", "skill-level", "bow", "ranged"]
+}

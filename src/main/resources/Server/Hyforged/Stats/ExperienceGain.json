@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:experience-gain-bps",
+  "Category": "loot",
+  "DisplayName": "Experience Gain",
+  "Description": "Increased experience gained.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 100000,
+  "IsRating": false,
+  "Tags": ["loot", "experience", "percent"]
+}
