@@ -3,3 +3,4 @@ This is a Hytale plugin project. Hytale plugins are used to extend the functiona
 
 - Use `.doc` for looking up domain knowledge.
 - The source code for the Hytale server can be found in the `lib/hytale-server/src/main/java/com/hypixel` directory.
+- The games JSON that makes up all items, blocks, and other in-game assets can be found in the `lib/Server` directory. you can use this to look up item IDs, block IDs, and other in-game assets.
