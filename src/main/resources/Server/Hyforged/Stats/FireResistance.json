@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:fire-resistance-rating",
+  "Category": "elemental",
+  "DisplayName": "Fire Resistance",
+  "Description": "Reduces fire damage taken.",
+  "DefaultValue": 0,
+  "MinValue": -2147483648,
+  "MaxValue": 2147483647,
+  "IsRating": true,
+  "Tags": ["defense", "elemental", "fire", "rating"]
+}

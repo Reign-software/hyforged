@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:item-quantity-increased-bps",
+  "Category": "utility",
+  "DisplayName": "Item Quantity",
+  "Description": "Increased item quantity find.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["utility", "loot", "percent"]
+}

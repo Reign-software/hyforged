@@ -1,0 +1,6 @@
+{
+  "Id": "utility",
+  "DisplayName": "Utility",
+  "Description": "Miscellaneous stats like cooldown recovery and item find",
+  "SortOrder": 6
+}

@@ -1,0 +1,6 @@
+{
+  "Id": "defense",
+  "DisplayName": "Defense",
+  "Description": "Stats affecting damage mitigation and survivability",
+  "SortOrder": 3
+}

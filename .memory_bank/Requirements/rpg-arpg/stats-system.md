@@ -22,7 +22,7 @@
   - Support common modifier types:
     - Flat addition/subtraction
     - Percent increase/decrease
-    - “More/Less” multipliers (optional but ARPG-friendly)
+    - “More/Less” multipliers
     - Caps/clamps (e.g., max resistance)
   - Define deterministic stacking rules and a consistent evaluation order.
   - Modifiers can have metadata: source, duration (if temporary), and visibility (show/hide in UI).

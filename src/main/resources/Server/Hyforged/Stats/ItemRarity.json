@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:item-rarity-increased-bps",
+  "Category": "utility",
+  "DisplayName": "Item Rarity",
+  "Description": "Increased item rarity find.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["utility", "loot", "percent"]
+}

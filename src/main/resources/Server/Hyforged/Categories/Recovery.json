@@ -1,0 +1,6 @@
+{
+  "Id": "recovery",
+  "DisplayName": "Recovery",
+  "Description": "Stats affecting regeneration and resource recovery",
+  "SortOrder": 5
+}

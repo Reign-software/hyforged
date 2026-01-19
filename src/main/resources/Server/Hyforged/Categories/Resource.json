@@ -1,0 +1,6 @@
+{
+  "Id": "resource",
+  "DisplayName": "Resources",
+  "Description": "Vital resources like health, mana, and stamina",
+  "SortOrder": 1
+}

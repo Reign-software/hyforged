@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:max-health-flat",
+  "Category": "resource",
+  "DisplayName": "Max Health",
+  "Description": "Maximum health points.",
+  "DefaultValue": 100,
+  "MinValue": 0,
+  "MaxValue": 2147483647,
+  "IsRating": false,
+  "Tags": ["resources", "health"]
+}

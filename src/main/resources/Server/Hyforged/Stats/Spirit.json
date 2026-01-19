@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:spirit",
+  "Category": "ability-score",
+  "DisplayName": "Spirit",
+  "Description": "Increases max mana and mana regeneration.",
+  "DefaultValue": 10,
+  "MinValue": 1,
+  "MaxValue": 999,
+  "IsRating": false,
+  "Tags": ["attributes", "ability-scores"]
+}

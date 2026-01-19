@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:dexterity",
+  "Category": "ability-score",
+  "DisplayName": "Dexterity",
+  "Description": "Increases precision, evasion, and ranged damage.",
+  "DefaultValue": 10,
+  "MinValue": 1,
+  "MaxValue": 999,
+  "IsRating": false,
+  "Tags": ["attributes", "ability-scores"]
+}

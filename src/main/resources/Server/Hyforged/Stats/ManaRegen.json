@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:mana-regen-flat",
+  "Category": "resource",
+  "DisplayName": "Mana Regen",
+  "Description": "Mana regenerated per second.",
+  "DefaultValue": 1,
+  "MinValue": 0,
+  "MaxValue": 2147483647,
+  "IsRating": false,
+  "Tags": ["resources", "mana", "regeneration"]
+}

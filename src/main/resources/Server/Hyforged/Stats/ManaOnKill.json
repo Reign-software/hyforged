@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:mana-on-kill-bps",
+  "Category": "recovery",
+  "DisplayName": "Mana on Kill",
+  "Description": "Percent of max mana gained on kill.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["recovery", "mana", "percent"]
+}

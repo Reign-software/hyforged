@@ -1,0 +1,6 @@
+{
+  "Id": "offense",
+  "DisplayName": "Offense",
+  "Description": "Stats affecting damage output and attack capabilities",
+  "SortOrder": 2
+}
