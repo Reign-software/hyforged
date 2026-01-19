@@ -1,0 +1,160 @@
+{
+  "version": 8,
+  "blockIdVersion": 10,
+  "anchorX": 0,
+  "anchorY": 1,
+  "anchorZ": 1,
+  "blocks": [
+    {
+      "x": -15,
+      "y": 0,
+      "z": -7,
+      "name": "Prefab_Spawner_Block",
+      "components": {
+        "Components": {
+          "prefabspawner": {
+            "Position": {
+              "X": -15,
+              "Y": -1,
+              "Z": -8
+            },
+            "PrefabPath": "Npc.Feran.Tier1.Corners.*",
+            "FitHeightmap": false,
+            "InheritSeed": true,
+            "InheritHeightCondition": true
+          }
+        }
+      },
+      "rotation": 2
+    },
+    {
+      "x": -15,
+      "y": 0,
+      "z": 9,
+      "name": "Prefab_Spawner_Block",
+      "components": {
+        "Components": {
+          "prefabspawner": {
+            "Position": {
+              "X": -15,
+              "Y": -1,
+              "Z": 8
+            },
+            "PrefabPath": "Npc.Feran.Tier1.Corners.*",
+            "FitHeightmap": false,
+            "InheritSeed": true,
+            "InheritHeightCondition": true
+          }
+        }
+      },
+      "rotation": 3
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -16,
+      "name": "Prefab_Spawner_Block",
+      "components": {
+        "Components": {
+          "prefabspawner": {
+            "Position": {
+              "X": 0,
+              "Y": -1,
+              "Z": -17
+            },
+            "PrefabPath": "Npc.Feran.Tier1.Straight.Normal.*",
+            "FitHeightmap": false,
+            "InheritSeed": true,
+            "InheritHeightCondition": true
+          }
+        }
+      }
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": 0,
+      "name": "Prefab_Spawner_Block",
+      "components": {
+        "Components": {
+          "prefabspawner": {
+            "Position": {
+              "X": 0,
+              "Y": 3,
+              "Z": -1
+            },
+            "PrefabPath": "Npc.Feran.Tier1.Chieftain.*",
+            "FitHeightmap": false,
+            "InheritSeed": true,
+            "InheritHeightCondition": true
+          }
+        }
+      }
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 17,
+      "name": "Prefab_Spawner_Block",
+      "components": {
+        "Components": {
+          "prefabspawner": {
+            "Position": {
+              "X": 0,
+              "Y": -1,
+              "Z": 16
+            },
+            "PrefabPath": "Npc.Feran.Tier1.Straight.Entrances.*",
+            "FitHeightmap": false,
+            "InheritSeed": true,
+            "InheritHeightCondition": true
+          }
+        }
+      },
+      "rotation": 2
+    },
+    {
+      "x": 15,
+      "y": 0,
+      "z": -7,
+      "name": "Prefab_Spawner_Block",
+      "components": {
+        "Components": {
+          "prefabspawner": {
+            "Position": {
+              "X": 15,
+              "Y": -1,
+              "Z": -8
+            },
+            "PrefabPath": "Npc.Feran.Tier1.Corners.*",
+            "FitHeightmap": false,
+            "InheritSeed": true,
+            "InheritHeightCondition": true
+          }
+        }
+      },
+      "rotation": 1
+    },
+    {
+      "x": 15,
+      "y": 0,
+      "z": 9,
+      "name": "Prefab_Spawner_Block",
+      "components": {
+        "Components": {
+          "prefabspawner": {
+            "Position": {
+              "X": 15,
+              "Y": -1,
+              "Z": 8
+            },
+            "PrefabPath": "Npc.Feran.Tier1.Corners.*",
+            "FitHeightmap": false,
+            "InheritSeed": true,
+            "InheritHeightCondition": true
+          }
+        }
+      }
+    }
+  ]
+}
