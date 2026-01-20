@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
  *   <li>CAP - Enforces min/max bounds</li>
  * </ul>
  * <p>
- * Values use basis points: 1000 = 100%
+ * Values use basis points: 10000 = 100%
  * <p>
  * Note: When used via Hytale's apply() method, this converts to float-based math.
  * For full ARPG stacking, use HyforgedStackingSystem which collects all modifiers
@@ -85,14 +85,14 @@ public class HyforgedModifier extends Modifier {
         /**
          * Percentage increase (additive with other INCREASED).
          * Applied second, all INCREASED values are summed then applied as multiplier.
-         * Amount is in basis points (100 = 10% increase).
+         * Amount is in basis points (100 = 1% increase).
          */
         INCREASED(1),
         
         /**
          * Percentage more (multiplicative with each other).
          * Applied third, each MORE modifier is applied sequentially.
-         * Amount is in basis points (100 = 10% more).
+         * Amount is in basis points (100 = 1% more).
          */
         MORE(2),
         
@@ -128,7 +128,7 @@ public class HyforgedModifier extends Modifier {
     }
     
     /** Basis points representing 100% */
-    public static final int BPS_100_PERCENT = 1000;
+    public static final int BPS_100_PERCENT = 10000;
     
     protected StackType stackType = StackType.FLAT;
     protected int amount = 0;
@@ -202,8 +202,8 @@ public class HyforgedModifier extends Modifier {
      * <p>
      * This method provides a reasonable approximation for single-modifier application:
      * - FLAT: Adds amount directly
-     * - INCREASED: Multiplies by (1 + amount/1000)
-     * - MORE: Multiplies by (1 + amount/1000)
+    * - INCREASED: Multiplies by (1 + amount/10000)
+    * - MORE: Multiplies by (1 + amount/10000)
      * - CAP: Clamps to amount (positive = max, negative = min)
      */
     @Override

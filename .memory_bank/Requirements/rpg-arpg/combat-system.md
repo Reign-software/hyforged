@@ -8,6 +8,7 @@
   - Damage, healing, mitigation, and status effects are computed from effective stats (ability scores + derived stats + modifiers).
   - All combat math consumes the Stats System as the source of truth.
   - Combat mechanics are abstract enough to be extended/modified via stats and config rather than hard-coded.
+  - Combat converts rating stats to effectiveness using the defined rating curves; flat percent stats (e.g., resistances) are consumed directly.
 - Core mechanics support
   - Critical hits (chance + multiplier).
   - Dodge/evade (chance-based mitigation).
@@ -63,4 +64,5 @@
   - Admin trace/log options
 
 ## Change Log
+- 2026-01-19: Clarified rating conversion usage in combat and direct consumption of flat percent stats.
 - 2026-01-19: Initial version drafted.

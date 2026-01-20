@@ -147,7 +147,7 @@ public record StatModifier(
     
     /**
      * Create an increased modifier targeting a specific stat.
-     * @param valueBps Value in basis points (1000 = 100%)
+    * @param valueBps Value in basis points (10000 = 100%)
      */
     public static StatModifier increased(@Nonnull String sourceId, @Nonnull ModifierSource sourceType, int statIndex, int valueBps) {
         return new Builder(sourceId)
@@ -160,7 +160,7 @@ public record StatModifier(
     
     /**
      * Create a more modifier targeting a specific stat.
-     * @param valueBps Value in basis points (1000 = 100%)
+    * @param valueBps Value in basis points (10000 = 100%)
      */
     public static StatModifier more(@Nonnull String sourceId, @Nonnull ModifierSource sourceType, int statIndex, int valueBps) {
         return new Builder(sourceId)

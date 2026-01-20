@@ -172,7 +172,7 @@ public final class StatDebugTracer {
             sb.append(formatModifier(mod));
         }
         sb.append(String.format("Increased Total: %+d bps (%+.1f%%) → After Increased: %d\n", 
-            result.increasedTotalBps, result.increasedTotalBps / 10.0, result.afterIncreased));
+            result.increasedTotalBps, result.increasedTotalBps / 100.0, result.afterIncreased));
         
         sb.append(String.format("\n--- MORE Modifiers (%d) ---\n", result.moreModifiers.size()));
         for (StatModifier mod : result.moreModifiers) {

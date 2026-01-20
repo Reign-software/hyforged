@@ -330,7 +330,7 @@ Validate all acceptance criteria and polish edge cases.
 
 **Computation Engine** (`reign.software.hyforged.stats.engine`):
 - `StackingEngine` - ARPG stacking: Flat → Increased → More → Cap with integer math (basis points)
-- `RatingConverter` - PoE-style diminishing returns: `eff = rating * 1000 / (rating + k * level)`
+- `RatingConverter` - PoE-style diminishing returns: `eff = rating * 10000 / (rating + k * level)`
 
 **ECS Systems** (`reign.software.hyforged.stats.system`):
 - `HyforgedStatInitSystem` - RefSystem initializing new entities with default ability scores
@@ -360,7 +360,7 @@ Validate all acceptance criteria and polish edge cases.
 - `StatAdminService` - Entity inspection, force recompute, audit logging
 
 ### Key Design Decisions
-- Pure integer math with basis points (1000 = 100%) to avoid floating point issues
+- Pure integer math with basis points (10000 = 100%) to avoid floating point issues
 - Long widening during computation to prevent overflow, floor rounding on division
 - Dirty flag approach for change-driven recompute (performance optimization)
 - Stable tie-breaking via sourceId for deterministic modifier ordering

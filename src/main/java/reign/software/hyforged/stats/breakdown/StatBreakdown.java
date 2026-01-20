@@ -119,7 +119,7 @@ public record StatBreakdown(
         if (!isRating) {
             return null;
         }
-        double percent = effectivenessBps / 10.0;
+        double percent = effectivenessBps / 100.0;
         return String.format("%.1f%%", percent);
     }
     

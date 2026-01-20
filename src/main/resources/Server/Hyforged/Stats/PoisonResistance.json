@@ -1,17 +1,18 @@
 ﻿{
-    "Id":  "hyforged:poison-resistance-rating",
+    "Id":  "hyforged:poison-resistance-bps",
     "Category":  "resistance",
     "DisplayName":  "Poison Resistance",
     "Description":  "Reduces poison damage taken. Scales with Wisdom.",
     "DefaultValue":  0,
-    "MinValue":  -2147483648,
-    "MaxValue":  2147483647,
-    "IsRating":  true,
+    "MinValue":  -10000,
+    "MaxValue":  10000,
+    "IsRating":  false,
     "Tags":  [
                  "defense",
                  "elemental",
                  "poison",
-                 "rating",
+                 "resistance",
+                 "percent",
                  "derived"
              ],
     "Scaling":  [

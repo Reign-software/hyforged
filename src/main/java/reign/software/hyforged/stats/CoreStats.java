@@ -56,12 +56,12 @@ public final class CoreStats {
     public static final StatId BLOCK_CHANCE_BPS = StatId.hyforged("block-chance-bps");
     public static final StatId DODGE_CHANCE_BPS = StatId.hyforged("dodge-chance-bps");
     
-    // ========== ELEMENTAL RESISTANCES (Ratings) ==========
+    // ========== ELEMENTAL RESISTANCES (Percent) ==========
     
-    public static final StatId FIRE_RESISTANCE_RATING = StatId.hyforged("fire-resistance-rating");
-    public static final StatId COLD_RESISTANCE_RATING = StatId.hyforged("cold-resistance-rating");
-    public static final StatId LIGHTNING_RESISTANCE_RATING = StatId.hyforged("lightning-resistance-rating");
-    public static final StatId POISON_RESISTANCE_RATING = StatId.hyforged("poison-resistance-rating");
+    public static final StatId FIRE_RESISTANCE_BPS = StatId.hyforged("fire-resistance-bps");
+    public static final StatId COLD_RESISTANCE_BPS = StatId.hyforged("cold-resistance-bps");
+    public static final StatId LIGHTNING_RESISTANCE_BPS = StatId.hyforged("lightning-resistance-bps");
+    public static final StatId POISON_RESISTANCE_BPS = StatId.hyforged("poison-resistance-bps");
     
     // ========== ELEMENTAL DAMAGE ==========
     

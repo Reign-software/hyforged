@@ -60,7 +60,7 @@ None — no blocking findings.
 
 ### Strengths
 1. **Clean separation of concerns**: Data records (`StatModifier`, `StatBreakdown`, `AffixMetadata`) vs computation utilities (`StackingEngine`, `RatingConverter`) vs systems
-2. **Proper integer math**: Long widening prevents overflow, basis points (1000=100%) for percentages
+2. **Proper integer math**: Long widening prevents overflow, basis points (10000=100%) for percentages
 3. **Bridge pattern**: Clean integration with Hytale's `EntityStatMap` via `HyforgedModifier`
 4. **Extensibility**: JSON asset loading via `StatAssetLoader`, namespace collision detection
 5. **Observability**: `StatDebugTracer`, `StatMetrics`, `StatAdminService` with audit logging

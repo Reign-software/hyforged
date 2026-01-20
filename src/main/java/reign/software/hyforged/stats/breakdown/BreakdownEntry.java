@@ -59,15 +59,15 @@ public record BreakdownEntry(
     }
     
     private static String formatPercentBps(int valueBps) {
-        // Convert basis points to percentage (1000 bps = 100%)
-        double percent = valueBps / 10.0;
+        // Convert basis points to percentage (10000 bps = 100%)
+        double percent = valueBps / 100.0;
         String sign = percent >= 0 ? "+" : "";
         return sign + String.format("%.1f%%", percent);
     }
     
     private static String formatMultiplierBps(int valueBps) {
-        // Convert basis points to multiplier (1000 bps = 100% = ×1.0 more)
-        double multiplier = 1.0 + (valueBps / 1000.0);
+        // Convert basis points to multiplier (10000 bps = 100% = ×1.0 more)
+        double multiplier = 1.0 + (valueBps / 10000.0);
         return String.format("×%.2f", multiplier);
     }
     

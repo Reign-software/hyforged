@@ -9,7 +9,7 @@ public enum DisplayFormat {
     /** Plain integer (e.g., "150") */
     INTEGER,
     
-    /** Basis points displayed as percent (e.g., 150 bps → "15.0%") */
+    /** Basis points displayed as percent (e.g., 150 bps → "1.5%") */
     PERCENT_BPS,
     
     /** Rating value with effectiveness preview (e.g., "500 (25% vs L50)") */
@@ -18,6 +18,6 @@ public enum DisplayFormat {
     /** Flat bonus with sign (e.g., "+50", "-10") */
     FLAT_BONUS,
     
-    /** Multiplier displayed as percent (e.g., 1500 → "150%") */
+    /** Multiplier displayed as percent (e.g., 15000 → "150%") */
     MULTIPLIER
 }

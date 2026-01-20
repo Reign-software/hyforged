@@ -200,7 +200,7 @@ public final class StatAdminService {
         sb.append(String.format("Base Value: %d\n", breakdown.baseValue()));
         sb.append(String.format("+ Flat Modifiers: %+d → %d\n", breakdown.flatTotal(), breakdown.afterFlat()));
         sb.append(String.format("× Increased (%+.1f%%) → %d\n", 
-            breakdown.increasedTotalBps() / 10.0, breakdown.afterIncreased()));
+            breakdown.increasedTotalBps() / 100.0, breakdown.afterIncreased()));
         sb.append(String.format("× More → %d\n", breakdown.afterMore()));
         sb.append(String.format("→ After Caps: %d\n", breakdown.afterCap()));
         sb.append(String.format("= Final Value: %d\n", breakdown.finalValue()));

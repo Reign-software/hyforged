@@ -52,6 +52,11 @@
       ]
     }
     ```
+- Units and rating semantics
+  - Percent-valued stats use basis points where 10000 = 100%.
+  - Rating stats represent raw rating; percent modifiers (increased/more) apply to the rating value, not the converted effectiveness.
+  - Resistances are flat percent stats (basis points), not rating conversions.
+  - Combat consumes rating stats by converting rating → effectiveness using the rating curves; flat percent stats are consumed directly.
 - Extensibility and API
   - The system supports adding new stats at runtime/config time without breaking existing characters.
   - The system exposes a clear API for other plugins/systems to:
@@ -76,6 +81,9 @@
   - Modifiers can specify a target:
     - `statId`: applies to a single stat.
     - `tag`: applies to all stats with the specified tag.
+  - Modifiers can declare scope and conditions (e.g., global, weapon-local, skill-tagged, or state-based), and stat queries can accept a context descriptor to resolve applicability.
+  - Modifier application should be idempotent per source: reapplying the same source refreshes/overwrites rather than stacking by default.
+  - Prefer leveraging existing Hytale systems (e.g., status effect/buff tracking) for modifier lifecycle and cleanup where available.
 - Player-facing UI
   - Provide a user-friendly interface to view stats.
   - Provide breakdowns per stat showing contributing sources (equipment, buffs, passives, class, level/ability scores).
@@ -105,12 +113,14 @@
   - Categories and UI grouping
   - Tags and tag-based targeting
   - Scaling model (linear, threshold, diminishing returns)
+  - Units and rating semantics
   - Dependency graph (DAG) and evaluation order
 - Modifier framework
   - Types (flat/percent/multipliers/caps)
   - Stacking order rules
   - Target types (statId vs tag)
   - Visibility and attribution
+  - Scope, conditions, and lifecycle
 - API surface (conceptual)
   - Register stat
   - Apply/remove modifier
@@ -125,6 +135,7 @@
   - Upper bounds and profiling expectations
 
 ## Change Log
+- 2026-01-19: Added unit conventions, rating semantics, scoped modifiers, and modifier lifecycle rules.
 - 2026-01-19: Refined scaling model with linear/threshold/diminishing return types; ability scores now first-class stats.
 - 2026-01-19: Added stat tags, dependency graph, and derived stat formulas.
 - 2026-01-19: Initial version drafted.

@@ -11,16 +11,19 @@ import javax.annotation.Nonnull;
  * <p>
  * Uses PoE-style diminishing returns formula:
  * {@code den = abs(rating) + k * targetLevel}
- * {@code effectivenessBps = sign(rating) * (abs(rating) * 1000 / den)}
+ * {@code effectivenessBps = sign(rating) * (abs(rating) * 10000 / den)}
  * <p>
  * This provides diminishing returns as rating increases, and
  * the effectiveness decreases against higher level targets.
  * <p>
- * All results are in basis points (1000 = 100%) with integer math.
+ * All results are in basis points (10000 = 100%) with integer math.
  */
 public final class RatingConverter {
     
     private RatingConverter() {} // Static utility class
+
+    /** Basis points representing 100% (10000 bps = 100%) */
+    public static final int BPS_100_PERCENT = 10000;
     
     /**
      * Default k constant for armor rating calculations.
@@ -45,32 +48,32 @@ public final class RatingConverter {
     
     /**
      * Minimum effectiveness value in basis points (can go negative for debuffs).
-     * -750 = -75%
+    * -7500 = -75%
      */
-    public static final int MIN_EFFECTIVENESS_BPS = -750;
+    public static final int MIN_EFFECTIVENESS_BPS = -7500;
     
     /**
      * Maximum effectiveness value in basis points.
-     * 750 = 75% (prevents full immunity)
+    * 7500 = 75% (prevents full immunity)
      */
-    public static final int MAX_EFFECTIVENESS_BPS = 750;
+    public static final int MAX_EFFECTIVENESS_BPS = 7500;
     
     /**
      * Maximum hit chance from accuracy in basis points.
-     * 950 = 95% (always 5% chance to miss)
+    * 9500 = 95% (always 5% chance to miss)
      */
-    public static final int MAX_HIT_CHANCE_BPS = 950;
+    public static final int MAX_HIT_CHANCE_BPS = 9500;
     
     /**
      * Minimum hit chance from accuracy in basis points.
-     * 50 = 5% (always 5% chance to hit)
+    * 500 = 5% (always 5% chance to hit)
      */
-    public static final int MIN_HIT_CHANCE_BPS = 50;
+    public static final int MIN_HIT_CHANCE_BPS = 500;
     
     /**
      * Convert a rating value to effectiveness in basis points.
      * <p>
-     * Formula: effectivenessBps = sign(rating) * (abs(rating) * 1000 / den)
+    * Formula: effectivenessBps = sign(rating) * (abs(rating) * 10000 / den)
      * where: den = abs(rating) + k * targetLevel
      * <p>
      * Positive ratings give damage reduction (for defense) or increased chance (for offense).
@@ -79,7 +82,7 @@ public final class RatingConverter {
      * @param rating The raw rating value (can be positive or negative)
      * @param targetLevel The level of the target (attacker for defense, defender for offense)
      * @param k The diminishing returns constant
-     * @return Effectiveness in basis points (1000 = 100%)
+    * @return Effectiveness in basis points (10000 = 100%)
      */
     public static int toEffectiveness(int rating, int targetLevel, int k) {
         if (rating == 0) {
@@ -98,8 +101,8 @@ public final class RatingConverter {
             return 0;
         }
         
-        // Calculate effectiveness: abs(rating) * 1000 / denominator
-        long effectivenessAbs = (absRating * 1000L) / denominator;
+        // Calculate effectiveness: abs(rating) * 10000 / denominator
+        long effectivenessAbs = (absRating * BPS_100_PERCENT) / denominator;
         
         // Apply sign
         int effectiveness = (int) (rating > 0 ? effectivenessAbs : -effectivenessAbs);
@@ -155,8 +158,8 @@ public final class RatingConverter {
     public static int accuracyToHitChance(int accuracyRating, int defenderLevel) {
         int effectiveness = toEffectiveness(accuracyRating, defenderLevel, K_ACCURACY);
         // Accuracy translates to hit chance: 500 base + effectiveness
-        // 500 bps = 50% base hit chance
-        int hitChance = 500 + effectiveness;
+        // 5000 bps = 50% base hit chance
+        int hitChance = 5000 + effectiveness;
         return clamp(hitChance, MIN_HIT_CHANCE_BPS, MAX_HIT_CHANCE_BPS);
     }
     
@@ -215,18 +218,18 @@ public final class RatingConverter {
     /**
      * Apply damage reduction from effectiveness to damage value.
      * <p>
-     * Formula: finalDamage = damage * (1000 - reductionBps) / 1000
+    * Formula: finalDamage = damage * (10000 - reductionBps) / 10000
      * 
      * @param damage The raw damage value
-     * @param reductionBps The damage reduction in basis points (0-1000)
+    * @param reductionBps The damage reduction in basis points (0-10000)
      * @return The reduced damage value
      */
     public static int applyReduction(int damage, int reductionBps) {
         if (damage <= 0) return 0;
         if (reductionBps <= 0) return damage;
-        if (reductionBps >= 1000) return 0;
+        if (reductionBps >= BPS_100_PERCENT) return 0;
         
-        return (int) (((long) damage * (1000 - reductionBps)) / 1000);
+        return (int) (((long) damage * (BPS_100_PERCENT - reductionBps)) / BPS_100_PERCENT);
     }
     
     /**
@@ -234,8 +237,8 @@ public final class RatingConverter {
      * <p>
      * Note: This is a pure calculation, the caller provides the random value.
      * 
-     * @param hitChanceBps The hit chance in basis points
-     * @param roll A random value 0-999 (inclusive)
+    * @param hitChanceBps The hit chance in basis points
+    * @param roll A random value 0-9999 (inclusive)
      * @return true if the roll is a hit
      */
     public static boolean isHit(int hitChanceBps, int roll) {

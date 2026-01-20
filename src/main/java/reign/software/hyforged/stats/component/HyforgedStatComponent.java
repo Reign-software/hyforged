@@ -15,6 +15,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * ECS Component holding Hyforged stat data for an entity.
@@ -202,15 +203,52 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     
     /**
      * Add a modifier to this entity.
-     * @return true if added, false if at max capacity
+     * If a modifier with the same source/target/type already exists, it is replaced.
+     * @return true if added or replaced, false if at max capacity
      */
     public boolean addModifier(@Nonnull StatModifier modifier) {
+        return upsertModifier(modifier);
+    }
+
+    /**
+     * Add or replace a modifier using a stable key (source + target + type).
+     * This prevents duplicate stacking when a source is reapplied.
+     *
+     * @return true if added or replaced, false if at max capacity
+     */
+    public boolean upsertModifier(@Nonnull StatModifier modifier) {
+        int existingIndex = findMatchingModifierIndex(modifier);
+        if (existingIndex >= 0) {
+            StatModifier existing = modifiers.set(existingIndex, modifier);
+            markAffectedStatsDirty(existing);
+            markAffectedStatsDirty(modifier);
+            return true;
+        }
+
         if (modifiers.size() >= MAX_MODIFIERS) {
             return false;
         }
         modifiers.add(modifier);
         markAffectedStatsDirty(modifier);
         return true;
+    }
+
+    private int findMatchingModifierIndex(@Nonnull StatModifier modifier) {
+        for (int i = 0; i < modifiers.size(); i++) {
+            StatModifier existing = modifiers.get(i);
+            if (matchesModifierKey(existing, modifier)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static boolean matchesModifierKey(@Nonnull StatModifier existing, @Nonnull StatModifier incoming) {
+        return existing.sourceId().equals(incoming.sourceId())
+            && existing.sourceType() == incoming.sourceType()
+            && existing.modifierType() == incoming.modifierType()
+            && existing.targetStatIndex() == incoming.targetStatIndex()
+            && Objects.equals(existing.targetTagId(), incoming.targetTagId());
     }
     
     /**
@@ -421,7 +459,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
      *
      * @param statIndex The stat index
      * @param targetLevel The level of the target (attacker for defense, defender for offense)
-     * @return Effectiveness in basis points (1000 = 100%)
+    * @return Effectiveness in basis points (10000 = 100%)
      */
     public int getEffectiveness(int statIndex, int targetLevel) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();

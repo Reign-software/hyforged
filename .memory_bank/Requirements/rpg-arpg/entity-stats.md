@@ -24,6 +24,8 @@
   - Each modifier is tagged with its source type for UI breakdown and debugging.
   - The evaluation order follows the Stats System's modifier stacking rules.
   - Scaling (derived stats) is computed using the final values of source stats, not raw bases.
+  - Modifiers are stored with stable source keys so reapplication refreshes/overwrites rather than stacking by default.
+  - The container supports context-aware queries (weapon/skill tags, state flags) so only applicable modifiers are applied per action.
 - Player entity lifecycle
   - On player join/load:
     - Load persisted allocations (ability scores, class levels, passive selections, equipment).
@@ -79,6 +81,7 @@
     - Add/remove modifiers with source attribution
     - Subscribe to stat-change events on a specific entity
     - Access breakdown by source for UI or debugging
+    - Upsert/refresh modifiers by source key to prevent duplicate stacking
   - Combat System and other consumers use this API rather than accessing raw data.
 - Performance
   - Stat containers use dirty-flag caching; recompute only changed stats.
@@ -88,6 +91,7 @@
   - Stat container is implemented as an ECS component attached to entities.
   - Stat recalculation is handled by a dedicated system that processes dirty stat containers.
   - Events (stat changes) integrate with Hytale's event/messaging patterns.
+  - Prefer leveraging native Hytale buff/status systems for modifier lifetime tracking and cleanup where possible.
 
 ## Non-Goals
 - Storing computed stats in persistence; only source data is saved.
@@ -109,6 +113,7 @@
 - Source aggregation
   - Ordered source list
   - Modifier application rules
+  - Modifier identity and refresh
 - Player lifecycle
   - Load/join flow
   - Change event handling
@@ -132,6 +137,7 @@
   - System responsibilities
 
 ## Change Log
+- 2026-01-19: Added modifier identity/refresh rules, context-aware queries, and lifecycle integration notes.
 - 2026-01-19: Updated to reflect ability scores as regular stats; clarified scaling vs modifier distinction.
 - 2026-01-19: Expanded stat dependency resolution and tag-based modifier handling.
 - 2026-01-19: Initial version drafted.

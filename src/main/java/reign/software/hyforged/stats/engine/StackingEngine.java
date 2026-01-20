@@ -14,12 +14,12 @@ import java.util.List;
  * <p>
  * Computes final stat values using deterministic stacking order:
  * 1. Sum all FLAT modifiers
- * 2. Sum all INCREASED (% additive) → apply as (1 + sum/1000)
+ * 2. Sum all INCREASED (% additive) → apply as (1 + sum/10000)
  * 3. Multiply all MORE (% multiplicative) sequentially
  * 4. Apply CAP/clamps last
  * <p>
  * All math uses integers with long widening to prevent overflow.
- * Basis points: 1000 = 100%
+ * Basis points: 10000 = 100%
  * Division rounds toward floor.
  * <p>
  * This is a pure computation utility - no state, following ECS principles.
@@ -28,8 +28,8 @@ public final class StackingEngine {
     
     private StackingEngine() {} // Static utility class
     
-    /** Basis points representing 100% (1000 bps = 100%) */
-    public static final int BPS_100_PERCENT = 1000;
+    /** Basis points representing 100% (10000 bps = 100%) */
+    public static final int BPS_100_PERCENT = 10000;
     
     /**
      * Compute the final value of a stat given base value and modifiers.
@@ -71,8 +71,8 @@ public final class StackingEngine {
             }
         }
         
-        // Apply increased: current * (1 + increasedSum/1000)
-        // = current * (1000 + increasedSum) / 1000
+        // Apply increased: current * (1 + increasedSum/10000)
+        // = current * (10000 + increasedSum) / 10000
         if (increasedSum != 0) {
             current = (current * (BPS_100_PERCENT + increasedSum)) / BPS_100_PERCENT;
         }
@@ -80,8 +80,8 @@ public final class StackingEngine {
         // Step 3: Apply each MORE modifier sequentially (multiplicative)
         for (StatModifier mod : sorted) {
             if (mod.modifierType() == ModifierType.MORE) {
-                // current * (1 + value/1000)
-                // = current * (1000 + value) / 1000
+                // current * (1 + value/10000)
+                // = current * (10000 + value) / 10000
                 current = (current * (BPS_100_PERCENT + mod.value())) / BPS_100_PERCENT;
             }
         }

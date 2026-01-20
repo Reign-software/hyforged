@@ -28,14 +28,14 @@ This guide explains how to add custom stats to the Hyforged stat system. The sys
 ## Core Concepts
 
 ### Integer Math
-All stat values use **integer arithmetic** to ensure deterministic computation across clients and servers. Percentages are expressed in **basis points (bps)** where `1000 bps = 100%`.
+All stat values use **integer arithmetic** to ensure deterministic computation across clients and servers. Percentages are expressed in **basis points (bps)** where `10000 bps = 100%`.
 
 | Percentage | Basis Points |
 |------------|--------------|
-| 10%        | 100 bps      |
-| 25%        | 250 bps      |
-| 100%       | 1000 bps     |
-| 150%       | 1500 bps     |
+| 10%        | 1000 bps     |
+| 25%        | 2500 bps     |
+| 100%       | 10000 bps    |
+| 150%       | 15000 bps    |
 
 ### Stacking Order
 Modifiers apply in a strict ARPG-style order:
@@ -142,24 +142,24 @@ StatModifier.flat("item-123", ModifierSource.EQUIPMENT, healthIndex, 50);
 Percentage bonus in basis points. All INCREASED modifiers are summed together.
 
 ```java
-// +10% increased damage (100 bps)
-StatModifier.increased("passive-1", ModifierSource.PASSIVE, damageIndex, 100);
+// +10% increased damage (1000 bps)
+StatModifier.increased("passive-1", ModifierSource.PASSIVE, damageIndex, 1000);
 
-// Another +15% increased damage (150 bps)  
+// Another +15% increased damage (1500 bps)  
 // Total: 25% increased applied to base
-StatModifier.increased("passive-2", ModifierSource.PASSIVE, damageIndex, 150);
+StatModifier.increased("passive-2", ModifierSource.PASSIVE, damageIndex, 1500);
 ```
 
 ### MORE
 Percentage multiplier in basis points. Each MORE modifier is applied sequentially.
 
 ```java
-// 20% more damage (200 bps)
-StatModifier.more("buff-1", ModifierSource.BUFF, damageIndex, 200);
+// 20% more damage (2000 bps)
+StatModifier.more("buff-1", ModifierSource.BUFF, damageIndex, 2000);
 
-// Another 10% more damage (100 bps)
+// Another 10% more damage (1000 bps)
 // Applied as: base * 1.20 * 1.10 (NOT base * 1.30)
-StatModifier.more("buff-2", ModifierSource.BUFF, damageIndex, 100);
+StatModifier.more("buff-2", ModifierSource.BUFF, damageIndex, 1000);
 ```
 
 ### CAP
@@ -259,7 +259,7 @@ StatModifier elementalBonus = new StatModifier.Builder("fire-mastery")
     .sourceType(ModifierSource.PASSIVE)
     .modifierType(ModifierType.INCREASED)
     .targetTag("elemental")  // Affects all stats with this tag
-    .value(100)              // +10%
+    .value(1000)             // +10%
     .build();
 ```
 
@@ -285,10 +285,10 @@ Rating stats convert a raw value to an effectiveness percentage using diminishin
 
 ```json
 {
-  "Id": "yourmod:magic-resist-rating",
-  "Category": "defense",
-  "DisplayName": "Magic Resistance",
-  "Description": "Reduces magic damage taken.",
+  "Id": "yourmod:accuracy-rating",
+  "Category": "offense",
+  "DisplayName": "Accuracy",
+  "Description": "Improves chance to hit targets.",
   "IsRating": true,
   "Tags": ["defense", "rating", "magic"]
 }
@@ -531,16 +531,16 @@ Attack Power: 70
 | `hyforged:crit-multiplier-bps` | Critical Multiplier |
 | `hyforged:accuracy-rating` | Accuracy |
 
-### Defense (Ratings)
+### Defense (Ratings + Resistances)
 
 | Stat ID | Display Name |
 |---------|--------------|
 | `hyforged:armor-rating` | Armor |
 | `hyforged:evasion-rating` | Evasion |
-| `hyforged:fire-resistance-rating` | Fire Resistance |
-| `hyforged:cold-resistance-rating` | Cold Resistance |
-| `hyforged:lightning-resistance-rating` | Lightning Resistance |
-| `hyforged:poison-resistance-rating` | Poison Resistance |
+| `hyforged:fire-resistance-bps` | Fire Resistance |
+| `hyforged:cold-resistance-bps` | Cold Resistance |
+| `hyforged:lightning-resistance-bps` | Lightning Resistance |
+| `hyforged:poison-resistance-bps` | Poison Resistance |
 
 ---
 
@@ -565,18 +565,20 @@ Create a new elemental damage stat for your mod:
 }
 ```
 
-### Example 2: Custom Defense Rating
+### Example 2: Custom Resistance (Percent)
 
 **Server/YourMod/Stats/VoidResistance.json**
 ```json
 {
-  "Id": "yourmod:void-resistance-rating",
-  "Category": "defense",
+  "Id": "yourmod:void-resistance-bps",
+  "Category": "resistance",
   "DisplayName": "Void Resistance",
   "Description": "Reduces void damage taken.",
   "DefaultValue": 0,
-  "IsRating": true,
-  "Tags": ["defense", "rating", "void"]
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["defense", "resistance", "percent", "void"]
 }
 ```
 
@@ -595,7 +597,7 @@ public void applyItemStats(HyforgedStatComponent stats, String itemId) {
     // +15% increased fire resistance
     stats.addModifier(StatModifier.increased(
         itemId, ModifierSource.EQUIPMENT,
-        reg.getIndex(CoreStats.FIRE_RESISTANCE_RATING), 150
+      reg.getIndex(CoreStats.FIRE_RESISTANCE_BPS), 1500
     ));
     
     // +5% more damage to all elemental stats
@@ -603,7 +605,7 @@ public void applyItemStats(HyforgedStatComponent stats, String itemId) {
         .sourceType(ModifierSource.EQUIPMENT)
         .modifierType(ModifierType.MORE)
         .targetTag("elemental")
-        .value(50)
+      .value(500)
         .build());
 }
 

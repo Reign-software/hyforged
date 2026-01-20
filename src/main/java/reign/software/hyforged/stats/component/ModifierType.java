@@ -17,16 +17,16 @@ public enum ModifierType {
     /**
      * Percentage increase/decrease (additive with other increased).
      * Applied second, all increased values are summed then applied.
-     * Value is in basis points (1000 = 100%).
-     * Example: 100 bps = +10% increased damage
+    * Value is in basis points (10000 = 100%).
+    * Example: 100 bps = +1% increased damage
      */
     INCREASED(1),
     
     /**
      * Percentage more/less (multiplicative).
      * Applied third, each more modifier is applied sequentially.
-     * Value is in basis points (1000 = 100%).
-     * Example: 200 bps = 20% more damage
+    * Value is in basis points (10000 = 100%).
+    * Example: 250 bps = 2.5% more damage
      */
     MORE(2),
     

@@ -19,7 +19,7 @@
   - % More/Less
   - Caps/clamps
 - Use integer-only storage and computation (no floating-point exposed as authoritative stat values).
-- Model Armor/Evasion/Resistances as integer “ratings”; percent effectiveness is computed relative to the target’s level (PoE2-like).
+- Model Armor/Evasion (and other rating stats) as integer “ratings”; resistances are flat percent stats.
 - Present a player-facing character sheet and tooltips with explainable breakdowns by source (equipment, buffs, passives, class progression, level/ability scores).
 - Provide an extensible API for other plugins/systems to register stats and apply/query modifiers.
 
@@ -32,7 +32,7 @@
 - Players can view:
   - Ability scores
   - Derived stats organized by category
-  - For rating-based stats (Armor/Evasion/Resist), both:
+  - For rating-based stats (Armor/Evasion/Accuracy), both:
     - Rating value
     - Estimated effectiveness versus a selected/typical target level
 - Players can inspect a stat to see a breakdown of contributors:
@@ -57,7 +57,7 @@
   - Derived stats: ~30–40 at initial launch, with canonical IDs, categories, and descriptions.
   - Stats support metadata needed for UI:
     - Category
-    - Display formatting (plain number, rating, percent, Hyforged basis points (0–1000), etc.)
+    - Display formatting (plain number, rating, percent, Hyforged basis points (0–10000), etc.)
     - Caps (if any)
     - Tags (optional, scoped; used for a small number of “apply to all X” style modifiers)
   - Item-affix metadata (for stats that can roll on items)
@@ -151,12 +151,12 @@
 - `debuff-duration-on-you-bps`
 - `ailment-effect-on-you-bps`
 
-**Elemental / Ailment (Ratings + Chances)**
-- `fire-resistance-rating`
-- `cold-resistance-rating`
-- `lightning-resistance-rating`
-- `poison-resistance-rating`
-- `bleed-resistance-rating`
+**Elemental / Ailment (Resistances + Chances)**
+- `fire-resistance-bps`
+- `cold-resistance-bps`
+- `lightning-resistance-bps`
+- `poison-resistance-bps`
+- `bleed-resistance-bps`
 - `ignite-chance-bps`
 - `freeze-chance-bps`
 - `shock-chance-bps`
@@ -213,7 +213,7 @@ A “tagged modifier” may apply to all stats under a tag. The system permits t
 - `defences`
   - Affects: `armor-rating`, `evasion-rating`
 - `elemental-resistances`
-  - Affects: `fire-resistance-rating`, `cold-resistance-rating`, `lightning-resistance-rating`
+  - Affects: `fire-resistance-bps`, `cold-resistance-bps`, `lightning-resistance-bps`
 - `life-leech`
   - Affects: `physical-attack-damage-leech-life-bps`
 - `mana-leech`
@@ -235,7 +235,7 @@ Combat systems may attach tags to actions/damage events so that category stats a
 - `melee`, `ranged`, `projectile`
   - Affected stats (examples): `melee-damage-increased-bps`, `ranged-damage-increased-bps`, `projectile-damage-increased-bps`
 - `physical`, `fire`, `cold`, `lightning`, `poison`, `bleed`
-  - Affected stats (examples): `physical-damage-increased-bps`, `fire-damage-increased-bps`, `cold-damage-increased-bps`, `lightning-damage-increased-bps` and matching `*-penetration-rating` / `*-resistance-rating` where applicable
+  - Affected stats (examples): `physical-damage-increased-bps`, `fire-damage-increased-bps`, `cold-damage-increased-bps`, `lightning-damage-increased-bps` and matching `*-penetration-rating` / `*-resistance-bps` where applicable
 
 ### Data-Driven Modding (JSON)
 
@@ -248,7 +248,7 @@ Hyforged stats must be data-driven so external mods/plugins can extend Hyforged 
   - tag-to-stat relationships (which stats a tag affects)
   - item-affix metadata (see item integration below)
 - Hyforged ships a default “core ruleset”; external mods can add additional definitions and/or override specific display metadata where allowed.
-- All user-facing IDs are namespaced to avoid collisions (e.g., `hyforged:armor-rating`, `othermod:shadow-resistance-rating`).
+- All user-facing IDs are namespaced to avoid collisions (e.g., `hyforged:armor-rating`, `othermod:shadow-resistance-bps`).
 - Definitions are versioned to support migrations and backward compatibility.
 
 Hyforged should leverage Hytale’s existing mod-folder/asset loading system for discovering and loading these JSON definitions (rather than inventing a parallel config loader).
@@ -298,21 +298,21 @@ The Stats System provides the modifier model and tagging semantics; the Items sy
   - Provide deterministic evaluation order and stable tie-breaking.
 - Integer-only math
   - Define canonical integer units for:
-    - Chances in Hyforged basis points (0–1000)
-    - Percent values (if stored) in Hyforged basis points (0–1000)
-    - Ratings (Armor/Evasion/Resist)
+    - Chances in Hyforged basis points (0–10000)
+    - Percent values (if stored) in Hyforged basis points (0–10000)
+    - Ratings (Armor/Evasion/Accuracy)
   - Ensure rounding rules are explicit and consistent.
   - By default, derived stats are clamped to non-negative values; v1 only requires negative values for `*-damage-taken-bps` style mitigation stats.
 - Rating-to-effectiveness conversions
-  - For Armor/Evasion/Resistances, compute effectiveness as a function of rating and target level.
+  - For Armor/Evasion/Accuracy (and other rating stats), compute effectiveness as a function of rating and target level.
   - Use Option A (PoE-like, bounded growth):
-    - Base (for non-negative ratings): `effectivenessBps = rating * 1000 / (rating + k * targetLevel)`
+    - Base (for non-negative ratings): `effectivenessBps = rating * 10000 / (rating + k * targetLevel)`
     - Signed extension (to allow negative ratings without singularities):
       - Let `r = rating`.
       - Let `den = abs(r) + k * targetLevel`.
-      - `effectivenessBps = sign(r) * (abs(r) * 1000 / den)`
-    - `k` is configurable per stat family (armor/evasion/resist) and per-damage-type where needed.
-      - Default (configurable; confirmed): `kArmor = 10`, `kEvasion = 10`, `kResist = 10`.
+      - `effectivenessBps = sign(r) * (abs(r) * 10000 / den)`
+    - `k` is configurable per stat family (armor/evasion/accuracy) and per-damage-type where needed.
+      - Default (configurable; confirmed): `kArmor = 10`, `kEvasion = 10`, `kAccuracy = 10`.
     - All computations use integer math with a widening intermediate type (e.g., long) to avoid overflow.
     - Division rounding defaults to floor; UI may show rounded display while combat uses the canonical rule.
   - Ratings are integers and are clamped at configurable minimum/maximum bounds.
