@@ -2,6 +2,7 @@ package reign.software.hyforged.stats.service;
 
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import it.unimi.dsi.fastutil.ints.IntSet;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
@@ -20,7 +21,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Query helpers for computed Hyforged stats.
@@ -153,9 +153,9 @@ public final class HyforgedStatQueryService {
         for (StatModifier mod : component.getModifiers()) {
             if (mod.targetStatIndex() == statIndex) {
                 applicable.add(mod);
-            } else if (mod.targetTagId() != null) {
-                if (statDef.tags().contains(mod.targetTagId()) ||
-                    registry.getStatIndicesForTag(mod.targetTagId()).contains(statIndex)) {
+            } else if (mod.targetTagIndex() != StatModifier.NO_TAG) {
+                IntSet affectedStats = registry.getStatIndicesForTagIndex(mod.targetTagIndex());
+                if (affectedStats.contains(statIndex)) {
                     applicable.add(mod);
                 }
             }
@@ -222,13 +222,10 @@ public final class HyforgedStatQueryService {
             return true;
         }
 
-        String tagId = mod.targetTagId();
-        if (tagId != null) {
-            Set<Integer> affectedStats = registry.getStatIndicesForTag(tagId);
+        int tagIndex = mod.targetTagIndex();
+        if (tagIndex != StatModifier.NO_TAG) {
+            IntSet affectedStats = registry.getStatIndicesForTagIndex(tagIndex);
             if (affectedStats.contains(statIdx)) {
-                return true;
-            }
-            if (statDef.tags().contains(tagId)) {
                 return true;
             }
         }

@@ -7,7 +7,17 @@
   "MinValue": -2147483648,
   "MaxValue": 2147483647,
   "IsRating": true,
-  "Tags": ["defense", "rating", "derived"],
+  "Tags": {
+    "Domain": [
+      "defense"
+    ],
+    "Type": [
+      "rating"
+    ],
+    "Source": [
+      "derived"
+    ]
+  },
   "Scaling": [
     {
       "Type": "linear",

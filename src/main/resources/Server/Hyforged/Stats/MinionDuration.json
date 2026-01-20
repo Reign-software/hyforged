@@ -1,16 +1,21 @@
-﻿{
-    "Id":  "hyforged:minion-duration-bps",
-    "Category":  "minion",
-    "DisplayName":  "Minion Duration",
-    "Description":  "Increased duration of summoned minions.",
-    "DefaultValue":  0,
-    "MinValue":  -10000,
-    "MaxValue":  10000,
-    "IsRating":  false,
-    "Tags":  [
-                 "utility",
-                 "minion",
-                 "duration",
-                 "percent"
-             ]
+{
+  "Id": "hyforged:minion-duration-bps",
+  "Category": "minion",
+  "DisplayName": "Minion Duration",
+  "Description": "Increased duration of summoned minions.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "utility"
+    ],
+    "Mechanic": [
+      "minion"
+    ]
+  }
 }

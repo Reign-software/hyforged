@@ -1,18 +1,27 @@
-﻿{
-    "Id":  "hyforged:bleed-duration-bps",
-    "Category":  "ailment",
-    "DisplayName":  "Bleed Duration",
-    "Description":  "Increased bleeding duration.",
-    "DefaultValue":  0,
-    "MinValue":  -10000,
-    "MaxValue":  10000,
-    "IsRating":  false,
-    "Tags":  [
-                 "utility",
-                 "ailment",
-                 "physical",
-                 "bleed",
-                 "duration",
-                 "percent"
-             ]
+{
+  "Id": "hyforged:bleed-duration-bps",
+  "Category": "ailment",
+  "DisplayName": "Bleed Duration",
+  "Description": "Increased bleeding duration.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "utility"
+    ],
+    "Type": [
+      "ailment"
+    ],
+    "Element": [
+      "physical"
+    ],
+    "Ailment": [
+      "bleed"
+    ]
+  }
 }

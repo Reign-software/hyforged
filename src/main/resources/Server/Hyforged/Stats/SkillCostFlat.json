@@ -7,5 +7,9 @@
   "MinValue": -1000,
   "MaxValue": 1000,
   "IsRating": false,
-  "Tags": ["utility", "cost"]
+  "Tags": {
+    "Domain": [
+      "utility"
+    ]
+  }
 }

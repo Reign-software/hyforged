@@ -7,5 +7,18 @@
   "MinValue": 0,
   "MaxValue": 10000,
   "IsRating": false,
-  "Tags": ["offense", "penetration", "elemental", "percent"]
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "offense"
+    ],
+    "Type": [
+      "penetration"
+    ],
+    "Element": [
+      "elemental"
+    ]
+  }
 }

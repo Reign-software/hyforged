@@ -1,25 +1,35 @@
-﻿{
-    "Id":  "hyforged:lightning-resistance-bps",
-    "Category":  "resistance",
-    "DisplayName":  "Lightning Resistance",
-    "Description":  "Reduces lightning damage taken. Scales with Wisdom.",
-    "DefaultValue":  0,
-    "MinValue":  -10000,
-    "MaxValue":  10000,
-    "IsRating":  false,
-    "Tags":  [
-                 "defense",
-                 "elemental",
-                 "lightning",
-                 "resistance",
-                 "percent",
-                 "derived"
-             ],
-    "Scaling":  [
-                    {
-                        "Type":  "linear",
-                        "Source":  "hyforged:wisdom",
-                        "Ratio":  2.0
-                    }
-                ]
+{
+  "Id": "hyforged:lightning-resistance-bps",
+  "Category": "resistance",
+  "DisplayName": "Lightning Resistance",
+  "Description": "Reduces lightning damage taken. Scales with Wisdom.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "defense"
+    ],
+    "Type": [
+      "resistance"
+    ],
+    "Source": [
+      "derived"
+    ],
+    "Element": [
+      "elemental",
+      "lightning"
+    ]
+  },
+  "Scaling": [
+    {
+      "Type": "linear",
+      "Source": "hyforged:wisdom",
+      "Ratio": 2.0
+    }
+  ]
 }

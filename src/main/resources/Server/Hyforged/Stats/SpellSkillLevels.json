@@ -7,5 +7,15 @@
   "MinValue": -100,
   "MaxValue": 100,
   "IsRating": false,
-  "Tags": ["skill", "skill-level", "spell"]
+  "Tags": {
+    "Domain": [
+      "skill"
+    ],
+    "Type": [
+      "skill-level"
+    ],
+    "Mechanic": [
+      "spell"
+    ]
+  }
 }

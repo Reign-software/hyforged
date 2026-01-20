@@ -15,7 +15,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * ECS Component holding Hyforged stat data for an entity.
@@ -258,7 +257,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
             && existing.sourceType() == incoming.sourceType()
             && existing.modifierType() == incoming.modifierType()
             && existing.targetStatIndex() == incoming.targetStatIndex()
-            && Objects.equals(existing.targetTagId(), incoming.targetTagId());
+            && existing.targetTagIndex() == incoming.targetTagIndex();
     }
     
     /**
@@ -409,8 +408,9 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         if (modifier.targetStatIndex() >= 0) {
             markStatDirty(modifier.targetStatIndex());
         }
-        if (modifier.targetTagId() != null) {
-            for (int statIdx : StatDefinitionRegistry.get().getStatIndicesForTag(modifier.targetTagId())) {
+        int tagIndex = modifier.targetTagIndex();
+        if (tagIndex != StatModifier.NO_TAG) {
+            for (int statIdx : StatDefinitionRegistry.get().getStatIndicesForTagIndex(tagIndex)) {
                 markStatDirty(statIdx);
             }
         }

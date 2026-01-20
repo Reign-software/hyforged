@@ -113,9 +113,9 @@ public class StatsDebugCommand extends CommandBase {
         StringBuilder sb = new StringBuilder();
         sb.append("§6═══════ Stats for ").append(playerName).append(" ═══════§r\n");
 
-        // Ability Scores - query by tag
+        // Ability Scores - query by Type=ability-score tag
         sb.append("\n§e▸ Ability Scores§r\n");
-        for (StatId statId : registry.getStatIdsForTag("ability-score")) {
+        for (StatId statId : registry.getStatIdsForTagValue("Type", "ability-score")) {
             appendStatLine(sb, registry, component, statId);
         }
 

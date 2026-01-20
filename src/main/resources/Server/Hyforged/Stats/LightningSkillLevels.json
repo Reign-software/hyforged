@@ -7,5 +7,16 @@
   "MinValue": -100,
   "MaxValue": 100,
   "IsRating": false,
-  "Tags": ["skill", "skill-level", "lightning", "elemental"]
+  "Tags": {
+    "Domain": [
+      "skill"
+    ],
+    "Type": [
+      "skill-level"
+    ],
+    "Element": [
+      "lightning",
+      "elemental"
+    ]
+  }
 }

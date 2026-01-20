@@ -1,7 +1,8 @@
 package reign.software.hyforged.stats.component;
 
+import com.hypixel.hytale.assetstore.AssetRegistry;
+
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Objects;
 
 /**
@@ -11,13 +12,16 @@ import java.util.Objects;
  * <p>
  * A modifier can target either:
  * - A specific stat (by index) via targetStatIndex
- * - All stats in a tag via targetTagId
+ * - All stats with a tag via targetTagIndex (using Hytale's AssetRegistry tag system)
+ * <p>
+ * Tag indices are obtained via {@code AssetRegistry.getOrCreateTagIndex(String)}.
+ * The sentinel value {@link #NO_TAG} indicates no tag targeting.
  * 
  * @param sourceId Unique identifier for the source (e.g., item UUID, buff ID)
  * @param sourceType Category of the source for UI grouping
  * @param modifierType How this modifier stacks (FLAT/INCREASED/MORE/CAP)
  * @param targetStatIndex Index of the target stat (-1 if targeting a tag)
- * @param targetTagId ID of the target tag (null if targeting a specific stat)
+ * @param targetTagIndex Index of the target tag from AssetRegistry (NO_TAG if targeting a specific stat)
  * @param value The modifier value (interpretation depends on modifierType)
  * @param expirationTick Game tick when this modifier expires (0 = permanent)
  * @param priority Tie-breaker for modifiers of the same type (lower = first)
@@ -27,11 +31,14 @@ public record StatModifier(
     @Nonnull ModifierSource sourceType,
     @Nonnull ModifierType modifierType,
     int targetStatIndex,
-    @Nullable String targetTagId,
+    int targetTagIndex,
     int value,
     long expirationTick,
     int priority
 ) {
+    
+    /** Sentinel value indicating no tag targeting (uses Integer.MIN_VALUE to match AssetRegistry convention) */
+    public static final int NO_TAG = Integer.MIN_VALUE;
     
     public StatModifier {
         Objects.requireNonNull(sourceId, "sourceId cannot be null");
@@ -39,7 +46,7 @@ public record StatModifier(
         Objects.requireNonNull(modifierType, "modifierType cannot be null");
         
         // Must target either a stat or a tag
-        if (targetStatIndex < 0 && targetTagId == null) {
+        if (targetStatIndex < 0 && targetTagIndex == NO_TAG) {
             throw new IllegalArgumentException("Modifier must target either a stat index or a tag");
         }
     }
@@ -48,7 +55,7 @@ public record StatModifier(
      * Check if this modifier targets a tag (affects multiple stats).
      */
     public boolean isTagModifier() {
-        return targetTagId != null;
+        return targetTagIndex != NO_TAG;
     }
     
     /**
@@ -73,7 +80,7 @@ public record StatModifier(
         private ModifierSource sourceType = ModifierSource.EQUIPMENT;
         private ModifierType modifierType = ModifierType.FLAT;
         private int targetStatIndex = -1;
-        private String targetTagId = null;
+        private int targetTagIndex = NO_TAG;
         private int value = 0;
         private long expirationTick = 0;
         private int priority = 0;
@@ -94,12 +101,32 @@ public record StatModifier(
         
         public Builder targetStat(int statIndex) {
             this.targetStatIndex = statIndex;
-            this.targetTagId = null;
+            this.targetTagIndex = NO_TAG;
             return this;
         }
         
-        public Builder targetTag(@Nonnull String tagId) {
-            this.targetTagId = tagId;
+        /**
+         * Target all stats with the given tag index.
+         * Use {@link AssetRegistry#getOrCreateTagIndex(String)} to get the tag index.
+         * 
+         * @param tagIndex The Hytale tag index
+         * @return this builder
+         */
+        public Builder targetTagIndex(int tagIndex) {
+            this.targetTagIndex = tagIndex;
+            this.targetStatIndex = -1;
+            return this;
+        }
+        
+        /**
+         * Target all stats with the given tag string.
+         * Resolves to a tag index via {@link AssetRegistry#getOrCreateTagIndex(String)}.
+         * 
+         * @param tag The tag string
+         * @return this builder
+         */
+        public Builder targetTag(@Nonnull String tag) {
+            this.targetTagIndex = AssetRegistry.getOrCreateTagIndex(tag);
             this.targetStatIndex = -1;
             return this;
         }
@@ -127,7 +154,7 @@ public record StatModifier(
         public StatModifier build() {
             return new StatModifier(
                 sourceId, sourceType, modifierType,
-                targetStatIndex, targetTagId, value,
+                targetStatIndex, targetTagIndex, value,
                 expirationTick, priority
             );
         }

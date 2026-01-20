@@ -8,15 +8,18 @@ import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
 import com.hypixel.hytale.assetstore.map.JsonAssetWithMap;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
+import com.hypixel.hytale.codec.codecs.map.MapCodec;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.scaling.ScalingRule;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * JSON asset definition for Hyforged stats.
@@ -34,9 +37,16 @@ import java.util.List;
  *   "MinValue": 0,                       // Minimum value
  *   "MaxValue": 999,                     // Maximum value
  *   "IsRating": false,                   // Whether this is a rating stat
- *   "Tags": ["attributes", "primary"]    // Tags this stat belongs to
+ *   "Tags": {                            // Tags using Hytale's hierarchical format
+ *     "Domain": ["attributes"],          // Creates tags: Domain, attributes, Domain=attributes
+ *     "Type": ["ability-score"]          // Creates tags: Type, ability-score, Type=ability-score
+ *   }
  * }
  * </pre>
+ * <p>
+ * Tags use Hytale's hierarchical format where each key-value pair creates multiple tags:
+ * the key itself, each value, and key=value combinations. This enables flexible tag matching
+ * using Hytale's AssetRegistry tag system.
  */
 public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLookupTableAssetMap<String, StatDefinitionAsset>> {
 
@@ -103,10 +113,10 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("Tags", Codec.STRING_ARRAY),
-                    (asset, value) -> asset.tags = value,
-                    asset -> asset.tags,
-                    (asset, parent) -> asset.tags = parent.tags
+                    new KeyedCodec<>("Tags", new MapCodec<>(Codec.STRING_ARRAY, HashMap::new)),
+                    (asset, value) -> asset.rawTags = value != null ? value : new HashMap<>(),
+                    asset -> asset.rawTags,
+                    (asset, parent) -> asset.rawTags = new HashMap<>(parent.rawTags)
             )
             .add()
             .appendInherited(
@@ -132,7 +142,7 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
     private int minValue = 0;
     private int maxValue = Integer.MAX_VALUE;
     private boolean isRating = false;
-    private String[] tags = new String[0];
+    private Map<String, String[]> rawTags = new HashMap<>();
     private ScalingRuleAsset[] scalingAssets = new ScalingRuleAsset[0];
 
     public StatDefinitionAsset() {
@@ -190,9 +200,36 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
         return isRating;
     }
 
+    /**
+     * Get the raw tags map (hierarchical format).
+     * Use {@link #getExpandedTags()} to get the flattened tag set.
+     */
     @Nonnull
-    public String[] getTags() {
-        return tags;
+    public Map<String, String[]> getRawTags() {
+        return rawTags;
+    }
+    
+    /**
+     * Expand the hierarchical tags into a flat set.
+     * <p>
+     * Following Hytale's tag expansion pattern, each entry in the map
+     * generates: the key itself, each value, and key=value combinations.
+     * <p>
+     * For example: {"Domain": ["attributes"], "Type": ["ability-score"]}
+     * expands to: [Domain, attributes, Domain=attributes, Type, ability-score, Type=ability-score]
+     */
+    @Nonnull
+    public Set<String> getExpandedTags() {
+        Set<String> expandedTags = new HashSet<>();
+        for (Map.Entry<String, String[]> entry : rawTags.entrySet()) {
+            String key = entry.getKey();
+            expandedTags.add(key);
+            for (String value : entry.getValue()) {
+                expandedTags.add(value);
+                expandedTags.add(key + "=" + value);
+            }
+        }
+        return expandedTags;
     }
 
     /**
@@ -208,6 +245,8 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
      * <p>
      * Scaling rules are converted from their asset representations.
      * Invalid or unresolvable scaling rules are skipped with a warning.
+     * <p>
+     * Tags are expanded from the hierarchical format to a flat set.
      */
     @Nonnull
     public StatDefinition toStatDefinition() {
@@ -228,7 +267,7 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
                 .defaultValue(defaultValue)
                 .bounds(minValue, maxValue)
                 .rating(isRating)
-                .tags(new HashSet<>(Arrays.asList(tags)))
+                .tags(getExpandedTags())
                 .scaling(scalingRules)
                 .build();
     }

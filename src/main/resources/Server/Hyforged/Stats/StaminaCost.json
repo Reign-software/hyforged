@@ -7,5 +7,16 @@
   "MinValue": -10000,
   "MaxValue": 10000,
   "IsRating": false,
-  "Tags": ["utility", "stamina", "cost", "percent"]
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "utility"
+    ],
+    "Type": [
+      "resource"
+    ],
+    "Resource": "stamina"
+  }
 }

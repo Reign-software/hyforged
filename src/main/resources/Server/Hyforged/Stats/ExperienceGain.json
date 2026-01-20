@@ -7,5 +7,9 @@
   "MinValue": -10000,
   "MaxValue": 100000,
   "IsRating": false,
-  "Tags": ["loot", "experience", "percent"]
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ]
+  }
 }

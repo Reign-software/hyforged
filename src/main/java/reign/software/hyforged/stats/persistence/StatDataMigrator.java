@@ -105,8 +105,8 @@ public final class StatDataMigrator {
         
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         
-        // Query ability scores by tag instead of hardcoding
-        for (StatId statId : registry.getStatIdsForTag("ability-score")) {
+        // Query ability scores by Type=ability-score tag
+        for (StatId statId : registry.getStatIdsForTagValue("Type", "ability-score")) {
             int statIndex = registry.getIndex(statId);
             if (statIndex >= 0 && component.getBaseValue(statIndex) == 0) {
                 component.setBaseValue(statIndex, DEFAULT_ABILITY_BASE);
@@ -129,8 +129,8 @@ public final class StatDataMigrator {
         boolean wasRepaired = false;
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
 
-        // Validate ability score base values - query by tag
-        for (StatId statId : registry.getStatIdsForTag("ability-score")) {
+        // Validate ability score base values - query by Type=ability-score tag
+        for (StatId statId : registry.getStatIdsForTagValue("Type", "ability-score")) {
             int statIndex = registry.getIndex(statId);
             if (statIndex < 0) continue;
             

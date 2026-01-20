@@ -7,7 +7,23 @@
   "MinValue": -10000,
   "MaxValue": 10000,
   "IsRating": false,
-  "Tags": ["offense", "speed", "spell", "percent", "derived"],
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "offense"
+    ],
+    "Type": [
+      "speed"
+    ],
+    "Mechanic": [
+      "spell"
+    ],
+    "Source": [
+      "derived"
+    ]
+  },
   "Scaling": [
     {
       "Type": "threshold",

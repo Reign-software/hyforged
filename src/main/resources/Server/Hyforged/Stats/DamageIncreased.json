@@ -7,5 +7,15 @@
   "MinValue": -10000,
   "MaxValue": 10000,
   "IsRating": false,
-  "Tags": ["offense", "damage", "percent"]
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "offense"
+    ],
+    "Type": [
+      "damage"
+    ]
+  }
 }

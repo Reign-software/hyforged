@@ -1,14 +1,15 @@
-﻿{
-    "Id":  "hyforged:max-curses",
-    "Category":  "aura",
-    "DisplayName":  "Maximum Curses",
-    "Description":  "Maximum number of curses you can inflict on an enemy.",
-    "DefaultValue":  1,
-    "MinValue":  0,
-    "MaxValue":  100,
-    "IsRating":  false,
-    "Tags":  [
-                 "utility",
-                 "curse"
-             ]
+{
+  "Id": "hyforged:max-curses",
+  "Category": "aura",
+  "DisplayName": "Maximum Curses",
+  "Description": "Maximum number of curses you can inflict on an enemy.",
+  "DefaultValue": 1,
+  "MinValue": 0,
+  "MaxValue": 100,
+  "IsRating": false,
+  "Tags": {
+    "Domain": [
+      "utility"
+    ]
+  }
 }

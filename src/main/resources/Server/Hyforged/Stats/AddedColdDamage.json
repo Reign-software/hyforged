@@ -7,5 +7,19 @@
   "MinValue": 0,
   "MaxValue": 2147483647,
   "IsRating": false,
-  "Tags": ["offense", "damage", "cold", "elemental", "flat"]
+  "Tags": {
+    "Modifier": [
+      "flat"
+    ],
+    "Domain": [
+      "offense"
+    ],
+    "Type": [
+      "damage"
+    ],
+    "Element": [
+      "cold",
+      "elemental"
+    ]
+  }
 }

@@ -1,5 +1,11 @@
 package reign.software.hyforged.stats;
 
+import com.hypixel.hytale.assetstore.AssetRegistry;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntSet;
+import it.unimi.dsi.fastutil.ints.IntSets;
 import reign.software.hyforged.stats.scaling.ScalingRule;
 
 import javax.annotation.Nonnull;
@@ -10,8 +16,10 @@ import java.util.logging.Logger;
 
 /**
  * Central registry for stat and category definitions.
- * Tags are simple strings - stats declare their tags, and the registry
- * builds tag-to-stat mappings automatically.
+ * <p>
+ * Tags use the Hytale {@link AssetRegistry} tag system for efficient integer-based
+ * lookups. Stats declare their tags as strings, which are converted to integer indices
+ * via {@link AssetRegistry#getOrCreateTagIndex(String)}.
  * <p>
  * This is NOT an ECS component - it's a static registry loaded at startup.
  * <p>
@@ -28,8 +36,8 @@ public final class StatDefinitionRegistry {
     private final List<StatDefinition> statsByIndex = new ArrayList<>();
     private final Map<String, Integer> fullIdToIndex = new ConcurrentHashMap<>();
     
-    // Reverse lookup: tag -> stats that have that tag (built from stats)
-    private final Map<String, Set<Integer>> tagToStatIndices = new ConcurrentHashMap<>();
+    // Reverse lookup: tagIndex -> stats that have that tag (uses Hytale AssetRegistry tag indices)
+    private final Int2ObjectMap<IntSet> tagIndexToStatIndices = new Int2ObjectOpenHashMap<>();
     
     // Reverse lookup: category -> stats in that category
     private final Map<String, Set<Integer>> categoryToStatIndices = new ConcurrentHashMap<>();
@@ -87,9 +95,10 @@ public final class StatDefinitionRegistry {
         statsByIndex.add(stat);
         fullIdToIndex.put(fullId, index);
         
-        // Register stat under its tags
+        // Register stat under its tags using Hytale's AssetRegistry tag system
         for (String tag : stat.tags()) {
-            tagToStatIndices.computeIfAbsent(tag, k -> new HashSet<>()).add(index);
+            int tagIndex = AssetRegistry.getOrCreateTagIndex(tag);
+            tagIndexToStatIndices.computeIfAbsent(tagIndex, k -> new IntOpenHashSet()).add(index);
         }
         
         // Register stat under its category
@@ -173,7 +182,7 @@ public final class StatDefinitionRegistry {
         buildEvaluationOrder();
         this.frozen = true;
         LOGGER.info("StatDefinitionRegistry frozen with " + statsByIndex.size() + " stats, " + 
-                tagToStatIndices.size() + " unique tags, and " + categoriesById.size() + " categories");
+                tagIndexToStatIndices.size() + " unique tags, and " + categoriesById.size() + " categories");
     }
     
     /**
@@ -312,20 +321,74 @@ public final class StatDefinitionRegistry {
     }
     
     /**
-     * Get all stat indices that have a given tag.
+     * Get the Hytale tag index for a tag string.
+     * Uses the global {@link AssetRegistry} tag system.
+     * 
+     * @param tag The tag string
+     * @return The tag index, or {@link Integer#MIN_VALUE} if not found
+     */
+    public int getTagIndex(@Nonnull String tag) {
+        return AssetRegistry.getTagIndex(tag);
+    }
+    
+    /**
+     * Get or create the Hytale tag index for a tag string.
+     * Uses the global {@link AssetRegistry} tag system.
+     * 
+     * @param tag The tag string
+     * @return The tag index (created if not existing)
+     */
+    public int getOrCreateTagIndex(@Nonnull String tag) {
+        return AssetRegistry.getOrCreateTagIndex(tag);
+    }
+    
+    /**
+     * Get all stat indices that have a given tag (by tag index).
+     * 
+     * @param tagIndex The Hytale tag index from {@link AssetRegistry}
+     * @return Unmodifiable set of stat indices with this tag
      */
     @Nonnull
-    public Set<Integer> getStatIndicesForTag(@Nonnull String tagId) {
-        Set<Integer> indices = tagToStatIndices.get(tagId);
-        return indices != null ? Collections.unmodifiableSet(indices) : Collections.emptySet();
+    public IntSet getStatIndicesForTagIndex(int tagIndex) {
+        IntSet indices = tagIndexToStatIndices.get(tagIndex);
+        return indices != null ? IntSets.unmodifiable(indices) : IntSets.EMPTY_SET;
+    }
+    
+    /**
+     * Get all stat indices that have a given tag (by tag string).
+     * Convenience method that resolves the tag to an index first.
+     * 
+     * @param tag The tag string
+     * @return Set of stat indices with this tag (empty if tag not found)
+     */
+    @Nonnull
+    public Set<Integer> getStatIndicesForTag(@Nonnull String tag) {
+        int tagIndex = AssetRegistry.getTagIndex(tag);
+        if (tagIndex == Integer.MIN_VALUE) {
+            return Collections.emptySet();
+        }
+        IntSet indices = tagIndexToStatIndices.get(tagIndex);
+        if (indices == null || indices.isEmpty()) {
+            return Collections.emptySet();
+        }
+        // Convert IntSet to Set<Integer> for compatibility
+        Set<Integer> result = new HashSet<>(indices.size());
+        for (int idx : indices) {
+            result.add(idx);
+        }
+        return result;
     }
     
     /**
      * Get all stats that have a given tag.
      */
     @Nonnull
-    public Collection<StatDefinition> getStatsForTag(@Nonnull String tagId) {
-        Set<Integer> indices = tagToStatIndices.get(tagId);
+    public Collection<StatDefinition> getStatsForTag(@Nonnull String tag) {
+        int tagIndex = AssetRegistry.getTagIndex(tag);
+        if (tagIndex == Integer.MIN_VALUE) {
+            return Collections.emptyList();
+        }
+        IntSet indices = tagIndexToStatIndices.get(tagIndex);
         if (indices == null || indices.isEmpty()) {
             return Collections.emptyList();
         }
@@ -343,8 +406,12 @@ public final class StatDefinitionRegistry {
      * Get all stat IDs that have a given tag.
      */
     @Nonnull
-    public List<StatId> getStatIdsForTag(@Nonnull String tagId) {
-        Set<Integer> indices = tagToStatIndices.get(tagId);
+    public List<StatId> getStatIdsForTag(@Nonnull String tag) {
+        int tagIndex = AssetRegistry.getTagIndex(tag);
+        if (tagIndex == Integer.MIN_VALUE) {
+            return Collections.emptyList();
+        }
+        IntSet indices = tagIndexToStatIndices.get(tagIndex);
         if (indices == null || indices.isEmpty()) {
             return Collections.emptyList();
         }
@@ -374,11 +441,25 @@ public final class StatDefinitionRegistry {
     }
     
     /**
-     * Get all unique tags (derived from stats).
+     * Get all unique tags used by stats.
+     * <p>
+     * Note: This iterates through all stats to collect tags. For performance-critical
+     * code, prefer working with tag indices directly via {@link #getTagIndex(String)}.
      */
     @Nonnull
     public Set<String> getAllTags() {
-        return Collections.unmodifiableSet(tagToStatIndices.keySet());
+        Set<String> allTags = new HashSet<>();
+        for (StatDefinition stat : statsByIndex) {
+            allTags.addAll(stat.tags());
+        }
+        return Collections.unmodifiableSet(allTags);
+    }
+    
+    /**
+     * Get the number of unique tag indices registered for stats.
+     */
+    public int getTagCount() {
+        return tagIndexToStatIndices.size();
     }
     
     /**
@@ -441,9 +522,75 @@ public final class StatDefinitionRegistry {
     
     /**
      * Check if a tag exists (has any stats using it).
+     * <p>
+     * This checks for the exact tag string. For hierarchical tags, you can use:
+     * <ul>
+     *   <li>{@code hasTag("fire")} - matches any stat with "fire" as a tag value</li>
+     *   <li>{@code hasTag("Element=fire")} - matches only stats with {@code "Element": ["fire"]}</li>
+     *   <li>{@code hasTag("Element")} - matches any stat with an Element category</li>
+     * </ul>
+     * 
+     * @see #hasTagValue(String, String) for a cleaner category-based API
      */
     public boolean hasTag(@Nonnull String tag) {
-        return tagToStatIndices.containsKey(tag);
+        int tagIndex = AssetRegistry.getTagIndex(tag);
+        return tagIndex != Integer.MIN_VALUE && tagIndexToStatIndices.containsKey(tagIndex);
+    }
+    
+    /**
+     * Check if any stat has a specific value in a tag category.
+     * <p>
+     * For example: {@code hasTagValue("Type", "resistance")} checks if any stat
+     * has {@code "Type": ["resistance", ...]} in its tag definition.
+     * 
+     * @param category The tag category (e.g., "Type", "Element", "Domain")
+     * @param value The value to check for within that category
+     * @return true if any stat has this category=value combination
+     */
+    public boolean hasTagValue(@Nonnull String category, @Nonnull String value) {
+        return hasTag(category + "=" + value);
+    }
+    
+    /**
+     * Get all stats that have a specific value in a tag category.
+     * <p>
+     * For example: {@code getStatsForTagValue("Type", "resistance")} returns all stats
+     * with {@code "Type": ["resistance", ...]} in their tag definition.
+     * 
+     * @param category The tag category (e.g., "Type", "Element", "Domain")
+     * @param value The value to match within that category
+     * @return Collection of matching stat definitions
+     */
+    @Nonnull
+    public Collection<StatDefinition> getStatsForTagValue(@Nonnull String category, @Nonnull String value) {
+        return getStatsForTag(category + "=" + value);
+    }
+    
+    /**
+     * Get all stat indices that have a specific value in a tag category.
+     * <p>
+     * For example: {@code getStatIndicesForTagValue("Type", "resistance")} returns indices
+     * of all stats with {@code "Type": ["resistance", ...]} in their tag definition.
+     * 
+     * @param category The tag category (e.g., "Type", "Element", "Domain")
+     * @param value The value to match within that category
+     * @return Set of matching stat indices
+     */
+    @Nonnull
+    public Set<Integer> getStatIndicesForTagValue(@Nonnull String category, @Nonnull String value) {
+        return getStatIndicesForTag(category + "=" + value);
+    }
+    
+    /**
+     * Get all stat IDs that have a specific value in a tag category.
+     * 
+     * @param category The tag category (e.g., "Type", "Element", "Domain")
+     * @param value The value to match within that category
+     * @return List of matching stat IDs
+     */
+    @Nonnull
+    public List<StatId> getStatIdsForTagValue(@Nonnull String category, @Nonnull String value) {
+        return getStatIdsForTag(category + "=" + value);
     }
     
     // ========== Dependency Graph Methods ==========

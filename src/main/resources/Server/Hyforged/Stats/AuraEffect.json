@@ -1,15 +1,21 @@
-﻿{
-    "Id":  "hyforged:aura-effect-bps",
-    "Category":  "aura",
-    "DisplayName":  "Aura Effect",
-    "Description":  "Increased effect of auras you cast.",
-    "DefaultValue":  0,
-    "MinValue":  -10000,
-    "MaxValue":  100000,
-    "IsRating":  false,
-    "Tags":  [
-                 "utility",
-                 "aura",
-                 "percent"
-             ]
+{
+  "Id": "hyforged:aura-effect-bps",
+  "Category": "aura",
+  "DisplayName": "Aura Effect",
+  "Description": "Increased effect of auras you cast.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 100000,
+  "IsRating": false,
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "utility"
+    ],
+    "Mechanic": [
+      "aura"
+    ]
+  }
 }

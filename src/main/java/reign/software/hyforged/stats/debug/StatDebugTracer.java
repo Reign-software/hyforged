@@ -259,9 +259,8 @@ public final class StatDebugTracer {
         for (StatModifier mod : component.getModifiers()) {
             if (mod.targetStatIndex() == statIndex) {
                 applicable.add(mod);
-            } else if (mod.targetTagId() != null) {
-                if (statDef.tags().contains(mod.targetTagId()) ||
-                    registry.getStatIndicesForTag(mod.targetTagId()).contains(statIndex)) {
+            } else if (mod.targetTagIndex() != StatModifier.NO_TAG) {
+                if (registry.getStatIndicesForTagIndex(mod.targetTagIndex()).contains(statIndex)) {
                     applicable.add(mod);
                 }
             }
@@ -282,8 +281,8 @@ public final class StatDebugTracer {
     private static String formatModifierCompact(@Nonnull StatModifier mod) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         String targetName;
-        if (mod.targetTagId() != null) {
-            targetName = "tag:" + mod.targetTagId();
+        if (mod.targetTagIndex() != StatModifier.NO_TAG) {
+            targetName = "tagIndex:" + mod.targetTagIndex();
         } else if (mod.targetStatIndex() >= 0) {
             StatDefinition def = registry.getStat(mod.targetStatIndex());
             targetName = def != null ? def.id().toString() : "index:" + mod.targetStatIndex();

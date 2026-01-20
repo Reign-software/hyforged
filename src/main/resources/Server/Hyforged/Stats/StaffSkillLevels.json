@@ -7,5 +7,19 @@
   "MinValue": -100,
   "MaxValue": 100,
   "IsRating": false,
-  "Tags": ["skill", "skill-level", "staff", "melee", "spell"]
+  "Tags": {
+    "Domain": [
+      "skill"
+    ],
+    "Type": [
+      "skill-level"
+    ],
+    "Mechanic": [
+      "melee",
+      "spell"
+    ],
+    "Weapon": [
+      "staff"
+    ]
+  }
 }

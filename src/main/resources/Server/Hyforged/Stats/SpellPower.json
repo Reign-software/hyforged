@@ -7,7 +7,17 @@
   "MinValue": 0,
   "MaxValue": 2147483647,
   "IsRating": false,
-  "Tags": ["offense", "spell", "derived"],
+  "Tags": {
+    "Domain": [
+      "offense"
+    ],
+    "Mechanic": [
+      "spell"
+    ],
+    "Source": [
+      "derived"
+    ]
+  },
   "Scaling": [
     {
       "Type": "linear",

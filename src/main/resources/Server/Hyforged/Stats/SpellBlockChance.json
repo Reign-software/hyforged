@@ -7,5 +7,15 @@
   "MinValue": 0,
   "MaxValue": 7500,
   "IsRating": false,
-  "Tags": ["defense", "block", "spell", "percent"]
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "defense"
+    ],
+    "Mechanic": [
+      "spell"
+    ]
+  }
 }

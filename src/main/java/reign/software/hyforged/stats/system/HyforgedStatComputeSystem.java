@@ -13,6 +13,7 @@ import com.hypixel.hytale.component.system.tick.EntityTickingSystem;
 import com.hypixel.hytale.event.IEventDispatcher;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import it.unimi.dsi.fastutil.ints.IntSet;
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
@@ -307,17 +308,12 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
             return true;
         }
         
-        // Tag targeting
-        String tagId = mod.targetTagId();
-        if (tagId != null) {
-            // Check if this stat is affected by the tag
-            Set<Integer> affectedStats = registry.getStatIndicesForTag(tagId);
+        // Tag targeting (using Hytale AssetRegistry integer indices)
+        int tagIndex = mod.targetTagIndex();
+        if (tagIndex != StatModifier.NO_TAG) {
+            // Check if this stat is affected by the tag (using integer index for O(1) lookup)
+            IntSet affectedStats = registry.getStatIndicesForTagIndex(tagIndex);
             if (affectedStats.contains(statIdx)) {
-                return true;
-            }
-            
-            // Also check if the stat has this tag in its definition
-            if (statDef.tags().contains(tagId)) {
                 return true;
             }
         }
@@ -344,8 +340,9 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
         if (modifier.targetStatIndex() >= 0) {
             component.markStatDirty(modifier.targetStatIndex());
         }
-        if (modifier.targetTagId() != null) {
-            for (int statIdx : registry.getStatIndicesForTag(modifier.targetTagId())) {
+        int tagIndex = modifier.targetTagIndex();
+        if (tagIndex != StatModifier.NO_TAG) {
+            for (int statIdx : registry.getStatIndicesForTagIndex(tagIndex)) {
                 component.markStatDirty(statIdx);
             }
         }

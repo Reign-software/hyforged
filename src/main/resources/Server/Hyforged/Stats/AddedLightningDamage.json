@@ -7,5 +7,19 @@
   "MinValue": 0,
   "MaxValue": 2147483647,
   "IsRating": false,
-  "Tags": ["offense", "damage", "lightning", "elemental", "flat"]
+  "Tags": {
+    "Modifier": [
+      "flat"
+    ],
+    "Domain": [
+      "offense"
+    ],
+    "Type": [
+      "damage"
+    ],
+    "Element": [
+      "lightning",
+      "elemental"
+    ]
+  }
 }

@@ -1,17 +1,27 @@
-﻿{
-    "Id":  "hyforged:poison-chance-bps",
-    "Category":  "ailment",
-    "DisplayName":  "Poison Chance",
-    "Description":  "Chance to poison enemies on hit.",
-    "DefaultValue":  0,
-    "MinValue":  0,
-    "MaxValue":  10000,
-    "IsRating":  false,
-    "Tags":  [
-                 "offense",
-                 "ailment",
-                 "poison",
-                 "chaos",
-                 "percent"
-             ]
+{
+  "Id": "hyforged:poison-chance-bps",
+  "Category": "ailment",
+  "DisplayName": "Poison Chance",
+  "Description": "Chance to poison enemies on hit.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "offense"
+    ],
+    "Type": [
+      "ailment"
+    ],
+    "Element": [
+      "chaos"
+    ],
+    "Ailment": [
+      "poison"
+    ]
+  }
 }

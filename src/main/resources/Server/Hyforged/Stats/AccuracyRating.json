@@ -7,7 +7,17 @@
   "MinValue": -2147483648,
   "MaxValue": 2147483647,
   "IsRating": true,
-  "Tags": ["offense", "rating", "derived"],
+  "Tags": {
+    "Domain": [
+      "offense"
+    ],
+    "Type": [
+      "rating"
+    ],
+    "Source": [
+      "derived"
+    ]
+  },
   "Scaling": [
     {
       "Type": "linear",

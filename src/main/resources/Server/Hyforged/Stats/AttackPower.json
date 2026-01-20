@@ -7,7 +7,20 @@
   "MinValue": 0,
   "MaxValue": 2147483647,
   "IsRating": false,
-  "Tags": ["offense", "attack", "derived"],
+  "Tags": {
+    "Domain": [
+      "offense"
+    ],
+    "Type": [
+      "attack"
+    ],
+    "Mechanic": [
+      "attack"
+    ],
+    "Source": [
+      "derived"
+    ]
+  },
   "Scaling": [
     {
       "Type": "linear",

@@ -7,5 +7,10 @@
   "MinValue": 0,
   "MaxValue": 1000,
   "IsRating": false,
-  "Tags": ["resources", "rage"]
+  "Tags": {
+    "Resource": "rage",
+    "Domain": [
+      "resource"
+    ]
+  }
 }

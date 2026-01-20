@@ -6,9 +6,10 @@
 - ADR-0002: Extend Hytale Modifier System (2026-01-19) — Accepted
 - ADR-0003: Data-Driven Stat and Tag Definitions (2026-01-19) — Superseded by ADR-0005
 - ADR-0004: Data-Driven Category Definitions (2026-01-19) — Accepted
-- ADR-0005: Tags as Simple Strings (2026-01-19) — Accepted
+- ADR-0005: Tags as Simple Strings (2026-01-19) — Superseded by ADR-0008
 - ADR-0006: Replace Hytale Stat/Damage Systems for Exclusive Hyforged Control (2026-01-20) — Accepted
 - ADR-0007: Data-Driven Damage Type Extensions (2026-01-20) — Accepted
+- ADR-0008: Use Hytale AssetRegistry Tag System (2026-01-20) — Accepted
 
 
 ## ADR Template
@@ -373,3 +374,89 @@
 #### Links
 - Related ADR: ADR-0006 (Hyforged damage system replacement)
 - Asset path: `Server/Hyforged/Damage/`
+
+---
+
+### ADR-0008: Use Hytale AssetRegistry Tag System
+- Date: 2026-01-20
+- Status: Accepted
+- Deciders: JBurl
+
+#### Context
+- ADR-0005 established tags as simple strings declared in stat definitions.
+- Hyforged implemented its own tag-to-stat mapping using `Map<String, Set<Integer>>`.
+- `StatModifier` used `String targetTagId` to target stats by tag.
+- Investigation revealed Hytale already has a robust tag system:
+  - `AssetRegistry.getOrCreateTagIndex(String)`: Global tag index registration returning `int`
+  - `AssetExtraInfo.Data.getExpandedTagIndexes()`: Returns `IntSet` for O(1) membership tests
+  - `TagSet` interface for composable tag groups with include/exclude and glob patterns
+  - `TagSetLookupTable` for flattening tag hierarchies into efficient int sets
+- Hytale's tag system is used throughout items, blocks, NPCs (e.g., `NPCGroup`).
+- Hytale items use hierarchical tag format: `{"Type": ["Weapon"], "Family": ["Axe"]}`.
+- Using integer indices avoids string comparisons and enables O(1) lookups.
+
+#### Decision
+- **Integrate fully with Hytale's tag system** including both the integer indices AND the hierarchical JSON format.
+
+**Phase 1: Integer Indices (completed)**
+- `StatDefinitionRegistry`:
+  - Register stat tags via `AssetRegistry.getOrCreateTagIndex(String)` during stat loading
+  - Store `Int2ObjectMap<IntSet> tagIndexToStatIndices` for tag-to-stat reverse lookup
+  - Add `getStatIndicesForTagIndex(int tagIndex)` returning `IntSet`
+- `StatModifier`:
+  - Change `targetTagId` (String) to `targetTagIndex` (int)
+  - Use sentinel `NO_TAG = Integer.MIN_VALUE`
+
+**Phase 2: Hierarchical JSON Format (completed)**
+- `StatDefinitionAsset`:
+  - Change tags codec from `Codec.STRING_ARRAY` to `MapCodec<>(Codec.STRING_ARRAY, HashMap::new)`
+  - Store `Map<String, String[]> rawTags` instead of `String[] tags`
+  - Add `getExpandedTags()` method that flattens hierarchical tags following Hytale's pattern
+- Stat JSON files:
+  - Convert from: `"Tags": ["offense", "fire", "damage"]`
+  - Convert to: `"Tags": {"Domain": ["offense"], "Element": ["fire"], "Type": ["damage"]}`
+- Tag expansion follows Hytale's `AssetExtraInfo.Data.putTags()` pattern:
+  - Category key becomes a tag: `Domain`
+  - Each value becomes a tag: `offense`
+  - Category=Value becomes a tag: `Domain=offense`
+
+#### Tag Categories
+Standard categories established for stat definitions:
+| Category | Values | Purpose |
+|----------|--------|---------|
+| `Domain` | offense, defense, resource, utility, attributes | Primary classification |
+| `Element` | physical, fire, cold, lightning, chaos, elemental | Damage/resistance element |
+| `Type` | damage, resistance, rating, ability-score, speed, etc. | Stat function |
+| `Modifier` | flat, percent, more | Application method |
+| `Source` | derived, base | Value origin |
+| `Mechanic` | attack, spell, projectile, melee, minion, etc. | Usage mechanism |
+| `Resource` | health, mana, stamina, rage | Affected resource |
+| `Ailment` | bleed, poison, ignite, chill, shock, freeze | Ailment type |
+| `Weapon` | sword, axe, mace, dagger, bow, etc. | Weapon affinity |
+
+#### Consequences
+- Pros:
+  - Fully aligns with Hytale's engine patterns (same format as items/blocks)
+  - O(1) integer-based lookups with FastUtil `IntSet`
+  - Shared tag namespace with Hytale assets
+  - Hierarchical tags enable flexible querying (by category, value, or combination)
+  - `Element=fire` can target specific elements without matching all `elemental` stats
+- Cons:
+  - Breaking change for existing stat JSON files (all must be converted)
+  - Slightly more verbose JSON format
+  - Debug output shows tag indices (can add reverse lookup if needed)
+
+#### Files Changed
+- `StatDefinitionAsset`: MapCodec for tags, `getExpandedTags()` method
+- `StatDefinitionRegistry`: Added `Int2ObjectMap<IntSet>`, integrated `AssetRegistry`
+- `StatModifier`: Changed `targetTagId` (String) to `targetTagIndex` (int)
+- `ConditionalStatModifier`: Updated delegation method
+- `HyforgedStatComputeSystem`: Use `getStatIndicesForTagIndex(int)` and `IntSet`
+- `HyforgedStatQueryService`: Use integer-based tag matching
+- `HyforgedStatComponent`: Use `targetTagIndex` for dirty marking
+- All 171 stat JSON files: Converted to hierarchical tag format
+
+#### Links
+- Supersedes: ADR-0005 (Tags as Simple Strings)
+- Hytale API: `AssetRegistry.getOrCreateTagIndex()`, `AssetExtraInfo.Data.putTags()`
+- Hytale: `TagSet`, `TagSetLookupTable`, `NPCGroup`

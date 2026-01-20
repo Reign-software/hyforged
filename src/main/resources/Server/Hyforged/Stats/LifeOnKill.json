@@ -7,5 +7,10 @@
   "MinValue": 0,
   "MaxValue": 2147483647,
   "IsRating": false,
-  "Tags": ["recovery", "health"]
+  "Tags": {
+    "Resource": "health",
+    "Type": [
+      "resource"
+    ]
+  }
 }

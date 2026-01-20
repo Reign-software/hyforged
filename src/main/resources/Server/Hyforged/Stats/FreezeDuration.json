@@ -1,18 +1,27 @@
-﻿{
-    "Id":  "hyforged:freeze-duration-bps",
-    "Category":  "ailment",
-    "DisplayName":  "Freeze Duration",
-    "Description":  "Increased freeze duration.",
-    "DefaultValue":  0,
-    "MinValue":  -10000,
-    "MaxValue":  10000,
-    "IsRating":  false,
-    "Tags":  [
-                 "utility",
-                 "ailment",
-                 "cold",
-                 "freeze",
-                 "duration",
-                 "percent"
-             ]
+{
+  "Id": "hyforged:freeze-duration-bps",
+  "Category": "ailment",
+  "DisplayName": "Freeze Duration",
+  "Description": "Increased freeze duration.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "utility"
+    ],
+    "Type": [
+      "ailment"
+    ],
+    "Element": [
+      "cold"
+    ],
+    "Ailment": [
+      "freeze"
+    ]
+  }
 }

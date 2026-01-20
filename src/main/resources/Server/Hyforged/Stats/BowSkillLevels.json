@@ -7,5 +7,18 @@
   "MinValue": -100,
   "MaxValue": 100,
   "IsRating": false,
-  "Tags": ["skill", "skill-level", "bow", "ranged"]
+  "Tags": {
+    "Domain": [
+      "skill"
+    ],
+    "Type": [
+      "skill-level"
+    ],
+    "Mechanic": [
+      "ranged"
+    ],
+    "Weapon": [
+      "bow"
+    ]
+  }
 }

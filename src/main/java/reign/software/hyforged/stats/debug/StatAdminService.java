@@ -89,10 +89,10 @@ public final class StatAdminService {
         sb.append(String.format("Entity Index: %d\n", entityIndex));
         sb.append(String.format("Schema Version: %d\n", HyforgedStatComponent.SCHEMA_VERSION));
         
-        // Base Values (Ability Scores) - query by tag
+        // Base Values (Ability Scores) - query by Type=ability-score tag
         sb.append("\n--- Base Values (Ability Scores) ---\n");
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-        for (StatId statId : registry.getStatIdsForTag("ability-score")) {
+        for (StatId statId : registry.getStatIdsForTagValue("Type", "ability-score")) {
             StatDefinition stat = registry.getStat(statId);
             String displayName = stat != null ? stat.displayName() : statId.name();
             int statIndex = registry.getIndex(statId);
@@ -166,8 +166,8 @@ public final class StatAdminService {
     private static String formatModifierLine(StatModifier mod) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         String targetName;
-        if (mod.targetTagId() != null) {
-            targetName = "tag:" + mod.targetTagId();
+        if (mod.targetTagIndex() != StatModifier.NO_TAG) {
+            targetName = "tagIndex:" + mod.targetTagIndex();
         } else if (mod.targetStatIndex() >= 0) {
             StatDefinition def = registry.getStat(mod.targetStatIndex());
             targetName = def != null ? def.id().toString() : "idx:" + mod.targetStatIndex();

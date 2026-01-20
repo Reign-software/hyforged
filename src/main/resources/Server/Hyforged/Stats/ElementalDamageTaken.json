@@ -7,5 +7,15 @@
   "MinValue": -10000,
   "MaxValue": 10000,
   "IsRating": false,
-  "Tags": ["defense", "damage-taken", "elemental", "percent"]
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "defense"
+    ],
+    "Element": [
+      "elemental"
+    ]
+  }
 }

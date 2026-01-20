@@ -7,5 +7,18 @@
   "MinValue": -100,
   "MaxValue": 100,
   "IsRating": false,
-  "Tags": ["skill", "skill-level", "axe", "melee"]
+  "Tags": {
+    "Domain": [
+      "skill"
+    ],
+    "Type": [
+      "skill-level"
+    ],
+    "Mechanic": [
+      "melee"
+    ],
+    "Weapon": [
+      "axe"
+    ]
+  }
 }

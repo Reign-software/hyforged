@@ -1,15 +1,21 @@
-﻿{
-    "Id":  "hyforged:crit-multiplier-bps",
-    "Category":  "critical",
-    "DisplayName":  "Critical Multiplier",
-    "Description":  "Critical hit damage multiplier.",
-    "DefaultValue":  1500,
-    "MinValue":  -10000,
-    "MaxValue":  10000,
-    "IsRating":  false,
-    "Tags":  [
-                 "offense",
-                 "critical",
-                 "percent"
-             ]
+{
+  "Id": "hyforged:crit-multiplier-bps",
+  "Category": "critical",
+  "DisplayName": "Critical Multiplier",
+  "Description": "Critical hit damage multiplier.",
+  "DefaultValue": 1500,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "offense"
+    ],
+    "Type": [
+      "critical"
+    ]
+  }
 }

@@ -7,7 +7,18 @@
   "MinValue": 0,
   "MaxValue": 2147483647,
   "IsRating": false,
-  "Tags": ["resources", "stamina", "derived"],
+  "Tags": {
+    "Domain": [
+      "resource"
+    ],
+    "Type": [
+      "resource"
+    ],
+    "Resource": "stamina",
+    "Source": [
+      "derived"
+    ]
+  },
   "Scaling": [
     {
       "Type": "linear",

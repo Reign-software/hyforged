@@ -7,5 +7,12 @@
   "MinValue": -100,
   "MaxValue": 100,
   "IsRating": false,
-  "Tags": ["skill", "skill-level", "global"]
+  "Tags": {
+    "Type": [
+      "skill-level"
+    ],
+    "Domain": [
+      "skill"
+    ]
+  }
 }

@@ -68,7 +68,10 @@ Create a JSON file in `Server/<YourMod>/Stats/<StatName>.json`:
   "MinValue": 0,
   "MaxValue": 10000,
   "IsRating": false,
-  "Tags": ["offense", "custom"]
+  "Tags": {
+    "Domain": ["offense"],
+    "Type": ["damage"]
+  }
 }
 ```
 
@@ -89,7 +92,7 @@ Create a JSON file in `Server/<YourMod>/Stats/<StatName>.json`:
 | `MinValue` | int | `0` | Minimum allowed value |
 | `MaxValue` | int | `MAX_INT` | Maximum allowed value |
 | `IsRating` | bool | `false` | Whether this stat uses rating-to-effectiveness conversion |
-| `Tags` | string[] | `[]` | Tags for group targeting |
+| `Tags` | object | `{}` | Hierarchical tags using Hytale's format `{"Category": ["Value"]}` |
 
 ### Categories
 
@@ -245,16 +248,54 @@ stats.removeExpiredModifiers(currentTick);
 
 ## Tags and Tag Targeting
 
-Tags allow modifiers to affect multiple stats at once.
+Tags allow modifiers to affect multiple stats at once. The Hyforged stat system integrates with Hytale's global `AssetRegistry` tag system, meaning stat tags share the same namespace as item, block, and NPC tags.
+
+### How Tags Work
+
+Tags use Hytale's hierarchical format `{"Category": ["Value1", "Value2"]}`. When a stat is loaded, each tag entry is automatically expanded into multiple searchable tags:
+
+- The **category key** itself (e.g., `"Domain"`)
+- Each **value** in the array (e.g., `"offense"`)
+- The **category=value** combination (e.g., `"Domain=offense"`)
+
+This provides:
+- **Shared namespace**: Your stat tags can match item/block tags used elsewhere in the game
+- **Integer indices**: Fast O(1) lookups using integer indices instead of string comparisons
+- **Flexible queries**: Match by category, value, or specific combinations
 
 ### Defining Tags in JSON
 
 ```json
 {
   "Id": "yourmod:fire-damage-flat",
-  "Tags": ["offense", "elemental", "fire", "damage"]
+  "Tags": {
+    "Domain": ["offense"],
+    "Type": ["damage"],
+    "Element": ["fire", "elemental"],
+    "Modifier": ["flat"]
+  }
 }
 ```
+
+This expands to these searchable tags:
+- `Domain`, `offense`, `Domain=offense`
+- `Type`, `damage`, `Type=damage`
+- `Element`, `fire`, `elemental`, `Element=fire`, `Element=elemental`
+- `Modifier`, `flat`, `Modifier=flat`
+
+### Standard Tag Categories
+
+| Category | Values | Description |
+|----------|--------|-------------|
+| `Domain` | `offense`, `defense`, `resource`, `utility`, `attributes` | Primary functional classification |
+| `Element` | `physical`, `fire`, `cold`, `lightning`, `chaos`, `elemental` | Damage/resistance element |
+| `Type` | `damage`, `resistance`, `rating`, `ability-score`, `speed`, `critical`, etc. | What the stat represents |
+| `Modifier` | `flat`, `percent`, `more` | How the stat applies |
+| `Source` | `derived`, `base` | Origin of the stat value |
+| `Mechanic` | `attack`, `spell`, `projectile`, `melee`, `ranged`, `minion`, etc. | Usage mechanism |
+| `Resource` | `health`, `mana`, `stamina`, `rage` | Which resource it affects |
+| `Ailment` | `bleed`, `poison`, `ignite`, `chill`, `shock`, `freeze` | Specific ailment type |
+| `Weapon` | `sword`, `axe`, `mace`, `dagger`, `bow`, etc. | Weapon type affinity |
 
 ### Targeting a Tag
 
@@ -263,22 +304,27 @@ Tags allow modifiers to affect multiple stats at once.
 StatModifier elementalBonus = new StatModifier.Builder("fire-mastery")
     .sourceType(ModifierSource.PASSIVE)
     .modifierType(ModifierType.INCREASED)
-    .targetTag("elemental")  // Affects all stats with this tag
+    .targetTag("elemental")  // Matches any stat with "elemental" in expanded tags
     .value(1000)             // +10%
     .build();
+
+// Target a specific category=value combination
+StatModifier fireOnlyBonus = new StatModifier.Builder("fire-affinity")
+    .sourceType(ModifierSource.PASSIVE)
+    .modifierType(ModifierType.INCREASED)
+    .targetTag("Element=fire")  // Only stats with Element: ["fire"]
+    .value(1500)
+    .build();
+
+// Or use a pre-resolved tag index for performance in hot paths
+int elementalTagIndex = AssetRegistry.getOrCreateTagIndex("elemental");
+StatModifier fastBonus = new StatModifier.Builder("fire-mastery")
+    .sourceType(ModifierSource.PASSIVE)
+    .modifierType(ModifierType.INCREASED)
+    .targetTagIndex(elementalTagIndex)  // Direct integer index
+    .value(1000)
+    .build();
 ```
-
-### Common Tags
-
-| Tag | Used For |
-|-----|----------|
-| `offense` | All offensive stats |
-| `defense` | All defensive stats |
-| `elemental` | All elemental damage/resistance |
-| `fire`, `cold`, `lightning`, `poison` | Specific elements |
-| `physical` | Physical damage/defense |
-| `rating` | Stats using rating curves |
-| `percent` | Stats displayed as percentages |
 
 ---
 

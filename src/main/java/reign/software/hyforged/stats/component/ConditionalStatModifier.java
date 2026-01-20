@@ -88,9 +88,12 @@ public record ConditionalStatModifier(
         return modifier.targetStatIndex();
     }
     
-    @Nullable
-    public String targetTagId() {
-        return modifier.targetTagId();
+    /**
+     * Get the target tag index from the underlying modifier.
+     * @return The tag index, or {@link StatModifier#NO_TAG} if not targeting a tag
+     */
+    public int targetTagIndex() {
+        return modifier.targetTagIndex();
     }
     
     public int value() {

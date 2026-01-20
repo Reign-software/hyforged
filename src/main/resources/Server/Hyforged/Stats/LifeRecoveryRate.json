@@ -1,16 +1,19 @@
-﻿{
-    "Id":  "hyforged:life-recovery-rate-bps",
-    "Category":  "recovery",
-    "DisplayName":  "Life Recovery Rate",
-    "Description":  "Increased rate of life recovery from all sources (regen, leech, flasks).",
-    "DefaultValue":  0,
-    "MinValue":  -10000,
-    "MaxValue":  10000,
-    "IsRating":  false,
-    "Tags":  [
-                 "defense",
-                 "life",
-                 "recovery",
-                 "percent"
-             ]
+{
+  "Id": "hyforged:life-recovery-rate-bps",
+  "Category": "recovery",
+  "DisplayName": "Life Recovery Rate",
+  "Description": "Increased rate of life recovery from all sources (regen, leech, flasks).",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "defense"
+    ],
+    "Resource": "health"
+  }
 }

@@ -1,24 +1,29 @@
-﻿{
-    "Id":  "hyforged:item-quantity-increased-bps",
-    "Category":  "loot",
-    "DisplayName":  "Item Quantity",
-    "Description":  "Increased item quantity find. Scales with Luck.",
-    "DefaultValue":  0,
-    "MinValue":  -10000,
-    "MaxValue":  10000,
-    "IsRating":  false,
-    "Tags":  [
-                 "utility",
-                 "loot",
-                 "percent",
-                 "derived"
-             ],
-    "Scaling":  [
-                    {
-                        "Type":  "threshold",
-                        "Source":  "hyforged:luck",
-                        "PerPoints":  2,
-                        "BonusBps":  10
-                    }
-                ]
+{
+  "Id": "hyforged:item-quantity-increased-bps",
+  "Category": "loot",
+  "DisplayName": "Item Quantity",
+  "Description": "Increased item quantity find. Scales with Luck.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "utility"
+    ],
+    "Source": [
+      "derived"
+    ]
+  },
+  "Scaling": [
+    {
+      "Type": "threshold",
+      "Source": "hyforged:luck",
+      "PerPoints": 2,
+      "BonusBps": 10
+    }
+  ]
 }

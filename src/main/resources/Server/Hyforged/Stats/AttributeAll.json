@@ -7,5 +7,12 @@
   "MinValue": -999,
   "MaxValue": 999,
   "IsRating": false,
-  "Tags": ["attributes", "ability-score", "all"]
+  "Tags": {
+    "Type": [
+      "ability-score"
+    ],
+    "Domain": [
+      "attributes"
+    ]
+  }
 }
