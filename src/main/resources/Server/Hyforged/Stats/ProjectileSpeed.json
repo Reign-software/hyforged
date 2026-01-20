@@ -1,11 +1,15 @@
-{
-  "Id": "hyforged:projectile-speed-bps",
-  "Category": "utility",
-  "DisplayName": "Projectile Speed",
-  "Description": "Increased projectile speed.",
-  "DefaultValue": 0,
-  "MinValue": -10000,
-  "MaxValue": 10000,
-  "IsRating": false,
-  "Tags": ["utility", "projectile", "percent"]
+﻿{
+    "Id":  "hyforged:projectile-speed-bps",
+    "Category":  "projectile",
+    "DisplayName":  "Projectile Speed",
+    "Description":  "Increased projectile speed.",
+    "DefaultValue":  0,
+    "MinValue":  -10000,
+    "MaxValue":  10000,
+    "IsRating":  false,
+    "Tags":  [
+                 "utility",
+                 "projectile",
+                 "percent"
+             ]
 }

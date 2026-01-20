@@ -1,6 +1,6 @@
 {
   "Id": "utility",
   "DisplayName": "Utility",
-  "Description": "Miscellaneous stats like cooldown recovery and item find",
-  "SortOrder": 6
+  "Description": "Movement speed, cooldowns, area of effect, and skill costs",
+  "SortOrder": 15
 }

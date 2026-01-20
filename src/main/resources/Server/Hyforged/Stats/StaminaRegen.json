@@ -1,11 +1,15 @@
-{
-  "Id": "hyforged:stamina-regen-flat",
-  "Category": "resource",
-  "DisplayName": "Stamina Regen",
-  "Description": "Stamina regenerated per second.",
-  "DefaultValue": 5,
-  "MinValue": 0,
-  "MaxValue": 2147483647,
-  "IsRating": false,
-  "Tags": ["resources", "stamina", "regeneration"]
+﻿{
+    "Id":  "hyforged:stamina-regen-flat",
+    "Category":  "recovery",
+    "DisplayName":  "Stamina Regen",
+    "Description":  "Stamina regenerated per second.",
+    "DefaultValue":  5,
+    "MinValue":  0,
+    "MaxValue":  2147483647,
+    "IsRating":  false,
+    "Tags":  [
+                 "resources",
+                 "stamina",
+                 "regeneration"
+             ]
 }

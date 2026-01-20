@@ -1,19 +1,24 @@
-{
-  "Id": "hyforged:health-regen-flat",
-  "Category": "resource",
-  "DisplayName": "Health Regen",
-  "Description": "Health regenerated per second. Scales with Constitution.",
-  "DefaultValue": 1,
-  "MinValue": 0,
-  "MaxValue": 2147483647,
-  "IsRating": false,
-  "Tags": ["resources", "health", "regeneration", "derived"],
-  "Scaling": [
-    {
-      "Type": "threshold",
-      "Source": "hyforged:constitution",
-      "PerPoints": 10,
-      "BonusBps": 1
-    }
-  ]
+﻿{
+    "Id":  "hyforged:health-regen-flat",
+    "Category":  "recovery",
+    "DisplayName":  "Health Regen",
+    "Description":  "Health regenerated per second. Scales with Constitution.",
+    "DefaultValue":  1,
+    "MinValue":  0,
+    "MaxValue":  2147483647,
+    "IsRating":  false,
+    "Tags":  [
+                 "resources",
+                 "health",
+                 "regeneration",
+                 "derived"
+             ],
+    "Scaling":  [
+                    {
+                        "Type":  "threshold",
+                        "Source":  "hyforged:constitution",
+                        "PerPoints":  10,
+                        "BonusBps":  1
+                    }
+                ]
 }

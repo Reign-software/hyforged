@@ -1,11 +1,17 @@
-{
-  "Id": "hyforged:lightning-damage-increased-bps",
-  "Category": "elemental",
-  "DisplayName": "Lightning Damage",
-  "Description": "Increased lightning damage.",
-  "DefaultValue": 0,
-  "MinValue": -10000,
-  "MaxValue": 10000,
-  "IsRating": false,
-  "Tags": ["offense", "damage", "elemental", "lightning", "percent"]
+﻿{
+    "Id":  "hyforged:lightning-damage-increased-bps",
+    "Category":  "offense",
+    "DisplayName":  "Lightning Damage",
+    "Description":  "Increased lightning damage.",
+    "DefaultValue":  0,
+    "MinValue":  -10000,
+    "MaxValue":  10000,
+    "IsRating":  false,
+    "Tags":  [
+                 "offense",
+                 "damage",
+                 "elemental",
+                 "lightning",
+                 "percent"
+             ]
 }

@@ -1,6 +1,6 @@
 {
   "Id": "resource",
   "DisplayName": "Resources",
-  "Description": "Vital resources like health, mana, and stamina",
+  "Description": "Health, mana, stamina, energy shield, ward, and concentration pools",
   "SortOrder": 1
 }

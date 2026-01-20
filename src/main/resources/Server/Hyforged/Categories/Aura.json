@@ -1,0 +1,6 @@
+{
+  "Id": "aura",
+  "DisplayName": "Auras & Reservations",
+  "Description": "Aura effectiveness, concentration, and reservation stats",
+  "SortOrder": 10
+}

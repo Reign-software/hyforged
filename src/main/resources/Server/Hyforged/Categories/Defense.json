@@ -1,6 +1,6 @@
 {
   "Id": "defense",
   "DisplayName": "Defense",
-  "Description": "Stats affecting damage mitigation and survivability",
-  "SortOrder": 3
+  "Description": "Armor, evasion, block, suppression, and damage reduction",
+  "SortOrder": 4
 }

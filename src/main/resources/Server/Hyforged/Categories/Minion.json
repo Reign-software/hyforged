@@ -1,0 +1,6 @@
+{
+  "Id": "minion",
+  "DisplayName": "Minions",
+  "Description": "Stats affecting summoned minions and allies",
+  "SortOrder": 9
+}

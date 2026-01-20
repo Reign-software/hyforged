@@ -1,11 +1,16 @@
-{
-  "Id": "hyforged:chaos-resistance-rating",
-  "Category": "elemental",
-  "DisplayName": "Chaos Resistance",
-  "Description": "Reduces chaos damage taken.",
-  "DefaultValue": 0,
-  "MinValue": -2147483648,
-  "MaxValue": 2147483647,
-  "IsRating": true,
-  "Tags": ["defense", "elemental", "chaos", "rating"]
+﻿{
+    "Id":  "hyforged:chaos-resistance-rating",
+    "Category":  "resistance",
+    "DisplayName":  "Chaos Resistance",
+    "Description":  "Reduces chaos damage taken.",
+    "DefaultValue":  0,
+    "MinValue":  -2147483648,
+    "MaxValue":  2147483647,
+    "IsRating":  true,
+    "Tags":  [
+                 "defense",
+                 "elemental",
+                 "chaos",
+                 "rating"
+             ]
 }

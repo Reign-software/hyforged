@@ -1,11 +1,16 @@
-{
-  "Id": "hyforged:max-life-leech-rate-bps",
-  "Category": "utility",
-  "DisplayName": "Maximum Life Leech Rate",
-  "Description": "Maximum percentage of max life that can be leeched per second.",
-  "DefaultValue": 2000,
-  "MinValue": 0,
-  "MaxValue": 100000,
-  "IsRating": false,
-  "Tags": ["utility", "leech", "life", "percent"]
+﻿{
+    "Id":  "hyforged:max-life-leech-rate-bps",
+    "Category":  "recovery",
+    "DisplayName":  "Maximum Life Leech Rate",
+    "Description":  "Maximum percentage of max life that can be leeched per second.",
+    "DefaultValue":  2000,
+    "MinValue":  0,
+    "MaxValue":  100000,
+    "IsRating":  false,
+    "Tags":  [
+                 "utility",
+                 "leech",
+                 "life",
+                 "percent"
+             ]
 }

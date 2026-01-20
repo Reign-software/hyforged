@@ -1,11 +1,18 @@
-{
-  "Id": "hyforged:shock-duration-bps",
-  "Category": "utility",
-  "DisplayName": "Shock Duration",
-  "Description": "Increased shock duration.",
-  "DefaultValue": 0,
-  "MinValue": -10000,
-  "MaxValue": 10000,
-  "IsRating": false,
-  "Tags": ["utility", "ailment", "lightning", "shock", "duration", "percent"]
+﻿{
+    "Id":  "hyforged:shock-duration-bps",
+    "Category":  "ailment",
+    "DisplayName":  "Shock Duration",
+    "Description":  "Increased shock duration.",
+    "DefaultValue":  0,
+    "MinValue":  -10000,
+    "MaxValue":  10000,
+    "IsRating":  false,
+    "Tags":  [
+                 "utility",
+                 "ailment",
+                 "lightning",
+                 "shock",
+                 "duration",
+                 "percent"
+             ]
 }

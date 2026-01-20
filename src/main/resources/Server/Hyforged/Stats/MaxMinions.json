@@ -1,11 +1,14 @@
-{
-  "Id": "hyforged:max-minions",
-  "Category": "utility",
-  "DisplayName": "Maximum Minions",
-  "Description": "Maximum number of minions you can have.",
-  "DefaultValue": 0,
-  "MinValue": 0,
-  "MaxValue": 1000,
-  "IsRating": false,
-  "Tags": ["utility", "minion"]
+﻿{
+    "Id":  "hyforged:max-minions",
+    "Category":  "minion",
+    "DisplayName":  "Maximum Minions",
+    "Description":  "Maximum number of minions you can have.",
+    "DefaultValue":  0,
+    "MinValue":  0,
+    "MaxValue":  1000,
+    "IsRating":  false,
+    "Tags":  [
+                 "utility",
+                 "minion"
+             ]
 }

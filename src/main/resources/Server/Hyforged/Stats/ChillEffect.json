@@ -1,11 +1,17 @@
-{
-  "Id": "hyforged:chill-effect-bps",
-  "Category": "offense",
-  "DisplayName": "Chill Effect",
-  "Description": "Increased chill effect on enemies.",
-  "DefaultValue": 0,
-  "MinValue": -10000,
-  "MaxValue": 10000,
-  "IsRating": false,
-  "Tags": ["offense", "ailment", "cold", "chill", "percent"]
+﻿{
+    "Id":  "hyforged:chill-effect-bps",
+    "Category":  "ailment",
+    "DisplayName":  "Chill Effect",
+    "Description":  "Increased chill effect on enemies.",
+    "DefaultValue":  0,
+    "MinValue":  -10000,
+    "MaxValue":  10000,
+    "IsRating":  false,
+    "Tags":  [
+                 "offense",
+                 "ailment",
+                 "cold",
+                 "chill",
+                 "percent"
+             ]
 }

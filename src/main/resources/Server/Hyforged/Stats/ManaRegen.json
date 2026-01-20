@@ -1,19 +1,24 @@
-{
-  "Id": "hyforged:mana-regen-flat",
-  "Category": "resource",
-  "DisplayName": "Mana Regen",
-  "Description": "Mana regenerated per second. Scales with Spirit.",
-  "DefaultValue": 1,
-  "MinValue": 0,
-  "MaxValue": 2147483647,
-  "IsRating": false,
-  "Tags": ["resources", "mana", "regeneration", "derived"],
-  "Scaling": [
-    {
-      "Type": "threshold",
-      "Source": "hyforged:spirit",
-      "PerPoints": 10,
-      "BonusBps": 1
-    }
-  ]
+﻿{
+    "Id":  "hyforged:mana-regen-flat",
+    "Category":  "recovery",
+    "DisplayName":  "Mana Regen",
+    "Description":  "Mana regenerated per second. Scales with Spirit.",
+    "DefaultValue":  1,
+    "MinValue":  0,
+    "MaxValue":  2147483647,
+    "IsRating":  false,
+    "Tags":  [
+                 "resources",
+                 "mana",
+                 "regeneration",
+                 "derived"
+             ],
+    "Scaling":  [
+                    {
+                        "Type":  "threshold",
+                        "Source":  "hyforged:spirit",
+                        "PerPoints":  10,
+                        "BonusBps":  1
+                    }
+                ]
 }

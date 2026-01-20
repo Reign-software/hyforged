@@ -1,11 +1,17 @@
-{
-  "Id": "hyforged:maximum-resistance-chaos-bps",
-  "Category": "elemental",
-  "DisplayName": "Maximum Chaos Resistance",
-  "Description": "Increases maximum chaos resistance cap.",
-  "DefaultValue": 0,
-  "MinValue": 0,
-  "MaxValue": 2500,
-  "IsRating": false,
-  "Tags": ["defense", "chaos", "resistance", "cap", "percent"]
+﻿{
+    "Id":  "hyforged:maximum-resistance-chaos-bps",
+    "Category":  "resistance",
+    "DisplayName":  "Maximum Chaos Resistance",
+    "Description":  "Increases maximum chaos resistance cap.",
+    "DefaultValue":  0,
+    "MinValue":  0,
+    "MaxValue":  2500,
+    "IsRating":  false,
+    "Tags":  [
+                 "defense",
+                 "chaos",
+                 "resistance",
+                 "cap",
+                 "percent"
+             ]
 }

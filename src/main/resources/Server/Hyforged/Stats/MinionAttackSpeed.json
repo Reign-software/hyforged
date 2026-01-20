@@ -1,11 +1,16 @@
-{
-  "Id": "hyforged:minion-attack-speed-bps",
-  "Category": "offense",
-  "DisplayName": "Minion Attack Speed",
-  "Description": "Increased attack speed of your minions.",
-  "DefaultValue": 0,
-  "MinValue": -10000,
-  "MaxValue": 10000,
-  "IsRating": false,
-  "Tags": ["offense", "minion", "attack-speed", "percent"]
+﻿{
+    "Id":  "hyforged:minion-attack-speed-bps",
+    "Category":  "minion",
+    "DisplayName":  "Minion Attack Speed",
+    "Description":  "Increased attack speed of your minions.",
+    "DefaultValue":  0,
+    "MinValue":  -10000,
+    "MaxValue":  10000,
+    "IsRating":  false,
+    "Tags":  [
+                 "offense",
+                 "minion",
+                 "attack-speed",
+                 "percent"
+             ]
 }

@@ -1,11 +1,16 @@
-{
-  "Id": "hyforged:aura-area-bps",
-  "Category": "utility",
-  "DisplayName": "Aura Area of Effect",
-  "Description": "Increased area of effect of auras.",
-  "DefaultValue": 0,
-  "MinValue": -10000,
-  "MaxValue": 10000,
-  "IsRating": false,
-  "Tags": ["utility", "aura", "aoe", "percent"]
+﻿{
+    "Id":  "hyforged:aura-area-bps",
+    "Category":  "aura",
+    "DisplayName":  "Aura Area of Effect",
+    "Description":  "Increased area of effect of auras.",
+    "DefaultValue":  0,
+    "MinValue":  -10000,
+    "MaxValue":  10000,
+    "IsRating":  false,
+    "Tags":  [
+                 "utility",
+                 "aura",
+                 "aoe",
+                 "percent"
+             ]
 }

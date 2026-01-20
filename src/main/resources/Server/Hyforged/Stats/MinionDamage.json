@@ -1,11 +1,16 @@
-{
-  "Id": "hyforged:minion-damage-bps",
-  "Category": "offense",
-  "DisplayName": "Minion Damage",
-  "Description": "Increased damage dealt by your minions.",
-  "DefaultValue": 0,
-  "MinValue": -10000,
-  "MaxValue": 100000,
-  "IsRating": false,
-  "Tags": ["offense", "minion", "damage", "percent"]
+﻿{
+    "Id":  "hyforged:minion-damage-bps",
+    "Category":  "minion",
+    "DisplayName":  "Minion Damage",
+    "Description":  "Increased damage dealt by your minions.",
+    "DefaultValue":  0,
+    "MinValue":  -10000,
+    "MaxValue":  100000,
+    "IsRating":  false,
+    "Tags":  [
+                 "offense",
+                 "minion",
+                 "damage",
+                 "percent"
+             ]
 }

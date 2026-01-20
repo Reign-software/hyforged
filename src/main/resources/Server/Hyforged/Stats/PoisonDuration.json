@@ -1,11 +1,18 @@
-{
-  "Id": "hyforged:poison-duration-bps",
-  "Category": "utility",
-  "DisplayName": "Poison Duration",
-  "Description": "Increased poison duration.",
-  "DefaultValue": 0,
-  "MinValue": -10000,
-  "MaxValue": 10000,
-  "IsRating": false,
-  "Tags": ["utility", "ailment", "poison", "chaos", "duration", "percent"]
+﻿{
+    "Id":  "hyforged:poison-duration-bps",
+    "Category":  "ailment",
+    "DisplayName":  "Poison Duration",
+    "Description":  "Increased poison duration.",
+    "DefaultValue":  0,
+    "MinValue":  -10000,
+    "MaxValue":  10000,
+    "IsRating":  false,
+    "Tags":  [
+                 "utility",
+                 "ailment",
+                 "poison",
+                 "chaos",
+                 "duration",
+                 "percent"
+             ]
 }
