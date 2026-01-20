@@ -24,7 +24,8 @@
 
 ## Business Rules
 - Player level cap is 100 and must be clearly shown in UI.
-- Only ability scores are directly affected by player level.
+- Character level does not grant ability scores; ability scores come from class progression.
+- Character level grants 1 general passive point per level (100 total at cap).
 - Each class level grants 1 passive point.
 - Passive point refunds require Tradebars.
 - Tradebars are an item and stack to 500 per inventory slot.

@@ -1,13 +1,13 @@
 # Requirements: Class System
 
 ## Vision
-- Provide weapon-determined classes with distinct identities, progression, and integrations into stats, passives, and abilities—while remaining extensible and server-authoritative.
+- Provide weapon-determined classes with distinct identities, progression, and integrations into stats, passives, and abilities—while remaining extensible and server-authoritative. Class progression is driven by class-specific XP filtered by equipped weapon tags.
 
 ## Goals
 - Class identity and selection
-  - A player’s active class is determined by the weapon they are using.
-  - Class determination rules are explicit and data-driven (weapon categories → class).
-  - UI clearly communicates the currently active class and what weapon types map to which classes.
+- A player’s active class is determined by the weapon they are using (main-hand weapon tags).
+- Class determination rules are explicit and data-driven (weapon tag families → class).
+- UI clearly communicates the currently active class and what weapon tags map to which classes.
 - Extensible classes and abilities
   - Classes define:
     - Core identity (name, description)
@@ -20,10 +20,10 @@
     - Add/remove class progression rewards
     - Query current class and class level
 - Separate class progression
-  - Each class has its own progression system and class level.
-  - Class level-ups grant a small ability score bonus.
-  - Class levels are earned through class-relevant gameplay (configurable sources).
-  - Switching weapons can change active class without deleting progress.
+- Each class has its own progression system and class level (cap 20).
+- Class level-ups grant ability score bonuses and 1 class passive point per level.
+- Class levels are earned through class-relevant gameplay (configurable sources) filtered by weapon tags.
+- Switching weapons can change active class without deleting progress.
 - Persistence
   - Persist per-player class progression and associated unlocks/allocations.
   - Maintain backward-compatible saved data as classes are added/changed.
@@ -44,10 +44,11 @@
 - Secure: class selection cannot be spoofed client-side.
 
 ## Feature Index
-- Weapon → class mapping rules
+- Weapon tag → class mapping rules
 - Class progression
-  - XP sources
-  - Level-up rewards (ability scores)
+  - XP sources (shared with character XP, filtered by weapon tags)
+  - Level cap (20)
+  - Level-up rewards (ability scores, class passive points)
 - API/integration
   - Register/query classes
   - Hook for other systems
@@ -56,4 +57,6 @@
   - Class progression display
 
 ## Change Log
+- 2026-01-20: Consolidated into Progression Systems spec.
+- 2026-01-20: Added class XP, weapon tag filtering, cap 20, and passive point rewards.
 - 2026-01-19: Initial version drafted.

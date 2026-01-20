@@ -1,7 +1,7 @@
 # Requirements: Experience System
 
 ## Vision
-- Provide a clear, satisfying, and server-authoritative progression loop where players earn experience (XP), gain levels up to 100, and receive ability-score growth as the primary power reward.
+- Provide a clear, satisfying, and server-authoritative progression loop where players earn experience (XP), gain levels up to 100, and receive character-level progression for the general passive tree. Ability-score growth is owned by class progression.
 
 ## Goals
 - Player-visible progression
@@ -18,8 +18,9 @@
   - The curve supports “early fast, late slow” shaping while avoiding extreme grind spikes.
   - XP rewards scale appropriately with activity difficulty (enemy level, quest tier, region difficulty).
 - Rewards and coupling
-  - Only ability scores are directly affected by player level.
-  - Level-up rewards are deterministic and auditable (no hidden random power spikes at level-up).
+- Character level grants general passive points (1 per level) and drives overall character progression.
+- Ability scores are not granted by character level; they are granted by class progression.
+- Level-up rewards are deterministic and auditable (no hidden random power spikes at level-up).
 - Persistence and integrity
   - XP and level are persisted per-player and restored on login.
   - The server is authoritative for XP awards; clients cannot directly set XP/level.
@@ -30,7 +31,8 @@
 
 ## Non-Goals
 - A “skill XP per activity” system (e.g., separate mining/crafting skill lines) unless explicitly introduced later.
-- Power rewards at level-up other than ability-score changes (e.g., direct +crit% on level-up) unless those are expressed as ability-score effects.
+- Class-specific XP and class level rewards (handled by the Class System).
+- Power rewards at level-up other than general passive points (e.g., direct +crit% on level-up) unless explicitly introduced later.
 - Offline XP accrual while the player is logged out.
 
 ## Quality Attributes
@@ -45,18 +47,22 @@
   - Current XP: non-negative integer/long
   - XP-to-next-level: computed from curve
   - Progress percent: derived display value
+  - General passive points: +1 per level
 - XP awarding
   - Enemy defeat XP (scaled by enemy level/difficulty)
-  - Quest completion XP (scaled by quest tier)
+  - Objective completion XP (scaled by objective tier)
+  - Biome discovery XP
   - “Other activity” hooks (config-driven categories)
   - Notification/aggregation rules
 - Level-up flow
   - Detect crossing thresholds (supports multi-level from one award)
   - Trigger feedback (VFX/SFX)
-  - Apply ability-score gains
+  - Grant general passive points (no ability-score gains)
 - Persistence & audit
   - Save/load behavior
   - Admin adjustment logging
 
 ## Change Log
+- 2026-01-20: Consolidated into Progression Systems spec.
+- 2026-01-20: Aligned rewards and XP sources with class progression split.
 - 2026-01-19: Initial version drafted.

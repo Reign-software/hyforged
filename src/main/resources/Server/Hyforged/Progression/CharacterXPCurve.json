@@ -1,0 +1,7 @@
+{
+    "Id": "hyforged:character_xp",
+    "Type": "character",
+    "BaseXP": 100,
+    "ExponentFactor": 1.15,
+    "MaxLevel": 100
+}

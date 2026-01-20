@@ -10,6 +10,7 @@ import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.RefSystem;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.progression.component.ProgressionComponent;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.asset.ClassDefinition;
@@ -41,6 +42,9 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
     private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
     
     @Nonnull
+    private final ComponentType<EntityStore, ProgressionComponent> progressionComponentType;
+    
+    @Nonnull
     private final Query<EntityStore> query;
 
     /**
@@ -49,7 +53,9 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
     private static final String ABILITY_SCORE_CATEGORY = "ability-score";
 
     public HyforgedStatInitSystem() {
-        this.statComponentType = HyforgedPlugin.getInstance().getHyforgedStatComponentType();
+        HyforgedPlugin plugin = HyforgedPlugin.getInstance();
+        this.statComponentType = plugin.getHyforgedStatComponentType();
+        this.progressionComponentType = plugin.getProgressionComponentType();
         this.query = statComponentType;
     }
 
@@ -72,7 +78,7 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
         }
 
         // Initialize ability scores based on player class
-        initializeAbilityScores(component, ref);
+        initializeAbilityScores(component, ref, commandBuffer);
         
         // Mark all stats dirty for initial computation
         // Scaling-based derived stats will be computed by HyforgedStatComputeSystem
@@ -93,16 +99,24 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
     /**
      * Get the class ID for an entity.
      * <p>
-     * Currently returns the default class for all entities.
-     * Future: Look up class from player data, equipment, or other sources.
+     * Reads from ProgressionComponent if available, otherwise returns default class.
      *
      * @param entityRef Reference to the entity
+     * @param commandBuffer Command buffer for component access
      * @return The class ID (e.g., "hyforged:default")
      */
     @Nonnull
-    private String getPlayerClass(@Nonnull Ref<EntityStore> entityRef) {
-        // TODO: In future, retrieve class from player data component
-        // For now, return the default class
+    private String getPlayerClass(
+            @Nonnull Ref<EntityStore> entityRef,
+            @Nonnull CommandBuffer<EntityStore> commandBuffer
+    ) {
+        ProgressionComponent progression = commandBuffer.getComponent(entityRef, progressionComponentType);
+        if (progression != null) {
+            String activeClassId = progression.getActiveClassId();
+            if (activeClassId != null && !activeClassId.isEmpty()) {
+                return activeClassId;
+            }
+        }
         return ClassDefinitionRegistry.DEFAULT_CLASS_ID;
     }
 
@@ -114,13 +128,14 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
      */
     private void initializeAbilityScores(
             @Nonnull HyforgedStatComponent component,
-            @Nonnull Ref<EntityStore> entityRef
+            @Nonnull Ref<EntityStore> entityRef,
+            @Nonnull CommandBuffer<EntityStore> commandBuffer
     ) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         ClassDefinitionRegistry classRegistry = ClassDefinitionRegistry.get();
         
         // Get the entity's class
-        String classId = getPlayerClass(entityRef);
+        String classId = getPlayerClass(entityRef, commandBuffer);
         ClassDefinition classDef = classRegistry.getOrDefault(classId);
         
         LOGGER.fine("Initializing ability scores for entity with class: " + classDef.id());

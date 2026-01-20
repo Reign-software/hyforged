@@ -19,8 +19,7 @@
 - RPG/ARPG Systems: .memory_bank/Requirements/rpg-arpg/README.md
   - Stats System ✅
   - Entity Stats
-  - Experience System
-  - Class System
+  - Progression Systems (Experience + Class) — spec: [progression-systems.spec.md](.memory_bank/Features/progression-systems/progression-systems.spec.md), plan: [progression-systems.plan.md](.memory_bank/Features/progression-systems/progression-systems.plan.md)
   - Items (Affixes & Rarity)
   - Combat System
   - Passive Trees
@@ -29,5 +28,8 @@
   - Trading & Marketplace
 
 ## Change Log
+- 2026-01-20: Added Progression Systems plan to feature index.
+- 2026-01-20: Consolidated Experience/Class specs into Progression Systems spec.
+- 2026-01-20: Added Experience System and Class System specs to index.
 - 2026-01-19: Added Entity Stats to feature index.
 - 2026-01-19: Added initial requirements index.

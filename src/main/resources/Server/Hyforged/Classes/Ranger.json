@@ -1,0 +1,19 @@
+{
+    "Id": "hyforged:ranger",
+    "DisplayName": "Ranger",
+    "Description": "A skilled marksman who excels with bows and crossbows from a distance.",
+    "Strength": 2,
+    "Dexterity": 5,
+    "Intelligence": 2,
+    "Constitution": 2,
+    "Wisdom": 2,
+    "Spirit": 1,
+    "Luck": 1,
+    "WeaponTagFamilies": ["weapon:bow", "weapon:crossbow"],
+    "LevelRewards": [
+        { "Level": 5, "Dexterity": 1 },
+        { "Level": 10, "Dexterity": 1, "Wisdom": 1 },
+        { "Level": 15, "Dexterity": 2 },
+        { "Level": 20, "Dexterity": 2, "Wisdom": 1 }
+    ]
+}

@@ -2,14 +2,18 @@ package reign.software.hyforged.stats.asset;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 /**
  * Registry for character class definitions.
  * <p>
- * Provides lookup of class definitions by ID for player stat initialization.
+ * Provides lookup of class definitions by ID for player stat initialization,
+ * and resolution of active class from weapon tags.
  * This is a singleton registry populated by the ClassAssetLoader.
  */
 public final class ClassDefinitionRegistry {
@@ -95,6 +99,46 @@ public final class ClassDefinitionRegistry {
     @Nonnull
     public ClassDefinition getDefault() {
         return getOrDefault(DEFAULT_CLASS_ID);
+    }
+    
+    /**
+     * Find a class definition that matches the given weapon tags.
+     * <p>
+     * If multiple classes match, logs a warning and returns the first alphabetically.
+     * This ensures deterministic behavior.
+     *
+     * @param weaponTags Set of tags from the player's main-hand weapon
+     * @return The matching class definition, or null if no match
+     */
+    @Nullable
+    public ClassDefinition getClassForWeaponTags(@Nonnull Set<String> weaponTags) {
+        if (weaponTags.isEmpty()) {
+            return null;
+        }
+        
+        List<ClassDefinition> matches = new ArrayList<>();
+        for (ClassDefinition classDef : classes.values()) {
+            if (classDef.matchesWeaponTags(weaponTags)) {
+                matches.add(classDef);
+            }
+        }
+        
+        if (matches.isEmpty()) {
+            return null;
+        }
+        
+        if (matches.size() > 1) {
+            // Sort alphabetically for deterministic selection
+            matches.sort((a, b) -> a.id().compareTo(b.id()));
+            LOGGER.warning(String.format(
+                "Multiple classes match weapon tags %s: %s. Using first alphabetically: %s",
+                weaponTags, 
+                matches.stream().map(ClassDefinition::id).toList(),
+                matches.get(0).id()
+            ));
+        }
+        
+        return matches.get(0);
     }
 
     /**

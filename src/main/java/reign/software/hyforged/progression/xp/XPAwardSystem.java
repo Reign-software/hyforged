@@ -1,0 +1,288 @@
+package reign.software.hyforged.progression.xp;
+
+import com.hypixel.hytale.component.ArchetypeChunk;
+import com.hypixel.hytale.component.CommandBuffer;
+import com.hypixel.hytale.component.ComponentType;
+import com.hypixel.hytale.component.Ref;
+import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.component.query.Query;
+import com.hypixel.hytale.component.system.EntityEventSystem;
+import com.hypixel.hytale.server.core.HytaleServer;
+import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.progression.CharacterProgression;
+import reign.software.hyforged.progression.ClassProgression;
+import reign.software.hyforged.progression.component.ProgressionComponent;
+import reign.software.hyforged.progression.event.CharacterLevelUpEvent;
+import reign.software.hyforged.progression.event.ClassLevelUpEvent;
+import reign.software.hyforged.progression.event.LevelUpNotificationEvent;
+import reign.software.hyforged.stats.StatId;
+import reign.software.hyforged.stats.asset.ClassDefinition;
+import reign.software.hyforged.stats.asset.ClassDefinitionRegistry;
+
+import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * ECS event system that processes XP awards from any source.
+ * <p>
+ * Handles:
+ * - Adding character XP to ProgressionComponent
+ * - Adding class XP if entity has an active class
+ * - Detecting level-up thresholds (TODO: Phase 6 will emit level-up events)
+ * - Audit logging of all XP awards
+ * <p>
+ * XP is server-authoritative - only systems can dispatch XPAwardEvents.
+ */
+public class XPAwardSystem extends EntityEventSystem<EntityStore, XPAwardEvent> {
+    
+    private static final Logger LOGGER = Logger.getLogger(XPAwardSystem.class.getName());
+    
+    private final ComponentType<EntityStore, ProgressionComponent> progressionComponentType;
+    
+    public XPAwardSystem() {
+        super(XPAwardEvent.class);
+        this.progressionComponentType = HyforgedPlugin.getInstance().getProgressionComponentType();
+    }
+    
+    @Nonnull
+    @Override
+    public Query<EntityStore> getQuery() {
+        return progressionComponentType;
+    }
+    
+    @Override
+    public void handle(
+            int index,
+            @Nonnull ArchetypeChunk<EntityStore> archetypeChunk,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull CommandBuffer<EntityStore> commandBuffer,
+            @Nonnull XPAwardEvent event
+    ) {
+        ProgressionComponent progression = archetypeChunk.getComponent(index, progressionComponentType);
+        if (progression == null) {
+            return;
+        }
+        
+        Ref<EntityStore> entityRef = archetypeChunk.getReferenceTo(index);
+        
+        // ========== CHARACTER XP ==========
+        long charXpAmount = event.getCharacterXpAmount();
+        
+        // Don't award XP if at max level
+        if (progression.getCharacterLevel() >= CharacterProgression.MAX_LEVEL) {
+            charXpAmount = 0;
+        }
+        
+        int oldCharLevel = progression.getCharacterLevel();
+        
+        if (charXpAmount > 0) {
+            progression.addCharacterXp(charXpAmount);
+            
+            // Check for character level-up and emit event
+            checkCharacterLevelUp(progression, oldCharLevel, entityRef);
+        }
+        
+        // ========== CLASS XP ==========
+        String activeClassId = progression.getActiveClassId();
+        long classXpAmount = event.getClassXpAmount();
+        
+        if (activeClassId != null && classXpAmount > 0) {
+            ProgressionComponent.ClassProgressionData classData = progression.getOrCreateClassProgression(activeClassId);
+            
+            // Don't award XP if at max class level
+            if (classData.level < ClassProgression.MAX_LEVEL) {
+                int oldClassLevel = classData.level;
+                classData.xp += classXpAmount;
+                progression.markDirty();
+                
+                // Check for class level-up and emit event
+                checkClassLevelUp(progression, activeClassId, classData, oldClassLevel, entityRef);
+                
+                if (LOGGER.isLoggable(Level.FINE)) {
+                    LOGGER.fine(String.format("Awarded %d class XP to class '%s' for entity %s",
+                            classXpAmount, activeClassId, entityRef));
+                }
+            }
+        }
+        
+        // ========== NOTIFICATION AGGREGATION ==========
+        if (charXpAmount > 0 || (activeClassId != null && classXpAmount > 0)) {
+            XPNotificationAggregator.recordXPGain(
+                    store,
+                    entityRef,
+                    charXpAmount,
+                    activeClassId != null ? classXpAmount : 0,
+                    event.getSource(),
+                    activeClassId
+            );
+        }
+        
+        // ========== AUDIT LOGGING ==========
+        if (charXpAmount > 0 || (activeClassId != null && classXpAmount > 0)) {
+            LOGGER.info(String.format("XP Award: entity=%s, source=%s, charXP=%d, classXP=%d, class=%s",
+                    entityRef,
+                    event.getSourceDescription(),
+                    charXpAmount,
+                    activeClassId != null ? classXpAmount : 0,
+                    activeClassId != null ? activeClassId : "none"));
+        }
+    }
+    
+    /**
+     * Check if character has leveled up and emit events.
+     * Uses cumulative XP thresholds from the XP curve.
+     */
+    private void checkCharacterLevelUp(
+            ProgressionComponent progression,
+            int oldLevel,
+            Ref<EntityStore> entityRef
+    ) {
+        reign.software.hyforged.progression.XPCurve curve = 
+                reign.software.hyforged.progression.asset.XPCurveRegistry.get().getCharacterCurve();
+        
+        long totalXp = progression.getCharacterXp();
+        
+        // Determine level from total cumulative XP
+        int newLevel = curve.getLevelForTotalXp(totalXp);
+        newLevel = Math.min(newLevel, CharacterProgression.MAX_LEVEL);
+        
+        java.util.List<Integer> levelsGained = new java.util.ArrayList<>();
+        if (newLevel > oldLevel) {
+            for (int lvl = oldLevel + 1; lvl <= newLevel; lvl++) {
+                levelsGained.add(lvl);
+            }
+            progression.setCharacterLevel(newLevel);
+        }
+        
+        if (!levelsGained.isEmpty()) {
+            int passivePoints = LevelUpProcessor.calculatePassivePointsForLevels(levelsGained);
+            
+            LOGGER.info(String.format("Character level-up: %d -> %d, +%d passive points",
+                    oldLevel, newLevel, passivePoints));
+            
+            // Emit level-up event
+            CharacterLevelUpEvent event = new CharacterLevelUpEvent(
+                    entityRef,
+                    oldLevel,
+                    newLevel,
+                    levelsGained,
+                    passivePoints
+            );
+            
+            HytaleServer.get().getEventBus()
+                    .dispatchFor(CharacterLevelUpEvent.class)
+                    .dispatch(event);
+            
+            // Emit level-up notification event (bypasses rate limiting)
+            LevelUpNotificationEvent notification = LevelUpNotificationEvent.character(
+                    entityRef,
+                    oldLevel,
+                    newLevel,
+                    levelsGained,
+                    passivePoints
+            );
+            
+            HytaleServer.get().getEventBus()
+                    .dispatchFor(LevelUpNotificationEvent.class)
+                    .dispatch(notification);
+        }
+    }
+    
+    /**
+     * Check if class has leveled up and emit events.
+     * Uses LevelUpProcessor for proper XP curve evaluation.
+     */
+    private void checkClassLevelUp(
+            ProgressionComponent progression,
+            String classId,
+            ProgressionComponent.ClassProgressionData classData,
+            int oldLevel,
+            Ref<EntityStore> entityRef
+    ) {
+        reign.software.hyforged.progression.XPCurve curve = 
+                reign.software.hyforged.progression.asset.XPCurveRegistry.get().getClassCurve();
+        
+        long totalXp = classData.xp;
+        
+        // Determine level from total cumulative XP
+        int newLevel = curve.getLevelForTotalXp(totalXp);
+        newLevel = Math.min(newLevel, ClassProgression.MAX_LEVEL);
+        
+        java.util.List<Integer> levelsGained = new java.util.ArrayList<>();
+        if (newLevel > oldLevel) {
+            for (int lvl = oldLevel + 1; lvl <= newLevel; lvl++) {
+                levelsGained.add(lvl);
+            }
+            classData.level = newLevel;
+            progression.markDirty();
+        }
+        
+        if (!levelsGained.isEmpty()) {
+            int classPassivePoints = LevelUpProcessor.calculateClassPassivePointsForLevels(levelsGained);
+            
+            // Calculate ability bonuses from ClassDefinition.levelRewards
+            Map<String, Integer> abilityBonuses = calculateAbilityBonusesForLevels(classId, levelsGained);
+            
+            LOGGER.info(String.format("Class level-up: %s %d -> %d, +%d class passive points, bonuses=%s",
+                    classId, oldLevel, newLevel, classPassivePoints, abilityBonuses));
+            
+            // Emit level-up event
+            ClassLevelUpEvent event = new ClassLevelUpEvent(
+                    entityRef,
+                    classId,
+                    oldLevel,
+                    newLevel,
+                    levelsGained,
+                    abilityBonuses,
+                    classPassivePoints
+            );
+            
+            HytaleServer.get().getEventBus()
+                    .dispatchFor(ClassLevelUpEvent.class)
+                    .dispatch(event);
+            
+            // Emit level-up notification event (bypasses rate limiting)
+            LevelUpNotificationEvent notification = LevelUpNotificationEvent.classLevel(
+                    entityRef,
+                    classId,
+                    oldLevel,
+                    newLevel,
+                    levelsGained,
+                    classPassivePoints
+            );
+            
+            HytaleServer.get().getEventBus()
+                    .dispatchFor(LevelUpNotificationEvent.class)
+                    .dispatch(notification);
+        }
+    }
+    
+    /**
+     * Calculate the ability bonuses granted for the specified class levels.
+     * 
+     * @param classId the class ID to look up
+     * @param levelsGained list of levels gained (not cumulative, just the new levels)
+     * @return map of ability stat ID to total bonus from these levels
+     */
+    @Nonnull
+    private Map<String, Integer> calculateAbilityBonusesForLevels(@Nonnull String classId, @Nonnull java.util.List<Integer> levelsGained) {
+        ClassDefinition classDef = ClassDefinitionRegistry.get().get(classId);
+        if (classDef == null || !classDef.hasLevelRewards()) {
+            return java.util.Collections.emptyMap();
+        }
+        
+        Map<String, Integer> bonuses = new HashMap<>();
+        for (int level : levelsGained) {
+            Map<StatId, Integer> levelReward = classDef.getLevelReward(level);
+            for (Map.Entry<StatId, Integer> entry : levelReward.entrySet()) {
+                String statKey = entry.getKey().fullId();
+                bonuses.merge(statKey, entry.getValue(), Integer::sum);
+            }
+        }
+        return bonuses;
+    }
+}

@@ -33,13 +33,13 @@ The systems are grouped into phases based on dependencies. Complete each phase b
 ### Phase 2: Entity Application
 | Order | System | Dependencies | Notes |
 |-------|--------|--------------|-------|
-| 2 | [Entity Stats](entity-stats.md) 📝 | Stats System | Attaches stats to players/NPCs. Required before any system can *apply* stats to entities. Spec: [entity-stats.spec.md](../../Features/entity-stats/entity-stats.spec.md) |
+| 2 | [Entity Stats](entity-stats.md) ✅ | Stats System | Attaches stats to players/NPCs. Required before any system can *apply* stats to entities. Spec: [entity-stats.spec.md](../../Features/entity-stats/entity-stats.spec.md) |
 
 ### Phase 3: Core Progression
 | Order | System | Dependencies | Notes |
 |-------|--------|--------------|-------|
-| 3 | [Experience System](experience-system.md) | Entity Stats | Levels grant ability score points applied via Entity Stats. |
-| 4 | [Class System](class-system.md) | Entity Stats, Experience System | Class levels grant ability score bonuses; shares progression concepts with XP. |
+| 3 | [Experience System](experience-system.md) ✅ | Entity Stats | Levels grant general passive points (no ability scores). Spec: [progression-systems.spec.md](../../Features/progression-systems/progression-systems.spec.md) |
+| 4 | [Class System](class-system.md) ✅ | Entity Stats, Experience System | Class levels grant ability score bonuses and class passive points; shares progression concepts with XP. Spec: [progression-systems.spec.md](../../Features/progression-systems/progression-systems.spec.md) |
 
 ### Phase 4: Items & Equipment
 | Order | System | Dependencies | Notes |
@@ -82,6 +82,8 @@ The systems are grouped into phases based on dependencies. Complete each phase b
 - [Trading & Marketplace](trading-marketplace.md)
 
 ## Change Log
+- 2026-01-20: Consolidated Experience and Class specs into Progression Systems spec.
+- 2026-01-20: Linked Experience System and Class System specs; clarified progression rewards.
 - 2026-01-19: Linked Entity Stats spec for Phase 2.
 - 2026-01-19: Added implementation order with phased dependencies.
 - 2026-01-19: Added Entity Stats requirement for applying stats to players and NPCs.

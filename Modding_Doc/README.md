@@ -7,6 +7,7 @@ Welcome to the Hyforged modding documentation. This folder contains guides for e
 | Guide | Description |
 |-------|-------------|
 | [Stats System](Stats/README.md) | Add custom stats, modifiers, and integrate with the ARPG stat framework |
+| [Progression System](Progression/README.md) | XP, leveling, classes, and progression configuration |
 
 ## Getting Started
 

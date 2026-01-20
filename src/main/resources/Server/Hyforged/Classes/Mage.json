@@ -1,0 +1,19 @@
+{
+    "Id": "hyforged:mage",
+    "DisplayName": "Mage",
+    "Description": "A wielder of arcane power who channels magic through staves and wands.",
+    "Strength": 1,
+    "Dexterity": 2,
+    "Intelligence": 5,
+    "Constitution": 1,
+    "Wisdom": 3,
+    "Spirit": 2,
+    "Luck": 1,
+    "WeaponTagFamilies": ["weapon:staff", "weapon:wand"],
+    "LevelRewards": [
+        { "Level": 5, "Intelligence": 1 },
+        { "Level": 10, "Intelligence": 1, "Wisdom": 1 },
+        { "Level": 15, "Intelligence": 2, "Spirit": 1 },
+        { "Level": 20, "Intelligence": 2, "Wisdom": 1, "Spirit": 1 }
+    ]
+}

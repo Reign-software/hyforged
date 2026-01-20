@@ -1,0 +1,19 @@
+{
+    "Id": "hyforged:warrior",
+    "DisplayName": "Warrior",
+    "Description": "A powerful melee combatant who excels with swords, axes, and maces.",
+    "Strength": 5,
+    "Dexterity": 2,
+    "Intelligence": 1,
+    "Constitution": 4,
+    "Wisdom": 1,
+    "Spirit": 1,
+    "Luck": 1,
+    "WeaponTagFamilies": ["weapon:sword", "weapon:axe", "weapon:mace"],
+    "LevelRewards": [
+        { "Level": 5, "Strength": 1 },
+        { "Level": 10, "Strength": 1, "Constitution": 1 },
+        { "Level": 15, "Strength": 2 },
+        { "Level": 20, "Strength": 2, "Constitution": 2 }
+    ]
+}

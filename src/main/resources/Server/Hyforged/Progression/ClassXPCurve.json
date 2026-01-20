@@ -1,0 +1,7 @@
+{
+    "Id": "hyforged:class_xp",
+    "Type": "class",
+    "BaseXP": 50,
+    "ExponentFactor": 1.12,
+    "MaxLevel": 20
+}
