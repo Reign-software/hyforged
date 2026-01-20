@@ -131,6 +131,27 @@ public record StatModifier(
                 expirationTick, priority
             );
         }
+        
+        /**
+         * Build as a conditional modifier with the given condition.
+         *
+         * @param condition The condition for when this modifier applies
+         * @return A ConditionalStatModifier
+         */
+        public ConditionalStatModifier buildConditional(
+                @Nonnull reign.software.hyforged.stats.condition.ModifierCondition condition
+        ) {
+            return ConditionalStatModifier.conditional(build(), condition);
+        }
+        
+        /**
+         * Build as an unconditional modifier (always applies).
+         *
+         * @return A ConditionalStatModifier that always applies
+         */
+        public ConditionalStatModifier buildUnconditional() {
+            return ConditionalStatModifier.unconditional(build());
+        }
     }
     
     /**

@@ -3,12 +3,15 @@ package reign.software.hyforged.stats.system;
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.ComponentType;
+import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.dependency.Dependency;
 import com.hypixel.hytale.component.dependency.Order;
 import com.hypixel.hytale.component.dependency.SystemDependency;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.tick.EntityTickingSystem;
+import com.hypixel.hytale.event.IEventDispatcher;
+import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.stats.StatDefinition;
@@ -17,6 +20,9 @@ import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.component.StatModifier;
 import reign.software.hyforged.stats.engine.ScalingEngine;
 import reign.software.hyforged.stats.engine.StackingEngine;
+import reign.software.hyforged.stats.event.StatBatchChangedEvent;
+import reign.software.hyforged.stats.event.StatChange;
+import reign.software.hyforged.stats.event.StatChangedEvent;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -95,26 +101,68 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
         // Remove expired modifiers first
         component.removeExpiredModifiers(currentTick);
         
-        // Recompute dirty stats
-        recomputeDirtyStats(component);
+        // Get entity reference for events
+        Ref<EntityStore> entityRef = archetypeChunk.getReferenceTo(index);
+        
+        // Recompute dirty stats and collect changes
+        List<StatChange> changes = recomputeDirtyStatsWithTracking(component);
         
         // Clear dirty flags after computation
         component.clearAllDirtyFlags();
+        
+        // Emit events for stat changes
+        if (!changes.isEmpty()) {
+            emitStatChangeEvents(entityRef, changes);
+        }
+    }
+    
+    /**
+     * Emit stat change events for the given changes.
+     * <p>
+     * Emits both individual {@link StatChangedEvent} for each change and
+     * a batch {@link StatBatchChangedEvent} containing all changes.
+     *
+     * @param entityRef The entity reference
+     * @param changes List of stat changes
+     */
+    private void emitStatChangeEvents(
+            @Nonnull Ref<EntityStore> entityRef,
+            @Nonnull List<StatChange> changes
+    ) {
+        // Get event dispatchers
+        IEventDispatcher<StatChangedEvent, StatChangedEvent> individualDispatcher =
+            HytaleServer.get().getEventBus().dispatchFor(StatChangedEvent.class, entityRef);
+        IEventDispatcher<StatBatchChangedEvent, StatBatchChangedEvent> batchDispatcher =
+            HytaleServer.get().getEventBus().dispatchFor(StatBatchChangedEvent.class, entityRef);
+        
+        // Emit individual events for each stat change
+        for (StatChange change : changes) {
+            individualDispatcher.dispatch(new StatChangedEvent(entityRef, change));
+        }
+        
+        // Emit batch event containing all changes
+        batchDispatcher.dispatch(new StatBatchChangedEvent(entityRef, changes));
     }
 
     /**
-     * Recompute all stats that have been marked dirty, in topological order.
+     * Recompute all stats that have been marked dirty, in topological order,
+     * tracking changes for event emission.
      * <p>
      * This ensures that source stats are computed before stats that scale from them.
      * Dirty flags are expanded to include all transitive dependents.
+     *
+     * @param component The stat component to recompute
+     * @return List of stat changes (old value != new value)
      */
-    private void recomputeDirtyStats(@Nonnull HyforgedStatComponent component) {
+    @Nonnull
+    private List<StatChange> recomputeDirtyStatsWithTracking(@Nonnull HyforgedStatComponent component) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         List<StatModifier> allModifiers = component.getModifiers();
+        List<StatChange> changes = new ArrayList<>();
         
         int statCount = registry.getStatCount();
         if (statCount == 0) {
-            return;
+            return changes;
         }
         
         // Build expanded dirty set (includes transitive dependents)
@@ -134,12 +182,28 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
                 continue; // Shouldn't happen, but be defensive
             }
             
+            // Record old value before recomputation
+            int oldValue = component.getCachedValue(statIdx);
+            
             // Compute the new value
             int newValue = computeStatValue(statIdx, statDef, allModifiers, component, registry);
             
             // Update cache
             component.setCachedValue(statIdx, newValue);
+            
+            // Track change if value actually changed
+            if (oldValue != newValue) {
+                changes.add(new StatChange(
+                    statDef.id(),
+                    statIdx,
+                    oldValue,
+                    newValue,
+                    null // Source ID is not tracked at this level
+                ));
+            }
         }
+        
+        return changes;
     }
     
     /**

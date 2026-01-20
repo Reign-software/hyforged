@@ -17,15 +17,17 @@
 
 ## Feature Index
 - RPG/ARPG Systems: .memory_bank/Requirements/rpg-arpg/README.md
+  - Stats System ✅
+  - Entity Stats
   - Experience System
-  - Stats System
+  - Class System
   - Items (Affixes & Rarity)
   - Combat System
-  - Class System
   - Passive Trees
   - Currency (Tradebars)
   - Enchanting, Runes, and Forging
   - Trading & Marketplace
 
 ## Change Log
+- 2026-01-19: Added Entity Stats to feature index.
 - 2026-01-19: Added initial requirements index.

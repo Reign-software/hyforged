@@ -48,6 +48,9 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     
     private final List<StatModifier> modifiers = new ArrayList<>();
     
+    // Conditional modifiers that require context evaluation
+    private final List<ConditionalStatModifier> conditionalModifiers = new ArrayList<>();
+    
     // ========== CACHED COMPUTED VALUES ==========
     // Computed stat values indexed by stat registry index
     // These are recomputed when dirty flags are set
@@ -66,6 +69,13 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     private int lastBridgedMaxHealth = 0;
     private int lastBridgedMaxMana = 0;
     private int lastBridgedMaxStamina = 0;
+    
+    // ========== EVENT COALESCING BUFFER ==========
+    // Collects stat changes during a tick for batch event emission
+    // Maps stat index → old value (before recomputation)
+    
+    private final Int2IntMap changeBuffer = new Int2IntOpenHashMap();
+    private boolean isBufferingChanges = false;
     
     public HyforgedStatComponent() {
         // Initialize cache based on registry size
@@ -313,6 +323,78 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     }
     
     /**
+     * Get conditional modifier count.
+     */
+    public int getConditionalModifierCount() {
+        return conditionalModifiers.size();
+    }
+    
+    // ========== CONDITIONAL MODIFIER ACCESSORS ==========
+    
+    /**
+     * Get all conditional modifiers (unmodifiable view).
+     */
+    @Nonnull
+    public List<ConditionalStatModifier> getConditionalModifiers() {
+        return List.copyOf(conditionalModifiers);
+    }
+    
+    /**
+     * Add a conditional modifier to this entity.
+     * If a modifier with the same source/target/type already exists, it is replaced.
+     *
+     * @param conditionalMod The conditional modifier to add
+     * @return true if added or replaced, false if at max capacity
+     */
+    public boolean addConditionalModifier(@Nonnull ConditionalStatModifier conditionalMod) {
+        // Check if we have room (conditional modifiers share the cap)
+        if (modifiers.size() + conditionalModifiers.size() >= MAX_MODIFIERS) {
+            return false;
+        }
+        
+        // Find and replace if exists
+        int existingIndex = findMatchingConditionalModifierIndex(conditionalMod);
+        if (existingIndex >= 0) {
+            ConditionalStatModifier existing = conditionalModifiers.set(existingIndex, conditionalMod);
+            markAffectedStatsDirty(existing.modifier());
+            markAffectedStatsDirty(conditionalMod.modifier());
+            return true;
+        }
+        
+        conditionalModifiers.add(conditionalMod);
+        markAffectedStatsDirty(conditionalMod.modifier());
+        return true;
+    }
+    
+    private int findMatchingConditionalModifierIndex(@Nonnull ConditionalStatModifier conditionalMod) {
+        for (int i = 0; i < conditionalModifiers.size(); i++) {
+            ConditionalStatModifier existing = conditionalModifiers.get(i);
+            if (matchesModifierKey(existing.modifier(), conditionalMod.modifier())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    /**
+     * Remove conditional modifiers by source ID.
+     *
+     * @param sourceId The source ID to match
+     * @return true if any modifiers were removed
+     */
+    public boolean removeConditionalModifiersBySource(@Nonnull String sourceId) {
+        boolean removed = false;
+        for (ConditionalStatModifier m : conditionalModifiers) {
+            if (m.sourceId().equals(sourceId)) {
+                markAffectedStatsDirty(m.modifier());
+                removed = true;
+            }
+        }
+        conditionalModifiers.removeIf(m -> m.sourceId().equals(sourceId));
+        return removed;
+    }
+    
+    /**
      * Mark all stats affected by a modifier as dirty.
      * Handles both direct stat targeting and tag targeting.
      */
@@ -420,6 +502,64 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         return dirtyFlags.stream().toArray();
     }
     
+    // ========== CHANGE BUFFER ACCESSORS ==========
+    // Used for coalescing stat changes during a tick for batch event emission
+    
+    /**
+     * Begin buffering stat changes. Call before recomputation to capture old values.
+     * <p>
+     * Must be paired with {@link #endBufferingChanges()} or {@link #clearChangeBuffer()}.
+     */
+    public void beginBufferingChanges() {
+        isBufferingChanges = true;
+        changeBuffer.clear();
+    }
+    
+    /**
+     * Record the old value for a stat before recomputation.
+     * Only records if buffering is active.
+     *
+     * @param statIndex The stat index
+     * @param oldValue The value before recomputation
+     */
+    public void recordOldValue(int statIndex, int oldValue) {
+        if (isBufferingChanges && !changeBuffer.containsKey(statIndex)) {
+            changeBuffer.put(statIndex, oldValue);
+        }
+    }
+    
+    /**
+     * End buffering and return changes as a map of statIndex → oldValue.
+     * The returned map should be compared against current cached values
+     * to determine which stats actually changed.
+     *
+     * @return Map of stat index to old value for stats that were recomputed
+     */
+    @Nonnull
+    public Int2IntMap endBufferingChanges() {
+        isBufferingChanges = false;
+        Int2IntMap result = new Int2IntOpenHashMap(changeBuffer);
+        changeBuffer.clear();
+        return result;
+    }
+    
+    /**
+     * Check if change buffering is currently active.
+     *
+     * @return true if buffering
+     */
+    public boolean isBufferingChanges() {
+        return isBufferingChanges;
+    }
+    
+    /**
+     * Clear the change buffer without returning changes.
+     */
+    public void clearChangeBuffer() {
+        isBufferingChanges = false;
+        changeBuffer.clear();
+    }
+    
     // ========== BRIDGE STATE ACCESSORS ==========
     
     public int getLastBridgedMaxHealth() {
@@ -492,6 +632,118 @@ public class HyforgedStatComponent implements Component<EntityStore> {
             return 0;
         }
         return getEffectiveness(statIndex, targetLevel);
+    }
+    
+    // ========== CONTEXT-AWARE QUERY ==========
+    
+    /**
+     * Get the effective value for a stat with context-aware modifier evaluation.
+     * <p>
+     * This method evaluates conditional modifiers based on the provided context,
+     * including only those modifiers whose conditions are met.
+     * <p>
+     * Note: This performs on-demand computation and does not use the cached value.
+     * For performance-critical paths, prefer using cached values with periodic
+     * context updates.
+     *
+     * @param statIndex The stat index
+     * @param entityRef The entity reference for condition evaluation
+     * @param context The query context containing state information
+     * @return The effective stat value with context-aware modifiers applied
+     */
+    public int getEffectiveValue(
+            int statIndex,
+            @Nonnull com.hypixel.hytale.component.Ref<com.hypixel.hytale.server.core.universe.world.storage.EntityStore> entityRef,
+            @Nonnull reign.software.hyforged.stats.condition.QueryContext context
+    ) {
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        StatDefinition statDef = registry.getStat(statIndex);
+        
+        if (statDef == null) {
+            return 0;
+        }
+        
+        // Compute base value
+        int baseValue;
+        if (statDef.hasScaling()) {
+            baseValue = reign.software.hyforged.stats.engine.ScalingEngine.computeScaledBase(
+                statDef,
+                this::getCachedValue,
+                registry
+            );
+        } else {
+            baseValue = getBaseValue(statIndex);
+        }
+        
+        // Collect applicable unconditional modifiers
+        List<StatModifier> applicableModifiers = new ArrayList<>();
+        for (StatModifier mod : modifiers) {
+            if (isModifierApplicable(mod, statIndex, statDef, registry)) {
+                applicableModifiers.add(mod);
+            }
+        }
+        
+        // Add conditional modifiers whose conditions are met
+        for (ConditionalStatModifier condMod : conditionalModifiers) {
+            if (isModifierApplicable(condMod.modifier(), statIndex, statDef, registry)) {
+                if (condMod.isUnconditional() || condMod.condition().evaluate(entityRef, context)) {
+                    applicableModifiers.add(condMod.modifier());
+                }
+            }
+        }
+        
+        // Compute final value using stacking engine
+        return reign.software.hyforged.stats.engine.StackingEngine.compute(baseValue, applicableModifiers, statDef);
+    }
+    
+    /**
+     * Get the effective value for a stat by StatId with context-aware evaluation.
+     *
+     * @param statId The stat ID
+     * @param entityRef The entity reference for condition evaluation
+     * @param context The query context
+     * @return The effective stat value
+     */
+    public int getEffectiveValue(
+            @Nonnull StatId statId,
+            @Nonnull com.hypixel.hytale.component.Ref<com.hypixel.hytale.server.core.universe.world.storage.EntityStore> entityRef,
+            @Nonnull reign.software.hyforged.stats.condition.QueryContext context
+    ) {
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        int statIndex = registry.getIndex(statId);
+        if (statIndex < 0) {
+            return 0;
+        }
+        return getEffectiveValue(statIndex, entityRef, context);
+    }
+    
+    /**
+     * Check if a modifier applies to a specific stat.
+     */
+    private boolean isModifierApplicable(
+            @Nonnull StatModifier mod,
+            int statIdx,
+            @Nonnull StatDefinition statDef,
+            @Nonnull StatDefinitionRegistry registry
+    ) {
+        // Direct targeting
+        if (mod.targetStatIndex() == statIdx) {
+            return true;
+        }
+        
+        // Tag targeting
+        String tagId = mod.targetTagId();
+        if (tagId != null) {
+            java.util.Set<Integer> affectedStats = registry.getStatIndicesForTag(tagId);
+            if (affectedStats.contains(statIdx)) {
+                return true;
+            }
+            if (statDef.tags().contains(tagId)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     // ========== BREAKDOWN HELPERS ==========

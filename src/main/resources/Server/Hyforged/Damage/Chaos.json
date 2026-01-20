@@ -1,0 +1,7 @@
+{
+    "$Comment": "Chaos damage - unpredictable magical damage that bypasses conventional resistances",
+    "Parent": "Physical",
+    "Inherits": "Physical",
+    "HyforgedResistanceStat": "hyforged:chaos-resistance-bps",
+    "HyforgedPenetrationStat": "hyforged:chaos-penetration-bps"
+}

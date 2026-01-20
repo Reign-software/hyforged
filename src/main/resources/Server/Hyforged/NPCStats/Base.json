@@ -1,0 +1,17 @@
+{
+    "Id": "hyforged:base",
+    "MaxHealth": 50,
+    "MaxHealthPerLevel": 5,
+    "Strength": 5,
+    "StrengthPerLevel": 1,
+    "Dexterity": 5,
+    "DexterityPerLevel": 1,
+    "Intelligence": 5,
+    "IntelligencePerLevel": 1,
+    "Constitution": 5,
+    "ConstitutionPerLevel": 1,
+    "PhysicalPower": 5,
+    "PhysicalPowerPerLevel": 1,
+    "ArmorRating": 0,
+    "ArmorRatingPerLevel": 0
+}

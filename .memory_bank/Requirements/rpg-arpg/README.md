@@ -33,7 +33,7 @@ The systems are grouped into phases based on dependencies. Complete each phase b
 ### Phase 2: Entity Application
 | Order | System | Dependencies | Notes |
 |-------|--------|--------------|-------|
-| 2 | [Entity Stats](entity-stats.md) | Stats System | Attaches stats to players/NPCs. Required before any system can *apply* stats to entities. |
+| 2 | [Entity Stats](entity-stats.md) 📝 | Stats System | Attaches stats to players/NPCs. Required before any system can *apply* stats to entities. Spec: [entity-stats.spec.md](../../Features/entity-stats/entity-stats.spec.md) |
 
 ### Phase 3: Core Progression
 | Order | System | Dependencies | Notes |
@@ -82,6 +82,7 @@ The systems are grouped into phases based on dependencies. Complete each phase b
 - [Trading & Marketplace](trading-marketplace.md)
 
 ## Change Log
+- 2026-01-19: Linked Entity Stats spec for Phase 2.
 - 2026-01-19: Added implementation order with phased dependencies.
 - 2026-01-19: Added Entity Stats requirement for applying stats to players and NPCs.
 - 2026-01-19: Initial requirements set scaffold created.

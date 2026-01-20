@@ -1,0 +1,11 @@
+{
+    "Id": "hyforged:bleed-penetration-bps",
+    "Category": "offense",
+    "DisplayName": "Bleed Penetration",
+    "Description": "Bleed damage penetrates enemy bleed resistance.",
+    "DefaultValue": 0,
+    "MinValue": 0,
+    "MaxValue": 10000,
+    "IsRating": false,
+    "Tags": ["offense", "penetration", "bleed", "physical", "percent"]
+}

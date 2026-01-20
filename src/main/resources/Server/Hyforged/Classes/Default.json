@@ -1,0 +1,12 @@
+{
+    "Id": "hyforged:default",
+    "DisplayName": "Default",
+    "Description": "The default character class with balanced ability scores.",
+    "Strength": 1,
+    "Dexterity": 1,
+    "Intelligence": 1,
+    "Constitution": 1,
+    "Wisdom": 1,
+    "Spirit": 1,
+    "Luck": 1
+}

@@ -7,9 +7,13 @@ import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
+import reign.software.hyforged.stats.asset.ClassAssetLoader;
 import reign.software.hyforged.stats.asset.StatAssetLoader;
+import reign.software.hyforged.stats.command.HyforgedCommand;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
+import reign.software.hyforged.stats.npc.NPCStatInitSystem;
+import reign.software.hyforged.stats.npc.NPCStatTemplateLoader;
 import reign.software.hyforged.stats.persistence.HyforgedStatCodec;
 import reign.software.hyforged.stats.system.HyforgedBridgeSystem;
 import reign.software.hyforged.stats.system.HyforgedStatComputeSystem;
@@ -57,6 +61,9 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register ECS systems
         registerSystems();
         
+        // Register commands
+        registerCommands();
+        
         getLogger().at(Level.INFO).log("Hyforged Stats System initialized with %d stats and %d tags",
             StatDefinitionRegistry.get().getStatCount(),
             StatDefinitionRegistry.get().getAllTags().size());
@@ -85,6 +92,14 @@ public class HyforgedPlugin extends JavaPlugin {
         // The StatAssetLoader handles registration with StatDefinitionRegistry
         StatAssetLoader.initialize(this);
         
+        // Initialize asset loader for class definitions
+        // Classes define ability score distributions for players
+        ClassAssetLoader.initialize(this);
+        
+        // Initialize asset loader for NPC stat templates
+        // Templates define stat scaling for NPCs
+        NPCStatTemplateLoader.initialize(this);
+        
         getLogger().at(Level.FINE).log("Stat and tag asset loading initialized, awaiting asset load...");
     }
     
@@ -110,9 +125,13 @@ public class HyforgedPlugin extends JavaPlugin {
     private void registerSystems() {
         ComponentRegistryProxy<EntityStore> entityStoreRegistry = this.getEntityStoreRegistry();
         
-        // Register HyforgedStatInitSystem (handles entity lifecycle)
+        // Register HyforgedStatInitSystem (handles player entity lifecycle)
         entityStoreRegistry.registerSystem(new HyforgedStatInitSystem());
         getLogger().at(Level.FINE).log("Registered HyforgedStatInitSystem");
+        
+        // Register NPCStatInitSystem (handles NPC entity stat initialization)
+        entityStoreRegistry.registerSystem(new NPCStatInitSystem());
+        getLogger().at(Level.FINE).log("Registered NPCStatInitSystem");
         
         // Register HyforgedStatComputeSystem (recomputes dirty stats)
         entityStoreRegistry.registerSystem(new HyforgedStatComputeSystem());
@@ -121,6 +140,14 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register HyforgedBridgeSystem (bridges to Hytale's EntityStatMap)
         entityStoreRegistry.registerSystem(new HyforgedBridgeSystem());
         getLogger().at(Level.FINE).log("Registered HyforgedBridgeSystem");
+    }
+    
+    /**
+     * Register admin commands for the Hyforged plugin.
+     */
+    private void registerCommands() {
+        this.getCommandRegistry().registerCommand(new HyforgedCommand());
+        getLogger().at(Level.FINE).log("Registered Hyforged commands");
     }
 
     /**

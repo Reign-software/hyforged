@@ -2,6 +2,11 @@
 
 This guide explains how to add custom stats to the Hyforged stat system. The system follows an Entity Component System (ECS) architecture with data-driven definitions.
 
+## Documentation
+
+- [API Reference](API.md) — Code examples for querying stats, modifiers, events, and conditional modifiers
+- This README — JSON schema and data-driven configuration
+
 ## Quick Start
 
 1. Create a stat definition JSON in your mod's `Server/<YourMod>/Stats/` folder

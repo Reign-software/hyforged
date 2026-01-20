@@ -12,15 +12,20 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.stats.CoreStats;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
+import reign.software.hyforged.stats.StatId;
+import reign.software.hyforged.stats.asset.ClassDefinition;
+import reign.software.hyforged.stats.asset.ClassDefinitionRegistry;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 
 import javax.annotation.Nonnull;
+import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * ECS System for initializing entities with HyforgedStatComponent.
  * <p>
  * This RefSystem handles entity lifecycle events:
- * - onEntityAdded: Initialize default ability scores
+ * - onEntityAdded: Initialize default ability scores based on class
  * - onEntityRemove: Clean up any external state if needed
  * <p>
  * Following ECS principles, this system contains only processing logic.
@@ -31,6 +36,8 @@ import javax.annotation.Nonnull;
  */
 public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
 
+    private static final Logger LOGGER = Logger.getLogger(HyforgedStatInitSystem.class.getName());
+
     @Nonnull
     private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
     
@@ -38,9 +45,9 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
     private final Query<EntityStore> query;
 
     /**
-     * Default base value for ability scores when initializing a new entity.
+     * Default base value for ability scores when class doesn't specify.
      */
-    private static final int DEFAULT_ABILITY_SCORE = 10;
+    private static final int DEFAULT_ABILITY_SCORE = 1;
 
     public HyforgedStatInitSystem() {
         this.statComponentType = HyforgedPlugin.getInstance().getHyforgedStatComponentType();
@@ -65,8 +72,8 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
             return;
         }
 
-        // Initialize default ability scores if not already set
-        initializeAbilityScores(component);
+        // Initialize ability scores based on player class
+        initializeAbilityScores(component, ref);
         
         // Mark all stats dirty for initial computation
         // Scaling-based derived stats will be computed by HyforgedStatComputeSystem
@@ -85,15 +92,44 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
     }
 
     /**
-     * Initialize ability scores to default values if they haven't been set.
+     * Get the class ID for an entity.
      * <p>
-     * Sets default base values for core ability scores.
-     * Derived stat scaling is handled by ScalingRules in HyforgedStatComputeSystem.
+     * Currently returns the default class for all entities.
+     * Future: Look up class from player data, equipment, or other sources.
+     *
+     * @param entityRef Reference to the entity
+     * @return The class ID (e.g., "hyforged:default")
      */
-    private void initializeAbilityScores(@Nonnull HyforgedStatComponent component) {
+    @Nonnull
+    private String getPlayerClass(@Nonnull Ref<EntityStore> entityRef) {
+        // TODO: In future, retrieve class from player data component
+        // For now, return the default class
+        return ClassDefinitionRegistry.DEFAULT_CLASS_ID;
+    }
+
+    /**
+     * Initialize ability scores based on class definition.
+     * <p>
+     * Sets base values for ability scores from the class definition.
+     * Stats not specified in the class default to 1.
+     */
+    private void initializeAbilityScores(
+            @Nonnull HyforgedStatComponent component,
+            @Nonnull Ref<EntityStore> entityRef
+    ) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        ClassDefinitionRegistry classRegistry = ClassDefinitionRegistry.get();
         
-        // Set default ability score base values (10 is the standard baseline)
+        // Get the entity's class
+        String classId = getPlayerClass(entityRef);
+        ClassDefinition classDef = classRegistry.getOrDefault(classId);
+        
+        LOGGER.fine("Initializing ability scores for entity with class: " + classDef.id());
+        
+        // Get ability scores from class definition
+        Map<StatId, Integer> abilityScores = classDef.abilityScores();
+        
+        // Set ability score base values from class
         int[] abilityStats = {
             registry.getIndex(CoreStats.STRENGTH),
             registry.getIndex(CoreStats.DEXTERITY),
@@ -104,9 +140,24 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
             registry.getIndex(CoreStats.LUCK)
         };
         
-        for (int statIndex : abilityStats) {
+        StatId[] abilityStatIds = {
+            StatId.hyforged("strength"),
+            StatId.hyforged("dexterity"),
+            StatId.hyforged("intelligence"),
+            StatId.hyforged("constitution"),
+            StatId.hyforged("wisdom"),
+            StatId.hyforged("spirit"),
+            StatId.hyforged("luck")
+        };
+        
+        for (int i = 0; i < abilityStats.length; i++) {
+            int statIndex = abilityStats[i];
+            StatId statId = abilityStatIds[i];
+            
             if (statIndex >= 0 && component.getBaseValue(statIndex) == 0) {
-                component.setBaseValue(statIndex, DEFAULT_ABILITY_SCORE);
+                // Use class-defined value, or default if not specified
+                int value = abilityScores.getOrDefault(statId, DEFAULT_ABILITY_SCORE);
+                component.setBaseValue(statIndex, value);
             }
         }
     }

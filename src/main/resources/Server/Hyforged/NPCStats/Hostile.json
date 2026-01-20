@@ -1,0 +1,12 @@
+{
+    "Id": "hyforged:hostile",
+    "Parent": "hyforged:base",
+    "MaxHealth": 100,
+    "MaxHealthPerLevel": 15,
+    "Strength": 10,
+    "StrengthPerLevel": 2,
+    "PhysicalPower": 10,
+    "PhysicalPowerPerLevel": 2,
+    "ArmorRating": 5,
+    "ArmorRatingPerLevel": 1
+}
