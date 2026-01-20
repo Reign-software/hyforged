@@ -1,0 +1,6 @@
+{
+  "Id": "critical",
+  "DisplayName": "Critical Strikes",
+  "Description": "Critical hit chance, multiplier, and related stats",
+  "SortOrder": 3
+}

@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:life-cost-bps",
+  "Category": "utility",
+  "DisplayName": "Life Cost",
+  "Description": "Reduced life cost of skills.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["utility", "life", "cost", "percent"]
+}

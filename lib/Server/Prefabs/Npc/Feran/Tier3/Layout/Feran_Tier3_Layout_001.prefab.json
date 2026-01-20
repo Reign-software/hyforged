@@ -1,0 +1,30 @@
+{
+  "version": 8,
+  "blockIdVersion": 10,
+  "anchorX": 0,
+  "anchorY": 3,
+  "anchorZ": 0,
+  "blocks": [
+    {
+      "x": 1,
+      "y": 3,
+      "z": -6,
+      "name": "Prefab_Spawner_Block",
+      "components": {
+        "Components": {
+          "prefabspawner": {
+            "Position": {
+              "X": 1,
+              "Y": 0,
+              "Z": -6
+            },
+            "PrefabPath": "Npc.Feran.Tier3.Base.*",
+            "FitHeightmap": false,
+            "InheritSeed": true,
+            "InheritHeightCondition": true
+          }
+        }
+      }
+    }
+  ]
+}

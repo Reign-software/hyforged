@@ -1,0 +1,6 @@
+{
+  "Id": "resource",
+  "DisplayName": "Resources",
+  "Description": "Health, mana, stamina, energy shield, ward, and concentration pools",
+  "SortOrder": 1
+}

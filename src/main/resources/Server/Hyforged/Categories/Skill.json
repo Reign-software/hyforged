@@ -1,0 +1,6 @@
+{
+  "Id": "skill",
+  "DisplayName": "Skill Levels",
+  "Description": "Bonuses to skill gem levels by type",
+  "SortOrder": 7
+}

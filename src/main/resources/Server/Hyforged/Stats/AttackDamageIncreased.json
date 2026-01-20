@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:attack-damage-increased-bps",
+  "Category": "offense",
+  "DisplayName": "Attack Damage",
+  "Description": "Increased attack damage.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["offense", "damage", "attack", "percent"]
+}

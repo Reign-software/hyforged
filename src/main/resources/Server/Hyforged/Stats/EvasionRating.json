@@ -1,0 +1,18 @@
+{
+  "Id": "hyforged:evasion-rating",
+  "Category": "defense",
+  "DisplayName": "Evasion",
+  "Description": "Chance to evade attacks. Scales with Dexterity.",
+  "DefaultValue": 0,
+  "MinValue": -2147483648,
+  "MaxValue": 2147483647,
+  "IsRating": true,
+  "Tags": ["defense", "rating", "derived"],
+  "Scaling": [
+    {
+      "Type": "linear",
+      "Source": "hyforged:dexterity",
+      "Ratio": 2.0
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:constitution",
+  "Category": "ability-score",
+  "DisplayName": "Constitution",
+  "Description": "Increases max health and regeneration.",
+  "DefaultValue": 10,
+  "MinValue": 1,
+  "MaxValue": 999,
+  "IsRating": false,
+  "Tags": ["attributes", "ability-scores"]
+}

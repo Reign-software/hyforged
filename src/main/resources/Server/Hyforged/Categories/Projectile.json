@@ -1,0 +1,6 @@
+{
+  "Id": "projectile",
+  "DisplayName": "Projectiles",
+  "Description": "Projectile behavior, count, and mechanics",
+  "SortOrder": 11
+}

@@ -1,0 +1,6 @@
+{
+  "Id": "loot",
+  "DisplayName": "Loot & Experience",
+  "Description": "Item find, rarity, and experience bonuses",
+  "SortOrder": 14
+}

@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:added-cold-damage-flat",
+  "Category": "offense",
+  "DisplayName": "Added Cold Damage",
+  "Description": "Adds flat cold damage to attacks and spells.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 2147483647,
+  "IsRating": false,
+  "Tags": ["offense", "damage", "cold", "elemental", "flat"]
+}

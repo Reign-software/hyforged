@@ -1,0 +1,16 @@
+﻿{
+    "Id":  "hyforged:life-leech-bps",
+    "Category":  "recovery",
+    "DisplayName":  "Life Leech",
+    "Description":  "Percentage of damage leeched as life.",
+    "DefaultValue":  0,
+    "MinValue":  0,
+    "MaxValue":  10000,
+    "IsRating":  false,
+    "Tags":  [
+                 "offense",
+                 "leech",
+                 "life",
+                 "percent"
+             ]
+}

@@ -1,0 +1,18 @@
+{
+  "Id": "hyforged:max-stamina-flat",
+  "Category": "resource",
+  "DisplayName": "Max Stamina",
+  "Description": "Maximum stamina points. Scales with Spirit.",
+  "DefaultValue": 100,
+  "MinValue": 0,
+  "MaxValue": 2147483647,
+  "IsRating": false,
+  "Tags": ["resources", "stamina", "derived"],
+  "Scaling": [
+    {
+      "Type": "linear",
+      "Source": "hyforged:spirit",
+      "Ratio": 2.0
+    }
+  ]
+}

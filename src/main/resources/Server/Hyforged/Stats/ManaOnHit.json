@@ -1,0 +1,15 @@
+﻿{
+    "Id":  "hyforged:mana-on-hit-flat",
+    "Category":  "recovery",
+    "DisplayName":  "Mana Gained on Hit",
+    "Description":  "Flat mana gained on each hit.",
+    "DefaultValue":  0,
+    "MinValue":  0,
+    "MaxValue":  2147483647,
+    "IsRating":  false,
+    "Tags":  [
+                 "utility",
+                 "mana",
+                 "on-hit"
+             ]
+}

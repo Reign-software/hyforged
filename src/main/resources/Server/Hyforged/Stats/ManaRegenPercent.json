@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:mana-regen-percent-bps",
+  "Category": "recovery",
+  "DisplayName": "Mana Regen %",
+  "Description": "Percent of max mana regenerated per second.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["recovery", "mana", "regeneration", "percent"]
+}

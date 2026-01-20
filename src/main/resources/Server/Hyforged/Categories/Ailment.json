@@ -1,0 +1,6 @@
+{
+  "Id": "ailment",
+  "DisplayName": "Ailments",
+  "Description": "Damage over time effects like ignite, bleed, poison, freeze, and shock",
+  "SortOrder": 8
+}

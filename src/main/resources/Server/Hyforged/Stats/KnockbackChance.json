@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:knockback-chance-bps",
+  "Category": "offense",
+  "DisplayName": "Knockback Chance",
+  "Description": "Chance to knockback enemies on hit.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["offense", "knockback", "percent"]
+}

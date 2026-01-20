@@ -1,0 +1,18 @@
+{
+  "Id": "hyforged:accuracy-rating",
+  "Category": "offense",
+  "DisplayName": "Accuracy",
+  "Description": "Chance to hit enemies. Scales with Dexterity.",
+  "DefaultValue": 0,
+  "MinValue": -2147483648,
+  "MaxValue": 2147483647,
+  "IsRating": true,
+  "Tags": ["offense", "rating", "derived"],
+  "Scaling": [
+    {
+      "Type": "linear",
+      "Source": "hyforged:dexterity",
+      "Ratio": 1.0
+    }
+  ]
+}

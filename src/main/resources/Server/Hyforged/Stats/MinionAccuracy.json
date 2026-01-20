@@ -1,0 +1,16 @@
+﻿{
+    "Id":  "hyforged:minion-accuracy-bps",
+    "Category":  "minion",
+    "DisplayName":  "Minion Accuracy",
+    "Description":  "Increased accuracy of your minions.",
+    "DefaultValue":  0,
+    "MinValue":  -10000,
+    "MaxValue":  100000,
+    "IsRating":  false,
+    "Tags":  [
+                 "offense",
+                 "minion",
+                 "accuracy",
+                 "percent"
+             ]
+}

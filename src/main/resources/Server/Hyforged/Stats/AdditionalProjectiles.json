@@ -1,0 +1,14 @@
+﻿{
+    "Id":  "hyforged:additional-projectiles",
+    "Category":  "projectile",
+    "DisplayName":  "Additional Projectiles",
+    "Description":  "Additional projectiles fired by skills.",
+    "DefaultValue":  0,
+    "MinValue":  0,
+    "MaxValue":  100,
+    "IsRating":  false,
+    "Tags":  [
+                 "utility",
+                 "projectile"
+             ]
+}

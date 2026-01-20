@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:effect-duration-bps",
+  "Category": "utility",
+  "DisplayName": "Effect Duration",
+  "Description": "Increased buff/debuff duration.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["utility", "duration", "percent"]
+}

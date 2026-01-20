@@ -1,0 +1,6 @@
+{
+  "Id": "defense",
+  "DisplayName": "Defense",
+  "Description": "Armor, evasion, block, suppression, and damage reduction",
+  "SortOrder": 4
+}

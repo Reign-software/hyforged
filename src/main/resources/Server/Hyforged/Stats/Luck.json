@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:luck",
+  "Category": "ability-score",
+  "DisplayName": "Luck",
+  "Description": "Increases loot quality and critical strike chance.",
+  "DefaultValue": 10,
+  "MinValue": 1,
+  "MaxValue": 999,
+  "IsRating": false,
+  "Tags": ["attributes", "ability-scores"]
+}

@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:cold-skill-levels",
+  "Category": "skill",
+  "DisplayName": "+Level to Cold Skills",
+  "Description": "Adds levels to all cold skills.",
+  "DefaultValue": 0,
+  "MinValue": -100,
+  "MaxValue": 100,
+  "IsRating": false,
+  "Tags": ["skill", "skill-level", "cold", "elemental"]
+}

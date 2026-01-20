@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:rage-max",
+  "Category": "resource",
+  "DisplayName": "Maximum Rage",
+  "Description": "Maximum rage.",
+  "DefaultValue": 50,
+  "MinValue": 0,
+  "MaxValue": 1000,
+  "IsRating": false,
+  "Tags": ["resources", "rage"]
+}

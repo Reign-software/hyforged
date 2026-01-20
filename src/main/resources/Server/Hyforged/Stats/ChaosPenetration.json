@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:chaos-penetration-bps",
+  "Category": "offense",
+  "DisplayName": "Chaos Penetration",
+  "Description": "Chaos damage penetrates enemy chaos resistance.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["offense", "penetration", "chaos", "percent"]
+}

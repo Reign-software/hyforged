@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:added-fire-damage-flat",
+  "Category": "offense",
+  "DisplayName": "Added Fire Damage",
+  "Description": "Adds flat fire damage to attacks and spells.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 2147483647,
+  "IsRating": false,
+  "Tags": ["offense", "damage", "fire", "elemental", "flat"]
+}

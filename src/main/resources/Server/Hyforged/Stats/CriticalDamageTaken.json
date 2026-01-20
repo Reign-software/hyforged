@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:critical-damage-taken-bps",
+  "Category": "defense",
+  "DisplayName": "Critical Damage Taken",
+  "Description": "Reduced extra damage taken from critical strikes.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["defense", "critical", "damage-taken", "percent"]
+}

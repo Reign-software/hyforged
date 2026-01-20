@@ -1,0 +1,6 @@
+{
+  "Id": "offense",
+  "DisplayName": "Offense",
+  "Description": "Damage, attack power, penetration, and offensive modifiers",
+  "SortOrder": 2
+}

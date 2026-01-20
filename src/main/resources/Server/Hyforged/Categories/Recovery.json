@@ -1,0 +1,6 @@
+{
+  "Id": "recovery",
+  "DisplayName": "Recovery",
+  "Description": "Regeneration, leech, and resource recovery rates",
+  "SortOrder": 6
+}

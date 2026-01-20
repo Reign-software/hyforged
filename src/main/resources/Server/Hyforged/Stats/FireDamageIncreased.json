@@ -1,0 +1,17 @@
+﻿{
+    "Id":  "hyforged:fire-damage-increased-bps",
+    "Category":  "offense",
+    "DisplayName":  "Fire Damage",
+    "Description":  "Increased fire damage.",
+    "DefaultValue":  0,
+    "MinValue":  -10000,
+    "MaxValue":  10000,
+    "IsRating":  false,
+    "Tags":  [
+                 "offense",
+                 "damage",
+                 "elemental",
+                 "fire",
+                 "percent"
+             ]
+}

@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:cold-penetration-bps",
+  "Category": "offense",
+  "DisplayName": "Cold Penetration",
+  "Description": "Cold damage penetrates enemy cold resistance.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["offense", "penetration", "cold", "elemental", "percent"]
+}

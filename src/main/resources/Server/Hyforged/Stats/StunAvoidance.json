@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:stun-avoidance-bps",
+  "Category": "defense",
+  "DisplayName": "Stun Avoidance",
+  "Description": "Chance to avoid being stunned.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["defense", "stun", "avoidance", "percent"]
+}

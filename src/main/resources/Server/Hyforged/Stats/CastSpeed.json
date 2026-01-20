@@ -1,0 +1,19 @@
+{
+  "Id": "hyforged:cast-speed-bps",
+  "Category": "offense",
+  "DisplayName": "Cast Speed",
+  "Description": "Increased cast speed. Scales with Intelligence.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["offense", "speed", "spell", "percent", "derived"],
+  "Scaling": [
+    {
+      "Type": "threshold",
+      "Source": "hyforged:intelligence",
+      "PerPoints": 1,
+      "BonusBps": 10
+    }
+  ]
+}

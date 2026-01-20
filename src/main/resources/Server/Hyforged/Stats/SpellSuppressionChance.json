@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:suppression-chance-bps",
+  "Category": "defense",
+  "DisplayName": "Spell Suppression Chance",
+  "Description": "Chance to suppress spell damage, reducing it by 50%.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["defense", "suppression", "spell", "percent"]
+}

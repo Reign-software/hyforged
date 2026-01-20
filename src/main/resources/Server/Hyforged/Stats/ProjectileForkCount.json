@@ -1,0 +1,15 @@
+﻿{
+    "Id":  "hyforged:projectile-fork-count",
+    "Category":  "projectile",
+    "DisplayName":  "Projectile Fork",
+    "Description":  "Number of times projectiles can fork into additional projectiles.",
+    "DefaultValue":  0,
+    "MinValue":  0,
+    "MaxValue":  100,
+    "IsRating":  false,
+    "Tags":  [
+                 "utility",
+                 "projectile",
+                 "fork"
+             ]
+}

@@ -1,0 +1,18 @@
+{
+  "Id": "hyforged:spell-power",
+  "Category": "offense",
+  "DisplayName": "Spell Power",
+  "Description": "Base spell damage. Scales with Intelligence.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 2147483647,
+  "IsRating": false,
+  "Tags": ["offense", "spell", "derived"],
+  "Scaling": [
+    {
+      "Type": "linear",
+      "Source": "hyforged:intelligence",
+      "Ratio": 2.0
+    }
+  ]
+}

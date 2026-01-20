@@ -1,0 +1,6 @@
+{
+  "Id": "ability-score",
+  "DisplayName": "Attributes",
+  "Description": "Primary character attributes that determine base capabilities",
+  "SortOrder": 0
+}

@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:two-handed-damage-bps",
+  "Category": "offense",
+  "DisplayName": "Two-Handed Damage",
+  "Description": "Increased damage with two-handed weapons.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 100000,
+  "IsRating": false,
+  "Tags": ["offense", "two-handed", "damage", "percent"]
+}

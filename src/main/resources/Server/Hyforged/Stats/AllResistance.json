@@ -1,0 +1,16 @@
+﻿{
+    "Id":  "hyforged:all-resistance-bps",
+    "Category":  "resistance",
+    "DisplayName":  "All Resistances",
+    "Description":  "Increases all elemental resistances.",
+    "DefaultValue":  0,
+    "MinValue":  -10000,
+    "MaxValue":  10000,
+    "IsRating":  false,
+    "Tags":  [
+                 "defense",
+                 "elemental",
+                 "resistance",
+                 "percent"
+             ]
+}

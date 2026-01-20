@@ -1,0 +1,6 @@
+{
+  "Id": "utility",
+  "DisplayName": "Utility",
+  "Description": "Movement speed, cooldowns, area of effect, and skill costs",
+  "SortOrder": 15
+}

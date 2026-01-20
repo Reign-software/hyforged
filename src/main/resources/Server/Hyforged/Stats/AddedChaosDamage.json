@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:added-chaos-damage-flat",
+  "Category": "offense",
+  "DisplayName": "Added Chaos Damage",
+  "Description": "Adds flat chaos damage to attacks and spells.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 2147483647,
+  "IsRating": false,
+  "Tags": ["offense", "damage", "chaos", "flat"]
+}

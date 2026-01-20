@@ -1,0 +1,16 @@
+﻿{
+    "Id":  "hyforged:minion-life-bps",
+    "Category":  "minion",
+    "DisplayName":  "Minion Life",
+    "Description":  "Increased maximum life of your minions.",
+    "DefaultValue":  0,
+    "MinValue":  -10000,
+    "MaxValue":  100000,
+    "IsRating":  false,
+    "Tags":  [
+                 "defense",
+                 "minion",
+                 "life",
+                 "percent"
+             ]
+}

@@ -17,7 +17,7 @@ The memory bank is a high-level knowledge base for requirements, architecture de
 - Update relevant indices and change logs when adding new entries.
 
 ## Required Files and Templates
-- Requirements: .memory_bank/Requirements.md
+- Requirements: .memory_bank/Requirements/_template_Requirements.md
 - ADRs: .memory_bank/ADRs.md
 - Domain Knowledge: .memory_bank/Domain-Knowledge.md
 - Workflow template: .memory_bank/Workflows/_template.md

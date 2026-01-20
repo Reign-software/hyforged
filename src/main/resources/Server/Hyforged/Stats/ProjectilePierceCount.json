@@ -1,0 +1,15 @@
+﻿{
+    "Id":  "hyforged:projectile-pierce-count",
+    "Category":  "projectile",
+    "DisplayName":  "Projectile Pierce",
+    "Description":  "Number of additional targets projectiles can pierce through.",
+    "DefaultValue":  0,
+    "MinValue":  0,
+    "MaxValue":  100,
+    "IsRating":  false,
+    "Tags":  [
+                 "utility",
+                 "projectile",
+                 "pierce"
+             ]
+}

@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:spell-damage-increased-bps",
+  "Category": "offense",
+  "DisplayName": "Spell Damage",
+  "Description": "Increased spell damage.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": ["offense", "damage", "spell", "percent"]
+}

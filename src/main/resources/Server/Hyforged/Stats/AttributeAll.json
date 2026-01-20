@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:attribute-all",
+  "Category": "ability-score",
+  "DisplayName": "All Attributes",
+  "Description": "Increases all attributes (Strength, Dexterity, Intelligence, etc.).",
+  "DefaultValue": 0,
+  "MinValue": -999,
+  "MaxValue": 999,
+  "IsRating": false,
+  "Tags": ["attributes", "ability-scores", "all"]
+}
