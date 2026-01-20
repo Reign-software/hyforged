@@ -92,6 +92,16 @@
   - Stat recalculation is handled by a dedicated system that processes dirty stat containers.
   - Events (stat changes) integrate with Hytale's event/messaging patterns.
   - Prefer leveraging native Hytale buff/status systems for modifier lifetime tracking and cleanup where possible.
+- Hytale system replacement
+  - Hyforged exclusively controls armor, effect, and weapon stat contributions.
+  - Unregister conflicting Hytale systems at plugin startup:
+    - `DamageSystems.ArmorDamageReduction` — replaced by Hyforged resistance calculation
+    - `DamageSystems.ArmorKnockbackReduction` — replaced by Hyforged knockback resistance
+    - `EntityStatsSystems.Recalculate` — prevents Hytale armor modifiers from applying
+  - Keep `DamageSystems.ApplyDamage` for health subtraction and death handling.
+  - Bridge Hyforged MaxHealth to Hytale's `EntityStatMap` so damage application works correctly.
+  - Register Hyforged damage reduction system that reads resistance from `HyforgedStatComponent`.
+  - Hytale's `ItemArmor.StatModifiers` and `DamageResistance` JSON fields become inert; modders use Hyforged modifier system.
 
 ## Non-Goals
 - Storing computed stats in persistence; only source data is saved.
@@ -135,8 +145,13 @@
 - ECS integration
   - Component design
   - System responsibilities
+- Hytale system replacement
+  - System unregistration at startup
+  - Hyforged damage reduction system
+  - MaxHealth bridge to EntityStatMap
 
 ## Change Log
+- 2026-01-20: Added Hytale system replacement requirements (unregister conflicting systems, Hyforged damage reduction, MaxHealth bridge). See ADR-0006.
 - 2026-01-19: Added modifier identity/refresh rules, context-aware queries, and lifecycle integration notes.
 - 2026-01-19: Updated to reflect ability scores as regular stats; clarified scaling vs modifier distinction.
 - 2026-01-19: Expanded stat dependency resolution and tag-based modifier handling.

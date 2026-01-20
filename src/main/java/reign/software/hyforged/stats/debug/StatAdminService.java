@@ -6,7 +6,6 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
-import reign.software.hyforged.stats.CoreStats;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
@@ -89,18 +88,15 @@ public final class StatAdminService {
         sb.append(String.format("Entity Index: %d\n", entityIndex));
         sb.append(String.format("Schema Version: %d\n", HyforgedStatComponent.SCHEMA_VERSION));
         
-        // Base Values (Ability Scores)
-        sb.append("\n--- Base Values ---\n");
+        // Base Values (Ability Scores) - query by tag
+        sb.append("\n--- Base Values (Ability Scores) ---\n");
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-        String[] abilityNames = {"STR", "DEX", "INT", "CON", "WIS", "SPI", "LCK"};
-        StatId[] abilityStats = {
-            CoreStats.STRENGTH, CoreStats.DEXTERITY, CoreStats.INTELLIGENCE,
-            CoreStats.CONSTITUTION, CoreStats.WISDOM, CoreStats.SPIRIT, CoreStats.LUCK
-        };
-        for (int i = 0; i < abilityStats.length && i < abilityNames.length; i++) {
-            int statIndex = registry.getIndex(abilityStats[i]);
+        for (StatId statId : registry.getStatIdsForTag("ability-score")) {
+            StatDefinition stat = registry.getStat(statId);
+            String displayName = stat != null ? stat.displayName() : statId.name();
+            int statIndex = registry.getIndex(statId);
             int value = statIndex >= 0 ? component.getBaseValue(statIndex) : 0;
-            sb.append(String.format("  %s: %d\n", abilityNames[i], value));
+            sb.append(String.format("  %s: %d\n", displayName, value));
         }
         
         // Modifiers

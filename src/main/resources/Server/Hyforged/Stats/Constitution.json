@@ -7,5 +7,5 @@
   "MinValue": 1,
   "MaxValue": 999,
   "IsRating": false,
-  "Tags": ["attributes", "ability-scores"]
+  "Tags": ["attributes", "ability-score"]
 }

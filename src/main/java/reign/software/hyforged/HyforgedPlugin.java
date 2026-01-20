@@ -9,8 +9,12 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.asset.ClassAssetLoader;
 import reign.software.hyforged.stats.asset.StatAssetLoader;
+import reign.software.hyforged.stats.bridge.HyforgedDamageReductionSystem;
+import reign.software.hyforged.stats.bridge.HyforgedKnockbackReductionSystem;
+import reign.software.hyforged.stats.bridge.HytaleSystemReplacer;
 import reign.software.hyforged.stats.command.HyforgedCommand;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
+import reign.software.hyforged.stats.damage.DamageTypeAssetLoader;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 import reign.software.hyforged.stats.npc.NPCStatInitSystem;
 import reign.software.hyforged.stats.npc.NPCStatTemplateLoader;
@@ -61,6 +65,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register ECS systems
         registerSystems();
         
+        // Unregister conflicting Hytale systems (ADR-0006)
+        // This must be done after Hytale's modules have registered their systems
+        HytaleSystemReplacer.unregisterConflictingSystems(this);
+        
         // Register commands
         registerCommands();
         
@@ -99,6 +107,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Initialize asset loader for NPC stat templates
         // Templates define stat scaling for NPCs
         NPCStatTemplateLoader.initialize(this);
+        
+        // Initialize asset loader for damage type extensions
+        // Extensions define which resistance stats apply to each damage type (ECS pattern)
+        DamageTypeAssetLoader.initialize(this);
         
         getLogger().at(Level.FINE).log("Stat and tag asset loading initialized, awaiting asset load...");
     }
@@ -140,6 +152,14 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register HyforgedBridgeSystem (bridges to Hytale's EntityStatMap)
         entityStoreRegistry.registerSystem(new HyforgedBridgeSystem());
         getLogger().at(Level.FINE).log("Registered HyforgedBridgeSystem");
+        
+        // Register Hyforged damage reduction system (replaces Hytale's ArmorDamageReduction)
+        entityStoreRegistry.registerSystem(new HyforgedDamageReductionSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedDamageReductionSystem");
+        
+        // Register Hyforged knockback reduction system (replaces Hytale's ArmorKnockbackReduction)
+        entityStoreRegistry.registerSystem(new HyforgedKnockbackReductionSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedKnockbackReductionSystem");
     }
     
     /**

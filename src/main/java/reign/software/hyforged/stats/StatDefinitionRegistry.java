@@ -321,6 +321,44 @@ public final class StatDefinitionRegistry {
     }
     
     /**
+     * Get all stats that have a given tag.
+     */
+    @Nonnull
+    public Collection<StatDefinition> getStatsForTag(@Nonnull String tagId) {
+        Set<Integer> indices = tagToStatIndices.get(tagId);
+        if (indices == null || indices.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<StatDefinition> stats = new ArrayList<>(indices.size());
+        for (int index : indices) {
+            StatDefinition stat = getStat(index);
+            if (stat != null) {
+                stats.add(stat);
+            }
+        }
+        return stats;
+    }
+    
+    /**
+     * Get all stat IDs that have a given tag.
+     */
+    @Nonnull
+    public List<StatId> getStatIdsForTag(@Nonnull String tagId) {
+        Set<Integer> indices = tagToStatIndices.get(tagId);
+        if (indices == null || indices.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<StatId> statIds = new ArrayList<>(indices.size());
+        for (int index : indices) {
+            StatDefinition stat = getStat(index);
+            if (stat != null) {
+                statIds.add(stat.id());
+            }
+        }
+        return statIds;
+    }
+
+    /**
      * Get the total number of registered stats.
      */
     public int getStatCount() {

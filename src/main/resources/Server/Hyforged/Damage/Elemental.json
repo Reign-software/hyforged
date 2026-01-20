@@ -1,0 +1,3 @@
+{
+    "$Comment": "Elemental damage - base type for fire, ice, lightning. No direct resistance; children define their own."
+}

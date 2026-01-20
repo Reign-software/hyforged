@@ -7,6 +7,8 @@
 - ADR-0003: Data-Driven Stat and Tag Definitions (2026-01-19) — Superseded by ADR-0005
 - ADR-0004: Data-Driven Category Definitions (2026-01-19) — Accepted
 - ADR-0005: Tags as Simple Strings (2026-01-19) — Accepted
+- ADR-0006: Replace Hytale Stat/Damage Systems for Exclusive Hyforged Control (2026-01-20) — Accepted
+- ADR-0007: Data-Driven Damage Type Extensions (2026-01-20) — Accepted
 
 
 ## ADR Template
@@ -244,3 +246,130 @@
 - Supersedes: ADR-0003 (tag portion)
 - Registry: `reign.software.hyforged.stats.StatDefinitionRegistry`
 - Constants: `reign.software.hyforged.stats.CoreTags`
+---
+
+### ADR-0006: Replace Hytale Stat/Damage Systems for Exclusive Hyforged Control
+- Date: 2026-01-20
+- Status: Accepted
+- Deciders: JBurl
+
+#### Context
+- ADR-0001 established a hybrid approach bridging Hyforged stats to Hytale's `EntityStatMap`.
+- Investigation revealed Hytale has parallel systems that could conflict with Hyforged:
+  - `StatModifiersManager`: Per-entity manager handling armor/weapon/effect stat modifiers (instantiated as `private final` in `LivingEntity`)
+  - `EntityStatsSystems.Recalculate`: Calls `StatModifiersManager.recalculateEntityStatModifiers()` on equipment changes
+  - `DamageSystems.ArmorDamageReduction`: Reduces damage based on `ItemArmor.getDamageResistanceValues()` and effect-based resistance
+  - `DamageSystems.ArmorKnockbackReduction`: Reduces knockback based on armor
+- These systems read directly from Hytale's `ItemArmor` and `EntityEffect` JSON fields, bypassing Hyforged's ARPG stacking.
+- User wants Hyforged to handle stats exclusively.
+
+#### Investigation Findings
+- **Can Replace**: `ComponentRegistry.unregisterSystem(Class<? extends ISystem>)` exists and can remove registered systems
+- **Cannot Replace**: `StatModifiersManager` is `private final` in `LivingEntity`—cannot swap the instance
+- **Systems Registered**: In `EntityStatsModule.setup()` and `DamageModule.setup()`
+- **Damage Flow**: `ArmorDamageReduction` → `ApplyDamage` → `EntityStatMap.subtractStatValue()`
+- **Health Storage**: `DamageSystems.ApplyDamage` reads health from `EntityStatMap`, not `HyforgedStatComponent`
+
+#### Decision
+- **Unregister Hytale's stat/damage systems** that conflict with Hyforged:
+  - `DamageSystems.ArmorDamageReduction` — replaced by Hyforged resistance calculation
+  - `DamageSystems.ArmorKnockbackReduction` — replaced by Hyforged knockback resistance
+  - `EntityStatsSystems.Recalculate` — we don't need Hytale's armor stat modifiers
+- **Keep `DamageSystems.ApplyDamage`** — it handles final health subtraction and death
+- **Bridge Hyforged MaxHealth to `EntityStatMap`** — so `ApplyDamage` has correct max health
+- **Register Hyforged damage reduction system** — reads from `HyforgedStatComponent` for resistance
+- **Ignore `StatModifiersManager`** — it will still exist but with `Recalculate` unregistered, it won't interfere
+
+#### Implementation Plan
+1. Create `HyforgedStatSystemBridge` plugin initializer:
+   - Call `unregisterSystem(DamageSystems.ArmorDamageReduction.class)`
+   - Call `unregisterSystem(DamageSystems.ArmorKnockbackReduction.class)`
+   - Call `unregisterSystem(EntityStatsSystems.Recalculate.class)`
+2. Create `HyforgedDamageReductionSystem` extending `DamageEventSystem`:
+   - Query for entities with `HyforgedStatComponent`
+   - Read resistance from Hyforged stats (e.g., `PhysicalResistance`, `FireResistance`)
+   - Apply ARPG damage reduction formula
+3. Update `HyforgedStatBridge` to sync MaxHealth to `EntityStatMap` on every recalculation
+
+#### Consequences
+- Pros:
+  - Hyforged exclusively controls armor and effect stat contributions
+  - ARPG stacking (FLAT/INCREASED/MORE/CAP) applied to all defense stats
+  - Consistent damage reduction formula across all sources
+  - Eliminates "double dipping" where Hytale and Hyforged both reduce damage
+- Cons:
+  - Hytale's native `ItemArmor.StatModifiers` and `DamageResistance` JSON fields become inert
+  - Must document that modders use Hyforged modifier system instead
+  - Slightly higher integration complexity
+
+#### Alternatives Considered
+- Full hybrid (let both run):
+  - Rejected: Double-dipping on armor stats causes inconsistent balance
+- Replace `ApplyDamage` entirely:
+  - Rejected: Would break health/death sync with client UI; high risk
+- Event interception only:
+  - Rejected: Less clean; timing dependencies; harder to debug
+
+#### Links
+- Related ADR: ADR-0001 (Hybrid approach—partially superseded for armor/damage)
+- Related ADR: ADR-0002 (HyforgedModifier integration)
+- Hytale API: `ComponentRegistry.unregisterSystem()`
+- Hytale: `DamageModule.setup()`, `EntityStatsModule.setup()`
+
+---
+
+### ADR-0007: Data-Driven Damage Type Extensions
+- Date: 2026-01-20
+- Status: Accepted
+- Deciders: JBurl
+
+#### Context
+- `HyforgedDamageReductionSystem` needed to map Hytale's `DamageCause` IDs to Hyforged resistance stats.
+- Initial implementation hardcoded damage type tags (`DAMAGE_TYPE_TAGS = Set.of("physical", "fire", "cold", ...)`) and inferred the mapping from stat tags.
+- This violated ECS/data-driven principles: adding a new damage type required code changes.
+- User questioned: "With the way ECS works, would the mapping be on the damage type entity itself?"
+
+#### Decision
+- **Create damage type extension assets** (`Server/Hyforged/Damage/*.json`) that extend Hytale's `DamageCause` without modifying it.
+- Each extension specifies which resistance stat applies to that damage type via `HyforgedResistanceStat`.
+- **New components**:
+  - `DamageTypeExtensionAsset`: JSON asset for loading extensions
+  - `DamageTypeExtension`: Immutable record holding parsed extension data
+  - `DamageTypeExtensionRegistry`: Singleton registry with inheritance-aware stat lookup
+  - `DamageTypeAssetLoader`: Registers asset store and handles `LoadedAssetsEvent`
+- **Update `HyforgedDamageReductionSystem`** to query `DamageTypeExtensionRegistry` instead of using hardcoded mapping.
+- Extension IDs match Hytale `DamageCause` IDs (e.g., "Fire", "Physical", "Bleed").
+
+#### Consequences
+- Pros:
+  - Fully data-driven: modders add damage types by creating JSON files, no code changes
+  - Follows ECS principle: damage type entity defines its own resistance relationship
+  - Supports inheritance: child damage types inherit parent's resistance stat if not overridden
+  - Extensible: `HyforgedPenetrationStat` field ready for future penetration mechanics
+- Cons:
+  - Requires JSON file for each damage type that should use resistances
+  - Slightly more complex asset loading (additional loader and registry)
+  - Extension files must be named to match Hytale's `DamageCause` IDs exactly
+
+#### JSON Example
+```json
+{
+    "$Comment": "Fire damage extension for Hyforged resistance system",
+    "Inherits": "Elemental",
+    "HyforgedResistanceStat": "hyforged:fire-resistance-bps",
+    "HyforgedPenetrationStat": "hyforged:fire-penetration-bps"
+}
+```
+
+#### Files Changed
+- New: `reign.software.hyforged.stats.damage.DamageTypeExtensionAsset`
+- New: `reign.software.hyforged.stats.damage.DamageTypeExtension`
+- New: `reign.software.hyforged.stats.damage.DamageTypeExtensionRegistry`
+- New: `reign.software.hyforged.stats.damage.DamageTypeAssetLoader`
+- Modified: `reign.software.hyforged.stats.bridge.HyforgedDamageReductionSystem`
+- Modified: `reign.software.hyforged.HyforgedPlugin` (initialize loader)
+- New: `Server/Hyforged/Damage/Fire.json`, `Ice.json`, `Physical.json`, `Poison.json`, `Elemental.json`
+
+#### Links
+- Related ADR: ADR-0006 (Hyforged damage system replacement)
+- Asset path: `Server/Hyforged/Damage/`

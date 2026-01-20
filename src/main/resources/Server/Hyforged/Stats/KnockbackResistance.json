@@ -1,0 +1,24 @@
+{
+    "Id": "hyforged:knockback-resistance-bps",
+    "Category": "defense",
+    "DisplayName": "Knockback Resistance",
+    "Description": "Reduces knockback received from attacks. Scales with Constitution.",
+    "DefaultValue": 0,
+    "MinValue": 0,
+    "MaxValue": 10000,
+    "IsRating": false,
+    "Tags": [
+        "defense",
+        "knockback",
+        "resistance",
+        "percent",
+        "derived"
+    ],
+    "Scaling": [
+        {
+            "Type": "linear",
+            "Source": "hyforged:constitution",
+            "Ratio": 50.0
+        }
+    ]
+}

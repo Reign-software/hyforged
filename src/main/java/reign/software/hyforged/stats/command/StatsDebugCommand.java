@@ -13,7 +13,6 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
-import reign.software.hyforged.stats.CoreStats;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
@@ -113,28 +112,23 @@ public class StatsDebugCommand extends CommandBase {
         StringBuilder sb = new StringBuilder();
         sb.append("§6═══════ Stats for ").append(playerName).append(" ═══════§r\n");
 
-        // Ability Scores
+        // Ability Scores - query by tag
         sb.append("\n§e▸ Ability Scores§r\n");
-        appendStatLine(sb, registry, component, CoreStats.STRENGTH);
-        appendStatLine(sb, registry, component, CoreStats.DEXTERITY);
-        appendStatLine(sb, registry, component, CoreStats.INTELLIGENCE);
-        appendStatLine(sb, registry, component, CoreStats.CONSTITUTION);
-        appendStatLine(sb, registry, component, CoreStats.WISDOM);
-        appendStatLine(sb, registry, component, CoreStats.SPIRIT);
-        appendStatLine(sb, registry, component, CoreStats.LUCK);
+        for (StatId statId : registry.getStatIdsForTag("ability-score")) {
+            appendStatLine(sb, registry, component, statId);
+        }
 
-        // Derived Stats - Offensive
+        // Offensive stats - query by category
         sb.append("\n§e▸ Offensive§r\n");
-        appendStatLine(sb, registry, component, CoreStats.ATTACK_POWER);
-        appendStatLine(sb, registry, component, CoreStats.SPELL_POWER);
-        appendStatLine(sb, registry, component, CoreStats.CRIT_CHANCE_BPS);
-        appendStatLine(sb, registry, component, CoreStats.CRIT_MULTIPLIER_BPS);
+        for (StatDefinition stat : registry.getStatsInCategory("offense")) {
+            appendStatLine(sb, registry, component, stat.id());
+        }
 
-        // Derived Stats - Defensive
+        // Defensive stats - query by category
         sb.append("\n§e▸ Defensive§r\n");
-        appendStatLine(sb, registry, component, CoreStats.ARMOR_RATING);
-        appendStatLine(sb, registry, component, CoreStats.EVASION_RATING);
-        appendStatLine(sb, registry, component, CoreStats.MAX_HEALTH_FLAT);
+        for (StatDefinition stat : registry.getStatsInCategory("defense")) {
+            appendStatLine(sb, registry, component, stat.id());
+        }
 
         // Modifiers summary
         List<StatModifier> modifiers = component.getModifiers();

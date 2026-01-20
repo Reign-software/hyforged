@@ -1,7 +1,8 @@
 package reign.software.hyforged.stats.persistence;
 
-import reign.software.hyforged.stats.CoreStats;
+import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
+import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 
 import javax.annotation.Nonnull;
@@ -103,17 +104,10 @@ public final class StatDataMigrator {
         // If baseValues is empty, set defaults for ability scores.
         
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-        int[] abilityStats = {
-            registry.getIndex(CoreStats.STRENGTH),
-            registry.getIndex(CoreStats.DEXTERITY),
-            registry.getIndex(CoreStats.INTELLIGENCE),
-            registry.getIndex(CoreStats.CONSTITUTION),
-            registry.getIndex(CoreStats.WISDOM),
-            registry.getIndex(CoreStats.SPIRIT),
-            registry.getIndex(CoreStats.LUCK)
-        };
         
-        for (int statIndex : abilityStats) {
+        // Query ability scores by tag instead of hardcoding
+        for (StatId statId : registry.getStatIdsForTag("ability-score")) {
+            int statIndex = registry.getIndex(statId);
             if (statIndex >= 0 && component.getBaseValue(statIndex) == 0) {
                 component.setBaseValue(statIndex, DEFAULT_ABILITY_BASE);
             }
@@ -135,26 +129,22 @@ public final class StatDataMigrator {
         boolean wasRepaired = false;
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
 
-        // Validate ability score base values
-        int[] abilityStats = {
-            registry.getIndex(CoreStats.STRENGTH),
-            registry.getIndex(CoreStats.DEXTERITY),
-            registry.getIndex(CoreStats.INTELLIGENCE),
-            registry.getIndex(CoreStats.CONSTITUTION),
-            registry.getIndex(CoreStats.WISDOM),
-            registry.getIndex(CoreStats.SPIRIT),
-            registry.getIndex(CoreStats.LUCK)
-        };
-        
-        for (int statIndex : abilityStats) {
+        // Validate ability score base values - query by tag
+        for (StatId statId : registry.getStatIdsForTag("ability-score")) {
+            int statIndex = registry.getIndex(statId);
             if (statIndex < 0) continue;
             
+            // Get bounds from stat definition
+            StatDefinition stat = registry.getStat(statId);
+            int minValue = stat != null ? stat.minValue() : 1;
+            int maxValue = stat != null ? stat.maxValue() : 999;
+            
             int value = component.getBaseValue(statIndex);
-            if (value < 1) {
-                component.setBaseValue(statIndex, 1); // Minimum
+            if (value < minValue) {
+                component.setBaseValue(statIndex, minValue);
                 wasRepaired = true;
-            } else if (value > 999) {
-                component.setBaseValue(statIndex, 999); // Maximum
+            } else if (value > maxValue) {
+                component.setBaseValue(statIndex, maxValue);
                 wasRepaired = true;
             }
         }

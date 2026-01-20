@@ -1,0 +1,4 @@
+{
+    "$Comment": "Physical damage - base damage type for melee and non-elemental sources",
+    "HyforgedResistanceStat": "hyforged:physical-resistance-bps"
+}

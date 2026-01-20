@@ -1,0 +1,6 @@
+{
+    "$Comment": "Fire damage - heat and burning elemental damage",
+    "Inherits": "Elemental",
+    "HyforgedResistanceStat": "hyforged:fire-resistance-bps",
+    "HyforgedPenetrationStat": "hyforged:fire-penetration-bps"
+}

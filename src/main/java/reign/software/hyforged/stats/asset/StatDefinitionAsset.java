@@ -8,7 +8,6 @@ import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
 import com.hypixel.hytale.assetstore.map.JsonAssetWithMap;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
-import reign.software.hyforged.stats.CoreCategories;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.scaling.ScalingRule;
@@ -56,7 +55,7 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
             )
             .appendInherited(
                     new KeyedCodec<>("Category", Codec.STRING),
-                    (asset, value) -> asset.category = value != null ? value : CoreCategories.UTILITY,
+                    (asset, value) -> asset.category = value != null ? value : "utility",
                     asset -> asset.category,
                     (asset, parent) -> asset.category = parent.category
             )
@@ -126,7 +125,7 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
     private AssetExtraInfo.Data data;
 
     // Stat definition fields
-    private String category = CoreCategories.UTILITY;
+    private String category = "utility";
     private String displayName = "";
     private String description = "";
     private int defaultValue = 0;

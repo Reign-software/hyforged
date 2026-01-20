@@ -10,7 +10,6 @@ import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.RefSystem;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
-import reign.software.hyforged.stats.CoreStats;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.asset.ClassDefinition;
@@ -129,30 +128,9 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
         // Get ability scores from class definition
         Map<StatId, Integer> abilityScores = classDef.abilityScores();
         
-        // Set ability score base values from class
-        int[] abilityStats = {
-            registry.getIndex(CoreStats.STRENGTH),
-            registry.getIndex(CoreStats.DEXTERITY),
-            registry.getIndex(CoreStats.INTELLIGENCE),
-            registry.getIndex(CoreStats.CONSTITUTION),
-            registry.getIndex(CoreStats.WISDOM),
-            registry.getIndex(CoreStats.SPIRIT),
-            registry.getIndex(CoreStats.LUCK)
-        };
-        
-        StatId[] abilityStatIds = {
-            StatId.hyforged("strength"),
-            StatId.hyforged("dexterity"),
-            StatId.hyforged("intelligence"),
-            StatId.hyforged("constitution"),
-            StatId.hyforged("wisdom"),
-            StatId.hyforged("spirit"),
-            StatId.hyforged("luck")
-        };
-        
-        for (int i = 0; i < abilityStats.length; i++) {
-            int statIndex = abilityStats[i];
-            StatId statId = abilityStatIds[i];
+        // Set ability score base values from class - query by tag instead of hardcoding
+        for (StatId statId : registry.getStatIdsForTag("ability-score")) {
+            int statIndex = registry.getIndex(statId);
             
             if (statIndex >= 0 && component.getBaseValue(statIndex) == 0) {
                 // Use class-defined value, or default if not specified

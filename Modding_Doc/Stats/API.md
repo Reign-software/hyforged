@@ -329,24 +329,41 @@ Map<StatId, Integer> abilityScores = classDef.abilityScores();
 
 ### Custom Damage Types
 
-Create damage types in `Server/Hyforged/Damage/`:
+Hyforged uses a fully data-driven system for damage type extensions. Create JSON files in `Server/Hyforged/Damage/` to define which resistance stat applies to each damage type. The file name must match the Hytale `DamageCause` ID (e.g., `Fire.json` for Fire damage).
 
 ```json
 {
     "$Comment": "Description of this damage type",
-    "Parent": "Physical",
     "Inherits": "Physical",
     "HyforgedResistanceStat": "hyforged:bleed-resistance-bps",
     "HyforgedPenetrationStat": "hyforged:bleed-penetration-bps"
 }
 ```
 
-### Hyforged Extensions
+### Damage Type Fields
 
 | Field | Description |
 |-------|-------------|
-| `HyforgedResistanceStat` | Stat ID for resistance lookup |
-| `HyforgedPenetrationStat` | Stat ID for penetration lookup |
+| `Inherits` | Parent damage type for stat inheritance (optional) |
+| `HyforgedResistanceStat` | Stat ID that provides resistance to this damage type |
+| `HyforgedPenetrationStat` | Stat ID that bypasses resistance (future use) |
+
+### Inheritance
+
+If a damage type doesn't define a `HyforgedResistanceStat`, the system will check parent damage types. For example:
+- `Bleed` inherits from `Physical`
+- If `Bleed` has no resistance stat, `Physical` resistance applies
+
+### Built-in Damage Types
+
+Hyforged includes extensions for common damage types:
+- `Physical.json` → `hyforged:physical-resistance-bps`
+- `Fire.json` → `hyforged:fire-resistance-bps`
+- `Ice.json` → `hyforged:cold-resistance-bps`
+- `Lightning.json` → `hyforged:lightning-resistance-bps`
+- `Poison.json` → `hyforged:poison-resistance-bps`
+- `Chaos.json` → `hyforged:chaos-resistance-bps`
+- `Bleed.json` → `hyforged:bleed-resistance-bps`
 
 ---
 

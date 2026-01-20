@@ -14,8 +14,8 @@ import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntitySta
 import com.hypixel.hytale.server.core.modules.entitystats.modifier.Modifier;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
-import reign.software.hyforged.stats.CoreStats;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
+import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
@@ -133,9 +133,9 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
      */
     private void initializeStatIndices() {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-        maxHealthIndex = registry.getIndex(CoreStats.MAX_HEALTH_FLAT);
-        maxManaIndex = registry.getIndex(CoreStats.MAX_MANA_FLAT);
-        maxStaminaIndex = registry.getIndex(CoreStats.MAX_STAMINA_FLAT);
+        maxHealthIndex = registry.getIndex(StatId.hyforged("max-health-flat"));
+        maxManaIndex = registry.getIndex(StatId.hyforged("max-mana-flat"));
+        maxStaminaIndex = registry.getIndex(StatId.hyforged("max-stamina-flat"));
         indicesInitialized = true;
     }
 

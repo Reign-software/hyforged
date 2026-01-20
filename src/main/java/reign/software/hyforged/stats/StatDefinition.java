@@ -66,7 +66,7 @@ public record StatDefinition(
      */
     public static class Builder {
         private StatId id;
-        private String category = CoreCategories.UTILITY;
+        private String category = "utility";
         private DisplayFormat displayFormat = DisplayFormat.INTEGER;
         private int defaultValue = 0;
         private int minValue = 0;
@@ -122,7 +122,7 @@ public record StatDefinition(
         public Builder abilityScore(boolean isAbilityScore) {
             this.isAbilityScore = isAbilityScore;
             if (isAbilityScore) {
-                this.category = CoreCategories.ABILITY_SCORE;
+                this.category = "ability-score";
             }
             return this;
         }
