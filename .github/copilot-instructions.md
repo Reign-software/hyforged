@@ -12,6 +12,28 @@ This is a Hytale plugin project. Hytale plugins are used to extend the functiona
 - Review TODOs when implementing a plan as they may be from a previous implementation or design decision awaiting the plan.
 - When working with systems, aim to make things generic and data driven. Leverage tags and JSON data wherever possible.
 
+## Hytale ECS notes (follow these patterns)
+- ECS is composition over inheritance. Entities are identifiers only, Components are pure data, Systems contain logic.
+- Use `Store<EntityStore>` to access component data. Do not keep direct references to entity objects; use `Ref<EntityStore>` handles and validate as needed.
+- `Store` uses archetypes (chunked storage). Keep systems query-driven and data-oriented.
+- `EntityStore` provides world access and entity lookup (UUID, network id). `ChunkStore` is for chunk/block data and world chunks.
+- Build entities via `Holder<EntityStore>` then add to the store; treat it as a staging cart for components.
+- Components implement `Component<EntityStore>` and must provide a default constructor and `clone()` (copy constructor pattern).
+- Use `CommandBuffer` for entity/component changes instead of mutating the store directly (thread safety + ordering).
+- Systems:
+	- `EntityTickingSystem` for per-entity tick logic.
+	- `TickingSystem` for global per-tick logic.
+	- `DelayedEntitySystem` for interval-based entity updates.
+	- `RefChangeSystem` for reacting to component add/set/remove.
+- Queries filter entities (`Query.and`, `Query.not`). Only entities matching the query are processed.
+- Use `SystemGroup` and dependencies to control execution order (e.g., damage pipeline stages).
+- Register components and systems in plugin `setup()` via `EntityStoreRegistry.registerComponent` and `registerSystem`. Keep `ComponentType` references for reuse.
+- Use ECS access patterns shown in official docs:
+	- https://hytalemodding.dev/en/docs/guides/ecs/entity-component-system
+	- https://hytalemodding.dev/en/docs/guides/ecs/hytale-ecs-theory
+	- https://hytalemodding.dev/en/docs/guides/ecs/systems
+	- https://hytalemodding.dev/en/docs/guides/ecs/example-ecs-plugin
+
 ## Project Structure
 ```text
 your-plugin-name/

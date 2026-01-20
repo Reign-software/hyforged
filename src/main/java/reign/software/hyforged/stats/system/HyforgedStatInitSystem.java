@@ -44,9 +44,9 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
     private final Query<EntityStore> query;
 
     /**
-     * Default base value for ability scores when class doesn't specify.
+     * Category ID for ability score stats (data-driven from assets).
      */
-    private static final int DEFAULT_ABILITY_SCORE = 1;
+    private static final String ABILITY_SCORE_CATEGORY = "ability-score";
 
     public HyforgedStatInitSystem() {
         this.statComponentType = HyforgedPlugin.getInstance().getHyforgedStatComponentType();
@@ -127,14 +127,14 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
         
         // Get ability scores from class definition
         Map<StatId, Integer> abilityScores = classDef.abilityScores();
-        
-        // Set ability score base values from class - query by tag instead of hardcoding
-        for (StatId statId : registry.getStatIdsForTag("ability-score")) {
+
+        // Set ability score base values from class - query by category
+        for (reign.software.hyforged.stats.StatDefinition statDef : registry.getStatsInCategory(ABILITY_SCORE_CATEGORY)) {
+            StatId statId = statDef.id();
             int statIndex = registry.getIndex(statId);
-            
+
             if (statIndex >= 0 && component.getBaseValue(statIndex) == 0) {
-                // Use class-defined value, or default if not specified
-                int value = abilityScores.getOrDefault(statId, DEFAULT_ABILITY_SCORE);
+                int value = abilityScores.getOrDefault(statId, statDef.defaultValue());
                 component.setBaseValue(statIndex, value);
             }
         }

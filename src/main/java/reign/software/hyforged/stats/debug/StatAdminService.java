@@ -10,6 +10,7 @@ import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
+import reign.software.hyforged.stats.service.HyforgedStatQueryService;
 import reign.software.hyforged.stats.component.StatModifier;
 import reign.software.hyforged.stats.breakdown.BreakdownEntry;
 import reign.software.hyforged.stats.breakdown.StatBreakdown;
@@ -252,7 +253,7 @@ public final class StatAdminService {
             return null;
         }
         
-        StatBreakdown breakdown = component.getStatBreakdown(statId, targetLevel);
+        StatBreakdown breakdown = HyforgedStatQueryService.getStatBreakdown(component, statId, targetLevel);
         if (breakdown == null) {
             return "Stat not found: " + statId;
         }

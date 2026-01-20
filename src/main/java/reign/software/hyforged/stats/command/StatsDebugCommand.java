@@ -18,6 +18,7 @@ import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.breakdown.StatBreakdown;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
+import reign.software.hyforged.stats.service.HyforgedStatQueryService;
 import reign.software.hyforged.stats.component.StatModifier;
 
 import javax.annotation.Nonnull;
@@ -212,7 +213,7 @@ public class StatsDebugCommand extends CommandBase {
         }
 
         // Get full breakdown
-        StatBreakdown breakdown = component.getStatBreakdown(index, 1);
+        StatBreakdown breakdown = HyforgedStatQueryService.getStatBreakdown(component, index, 1);
 
         StringBuilder sb = new StringBuilder();
         sb.append("§6═══════ ").append(formatStatName(statId)).append(" Breakdown ═══════§r\n");

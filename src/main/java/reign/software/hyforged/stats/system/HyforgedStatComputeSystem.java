@@ -97,9 +97,10 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
         
         // Get current game tick for expiration handling
         long currentTick = commandBuffer.getExternalData().getWorld().getTick();
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         
         // Remove expired modifiers first
-        component.removeExpiredModifiers(currentTick);
+        removeExpiredModifiers(component, currentTick, registry);
         
         // Get entity reference for events
         Ref<EntityStore> entityRef = archetypeChunk.getReferenceTo(index);
@@ -322,5 +323,31 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
         }
         
         return false;
+    }
+
+    private int removeExpiredModifiers(
+            @Nonnull HyforgedStatComponent component,
+            long currentTick,
+            @Nonnull StatDefinitionRegistry registry
+    ) {
+        return component.removeModifiersIf(
+            modifier -> modifier.expirationTick() > 0 && modifier.expirationTick() <= currentTick,
+            modifier -> markAffectedStatsDirty(component, modifier, registry)
+        );
+    }
+
+    private void markAffectedStatsDirty(
+            @Nonnull HyforgedStatComponent component,
+            @Nonnull StatModifier modifier,
+            @Nonnull StatDefinitionRegistry registry
+    ) {
+        if (modifier.targetStatIndex() >= 0) {
+            component.markStatDirty(modifier.targetStatIndex());
+        }
+        if (modifier.targetTagId() != null) {
+            for (int statIdx : registry.getStatIndicesForTag(modifier.targetTagId())) {
+                component.markStatDirty(statIdx);
+            }
+        }
     }
 }

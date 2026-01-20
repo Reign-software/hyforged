@@ -7,8 +7,8 @@ import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
-import reign.software.hyforged.stats.scaling.ScalingRule;
-import reign.software.hyforged.stats.engine.ScalingEngine;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -287,24 +287,31 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         }
         return modifiers.removeIf(m -> m.sourceType() == sourceType);
     }
-    
+
     /**
-     * Remove expired modifiers based on current game tick.
+     * Remove modifiers matching a predicate.
+     * <p>
+     * This is a generic helper for systems to perform data cleanup while
+     * providing their own removal criteria and dirty-flag handling.
+     *
+     * @param predicate Matcher for modifiers to remove
+     * @param onRemoved Callback for each removed modifier
      * @return number of modifiers removed
      */
-    public int removeExpiredModifiers(long currentTick) {
-        // Collect affected stats before removal
-        int count = 0;
-        for (StatModifier m : modifiers) {
-            if (m.expirationTick() > 0 && m.expirationTick() <= currentTick) {
-                markAffectedStatsDirty(m);
-                count++;
+    public int removeModifiersIf(
+            @Nonnull Predicate<StatModifier> predicate,
+            @Nonnull Consumer<StatModifier> onRemoved
+    ) {
+        int removed = 0;
+        for (java.util.Iterator<StatModifier> it = modifiers.iterator(); it.hasNext(); ) {
+            StatModifier modifier = it.next();
+            if (predicate.test(modifier)) {
+                it.remove();
+                removed++;
+                onRemoved.accept(modifier);
             }
         }
-        if (count > 0) {
-            modifiers.removeIf(m -> m.expirationTick() > 0 && m.expirationTick() <= currentTick);
-        }
-        return count;
+        return removed;
     }
     
     /**
@@ -328,9 +335,9 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     public int getConditionalModifierCount() {
         return conditionalModifiers.size();
     }
-    
+
     // ========== CONDITIONAL MODIFIER ACCESSORS ==========
-    
+
     /**
      * Get all conditional modifiers (unmodifiable view).
      */
@@ -338,7 +345,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     public List<ConditionalStatModifier> getConditionalModifiers() {
         return List.copyOf(conditionalModifiers);
     }
-    
+
     /**
      * Add a conditional modifier to this entity.
      * If a modifier with the same source/target/type already exists, it is replaced.
@@ -351,7 +358,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         if (modifiers.size() + conditionalModifiers.size() >= MAX_MODIFIERS) {
             return false;
         }
-        
+
         // Find and replace if exists
         int existingIndex = findMatchingConditionalModifierIndex(conditionalMod);
         if (existingIndex >= 0) {
@@ -360,12 +367,12 @@ public class HyforgedStatComponent implements Component<EntityStore> {
             markAffectedStatsDirty(conditionalMod.modifier());
             return true;
         }
-        
+
         conditionalModifiers.add(conditionalMod);
         markAffectedStatsDirty(conditionalMod.modifier());
         return true;
     }
-    
+
     private int findMatchingConditionalModifierIndex(@Nonnull ConditionalStatModifier conditionalMod) {
         for (int i = 0; i < conditionalModifiers.size(); i++) {
             ConditionalStatModifier existing = conditionalModifiers.get(i);
@@ -375,7 +382,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         }
         return -1;
     }
-    
+
     /**
      * Remove conditional modifiers by source ID.
      *
@@ -393,7 +400,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         conditionalModifiers.removeIf(m -> m.sourceId().equals(sourceId));
         return removed;
     }
-    
+
     /**
      * Mark all stats affected by a modifier as dirty.
      * Handles both direct stat targeting and tag targeting.
@@ -408,9 +415,9 @@ public class HyforgedStatComponent implements Component<EntityStore> {
             }
         }
     }
-    
+
     // ========== CACHED VALUE ACCESSORS ==========
-    
+
     /**
      * Get cached computed value for a stat.
      * Note: May be stale if stat is dirty - systems should check dirty flags.
@@ -421,7 +428,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         }
         return cachedValues[statIndex];
     }
-    
+
     /**
      * Set cached computed value for a stat.
      * Called by computation systems after recomputing.
@@ -430,7 +437,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         ensureCacheCapacity(statIndex + 1);
         cachedValues[statIndex] = value;
     }
-    
+
     private void ensureCacheCapacity(int minCapacity) {
         if (cachedValues.length < minCapacity) {
             int[] newCache = new int[Math.max(minCapacity, cachedValues.length * 2)];
@@ -438,23 +445,23 @@ public class HyforgedStatComponent implements Component<EntityStore> {
             cachedValues = newCache;
         }
     }
-    
+
     // ========== DIRTY FLAG ACCESSORS ==========
-    
+
     /**
      * Check if a specific stat needs recomputation.
      */
     public boolean isStatDirty(int statIndex) {
         return allDirty || dirtyFlags.get(statIndex);
     }
-    
+
     /**
      * Check if any stat is dirty.
      */
     public boolean hasAnyDirty() {
         return allDirty || !dirtyFlags.isEmpty();
     }
-    
+
     /**
      * Mark a specific stat as needing recomputation.
      */
@@ -463,21 +470,21 @@ public class HyforgedStatComponent implements Component<EntityStore> {
             dirtyFlags.set(statIndex);
         }
     }
-    
+
     /**
      * Mark all stats as needing recomputation.
      */
     public void markAllDirty() {
         allDirty = true;
     }
-    
+
     /**
      * Clear dirty flag for a specific stat.
      */
     public void clearDirtyFlag(int statIndex) {
         dirtyFlags.clear(statIndex);
     }
-    
+
     /**
      * Clear all dirty flags.
      */
@@ -485,7 +492,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         allDirty = false;
         dirtyFlags.clear();
     }
-    
+
     /**
      * Get indices of all dirty stats.
      */
@@ -501,10 +508,10 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         }
         return dirtyFlags.stream().toArray();
     }
-    
+
     // ========== CHANGE BUFFER ACCESSORS ==========
     // Used for coalescing stat changes during a tick for batch event emission
-    
+
     /**
      * Begin buffering stat changes. Call before recomputation to capture old values.
      * <p>
@@ -514,7 +521,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         isBufferingChanges = true;
         changeBuffer.clear();
     }
-    
+
     /**
      * Record the old value for a stat before recomputation.
      * Only records if buffering is active.
@@ -527,7 +534,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
             changeBuffer.put(statIndex, oldValue);
         }
     }
-    
+
     /**
      * End buffering and return changes as a map of statIndex → oldValue.
      * The returned map should be compared against current cached values
@@ -542,7 +549,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         changeBuffer.clear();
         return result;
     }
-    
+
     /**
      * Check if change buffering is currently active.
      *
@@ -551,7 +558,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     public boolean isBufferingChanges() {
         return isBufferingChanges;
     }
-    
+
     /**
      * Clear the change buffer without returning changes.
      */
@@ -559,35 +566,35 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         isBufferingChanges = false;
         changeBuffer.clear();
     }
-    
+
     // ========== BRIDGE STATE ACCESSORS ==========
-    
+
     public int getLastBridgedMaxHealth() {
         return lastBridgedMaxHealth;
     }
-    
+
     public void setLastBridgedMaxHealth(int value) {
         lastBridgedMaxHealth = value;
     }
-    
+
     public int getLastBridgedMaxMana() {
         return lastBridgedMaxMana;
     }
-    
+
     public void setLastBridgedMaxMana(int value) {
         lastBridgedMaxMana = value;
     }
-    
+
     public int getLastBridgedMaxStamina() {
         return lastBridgedMaxStamina;
     }
-    
+
     public void setLastBridgedMaxStamina(int value) {
         lastBridgedMaxStamina = value;
     }
-    
+
     // ========== EFFECTIVENESS HELPERS ==========
-    
+
     /**
      * Get the effectiveness of a rating stat against a target level.
      * <p>
@@ -604,24 +611,24 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     public int getEffectiveness(int statIndex, int targetLevel) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         StatDefinition statDef = registry.getStat(statIndex);
-        
+
         if (statDef == null) {
             return 0;
         }
-        
+
         int rating = getCachedValue(statIndex);
-        
+
         if (!statDef.isRating()) {
             // Not a rating stat, return the cached value as-is
             return rating;
         }
-        
+
         // Use RatingConverter to convert rating to effectiveness
         return reign.software.hyforged.stats.engine.RatingConverter.getEffectivenessForStat(
             statDef.id(), rating, targetLevel
         );
     }
-    
+
     /**
      * Get the effectiveness of a rating stat by StatId.
      */
@@ -633,242 +640,9 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         }
         return getEffectiveness(statIndex, targetLevel);
     }
-    
-    // ========== CONTEXT-AWARE QUERY ==========
-    
-    /**
-     * Get the effective value for a stat with context-aware modifier evaluation.
-     * <p>
-     * This method evaluates conditional modifiers based on the provided context,
-     * including only those modifiers whose conditions are met.
-     * <p>
-     * Note: This performs on-demand computation and does not use the cached value.
-     * For performance-critical paths, prefer using cached values with periodic
-     * context updates.
-     *
-     * @param statIndex The stat index
-     * @param entityRef The entity reference for condition evaluation
-     * @param context The query context containing state information
-     * @return The effective stat value with context-aware modifiers applied
-     */
-    public int getEffectiveValue(
-            int statIndex,
-            @Nonnull com.hypixel.hytale.component.Ref<com.hypixel.hytale.server.core.universe.world.storage.EntityStore> entityRef,
-            @Nonnull reign.software.hyforged.stats.condition.QueryContext context
-    ) {
-        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-        StatDefinition statDef = registry.getStat(statIndex);
-        
-        if (statDef == null) {
-            return 0;
-        }
-        
-        // Compute base value
-        int baseValue;
-        if (statDef.hasScaling()) {
-            baseValue = reign.software.hyforged.stats.engine.ScalingEngine.computeScaledBase(
-                statDef,
-                this::getCachedValue,
-                registry
-            );
-        } else {
-            baseValue = getBaseValue(statIndex);
-        }
-        
-        // Collect applicable unconditional modifiers
-        List<StatModifier> applicableModifiers = new ArrayList<>();
-        for (StatModifier mod : modifiers) {
-            if (isModifierApplicable(mod, statIndex, statDef, registry)) {
-                applicableModifiers.add(mod);
-            }
-        }
-        
-        // Add conditional modifiers whose conditions are met
-        for (ConditionalStatModifier condMod : conditionalModifiers) {
-            if (isModifierApplicable(condMod.modifier(), statIndex, statDef, registry)) {
-                if (condMod.isUnconditional() || condMod.condition().evaluate(entityRef, context)) {
-                    applicableModifiers.add(condMod.modifier());
-                }
-            }
-        }
-        
-        // Compute final value using stacking engine
-        return reign.software.hyforged.stats.engine.StackingEngine.compute(baseValue, applicableModifiers, statDef);
-    }
-    
-    /**
-     * Get the effective value for a stat by StatId with context-aware evaluation.
-     *
-     * @param statId The stat ID
-     * @param entityRef The entity reference for condition evaluation
-     * @param context The query context
-     * @return The effective stat value
-     */
-    public int getEffectiveValue(
-            @Nonnull StatId statId,
-            @Nonnull com.hypixel.hytale.component.Ref<com.hypixel.hytale.server.core.universe.world.storage.EntityStore> entityRef,
-            @Nonnull reign.software.hyforged.stats.condition.QueryContext context
-    ) {
-        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-        int statIndex = registry.getIndex(statId);
-        if (statIndex < 0) {
-            return 0;
-        }
-        return getEffectiveValue(statIndex, entityRef, context);
-    }
-    
-    /**
-     * Check if a modifier applies to a specific stat.
-     */
-    private boolean isModifierApplicable(
-            @Nonnull StatModifier mod,
-            int statIdx,
-            @Nonnull StatDefinition statDef,
-            @Nonnull StatDefinitionRegistry registry
-    ) {
-        // Direct targeting
-        if (mod.targetStatIndex() == statIdx) {
-            return true;
-        }
-        
-        // Tag targeting
-        String tagId = mod.targetTagId();
-        if (tagId != null) {
-            java.util.Set<Integer> affectedStats = registry.getStatIndicesForTag(tagId);
-            if (affectedStats.contains(statIdx)) {
-                return true;
-            }
-            if (statDef.tags().contains(tagId)) {
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    // ========== BREAKDOWN HELPERS ==========
-    
-    /**
-     * Get a detailed breakdown of a stat's value for UI display.
-     * <p>
-     * This computes the stat value with full breakdown information,
-     * showing all contributors, scaling contributions, and intermediate values.
-     *
-     * @param statIndex The stat index
-     * @param targetLevel The target level (for rating effectiveness calculation)
-     * @return The stat breakdown, or null if stat not found
-     */
-    @Nullable
-    public reign.software.hyforged.stats.breakdown.StatBreakdown getStatBreakdown(int statIndex, int targetLevel) {
-        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-        StatDefinition statDef = registry.getStat(statIndex);
-        
-        if (statDef == null) {
-            return null;
-        }
-        
-        // Calculate base value and scaling contributions
-        int rawBase = 0;
-        List<reign.software.hyforged.stats.breakdown.ScalingContribution> scalingContribs = new ArrayList<>();
-        
-        if (statDef.hasScaling()) {
-            // Compute scaling contributions from source stats
-            for (ScalingRule rule : statDef.scaling()) {
-                int sourceIndex = registry.getIndex(rule.source());
-                if (sourceIndex >= 0) {
-                    int sourceValue = getCachedValue(sourceIndex);
-                    int contribution = ScalingEngine.computeContribution(rule, sourceValue);
-                    
-                    StatDefinition sourceDef = registry.getStat(sourceIndex);
-                    String sourceDisplayName = sourceDef != null ? sourceDef.displayName() : rule.source().fullId();
-                    
-                    scalingContribs.add(new reign.software.hyforged.stats.breakdown.ScalingContribution(
-                        rule.source(),
-                        sourceDisplayName,
-                        contribution,
-                        rule.type()
-                    ));
-                }
-            }
-            // Raw base for scaling stats is the sum of contributions
-            rawBase = scalingContribs.stream()
-                .mapToInt(reign.software.hyforged.stats.breakdown.ScalingContribution::contribution)
-                .sum();
-        } else {
-            // Non-scaling stat: use base value or default
-            rawBase = getBaseValue(statIndex);
-        }
-        
-        // Add any explicit base value on top of scaling
-        int explicitBase = hasBaseValue(statIndex) ? getBaseValue(statIndex) : 0;
-        int scaledBase = rawBase + (statDef.hasScaling() ? explicitBase : 0);
-        
-        // Get applicable modifiers
-        List<StatModifier> applicable = new ArrayList<>();
-        for (StatModifier mod : modifiers) {
-            if (mod.targetStatIndex() == statIndex) {
-                applicable.add(mod);
-            } else if (mod.targetTagId() != null) {
-                if (statDef.tags().contains(mod.targetTagId()) ||
-                    registry.getStatIndicesForTag(mod.targetTagId()).contains(statIndex)) {
-                    applicable.add(mod);
-                }
-            }
-        }
-        
-        // Compute with breakdown using the scaled base
-        reign.software.hyforged.stats.engine.StackingEngine.ComputeResult result =
-            reign.software.hyforged.stats.engine.StackingEngine.computeWithBreakdown(
-                scaledBase, applicable, statDef
-            );
-        
-        // Build breakdown entries
-        reign.software.hyforged.stats.breakdown.StatBreakdown.Builder builder = 
-            reign.software.hyforged.stats.breakdown.StatBreakdown.builder(statDef.id())
-                .from(statDef)
-                .baseValue(statDef.hasScaling() ? 0 : rawBase)
-                .scalingContributions(scalingContribs)
-                .scaledBase(scaledBase)
-                .flatTotal(result.flatTotal)
-                .afterFlat(result.afterFlat)
-                .increasedTotalBps(result.increasedTotalBps)
-                .afterIncreased(result.afterIncreased)
-                .afterMore(result.afterMore)
-                .afterCap(result.afterCap)
-                .finalValue(result.finalValue);
-        
-        // Add entries for each modifier
-        for (StatModifier mod : result.getAllModifiers()) {
-            builder.addEntry(new reign.software.hyforged.stats.breakdown.BreakdownEntry(
-                mod.sourceId(),
-                mod.sourceType(),
-                mod.modifierType(),
-                mod.value(),
-                mod.sourceId() // Use sourceId as display name for now
-            ));
-        }
-        
-        // Add effectiveness for rating stats
-        if (statDef.isRating()) {
-            int effectiveness = getEffectiveness(statIndex, targetLevel);
-            builder.effectivenessBps(effectiveness);
-        }
-        
-        return builder.build();
-    }
-    
-    /**
-     * Get a detailed breakdown of a stat by StatId.
-     */
-    @Nullable
-    public reign.software.hyforged.stats.breakdown.StatBreakdown getStatBreakdown(@Nonnull StatId statId, int targetLevel) {
-        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-        int statIndex = registry.getIndex(statId);
-        if (statIndex < 0) {
-            return null;
-        }
-        return getStatBreakdown(statIndex, targetLevel);
-    }
+
+    // Context-aware queries and breakdown computation are handled by
+    // HyforgedStatQueryService to keep this component as pure data.
     
     // ========== COMPONENT INTERFACE ==========
     
