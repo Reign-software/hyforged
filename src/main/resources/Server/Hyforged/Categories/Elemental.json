@@ -1,0 +1,6 @@
+{
+  "Id": "resistance",
+  "DisplayName": "Resistances",
+  "Description": "Elemental and chaos damage resistances and caps",
+  "SortOrder": 5
+}
