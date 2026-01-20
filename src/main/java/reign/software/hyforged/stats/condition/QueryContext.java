@@ -1,9 +1,7 @@
 package reign.software.hyforged.stats.condition;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,18 +13,21 @@ import java.util.Set;
  * <p>
  * Context is immutable and should be created fresh for each query or cached
  * within a tick for performance.
+ * <p>
+ * Status effects and weapon types use String identifiers for moddability.
+ * Convention: use namespaced IDs like "hyforged:bleeding" or "mymod:frozen".
  *
- * @param statusEffects Set of active status effects on the entity
+ * @param statusEffects Set of active status effect IDs on the entity (e.g., "hyforged:bleeding")
  * @param healthPercentBps Current health as percentage in basis points (10000 = 100%)
- * @param equippedWeaponTypes Set of weapon types currently equipped
+ * @param equippedWeaponTypes Set of weapon type IDs currently equipped (e.g., "hyforged:sword")
  * @param hasShieldEquipped Whether a shield is currently equipped
  * @param isInCombat Whether the entity is currently in combat
  * @param extraFlags Additional boolean flags for extensibility
  */
 public record QueryContext(
-    @Nonnull Set<StatusEffect> statusEffects,
+    @Nonnull Set<String> statusEffects,
     int healthPercentBps,
-    @Nonnull Set<WeaponType> equippedWeaponTypes,
+    @Nonnull Set<String> equippedWeaponTypes,
     boolean hasShieldEquipped,
     boolean isInCombat,
     @Nonnull Set<String> extraFlags
@@ -57,11 +58,11 @@ public record QueryContext(
     /**
      * Check if the entity has a specific status effect.
      *
-     * @param effect The status effect to check
+     * @param effectId The status effect ID to check (e.g., "hyforged:bleeding")
      * @return true if the entity has this status effect
      */
-    public boolean hasStatusEffect(@Nonnull StatusEffect effect) {
-        return statusEffects.contains(effect);
+    public boolean hasStatusEffect(@Nonnull String effectId) {
+        return statusEffects.contains(effectId);
     }
     
     /**
@@ -87,11 +88,11 @@ public record QueryContext(
     /**
      * Check if a weapon type is equipped.
      *
-     * @param weaponType The weapon type to check
+     * @param weaponTypeId The weapon type ID to check (e.g., "hyforged:sword")
      * @return true if this weapon type is equipped
      */
-    public boolean hasWeaponType(@Nonnull WeaponType weaponType) {
-        return equippedWeaponTypes.contains(weaponType);
+    public boolean hasWeaponType(@Nonnull String weaponTypeId) {
+        return equippedWeaponTypes.contains(weaponTypeId);
     }
     
     /**
@@ -105,63 +106,37 @@ public record QueryContext(
     }
     
     /**
-     * Status effects that can affect modifier conditions.
-     */
-    public enum StatusEffect {
-        BLEEDING,
-        POISONED,
-        BURNING,
-        FROZEN,
-        CHILLED,
-        SHOCKED,
-        STUNNED,
-        SLOWED,
-        SILENCED,
-        WEAKENED,
-        FORTIFIED,
-        ENRAGED,
-        INVISIBLE,
-        INVULNERABLE
-    }
-    
-    /**
-     * Weapon types for equipment-based conditions.
-     */
-    public enum WeaponType {
-        SWORD,
-        AXE,
-        MACE,
-        DAGGER,
-        STAFF,
-        WAND,
-        BOW,
-        CROSSBOW,
-        SPEAR,
-        POLEARM,
-        UNARMED,
-        SHIELD
-    }
-    
-    /**
      * Builder for creating QueryContext instances.
      */
     public static class Builder {
-        private final Set<StatusEffect> statusEffects = EnumSet.noneOf(StatusEffect.class);
+        private final Set<String> statusEffects = new java.util.HashSet<>();
         private int healthPercentBps = 10000;
-        private final Set<WeaponType> equippedWeaponTypes = EnumSet.noneOf(WeaponType.class);
+        private final Set<String> equippedWeaponTypes = new java.util.HashSet<>();
         private boolean hasShieldEquipped = false;
         private boolean isInCombat = false;
         private final Set<String> extraFlags = new java.util.HashSet<>();
         
         public Builder() {}
         
-        public Builder withStatusEffect(@Nonnull StatusEffect effect) {
-            statusEffects.add(effect);
+        /**
+         * Add a status effect by ID.
+         *
+         * @param effectId The status effect ID (e.g., "hyforged:bleeding" or StatusEffects.BLEEDING)
+         * @return this builder
+         */
+        public Builder withStatusEffect(@Nonnull String effectId) {
+            statusEffects.add(effectId);
             return this;
         }
         
-        public Builder withStatusEffects(@Nonnull Set<StatusEffect> effects) {
-            statusEffects.addAll(effects);
+        /**
+         * Add multiple status effects by ID.
+         *
+         * @param effectIds The status effect IDs
+         * @return this builder
+         */
+        public Builder withStatusEffects(@Nonnull Set<String> effectIds) {
+            statusEffects.addAll(effectIds);
             return this;
         }
         
@@ -170,8 +145,14 @@ public record QueryContext(
             return this;
         }
         
-        public Builder withWeaponType(@Nonnull WeaponType weaponType) {
-            equippedWeaponTypes.add(weaponType);
+        /**
+         * Add a weapon type by ID.
+         *
+         * @param weaponTypeId The weapon type ID (e.g., "hyforged:sword" or WeaponTypes.SWORD)
+         * @return this builder
+         */
+        public Builder withWeaponType(@Nonnull String weaponTypeId) {
+            equippedWeaponTypes.add(weaponTypeId);
             return this;
         }
         
@@ -192,9 +173,9 @@ public record QueryContext(
         
         public QueryContext build() {
             return new QueryContext(
-                statusEffects.isEmpty() ? Collections.emptySet() : EnumSet.copyOf(statusEffects),
+                statusEffects.isEmpty() ? Collections.emptySet() : Set.copyOf(statusEffects),
                 healthPercentBps,
-                equippedWeaponTypes.isEmpty() ? Collections.emptySet() : EnumSet.copyOf(equippedWeaponTypes),
+                equippedWeaponTypes.isEmpty() ? Collections.emptySet() : Set.copyOf(equippedWeaponTypes),
                 hasShieldEquipped,
                 isInCombat,
                 extraFlags.isEmpty() ? Collections.emptySet() : Set.copyOf(extraFlags)

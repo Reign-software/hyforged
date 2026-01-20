@@ -3,6 +3,8 @@ package reign.software.hyforged.stats.condition;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static reign.software.hyforged.stats.condition.TestFixtures.StatusEffects;
+import static reign.software.hyforged.stats.condition.TestFixtures.WeaponTypes;
 
 /**
  * Unit tests for QueryContext and condition implementations.
@@ -15,15 +17,31 @@ class ConditionTest {
                 .withHealthPercent(5000)
                 .inCombat(true)
                 .withShield(true)
-                .withWeaponType(QueryContext.WeaponType.SWORD)
-                .withStatusEffect(QueryContext.StatusEffect.BLEEDING)
+                .withWeaponType(WeaponTypes.SWORD)
+                .withStatusEffect(StatusEffects.BLEEDING)
                 .build();
         
         assertEquals(5000, context.healthPercentBps());
         assertTrue(context.isInCombat());
         assertTrue(context.hasShieldEquipped());
-        assertTrue(context.equippedWeaponTypes().contains(QueryContext.WeaponType.SWORD));
-        assertTrue(context.statusEffects().contains(QueryContext.StatusEffect.BLEEDING));
+        assertTrue(context.equippedWeaponTypes().contains(WeaponTypes.SWORD));
+        assertTrue(context.statusEffects().contains(StatusEffects.BLEEDING));
+    }
+
+    @Test
+    void queryContext_customModIds_work() {
+        // Test that custom mod-defined IDs work
+        String customEffect = "mymod:radiation";
+        String customWeapon = "mymod:laser_rifle";
+        
+        QueryContext context = QueryContext.builder()
+                .withStatusEffect(customEffect)
+                .withWeaponType(customWeapon)
+                .build();
+        
+        assertTrue(context.hasStatusEffect(customEffect));
+        assertTrue(context.hasWeaponType(customWeapon));
+        assertFalse(context.hasStatusEffect(StatusEffects.BLEEDING));
     }
 
     @Test
@@ -54,10 +72,10 @@ class ConditionTest {
 
     @Test
     void stateCondition_hasEffect_evaluatesCorrectly() {
-        StateCondition condition = StateCondition.whileAffectedBy(QueryContext.StatusEffect.POISONED);
+        StateCondition condition = StateCondition.whileAffectedBy(StatusEffects.POISONED);
         
         QueryContext withPoison = QueryContext.builder()
-                .withStatusEffect(QueryContext.StatusEffect.POISONED)
+                .withStatusEffect(StatusEffects.POISONED)
                 .build();
         assertTrue(condition.evaluate(null, withPoison));
         
@@ -66,16 +84,48 @@ class ConditionTest {
     }
 
     @Test
+    void stateCondition_customEffect_evaluatesCorrectly() {
+        // Test with a mod-defined custom effect
+        String customEffect = "mymod:irradiated";
+        StateCondition condition = StateCondition.whileAffectedBy(customEffect);
+        
+        QueryContext withEffect = QueryContext.builder()
+                .withStatusEffect(customEffect)
+                .build();
+        assertTrue(condition.evaluate(null, withEffect));
+        
+        QueryContext noEffect = QueryContext.builder().build();
+        assertFalse(condition.evaluate(null, noEffect));
+    }
+
+    @Test
     void equipmentCondition_weaponType_evaluatesCorrectly() {
-        EquipmentCondition condition = EquipmentCondition.wielding(QueryContext.WeaponType.BOW);
+        EquipmentCondition condition = EquipmentCondition.wielding(WeaponTypes.BOW);
         
         QueryContext hasBow = QueryContext.builder()
-                .withWeaponType(QueryContext.WeaponType.BOW)
+                .withWeaponType(WeaponTypes.BOW)
                 .build();
         assertTrue(condition.evaluate(null, hasBow));
         
         QueryContext hasSword = QueryContext.builder()
-                .withWeaponType(QueryContext.WeaponType.SWORD)
+                .withWeaponType(WeaponTypes.SWORD)
+                .build();
+        assertFalse(condition.evaluate(null, hasSword));
+    }
+
+    @Test
+    void equipmentCondition_customWeapon_evaluatesCorrectly() {
+        // Test with a mod-defined custom weapon
+        String customWeapon = "mymod:plasma_cannon";
+        EquipmentCondition condition = EquipmentCondition.wielding(customWeapon);
+        
+        QueryContext hasCustom = QueryContext.builder()
+                .withWeaponType(customWeapon)
+                .build();
+        assertTrue(condition.evaluate(null, hasCustom));
+        
+        QueryContext hasSword = QueryContext.builder()
+                .withWeaponType(WeaponTypes.SWORD)
                 .build();
         assertFalse(condition.evaluate(null, hasSword));
     }
@@ -94,13 +144,13 @@ class ConditionTest {
     @Test
     void condition_and_combinesProperly() {
         ModifierCondition lowHealth = HealthThresholdCondition.below(3000);
-        ModifierCondition poisoned = StateCondition.whileAffectedBy(QueryContext.StatusEffect.POISONED);
+        ModifierCondition poisoned = StateCondition.whileAffectedBy(StatusEffects.POISONED);
         ModifierCondition combined = lowHealth.and(poisoned);
         
         // Both true
         QueryContext bothTrue = QueryContext.builder()
                 .withHealthPercent(2000)
-                .withStatusEffect(QueryContext.StatusEffect.POISONED)
+                .withStatusEffect(StatusEffects.POISONED)
                 .build();
         assertTrue(combined.evaluate(null, bothTrue));
         
@@ -141,11 +191,11 @@ class ConditionTest {
 
     @Test
     void condition_negate_invertsProperly() {
-        ModifierCondition poisoned = StateCondition.whileAffectedBy(QueryContext.StatusEffect.POISONED);
+        ModifierCondition poisoned = StateCondition.whileAffectedBy(StatusEffects.POISONED);
         ModifierCondition notPoisoned = poisoned.negate();
         
         QueryContext hasPosion = QueryContext.builder()
-                .withStatusEffect(QueryContext.StatusEffect.POISONED)
+                .withStatusEffect(StatusEffects.POISONED)
                 .build();
         assertFalse(notPoisoned.evaluate(null, hasPosion));
         
