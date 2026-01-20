@@ -1,0 +1,10 @@
+{
+  "Priority": 10,
+  "AppliesTo": {
+    "Categories": ["Items.Armor"],
+    "Tags": ["Type:Armor"]
+  },
+  "Prefixes": ["Sturdy"],
+  "Suffixes": ["OfTheBear"],
+  "Forged": []
+}

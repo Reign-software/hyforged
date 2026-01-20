@@ -1,0 +1,4 @@
+{
+  "OutOfCombatDelaySeconds": 4.0,
+  "DecayPerSecond": 7.0
+}

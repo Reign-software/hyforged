@@ -1,0 +1,10 @@
+{
+  "Priority": 10,
+  "AppliesTo": {
+    "Categories": ["Items.Weapons"],
+    "Tags": ["Type:Weapon"]
+  },
+  "Prefixes": ["Sharp"],
+  "Suffixes": ["OfTheBear"],
+  "Forged": []
+}

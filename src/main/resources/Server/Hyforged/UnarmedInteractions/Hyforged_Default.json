@@ -1,0 +1,6 @@
+{
+  "Extends": "Empty",
+  "Interactions": {
+    "Ability1": "Hyforged:CharacterStats"
+  }
+}

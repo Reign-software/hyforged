@@ -1,0 +1,47 @@
+// Hyforged Resource Stats HUD (Concentration & Rage)
+
+Panel #HyforgedResourceHud {
+    Style: (Alignment: BottomLeft; Padding: 10; Layout: Vertical; Gap: 6);
+
+    Panel #ConcentrationContainer {
+        Style: (Layout: Vertical; Gap: 2; Visible: false);
+
+        Label #ConcentrationLabel {
+            Text: Concentration;
+            Style: (FontSize: 12; FontWeight: Bold);
+        }
+
+        Panel #ConcentrationBar {
+            Style: (Width: 160; Height: 8; Background: #2E2E2E);
+            Panel #ConcentrationFill {
+                Style: (Width: 0; Height: 8; Background: #6A5ACD);
+            }
+        }
+
+        Label #ConcentrationValue {
+            Text: 0/0;
+            Style: (FontSize: 11);
+        }
+    }
+
+    Panel #RageContainer {
+        Style: (Layout: Vertical; Gap: 2; Visible: false);
+
+        Label #RageLabel {
+            Text: Rage;
+            Style: (FontSize: 12; FontWeight: Bold);
+        }
+
+        Panel #RageBar {
+            Style: (Width: 160; Height: 8; Background: #2E2E2E);
+            Panel #RageFill {
+                Style: (Width: 0; Height: 8; Background: #C24B2A);
+            }
+        }
+
+        Label #RageValue {
+            Text: 0/0;
+            Style: (FontSize: 11);
+        }
+    }
+}

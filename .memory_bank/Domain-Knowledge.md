@@ -16,9 +16,11 @@
 - Forging: an irreversible item operation that locks further modification and grants a powerful random enchantment.
 
 ## Glossary
-- Affix: A named modifier rolled on an item; categorized as prefix or suffix.
+- Affix: A named modifier rolled on an item; categorized by type (prefix, suffix, forged).
+- Affix Type: A category of affix (prefix, suffix, forged); extensible via JSON.
 - Tier: A strength band for an affix or enchantment; Tier 1 is the strongest.
-- Rarity: A quality tier for items that influences baseline stats and affix capacity.
+- Quality: Hytale's built-in item quality tier (Junk, Common, Uncommon, Rare, Epic, Legendary) that influences affix capacity.
+- Item Level: An item's power level that determines eligible affix tiers.
 - Passive Point: A spendable point used to allocate nodes in a class passive tree.
 - Atomic Transaction: A server-side exchange that either fully succeeds or fully fails with no partial state.
 

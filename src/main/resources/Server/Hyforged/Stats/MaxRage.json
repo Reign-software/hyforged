@@ -11,6 +11,9 @@
     "Resource": "rage",
     "Domain": [
       "resource"
+    ],
+    "Type": [
+      "resource"
     ]
   }
 }

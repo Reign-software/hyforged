@@ -44,7 +44,7 @@ The systems are grouped into phases based on dependencies. Complete each phase b
 ### Phase 4: Items & Equipment
 | Order | System | Dependencies | Notes |
 |-------|--------|--------------|-------|
-| 5 | [Items: Affixes & Rarity](items-affixes-rarity.md) | Stats System, Entity Stats | Affixes use the modifier model; equipping items applies stats to entities. |
+| 5 | [Items: Affixes & Rarity](items-affixes-rarity.md) ✅ | Stats System, Entity Stats | Affixes use the modifier model; equipping items applies stats to entities. Spec: [items-affix-system.spec.md](../../Features/items-affix-system/items-affix-system.spec.md) |
 
 ### Phase 5: Combat
 | Order | System | Dependencies | Notes |
@@ -82,6 +82,7 @@ The systems are grouped into phases based on dependencies. Complete each phase b
 - [Trading & Marketplace](trading-marketplace.md)
 
 ## Change Log
+- 2026-01-20: Added Items Affix System spec for Phase 4.
 - 2026-01-20: Consolidated Experience and Class specs into Progression Systems spec.
 - 2026-01-20: Linked Experience System and Class System specs; clarified progression rewards.
 - 2026-01-19: Linked Entity Stats spec for Phase 2.

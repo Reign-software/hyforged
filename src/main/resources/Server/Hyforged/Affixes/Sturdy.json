@@ -1,0 +1,19 @@
+{
+  "id": "sturdy",
+  "Type": "prefix",
+  "DisplayName": "Sturdy",
+  "StatId": "hyforged:armor",
+  "ModifierType": "FLAT",
+  "Weight": 100,
+  "Eligibility": {
+    "ItemCategories": ["Items.Armor"],
+    "MinQuality": "Common"
+  },
+  "Tiers": [
+    { "Tier": 1, "MinValue": 50, "MaxValue": 75, "ItemLevelReq": 40, "Weight": 50 },
+    { "Tier": 2, "MinValue": 35, "MaxValue": 50, "ItemLevelReq": 25, "Weight": 75 },
+    { "Tier": 3, "MinValue": 20, "MaxValue": 35, "ItemLevelReq": 10, "Weight": 100 },
+    { "Tier": 4, "MinValue": 10, "MaxValue": 20, "ItemLevelReq": 5, "Weight": 125 },
+    { "Tier": 5, "MinValue": 1, "MaxValue": 10, "ItemLevelReq": 1, "Weight": 150 }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "Id": "hyforged:concentration",
-  "Category": "aura",
+  "Category": "resource",
   "DisplayName": "Concentration",
   "Description": "Determines how many auras, heralds, and minions you can maintain. Scales with Wisdom.",
   "DefaultValue": 0,
@@ -14,6 +14,9 @@
     "Mechanic": [
       "aura",
       "minion"
+    ],
+    "Type": [
+      "resource"
     ],
     "Source": [
       "derived"

@@ -10,6 +10,7 @@
 - ADR-0006: Replace Hytale Stat/Damage Systems for Exclusive Hyforged Control (2026-01-20) — Accepted
 - ADR-0007: Data-Driven Damage Type Extensions (2026-01-20) — Accepted
 - ADR-0008: Use Hytale AssetRegistry Tag System (2026-01-20) — Accepted
+- ADR-0009: Use Hytale Quality and ItemStack Metadata for Affixes (2026-01-20) — Accepted
 
 
 ## ADR Template
@@ -460,3 +461,57 @@ Standard categories established for stat definitions:
 - Supersedes: ADR-0005 (Tags as Simple Strings)
 - Hytale API: `AssetRegistry.getOrCreateTagIndex()`, `AssetExtraInfo.Data.putTags()`
 - Hytale: `TagSet`, `TagSetLookupTable`, `NPCGroup`
+
+---
+
+### ADR-0009: Use Hytale Quality and ItemStack Metadata for Affixes
+- Date: 2026-01-20
+- Status: Accepted
+- Deciders: JBurl
+
+#### Context
+- Hyforged needs an ARPG-style affix system for items (prefixes, suffixes, forged modifiers).
+- Hytale already provides a Quality system (`ItemQuality` assets in `Server/Item/Qualities/`) with UI support (colors, textures, tooltips).
+- Hytale's `ItemStack` class supports custom metadata via `BsonDocument` that persists and replicates to clients.
+- Initial Hyforged prototype code created separate affix classes (`AffixTier`, `AffixMetadata`, `AffixRoller`) but didn't integrate with Hytale's data formats.
+- Key decision: should affixes use Hytale's Quality system or create a separate "Rarity" concept?
+
+#### Decision
+- **Use Hytale's existing Quality system** for determining affix capacity per item tier.
+  - Common, Uncommon, Rare, Epic, Legendary tiers define how many prefixes/suffixes can appear.
+  - No separate "Rarity" concept; Quality serves this purpose.
+- **Store affix data in ItemStack.metadata** using a `"Hyforged"` key.
+  - Use `ItemStack.withMetadata()` and `getFromMetadataOrNull()` with a typed codec.
+  - Affix data serializes to BSON for persistence and JSON for client sync.
+- **Tier 1 = Best** convention for affix tiers (ARPG standard).
+  - Existing prototype code had inverted convention; this will be corrected.
+- **Data-driven affix types** with initial support for prefix, suffix, and forged.
+  - Affix types defined in JSON, extensible for future types.
+- **Affix capacity rules per Quality** defined in JSON configuration.
+  - Default: Common(1p), Uncommon(1p,1s), Rare(2p,2s), Epic(3p,3s), Legendary(4p,4s).
+  - Forged affixes managed separately (set to 1 when item is forged).
+
+#### Consequences
+- Pros:
+  - Leverages Hytale's existing Quality UI (colors, textures, particles).
+  - ItemStack metadata is already persisted and replicated; no custom serialization needed.
+  - Maintains compatibility with Hytale's item system and loot tables.
+  - Quality-based capacity rules are intuitive and match player expectations.
+  - Data-driven configuration allows balance tuning without code changes.
+- Cons:
+  - Cannot modify Quality tiers themselves (e.g., can't add new Quality levels).
+  - ItemStack metadata has size limits (unlikely to be an issue for affixes).
+  - Existing prototype code must be replaced (minimal sunk cost).
+
+#### Alternatives Considered
+- Create separate "Rarity" system parallel to Quality:
+  - Rejected: Redundant with Hytale's Quality; confusing for players; extra UI work.
+- Store affixes in a separate ECS component on items:
+  - Rejected: Items are not entities in Hytale; ItemStack is the canonical item representation.
+- Use Hytale's `StatModifiers` field on items for affixes:
+  - Rejected: `StatModifiers` is for static modifiers defined in item JSON; not suitable for rolled random values.
+
+#### Links
+- Spec: `.memory_bank/Features/items-affix-system/items-affix-system.spec.md`
+- Requirements: `.memory_bank/Requirements/rpg-arpg/items-affixes-rarity.md`
+- Hytale: `ItemStack.metadata`, `ItemQuality` asset type

@@ -4,9 +4,14 @@ import com.hypixel.hytale.component.ComponentRegistryProxy;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.ResourceType;
 import com.hypixel.hytale.server.core.modules.entitystats.modifier.Modifier;
+import com.hypixel.hytale.server.core.modules.interaction.interaction.config.server.OpenCustomUIInteraction;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import reign.software.hyforged.affix.asset.AffixAssetLoader;
+import reign.software.hyforged.affix.system.EquipmentAffixListener;
+import reign.software.hyforged.affix.system.LootAffixSystem;
+import reign.software.hyforged.affix.ui.CharacterStatsPage;
 import reign.software.hyforged.progression.asset.XPCurveAssetLoader;
 import reign.software.hyforged.progression.component.ProgressionComponent;
 import reign.software.hyforged.progression.persistence.ProgressionCodec;
@@ -29,6 +34,9 @@ import reign.software.hyforged.stats.modifier.HyforgedModifier;
 import reign.software.hyforged.stats.npc.NPCStatInitSystem;
 import reign.software.hyforged.stats.npc.NPCStatTemplateLoader;
 import reign.software.hyforged.stats.persistence.HyforgedStatCodec;
+import reign.software.hyforged.stats.resource.RageDecayConfigAssetLoader;
+import reign.software.hyforged.stats.resource.RageDecaySystem;
+import reign.software.hyforged.stats.hud.ResourceStatsHudSystem;
 import reign.software.hyforged.stats.system.ClassLevelModifierSystem;
 import reign.software.hyforged.stats.system.HyforgedBridgeSystem;
 import reign.software.hyforged.stats.system.HyforgedStatComputeSystem;
@@ -90,6 +98,9 @@ public class HyforgedPlugin extends JavaPlugin {
         
         // Register commands
         registerCommands();
+        
+        // Register custom UI pages (for interaction-based access)
+        registerCustomUIPages();
         
         getLogger().at(Level.INFO).log("Hyforged Stats System initialized with %d stats and %d tags",
             StatDefinitionRegistry.get().getStatCount(),
@@ -156,6 +167,13 @@ public class HyforgedPlugin extends JavaPlugin {
         // Initialize asset loader for XP configuration (progression system)
         // Config defines XP amounts for various activities
         XPConfigAssetLoader.initialize(this);
+
+        // Initialize asset loader for rage decay configuration
+        RageDecayConfigAssetLoader.initialize(this);
+        
+        // Initialize asset loader for affix definitions (affix system)
+        // Includes affix types, quality rules, affix definitions, and affix pools
+        AffixAssetLoader.initialize(this);
         
         getLogger().at(Level.FINE).log("Stat and tag asset loading initialized, awaiting asset load...");
     }
@@ -214,6 +232,14 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register HyforgedBridgeSystem (bridges to Hytale's EntityStatMap)
         entityStoreRegistry.registerSystem(new HyforgedBridgeSystem());
         getLogger().at(Level.FINE).log("Registered HyforgedBridgeSystem");
+
+        // Register RageDecaySystem (out-of-combat rage decay)
+        entityStoreRegistry.registerSystem(new RageDecaySystem());
+        getLogger().at(Level.FINE).log("Registered RageDecaySystem");
+
+        // Register ResourceStatsHudSystem (custom HUD for resource bars)
+        entityStoreRegistry.registerSystem(new ResourceStatsHudSystem());
+        getLogger().at(Level.FINE).log("Registered ResourceStatsHudSystem");
         
         // Register Hyforged damage reduction system (replaces Hytale's ArmorDamageReduction)
         entityStoreRegistry.registerSystem(new HyforgedDamageReductionSystem());
@@ -246,6 +272,15 @@ public class HyforgedPlugin extends JavaPlugin {
         // Initialize ClassLevelModifierSystem (event-driven, applies class level bonuses)
         new ClassLevelModifierSystem();
         getLogger().at(Level.FINE).log("Initialized ClassLevelModifierSystem");
+        
+        // Register LootAffixSystem (rolls affixes on item drops)
+        entityStoreRegistry.registerSystem(new LootAffixSystem());
+        getLogger().at(Level.FINE).log("Registered LootAffixSystem");
+        
+        // Register EquipmentAffixListener (applies affix modifiers on equipment change)
+        EquipmentAffixListener equipmentAffixListener = new EquipmentAffixListener();
+        equipmentAffixListener.register();
+        getLogger().at(Level.FINE).log("Registered EquipmentAffixListener");
     }
     
     /**
@@ -254,6 +289,26 @@ public class HyforgedPlugin extends JavaPlugin {
     private void registerCommands() {
         this.getCommandRegistry().registerCommand(new HyforgedCommand());
         getLogger().at(Level.FINE).log("Registered Hyforged commands");
+    }
+    
+    /**
+     * Register custom UI pages for interaction-based access.
+     * <p>
+     * This allows pages to be opened via RootInteraction JSON definitions,
+     * enabling keybind/menu access without using commands.
+     */
+    private void registerCustomUIPages() {
+        // Register CharacterStatsPage for interaction-based opening
+        // This can be referenced in RootInteraction JSON as:
+        // { "Type": "OpenCustomUI", "Page": { "Type": "CharacterStatsPage" } }
+        OpenCustomUIInteraction.registerSimple(
+            this,
+            CharacterStatsPage.class,
+            "CharacterStatsPage",
+            CharacterStatsPage::new
+        );
+        
+        getLogger().at(Level.FINE).log("Registered CharacterStatsPage custom UI interaction");
     }
 
     /**

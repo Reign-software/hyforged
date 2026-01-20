@@ -68,6 +68,19 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     private int lastBridgedMaxHealth = 0;
     private int lastBridgedMaxMana = 0;
     private int lastBridgedMaxStamina = 0;
+    private int lastBridgedMaxConcentration = 0;
+    private int lastBridgedMaxRage = 0;
+
+    // ========== HUD STATE ==========
+    // Track last resource HUD values to avoid redundant UI updates
+
+    private boolean lastHudShown = false;
+    private boolean lastHudConcentrationVisible = false;
+    private boolean lastHudRageVisible = false;
+    private int lastHudConcentrationCurrent = 0;
+    private int lastHudConcentrationMax = 0;
+    private int lastHudRageCurrent = 0;
+    private int lastHudRageMax = 0;
     
     // ========== EVENT COALESCING BUFFER ==========
     // Collects stat changes during a tick for batch event emission
@@ -593,6 +606,80 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         lastBridgedMaxStamina = value;
     }
 
+    public int getLastBridgedMaxConcentration() {
+        return lastBridgedMaxConcentration;
+    }
+
+    public void setLastBridgedMaxConcentration(int value) {
+        lastBridgedMaxConcentration = value;
+    }
+
+    public int getLastBridgedMaxRage() {
+        return lastBridgedMaxRage;
+    }
+
+    public void setLastBridgedMaxRage(int value) {
+        lastBridgedMaxRage = value;
+    }
+
+    // ========== HUD STATE ACCESSORS ==========
+
+    public boolean isLastHudShown() {
+        return lastHudShown;
+    }
+
+    public void setLastHudShown(boolean shown) {
+        lastHudShown = shown;
+    }
+
+    public boolean isLastHudConcentrationVisible() {
+        return lastHudConcentrationVisible;
+    }
+
+    public void setLastHudConcentrationVisible(boolean visible) {
+        lastHudConcentrationVisible = visible;
+    }
+
+    public boolean isLastHudRageVisible() {
+        return lastHudRageVisible;
+    }
+
+    public void setLastHudRageVisible(boolean visible) {
+        lastHudRageVisible = visible;
+    }
+
+    public int getLastHudConcentrationCurrent() {
+        return lastHudConcentrationCurrent;
+    }
+
+    public void setLastHudConcentrationCurrent(int value) {
+        lastHudConcentrationCurrent = value;
+    }
+
+    public int getLastHudConcentrationMax() {
+        return lastHudConcentrationMax;
+    }
+
+    public void setLastHudConcentrationMax(int value) {
+        lastHudConcentrationMax = value;
+    }
+
+    public int getLastHudRageCurrent() {
+        return lastHudRageCurrent;
+    }
+
+    public void setLastHudRageCurrent(int value) {
+        lastHudRageCurrent = value;
+    }
+
+    public int getLastHudRageMax() {
+        return lastHudRageMax;
+    }
+
+    public void setLastHudRageMax(int value) {
+        lastHudRageMax = value;
+    }
+
     // ========== EFFECTIVENESS HELPERS ==========
 
     /**
@@ -658,6 +745,15 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         copy.lastBridgedMaxHealth = this.lastBridgedMaxHealth;
         copy.lastBridgedMaxMana = this.lastBridgedMaxMana;
         copy.lastBridgedMaxStamina = this.lastBridgedMaxStamina;
+        copy.lastBridgedMaxConcentration = this.lastBridgedMaxConcentration;
+        copy.lastBridgedMaxRage = this.lastBridgedMaxRage;
+        copy.lastHudShown = this.lastHudShown;
+        copy.lastHudConcentrationVisible = this.lastHudConcentrationVisible;
+        copy.lastHudRageVisible = this.lastHudRageVisible;
+        copy.lastHudConcentrationCurrent = this.lastHudConcentrationCurrent;
+        copy.lastHudConcentrationMax = this.lastHudConcentrationMax;
+        copy.lastHudRageCurrent = this.lastHudRageCurrent;
+        copy.lastHudRageMax = this.lastHudRageMax;
         return copy;
     }
 }

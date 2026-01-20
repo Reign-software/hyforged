@@ -109,6 +109,21 @@ Use these standard categories or define your own:
 
 ---
 
+## Resource UI Assets
+
+To display resource bars in the HUD, you must provide both an EntityStatType asset and an Entity UI component:
+
+1. **EntityStatType** — `Server/<YourMod>/Entity/Stats/<ResourceName>.json`
+2. **Entity UI Component** — `Server/<YourMod>/Entity/UI/<ResourceName>Bar.json`
+
+Reference patterns:
+- `lib/Server/Entity/Stats/Mana.json`
+- `lib/Server/Entity/UI/Healthbar.json`
+
+This keeps custom resource bars consistent with core stats and UI assets.
+
+---
+
 ## Stat ID Namespacing
 
 All stat IDs use the format `namespace:name` to prevent collisions between mods.

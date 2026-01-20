@@ -9,11 +9,14 @@ import com.hypixel.hytale.assetstore.map.JsonAssetWithMap;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.codecs.map.MapCodec;
+import reign.software.hyforged.affix.asset.AffixTierTemplateAsset;
+import reign.software.hyforged.affix.model.AffixTierTemplate;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.scaling.ScalingRule;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -126,6 +129,13 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
                     (asset, parent) -> asset.scalingAssets = parent.scalingAssets
             )
             .add()
+            .appendInherited(
+                    new KeyedCodec<>("AffixTierTemplate", AffixTierTemplateAsset.CODEC),
+                    (asset, value) -> asset.affixTierTemplateAsset = value,
+                    asset -> asset.affixTierTemplateAsset,
+                    (asset, parent) -> asset.affixTierTemplateAsset = parent.affixTierTemplateAsset
+            )
+            .add()
             .build();
 
     private static AssetStore<String, StatDefinitionAsset, IndexedLookupTableAssetMap<String, StatDefinitionAsset>> ASSET_STORE;
@@ -144,6 +154,7 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
     private boolean isRating = false;
     private Map<String, String[]> rawTags = new HashMap<>();
     private ScalingRuleAsset[] scalingAssets = new ScalingRuleAsset[0];
+    private AffixTierTemplateAsset affixTierTemplateAsset = null;
 
     public StatDefinitionAsset() {
     }
@@ -238,6 +249,28 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
     @Nonnull
     public ScalingRuleAsset[] getScalingAssets() {
         return scalingAssets;
+    }
+    
+    /**
+     * Check if this stat has an affix tier template.
+     *
+     * @return true if an affix tier template is defined
+     */
+    public boolean hasAffixTierTemplate() {
+        return affixTierTemplateAsset != null;
+    }
+    
+    /**
+     * Get the affix tier template for this stat, if defined.
+     * <p>
+     * Affix tier templates allow stats to define default tier progressions
+     * that can be reused across multiple affixes using this stat.
+     *
+     * @return The affix tier template, or null if not defined
+     */
+    @Nullable
+    public AffixTierTemplate getAffixTierTemplate() {
+        return affixTierTemplateAsset != null ? affixTierTemplateAsset.toModel() : null;
     }
 
     /**

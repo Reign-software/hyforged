@@ -11,6 +11,7 @@ import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.tick.EntityTickingSystem;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.modules.entitystats.modifier.Modifier;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
@@ -21,6 +22,8 @@ import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * ECS System for bridging Hyforged stat values to Hytale's EntityStatMap.
@@ -32,6 +35,8 @@ import java.util.Set;
  * It reads from HyforgedStatComponent and writes to EntityStatMap.
  */
 public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
+
+    private static final Logger LOGGER = Logger.getLogger(HyforgedBridgeSystem.class.getName());
 
     @Nonnull
     private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
@@ -64,6 +69,16 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
      * Modifier key for max stamina.
      */
     public static final String MODIFIER_KEY_MAX_STAMINA = MODIFIER_KEY_PREFIX + "MaxStamina";
+
+    /**
+     * Modifier key for max concentration.
+     */
+    public static final String MODIFIER_KEY_MAX_CONCENTRATION = MODIFIER_KEY_PREFIX + "MaxConcentration";
+
+    /**
+     * Modifier key for max rage.
+     */
+    public static final String MODIFIER_KEY_MAX_RAGE = MODIFIER_KEY_PREFIX + "MaxRage";
     
     /**
      * Minimum delta to trigger an update (prevents excessive updates for tiny changes).
@@ -75,6 +90,10 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
     private int maxHealthIndex = -1;
     private int maxManaIndex = -1;
     private int maxStaminaIndex = -1;
+    private int maxConcentrationIndex = -1;
+    private int maxRageIndex = -1;
+    private int concentrationEntityStatIndex = -1;
+    private int rageEntityStatIndex = -1;
     private boolean indicesInitialized = false;
 
     public HyforgedBridgeSystem() {
@@ -118,7 +137,11 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
         }
         
         // Initialize cached stat indices on first run
-        if (!indicesInitialized) {
+        if (!indicesInitialized
+                || maxConcentrationIndex < 0
+                || maxRageIndex < 0
+                || concentrationEntityStatIndex < 0
+                || rageEntityStatIndex < 0) {
             initializeStatIndices();
         }
         
@@ -126,6 +149,8 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
         bridgeMaxHealth(hyforgedStats, entityStatMap);
         bridgeMaxMana(hyforgedStats, entityStatMap);
         bridgeMaxStamina(hyforgedStats, entityStatMap);
+        bridgeMaxConcentration(hyforgedStats, entityStatMap);
+        bridgeMaxRage(hyforgedStats, entityStatMap);
     }
 
     /**
@@ -136,6 +161,10 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
         maxHealthIndex = registry.getIndex(StatId.hyforged("max-health-flat"));
         maxManaIndex = registry.getIndex(StatId.hyforged("max-mana-flat"));
         maxStaminaIndex = registry.getIndex(StatId.hyforged("max-stamina-flat"));
+        maxConcentrationIndex = registry.getIndex(StatId.hyforged("concentration"));
+        maxRageIndex = registry.getIndex(StatId.hyforged("rage-max"));
+        concentrationEntityStatIndex = EntityStatType.getAssetMap().getIndex("Concentration");
+        rageEntityStatIndex = EntityStatType.getAssetMap().getIndex("Rage");
         indicesInitialized = true;
     }
 
@@ -157,6 +186,7 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
         if (Math.abs(delta) >= UPDATE_THRESHOLD) {
             applyModifier(entityStatMap, DefaultEntityStatTypes.getHealth(), MODIFIER_KEY_MAX_HEALTH, currentValue);
             hyforgedStats.setLastBridgedMaxHealth(currentValue);
+            logBridge("Health", currentValue, lastBridged);
         }
     }
 
@@ -178,6 +208,7 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
         if (Math.abs(delta) >= UPDATE_THRESHOLD) {
             applyModifier(entityStatMap, DefaultEntityStatTypes.getMana(), MODIFIER_KEY_MAX_MANA, currentValue);
             hyforgedStats.setLastBridgedMaxMana(currentValue);
+            logBridge("Mana", currentValue, lastBridged);
         }
     }
 
@@ -199,6 +230,57 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
         if (Math.abs(delta) >= UPDATE_THRESHOLD) {
             applyModifier(entityStatMap, DefaultEntityStatTypes.getStamina(), MODIFIER_KEY_MAX_STAMINA, currentValue);
             hyforgedStats.setLastBridgedMaxStamina(currentValue);
+            logBridge("Stamina", currentValue, lastBridged);
+        }
+    }
+
+    /**
+     * Bridge max concentration from Hyforged to Hytale's EntityStatMap.
+     */
+    private void bridgeMaxConcentration(
+            @Nonnull HyforgedStatComponent hyforgedStats,
+            @Nonnull EntityStatMap entityStatMap
+    ) {
+        if (maxConcentrationIndex < 0 || concentrationEntityStatIndex < 0) {
+            return;
+        }
+
+        int currentValue = hyforgedStats.getCachedValue(maxConcentrationIndex);
+        int lastBridged = hyforgedStats.getLastBridgedMaxConcentration();
+
+        int delta = currentValue - lastBridged;
+        if (Math.abs(delta) >= UPDATE_THRESHOLD) {
+            applyModifier(entityStatMap, concentrationEntityStatIndex, MODIFIER_KEY_MAX_CONCENTRATION, currentValue);
+            hyforgedStats.setLastBridgedMaxConcentration(currentValue);
+            logBridge("Concentration", currentValue, lastBridged);
+        }
+    }
+
+    /**
+     * Bridge max rage from Hyforged to Hytale's EntityStatMap.
+     */
+    private void bridgeMaxRage(
+            @Nonnull HyforgedStatComponent hyforgedStats,
+            @Nonnull EntityStatMap entityStatMap
+    ) {
+        if (maxRageIndex < 0 || rageEntityStatIndex < 0) {
+            return;
+        }
+
+        int currentValue = hyforgedStats.getCachedValue(maxRageIndex);
+        int lastBridged = hyforgedStats.getLastBridgedMaxRage();
+
+        int delta = currentValue - lastBridged;
+        if (Math.abs(delta) >= UPDATE_THRESHOLD) {
+            applyModifier(entityStatMap, rageEntityStatIndex, MODIFIER_KEY_MAX_RAGE, currentValue);
+            hyforgedStats.setLastBridgedMaxRage(currentValue);
+            logBridge("Rage", currentValue, lastBridged);
+        }
+    }
+
+    private void logBridge(@Nonnull String statName, int newValue, int oldValue) {
+        if (LOGGER.isLoggable(Level.FINE)) {
+            LOGGER.fine(String.format("Bridged %s: %d -> %d", statName, oldValue, newValue));
         }
     }
 

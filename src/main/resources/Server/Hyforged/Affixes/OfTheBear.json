@@ -1,0 +1,19 @@
+{
+  "id": "of-the-bear",
+  "Type": "suffix",
+  "DisplayName": "of the Bear",
+  "StatId": "hyforged:strength",
+  "ModifierType": "FLAT",
+  "Weight": 100,
+  "Eligibility": {
+    "ItemTags": ["Type:Weapon", "Type:Armor"],
+    "MinQuality": "Uncommon"
+  },
+  "Tiers": [
+    { "Tier": 1, "MinValue": 8, "MaxValue": 10, "ItemLevelReq": 40, "Weight": 50 },
+    { "Tier": 2, "MinValue": 6, "MaxValue": 8, "ItemLevelReq": 25, "Weight": 75 },
+    { "Tier": 3, "MinValue": 4, "MaxValue": 6, "ItemLevelReq": 10, "Weight": 100 },
+    { "Tier": 4, "MinValue": 2, "MaxValue": 4, "ItemLevelReq": 5, "Weight": 125 },
+    { "Tier": 5, "MinValue": 1, "MaxValue": 2, "ItemLevelReq": 1, "Weight": 150 }
+  ]
+}

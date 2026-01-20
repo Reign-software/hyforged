@@ -1,0 +1,6 @@
+{
+  "id": "forged",
+  "DisplayNamePosition": "none",
+  "DisplayFormat": "{name} (T{tier})",
+  "Stackable": false
+}
