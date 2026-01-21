@@ -141,6 +141,160 @@ stats.removeConditionalModifiersBySource("berserker_rage");
 
 ---
 
+## Tag-Based Modifiers
+
+One of the most powerful features of the Hyforged stat system is the ability to target **multiple stats at once** using tags. This enables items and effects that say things like "+10% to ALL resistances" or "+5 to ALL attributes".
+
+### How Tag Targeting Works
+
+Instead of targeting a single stat by index, you can target a **tag**. All stats that have that tag in their definition will receive the modifier.
+
+```java
+// "+10% to ALL elemental resistances"
+// This single modifier affects fire-res, cold-res, AND lightning-res
+StatModifier modifier = StatModifier.builder()
+    .sourceId("item:ring:elemental_ward")
+    .sourceType(ModifierSource.EQUIPMENT)
+    .modifierType(ModifierType.INCREASED)
+    .targetTag("elemental-resistances")  // Tag, not a stat index
+    .value(1000)  // +10% in basis points
+    .build();
+
+stats.addModifier(modifier);
+```
+
+### Common Tags
+
+| Tag | Stats Affected |
+|-----|----------------|
+| `elemental-resistances` | fire-res, cold-res, lightning-res |
+| `physical-resistances` | physical-res, bleed-res |
+| `all-resistances` | All resistance stats |
+| `attributes` | strength, dexterity, intelligence, etc. |
+| `offensive` | physical-power, spell-power, crit-chance, etc. |
+| `defensive` | armor, evasion, block-chance, etc. |
+
+### Defining Tags in Stat Definitions
+
+Tags are defined in the stat's JSON definition:
+
+```json
+{
+    "Id": "hyforged:fire-resistance-bps",
+    "DisplayName": "Fire Resistance",
+    "Tags": ["elemental-resistances", "all-resistances", "defensive"]
+}
+```
+
+---
+
+## Stat-to-Stat Interactions
+
+Stats can **modify other stats** based on their values. This enables derived stats, scaling bonuses, and complex ARPG mechanics.
+
+### How Stat Scaling Works
+
+A stat can define a `ScalesFrom` relationship, meaning its value is partially derived from another stat:
+
+```json
+{
+    "Id": "hyforged:physical-power",
+    "DisplayName": "Physical Power",
+    "ScalesFrom": [
+        {
+            "Stat": "hyforged:strength",
+            "Ratio": 200,
+            "Type": "FLAT"
+        }
+    ]
+}
+```
+
+In this example, every point of Strength adds +2 Physical Power (ratio 200 = 2.00 in basis points).
+
+### Scaling Types
+
+| Type | Formula | Use Case |
+|------|---------|----------|
+| `FLAT` | `+sourceStat * ratio / 100` | Attribute → derived stat |
+| `INCREASED` | `+sourceStat * ratio / 10000` as % | Scaling percentage bonuses |
+| `MORE` | Multiplicative scaling | Rare, powerful interactions |
+
+### Example: Attribute Scaling
+
+```json
+{
+    "Id": "hyforged:crit-chance-bps",
+    "DisplayName": "Critical Strike Chance",
+    "BaseValue": 500,
+    "ScalesFrom": [
+        {
+            "Stat": "hyforged:dexterity",
+            "Ratio": 50,
+            "Type": "FLAT"
+        },
+        {
+            "Stat": "hyforged:luck",
+            "Ratio": 25,
+            "Type": "FLAT"
+        }
+    ]
+}
+```
+
+This means:
+- Base crit chance: 5% (500 bps)
+- Each point of Dexterity adds +0.5% crit (50 bps)
+- Each point of Luck adds +0.25% crit (25 bps)
+
+### Dynamic Caps via Stat References
+
+Stats can have their **soft cap raised by another stat**. This is perfect for "increased maximum resistance" effects:
+
+```json
+{
+    "Id": "hyforged:fire-resistance-bps",
+    "DisplayName": "Fire Resistance",
+    "SoftCapBps": 7500,
+    "HardCapBps": 9000,
+    "SoftCapBonusStat": "hyforged:max-fire-resistance-bps"
+}
+```
+
+Now if a player has `+500 max-fire-resistance-bps`, their fire resistance soft cap becomes 80% instead of 75%.
+
+### Querying Scaling Relationships
+
+```java
+StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+StatDefinition physicalPower = registry.get(CoreStats.PHYSICAL_POWER);
+
+// Get all stats that this stat scales from
+List<StatScaling> scalings = physicalPower.scalesFrom();
+
+for (StatScaling scaling : scalings) {
+    System.out.println("Scales from: " + scaling.stat() + 
+        " at ratio " + scaling.ratio() + 
+        " type " + scaling.type());
+}
+```
+
+### Example: Complete Attribute Chain
+
+Here's how a full attribute → derived stat → combat stat chain works:
+
+```
+Strength (attribute)
+    ↓ scales to (+2 per point)
+Physical Power (derived)
+    ↓ scales to (+1% per 100 power)
+Melee Damage (combat)
+```
+
+This allows a single "+5 Strength" modifier to cascade through the entire stat system, affecting multiple combat calculations automatically.
+
+---
+
 ## Subscribing to Stat Change Events
 
 ### Event Types

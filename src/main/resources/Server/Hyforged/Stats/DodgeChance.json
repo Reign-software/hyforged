@@ -13,6 +13,20 @@
     ],
     "Modifier": [
       "percent"
+    ],
+    "Type": [
+      "avoidance"
+    ],
+    "Source": [
+      "derived"
     ]
-  }
+  },
+  "Scaling": [
+    {
+      "Type": "threshold",
+      "Source": "hyforged:dexterity",
+      "PerPoints": 10,
+      "BonusBps": 25
+    }
+  ]
 }

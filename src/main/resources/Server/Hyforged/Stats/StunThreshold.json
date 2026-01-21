@@ -13,6 +13,19 @@
     ],
     "Modifier": [
       "percent"
+    ],
+    "Type": [
+      "threshold"
+    ],
+    "Source": [
+      "derived"
     ]
-  }
+  },
+  "Scaling": [
+    {
+      "Type": "linear",
+      "Source": "hyforged:constitution",
+      "Ratio": 1.0
+    }
+  ]
 }

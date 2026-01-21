@@ -6,6 +6,9 @@
   "DefaultValue": 0,
   "MinValue": -10000,
   "MaxValue": 10000,
+  "SoftCapBps": 7500,
+  "HardCapBps": 9000,
+  "SoftCapBonusStat": "hyforged:maximum-resistance-chaos-bps",
   "IsRating": false,
   "Tags": {
     "Modifier": [
@@ -20,6 +23,16 @@
     "Element": [
       "elemental",
       "chaos"
+    ],
+    "Source": [
+      "derived"
     ]
-  }
+  },
+  "Scaling": [
+    {
+      "Type": "linear",
+      "Source": "hyforged:wisdom",
+      "Ratio": 1.0
+    }
+  ]
 }

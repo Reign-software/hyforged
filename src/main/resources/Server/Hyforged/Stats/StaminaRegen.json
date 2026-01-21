@@ -14,6 +14,17 @@
     "Type": [
       "resource"
     ],
-    "Resource": "stamina"
-  }
+    "Resource": "stamina",
+    "Source": [
+      "derived"
+    ]
+  },
+  "Scaling": [
+    {
+      "Type": "threshold",
+      "Source": "hyforged:spirit",
+      "PerPoints": 10,
+      "BonusBps": 1
+    }
+  ]
 }

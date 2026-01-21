@@ -16,6 +16,16 @@
     ],
     "Element": [
       "physical"
+    ],
+    "Source": [
+      "derived"
     ]
-  }
+  },
+  "Scaling": [
+    {
+      "Type": "linear",
+      "Source": "hyforged:constitution",
+      "Ratio": 2.0
+    }
+  ]
 }
