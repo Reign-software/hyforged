@@ -1,13 +1,16 @@
 package reign.software.hyforged.stats.engine;
 
 import reign.software.hyforged.stats.StatDefinition;
+import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.component.ModifierType;
 import reign.software.hyforged.stats.component.StatModifier;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.ToIntFunction;
 
 /**
  * Stacking engine for ARPG-style modifier computation.
@@ -33,6 +36,9 @@ public final class StackingEngine {
     
     /**
      * Compute the final value of a stat given base value and modifiers.
+     * <p>
+     * This overload does not apply soft/hard caps defined in the StatDefinition.
+     * Use {@link #compute(int, List, StatDefinition, ToIntFunction)} to include cap support.
      * 
      * @param baseValue The base value before modifiers
      * @param modifiers List of modifiers to apply (only those matching the stat)
@@ -40,8 +46,32 @@ public final class StackingEngine {
      * @return The final computed value
      */
     public static int compute(int baseValue, @Nonnull List<StatModifier> modifiers, @Nonnull StatDefinition statDef) {
+        return compute(baseValue, modifiers, statDef, null);
+    }
+    
+    /**
+     * Compute the final value of a stat given base value and modifiers, with soft/hard cap support.
+     * <p>
+     * Stacking order:
+     * 1. Sum all FLAT modifiers
+     * 2. Sum all INCREASED (% additive) → apply as (1 + sum/10000)
+     * 3. Multiply all MORE (% multiplicative) sequentially
+     * 4. Apply CAP modifiers (min/max clamps from modifiers)
+     * 5. Apply soft/hard caps from StatDefinition (if defined)
+     * 6. Final clamp to stat definition bounds
+     * 
+     * @param baseValue The base value before modifiers
+     * @param modifiers List of modifiers to apply (only those matching the stat)
+     * @param statDef The stat definition (for bounds clamping and caps)
+     * @param statValueLookup Function to lookup other stat values (for soft cap bonus stat), can be null
+     * @return The final computed value
+     */
+    public static int compute(int baseValue, @Nonnull List<StatModifier> modifiers, 
+                              @Nonnull StatDefinition statDef, 
+                              @Nullable ToIntFunction<StatId> statValueLookup) {
         if (modifiers.isEmpty()) {
-            return clamp(baseValue, statDef.minValue(), statDef.maxValue());
+            int uncapped = clamp(baseValue, statDef.minValue(), statDef.maxValue());
+            return applySoftHardCaps(uncapped, statDef, statValueLookup);
         }
         
         // Sort modifiers by type order, then by priority for determinism
@@ -107,7 +137,7 @@ public final class StackingEngine {
             }
         }
         
-        // Apply caps
+        // Apply modifier caps
         if (minCap != null && current < minCap) {
             current = minCap;
         }
@@ -115,20 +145,97 @@ public final class StackingEngine {
             current = maxCap;
         }
         
-        // Final clamp to stat definition bounds and int range
-        return clamp(current, statDef.minValue(), statDef.maxValue());
+        // Step 5: Apply soft/hard caps from StatDefinition
+        int afterModifierCaps = clamp(current, statDef.minValue(), statDef.maxValue());
+        return applySoftHardCaps(afterModifierCaps, statDef, statValueLookup);
+    }
+    
+    /**
+     * Apply soft/hard caps from a StatDefinition.
+     * <p>
+     * The effective cap is calculated as:
+     * - effectiveCap = min(softCap + bonusStatValue, hardCap)
+     * - If no soft cap is defined, only the hard cap is applied
+     * - If no hard cap is defined, only the soft cap (+bonus) is applied
+     * - Values in basis points (10000 = 100%)
+     * 
+     * @param value The current value to cap
+     * @param statDef The stat definition with cap information
+     * @param statValueLookup Function to lookup other stat values, can be null
+     * @return The capped value
+     */
+    private static int applySoftHardCaps(int value, @Nonnull StatDefinition statDef, 
+                                          @Nullable ToIntFunction<StatId> statValueLookup) {
+        if (!statDef.hasCaps()) {
+            return value;
+        }
+        
+        int softCap = statDef.softCapBps();
+        int hardCap = statDef.hardCapBps();
+        StatId bonusStat = statDef.softCapBonusStat();
+        
+        // Calculate effective cap
+        int effectiveCap;
+        
+        if (statDef.hasSoftCap()) {
+            // Start with soft cap
+            int adjustedSoftCap = softCap;
+            
+            // Add bonus stat value if available
+            if (bonusStat != null && statValueLookup != null) {
+                int bonusValue = statValueLookup.applyAsInt(bonusStat);
+                adjustedSoftCap = softCap + bonusValue;
+            }
+            
+            // Hard cap limits the adjusted soft cap
+            if (statDef.hasHardCap()) {
+                effectiveCap = Math.min(adjustedSoftCap, hardCap);
+            } else {
+                effectiveCap = adjustedSoftCap;
+            }
+        } else if (statDef.hasHardCap()) {
+            // Only hard cap, no soft cap
+            effectiveCap = hardCap;
+        } else {
+            // No caps (shouldn't reach here due to hasCaps() check)
+            return value;
+        }
+        
+        // Apply the effective cap (only cap from above, don't raise minimum)
+        return Math.min(value, effectiveCap);
     }
     
     /**
      * Compute a stat value with breakdown information for UI display.
+     * <p>
+     * This overload does not apply soft/hard caps defined in the StatDefinition.
+     * Use {@link #computeWithBreakdown(int, List, StatDefinition, ToIntFunction)} for cap support.
      */
     @Nonnull
     public static ComputeResult computeWithBreakdown(int baseValue, @Nonnull List<StatModifier> modifiers, @Nonnull StatDefinition statDef) {
+        return computeWithBreakdown(baseValue, modifiers, statDef, null);
+    }
+    
+    /**
+     * Compute a stat value with breakdown information for UI display, including soft/hard cap support.
+     * 
+     * @param baseValue The base value before modifiers
+     * @param modifiers List of modifiers to apply
+     * @param statDef The stat definition
+     * @param statValueLookup Function to lookup other stat values (for soft cap bonus stat), can be null
+     * @return Detailed breakdown of the computation
+     */
+    @Nonnull
+    public static ComputeResult computeWithBreakdown(int baseValue, @Nonnull List<StatModifier> modifiers, 
+                                                      @Nonnull StatDefinition statDef,
+                                                      @Nullable ToIntFunction<StatId> statValueLookup) {
         ComputeResult result = new ComputeResult();
         result.baseValue = baseValue;
         
         if (modifiers.isEmpty()) {
-            result.finalValue = clamp(baseValue, statDef.minValue(), statDef.maxValue());
+            int clamped = clamp(baseValue, statDef.minValue(), statDef.maxValue());
+            result.afterCap = clamped;
+            result.finalValue = applySoftHardCapsWithBreakdown(clamped, statDef, statValueLookup, result);
             return result;
         }
         
@@ -177,7 +284,7 @@ public final class StackingEngine {
         }
         result.afterMore = (int) current;
         
-        // Apply CAP
+        // Apply CAP modifiers
         Integer minCap = null;
         Integer maxCap = null;
         for (StatModifier mod : sorted) {
@@ -204,8 +311,59 @@ public final class StackingEngine {
         }
         result.afterCap = (int) current;
         
-        result.finalValue = clamp(current, statDef.minValue(), statDef.maxValue());
+        // Apply soft/hard caps from StatDefinition
+        int clamped = clamp(current, statDef.minValue(), statDef.maxValue());
+        result.finalValue = applySoftHardCapsWithBreakdown(clamped, statDef, statValueLookup, result);
         return result;
+    }
+    
+    /**
+     * Apply soft/hard caps and record breakdown information.
+     */
+    private static int applySoftHardCapsWithBreakdown(int value, @Nonnull StatDefinition statDef,
+                                                       @Nullable ToIntFunction<StatId> statValueLookup,
+                                                       @Nonnull ComputeResult result) {
+        if (!statDef.hasCaps()) {
+            return value;
+        }
+        
+        int softCap = statDef.softCapBps();
+        int hardCap = statDef.hardCapBps();
+        StatId bonusStat = statDef.softCapBonusStat();
+        
+        // Record cap info in result
+        result.softCapBps = softCap;
+        result.hardCapBps = hardCap;
+        result.softCapBonusStat = bonusStat;
+        
+        // Calculate effective cap
+        int effectiveCap;
+        
+        if (statDef.hasSoftCap()) {
+            int adjustedSoftCap = softCap;
+            
+            if (bonusStat != null && statValueLookup != null) {
+                int bonusValue = statValueLookup.applyAsInt(bonusStat);
+                result.softCapBonusValue = bonusValue;
+                adjustedSoftCap = softCap + bonusValue;
+            }
+            
+            if (statDef.hasHardCap()) {
+                effectiveCap = Math.min(adjustedSoftCap, hardCap);
+            } else {
+                effectiveCap = adjustedSoftCap;
+            }
+        } else if (statDef.hasHardCap()) {
+            effectiveCap = hardCap;
+        } else {
+            return value;
+        }
+        
+        result.effectiveCapBps = effectiveCap;
+        result.wasCapped = value > effectiveCap;
+        result.afterSoftHardCap = Math.min(value, effectiveCap);
+        
+        return result.afterSoftHardCap;
     }
     
     /**
@@ -223,13 +381,39 @@ public final class StackingEngine {
      * Result of stat computation with breakdown for UI.
      */
     public static class ComputeResult {
+        /** The base value before any modifiers */
         public int baseValue;
+        /** Sum of all FLAT modifiers */
         public int flatTotal;
+        /** Value after applying FLAT modifiers */
         public int afterFlat;
+        /** Sum of all INCREASED modifiers in basis points */
         public int increasedTotalBps;
+        /** Value after applying INCREASED modifiers */
         public int afterIncreased;
+        /** Value after applying MORE modifiers */
         public int afterMore;
+        /** Value after applying CAP modifiers */
         public int afterCap;
+        
+        // Soft/Hard cap breakdown
+        /** Soft cap from StatDefinition in basis points, or NO_CAP if not defined */
+        public int softCapBps = StatDefinition.NO_CAP;
+        /** Hard cap from StatDefinition in basis points, or NO_CAP if not defined */
+        public int hardCapBps = StatDefinition.NO_CAP;
+        /** The stat that provides bonus to soft cap, or null if none */
+        @Nullable
+        public StatId softCapBonusStat = null;
+        /** The value of the soft cap bonus stat */
+        public int softCapBonusValue = 0;
+        /** The effective cap after adjusting soft cap with bonus stat */
+        public int effectiveCapBps = StatDefinition.NO_CAP;
+        /** Whether the value was reduced by soft/hard cap */
+        public boolean wasCapped = false;
+        /** Value after applying soft/hard caps */
+        public int afterSoftHardCap;
+        
+        /** The final computed value */
         public int finalValue;
         
         public final List<StatModifier> flatModifiers = new ArrayList<>();
@@ -248,6 +432,13 @@ public final class StackingEngine {
             all.addAll(moreModifiers);
             all.addAll(capModifiers);
             return all;
+        }
+        
+        /**
+         * Check if this stat has soft/hard caps defined.
+         */
+        public boolean hasCaps() {
+            return softCapBps != StatDefinition.NO_CAP || hardCapBps != StatDefinition.NO_CAP;
         }
     }
 }

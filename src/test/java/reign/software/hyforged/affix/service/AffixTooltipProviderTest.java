@@ -70,60 +70,50 @@ class AffixTooltipProviderTest {
     private void registerStatDefinitions() {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
 
-        registry.registerStat(new StatDefinition(
-            StatId.hyforged("health"),
-            "combat",
-            DisplayFormat.INTEGER,
-            100, 0, 10000,
-            null,
-            "Health",
-            "Maximum health points",
-            false, false, null
-        ));
+        registry.registerStat(new StatDefinition.Builder(StatId.hyforged("health"))
+            .category("combat")
+            .displayFormat(DisplayFormat.INTEGER)
+            .defaultValue(100)
+            .bounds(0, 10000)
+            .displayName("Health")
+            .description("Maximum health points")
+            .build());
 
-        registry.registerStat(new StatDefinition(
-            StatId.hyforged("physicalDamage"),
-            "combat",
-            DisplayFormat.INTEGER,
-            10, 0, 1000,
-            null,
-            "Physical Damage",
-            "Physical attack damage",
-            false, false, null
-        ));
+        registry.registerStat(new StatDefinition.Builder(StatId.hyforged("physicalDamage"))
+            .category("combat")
+            .displayFormat(DisplayFormat.INTEGER)
+            .defaultValue(10)
+            .bounds(0, 1000)
+            .displayName("Physical Damage")
+            .description("Physical attack damage")
+            .build());
 
-        registry.registerStat(new StatDefinition(
-            StatId.hyforged("movementSpeed"),
-            "utility",
-            DisplayFormat.PERCENT_BPS,
-            100, 0, 500,
-            null,
-            "Movement Speed",
-            "Movement speed bonus",
-            false, false, null
-        ));
+        registry.registerStat(new StatDefinition.Builder(StatId.hyforged("movementSpeed"))
+            .category("utility")
+            .displayFormat(DisplayFormat.PERCENT_BPS)
+            .defaultValue(100)
+            .bounds(0, 500)
+            .displayName("Movement Speed")
+            .description("Movement speed bonus")
+            .build());
 
-        registry.registerStat(new StatDefinition(
-            StatId.hyforged("criticalChance"),
-            "combat",
-            DisplayFormat.PERCENT_BPS,
-            5, 0, 100,
-            null,
-            "Critical Chance",
-            "Chance to deal critical damage",
-            false, false, null
-        ));
+        registry.registerStat(new StatDefinition.Builder(StatId.hyforged("criticalChance"))
+            .category("combat")
+            .displayFormat(DisplayFormat.PERCENT_BPS)
+            .defaultValue(5)
+            .bounds(0, 100)
+            .displayName("Critical Chance")
+            .description("Chance to deal critical damage")
+            .build());
 
-        registry.registerStat(new StatDefinition(
-            StatId.hyforged("quality"),
-            "crafting",
-            DisplayFormat.INTEGER,
-            0, 0, 100,
-            null,
-            "Quality",
-            "Item quality bonus",
-            false, false, null
-        ));
+        registry.registerStat(new StatDefinition.Builder(StatId.hyforged("quality"))
+            .category("crafting")
+            .displayFormat(DisplayFormat.INTEGER)
+            .defaultValue(0)
+            .bounds(0, 100)
+            .displayName("Quality")
+            .description("Item quality bonus")
+            .build());
 
         registry.freeze();
     }

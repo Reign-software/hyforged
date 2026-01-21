@@ -35,6 +35,15 @@
 - Observability and debugging
   - Provide optional detailed combat logs for administrators (rate-limited) to debug balance and issues.
   - Support reproducible combat calculation traces for a single event (inputs → outputs).
+- Calculations of related stats
+  - Critical hit chance and multiplier
+  - Dodge/evade chance
+  - Block chance and mitigation
+  - Elemental resistances and caps
+  - Damage type scaling and reduction
+  - ect... We need to formalize all related stat calculations for combat resolution
+  - Utilize tags to get combat-relevant metadata (e.g., damage type, elemental affinity) for calculations
+  - utilize tags to help determine interactions between various stats.
 
 ## Non-Goals
 - Full reimplementation of the base game combat engine; this layers a stat-driven model on top of server events where possible.

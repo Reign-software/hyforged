@@ -136,6 +136,27 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
                     (asset, parent) -> asset.affixTierTemplateAsset = parent.affixTierTemplateAsset
             )
             .add()
+            .appendInherited(
+                    new KeyedCodec<>("SoftCapBps", Codec.INTEGER),
+                    (asset, value) -> asset.softCapBps = value != null ? value : StatDefinition.NO_CAP,
+                    asset -> asset.softCapBps,
+                    (asset, parent) -> asset.softCapBps = parent.softCapBps
+            )
+            .add()
+            .appendInherited(
+                    new KeyedCodec<>("HardCapBps", Codec.INTEGER),
+                    (asset, value) -> asset.hardCapBps = value != null ? value : StatDefinition.NO_CAP,
+                    asset -> asset.hardCapBps,
+                    (asset, parent) -> asset.hardCapBps = parent.hardCapBps
+            )
+            .add()
+            .appendInherited(
+                    new KeyedCodec<>("SoftCapBonusStat", Codec.STRING),
+                    (asset, value) -> asset.softCapBonusStatId = value,
+                    asset -> asset.softCapBonusStatId,
+                    (asset, parent) -> asset.softCapBonusStatId = parent.softCapBonusStatId
+            )
+            .add()
             .build();
 
     private static AssetStore<String, StatDefinitionAsset, IndexedLookupTableAssetMap<String, StatDefinitionAsset>> ASSET_STORE;
@@ -155,6 +176,9 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
     private Map<String, String[]> rawTags = new HashMap<>();
     private ScalingRuleAsset[] scalingAssets = new ScalingRuleAsset[0];
     private AffixTierTemplateAsset affixTierTemplateAsset = null;
+    private int softCapBps = StatDefinition.NO_CAP;
+    private int hardCapBps = StatDefinition.NO_CAP;
+    private String softCapBonusStatId = null;
 
     public StatDefinitionAsset() {
     }
@@ -293,6 +317,9 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
             }
         }
         
+        // Parse soft cap bonus stat if specified
+        StatId bonusStat = softCapBonusStatId != null ? StatId.parse(softCapBonusStatId) : null;
+        
         return new StatDefinition.Builder(statId)
                 .category(category)
                 .displayName(displayName)
@@ -302,6 +329,9 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
                 .rating(isRating)
                 .tags(getExpandedTags())
                 .scaling(scalingRules)
+                .softCapBps(softCapBps)
+                .hardCapBps(hardCapBps)
+                .softCapBonusStat(bonusStat)
                 .build();
     }
 }

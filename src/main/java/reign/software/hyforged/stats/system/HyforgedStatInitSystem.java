@@ -8,6 +8,7 @@ import com.hypixel.hytale.component.RemoveReason;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.RefSystem;
+import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.progression.component.ProgressionComponent;
@@ -15,6 +16,7 @@ import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.asset.ClassDefinition;
 import reign.software.hyforged.stats.asset.ClassDefinitionRegistry;
+import reign.software.hyforged.stats.component.EffectBridgeComponent;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 
 import javax.annotation.Nonnull;
@@ -45,6 +47,12 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
     private final ComponentType<EntityStore, ProgressionComponent> progressionComponentType;
     
     @Nonnull
+    private final ComponentType<EntityStore, EffectBridgeComponent> effectBridgeComponentType;
+    
+    @Nonnull
+    private final ComponentType<EntityStore, EffectControllerComponent> effectControllerComponentType;
+    
+    @Nonnull
     private final Query<EntityStore> query;
 
     /**
@@ -56,6 +64,8 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
         HyforgedPlugin plugin = HyforgedPlugin.getInstance();
         this.statComponentType = plugin.getHyforgedStatComponentType();
         this.progressionComponentType = plugin.getProgressionComponentType();
+        this.effectBridgeComponentType = plugin.getEffectBridgeComponentType();
+        this.effectControllerComponentType = EffectControllerComponent.getComponentType();
         this.query = statComponentType;
     }
 
@@ -83,6 +93,16 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
         // Mark all stats dirty for initial computation
         // Scaling-based derived stats will be computed by HyforgedStatComputeSystem
         component.markAllDirty();
+        
+        // Add EffectBridgeComponent if entity has EffectControllerComponent
+        // This enables the HyforgedEffectBridgeSystem to track effects
+        EffectControllerComponent effectController = commandBuffer.getComponent(ref, effectControllerComponentType);
+        if (effectController != null) {
+            EffectBridgeComponent effectBridge = commandBuffer.getComponent(ref, effectBridgeComponentType);
+            if (effectBridge == null) {
+                commandBuffer.addComponent(ref, effectBridgeComponentType, new EffectBridgeComponent());
+            }
+        }
     }
 
     @Override

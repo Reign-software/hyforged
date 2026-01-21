@@ -28,6 +28,7 @@ import reign.software.hyforged.stats.bridge.HyforgedDamageReductionSystem;
 import reign.software.hyforged.stats.bridge.HyforgedKnockbackReductionSystem;
 import reign.software.hyforged.stats.bridge.HytaleSystemReplacer;
 import reign.software.hyforged.stats.command.HyforgedCommand;
+import reign.software.hyforged.stats.component.EffectBridgeComponent;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.damage.DamageTypeAssetLoader;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
@@ -39,6 +40,7 @@ import reign.software.hyforged.stats.resource.RageDecaySystem;
 import reign.software.hyforged.stats.hud.ResourceStatsHudSystem;
 import reign.software.hyforged.stats.system.ClassLevelModifierSystem;
 import reign.software.hyforged.stats.system.HyforgedBridgeSystem;
+import reign.software.hyforged.stats.system.HyforgedEffectBridgeSystem;
 import reign.software.hyforged.stats.system.HyforgedStatComputeSystem;
 import reign.software.hyforged.stats.system.HyforgedStatInitSystem;
 
@@ -64,6 +66,7 @@ public class HyforgedPlugin extends JavaPlugin {
     // ECS Component Types
     private ComponentType<EntityStore, HyforgedStatComponent> hyforgedStatComponentType;
     private ComponentType<EntityStore, ProgressionComponent> progressionComponentType;
+    private ComponentType<EntityStore, EffectBridgeComponent> effectBridgeComponentType;
     
     // ECS Resource Types
     private ResourceType<EntityStore, XPNotificationAggregator.AggregationResource> xpNotificationResourceType;
@@ -202,6 +205,14 @@ public class HyforgedPlugin extends JavaPlugin {
         
         getLogger().at(Level.FINE).log("Registered ProgressionComponent with persistence codec");
         
+        // Register EffectBridgeComponent (no persistence - runtime tracking only)
+        effectBridgeComponentType = entityStoreRegistry.registerComponent(
+            EffectBridgeComponent.class,
+            EffectBridgeComponent::new
+        );
+        
+        getLogger().at(Level.FINE).log("Registered EffectBridgeComponent");
+        
         // Register XP notification aggregation resource
         xpNotificationResourceType = entityStoreRegistry.registerResource(
             XPNotificationAggregator.AggregationResource.class,
@@ -224,6 +235,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register NPCStatInitSystem (handles NPC entity stat initialization)
         entityStoreRegistry.registerSystem(new NPCStatInitSystem());
         getLogger().at(Level.FINE).log("Registered NPCStatInitSystem");
+        
+        // Register HyforgedEffectBridgeSystem (bridges Hytale effects to Hyforged stats)
+        entityStoreRegistry.registerSystem(new HyforgedEffectBridgeSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedEffectBridgeSystem");
         
         // Register HyforgedStatComputeSystem (recomputes dirty stats)
         entityStoreRegistry.registerSystem(new HyforgedStatComputeSystem());
@@ -342,5 +357,16 @@ public class HyforgedPlugin extends JavaPlugin {
             throw new IllegalStateException("HyforgedPlugin not initialized");
         }
         return progressionComponentType;
+    }
+    
+    /**
+     * Get the EffectBridgeComponent type for ECS operations.
+     */
+    @Nonnull
+    public ComponentType<EntityStore, EffectBridgeComponent> getEffectBridgeComponentType() {
+        if (effectBridgeComponentType == null) {
+            throw new IllegalStateException("HyforgedPlugin not initialized");
+        }
+        return effectBridgeComponentType;
     }
 }

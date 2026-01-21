@@ -3,6 +3,7 @@ package reign.software.hyforged.stats;
 import reign.software.hyforged.stats.scaling.ScalingRule;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +17,16 @@ import java.util.Set;
  * <p>
  * A stat uses either {@link #defaultValue()} or {@link #scaling()} rules to compute
  * its base value - not both. Stats with scaling derive their base from other stats.
+ * <p>
+ * <b>Soft/Hard Cap System:</b>
+ * Combat stats (crit, block, evasion, resistances) can define soft and hard caps:
+ * <ul>
+ *   <li>{@link #softCapBps()} - Default maximum value (can be exceeded with bonus stats)</li>
+ *   <li>{@link #hardCapBps()} - Absolute maximum (cannot be exceeded)</li>
+ *   <li>{@link #softCapBonusStat()} - Optional stat that raises the soft cap</li>
+ * </ul>
+ * Values are in basis points (10000 = 100%).
+ * Use {@link #NO_CAP} (-1) to indicate no cap is defined.
  */
 public record StatDefinition(
     @Nonnull StatId id,
@@ -29,8 +40,14 @@ public record StatDefinition(
     @Nonnull String description,
     boolean isAbilityScore,
     boolean isRating,
-    @Nonnull List<ScalingRule> scaling
+    @Nonnull List<ScalingRule> scaling,
+    int softCapBps,
+    int hardCapBps,
+    @Nullable StatId softCapBonusStat
 ) {
+    
+    /** Sentinel value indicating no cap is defined */
+    public static final int NO_CAP = -1;
     
     public StatDefinition {
         Objects.requireNonNull(id, "id cannot be null");
@@ -47,6 +64,37 @@ public record StatDefinition(
         if (defaultValue < minValue || defaultValue > maxValue) {
             throw new IllegalArgumentException("defaultValue must be between minValue and maxValue");
         }
+        // Validate cap constraints
+        if (softCapBps != NO_CAP && hardCapBps != NO_CAP && softCapBps > hardCapBps) {
+            throw new IllegalArgumentException("softCapBps cannot be greater than hardCapBps");
+        }
+    }
+    
+    /**
+     * Check if this stat has a soft cap defined.
+     * 
+     * @return true if softCapBps is not NO_CAP
+     */
+    public boolean hasSoftCap() {
+        return softCapBps != NO_CAP;
+    }
+    
+    /**
+     * Check if this stat has a hard cap defined.
+     * 
+     * @return true if hardCapBps is not NO_CAP
+     */
+    public boolean hasHardCap() {
+        return hardCapBps != NO_CAP;
+    }
+    
+    /**
+     * Check if this stat has any cap configuration.
+     * 
+     * @return true if either soft or hard cap is defined
+     */
+    public boolean hasCaps() {
+        return hasSoftCap() || hasHardCap();
     }
     
     /**
@@ -77,6 +125,9 @@ public record StatDefinition(
         private boolean isAbilityScore = false;
         private boolean isRating = false;
         private List<ScalingRule> scaling = Collections.emptyList();
+        private int softCapBps = NO_CAP;
+        private int hardCapBps = NO_CAP;
+        private StatId softCapBonusStat = null;
         
         public Builder(@Nonnull StatId id) {
             this.id = Objects.requireNonNull(id);
@@ -166,11 +217,71 @@ public record StatDefinition(
             return this;
         }
         
+        /**
+         * Set the soft cap for this stat in basis points.
+         * <p>
+         * The soft cap is the default maximum value. It can be exceeded
+         * if a {@link #softCapBonusStat(StatId)} is defined and that stat has a value.
+         * 
+         * @param softCapBps Soft cap in basis points (10000 = 100%), or NO_CAP for no limit
+         * @return this builder
+         */
+        public Builder softCapBps(int softCapBps) {
+            this.softCapBps = softCapBps;
+            return this;
+        }
+        
+        /**
+         * Set the hard cap for this stat in basis points.
+         * <p>
+         * The hard cap is the absolute maximum that cannot be exceeded,
+         * even with bonus stats raising the soft cap.
+         * 
+         * @param hardCapBps Hard cap in basis points (10000 = 100%), or NO_CAP for no limit
+         * @return this builder
+         */
+        public Builder hardCapBps(int hardCapBps) {
+            this.hardCapBps = hardCapBps;
+            return this;
+        }
+        
+        /**
+         * Set the stat that provides bonus to the soft cap.
+         * <p>
+         * The value of this stat is added to the soft cap, allowing
+         * the effective cap to be raised up to the hard cap.
+         * 
+         * @param bonusStat The stat ID that raises the soft cap, or null for no bonus
+         * @return this builder
+         */
+        public Builder softCapBonusStat(@Nullable StatId bonusStat) {
+            this.softCapBonusStat = bonusStat;
+            return this;
+        }
+        
+        /**
+         * Configure soft/hard caps with a bonus stat.
+         * <p>
+         * Convenience method to set all cap-related fields at once.
+         * 
+         * @param softCapBps Soft cap in basis points
+         * @param hardCapBps Hard cap in basis points
+         * @param bonusStat The stat that raises the soft cap
+         * @return this builder
+         */
+        public Builder caps(int softCapBps, int hardCapBps, @Nullable StatId bonusStat) {
+            this.softCapBps = softCapBps;
+            this.hardCapBps = hardCapBps;
+            this.softCapBonusStat = bonusStat;
+            return this;
+        }
+        
         public StatDefinition build() {
             return new StatDefinition(
                 id, category, displayFormat, defaultValue,
                 minValue, maxValue, tags, displayName, description,
-                isAbilityScore, isRating, scaling
+                isAbilityScore, isRating, scaling,
+                softCapBps, hardCapBps, softCapBonusStat
             );
         }
     }

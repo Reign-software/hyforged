@@ -27,20 +27,16 @@ class CharacterStatsPageTest {
      * Creates a test StatDefinition with sensible defaults.
      */
     private static StatDefinition createTestStat(String name, int defaultValue, int min, int max) {
-        return new StatDefinition(
-                StatId.hyforged(name),
-                CharacterStatsPage.CATEGORY_ABILITY_SCORES,
-                DisplayFormat.INTEGER,
-                defaultValue,
-                min,
-                max,
-                Set.of(),
-                name.substring(0, 1).toUpperCase() + name.substring(1),
-                "Test description for " + name,
-                true,
-                false,
-                List.of()
-        );
+        return new StatDefinition.Builder(StatId.hyforged(name))
+                .category(CharacterStatsPage.CATEGORY_ABILITY_SCORES)
+                .displayFormat(DisplayFormat.INTEGER)
+                .defaultValue(defaultValue)
+                .bounds(min, max)
+                .tags(Set.of())
+                .displayName(name.substring(0, 1).toUpperCase() + name.substring(1))
+                .description("Test description for " + name)
+                .abilityScore(true)
+                .build();
     }
     
     @Nested
