@@ -1,0 +1,34 @@
+{
+  "Id": "hyforged:undead",
+  "$Comment": "Scaling for undead monsters - moderate stats, chaos resistance focus",
+  "AppliesTo": [
+    "Skeleton",
+    "Zombie",
+    "Ghoul",
+    "Wraith",
+    "Shadow_Knight",
+    "Hound_Bleached"
+  ],
+  "ScaledStats": [
+    {
+      "StatId": "hyforged:max-health",
+      "ModifierType": "INCREASED",
+      "ScalePerLevel": 8
+    },
+    {
+      "StatId": "hyforged:physical-damage-bps",
+      "ModifierType": "INCREASED",
+      "ScalePerLevel": 6
+    },
+    {
+      "StatId": "hyforged:chaos-resistance-bps",
+      "ModifierType": "FLAT",
+      "ScalePerLevel": 100
+    },
+    {
+      "StatId": "hyforged:cold-resistance-bps",
+      "ModifierType": "FLAT",
+      "ScalePerLevel": 50
+    }
+  ]
+}

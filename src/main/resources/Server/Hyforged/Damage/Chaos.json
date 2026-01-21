@@ -3,5 +3,6 @@
     "Parent": "Physical",
     "Inherits": "Physical",
     "HyforgedResistanceStat": "hyforged:chaos-resistance-bps",
-    "HyforgedPenetrationStat": "hyforged:chaos-penetration-bps"
+    "HyforgedPenetrationStat": "hyforged:chaos-penetration-bps",
+    "HyforgedElementTag": "chaos"
 }

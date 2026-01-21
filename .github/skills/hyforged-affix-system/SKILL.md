@@ -1,6 +1,6 @@
 ---
 name: hyforged-affix-system
-description: Implements ARPG-style affixes for equipment in Hyforged. Use when adding new affixes, creating affix pools, modifying affix eligibility, rolling affixes on items, or working with AffixService, AffixDefinition, RolledAffix, AffixPool, or AffixSpec. Triggers - affix, affixes, prefix, suffix, forged, item modifiers, equipment stats.
+description: Implements ARPG-style affixes for equipment in Hyforged. Use when adding new affixes, creating affix pools, modifying affix eligibility, rolling affixes on items, or working with AffixService, AffixDefinition, RolledAffix, AffixPool, or AffixSpec. Also use when deriving guidance from Modding_Doc/Affixes. Triggers - affix, affixes, prefix, suffix, forged, item modifiers, equipment stats, modding doc.
 ---
 
 # Hyforged Affix System
@@ -21,6 +21,20 @@ This skill provides step-by-step guidance for implementing affix features in Hyf
 
 - [Affix System Overview](../../../Modding_Doc/Affixes/README.md) — Concepts, JSON schemas, best practices
 - [Affix API Reference](../../../Modding_Doc/Affixes/API.md) — Complete programmatic API
+
+## Doc-Derived How-To (Adding Affixes)
+
+Use this as the high-level checklist when translating Modding_Doc into actionable steps.
+
+1. Define the affix in `src/main/resources/Server/<YourMod>/Affixes/` using a namespaced `id`, tiers, and eligibility rules.
+2. Add the affix ID to one or more pools in `src/main/resources/Server/<YourMod>/AffixPools/` with appropriate categories/tags.
+3. (Optional) Add quality capacity overrides in `src/main/resources/Server/<YourMod>/QualityAffixRules/` for new rarities.
+4. (Optional) Register affixes, pools, or types via `AffixService` for runtime-only or dynamic content.
+5. Validate using deterministic rolling (seeded) or debug commands before shipping.
+
+Notes:
+- Keep everything data-driven and namespaced; avoid hard-coded values.
+- Ensure target stats exist in the Stats system.
 
 ---
 

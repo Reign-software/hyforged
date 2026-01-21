@@ -1,0 +1,10 @@
+{
+  "Id": "hyforged:lightning-ailment",
+  "ElementTag": "lightning",
+  "EntityEffectId": "Shock",
+  "BaseThreshold": 80,
+  "AccumulationWindowMs": 3000,
+  "BaseDurationSeconds": 3.0,
+  "DisplayName": "Shock",
+  "Description": "Shocks the target, dealing additional lightning damage when lightning damage threshold is exceeded."
+}

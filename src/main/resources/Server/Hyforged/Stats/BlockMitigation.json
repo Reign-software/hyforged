@@ -1,0 +1,21 @@
+{
+  "Id": "hyforged:block-mitigation-bps",
+  "Category": "defense",
+  "DisplayName": "Block Mitigation",
+  "Description": "Percentage of damage reduced when auto-blocking.",
+  "DefaultValue": 5000,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": {
+    "Domain": [
+      "defense"
+    ],
+    "Modifier": [
+      "percent"
+    ],
+    "Type": [
+      "mitigation"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "Id": "hyforged:default-monster",
+  "AppliesTo": [],
+  "$Comment": "Default scaling for monsters without a specific config. Applied via code, not by AppliesTo.",
+  "ScaledStats": [
+    {
+      "StatId": "hyforged:max-health",
+      "ModifierType": "INCREASED",
+      "ScalePerLevel": 10
+    },
+    {
+      "StatId": "hyforged:physical-damage-bps",
+      "ModifierType": "INCREASED",
+      "ScalePerLevel": 5
+    },
+    {
+      "StatId": "hyforged:armor-bps",
+      "ModifierType": "FLAT",
+      "ScalePerLevel": 50
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "Id": "hyforged:chaos-ailment",
+  "ElementTag": "chaos",
+  "EntityEffectId": "Poison",
+  "BaseThreshold": 120,
+  "AccumulationWindowMs": 6000,
+  "BaseDurationSeconds": 8.0,
+  "DisplayName": "Poison",
+  "Description": "Poisons the target with chaos damage over time when chaos damage threshold is exceeded."
+}

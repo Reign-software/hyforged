@@ -286,8 +286,11 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
             }
         }
         
-        // Compute final value using stacking engine
-        return StackingEngine.compute(baseValue, applicable, statDef);
+        // Compute final value using stacking engine with stat lookup for soft cap bonus stats
+        return StackingEngine.compute(baseValue, applicable, statDef, statId -> {
+            int bonusIdx = registry.getIndex(statId);
+            return bonusIdx >= 0 ? component.getCachedValue(bonusIdx) : 0;
+        });
     }
 
     /**

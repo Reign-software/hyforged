@@ -11,6 +11,13 @@ This is a Hytale plugin project. Hytale plugins are used to extend the functiona
 - Avoid enums, this is data driven from JSON files via resources. Reference `lib/Server` directory for structure and json examples.
 - Review TODOs when implementing a plan as they may be from a previous implementation or design decision awaiting the plan.
 - When working with systems, aim to make things generic and data driven. Leverage tags and JSON data wherever possible.
+- DO NOT hard code values; always use data-driven approaches and JSON configuration.
+
+## .github/skills
+- Evaluate skills when given a task or problem to solve.
+- Multiple skills may be required to complete a task or solve a problem effectively.
+- Skills should be applied in a context-aware manner, considering the specific requirements and constraints of the task.
+- Continuously evaluate and update the skill set as new information and context become available.
 
 ## Hytale ECS notes (follow these patterns)
 - ECS is composition over inheritance. Entities are identifiers only, Components are pure data, Systems contain logic.

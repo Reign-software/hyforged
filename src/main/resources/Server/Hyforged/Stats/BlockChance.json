@@ -2,10 +2,13 @@
   "Id": "hyforged:block-chance-bps",
   "Category": "defense",
   "DisplayName": "Block Chance",
-  "Description": "Chance to block attacks.",
+  "Description": "Chance to auto-block attacks.",
   "DefaultValue": 0,
   "MinValue": -10000,
   "MaxValue": 10000,
+  "SoftCapBps": 7500,
+  "HardCapBps": 9000,
+  "SoftCapBonusStat": "hyforged:max-block-chance-bps",
   "IsRating": false,
   "Tags": {
     "Domain": [
@@ -13,6 +16,9 @@
     ],
     "Modifier": [
       "percent"
+    ],
+    "Type": [
+      "avoidance"
     ]
   }
 }

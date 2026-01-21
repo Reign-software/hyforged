@@ -1,0 +1,10 @@
+{
+  "Id": "hyforged:fire-ailment",
+  "ElementTag": "fire",
+  "EntityEffectId": "Burn",
+  "BaseThreshold": 100,
+  "AccumulationWindowMs": 5000,
+  "BaseDurationSeconds": 4.0,
+  "DisplayName": "Ignite",
+  "Description": "Deals fire damage over time when fire damage threshold is exceeded."
+}

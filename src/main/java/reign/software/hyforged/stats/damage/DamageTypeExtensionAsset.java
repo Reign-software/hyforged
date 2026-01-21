@@ -25,7 +25,8 @@ import javax.annotation.Nullable;
  *   "Id": "Fire",                                    // Must match DamageCause ID
  *   "Inherits": "Elemental",                         // Parent damage type for stat lookup
  *   "HyforgedResistanceStat": "hyforged:fire-resistance-bps",  // Stat that resists this damage
- *   "HyforgedPenetrationStat": "hyforged:fire-penetration-bps" // Stat that penetrates resistance
+ *   "HyforgedPenetrationStat": "hyforged:fire-penetration-bps", // Stat that penetrates resistance
+ *   "HyforgedElementTag": "fire"                     // Element tag for ailment triggering
  * }
  * </pre>
  * <p>
@@ -70,6 +71,13 @@ public class DamageTypeExtensionAsset implements JsonAssetWithMap<String, Indexe
                     (asset, parent) -> asset.penetrationStat = parent.penetrationStat
             )
             .add()
+            .appendInherited(
+                    new KeyedCodec<>("HyforgedElementTag", Codec.STRING),
+                    (asset, value) -> asset.elementTag = value,
+                    asset -> asset.elementTag,
+                    (asset, parent) -> asset.elementTag = parent.elementTag
+            )
+            .add()
             .build();
 
     private static AssetStore<String, DamageTypeExtensionAsset, IndexedLookupTableAssetMap<String, DamageTypeExtensionAsset>> ASSET_STORE;
@@ -82,6 +90,7 @@ public class DamageTypeExtensionAsset implements JsonAssetWithMap<String, Indexe
     private String inherits;
     private String resistanceStat;
     private String penetrationStat;
+    private String elementTag;
 
     public DamageTypeExtensionAsset() {
     }
@@ -148,6 +157,15 @@ public class DamageTypeExtensionAsset implements JsonAssetWithMap<String, Indexe
         return penetrationStat;
     }
 
+    /**
+     * Get the element tag for ailment triggering.
+     * Used by the ailment system to determine which ailment to apply.
+     */
+    @Nullable
+    public String getElementTag() {
+        return elementTag;
+    }
+
     @Override
     public String toString() {
         return "DamageTypeExtensionAsset{" +
@@ -155,6 +173,7 @@ public class DamageTypeExtensionAsset implements JsonAssetWithMap<String, Indexe
                 ", inherits='" + inherits + '\'' +
                 ", resistanceStat='" + resistanceStat + '\'' +
                 ", penetrationStat='" + penetrationStat + '\'' +
+                ", elementTag='" + elementTag + '\'' +
                 '}';
     }
 }

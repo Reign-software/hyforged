@@ -2,5 +2,6 @@
     "$Comment": "Ice/Cold damage - freezing elemental damage",
     "Inherits": "Elemental",
     "HyforgedResistanceStat": "hyforged:cold-resistance-bps",
-    "HyforgedPenetrationStat": "hyforged:cold-penetration-bps"
+    "HyforgedPenetrationStat": "hyforged:cold-penetration-bps",
+    "HyforgedElementTag": "ice"
 }

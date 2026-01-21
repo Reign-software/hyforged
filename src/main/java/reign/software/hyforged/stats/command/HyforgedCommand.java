@@ -6,6 +6,8 @@ import reign.software.hyforged.affix.command.AffixMetricsCommand;
 import reign.software.hyforged.affix.command.CharacterStatsCommand;
 import reign.software.hyforged.affix.command.GiveAffixCommand;
 import reign.software.hyforged.affix.command.RollAffixCommand;
+import reign.software.hyforged.combat.command.CombatLogCommand;
+import reign.software.hyforged.combat.command.CombatLogHudCommand;
 import reign.software.hyforged.progression.command.ProgressionCommand;
 
 /**
@@ -22,6 +24,8 @@ import reign.software.hyforged.progression.command.ProgressionCommand;
  *   <li>{@code rollaffix} - Roll affixes on held item</li>
  *   <li>{@code giveaffix} - Add a specific affix to held item</li>
  *   <li>{@code affixmetrics} - View affix system metrics</li>
+ *   <li>{@code combatlog} - View recent combat history</li>
+ *   <li>{@code combatloghud} - Toggle combat log HUD visibility</li>
  * </ul>
  */
 public class HyforgedCommand extends AbstractCommandCollection {
@@ -39,5 +43,9 @@ public class HyforgedCommand extends AbstractCommandCollection {
         this.addSubCommand(new RollAffixCommand());
         this.addSubCommand(new GiveAffixCommand());
         this.addSubCommand(new AffixMetricsCommand());
+        
+        // Add combat commands
+        this.addSubCommand(new CombatLogCommand());
+        this.addSubCommand(new CombatLogHudCommand());
     }
 }

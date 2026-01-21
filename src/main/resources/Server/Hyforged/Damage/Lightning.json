@@ -3,5 +3,6 @@
     "Parent": "Elemental",
     "Inherits": "Elemental",
     "HyforgedResistanceStat": "hyforged:lightning-resistance-bps",
-    "HyforgedPenetrationStat": "hyforged:lightning-penetration-bps"
+    "HyforgedPenetrationStat": "hyforged:lightning-penetration-bps",
+    "HyforgedElementTag": "lightning"
 }

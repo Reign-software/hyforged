@@ -40,3 +40,9 @@ This folder is a working index of the decompiled Hytale server sources in `patch
 ## Notes
 - This is decompiled code. Names and patterns are accurate to the current jar but may shift between versions.
 - When unsure, prefer source inspection in `patcher/hytale-server/src/main/java`.
+
+- IMetaStore.putMetaObject
+- EntityStatValue
+- EntityStatMap
+- DefaultEntityStatTypes
+- EntityStatType

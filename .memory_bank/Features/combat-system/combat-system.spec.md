@@ -163,16 +163,16 @@ flowchart TD
 5. **World spawn coordinates**: Is world spawn always (0,0) or configurable per world?
 
 ## Acceptance Criteria
-- [ ] Accuracy vs evasion check implemented and tested.
-- [ ] Auto-block triggers correctly with stamina consumption.
-- [ ] Multi-element damage applies independent resistance calculations.
-- [ ] Crit roll applies multiplier to total damage.
-- [ ] Soft/hard cap system enforced for crit, block, evasion, resistances.
-- [ ] Monster scaling by distance from spawn implemented.
-- [ ] Combat log captures per-attack breakdowns.
-- [ ] Player UI displays combat log.
-- [ ] Ailment thresholds trigger status effects.
-- [ ] Integration tests verify deterministic outcomes.
+- [x] Accuracy vs evasion check implemented and tested.
+- [x] Auto-block triggers correctly with stamina consumption.
+- [x] Multi-element damage applies independent resistance calculations.
+- [x] Crit roll applies multiplier to total damage.
+- [x] Soft/hard cap system enforced for crit, block, evasion, resistances.
+- [x] Monster scaling by distance from spawn implemented.
+- [x] Combat log captures per-attack breakdowns.
+- [x] Player UI displays combat log.
+- [x] Ailment thresholds trigger status effects.
+- [x] Integration tests verify deterministic outcomes.
 
 ## Impacted Areas (High-Level)
 - `reign.software.hyforged.stats` — stat cap extensions.

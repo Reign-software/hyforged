@@ -1,14 +1,14 @@
 package reign.software.hyforged.stats.hud;
 
+import com.buuz135.mhud.MultipleHUD;
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.tick.DelayedEntitySystem;
+import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.entity.entities.player.hud.CustomUIHud;
-import com.hypixel.hytale.server.core.entity.entities.player.hud.HudManager;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
@@ -18,10 +18,19 @@ import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 
 import javax.annotation.Nonnull;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ResourceStatsHudSystem extends DelayedEntitySystem<EntityStore> {
 
+    /** Unique identifier for this HUD in MultipleHUD */
+    public static final String HUD_ID = "hyforged:resource_stats";
+
     private static final float UPDATE_INTERVAL_SEC = 0.2f;
+
+    /** Per-player HUD instances for updates */
+    private static final Map<UUID, ResourceStatsHud> playerHuds = new ConcurrentHashMap<>();
 
     @Nonnull
     private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
@@ -36,6 +45,9 @@ public class ResourceStatsHudSystem extends DelayedEntitySystem<EntityStore> {
     private final ComponentType<EntityStore, PlayerRef> playerRefComponentType;
 
     @Nonnull
+    private final ComponentType<EntityStore, UUIDComponent> uuidComponentType;
+
+    @Nonnull
     private final Query<EntityStore> query;
 
     private int concentrationStatIndex = -1;
@@ -48,7 +60,8 @@ public class ResourceStatsHudSystem extends DelayedEntitySystem<EntityStore> {
         this.entityStatMapType = EntityStatMap.getComponentType();
         this.playerComponentType = Player.getComponentType();
         this.playerRefComponentType = PlayerRef.getComponentType();
-        this.query = Query.and(statComponentType, entityStatMapType, playerComponentType, playerRefComponentType);
+        this.uuidComponentType = UUIDComponent.getComponentType();
+        this.query = Query.and(statComponentType, entityStatMapType, playerComponentType, playerRefComponentType, uuidComponentType);
     }
 
     @Nonnull
@@ -69,10 +82,13 @@ public class ResourceStatsHudSystem extends DelayedEntitySystem<EntityStore> {
         EntityStatMap statMap = archetypeChunk.getComponent(index, entityStatMapType);
         Player player = archetypeChunk.getComponent(index, playerComponentType);
         PlayerRef playerRef = archetypeChunk.getComponent(index, playerRefComponentType);
+        UUIDComponent uuidComponent = archetypeChunk.getComponent(index, uuidComponentType);
 
-        if (stats == null || statMap == null || player == null || playerRef == null) {
+        if (stats == null || statMap == null || player == null || playerRef == null || uuidComponent == null) {
             return;
         }
+
+        UUID playerUuid = uuidComponent.getUuid();
 
         if (!indicesInitialized || concentrationStatIndex < 0 || rageStatIndex < 0) {
             initializeStatIndices();
@@ -85,12 +101,14 @@ public class ResourceStatsHudSystem extends DelayedEntitySystem<EntityStore> {
         boolean showRage = rageValue != null && rageValue.getMax() > 0.0f;
         boolean shouldShowHud = showConcentration || showRage;
 
-        HudManager hudManager = player.getHudManager();
-        CustomUIHud currentHud = hudManager.getCustomHud();
+        MultipleHUD multipleHUD = MultipleHUD.getInstance();
+        ResourceStatsHud existingHud = playerHuds.get(playerUuid);
 
         if (!shouldShowHud) {
-            if (currentHud instanceof ResourceStatsHud) {
-                hudManager.setCustomHud(playerRef, null);
+            // Hide HUD if visible
+            if (existingHud != null) {
+                multipleHUD.hideCustomHud(player, playerRef, HUD_ID);
+                playerHuds.remove(playerUuid);
             }
             stats.setLastHudShown(false);
             stats.setLastHudConcentrationVisible(false);
@@ -98,14 +116,14 @@ public class ResourceStatsHudSystem extends DelayedEntitySystem<EntityStore> {
             return;
         }
 
+        // Create HUD if not exists
         ResourceStatsHud resourceHud;
-        if (currentHud instanceof ResourceStatsHud) {
-            resourceHud = (ResourceStatsHud) currentHud;
-        } else if (currentHud == null) {
+        if (existingHud == null) {
             resourceHud = new ResourceStatsHud(playerRef);
-            hudManager.setCustomHud(playerRef, resourceHud);
+            multipleHUD.setCustomHud(player, playerRef, HUD_ID, resourceHud);
+            playerHuds.put(playerUuid, resourceHud);
         } else {
-            return;
+            resourceHud = existingHud;
         }
 
         int concentrationCurrent = concentrationValue != null ? Math.round(concentrationValue.get()) : 0;

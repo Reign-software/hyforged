@@ -1,6 +1,6 @@
 ---
 name: hyforged-stats-system
-description: Implements ARPG-style stats and modifiers for entities in Hyforged. Use when defining new stats, adding modifiers, working with scaling/derived stats, querying stat values, or handling stat events. Works with HyforgedStatComponent, StatDefinitionRegistry, StatModifier, CoreStats, and rating conversions. Triggers - stats, stat, modifier, ability score, derived stat, stat scaling, resistance, rating, basis points, bps, tag targeting.
+description: Implements ARPG-style stats and modifiers for entities in Hyforged. Use when defining new stats, adding modifiers, working with scaling/derived stats, querying stat values, or handling stat events. Works with HyforgedStatComponent, StatDefinitionRegistry, StatModifier, CoreStats, and rating conversions. Also use when deriving guidance from Modding_Doc/Stats. Triggers - stats, stat, modifier, ability score, derived stat, stat scaling, resistance, rating, basis points, bps, tag targeting, modding doc.
 ---
 
 # Hyforged Stats System
@@ -22,6 +22,20 @@ This skill provides step-by-step guidance for implementing stat features in Hyfo
 
 - [Stats System Overview](../../../Modding_Doc/Stats/README.md) — Concepts, JSON schemas, scaling, tags
 - [Stats API Reference](../../../Modding_Doc/Stats/API.md) — Complete programmatic API
+
+## Doc-Derived How-To (Adding Stats)
+
+Use this as the high-level checklist when translating Modding_Doc into actionable steps.
+
+1. Define a stat JSON in `src/main/resources/Server/<YourMod>/Stats/` using a namespaced `Id`, category, display metadata, and tags.
+2. For resources with HUD bars, add assets in `src/main/resources/Server/<YourMod>/Entity/Stats/` and `src/main/resources/Server/<YourMod>/Entity/UI/`.
+3. If the stat is derived or rating-based, configure scaling/rating fields as described in the Modding_Doc.
+4. Apply or remove modifiers through `HyforgedStatComponent` using `StatModifier` and mark dirty for recomputation.
+5. Subscribe to stat change events when you need reactive behavior.
+
+Notes:
+- Keep everything data-driven and namespaced; avoid hard-coded values.
+- Use tags for broad targeting and compatibility with other systems.
 
 ---
 

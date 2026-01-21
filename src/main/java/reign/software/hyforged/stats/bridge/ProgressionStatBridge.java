@@ -1,6 +1,7 @@
 package reign.software.hyforged.stats.bridge;
 
 import com.hypixel.hytale.component.CommandBuffer;
+import com.hypixel.hytale.component.ComponentAccessor;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
@@ -77,6 +78,32 @@ public final class ProgressionStatBridge {
         }
         
         ProgressionComponent progression = commandBuffer.getComponent(entityRef, plugin.getProgressionComponentType());
+        if (progression == null) {
+            return DEFAULT_CHARACTER_LEVEL;
+        }
+        
+        return progression.getCharacterLevel();
+    }
+    
+    /**
+     * Get the character level for an entity using a component accessor.
+     * <p>
+     * Use this version when you have a ComponentAccessor from an ECS system.
+     *
+     * @param entityRef Reference to the entity
+     * @param accessor The component accessor for component access
+     * @return The entity's character level (1-100), or default if not found
+     */
+    public static int getCharacterLevel(
+            @Nonnull Ref<EntityStore> entityRef, 
+            @Nonnull ComponentAccessor<EntityStore> accessor
+    ) {
+        HyforgedPlugin plugin = HyforgedPlugin.getInstance();
+        if (plugin == null) {
+            return DEFAULT_CHARACTER_LEVEL;
+        }
+        
+        ProgressionComponent progression = accessor.getComponent(entityRef, plugin.getProgressionComponentType());
         if (progression == null) {
             return DEFAULT_CHARACTER_LEVEL;
         }

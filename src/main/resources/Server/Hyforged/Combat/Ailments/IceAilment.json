@@ -1,0 +1,10 @@
+{
+  "Id": "hyforged:ice-ailment",
+  "ElementTag": "ice",
+  "EntityEffectId": "Freeze",
+  "BaseThreshold": 150,
+  "AccumulationWindowMs": 5000,
+  "BaseDurationSeconds": 2.0,
+  "DisplayName": "Freeze",
+  "Description": "Freezes the target in place when ice damage threshold is exceeded."
+}

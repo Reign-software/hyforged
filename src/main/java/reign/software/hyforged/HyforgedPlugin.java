@@ -12,6 +12,18 @@ import reign.software.hyforged.affix.asset.AffixAssetLoader;
 import reign.software.hyforged.affix.system.EquipmentAffixListener;
 import reign.software.hyforged.affix.system.LootAffixSystem;
 import reign.software.hyforged.affix.ui.CharacterStatsPage;
+import reign.software.hyforged.combat.HyforgedAutoBlockSystem;
+import reign.software.hyforged.combat.HyforgedCriticalHitSystem;
+import reign.software.hyforged.combat.ailment.AilmentAccumulatorComponent;
+import reign.software.hyforged.combat.ailment.AilmentLoader;
+import reign.software.hyforged.combat.ailment.HyforgedAilmentSystem;
+import reign.software.hyforged.combat.log.HyforgedCombatLogSystem;
+import reign.software.hyforged.combat.hud.CombatLogHudSystem;
+import reign.software.hyforged.combat.HyforgedHitResolutionSystem;
+import reign.software.hyforged.combat.scaling.HyforgedMonsterScalingSystem;
+import reign.software.hyforged.combat.scaling.MonsterLevelComponent;
+import reign.software.hyforged.combat.scaling.ScalingAssetLoader;
+import reign.software.hyforged.combat.ui.HyforgedCombatTextSystem;
 import reign.software.hyforged.progression.asset.XPCurveAssetLoader;
 import reign.software.hyforged.progression.component.ProgressionComponent;
 import reign.software.hyforged.progression.persistence.ProgressionCodec;
@@ -67,6 +79,8 @@ public class HyforgedPlugin extends JavaPlugin {
     private ComponentType<EntityStore, HyforgedStatComponent> hyforgedStatComponentType;
     private ComponentType<EntityStore, ProgressionComponent> progressionComponentType;
     private ComponentType<EntityStore, EffectBridgeComponent> effectBridgeComponentType;
+    private ComponentType<EntityStore, AilmentAccumulatorComponent> ailmentAccumulatorComponentType;
+    private ComponentType<EntityStore, MonsterLevelComponent> monsterLevelComponentType;
     
     // ECS Resource Types
     private ResourceType<EntityStore, XPNotificationAggregator.AggregationResource> xpNotificationResourceType;
@@ -178,6 +192,14 @@ public class HyforgedPlugin extends JavaPlugin {
         // Includes affix types, quality rules, affix definitions, and affix pools
         AffixAssetLoader.initialize(this);
         
+        // Initialize asset loader for ailment definitions (combat system)
+        // Defines threshold-based status effects triggered by elemental damage
+        AilmentLoader.initialize(this);
+        
+        // Initialize asset loader for scaling configurations (combat system)
+        // Includes world scaling (level calculation) and monster scaling (per-NPC stat scaling)
+        ScalingAssetLoader.initialize(this);
+        
         getLogger().at(Level.FINE).log("Stat and tag asset loading initialized, awaiting asset load...");
     }
     
@@ -212,6 +234,22 @@ public class HyforgedPlugin extends JavaPlugin {
         );
         
         getLogger().at(Level.FINE).log("Registered EffectBridgeComponent");
+        
+        // Register AilmentAccumulatorComponent (no persistence - runtime tracking only)
+        ailmentAccumulatorComponentType = entityStoreRegistry.registerComponent(
+            AilmentAccumulatorComponent.class,
+            AilmentAccumulatorComponent::new
+        );
+        
+        getLogger().at(Level.FINE).log("Registered AilmentAccumulatorComponent");
+        
+        // Register MonsterLevelComponent (no persistence - runtime tracking only)
+        monsterLevelComponentType = entityStoreRegistry.registerComponent(
+            MonsterLevelComponent.class,
+            MonsterLevelComponent::new
+        );
+        
+        getLogger().at(Level.FINE).log("Registered MonsterLevelComponent");
         
         // Register XP notification aggregation resource
         xpNotificationResourceType = entityStoreRegistry.registerResource(
@@ -264,6 +302,9 @@ public class HyforgedPlugin extends JavaPlugin {
         entityStoreRegistry.registerSystem(new HyforgedKnockbackReductionSystem());
         getLogger().at(Level.FINE).log("Registered HyforgedKnockbackReductionSystem");
         
+        // Register combat systems
+        registerCombatSystems(entityStoreRegistry);
+        
         // Register ActiveClassResolutionSystem (resolves active class from weapon tags)
         entityStoreRegistry.registerSystem(new ActiveClassResolutionSystem());
         getLogger().at(Level.FINE).log("Registered ActiveClassResolutionSystem");
@@ -296,6 +337,49 @@ public class HyforgedPlugin extends JavaPlugin {
         EquipmentAffixListener equipmentAffixListener = new EquipmentAffixListener();
         equipmentAffixListener.register();
         getLogger().at(Level.FINE).log("Registered EquipmentAffixListener");
+    }
+    
+    /**
+     * Register combat-related ECS systems.
+     * <p>
+     * These systems handle the combat pipeline:
+     * - Hit resolution (accuracy vs evasion)
+     * - Auto-block
+     * - Critical hits
+     */
+    private void registerCombatSystems(ComponentRegistryProxy<EntityStore> entityStoreRegistry) {
+        // Register hit resolution system (runs in gather group before damage filtering)
+        entityStoreRegistry.registerSystem(new HyforgedHitResolutionSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedHitResolutionSystem");
+        
+        // Register auto-block system (runs in filter group after hit resolution)
+        entityStoreRegistry.registerSystem(new HyforgedAutoBlockSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedAutoBlockSystem");
+        
+        // Register critical hit system (runs in inspect group after damage reduction)
+        entityStoreRegistry.registerSystem(new HyforgedCriticalHitSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedCriticalHitSystem");
+        
+        // Register combat text system (runs in inspect group before EntityUIEvents)
+        entityStoreRegistry.registerSystem(new HyforgedCombatTextSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedCombatTextSystem");
+        
+        // Register combat log system (runs in inspect group to record final damage)
+        entityStoreRegistry.registerSystem(new HyforgedCombatLogSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedCombatLogSystem");
+        
+        // Register combat log HUD system (manages WoW-style combat log UI)
+        entityStoreRegistry.registerSystem(new CombatLogHudSystem());
+        getLogger().at(Level.FINE).log("Registered CombatLogHudSystem");
+        
+        // Register ailment system (runs in inspect group after damage is applied)
+        // Ailment definitions are loaded via AilmentLoader.initialize() in initializeStatDefinitions()
+        entityStoreRegistry.registerSystem(new HyforgedAilmentSystem(ailmentAccumulatorComponentType));
+        getLogger().at(Level.FINE).log("Registered HyforgedAilmentSystem");
+        
+        // Register monster scaling system (assigns levels to NPCs based on spawn distance)
+        entityStoreRegistry.registerSystem(new HyforgedMonsterScalingSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedMonsterScalingSystem");
     }
     
     /**
@@ -368,5 +452,27 @@ public class HyforgedPlugin extends JavaPlugin {
             throw new IllegalStateException("HyforgedPlugin not initialized");
         }
         return effectBridgeComponentType;
+    }
+    
+    /**
+     * Get the AilmentAccumulatorComponent type for ECS operations.
+     */
+    @Nonnull
+    public ComponentType<EntityStore, AilmentAccumulatorComponent> getAilmentAccumulatorComponentType() {
+        if (ailmentAccumulatorComponentType == null) {
+            throw new IllegalStateException("HyforgedPlugin not initialized");
+        }
+        return ailmentAccumulatorComponentType;
+    }
+    
+    /**
+     * Get the MonsterLevelComponent type for ECS operations.
+     */
+    @Nonnull
+    public ComponentType<EntityStore, MonsterLevelComponent> getMonsterLevelComponentType() {
+        if (monsterLevelComponentType == null) {
+            throw new IllegalStateException("HyforgedPlugin not initialized");
+        }
+        return monsterLevelComponentType;
     }
 }

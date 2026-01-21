@@ -1,0 +1,26 @@
+{
+  "Id": "hyforged:glass-cannon",
+  "$Comment": "Scaling for glass cannon monsters - high damage, low survivability",
+  "AppliesTo": [
+    "Fire_Mage",
+    "Shadow_Caster",
+    "Glass_Spider"
+  ],
+  "ScaledStats": [
+    {
+      "StatId": "hyforged:max-health",
+      "ModifierType": "INCREASED",
+      "ScalePerLevel": 5
+    },
+    {
+      "StatId": "hyforged:physical-damage-bps",
+      "ModifierType": "INCREASED",
+      "ScalePerLevel": 12
+    },
+    {
+      "StatId": "hyforged:fire-damage-bps",
+      "ModifierType": "INCREASED",
+      "ScalePerLevel": 15
+    }
+  ]
+}

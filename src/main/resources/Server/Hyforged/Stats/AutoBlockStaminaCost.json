@@ -1,0 +1,21 @@
+{
+  "Id": "hyforged:auto-block-stamina-cost-bps",
+  "Category": "resource",
+  "DisplayName": "Auto-Block Stamina Cost",
+  "Description": "Stamina cost multiplier for auto-blocking (relative to manual block).",
+  "DefaultValue": 1000,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": {
+    "Domain": [
+      "resource"
+    ],
+    "Modifier": [
+      "percent"
+    ],
+    "Type": [
+      "cost"
+    ]
+  }
+}

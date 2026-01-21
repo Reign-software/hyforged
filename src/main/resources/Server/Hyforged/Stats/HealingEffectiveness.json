@@ -1,0 +1,19 @@
+{
+  "Id": "hyforged:healing-effectiveness-bps",
+  "Category": "recovery",
+  "DisplayName": "Healing Effectiveness",
+  "Description": "Modifies the effectiveness of outgoing healing (from skills, effects, etc.). 10000 = 100%.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "offense"
+    ],
+    "Resource": "health"
+  }
+}

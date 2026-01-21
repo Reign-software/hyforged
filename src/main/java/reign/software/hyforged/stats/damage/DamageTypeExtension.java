@@ -15,12 +15,14 @@ import javax.annotation.Nullable;
  * @param inherits       Optional parent damage type for stat inheritance
  * @param resistanceStat The stat ID that provides resistance to this damage type
  * @param penetrationStat The stat ID that provides penetration against resistance
+ * @param elementTag     The element tag for ailment triggering (e.g., "fire", "ice")
  */
 public record DamageTypeExtension(
         String damageTypeId,
         @Nullable String inherits,
         @Nullable StatId resistanceStat,
-        @Nullable StatId penetrationStat
+        @Nullable StatId penetrationStat,
+        @Nullable String elementTag
 ) {
     /**
      * Create a DamageTypeExtension from an asset.
@@ -33,7 +35,8 @@ public record DamageTypeExtension(
                 asset.getId(),
                 asset.getInherits(),
                 asset.getResistanceStatId(),
-                asset.getPenetrationStatId()
+                asset.getPenetrationStatId(),
+                asset.getElementTag()
         );
     }
 }

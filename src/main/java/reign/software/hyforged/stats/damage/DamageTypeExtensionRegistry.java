@@ -31,6 +31,7 @@ public final class DamageTypeExtensionRegistry {
     // Cached resolved mappings (damage cause ID -> resistance stat ID)
     private final Map<String, StatId> resolvedResistances = new HashMap<>();
     private final Map<String, StatId> resolvedPenetrations = new HashMap<>();
+    private final Map<String, String> resolvedElementTags = new HashMap<>();
 
     private DamageTypeExtensionRegistry() {
     }
@@ -58,6 +59,7 @@ public final class DamageTypeExtensionRegistry {
         // Clear resolved caches since new data is available
         resolvedResistances.clear();
         resolvedPenetrations.clear();
+        resolvedElementTags.clear();
         LOGGER.fine("Registered damage type extension: " + damageTypeId);
     }
 
@@ -118,6 +120,30 @@ public final class DamageTypeExtensionRegistry {
     }
 
     /**
+     * Get the element tag for a damage cause, following inheritance chain.
+     * <p>
+     * Element tags are used by the ailment system to determine which ailment
+     * effect should be applied when damage of this type is dealt.
+     *
+     * @param damageCause The damage cause
+     * @return The element tag (e.g., "fire", "ice"), or null if none defined
+     */
+    @Nullable
+    public String getElementTagForDamage(@Nonnull DamageCause damageCause) {
+        String id = damageCause.getId();
+        
+        // Check cache first
+        if (resolvedElementTags.containsKey(id)) {
+            return resolvedElementTags.get(id);
+        }
+        
+        // Resolve from extension or parent
+        String resolved = resolveElementTag(damageCause);
+        resolvedElementTags.put(id, resolved);
+        return resolved;
+    }
+
+    /**
      * Resolve resistance stat following inheritance chain.
      */
     @Nullable
@@ -170,6 +196,32 @@ public final class DamageTypeExtensionRegistry {
     }
 
     /**
+     * Resolve element tag following inheritance chain.
+     */
+    @Nullable
+    private String resolveElementTag(@Nonnull DamageCause damageCause) {
+        String id = damageCause.getId();
+        
+        // Check for direct Hyforged extension
+        DamageTypeExtension ext = extensions.get(id);
+        if (ext != null && ext.elementTag() != null) {
+            return ext.elementTag();
+        }
+        
+        // Check if extension defines an inheritance override
+        String parentId = ext != null ? ext.inherits() : damageCause.getInherits();
+        
+        if (parentId != null) {
+            DamageCause parentCause = DamageCause.getAssetMap().getAsset(parentId);
+            if (parentCause != null) {
+                return resolveElementTag(parentCause);
+            }
+        }
+        
+        return null;
+    }
+
+    /**
      * Clear all registered extensions.
      * Called on asset reload.
      */
@@ -177,6 +229,7 @@ public final class DamageTypeExtensionRegistry {
         extensions.clear();
         resolvedResistances.clear();
         resolvedPenetrations.clear();
+        resolvedElementTags.clear();
         LOGGER.fine("Cleared damage type extension registry");
     }
 

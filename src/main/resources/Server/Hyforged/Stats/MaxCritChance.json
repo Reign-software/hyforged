@@ -1,0 +1,21 @@
+{
+  "Id": "hyforged:max-crit-chance-bps",
+  "Category": "critical",
+  "DisplayName": "Maximum Critical Chance",
+  "Description": "Increases maximum critical chance cap.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 4500,
+  "IsRating": false,
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "offense"
+    ],
+    "Type": [
+      "critical"
+    ]
+  }
+}
