@@ -2,7 +2,6 @@ package reign.software.hyforged.combat;
 
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
-import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.SystemGroup;
@@ -19,11 +18,10 @@ import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.bridge.ProgressionStatBridge;
-import reign.software.hyforged.stats.component.HyforgedStatComponent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -61,9 +59,6 @@ public class HyforgedAutoBlockSystem extends DamageEventSystem {
     
     /** Stat ID for auto-block stamina cost modifier */
     private static final StatId AUTO_BLOCK_STAMINA_COST = StatId.hyforged("auto-block-stamina-cost-bps");
-    
-    @Nonnull
-    private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
 
     @Nonnull
     private final Query<EntityStore> query;
@@ -78,10 +73,8 @@ public class HyforgedAutoBlockSystem extends DamageEventSystem {
     private boolean indicesCached = false;
 
     public HyforgedAutoBlockSystem() {
-        this.statComponentType = HyforgedPlugin.getInstance().getHyforgedStatComponentType();
-        
-        // Query for entities with both HyforgedStatComponent and EntityStatMap (for stamina)
-        this.query = Query.and(statComponentType, EntityStatMap.getComponentType());
+        // Query for entities with EntityStatMap (for stat access and stamina)
+        this.query = StatAccessor.getStatMapType();
         
         // Run in filter group after hit resolution, before damage reduction
         this.dependencies = Set.of(
@@ -152,16 +145,10 @@ public class HyforgedAutoBlockSystem extends DamageEventSystem {
         // Cache stat indices
         ensureIndicesCached();
         
-        // Get defender's stat component
-        HyforgedStatComponent defenderStats = archetypeChunk.getComponent(index, statComponentType);
-        if (defenderStats == null) {
-            return;
-        }
-        
         // Get block chance
         int blockChanceBps = 0;
         if (blockChanceIndex >= 0) {
-            blockChanceBps = defenderStats.getCachedValue(blockChanceIndex);
+            blockChanceBps = StatAccessor.getStatValueInt(archetypeChunk, index, blockChanceIndex);
         }
         
         // Skip if no block chance
@@ -212,7 +199,7 @@ public class HyforgedAutoBlockSystem extends DamageEventSystem {
         // Get block mitigation (default 50% = 5000 bps)
         int blockMitigationBps = 5000; // default
         if (blockMitigationIndex >= 0) {
-            int statValue = defenderStats.getCachedValue(blockMitigationIndex);
+            int statValue = StatAccessor.getStatValueInt(archetypeChunk, index, blockMitigationIndex);
             if (statValue > 0) {
                 blockMitigationBps = statValue;
             }
@@ -229,7 +216,7 @@ public class HyforgedAutoBlockSystem extends DamageEventSystem {
         // Get auto-block stamina cost modifier (default 10% = 1000 bps)
         int staminaCostBps = 1000; // default 10%
         if (autoBlockStaminaCostIndex >= 0) {
-            int statValue = defenderStats.getCachedValue(autoBlockStaminaCostIndex);
+            int statValue = StatAccessor.getStatValueInt(archetypeChunk, index, autoBlockStaminaCostIndex);
             if (statValue > 0) {
                 staminaCostBps = statValue;
             }

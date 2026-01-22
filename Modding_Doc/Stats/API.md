@@ -19,9 +19,11 @@ This document provides a comprehensive guide to using the Hyforged Stats System 
 
 The Hyforged Stats System extends Hytale's entity stats with ARPG-style mechanics:
 
+- **HyforgedStatValue**: Extends Hytale's `EntityStatValue` with ARPG stacking
+- **HyforgedModifier**: Unified modifier type registered with Hytale's `Modifier.CODEC`
 - **Ability Scores**: Primary stats (Strength, Dexterity, Intelligence, etc.)
 - **Derived Stats**: Computed from ability scores via scaling rules
-- **Modifiers**: Flat, percentage, and multiplier stacking modes
+- **Modifiers**: Flat, percentage (increased), and multiplier (more) stacking modes
 - **Events**: Stat change notifications for reactive systems
 - **Templates**: Data-driven NPC stat configuration
 
@@ -29,34 +31,21 @@ The Hyforged Stats System extends Hytale's entity stats with ARPG-style mechanic
 
 | Component | Purpose |
 |-----------|---------|
-| `HyforgedStatComponent` | ECS component storing stat values and modifiers |
+| `EntityStatMap` | Hytale's native stat map component (used directly) |
+| `HyforgedStatValue` | ARPG stat value that replaces EntityStatValue at runtime |
+| `HyforgedModifier` | Unified modifier type for ARPG stacking |
+| `StatAccessor` | Static utility for reading stats from EntityStatMap |
 | `StatDefinitionRegistry` | Registry of all stat definitions |
-| `ClassDefinitionRegistry` | Registry of player classes |
-| `NPCStatTemplateRegistry` | Registry of NPC stat templates |
+| `HyforgedStatComponent` | Supplementary component for base values and conditionals |
 
 ---
 
 ## Querying Entity Stats
 
-### Getting the Stat Component
+### Using StatAccessor (Recommended)
 
 ```java
-import reign.software.hyforged.HyforgedPlugin;
-import reign.software.hyforged.stats.component.HyforgedStatComponent;
-import com.hypixel.hytale.component.Ref;
-import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-
-// Get the component type from the plugin
-ComponentType<EntityStore, HyforgedStatComponent> statType = 
-    HyforgedPlugin.getInstance().getHyforgedStatComponentType();
-
-// Get component from entity reference
-HyforgedStatComponent stats = store.getComponent(entityRef, statType);
-```
-
-### Reading Stat Values
-
-```java
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.CoreStats;
 
@@ -64,42 +53,58 @@ import reign.software.hyforged.stats.CoreStats;
 StatDefinitionRegistry registry = StatDefinitionRegistry.get();
 int strengthIndex = registry.getIndex(CoreStats.STRENGTH);
 
-// Read values
-int baseValue = stats.getBaseValue(strengthIndex);
-int totalValue = stats.getTotalValue(strengthIndex);
+// Read stat value from EntityStatMap (includes all modifiers)
+int totalValue = StatAccessor.getStatValueInt(entityStatMap, strengthIndex);
 
-// For context-aware stats (with conditional modifiers)
-QueryContext context = QueryContext.builder()
-    .healthPercentBps(5000)  // 50% health
-    .inCombat(true)
-    .build();
-int effectiveValue = stats.getEffectiveValue(strengthIndex, entityRef, context);
+// Or from archetypeChunk in a system
+int totalValue = StatAccessor.getStatValueInt(archetypeChunk, index, strengthIndex);
+```
+
+### Getting EntityStatMap Directly
+
+```java
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
+
+// Get the component type
+ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatMap.getComponentType();
+
+// Get component from chunk
+EntityStatMap statMap = archetypeChunk.getComponent(index, statMapType);
+
+// Read value directly
+float value = statMap.get(strengthIndex).get();
 ```
 
 ---
 
 ## Modifying Stats
 
-### Adding Modifiers
+### Adding Modifiers with HyforgedModifier
 
 ```java
-import reign.software.hyforged.stats.component.StatModifier;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
-// Create a modifier
-StatModifier modifier = StatModifier.builder()
-    .statIndex(strengthIndex)
-    .flatBonus(10)           // +10 flat
-    .percentageBonus(1500)   // +15% (basis points)
-    .multiplier(1000)        // x1.0 (basis points, 1000 = 1x)
-    .source(ModifierSource.EQUIPMENT)
+// Create a modifier using the builder
+HyforgedModifier modifier = HyforgedModifier.builder()
+    .amount(1500)                                    // +15% (1500 basis points)
+    .stackType(HyforgedModifier.StackType.INCREASED)
+    .sourceType(HyforgedModifier.SourceType.EQUIPMENT)
     .sourceId("iron_sword")
-    .duration(0)             // Permanent (0 = no duration)
+    .targetStatIndex(strengthIndex)
     .build();
 
-// Add to component
-stats.addModifier(modifier);
-stats.markDirty(strengthIndex);  // Mark for recomputation
+// Add to EntityStatMap with a unique key
+entityStatMap.putModifier(strengthIndex, "iron_sword:strength", modifier);
 ```
+
+### StackType Options
+
+| StackType | Behavior | Example |
+|-----------|----------|---------|
+| `FLAT` | Adds directly to base | `amount=100` → +100 |
+| `INCREASED` | Sums with other INCREASED, applies once | `amount=1000` → +10% |
+| `MORE` | Applied multiplicatively in sequence | `amount=2000` → ×1.20 |
+| `CAP` | Enforces min/max bounds | `amount=7500` → max 75% |
 
 ### Adding Conditional Modifiers
 
@@ -113,27 +118,33 @@ ModifierCondition lowHealthCondition = new HealthThresholdCondition(
     HealthThresholdCondition.Comparison.BELOW
 );
 
-// Create conditional modifier
-StatModifier baseModifier = StatModifier.builder()
-    .statIndex(strengthIndex)
-    .percentageBonus(2500)  // +25% damage when low health
-    .source(ModifierSource.SKILL)
+// Create the underlying HyforgedModifier
+HyforgedModifier baseModifier = HyforgedModifier.builder()
+    .amount(2500)                                    // +25% damage when low health
+    .stackType(HyforgedModifier.StackType.INCREASED)
+    .sourceType(HyforgedModifier.SourceType.PASSIVE)
     .sourceId("berserker_rage")
+    .targetStatIndex(damageIndex)
     .build();
 
+// Wrap in conditional
 ConditionalStatModifier conditional = ConditionalStatModifier.conditional(
     baseModifier, 
     lowHealthCondition
 );
 
+// Add to HyforgedStatComponent (conditionals still use the component)
 stats.addConditionalModifier(conditional);
 ```
 
 ### Removing Modifiers
 
 ```java
-// Remove all modifiers from a specific source ID
-stats.removeModifiersBySource("iron_sword");
+// Remove a specific modifier by key
+entityStatMap.removeModifier(strengthIndex, "iron_sword:strength");
+
+// Remove all modifiers with a key prefix using StatAccessor
+StatAccessor.removeAllModifiersByKeyPrefix(entityStatMap, "iron_sword:");
 
 // Remove conditional modifiers by source
 stats.removeConditionalModifiersBySource("berserker_rage");

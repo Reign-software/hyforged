@@ -1,0 +1,40 @@
+﻿{
+  "Id": "hyforged:penetrating",
+  "Type": "prefix",
+  "DisplayName": "Penetrating",
+  "Weight": 65,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 60,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:armor-penetration-bps": { "MinValue": 1500, "MaxValue": 2000, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:armor-penetration-bps": { "MinValue": 1000, "MaxValue": 1500, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 20,
+      "Weight": 95,
+      "Stats": {
+        "hyforged:armor-penetration-bps": { "MinValue": 500, "MaxValue": 1000, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 1,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:armor-penetration-bps": { "MinValue": 200, "MaxValue": 500, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

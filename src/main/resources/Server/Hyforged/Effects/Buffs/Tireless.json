@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:tireless",
+  "EntityEffect": {
+    "Duration": 45,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Stamina.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:max-stamina-flat", "StackType": "INCREASED", "Amount": 3000 },
+    { "StatId": "hyforged:stamina-regen-bps", "StackType": "INCREASED", "Amount": 5000 },
+    { "StatId": "hyforged:stamina-cost-bps", "StackType": "INCREASED", "Amount": -2000 }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:shield-wall",
+  "EntityEffect": {
+    "Duration": 20,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Block.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:block-chance-bps", "StackType": "FLAT", "Amount": 2500 },
+    { "StatId": "hyforged:block-mitigation-bps", "StackType": "INCREASED", "Amount": 2000 },
+    { "StatId": "hyforged:auto-block-stamina-cost-bps", "StackType": "INCREASED", "Amount": -1500 }
+  ]
+}

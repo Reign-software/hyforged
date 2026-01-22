@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:withered",
+  "EntityEffect": {
+    "Duration": 20,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Wither.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:life-recovery-rate-bps", "StackType": "INCREASED", "Amount": -5000 },
+    { "StatId": "hyforged:healing-effectiveness-bps", "StackType": "INCREASED", "Amount": -4000 }
+  ]
+}

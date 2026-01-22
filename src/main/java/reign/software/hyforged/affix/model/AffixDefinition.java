@@ -1,40 +1,42 @@
 package reign.software.hyforged.affix.model;
 
-import reign.software.hyforged.stats.StatId;
-import reign.software.hyforged.stats.modifier.HyforgedModifier;
-
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Complete definition of an affix that can be rolled on items.
  * <p>
- * Affix definitions are loaded from JSON at {@code Server/Hyforged/Affixes/*.json}.
- * Each definition specifies the stat it modifies, available tiers, eligibility
- * constraints, and rolling weight.
+ * Affix definitions are loaded from JSON at {@code Server/Hyforged/Affixes/<Type>/*.json}.
+ * Each tier specifies the stat modifiers it grants with their value ranges.
+ * <p>
+ * Pool targeting is handled by {@link AffixPool}, allowing the same affix
+ * to appear in multiple pools with different item targeting.
+ * <p>
+ * Each tier can grant multiple stats with individual value ranges. For example:
+ * <pre>
+ * "of the Titan" T1 might grant:
+ *   +45-55 Strength (FLAT)
+ *   +100-150 Max Health (FLAT)
+ * </pre>
  * <p>
  * This is pure immutable data following ECS principles.
  *
- * @param id Unique identifier (e.g., "sturdy", "of-the-bear")
+ * @param id Unique identifier (e.g., "hyforged:sturdy", "hyforged:of-the-bear")
  * @param type Affix type reference ("prefix", "suffix", "forged")
  * @param displayName Localization key or display name for the affix
- * @param statId The Hyforged stat this affix modifies
- * @param modifierType The modifier stack type (FLAT, INCREASED, MORE)
- * @param tiers List of tier definitions (T1 = best)
- * @param eligibility Constraints for where this affix can appear
+ * @param tiers List of tier definitions (T1 = best), each containing stats with value ranges
  * @param weight Base selection weight for rolling (higher = more likely)
  */
 public record AffixDefinition(
     @Nonnull String id,
     @Nonnull String type,
     @Nonnull String displayName,
-    @Nonnull StatId statId,
-    @Nonnull HyforgedModifier.StackType modifierType,
     @Nonnull List<AffixTierDefinition> tiers,
-    @Nonnull AffixEligibility eligibility,
     int weight
 ) {
     
@@ -45,9 +47,6 @@ public record AffixDefinition(
         Objects.requireNonNull(id, "id cannot be null");
         Objects.requireNonNull(type, "type cannot be null");
         Objects.requireNonNull(displayName, "displayName cannot be null");
-        Objects.requireNonNull(statId, "statId cannot be null");
-        Objects.requireNonNull(modifierType, "modifierType cannot be null");
-        Objects.requireNonNull(eligibility, "eligibility cannot be null");
         
         if (id.isBlank()) {
             throw new IllegalArgumentException("id cannot be blank");
@@ -120,16 +119,51 @@ public record AffixDefinition(
     }
     
     /**
+     * Get all stat IDs that this affix can modify (across all tiers).
+     * <p>
+     * All tiers should grant the same stats, but this collects from all tiers
+     * for safety.
+     *
+     * @return Set of all stat IDs this affix can grant
+     */
+    @Nonnull
+    public Set<String> getStatIds() {
+        return tiers.stream()
+            .flatMap(tier -> tier.stats().keySet().stream())
+            .collect(Collectors.toSet());
+    }
+    
+    /**
+     * Check if this affix modifies a specific stat (in any tier).
+     *
+     * @param statId The stat ID to check (e.g., "hyforged:strength")
+     * @return true if any tier grants this stat
+     */
+    public boolean modifiesStat(@Nonnull String statId) {
+        return tiers.stream().anyMatch(tier -> tier.grantsStat(statId));
+    }
+    
+    /**
+     * Get the number of stats granted per tier.
+     * <p>
+     * Uses the first tier as reference - all tiers should have the same stats.
+     */
+    public int getStatCount() {
+        return tiers.isEmpty() ? 0 : tiers.get(0).getStatCount();
+    }
+    
+    // =========================================================================
+    // Builder
+    // =========================================================================
+    
+    /**
      * Builder for creating AffixDefinition instances.
      */
     public static class Builder {
         private String id;
         private String type;
         private String displayName = "";
-        private StatId statId;
-        private HyforgedModifier.StackType modifierType = HyforgedModifier.StackType.FLAT;
         private List<AffixTierDefinition> tiers = Collections.emptyList();
-        private AffixEligibility eligibility = AffixEligibility.ANY;
         private int weight = DEFAULT_WEIGHT;
         
         public Builder id(@Nonnull String id) {
@@ -147,23 +181,8 @@ public record AffixDefinition(
             return this;
         }
         
-        public Builder statId(@Nonnull StatId statId) {
-            this.statId = statId;
-            return this;
-        }
-        
-        public Builder modifierType(@Nonnull HyforgedModifier.StackType modifierType) {
-            this.modifierType = modifierType;
-            return this;
-        }
-        
         public Builder tiers(@Nonnull List<AffixTierDefinition> tiers) {
             this.tiers = tiers;
-            return this;
-        }
-        
-        public Builder eligibility(@Nonnull AffixEligibility eligibility) {
-            this.eligibility = eligibility;
             return this;
         }
         
@@ -174,7 +193,7 @@ public record AffixDefinition(
         
         @Nonnull
         public AffixDefinition build() {
-            return new AffixDefinition(id, type, displayName, statId, modifierType, tiers, eligibility, weight);
+            return new AffixDefinition(id, type, displayName, tiers, weight);
         }
     }
     

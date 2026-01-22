@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:evasion-mastery",
+  "EntityEffect": {
+    "Duration": 25,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Evasion.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:evasion-rating-flat", "StackType": "FLAT", "Amount": 300 },
+    { "StatId": "hyforged:evasion-chance-bps", "StackType": "FLAT", "Amount": 1500 },
+    { "StatId": "hyforged:dodge-chance-bps", "StackType": "FLAT", "Amount": 1000 }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:hamstring",
+  "EntityEffect": {
+    "Duration": 12,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Slow.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:movement-speed-bps", "StackType": "INCREASED", "Amount": -4000 },
+    { "StatId": "hyforged:attack-speed-bps", "StackType": "INCREASED", "Amount": -1500 }
+  ]
+}

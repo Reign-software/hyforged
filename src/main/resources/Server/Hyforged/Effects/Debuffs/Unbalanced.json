@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:unbalanced",
+  "EntityEffect": {
+    "Duration": 12,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Unbalanced.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:knockback-resistance-bps", "StackType": "FLAT", "Amount": -5000 },
+    { "StatId": "hyforged:block-mitigation-bps", "StackType": "INCREASED", "Amount": -2500 }
+  ]
+}

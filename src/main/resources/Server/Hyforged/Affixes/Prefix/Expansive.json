@@ -1,0 +1,40 @@
+﻿{
+  "Id": "hyforged:aoe-mastery",
+  "Type": "prefix",
+  "DisplayName": "Expansive",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 55,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:aoe-radius-bps": { "MinValue": 2500, "MaxValue": 3000, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 38,
+      "Weight": 75,
+      "Stats": {
+        "hyforged:aoe-radius-bps": { "MinValue": 1700, "MaxValue": 2500, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 22,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:aoe-radius-bps": { "MinValue": 1000, "MaxValue": 1700, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 8,
+      "Weight": 125,
+      "Stats": {
+        "hyforged:aoe-radius-bps": { "MinValue": 400, "MaxValue": 1000, "StackType": "INCREASED" }
+      }
+    }
+  ]
+}

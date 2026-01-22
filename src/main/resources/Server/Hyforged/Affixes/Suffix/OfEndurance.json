@@ -1,0 +1,56 @@
+﻿{
+  "Id": "hyforged:of-endurance",
+  "Type": "suffix",
+  "DisplayName": "of Endurance",
+  "Weight": 75,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 66,
+      "Weight": 38,
+      "Stats": {
+        "hyforged:max-stamina": { "MinValue": 45, "MaxValue": 60, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 50,
+      "Weight": 55,
+      "Stats": {
+        "hyforged:max-stamina": { "MinValue": 34, "MaxValue": 45, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 35,
+      "Weight": 75,
+      "Stats": {
+        "hyforged:max-stamina": { "MinValue": 24, "MaxValue": 34, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 20,
+      "Weight": 95,
+      "Stats": {
+        "hyforged:max-stamina": { "MinValue": 14, "MaxValue": 24, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 8,
+      "Weight": 118,
+      "Stats": {
+        "hyforged:max-stamina": { "MinValue": 7, "MaxValue": 14, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 1,
+      "Weight": 140,
+      "Stats": {
+        "hyforged:max-stamina": { "MinValue": 2, "MaxValue": 7, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

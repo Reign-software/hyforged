@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:two-handed-fury",
+  "EntityEffect": {
+    "Duration": 40,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/TwoHanded.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:two-handed-damage-bps", "StackType": "INCREASED", "Amount": 4000 },
+    { "StatId": "hyforged:attack-power-flat", "StackType": "FLAT", "Amount": 50 }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:bloodletter",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Bleed.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:bleed-chance-bps", "StackType": "FLAT", "Amount": 5000 },
+    { "StatId": "hyforged:bleed-damage-bps", "StackType": "INCREASED", "Amount": 3000 },
+    { "StatId": "hyforged:bleed-duration-bps", "StackType": "INCREASED", "Amount": 2500 }
+  ]
+}

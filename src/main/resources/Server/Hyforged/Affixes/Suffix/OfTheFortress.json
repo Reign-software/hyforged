@@ -1,0 +1,40 @@
+﻿{
+  "Id": "hyforged:of-the-fortress",
+  "Type": "suffix",
+  "DisplayName": "of the Fortress",
+  "Weight": 75,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 54,
+      "Weight": 48,
+      "Stats": {
+        "hyforged:block-chance-bps": { "MinValue": 380, "MaxValue": 480, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 38,
+      "Weight": 72,
+      "Stats": {
+        "hyforged:block-chance-bps": { "MinValue": 260, "MaxValue": 380, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 22,
+      "Weight": 98,
+      "Stats": {
+        "hyforged:block-chance-bps": { "MinValue": 140, "MaxValue": 260, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 8,
+      "Weight": 125,
+      "Stats": {
+        "hyforged:block-chance-bps": { "MinValue": 50, "MaxValue": 140, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

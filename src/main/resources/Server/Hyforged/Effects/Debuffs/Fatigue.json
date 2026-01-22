@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:fatigue",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Fatigue.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:max-stamina-flat", "StackType": "INCREASED", "Amount": -2500 },
+    { "StatId": "hyforged:stamina-regen-bps", "StackType": "INCREASED", "Amount": -4000 },
+    { "StatId": "hyforged:stamina-cost-bps", "StackType": "INCREASED", "Amount": 3000 }
+  ]
+}

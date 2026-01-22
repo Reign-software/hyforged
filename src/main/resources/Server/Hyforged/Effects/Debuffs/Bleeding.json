@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:bleeding",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Bleed.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:damage-over-time-taken-bps", "StackType": "INCREASED", "Amount": 2000 },
+    { "StatId": "hyforged:health-regen-bps", "StackType": "INCREASED", "Amount": -3000 }
+  ]
+}

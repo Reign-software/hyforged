@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:aura-mastery",
+  "EntityEffect": {
+    "Duration": 60,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Aura.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:aura-area-bps", "StackType": "INCREASED", "Amount": 4000 },
+    { "StatId": "hyforged:aura-effect-bps", "StackType": "INCREASED", "Amount": 2500 }
+  ]
+}

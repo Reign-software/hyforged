@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:banner-of-war",
+  "EntityEffect": {
+    "Duration": 45,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Banner.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:banner-effect-bps", "StackType": "INCREASED", "Amount": 5000 },
+    { "StatId": "hyforged:aura-area-bps", "StackType": "INCREASED", "Amount": 3000 }
+  ]
+}

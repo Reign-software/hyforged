@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:diamond-skin",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/MaxArmor.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:armor-rating-flat", "StackType": "FLAT", "Amount": 1000 },
+    { "StatId": "hyforged:physical-damage-taken-bps", "StackType": "MORE", "Amount": -3000 },
+    { "StatId": "hyforged:critical-damage-taken-bps", "StackType": "INCREASED", "Amount": -2500 }
+  ]
+}

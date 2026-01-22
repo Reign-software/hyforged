@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:trap-mastery",
+  "EntityEffect": {
+    "Duration": 40,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Trap.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:max-traps-flat", "StackType": "FLAT", "Amount": 3 },
+    { "StatId": "hyforged:cooldown-recovery-bps", "StackType": "INCREASED", "Amount": 2000 }
+  ]
+}

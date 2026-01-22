@@ -2,8 +2,7 @@ package reign.software.hyforged.stats.engine;
 
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatId;
-import reign.software.hyforged.stats.component.ModifierType;
-import reign.software.hyforged.stats.component.StatModifier;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -45,7 +44,7 @@ public final class StackingEngine {
      * @param statDef The stat definition (for bounds clamping)
      * @return The final computed value
      */
-    public static int compute(int baseValue, @Nonnull List<StatModifier> modifiers, @Nonnull StatDefinition statDef) {
+    public static int compute(int baseValue, @Nonnull List<HyforgedModifier> modifiers, @Nonnull StatDefinition statDef) {
         return compute(baseValue, modifiers, statDef, null);
     }
     
@@ -66,7 +65,7 @@ public final class StackingEngine {
      * @param statValueLookup Function to lookup other stat values (for soft cap bonus stat), can be null
      * @return The final computed value
      */
-    public static int compute(int baseValue, @Nonnull List<StatModifier> modifiers, 
+    public static int compute(int baseValue, @Nonnull List<HyforgedModifier> modifiers, 
                               @Nonnull StatDefinition statDef, 
                               @Nullable ToIntFunction<StatId> statValueLookup) {
         if (modifiers.isEmpty()) {
@@ -75,18 +74,18 @@ public final class StackingEngine {
         }
         
         // Sort modifiers by type order, then by priority for determinism
-        List<StatModifier> sorted = new ArrayList<>(modifiers);
+        List<HyforgedModifier> sorted = new ArrayList<>(modifiers);
         sorted.sort(Comparator
-            .comparingInt((StatModifier m) -> m.modifierType().getOrder())
-            .thenComparingInt(StatModifier::priority)
-            .thenComparing(StatModifier::sourceId) // Final tie-breaker for determinism
+            .comparingInt((HyforgedModifier m) -> m.getStackType().getOrder())
+            .thenComparingInt(HyforgedModifier::getPriority)
+            .thenComparing(HyforgedModifier::getSourceId) // Final tie-breaker for determinism
         );
         
         // Step 1: Sum all FLAT modifiers
         long flatSum = 0;
-        for (StatModifier mod : sorted) {
-            if (mod.modifierType() == ModifierType.FLAT) {
-                flatSum += mod.value();
+        for (HyforgedModifier mod : sorted) {
+            if (mod.getStackType() == HyforgedModifier.StackType.FLAT) {
+                flatSum += mod.getAmount();
             }
         }
         
@@ -95,9 +94,9 @@ public final class StackingEngine {
         
         // Step 2: Sum all INCREASED modifiers and apply as multiplier
         long increasedSum = 0; // In basis points
-        for (StatModifier mod : sorted) {
-            if (mod.modifierType() == ModifierType.INCREASED) {
-                increasedSum += mod.value();
+        for (HyforgedModifier mod : sorted) {
+            if (mod.getStackType() == HyforgedModifier.StackType.INCREASED) {
+                increasedSum += mod.getAmount();
             }
         }
         
@@ -108,11 +107,11 @@ public final class StackingEngine {
         }
         
         // Step 3: Apply each MORE modifier sequentially (multiplicative)
-        for (StatModifier mod : sorted) {
-            if (mod.modifierType() == ModifierType.MORE) {
+        for (HyforgedModifier mod : sorted) {
+            if (mod.getStackType() == HyforgedModifier.StackType.MORE) {
                 // current * (1 + value/10000)
                 // = current * (10000 + value) / 10000
-                current = (current * (BPS_100_PERCENT + mod.value())) / BPS_100_PERCENT;
+                current = (current * (BPS_100_PERCENT + mod.getAmount())) / BPS_100_PERCENT;
             }
         }
         
@@ -120,16 +119,16 @@ public final class StackingEngine {
         // CAP modifiers: positive value = max cap, negative value = min cap
         Integer minCap = null;
         Integer maxCap = null;
-        for (StatModifier mod : sorted) {
-            if (mod.modifierType() == ModifierType.CAP) {
-                if (mod.value() >= 0) {
+        for (HyforgedModifier mod : sorted) {
+            if (mod.getStackType() == HyforgedModifier.StackType.CAP) {
+                if (mod.getAmount() >= 0) {
                     // Max cap - take the lowest max cap
-                    if (maxCap == null || mod.value() < maxCap) {
-                        maxCap = mod.value();
+                    if (maxCap == null || mod.getAmount() < maxCap) {
+                        maxCap = mod.getAmount();
                     }
                 } else {
                     // Min cap (negative value represents min) - take the highest min cap
-                    int minVal = -mod.value();
+                    int minVal = -mod.getAmount();
                     if (minCap == null || minVal > minCap) {
                         minCap = minVal;
                     }
@@ -212,7 +211,7 @@ public final class StackingEngine {
      * Use {@link #computeWithBreakdown(int, List, StatDefinition, ToIntFunction)} for cap support.
      */
     @Nonnull
-    public static ComputeResult computeWithBreakdown(int baseValue, @Nonnull List<StatModifier> modifiers, @Nonnull StatDefinition statDef) {
+    public static ComputeResult computeWithBreakdown(int baseValue, @Nonnull List<HyforgedModifier> modifiers, @Nonnull StatDefinition statDef) {
         return computeWithBreakdown(baseValue, modifiers, statDef, null);
     }
     
@@ -226,7 +225,7 @@ public final class StackingEngine {
      * @return Detailed breakdown of the computation
      */
     @Nonnull
-    public static ComputeResult computeWithBreakdown(int baseValue, @Nonnull List<StatModifier> modifiers, 
+    public static ComputeResult computeWithBreakdown(int baseValue, @Nonnull List<HyforgedModifier> modifiers, 
                                                       @Nonnull StatDefinition statDef,
                                                       @Nullable ToIntFunction<StatId> statValueLookup) {
         ComputeResult result = new ComputeResult();
@@ -240,18 +239,18 @@ public final class StackingEngine {
         }
         
         // Sort modifiers
-        List<StatModifier> sorted = new ArrayList<>(modifiers);
+        List<HyforgedModifier> sorted = new ArrayList<>(modifiers);
         sorted.sort(Comparator
-            .comparingInt((StatModifier m) -> m.modifierType().getOrder())
-            .thenComparingInt(StatModifier::priority)
-            .thenComparing(StatModifier::sourceId)
+            .comparingInt((HyforgedModifier m) -> m.getStackType().getOrder())
+            .thenComparingInt(HyforgedModifier::getPriority)
+            .thenComparing(HyforgedModifier::getSourceId)
         );
         
         // Sum FLAT
         long flatSum = 0;
-        for (StatModifier mod : sorted) {
-            if (mod.modifierType() == ModifierType.FLAT) {
-                flatSum += mod.value();
+        for (HyforgedModifier mod : sorted) {
+            if (mod.getStackType() == HyforgedModifier.StackType.FLAT) {
+                flatSum += mod.getAmount();
                 result.flatModifiers.add(mod);
             }
         }
@@ -262,9 +261,9 @@ public final class StackingEngine {
         
         // Sum INCREASED
         long increasedSum = 0;
-        for (StatModifier mod : sorted) {
-            if (mod.modifierType() == ModifierType.INCREASED) {
-                increasedSum += mod.value();
+        for (HyforgedModifier mod : sorted) {
+            if (mod.getStackType() == HyforgedModifier.StackType.INCREASED) {
+                increasedSum += mod.getAmount();
                 result.increasedModifiers.add(mod);
             }
         }
@@ -276,9 +275,9 @@ public final class StackingEngine {
         result.afterIncreased = (int) current;
         
         // Apply MORE
-        for (StatModifier mod : sorted) {
-            if (mod.modifierType() == ModifierType.MORE) {
-                current = (current * (BPS_100_PERCENT + mod.value())) / BPS_100_PERCENT;
+        for (HyforgedModifier mod : sorted) {
+            if (mod.getStackType() == HyforgedModifier.StackType.MORE) {
+                current = (current * (BPS_100_PERCENT + mod.getAmount())) / BPS_100_PERCENT;
                 result.moreModifiers.add(mod);
             }
         }
@@ -287,15 +286,15 @@ public final class StackingEngine {
         // Apply CAP modifiers
         Integer minCap = null;
         Integer maxCap = null;
-        for (StatModifier mod : sorted) {
-            if (mod.modifierType() == ModifierType.CAP) {
+        for (HyforgedModifier mod : sorted) {
+            if (mod.getStackType() == HyforgedModifier.StackType.CAP) {
                 result.capModifiers.add(mod);
-                if (mod.value() >= 0) {
-                    if (maxCap == null || mod.value() < maxCap) {
-                        maxCap = mod.value();
+                if (mod.getAmount() >= 0) {
+                    if (maxCap == null || mod.getAmount() < maxCap) {
+                        maxCap = mod.getAmount();
                     }
                 } else {
-                    int minVal = -mod.value();
+                    int minVal = -mod.getAmount();
                     if (minCap == null || minVal > minCap) {
                         minCap = minVal;
                     }
@@ -416,17 +415,17 @@ public final class StackingEngine {
         /** The final computed value */
         public int finalValue;
         
-        public final List<StatModifier> flatModifiers = new ArrayList<>();
-        public final List<StatModifier> increasedModifiers = new ArrayList<>();
-        public final List<StatModifier> moreModifiers = new ArrayList<>();
-        public final List<StatModifier> capModifiers = new ArrayList<>();
+        public final List<HyforgedModifier> flatModifiers = new ArrayList<>();
+        public final List<HyforgedModifier> increasedModifiers = new ArrayList<>();
+        public final List<HyforgedModifier> moreModifiers = new ArrayList<>();
+        public final List<HyforgedModifier> capModifiers = new ArrayList<>();
         
         /**
          * Get all modifiers in stacking order.
          */
         @Nonnull
-        public List<StatModifier> getAllModifiers() {
-            List<StatModifier> all = new ArrayList<>();
+        public List<HyforgedModifier> getAllModifiers() {
+            List<HyforgedModifier> all = new ArrayList<>();
             all.addAll(flatModifiers);
             all.addAll(increasedModifiers);
             all.addAll(moreModifiers);

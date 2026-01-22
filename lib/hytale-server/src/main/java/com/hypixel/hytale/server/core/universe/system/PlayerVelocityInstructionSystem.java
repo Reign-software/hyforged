@@ -69,11 +69,10 @@ public class PlayerVelocityInstructionSystem extends EntityTickingSystem<EntityS
                   );
                if (DebugUtils.DISPLAY_FORCES) {
                   TransformComponent transformComponent = archetypeChunk.getComponent(index, TransformComponent.getComponentType());
-
-                  assert transformComponent != null;
-
-                  World world = commandBuffer.getExternalData().getWorld();
-                  DebugUtils.addForce(world, transformComponent.getPosition(), velocityx, velocityConfigx);
+                  if (transformComponent != null) {
+                     World world = commandBuffer.getExternalData().getWorld();
+                     DebugUtils.addForce(world, transformComponent.getPosition(), velocityx, velocityConfigx);
+                  }
                }
                break;
             case Add:
@@ -91,11 +90,10 @@ public class PlayerVelocityInstructionSystem extends EntityTickingSystem<EntityS
                   );
                if (DebugUtils.DISPLAY_FORCES) {
                   TransformComponent transformComponent = archetypeChunk.getComponent(index, TransformComponent.getComponentType());
-
-                  assert transformComponent != null;
-
-                  World world = commandBuffer.getExternalData().getWorld();
-                  DebugUtils.addForce(world, transformComponent.getPosition(), new Vector3d(velocity.x, velocity.y, velocity.z), velocityConfig);
+                  if (transformComponent != null) {
+                     World world = commandBuffer.getExternalData().getWorld();
+                     DebugUtils.addForce(world, transformComponent.getPosition(), new Vector3d(velocity.x, velocity.y, velocity.z), velocityConfig);
+                  }
                }
          }
       }

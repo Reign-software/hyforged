@@ -2,7 +2,6 @@ package reign.software.hyforged.stats.bridge;
 
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
-import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.SystemGroup;
@@ -16,12 +15,11 @@ import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.combat.CombatMeta;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
-import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.damage.DamageTypeExtensionRegistry;
 
 import javax.annotation.Nonnull;
@@ -50,9 +48,6 @@ import java.util.Set;
 public class HyforgedDamageReductionSystem extends DamageEventSystem {
 
     @Nonnull
-    private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
-
-    @Nonnull
     private final Query<EntityStore> query;
 
     @Nonnull
@@ -65,10 +60,8 @@ public class HyforgedDamageReductionSystem extends DamageEventSystem {
     private final Map<String, Integer> penetrationStatIndices = new HashMap<>();
 
     public HyforgedDamageReductionSystem() {
-        this.statComponentType = HyforgedPlugin.getInstance().getHyforgedStatComponentType();
-        
-        // Query for entities with HyforgedStatComponent
-        this.query = statComponentType;
+        // Query for entities with EntityStatMap
+        this.query = StatAccessor.getStatMapType();
         
         // Run before ApplyDamage in the filter damage group
         this.dependencies = Set.of(
@@ -124,14 +117,8 @@ public class HyforgedDamageReductionSystem extends DamageEventSystem {
             return;
         }
 
-        // Get the defender's stat component
-        HyforgedStatComponent defenderStats = archetypeChunk.getComponent(index, statComponentType);
-        if (defenderStats == null) {
-            return;
-        }
-
         // Get the resistance stat info for this damage type
-        ResistanceInfo resistanceInfo = getResistanceInfoForDamageType(damageCause, defenderStats);
+        ResistanceInfo resistanceInfo = getResistanceInfoForDamageType(damageCause, archetypeChunk, index);
         if (resistanceInfo == null) {
             // No resistance defined for this damage type
             return;
@@ -144,10 +131,7 @@ public class HyforgedDamageReductionSystem extends DamageEventSystem {
         if (damage.getSource() instanceof Damage.EntitySource entitySource) {
             Ref<EntityStore> attackerRef = entitySource.getRef();
             if (attackerRef.isValid()) {
-                HyforgedStatComponent attackerStats = store.getComponent(attackerRef, statComponentType);
-                if (attackerStats != null) {
-                    penetrationBps = getPenetrationForDamageType(damageCause, attackerStats);
-                }
+                penetrationBps = getPenetrationForDamageType(damageCause, store, attackerRef);
             }
         }
         
@@ -201,7 +185,8 @@ public class HyforgedDamageReductionSystem extends DamageEventSystem {
     @Nullable
     private ResistanceInfo getResistanceInfoForDamageType(
             @Nonnull DamageCause damageCause,
-            @Nonnull HyforgedStatComponent statComponent
+            @Nonnull ArchetypeChunk<EntityStore> chunk,
+            int entityIndex
     ) {
         // Use the data-driven registry to find the resistance stat
         DamageTypeExtensionRegistry registry = DamageTypeExtensionRegistry.get();
@@ -233,7 +218,7 @@ public class HyforgedDamageReductionSystem extends DamageEventSystem {
             return null;
         }
         
-        int value = statComponent.getCachedValue(statIndex);
+        int value = StatAccessor.getStatValueInt(chunk, entityIndex, statIndex);
         int minValue = statDef.minValue();
         
         // Calculate effective soft cap including bonus stat
@@ -247,7 +232,7 @@ public class HyforgedDamageReductionSystem extends DamageEventSystem {
                 StatId bonusStatId = statDef.softCapBonusStat();
                 int bonusStatIndex = StatDefinitionRegistry.get().getIndex(bonusStatId);
                 if (bonusStatIndex >= 0) {
-                    bonusCapAmount = statComponent.getCachedValue(bonusStatIndex);
+                    bonusCapAmount = StatAccessor.getStatValueInt(chunk, entityIndex, bonusStatIndex);
                 }
             }
             
@@ -277,7 +262,8 @@ public class HyforgedDamageReductionSystem extends DamageEventSystem {
      */
     private int getPenetrationForDamageType(
             @Nonnull DamageCause damageCause,
-            @Nonnull HyforgedStatComponent attackerStats
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> attackerRef
     ) {
         // Use the data-driven registry to find the penetration stat
         DamageTypeExtensionRegistry registry = DamageTypeExtensionRegistry.get();
@@ -303,6 +289,6 @@ public class HyforgedDamageReductionSystem extends DamageEventSystem {
             return 0;
         }
         
-        return attackerStats.getCachedValue(statIndex);
+        return StatAccessor.getStatValueInt(store, attackerRef, statIndex);
     }
 }

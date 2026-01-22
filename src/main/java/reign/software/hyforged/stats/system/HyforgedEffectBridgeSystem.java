@@ -12,19 +12,24 @@ import com.hypixel.hytale.component.system.tick.EntityTickingSystem;
 import com.hypixel.hytale.protocol.ValueType;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
+import com.hypixel.hytale.server.core.modules.entitystats.modifier.Modifier;
+import com.hypixel.hytale.server.core.modules.entitystats.modifier.StaticModifier;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import it.unimi.dsi.fastutil.ints.Int2FloatMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
+import reign.software.hyforged.effect.HyforgedEffectDefinition;
+import reign.software.hyforged.effect.HyforgedEffectRegistry;
+import reign.software.hyforged.effect.HyforgedEffectModifierSpec;
 import reign.software.hyforged.stats.component.EffectBridgeComponent;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
-import reign.software.hyforged.stats.component.ModifierSource;
-import reign.software.hyforged.stats.component.ModifierType;
-import reign.software.hyforged.stats.component.StatModifier;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -67,6 +72,9 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
     private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
 
     @Nonnull
+    private final ComponentType<EntityStore, EntityStatMap> entityStatMapType;
+
+    @Nonnull
     private final ComponentType<EntityStore, EffectControllerComponent> effectControllerType;
 
     @Nonnull
@@ -81,11 +89,16 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
     public HyforgedEffectBridgeSystem() {
         HyforgedPlugin plugin = HyforgedPlugin.getInstance();
         this.statComponentType = plugin.getHyforgedStatComponentType();
+        this.entityStatMapType = EntityStatMap.getComponentType();
         this.effectControllerType = EffectControllerComponent.getComponentType();
         this.effectBridgeType = plugin.getEffectBridgeComponentType();
 
-        // Query for entities with all three components
-        this.query = Query.and(statComponentType, Query.and(effectControllerType, effectBridgeType));
+        // Query for entities with all required components
+        // EntityStatMap is needed for putModifier/removeModifier operations
+        this.query = Query.and(
+            entityStatMapType,
+            Query.and(statComponentType, Query.and(effectControllerType, effectBridgeType))
+        );
 
         // Run BEFORE stat computation so modifiers are included
         this.dependencies = Set.of(
@@ -114,14 +127,15 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
             @Nonnull CommandBuffer<EntityStore> commandBuffer
     ) {
         HyforgedStatComponent statComponent = chunk.getComponent(index, statComponentType);
+        EntityStatMap entityStatMap = chunk.getComponent(index, entityStatMapType);
         EffectControllerComponent effectController = chunk.getComponent(index, effectControllerType);
         EffectBridgeComponent effectBridge = chunk.getComponent(index, effectBridgeType);
 
-        if (statComponent == null || effectController == null || effectBridge == null) {
+        if (statComponent == null || entityStatMap == null || effectController == null || effectBridge == null) {
             return;
         }
 
-        processEffectChanges(statComponent, effectController, effectBridge);
+        processEffectChanges(statComponent, entityStatMap, effectController, effectBridge);
     }
 
     /**
@@ -130,12 +144,14 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
      * Detects added and removed effects by comparing current active effects
      * to the previously bridged set.
      *
-     * @param statComponent The entity's stat component
+     * @param statComponent The entity's stat component (for dirty flags)
+     * @param entityStatMap The entity's stat map (for modifier operations)
      * @param effectController The entity's effect controller
      * @param effectBridge The entity's effect bridge tracking component
      */
     private void processEffectChanges(
             @Nonnull HyforgedStatComponent statComponent,
+            @Nonnull EntityStatMap entityStatMap,
             @Nonnull EffectControllerComponent effectController,
             @Nonnull EffectBridgeComponent effectBridge
     ) {
@@ -147,7 +163,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
         // Detect removed effects (in bridged but not in current)
         for (int bridgedIndex : bridgedSet.toIntArray()) {
             if (!currentSet.contains(bridgedIndex)) {
-                removeEffectModifiers(statComponent, bridgedIndex);
+                removeEffectModifiers(statComponent, entityStatMap, bridgedIndex);
                 effectBridge.unmarkBridged(bridgedIndex);
             }
         }
@@ -155,46 +171,94 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
         // Detect added effects (in current but not in bridged)
         for (int effectIndex : currentEffectIndices) {
             if (!bridgedSet.contains(effectIndex)) {
-                applyEffectModifiers(statComponent, effectIndex);
+                applyEffectModifiers(statComponent, entityStatMap, effectIndex);
                 effectBridge.markBridged(effectIndex);
             }
         }
     }
 
     /**
-     * Apply stat modifiers from an EntityEffect to the Hyforged stat component.
+     * Apply stat modifiers from an EntityEffect to the EntityStatMap.
+     * <p>
+     * Uses EntityStatMap.putModifier() with a unique key format to allow
+     * removal when the effect ends.
      *
-     * @param statComponent The entity's stat component
+     * @param statComponent The entity's stat component (for dirty flags)
+     * @param entityStatMap The entity's stat map (for modifier operations)
      * @param effectIndex The index of the effect to apply modifiers from
      */
     private void applyEffectModifiers(
             @Nonnull HyforgedStatComponent statComponent,
+            @Nonnull EntityStatMap entityStatMap,
             int effectIndex
     ) {
         EntityEffect effect = getEntityEffect(effectIndex);
         if (effect == null) {
             return;
         }
+        boolean applied = false;
 
-        Int2FloatMap entityStats = effect.getEntityStats();
-        if (entityStats == null || entityStats.isEmpty()) {
+        applied |= applyEntityStatModifiers(entityStatMap, effect);
+        applied |= applyStaticEffectModifiers(entityStatMap, effect);
+        applied |= applyHyforgedEffectModifiers(entityStatMap, effect.getId());
+
+        if (applied) {
+            statComponent.markAllDirty();
+        }
+    }
+
+    /**
+     * Remove all modifiers from an effect.
+     * <p>
+     * Uses EntityStatMap.removeModifier() with the same key format used when applying.
+     *
+     * @param statComponent The entity's stat component (for dirty flags)
+     * @param entityStatMap The entity's stat map (for modifier operations)
+     * @param effectIndex The index of the effect whose modifiers to remove
+     */
+    private void removeEffectModifiers(
+            @Nonnull HyforgedStatComponent statComponent,
+            @Nonnull EntityStatMap entityStatMap,
+            int effectIndex
+    ) {
+        EntityEffect effect = getEntityEffect(effectIndex);
+        if (effect == null) {
+            // Effect asset not found, cannot determine which stats to clean up
+            LOGGER.warning("Cannot remove modifiers for unknown effect index: " + effectIndex);
+            statComponent.markAllDirty();
             return;
         }
+        boolean removed = false;
 
-        String sourceId = EFFECT_SOURCE_PREFIX + effect.getId();
+        removed |= removeEntityStatModifiers(entityStatMap, effect);
+        removed |= removeStaticEffectModifiers(entityStatMap, effect);
+        removed |= removeHyforgedEffectModifiers(entityStatMap, effect.getId());
+
+        if (removed) {
+            statComponent.markAllDirty();
+            if (LOGGER.isLoggable(Level.FINE)) {
+                LOGGER.fine("Removed modifiers from effect: " + effect.getId());
+            }
+        }
+    }
+
+    private boolean applyEntityStatModifiers(
+            @Nonnull EntityStatMap entityStatMap,
+            @Nonnull EntityEffect effect
+    ) {
+        Int2FloatMap entityStats = effect.getEntityStats();
+        if (entityStats == null || entityStats.isEmpty()) {
+            return false;
+        }
+
         ValueType valueType = effect.getValueType();
-        ModifierType modifierType = mapValueTypeToModifierType(valueType);
-
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        boolean applied = false;
 
-        // Apply each stat modifier from the effect
         for (Int2FloatMap.Entry entry : entityStats.int2FloatEntrySet()) {
             int hytaleStatIndex = entry.getIntKey();
             float value = entry.getFloatValue();
 
-            // Try to find a matching Hyforged stat by mapping Hytale stat index
-            // For now, skip if we can't map it (Hytale stat, not Hyforged)
-            // Future: Add Hytale→Hyforged stat mapping
             StatId statId = mapHytaleStatToHyforged(hytaleStatIndex);
             if (statId == null) {
                 continue;
@@ -205,56 +269,156 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
                 continue;
             }
 
-            // Convert value based on modifier type
-            int intValue = convertValue(value, modifierType);
+            String modifierKey = buildEntityModifierKey(effect.getId(), hyforgedStatIndex);
+            HyforgedModifier modifier = buildEffectModifier(valueType, value, hyforgedStatIndex, effect.getId());
 
-            StatModifier modifier = new StatModifier.Builder(sourceId)
-                    .sourceType(ModifierSource.EFFECT)
-                    .modifierType(modifierType)
-                    .targetStat(hyforgedStatIndex)
-                    .value(intValue)
-                    .permanent() // Removed when effect ends
-                    .build();
-
-            statComponent.addModifier(modifier);
+            entityStatMap.putModifier(hyforgedStatIndex, modifierKey, modifier);
+            applied = true;
 
             if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.fine("Applied effect modifier: " + sourceId + " -> " + statId.fullId() + " = " + intValue);
+                LOGGER.fine("Applied effect modifier: " + modifierKey + " -> " + statId.fullId() + " = " + value);
             }
         }
 
-        // Mark stats as needing recomputation
-        statComponent.markAllDirty();
+        return applied;
     }
 
-    /**
-     * Remove all modifiers from an effect.
-     *
-     * @param statComponent The entity's stat component
-     * @param effectIndex The index of the effect whose modifiers to remove
-     */
-    private void removeEffectModifiers(
-            @Nonnull HyforgedStatComponent statComponent,
-            int effectIndex
+    private boolean applyStaticEffectModifiers(
+            @Nonnull EntityStatMap entityStatMap,
+            @Nonnull EntityEffect effect
     ) {
-        EntityEffect effect = getEntityEffect(effectIndex);
-        if (effect == null) {
-            // Effect asset not found, fallback handled by dirty flag
-            // Next stat computation will clean up orphaned modifiers
-            LOGGER.warning("Cannot remove modifiers for unknown effect index: " + effectIndex);
-            statComponent.markAllDirty();
-            return;
+        Int2ObjectMap<StaticModifier[]> statModifiers = effect.getStatModifiers();
+        if (statModifiers == null || statModifiers.isEmpty()) {
+            return false;
         }
 
-        String sourceId = EFFECT_SOURCE_PREFIX + effect.getId();
-        boolean removed = statComponent.removeModifiersBySource(sourceId);
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        boolean applied = false;
 
-        if (removed) {
-            statComponent.markAllDirty();
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.fine("Removed modifiers from effect: " + effect.getId());
+        for (Int2ObjectMap.Entry<StaticModifier[]> entry : statModifiers.int2ObjectEntrySet()) {
+            int hytaleStatIndex = entry.getIntKey();
+            StaticModifier[] modifiers = entry.getValue();
+            if (modifiers == null || modifiers.length == 0) {
+                continue;
+            }
+
+            StatId statId = mapHytaleStatToHyforged(hytaleStatIndex);
+            if (statId == null) {
+                continue;
+            }
+
+            int hyforgedStatIndex = registry.getIndex(statId);
+            if (hyforgedStatIndex < 0) {
+                continue;
+            }
+
+            for (StaticModifier staticModifier : modifiers) {
+                if (staticModifier == null) {
+                    continue;
+                }
+
+                HyforgedModifier modifier = buildStaticEffectModifier(staticModifier, hyforgedStatIndex, effect.getId());
+                if (modifier == null) {
+                    continue;
+                }
+
+                String modifierKey = buildStaticModifierKey(effect.getId(), hyforgedStatIndex, staticModifier);
+                entityStatMap.putModifier(hyforgedStatIndex, modifierKey, modifier);
+                applied = true;
+
+                if (LOGGER.isLoggable(Level.FINE)) {
+                    LOGGER.fine("Applied static effect modifier: " + modifierKey + " -> " + statId.fullId());
+                }
             }
         }
+
+        return applied;
+    }
+
+    private boolean removeEntityStatModifiers(
+            @Nonnull EntityStatMap entityStatMap,
+            @Nonnull EntityEffect effect
+    ) {
+        Int2FloatMap entityStats = effect.getEntityStats();
+        if (entityStats == null || entityStats.isEmpty()) {
+            return false;
+        }
+
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        boolean removed = false;
+
+        for (Int2FloatMap.Entry entry : entityStats.int2FloatEntrySet()) {
+            int hytaleStatIndex = entry.getIntKey();
+
+            StatId statId = mapHytaleStatToHyforged(hytaleStatIndex);
+            if (statId == null) {
+                continue;
+            }
+
+            int hyforgedStatIndex = registry.getIndex(statId);
+            if (hyforgedStatIndex < 0) {
+                continue;
+            }
+
+            String modifierKey = buildEntityModifierKey(effect.getId(), hyforgedStatIndex);
+            Modifier removedModifier = entityStatMap.removeModifier(hyforgedStatIndex, modifierKey);
+            if (removedModifier != null) {
+                removed = true;
+                if (LOGGER.isLoggable(Level.FINE)) {
+                    LOGGER.fine("Removed effect modifier: " + modifierKey);
+                }
+            }
+        }
+
+        return removed;
+    }
+
+    private boolean removeStaticEffectModifiers(
+            @Nonnull EntityStatMap entityStatMap,
+            @Nonnull EntityEffect effect
+    ) {
+        Int2ObjectMap<StaticModifier[]> statModifiers = effect.getStatModifiers();
+        if (statModifiers == null || statModifiers.isEmpty()) {
+            return false;
+        }
+
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        boolean removed = false;
+
+        for (Int2ObjectMap.Entry<StaticModifier[]> entry : statModifiers.int2ObjectEntrySet()) {
+            int hytaleStatIndex = entry.getIntKey();
+            StaticModifier[] modifiers = entry.getValue();
+            if (modifiers == null || modifiers.length == 0) {
+                continue;
+            }
+
+            StatId statId = mapHytaleStatToHyforged(hytaleStatIndex);
+            if (statId == null) {
+                continue;
+            }
+
+            int hyforgedStatIndex = registry.getIndex(statId);
+            if (hyforgedStatIndex < 0) {
+                continue;
+            }
+
+            for (StaticModifier staticModifier : modifiers) {
+                if (staticModifier == null) {
+                    continue;
+                }
+
+                String modifierKey = buildStaticModifierKey(effect.getId(), hyforgedStatIndex, staticModifier);
+                Modifier removedModifier = entityStatMap.removeModifier(hyforgedStatIndex, modifierKey);
+                if (removedModifier != null) {
+                    removed = true;
+                    if (LOGGER.isLoggable(Level.FINE)) {
+                        LOGGER.fine("Removed static effect modifier: " + modifierKey);
+                    }
+                }
+            }
+        }
+
+        return removed;
     }
 
     /**
@@ -273,41 +437,200 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
         }
     }
 
-    /**
-     * Map Hytale's ValueType to Hyforged's ModifierType.
-     * <p>
-     * Hytale uses: Percent, Absolute
-     * Hyforged uses: FLAT, INCREASED, MORE
-     *
-     * @param valueType The Hytale value type
-     * @return The corresponding Hyforged modifier type
-     */
-    @Nonnull
-    private ModifierType mapValueTypeToModifierType(@Nullable ValueType valueType) {
-        if (valueType == null) {
-            return ModifierType.FLAT;
+    private HyforgedModifier buildEffectModifier(
+            @Nullable ValueType valueType,
+            float value,
+            int statIndex,
+            @Nonnull String effectId
+    ) {
+        HyforgedModifier.Builder builder = HyforgedModifier.builder()
+            .target(Modifier.ModifierTarget.MAX)
+            .sourceType(HyforgedModifier.SourceType.EFFECT)
+            .sourceId(effectId)
+            .targetStat(statIndex);
+
+        if (valueType == ValueType.Percent) {
+            int bps = convertPercentToBps(value);
+            return builder.increased(bps).build();
         }
-        return switch (valueType) {
-            case Absolute -> ModifierType.FLAT;
-            case Percent -> ModifierType.INCREASED;
-        };
+
+        return builder.flat(Math.round(value)).build();
     }
 
-    /**
-     * Convert a float value to an integer based on modifier type.
-     * <p>
-     * For percentage/multiplier types, converts to basis points (10000 = 100%).
-     *
-     * @param value The float value from the effect
-     * @param modifierType The modifier type
-     * @return The integer value for the modifier
-     */
-    private int convertValue(float value, @Nonnull ModifierType modifierType) {
-        return switch (modifierType) {
-            case FLAT -> Math.round(value);
-            case INCREASED, MORE -> Math.round(value * 100); // Convert percent to basis points
-            case CAP -> Math.round(value);
-        };
+    @Nullable
+    private HyforgedModifier buildStaticEffectModifier(
+            @Nonnull StaticModifier modifier,
+            int statIndex,
+            @Nonnull String effectId
+    ) {
+        HyforgedModifier.Builder builder = HyforgedModifier.builder()
+                .target(modifier.getTarget())
+                .sourceType(HyforgedModifier.SourceType.EFFECT)
+                .sourceId(effectId)
+                .targetStat(statIndex);
+
+        float amount = modifier.getAmount();
+        if (modifier.getCalculationType() == StaticModifier.CalculationType.ADDITIVE) {
+            int flat = Math.round(amount);
+            if (flat == 0) {
+                return null;
+            }
+            return builder.flat(flat).build();
+        }
+
+        if (modifier.getCalculationType() == StaticModifier.CalculationType.MULTIPLICATIVE) {
+            int bps = Math.round((amount - 1.0f) * HyforgedModifier.BPS_100_PERCENT);
+            if (bps == 0) {
+                return null;
+            }
+            return builder.more(bps).build();
+        }
+
+        return null;
+    }
+
+    private boolean applyHyforgedEffectModifiers(
+            @Nonnull EntityStatMap entityStatMap,
+            @Nonnull String effectId
+    ) {
+        HyforgedEffectDefinition definition = HyforgedEffectRegistry.get().get(effectId);
+        if (definition == null || definition.getModifiers().isEmpty()) {
+            return false;
+        }
+
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        boolean applied = false;
+
+        int ordinal = 0;
+        for (HyforgedEffectModifierSpec spec : definition.getModifiers()) {
+            if (spec == null) {
+                ordinal++;
+                continue;
+            }
+
+            String specStatId = spec.getStatId();
+            if (specStatId == null || specStatId.isEmpty()) {
+                ordinal++;
+                continue;
+            }
+
+            StatId statId;
+            if (specStatId.contains(":")) {
+                try {
+                    statId = StatId.parse(specStatId);
+                } catch (IllegalArgumentException ignored) {
+                    ordinal++;
+                    continue;
+                }
+            } else {
+                statId = StatId.hyforged(specStatId);
+            }
+
+            int statIndex = registry.getIndex(statId);
+            if (statIndex < 0) {
+                ordinal++;
+                continue;
+            }
+
+            HyforgedModifier modifier = HyforgedModifier.builder()
+                    .target(spec.getTarget())
+                    .stackType(spec.getStackType())
+                    .amount(spec.getAmount())
+                    .sourceType(HyforgedModifier.SourceType.EFFECT)
+                    .sourceId(effectId)
+                    .priority(spec.getPriority())
+                    .targetStat(statIndex)
+                    .build();
+
+            String modifierKey = buildHyforgedModifierKey(effectId, statIndex, ordinal);
+            entityStatMap.putModifier(statIndex, modifierKey, modifier);
+            applied = true;
+            ordinal++;
+        }
+
+        return applied;
+    }
+
+    private boolean removeHyforgedEffectModifiers(
+            @Nonnull EntityStatMap entityStatMap,
+            @Nonnull String effectId
+    ) {
+        HyforgedEffectDefinition definition = HyforgedEffectRegistry.get().get(effectId);
+        if (definition == null || definition.getModifiers().isEmpty()) {
+            return false;
+        }
+
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        boolean removed = false;
+
+        int ordinal = 0;
+        for (HyforgedEffectModifierSpec spec : definition.getModifiers()) {
+            if (spec == null) {
+                ordinal++;
+                continue;
+            }
+
+            String specStatId = spec.getStatId();
+            if (specStatId == null || specStatId.isEmpty()) {
+                ordinal++;
+                continue;
+            }
+
+            StatId statId;
+            if (specStatId.contains(":")) {
+                try {
+                    statId = StatId.parse(specStatId);
+                } catch (IllegalArgumentException ignored) {
+                    ordinal++;
+                    continue;
+                }
+            } else {
+                statId = StatId.hyforged(specStatId);
+            }
+
+            int statIndex = registry.getIndex(statId);
+            if (statIndex < 0) {
+                ordinal++;
+                continue;
+            }
+
+            String modifierKey = buildHyforgedModifierKey(effectId, statIndex, ordinal);
+            Modifier removedModifier = entityStatMap.removeModifier(statIndex, modifierKey);
+            if (removedModifier != null) {
+                removed = true;
+            }
+            ordinal++;
+        }
+
+        return removed;
+    }
+
+    private String buildHyforgedModifierKey(
+            @Nonnull String effectId,
+            int statIndex,
+            int ordinal
+    ) {
+        return EFFECT_SOURCE_PREFIX + effectId + ":hy:" + statIndex + ":" + ordinal;
+    }
+
+    private String buildEntityModifierKey(@Nonnull String effectId, int statIndex) {
+        return EFFECT_SOURCE_PREFIX + effectId + ":" + statIndex;
+    }
+
+    private String buildStaticModifierKey(
+            @Nonnull String effectId,
+            int statIndex,
+            @Nonnull StaticModifier modifier
+    ) {
+        return EFFECT_SOURCE_PREFIX + effectId + ":static:" + statIndex + ":" + modifier.getTarget() + ":" + modifier.getCalculationType();
+    }
+
+    private int convertPercentToBps(float value) {
+        float abs = Math.abs(value);
+        if (abs <= 1.0f) {
+            return Math.round(value * HyforgedModifier.BPS_100_PERCENT);
+        }
+        return Math.round(value * 100f);
     }
 
     /**
@@ -333,18 +656,27 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
         }
         
         String hytaleStatId = hytaleStatType.getId();
-        
-        // Try to find a Hyforged stat with matching name
-        // Convention: Hytale stat "MyCustomStat" -> Hyforged stat "hyforged:MyCustomStat"
-        StatId hyforgedStat = StatId.hyforged(hytaleStatId);
-        
-        // Check if this stat is registered in Hyforged's registry
+
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-        if (registry.getIndex(hyforgedStat) >= 0) {
-            return hyforgedStat;
+
+        // If Hytale stat ID is namespaced, try it directly
+        if (hytaleStatId.contains(":")) {
+            try {
+                StatId direct = StatId.parse(hytaleStatId);
+                if (registry.getIndex(direct) >= 0) {
+                    return direct;
+                }
+            } catch (IllegalArgumentException ignored) {
+                // Fall through to hyforged namespace mapping
+            }
         }
-        
-        // No matching Hyforged stat found
+
+        // Fallback to naming convention: Hytale stat "MyStat" -> Hyforged stat "hyforged:MyStat"
+        StatId fallback = StatId.hyforged(hytaleStatId);
+        if (registry.getIndex(fallback) >= 0) {
+            return fallback;
+        }
+
         return null;
     }
 }

@@ -16573,7 +16573,7 @@
       "x": -36,
       "y": 14,
       "z": -17,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": -36,
@@ -16657,13 +16657,13 @@
       "x": -36,
       "y": 14,
       "z": -16,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": -36,
       "y": 15,
       "z": -16,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": -36,
@@ -16741,13 +16741,13 @@
       "x": -36,
       "y": 14,
       "z": -15,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": -36,
       "y": 15,
       "z": -15,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": -36,
@@ -16825,13 +16825,13 @@
       "x": -36,
       "y": 14,
       "z": -14,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": -36,
       "y": 15,
       "z": -14,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": -36,
@@ -22573,7 +22573,7 @@
       "x": -35,
       "y": 14,
       "z": -16,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": -35,
@@ -22687,13 +22687,13 @@
       "x": -35,
       "y": 14,
       "z": -15,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": -35,
       "y": 15,
       "z": -15,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": -35,
@@ -22783,13 +22783,13 @@
       "x": -35,
       "y": 14,
       "z": -14,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": -35,
       "y": 15,
       "z": -14,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": -35,
@@ -377104,13 +377104,13 @@
       "x": 4,
       "y": 23,
       "z": 27,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 4,
       "y": 24,
       "z": 27,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 4,
@@ -377224,13 +377224,13 @@
       "x": 4,
       "y": 23,
       "z": 28,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 4,
       "y": 24,
       "z": 28,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 4,
@@ -377350,7 +377350,7 @@
       "x": 4,
       "y": 23,
       "z": 29,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 4,
@@ -385102,13 +385102,13 @@
       "x": 5,
       "y": 23,
       "z": 27,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 5,
       "y": 24,
       "z": 27,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 5,
@@ -385241,13 +385241,13 @@
       "x": 5,
       "y": 23,
       "z": 28,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 5,
       "y": 24,
       "z": 28,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 5,
@@ -385367,7 +385367,7 @@
       "x": 5,
       "y": 23,
       "z": 29,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 5,
@@ -393008,13 +393008,13 @@
       "x": 6,
       "y": 23,
       "z": 28,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 6,
       "y": 24,
       "z": 28,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 6,
@@ -393147,13 +393147,13 @@
       "x": 6,
       "y": 23,
       "z": 29,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 6,
       "y": 24,
       "z": 29,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 6,
@@ -401024,7 +401024,7 @@
       "x": 7,
       "y": 23,
       "z": 29,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 7,
@@ -540437,13 +540437,13 @@
       "x": 23,
       "y": 13,
       "z": -15,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 23,
       "y": 14,
       "z": -15,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 23,
@@ -540569,19 +540569,19 @@
       "x": 23,
       "y": 13,
       "z": -14,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 23,
       "y": 14,
       "z": -14,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 23,
       "y": 15,
       "z": -14,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 23,
@@ -540701,7 +540701,7 @@
       "x": 23,
       "y": 13,
       "z": -13,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 23,
@@ -551028,13 +551028,13 @@
       "x": 24,
       "y": 13,
       "z": -15,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 24,
       "y": 14,
       "z": -15,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 24,
@@ -551166,19 +551166,19 @@
       "x": 24,
       "y": 13,
       "z": -14,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 24,
       "y": 14,
       "z": -14,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 24,
       "y": 15,
       "z": -14,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 24,
@@ -551304,13 +551304,13 @@
       "x": 24,
       "y": 13,
       "z": -13,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 24,
       "y": 14,
       "z": -13,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 24,
@@ -561236,13 +561236,13 @@
       "x": 25,
       "y": 13,
       "z": -15,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 25,
       "y": 14,
       "z": -15,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 25,
@@ -561368,13 +561368,13 @@
       "x": 25,
       "y": 13,
       "z": -14,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 25,
       "y": 14,
       "z": -14,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 25,
@@ -561506,13 +561506,13 @@
       "x": 25,
       "y": 13,
       "z": -13,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 25,
       "y": 14,
       "z": -13,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 25,
@@ -571099,7 +571099,7 @@
       "x": 26,
       "y": 13,
       "z": -15,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 26,
@@ -571237,13 +571237,13 @@
       "x": 26,
       "y": 13,
       "z": -14,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 26,
       "y": 14,
       "z": -14,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 26,
@@ -571375,7 +571375,7 @@
       "x": 26,
       "y": 13,
       "z": -13,
-      "name": "Ore_Iron_Stone"
+      "name": "Rock_Stone"
     },
     {
       "x": 26,

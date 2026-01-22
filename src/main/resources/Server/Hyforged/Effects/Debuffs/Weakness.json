@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:weakness",
+  "EntityEffect": {
+    "Duration": 20,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Weakness.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:strength", "StackType": "FLAT", "Amount": -10 }
+  ]
+}

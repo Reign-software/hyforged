@@ -4,14 +4,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import reign.software.hyforged.affix.AffixTestFixtures;
 import reign.software.hyforged.affix.event.AffixesRolledEvent;
 import reign.software.hyforged.affix.model.*;
 import reign.software.hyforged.affix.registry.*;
 import reign.software.hyforged.affix.service.AffixRollContext;
 import reign.software.hyforged.affix.service.AffixRollerService;
-import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,10 +57,7 @@ class LootAffixSystemTest {
                 "sturdy",
                 "prefix",
                 "Sturdy",
-                StatId.hyforged("health"),
-                HyforgedModifier.StackType.FLAT,
-                List.of(new AffixTierDefinition(1, 50, 100, 1)),
-                AffixEligibility.ANY,
+                List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:health", HyforgedModifier.StackType.FLAT, 50, 100)),
                 100
         ));
         
@@ -67,10 +65,7 @@ class LootAffixSystemTest {
                 "swift",
                 "suffix",
                 "of Swiftness",
-                StatId.hyforged("movementSpeed"),
-                HyforgedModifier.StackType.INCREASED,
-                List.of(new AffixTierDefinition(1, 5, 10, 1)),
-                AffixEligibility.ANY,
+                List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:movementSpeed", HyforgedModifier.StackType.INCREASED, 5, 10)),
                 100
         ));
     }
@@ -114,11 +109,14 @@ class LootAffixSystemTest {
                     new String[]{"weapon"}
             );
             
+            Map<String, RolledAffix.RolledStat> sturdyStats = new HashMap<>();
+            sturdyStats.put("hyforged:health", new RolledAffix.RolledStat(75, HyforgedModifier.StackType.FLAT));
+            Map<String, RolledAffix.RolledStat> swiftStats = new HashMap<>();
+            swiftStats.put("hyforged:movementSpeed", new RolledAffix.RolledStat(7, HyforgedModifier.StackType.INCREASED));
+            
             List<RolledAffix> affixes = List.of(
-                    new RolledAffix("sturdy", "prefix", 1, 75, 
-                            StatId.hyforged("health"), HyforgedModifier.StackType.FLAT),
-                    new RolledAffix("swift", "suffix", 1, 7, 
-                            StatId.hyforged("movementSpeed"), HyforgedModifier.StackType.INCREASED)
+                    new RolledAffix("sturdy", "prefix", 1, sturdyStats),
+                    new RolledAffix("swift", "suffix", 1, swiftStats)
             );
             
             AffixesRolledEvent event = new AffixesRolledEvent(
@@ -143,9 +141,11 @@ class LootAffixSystemTest {
                     "test_item", "Magic", 1, new String[]{"equipment"}, new String[]{}
             );
             
+            Map<String, RolledAffix.RolledStat> sturdyStats = new HashMap<>();
+            sturdyStats.put("hyforged:health", new RolledAffix.RolledStat(50, HyforgedModifier.StackType.FLAT));
+            
             List<RolledAffix> mutableList = new java.util.ArrayList<>();
-            mutableList.add(new RolledAffix("sturdy", "prefix", 1, 50, 
-                    StatId.hyforged("health"), HyforgedModifier.StackType.FLAT));
+            mutableList.add(new RolledAffix("sturdy", "prefix", 1, sturdyStats));
             
             AffixesRolledEvent event = new AffixesRolledEvent(
                     context, "pool", mutableList, 0

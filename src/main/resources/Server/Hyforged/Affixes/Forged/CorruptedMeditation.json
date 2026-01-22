@@ -1,0 +1,24 @@
+﻿{
+  "Id": "hyforged:corrupted-meditation",
+  "Type": "forged",
+  "DisplayName": "Corrupted Meditation",
+  "Weight": 22,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 76,
+      "Weight": 35,
+      "Stats": {
+        "hyforged:mana-regen": { "MinValue": 32, "MaxValue": 45, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 55,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:mana-regen": { "MinValue": 20, "MaxValue": 32, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

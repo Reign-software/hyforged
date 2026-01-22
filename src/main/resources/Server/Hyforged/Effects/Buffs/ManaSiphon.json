@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:mana-siphon",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/ManaLeech.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:mana-leech-bps", "StackType": "FLAT", "Amount": 300 },
+    { "StatId": "hyforged:mana-on-hit-flat", "StackType": "FLAT", "Amount": 5 },
+    { "StatId": "hyforged:mana-recovery-rate-bps", "StackType": "INCREASED", "Amount": 2000 }
+  ]
+}

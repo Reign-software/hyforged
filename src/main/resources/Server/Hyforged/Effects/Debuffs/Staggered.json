@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:staggered",
+  "EntityEffect": {
+    "Duration": 10,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Stagger.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:stun-threshold-flat", "StackType": "INCREASED", "Amount": -4000 },
+    { "StatId": "hyforged:stun-avoidance-bps", "StackType": "FLAT", "Amount": -3000 }
+  ]
+}

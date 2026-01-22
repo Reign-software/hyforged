@@ -1,0 +1,48 @@
+﻿{
+  "Id": "of-the-bear",
+  "Type": "suffix",
+  "DisplayName": "of the Bear",
+  "Weight": 100,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 40,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:strength": { "MinValue": 8, "MaxValue": 10, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 25,
+      "Weight": 75,
+      "Stats": {
+        "hyforged:strength": { "MinValue": 6, "MaxValue": 8, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 10,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:strength": { "MinValue": 4, "MaxValue": 6, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 5,
+      "Weight": 125,
+      "Stats": {
+        "hyforged:strength": { "MinValue": 2, "MaxValue": 4, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 150,
+      "Stats": {
+        "hyforged:strength": { "MinValue": 1, "MaxValue": 2, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

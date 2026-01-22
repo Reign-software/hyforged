@@ -1,0 +1,48 @@
+﻿{
+  "Id": "hyforged:of-focus",
+  "Type": "suffix",
+  "DisplayName": "of Focus",
+  "Weight": 60,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 64,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:concentration": { "MinValue": 35, "MaxValue": 45, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 48,
+      "Weight": 58,
+      "Stats": {
+        "hyforged:concentration": { "MinValue": 25, "MaxValue": 35, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 34,
+      "Weight": 78,
+      "Stats": {
+        "hyforged:concentration": { "MinValue": 17, "MaxValue": 25, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 20,
+      "Weight": 98,
+      "Stats": {
+        "hyforged:concentration": { "MinValue": 10, "MaxValue": 17, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 8,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:concentration": { "MinValue": 4, "MaxValue": 10, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

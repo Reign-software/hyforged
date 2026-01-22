@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import reign.software.hyforged.combat.scaling.ScaledStatEntry;
 import reign.software.hyforged.combat.scaling.WorldScalingConfig;
-import reign.software.hyforged.stats.component.ModifierType;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -187,9 +187,9 @@ class MonsterScalingIntegrationTest {
             ScaledStatEntry incEntry = ScaledStatEntry.increased("test", 10);
             ScaledStatEntry moreEntry = ScaledStatEntry.more("test", 5);
             
-            assertEquals(ModifierType.FLAT, flatEntry.getModifierType());
-            assertEquals(ModifierType.INCREASED, incEntry.getModifierType());
-            assertEquals(ModifierType.MORE, moreEntry.getModifierType());
+            assertEquals(HyforgedModifier.StackType.FLAT, flatEntry.getModifierType());
+            assertEquals(HyforgedModifier.StackType.INCREASED, incEntry.getModifierType());
+            assertEquals(HyforgedModifier.StackType.MORE, moreEntry.getModifierType());
         }
         
         @Test

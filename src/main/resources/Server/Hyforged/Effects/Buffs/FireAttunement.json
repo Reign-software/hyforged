@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:fire-attunement",
+  "EntityEffect": {
+    "Duration": 45,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/FireSkill.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:fire-skill-levels-flat", "StackType": "FLAT", "Amount": 2 },
+    { "StatId": "hyforged:fire-damage-increased-bps", "StackType": "INCREASED", "Amount": 3000 },
+    { "StatId": "hyforged:fire-penetration-bps", "StackType": "FLAT", "Amount": 1500 }
+  ]
+}

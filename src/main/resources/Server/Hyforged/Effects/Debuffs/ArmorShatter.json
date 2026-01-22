@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:armor-shatter",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/ArmorBreak.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:armor-rating-flat", "StackType": "INCREASED", "Amount": -4000 },
+    { "StatId": "hyforged:physical-resistance-bps", "StackType": "FLAT", "Amount": -2000 }
+  ]
+}

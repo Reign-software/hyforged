@@ -13,13 +13,14 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.breakdown.StatBreakdown;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.service.HyforgedStatQueryService;
-import reign.software.hyforged.stats.component.StatModifier;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -92,10 +93,10 @@ public class StatsDebugCommand extends CommandBase {
             if (this.statArg.provided(context)) {
                 // Show detailed breakdown for specific stat
                 String statIdStr = this.statArg.get(context);
-                showStatBreakdown(context, playerName, statComponent, statIdStr);
+                showStatBreakdown(context, playerName, statComponent, statIdStr, store, ref);
             } else {
                 // Show summary of all core stats
-                showStatSummary(context, playerName, statComponent);
+                showStatSummary(context, playerName, statComponent, store, ref);
             }
         });
     }
@@ -106,7 +107,9 @@ public class StatsDebugCommand extends CommandBase {
     private void showStatSummary(
             @Nonnull CommandContext context,
             @Nonnull String playerName,
-            @Nonnull HyforgedStatComponent component
+            @Nonnull HyforgedStatComponent component,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> ref
     ) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
 
@@ -116,23 +119,26 @@ public class StatsDebugCommand extends CommandBase {
         // Ability Scores - query by Type=ability-score tag
         sb.append("\n§e▸ Ability Scores§r\n");
         for (StatId statId : registry.getStatIdsForTagValue("Type", "ability-score")) {
-            appendStatLine(sb, registry, component, statId);
+            appendStatLine(sb, registry, component, statId, store, ref);
         }
 
         // Offensive stats - query by category
         sb.append("\n§e▸ Offensive§r\n");
         for (StatDefinition stat : registry.getStatsInCategory("offense")) {
-            appendStatLine(sb, registry, component, stat.id());
+            appendStatLine(sb, registry, component, stat.id(), store, ref);
         }
 
         // Defensive stats - query by category
         sb.append("\n§e▸ Defensive§r\n");
         for (StatDefinition stat : registry.getStatsInCategory("defense")) {
-            appendStatLine(sb, registry, component, stat.id());
+            appendStatLine(sb, registry, component, stat.id(), store, ref);
         }
 
         // Modifiers summary
-        List<StatModifier> modifiers = component.getModifiers();
+        List<HyforgedModifier> modifiers = StatAccessor.getAllHyforgedModifiers(store, ref);
+        if (modifiers.isEmpty()) {
+            modifiers = component.getModifiers();
+        }
         sb.append("\n§7Active modifiers: ").append(modifiers.size()).append("§r\n");
 
         context.sendMessage(Message.raw(sb.toString()));
@@ -145,7 +151,9 @@ public class StatsDebugCommand extends CommandBase {
             @Nonnull StringBuilder sb,
             @Nonnull StatDefinitionRegistry registry,
             @Nonnull HyforgedStatComponent component,
-            @Nonnull StatId statId
+            @Nonnull StatId statId,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> ref
     ) {
         int index = registry.getIndex(statId);
         if (index < 0) {
@@ -157,7 +165,8 @@ public class StatsDebugCommand extends CommandBase {
             return;
         }
 
-        int value = component.getCachedValue(index);
+        // Use StatAccessor for unified stat value access
+        int value = StatAccessor.getStatValueInt(store, ref, index);
         int baseValue = component.getBaseValue(index);
         int bonus = value - baseValue;
 
@@ -188,7 +197,9 @@ public class StatsDebugCommand extends CommandBase {
             @Nonnull CommandContext context,
             @Nonnull String playerName,
             @Nonnull HyforgedStatComponent component,
-            @Nonnull String statIdStr
+            @Nonnull String statIdStr,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> ref
     ) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
 
@@ -213,7 +224,7 @@ public class StatsDebugCommand extends CommandBase {
         }
 
         // Get full breakdown
-        StatBreakdown breakdown = HyforgedStatQueryService.getStatBreakdown(component, index, 1);
+        StatBreakdown breakdown = HyforgedStatQueryService.getStatBreakdown(component, index, 1, ref);
 
         StringBuilder sb = new StringBuilder();
         sb.append("§6═══════ ").append(formatStatName(statId)).append(" Breakdown ═══════§r\n");
@@ -268,8 +279,8 @@ public class StatsDebugCommand extends CommandBase {
             sb.append(String.format("  §7After Cap: §f%d§r\n", breakdown.afterCap()));
         }
 
-        // Final value
-        int finalValue = component.getCachedValue(index);
+        // Final value - use StatAccessor for unified access
+        int finalValue = StatAccessor.getStatValueInt(store, ref, index);
         sb.append("\n§e▸ Final Value§r\n");
         sb.append(String.format("  §a%d§r\n", finalValue));
 

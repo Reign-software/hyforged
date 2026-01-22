@@ -6,9 +6,7 @@ import org.junit.jupiter.api.Test;
 import reign.software.hyforged.stats.DisplayFormat;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatId;
-import reign.software.hyforged.stats.component.ModifierSource;
-import reign.software.hyforged.stats.component.ModifierType;
-import reign.software.hyforged.stats.component.StatModifier;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import java.util.List;
 import java.util.Set;
@@ -66,9 +64,9 @@ class CharacterStatsPageTest {
             List<CharacterStatsPage.ModifierBreakdown> breakdown = List.of(
                     new CharacterStatsPage.ModifierBreakdown(
                             "equipment:armor:0:sturdy",
-                            ModifierSource.EQUIPMENT,
+                            HyforgedModifier.SourceType.EQUIPMENT,
                             5,
-                            ModifierType.FLAT
+                            HyforgedModifier.StackType.FLAT
                     )
             );
             
@@ -117,26 +115,26 @@ class CharacterStatsPageTest {
         void shouldCreateModifierBreakdownWithAllFields() {
             CharacterStatsPage.ModifierBreakdown breakdown = new CharacterStatsPage.ModifierBreakdown(
                     "equipment:armor:0:sturdy",
-                    ModifierSource.EQUIPMENT,
+                    HyforgedModifier.SourceType.EQUIPMENT,
                     25,
-                    ModifierType.FLAT
+                    HyforgedModifier.StackType.FLAT
             );
             
             assertEquals("equipment:armor:0:sturdy", breakdown.sourceId());
-            assertEquals(ModifierSource.EQUIPMENT, breakdown.sourceType());
+            assertEquals(HyforgedModifier.SourceType.EQUIPMENT, breakdown.sourceType());
             assertEquals(25, breakdown.value());
-            assertEquals(ModifierType.FLAT, breakdown.modifierType());
+            assertEquals(HyforgedModifier.StackType.FLAT, breakdown.modifierType());
         }
         
         @Test
         @DisplayName("should support all modifier sources")
         void shouldSupportAllModifierSources() {
-            for (ModifierSource source : ModifierSource.values()) {
+            for (HyforgedModifier.SourceType source : HyforgedModifier.SourceType.values()) {
                 CharacterStatsPage.ModifierBreakdown breakdown = new CharacterStatsPage.ModifierBreakdown(
                         "test:" + source.name().toLowerCase(),
                         source,
                         10,
-                        ModifierType.FLAT
+                        HyforgedModifier.StackType.FLAT
                 );
                 
                 assertEquals(source, breakdown.sourceType());
@@ -146,10 +144,10 @@ class CharacterStatsPageTest {
         @Test
         @DisplayName("should support all modifier types")
         void shouldSupportAllModifierTypes() {
-            for (ModifierType type : ModifierType.values()) {
+            for (HyforgedModifier.StackType type : HyforgedModifier.StackType.values()) {
                 CharacterStatsPage.ModifierBreakdown breakdown = new CharacterStatsPage.ModifierBreakdown(
                         "test:modifier",
-                        ModifierSource.EQUIPMENT,
+                        HyforgedModifier.SourceType.EQUIPMENT,
                         10,
                         type
                 );
@@ -384,7 +382,7 @@ class CharacterStatsPageTest {
             // Expected format per line: "  {sourceId}: +{value} ({sourceType})"
             String sourceId = "equipment:armor:0:sturdy";
             int value = 25;
-            ModifierSource sourceType = ModifierSource.EQUIPMENT;
+            HyforgedModifier.SourceType sourceType = HyforgedModifier.SourceType.EQUIPMENT;
             
             String line = "  " + sourceId + ": +" + value + " (" + sourceType.name().toLowerCase() + ")";
             
@@ -408,44 +406,62 @@ class CharacterStatsPageTest {
         @Test
         @DisplayName("should extract breakdown from StatModifier list")
         void shouldExtractBreakdownFromStatModifierList() {
-            // Create a mock stat modifier with all 8 parameters:
-            // sourceId, sourceType, modifierType, targetStatIndex, targetTagIndex, value, expirationTick, priority
-            StatModifier modifier = new StatModifier(
-                    "equipment:armor:0:sturdy",
-                    ModifierSource.EQUIPMENT,
-                    ModifierType.FLAT,
-                    0, // targetStatIndex
-                    StatModifier.NO_TAG, // targetTagIndex (no tag)
-                    25, // value
-                    0L, // expirationTick (permanent)
-                    0   // priority
-            );
+            // Create a mock modifier with HyforgedModifier builder
+            HyforgedModifier modifier = HyforgedModifier.builder()
+                    .sourceId("equipment:armor:0:sturdy")
+                    .sourceType(HyforgedModifier.SourceType.EQUIPMENT)
+                    .stackType(HyforgedModifier.StackType.FLAT)
+                    .targetStat(0) // targetStatIndex
+                    .amount(25) // value
+                    .permanent()
+                    .build();
             
             // Verify we can extract the data needed for breakdown
-            assertEquals("equipment:armor:0:sturdy", modifier.sourceId());
-            assertEquals(ModifierSource.EQUIPMENT, modifier.sourceType());
-            assertEquals(ModifierType.FLAT, modifier.modifierType());
-            assertEquals(25, modifier.value());
-            assertEquals(0, modifier.targetStatIndex());
+            assertEquals("equipment:armor:0:sturdy", modifier.getSourceId());
+            assertEquals(HyforgedModifier.SourceType.EQUIPMENT, modifier.getSourceType());
+            assertEquals(HyforgedModifier.StackType.FLAT, modifier.getStackType());
+            assertEquals(25, modifier.getAmount());
+            assertEquals(0, modifier.getTargetStatIndex());
         }
         
         @Test
         @DisplayName("should filter modifiers by target stat index")
         void shouldFilterModifiersByTargetStatIndex() {
-            // StatModifier: sourceId, sourceType, modifierType, targetStatIndex, targetTagIndex, value, expirationTick, priority
-            StatModifier mod1 = new StatModifier("source1", ModifierSource.EQUIPMENT, ModifierType.FLAT, 0, StatModifier.NO_TAG, 10, 0L, 0);
-            StatModifier mod2 = new StatModifier("source2", ModifierSource.EQUIPMENT, ModifierType.FLAT, 1, StatModifier.NO_TAG, 20, 0L, 0);
-            StatModifier mod3 = new StatModifier("source3", ModifierSource.EQUIPMENT, ModifierType.FLAT, 0, StatModifier.NO_TAG, 30, 0L, 0);
+            // Create modifiers using HyforgedModifier builder
+            HyforgedModifier mod1 = HyforgedModifier.builder()
+                    .sourceId("source1")
+                    .sourceType(HyforgedModifier.SourceType.EQUIPMENT)
+                    .stackType(HyforgedModifier.StackType.FLAT)
+                    .targetStat(0)
+                    .amount(10)
+                    .permanent()
+                    .build();
+            HyforgedModifier mod2 = HyforgedModifier.builder()
+                    .sourceId("source2")
+                    .sourceType(HyforgedModifier.SourceType.EQUIPMENT)
+                    .stackType(HyforgedModifier.StackType.FLAT)
+                    .targetStat(1)
+                    .amount(20)
+                    .permanent()
+                    .build();
+            HyforgedModifier mod3 = HyforgedModifier.builder()
+                    .sourceId("source3")
+                    .sourceType(HyforgedModifier.SourceType.EQUIPMENT)
+                    .stackType(HyforgedModifier.StackType.FLAT)
+                    .targetStat(0)
+                    .amount(30)
+                    .permanent()
+                    .build();
             
-            List<StatModifier> modifiers = List.of(mod1, mod2, mod3);
+            List<HyforgedModifier> modifiers = List.of(mod1, mod2, mod3);
             
             int targetStatIndex = 0;
-            List<StatModifier> filtered = modifiers.stream()
-                    .filter(m -> m.targetStatIndex() == targetStatIndex)
+            List<HyforgedModifier> filtered = modifiers.stream()
+                    .filter(m -> m.getTargetStatIndex() == targetStatIndex)
                     .toList();
             
             assertEquals(2, filtered.size());
-            assertTrue(filtered.stream().allMatch(m -> m.targetStatIndex() == 0));
+            assertTrue(filtered.stream().allMatch(m -> m.getTargetStatIndex() == 0));
         }
     }
 }

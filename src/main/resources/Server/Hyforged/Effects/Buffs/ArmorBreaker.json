@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:armor-breaker",
+  "EntityEffect": {
+    "Duration": 20,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/ArmorPen.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:armor-penetration-bps", "StackType": "FLAT", "Amount": 3000 },
+    { "StatId": "hyforged:physical-damage-increased-bps", "StackType": "INCREASED", "Amount": 2000 }
+  ]
+}

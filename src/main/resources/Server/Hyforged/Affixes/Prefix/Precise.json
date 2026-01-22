@@ -1,0 +1,40 @@
+﻿{
+  "Id": "hyforged:precise",
+  "Type": "prefix",
+  "DisplayName": "Precise",
+  "Weight": 75,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 55,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:crit-chance-bps": { "MinValue": 250, "MaxValue": 350, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 35,
+      "Weight": 75,
+      "Stats": {
+        "hyforged:crit-chance-bps": { "MinValue": 150, "MaxValue": 250, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 15,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:crit-chance-bps": { "MinValue": 75, "MaxValue": 150, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 1,
+      "Weight": 125,
+      "Stats": {
+        "hyforged:crit-chance-bps": { "MinValue": 25, "MaxValue": 75, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

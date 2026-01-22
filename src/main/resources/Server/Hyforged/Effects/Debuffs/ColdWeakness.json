@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:cold-weakness",
+  "EntityEffect": {
+    "Duration": 20,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/ColdVuln.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:cold-resistance-bps", "StackType": "FLAT", "Amount": -3000 },
+    { "StatId": "hyforged:freeze-duration-bps", "StackType": "INCREASED", "Amount": 2500 }
+  ]
+}

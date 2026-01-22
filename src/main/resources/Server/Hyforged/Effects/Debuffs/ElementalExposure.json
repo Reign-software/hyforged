@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:elemental-exposure",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/ElementalVuln.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:fire-resistance-bps", "StackType": "FLAT", "Amount": -2000 },
+    { "StatId": "hyforged:cold-resistance-bps", "StackType": "FLAT", "Amount": -2000 },
+    { "StatId": "hyforged:lightning-resistance-bps", "StackType": "FLAT", "Amount": -2000 }
+  ]
+}

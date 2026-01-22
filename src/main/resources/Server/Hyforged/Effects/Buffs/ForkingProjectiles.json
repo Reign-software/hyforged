@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:forking-projectiles",
+  "EntityEffect": {
+    "Duration": 20,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Fork.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:projectile-fork-count-flat", "StackType": "FLAT", "Amount": 1 },
+    { "StatId": "hyforged:additional-projectiles-flat", "StackType": "FLAT", "Amount": 1 }
+  ]
+}

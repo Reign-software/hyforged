@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:area-expansion",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/AOE.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:area-of-effect-bps", "StackType": "INCREASED", "Amount": 5000 }
+  ]
+}

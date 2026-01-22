@@ -1,12 +1,12 @@
 package reign.software.hyforged.affix.integration;
 
 import org.junit.jupiter.api.*;
+import reign.software.hyforged.affix.AffixTestFixtures;
 import reign.software.hyforged.affix.api.AffixService;
 import reign.software.hyforged.affix.api.AffixSpec;
 import reign.software.hyforged.affix.model.*;
 import reign.software.hyforged.affix.registry.*;
 import reign.software.hyforged.affix.service.*;
-import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import java.util.*;
@@ -26,11 +26,11 @@ class AffixSystemIntegrationTest {
     private QualityAffixRuleRegistry qualityRegistry;
     private AffixRollerService rollerService;
     
-    // Stat IDs
-    private static final StatId ARMOR = StatId.hyforged("armor");
-    private static final StatId DAMAGE = StatId.hyforged("damage");
-    private static final StatId HEALTH = StatId.hyforged("health");
-    private static final StatId MOVEMENT_SPEED = StatId.hyforged("movementSpeed");
+    // Stat ID strings for the new multi-stat format
+    private static final String ARMOR = "hyforged:armor";
+    private static final String DAMAGE = "hyforged:damage";
+    private static final String HEALTH = "hyforged:health";
+    private static final String MOVEMENT_SPEED = "hyforged:movementSpeed";
     
     @BeforeEach
     void setUp() {
@@ -67,14 +67,11 @@ class AffixSystemIntegrationTest {
                 "sturdy",
                 "prefix",
                 "Sturdy",
-                ARMOR,
-                HyforgedModifier.StackType.FLAT,
                 List.of(
-                        new AffixTierDefinition(1, 15, 20, 10),
-                        new AffixTierDefinition(2, 10, 14, 20),
-                        new AffixTierDefinition(3, 5, 9, 30)
+                        AffixTestFixtures.tier(1, 10, 50, ARMOR, HyforgedModifier.StackType.FLAT, 15, 20),
+                        AffixTestFixtures.tier(2, 20, 100, ARMOR, HyforgedModifier.StackType.FLAT, 10, 14),
+                        AffixTestFixtures.tier(3, 30, 150, ARMOR, HyforgedModifier.StackType.FLAT, 5, 9)
                 ),
-                AffixEligibility.ANY,
                 1000
         ));
         
@@ -83,14 +80,11 @@ class AffixSystemIntegrationTest {
                 "sharp",
                 "prefix",
                 "Sharp",
-                DAMAGE,
-                HyforgedModifier.StackType.FLAT,
                 List.of(
-                        new AffixTierDefinition(1, 8, 12, 10),
-                        new AffixTierDefinition(2, 4, 7, 20),
-                        new AffixTierDefinition(3, 1, 3, 30)
+                        AffixTestFixtures.tier(1, 10, 50, DAMAGE, HyforgedModifier.StackType.FLAT, 8, 12),
+                        AffixTestFixtures.tier(2, 20, 100, DAMAGE, HyforgedModifier.StackType.FLAT, 4, 7),
+                        AffixTestFixtures.tier(3, 30, 150, DAMAGE, HyforgedModifier.StackType.FLAT, 1, 3)
                 ),
-                AffixEligibility.ANY,
                 1000
         ));
         
@@ -99,14 +93,11 @@ class AffixSystemIntegrationTest {
                 "of-the-bear",
                 "suffix",
                 "of the Bear",
-                HEALTH,
-                HyforgedModifier.StackType.FLAT,
                 List.of(
-                        new AffixTierDefinition(1, 50, 75, 10),
-                        new AffixTierDefinition(2, 25, 49, 20),
-                        new AffixTierDefinition(3, 10, 24, 30)
+                        AffixTestFixtures.tier(1, 10, 50, HEALTH, HyforgedModifier.StackType.FLAT, 50, 75),
+                        AffixTestFixtures.tier(2, 20, 100, HEALTH, HyforgedModifier.StackType.FLAT, 25, 49),
+                        AffixTestFixtures.tier(3, 30, 150, HEALTH, HyforgedModifier.StackType.FLAT, 10, 24)
                 ),
-                AffixEligibility.ANY,
                 1000
         ));
         
@@ -115,13 +106,10 @@ class AffixSystemIntegrationTest {
                 "of-speed",
                 "suffix",
                 "of Speed",
-                MOVEMENT_SPEED,
-                HyforgedModifier.StackType.INCREASED,
                 List.of(
-                        new AffixTierDefinition(1, 1500, 2000, 15), // 15-20%
-                        new AffixTierDefinition(2, 1000, 1499, 25)  // 10-14.99%
+                        AffixTestFixtures.tier(1, 15, 50, MOVEMENT_SPEED, HyforgedModifier.StackType.INCREASED, 1500, 2000),
+                        AffixTestFixtures.tier(2, 25, 100, MOVEMENT_SPEED, HyforgedModifier.StackType.INCREASED, 1000, 1499)
                 ),
-                AffixEligibility.ANY,
                 800
         ));
     }
@@ -230,7 +218,7 @@ class AffixSystemIntegrationTest {
             RolledAffix a2 = result2.affixes().get(i);
             assertEquals(a1.affixId(), a2.affixId());
             assertEquals(a1.tier(), a2.tier());
-            assertEquals(a1.value(), a2.value());
+            assertEquals(a1.rolledStats(), a2.rolledStats());
         }
     }
     
@@ -265,7 +253,7 @@ class AffixSystemIntegrationTest {
         for (int i = 0; i < a.size(); i++) {
             if (!a.get(i).affixId().equals(b.get(i).affixId())) return false;
             if (a.get(i).tier() != b.get(i).tier()) return false;
-            if (a.get(i).value() != b.get(i).value()) return false;
+            if (!a.get(i).rolledStats().equals(b.get(i).rolledStats())) return false;
         }
         return true;
     }
@@ -424,10 +412,18 @@ class AffixSystemIntegrationTest {
                         .orElse(null);
                 assertNotNull(tierDef, "Should find tier definition");
                 
-                assertTrue(affix.value() >= tierDef.minValue(),
-                        "Value " + affix.value() + " should be >= " + tierDef.minValue());
-                assertTrue(affix.value() <= tierDef.maxValue(),
-                        "Value " + affix.value() + " should be <= " + tierDef.maxValue());
+                // Verify each rolled stat is within its tier's range
+                for (Map.Entry<String, RolledAffix.RolledStat> entry : affix.rolledStats().entrySet()) {
+                    String statId = entry.getKey();
+                    RolledAffix.RolledStat rolledStat = entry.getValue();
+                    AffixTierStat tierStat = tierDef.stats().get(statId);
+                    assertNotNull(tierStat, "Should find tier stat definition for " + statId);
+                    
+                    assertTrue(rolledStat.value() >= tierStat.minValue(),
+                            "Value " + rolledStat.value() + " should be >= " + tierStat.minValue());
+                    assertTrue(rolledStat.value() <= tierStat.maxValue(),
+                            "Value " + rolledStat.value() + " should be <= " + tierStat.maxValue());
+                }
             }
         }
     }
@@ -467,15 +463,17 @@ class AffixSystemIntegrationTest {
                 new String[]{}
         );
         
-        // Roll many times to verify no duplicate stats
+        // Roll many times to verify no duplicate stats across affixes
         for (int i = 0; i < 50; i++) {
             AffixRollResult result = rollerService.rollAffixes(context, i * 777L);
             
-            Set<StatId> seenStats = new HashSet<>();
+            Set<String> seenStats = new HashSet<>();
             for (RolledAffix affix : result.affixes()) {
-                assertFalse(seenStats.contains(affix.statId()),
-                        "Stat " + affix.statId() + " should not appear twice");
-                seenStats.add(affix.statId());
+                for (String statId : affix.rolledStats().keySet()) {
+                    assertFalse(seenStats.contains(statId),
+                            "Stat " + statId + " should not appear twice");
+                    seenStats.add(statId);
+                }
             }
         }
     }
@@ -497,9 +495,17 @@ class AffixSystemIntegrationTest {
     @Test
     @DisplayName("HyforgedItemData with affixes preserves data")
     void itemDataWithAffixes_preservesData() {
+        // Create rolled affixes with the new multi-stat format
+        Map<String, RolledAffix.RolledStat> sturdyStats = Map.of(
+                ARMOR, new RolledAffix.RolledStat(18, HyforgedModifier.StackType.FLAT)
+        );
+        Map<String, RolledAffix.RolledStat> bearStats = Map.of(
+                HEALTH, new RolledAffix.RolledStat(35, HyforgedModifier.StackType.FLAT)
+        );
+        
         List<RolledAffix> affixes = List.of(
-                RolledAffix.from(affixRegistry.get("sturdy"), 1, 18),
-                RolledAffix.from(affixRegistry.get("of-the-bear"), 2, 35)
+                RolledAffix.from(affixRegistry.get("sturdy"), 1, sturdyStats),
+                RolledAffix.from(affixRegistry.get("of-the-bear"), 2, bearStats)
         );
         
         HyforgedItemData data = new HyforgedItemData(
@@ -510,7 +516,7 @@ class AffixSystemIntegrationTest {
         assertEquals(2, data.affixes().size());
         assertEquals("sturdy", data.affixes().get(0).affixId());
         assertEquals(1, data.affixes().get(0).tier());
-        assertEquals(18, data.affixes().get(0).value());
+        assertEquals(18, data.affixes().get(0).rolledStats().get(ARMOR).value());
     }
     
     // =========================================================================

@@ -2,19 +2,17 @@ package reign.software.hyforged.combat.api;
 
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.ComponentAccessor;
-import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.combat.log.CombatEvent;
 import reign.software.hyforged.combat.log.CombatLogService;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
-import reign.software.hyforged.stats.component.HyforgedStatComponent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -183,30 +181,34 @@ public final class HealingServiceImpl implements HealingService {
             return HealingResult.alreadyFull(spec.getAmount());
         }
 
-        // Get stat component types
-        ComponentType<EntityStore, HyforgedStatComponent> hyforgedStatType = 
-                HyforgedPlugin.getInstance().getHyforgedStatComponentType();
-
         // Get healer's healing effectiveness
         int healerEffectivenessBps = 0;
         if (healerRef != null && healerRef.isValid()) {
-            HyforgedStatComponent healerStats = accessor.getComponent(healerRef, hyforgedStatType);
-            if (healerStats != null && healingEffectivenessIndex >= 0) {
-                healerEffectivenessBps = healerStats.getCachedValue(healingEffectivenessIndex);
+            if (healingEffectivenessIndex >= 0) {
+                healerEffectivenessBps = StatAccessor.getStatValueInt(
+                    healerRef.getStore(),
+                    healerRef,
+                    healingEffectivenessIndex
+                );
             }
         }
 
         // Get target's healing received and recovery rate
         int healingReceivedBps = 0;
         int recoveryRateBps = 0;
-        HyforgedStatComponent targetHyforgedStats = accessor.getComponent(targetRef, hyforgedStatType);
-        if (targetHyforgedStats != null) {
-            if (!spec.isSkipHealingReceived() && healingReceivedIndex >= 0) {
-                healingReceivedBps = targetHyforgedStats.getCachedValue(healingReceivedIndex);
-            }
-            if (!spec.isSkipRecoveryRate() && lifeRecoveryRateIndex >= 0) {
-                recoveryRateBps = targetHyforgedStats.getCachedValue(lifeRecoveryRateIndex);
-            }
+        if (!spec.isSkipHealingReceived() && healingReceivedIndex >= 0) {
+            healingReceivedBps = StatAccessor.getStatValueInt(
+                targetRef.getStore(),
+                targetRef,
+                healingReceivedIndex
+            );
+        }
+        if (!spec.isSkipRecoveryRate() && lifeRecoveryRateIndex >= 0) {
+            recoveryRateBps = StatAccessor.getStatValueInt(
+                targetRef.getStore(),
+                targetRef,
+                lifeRecoveryRateIndex
+            );
         }
 
         // Calculate final healing

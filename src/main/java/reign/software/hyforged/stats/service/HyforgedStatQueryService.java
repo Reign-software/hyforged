@@ -3,6 +3,7 @@ package reign.software.hyforged.stats.service;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import it.unimi.dsi.fastutil.ints.IntSet;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
@@ -11,7 +12,7 @@ import reign.software.hyforged.stats.breakdown.ScalingContribution;
 import reign.software.hyforged.stats.breakdown.StatBreakdown;
 import reign.software.hyforged.stats.component.ConditionalStatModifier;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
-import reign.software.hyforged.stats.component.StatModifier;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 import reign.software.hyforged.stats.condition.QueryContext;
 import reign.software.hyforged.stats.engine.ScalingEngine;
 import reign.software.hyforged.stats.engine.StackingEngine;
@@ -56,19 +57,26 @@ public final class HyforgedStatQueryService {
             return 0;
         }
 
+        var store = entityRef.getStore();
+        var statMap = StatAccessor.getStatMap(store, entityRef);
+        List<HyforgedModifier> allModifiers = StatAccessor.getAllHyforgedModifiers(statMap);
+        if (allModifiers.isEmpty()) {
+            allModifiers = component.getModifiers();
+        }
+
         int baseValue;
         if (statDef.hasScaling()) {
             baseValue = ScalingEngine.computeScaledBase(
                 statDef,
-                component::getCachedValue,
+                statId -> StatAccessor.getStatValueInt(store, entityRef, statId),
                 registry
             );
         } else {
             baseValue = component.getBaseValue(statIndex);
         }
 
-        List<StatModifier> applicableModifiers = new ArrayList<>();
-        for (StatModifier mod : component.getModifiers()) {
+        List<HyforgedModifier> applicableModifiers = new ArrayList<>();
+        for (HyforgedModifier mod : allModifiers) {
             if (isModifierApplicable(mod, statIndex, statDef, registry)) {
                 applicableModifiers.add(mod);
             }
@@ -82,7 +90,10 @@ public final class HyforgedStatQueryService {
             }
         }
 
-        return StackingEngine.compute(baseValue, applicableModifiers, statDef);
+        return StackingEngine.compute(baseValue, applicableModifiers, statDef, statId -> {
+            int bonusIdx = registry.getIndex(statId);
+            return bonusIdx >= 0 ? StatAccessor.getStatValueInt(store, entityRef, bonusIdx) : 0;
+        });
     }
 
     /**
@@ -106,16 +117,24 @@ public final class HyforgedStatQueryService {
      * Get a detailed breakdown of a stat's value for UI display.
      */
     @Nullable
-    public static StatBreakdown getStatBreakdown(
+        public static StatBreakdown getStatBreakdown(
             @Nonnull HyforgedStatComponent component,
             int statIndex,
-            int targetLevel
-    ) {
+            int targetLevel,
+            @Nonnull Ref<EntityStore> entityRef
+        ) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         StatDefinition statDef = registry.getStat(statIndex);
 
         if (statDef == null) {
             return null;
+        }
+
+        var store = entityRef.getStore();
+        var statMap = StatAccessor.getStatMap(store, entityRef);
+        List<HyforgedModifier> allModifiers = StatAccessor.getAllHyforgedModifiers(statMap);
+        if (allModifiers.isEmpty()) {
+            allModifiers = component.getModifiers();
         }
 
         int rawBase = 0;
@@ -125,7 +144,7 @@ public final class HyforgedStatQueryService {
             for (ScalingRule rule : statDef.scaling()) {
                 int sourceIndex = registry.getIndex(rule.source());
                 if (sourceIndex >= 0) {
-                    int sourceValue = component.getCachedValue(sourceIndex);
+                    int sourceValue = StatAccessor.getStatValueInt(store, entityRef, sourceIndex);
                     int contribution = ScalingEngine.computeContribution(rule, sourceValue);
 
                     StatDefinition sourceDef = registry.getStat(sourceIndex);
@@ -149,15 +168,10 @@ public final class HyforgedStatQueryService {
         int explicitBase = component.hasBaseValue(statIndex) ? component.getBaseValue(statIndex) : 0;
         int scaledBase = rawBase + (statDef.hasScaling() ? explicitBase : 0);
 
-        List<StatModifier> applicable = new ArrayList<>();
-        for (StatModifier mod : component.getModifiers()) {
-            if (mod.targetStatIndex() == statIndex) {
+        List<HyforgedModifier> applicable = new ArrayList<>();
+        for (HyforgedModifier mod : allModifiers) {
+            if (isModifierApplicable(mod, statIndex, statDef, registry)) {
                 applicable.add(mod);
-            } else if (mod.targetTagIndex() != StatModifier.NO_TAG) {
-                IntSet affectedStats = registry.getStatIndicesForTagIndex(mod.targetTagIndex());
-                if (affectedStats.contains(statIndex)) {
-                    applicable.add(mod);
-                }
             }
         }
 
@@ -177,13 +191,13 @@ public final class HyforgedStatQueryService {
             .afterCap(result.afterCap)
             .finalValue(result.finalValue);
 
-        for (StatModifier mod : result.getAllModifiers()) {
+        for (HyforgedModifier mod : result.getAllModifiers()) {
             builder.addEntry(new BreakdownEntry(
-                mod.sourceId(),
-                mod.sourceType(),
-                mod.modifierType(),
-                mod.value(),
-                mod.sourceId()
+                mod.getSourceId(),
+                mod.getSourceType(),
+                mod.getStackType(),
+                mod.getAmount(),
+                mod.getSourceId()
             ));
         }
 
@@ -202,28 +216,29 @@ public final class HyforgedStatQueryService {
     public static StatBreakdown getStatBreakdown(
             @Nonnull HyforgedStatComponent component,
             @Nonnull StatId statId,
-            int targetLevel
+            int targetLevel,
+            @Nonnull Ref<EntityStore> entityRef
     ) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         int statIndex = registry.getIndex(statId);
         if (statIndex < 0) {
             return null;
         }
-        return getStatBreakdown(component, statIndex, targetLevel);
+        return getStatBreakdown(component, statIndex, targetLevel, entityRef);
     }
 
     private static boolean isModifierApplicable(
-            @Nonnull StatModifier mod,
+            @Nonnull HyforgedModifier mod,
             int statIdx,
             @Nonnull StatDefinition statDef,
             @Nonnull StatDefinitionRegistry registry
     ) {
-        if (mod.targetStatIndex() == statIdx) {
+        if (mod.getTargetStatIndex() == statIdx) {
             return true;
         }
 
-        int tagIndex = mod.targetTagIndex();
-        if (tagIndex != StatModifier.NO_TAG) {
+        int tagIndex = mod.getTargetTagIndex();
+        if (tagIndex != HyforgedModifier.NO_TAG) {
             IntSet affectedStats = registry.getStatIndicesForTagIndex(tagIndex);
             if (affectedStats.contains(statIdx)) {
                 return true;

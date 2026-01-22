@@ -1,0 +1,48 @@
+﻿{
+  "Id": "hyforged:summoners",
+  "Type": "prefix",
+  "DisplayName": "Summoner's",
+  "Weight": 60,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 58,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:minion-damage-increased-bps": { "MinValue": 3500, "MaxValue": 4500, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 42,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:minion-damage-increased-bps": { "MinValue": 2500, "MaxValue": 3500, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 28,
+      "Weight": 82,
+      "Stats": {
+        "hyforged:minion-damage-increased-bps": { "MinValue": 1600, "MaxValue": 2500, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 14,
+      "Weight": 105,
+      "Stats": {
+        "hyforged:minion-damage-increased-bps": { "MinValue": 800, "MaxValue": 1600, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:minion-damage-increased-bps": { "MinValue": 300, "MaxValue": 800, "StackType": "INCREASED" }
+      }
+    }
+  ]
+}

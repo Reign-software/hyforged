@@ -1,0 +1,48 @@
+﻿{
+  "Id": "hyforged:of-the-magi",
+  "Type": "suffix",
+  "DisplayName": "of the Magi",
+  "Weight": 70,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 60,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:magic-resistance-bps": { "MinValue": 2600, "MaxValue": 3300, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 44,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:magic-resistance-bps": { "MinValue": 1800, "MaxValue": 2600, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 28,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:magic-resistance-bps": { "MinValue": 1000, "MaxValue": 1800, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 14,
+      "Weight": 108,
+      "Stats": {
+        "hyforged:magic-resistance-bps": { "MinValue": 450, "MaxValue": 1000, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:magic-resistance-bps": { "MinValue": 120, "MaxValue": 450, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

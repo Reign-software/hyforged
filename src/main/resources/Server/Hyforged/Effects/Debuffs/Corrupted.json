@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:corrupted",
+  "EntityEffect": {
+    "Duration": 25,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Corruption.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:chaos-resistance-bps", "StackType": "FLAT", "Amount": -3000 },
+    { "StatId": "hyforged:chaos-damage-taken-bps", "StackType": "INCREASED", "Amount": 2500 }
+  ]
+}

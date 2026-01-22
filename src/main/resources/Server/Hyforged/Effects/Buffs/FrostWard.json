@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:frost-ward",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/ColdResist.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:cold-resistance-bps", "StackType": "FLAT", "Amount": 4000 },
+    { "StatId": "hyforged:max-cold-resistance-bps", "StackType": "FLAT", "Amount": 500 }
+  ]
+}

@@ -1,6 +1,7 @@
 package reign.software.hyforged.stats.component;
 
 import reign.software.hyforged.stats.condition.ModifierCondition;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -19,7 +20,7 @@ import java.util.Objects;
  * @param condition Optional condition; null means always applies
  */
 public record ConditionalStatModifier(
-    @Nonnull StatModifier modifier,
+    @Nonnull HyforgedModifier modifier,
     @Nullable ModifierCondition condition
 ) {
     
@@ -34,7 +35,7 @@ public record ConditionalStatModifier(
      * @param condition The condition for when this modifier applies
      */
     public static ConditionalStatModifier conditional(
-            @Nonnull StatModifier modifier,
+            @Nonnull HyforgedModifier modifier,
             @Nonnull ModifierCondition condition
     ) {
         return new ConditionalStatModifier(modifier, condition);
@@ -45,7 +46,7 @@ public record ConditionalStatModifier(
      *
      * @param modifier The base modifier
      */
-    public static ConditionalStatModifier unconditional(@Nonnull StatModifier modifier) {
+    public static ConditionalStatModifier unconditional(@Nonnull HyforgedModifier modifier) {
         return new ConditionalStatModifier(modifier, null);
     }
     
@@ -71,41 +72,41 @@ public record ConditionalStatModifier(
     
     @Nonnull
     public String sourceId() {
-        return modifier.sourceId();
+        return modifier.getSourceId();
     }
     
     @Nonnull
-    public ModifierSource sourceType() {
-        return modifier.sourceType();
+    public HyforgedModifier.SourceType sourceType() {
+        return modifier.getSourceType();
     }
     
     @Nonnull
-    public ModifierType modifierType() {
-        return modifier.modifierType();
+    public HyforgedModifier.StackType modifierType() {
+        return modifier.getStackType();
     }
     
     public int targetStatIndex() {
-        return modifier.targetStatIndex();
+        return modifier.getTargetStatIndex();
     }
     
     /**
      * Get the target tag index from the underlying modifier.
-     * @return The tag index, or {@link StatModifier#NO_TAG} if not targeting a tag
+     * @return The tag index, or {@link HyforgedModifier#NO_TAG} if not targeting a tag
      */
     public int targetTagIndex() {
-        return modifier.targetTagIndex();
+        return modifier.getTargetTagIndex();
     }
     
     public int value() {
-        return modifier.value();
+        return modifier.getAmount();
     }
     
     public long expirationTick() {
-        return modifier.expirationTick();
+        return modifier.getExpirationTick();
     }
     
     public int priority() {
-        return modifier.priority();
+        return modifier.getPriority();
     }
     
     public boolean isTagModifier() {

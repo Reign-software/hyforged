@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:thunderstrike",
+  "EntityEffect": {
+    "Duration": 25,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Lightning.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:lightning-damage-increased-bps", "StackType": "INCREASED", "Amount": 4000 },
+    { "StatId": "hyforged:lightning-penetration-bps", "StackType": "FLAT", "Amount": 2000 },
+    { "StatId": "hyforged:shock-chance-bps", "StackType": "FLAT", "Amount": 2500 }
+  ]
+}

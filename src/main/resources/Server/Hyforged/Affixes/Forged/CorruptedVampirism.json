@@ -1,0 +1,24 @@
+﻿{
+  "Id": "hyforged:corrupted-vampirism",
+  "Type": "forged",
+  "DisplayName": "Corrupted Vampirism",
+  "Weight": 18,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 78,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:life-leech-bps": { "MinValue": 280, "MaxValue": 380, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 55,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:life-leech-bps": { "MinValue": 180, "MaxValue": 280, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

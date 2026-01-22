@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:fortitude",
+  "EntityEffect": {
+    "Duration": 60,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Defense.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:max-health-flat", "StackType": "INCREASED", "Amount": 2000 },
+    { "StatId": "hyforged:damage-taken-bps", "StackType": "INCREASED", "Amount": -1000 }
+  ]
+}

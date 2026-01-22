@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:battle-fury",
+  "EntityEffect": {
+    "Duration": 35,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/AttackPower.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:attack-power-flat", "StackType": "FLAT", "Amount": 75 },
+    { "StatId": "hyforged:attack-damage-increased-bps", "StackType": "INCREASED", "Amount": 2500 }
+  ]
+}

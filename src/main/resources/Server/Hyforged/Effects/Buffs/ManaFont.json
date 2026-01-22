@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:mana-font",
+  "EntityEffect": {
+    "Duration": 60,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Mana.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:max-mana-flat", "StackType": "INCREASED", "Amount": 3000 },
+    { "StatId": "hyforged:mana-regen-bps", "StackType": "INCREASED", "Amount": 5000 }
+  ]
+}

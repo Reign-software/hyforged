@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:suppressed",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Suppress.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:cooldown-recovery-bps", "StackType": "INCREASED", "Amount": -3000 },
+    { "StatId": "hyforged:mana-cost-bps", "StackType": "INCREASED", "Amount": 2500 }
+  ]
+}

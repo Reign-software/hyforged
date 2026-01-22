@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:chilled",
+  "EntityEffect": {
+    "Duration": 12,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Chill.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:movement-speed-bps", "StackType": "INCREASED", "Amount": -3000 },
+    { "StatId": "hyforged:attack-speed-bps", "StackType": "INCREASED", "Amount": -2000 },
+    { "StatId": "hyforged:cast-speed-bps", "StackType": "INCREASED", "Amount": -2000 }
+  ]
+}

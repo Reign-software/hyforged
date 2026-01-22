@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:lingering-effects",
+  "EntityEffect": {
+    "Duration": 45,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Duration.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:effect-duration-bps", "StackType": "INCREASED", "Amount": 4000 },
+    { "StatId": "hyforged:curse-duration-bps", "StackType": "INCREASED", "Amount": 3000 }
+  ]
+}

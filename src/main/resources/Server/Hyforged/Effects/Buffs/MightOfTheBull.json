@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:might-of-the-bull",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Strength.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:strength", "StackType": "FLAT", "Amount": 15 }
+  ]
+}

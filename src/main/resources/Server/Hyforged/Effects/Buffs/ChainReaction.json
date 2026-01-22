@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:chain-reaction",
+  "EntityEffect": {
+    "Duration": 20,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Chain.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:projectile-chain-count-flat", "StackType": "FLAT", "Amount": 2 },
+    { "StatId": "hyforged:projectile-damage-bps", "StackType": "INCREASED", "Amount": 2000 }
+  ]
+}

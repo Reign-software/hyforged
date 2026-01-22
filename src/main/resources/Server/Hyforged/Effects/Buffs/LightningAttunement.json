@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:lightning-attunement",
+  "EntityEffect": {
+    "Duration": 45,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/LightningSkill.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:lightning-skill-levels-flat", "StackType": "FLAT", "Amount": 2 },
+    { "StatId": "hyforged:lightning-damage-increased-bps", "StackType": "INCREASED", "Amount": 3000 },
+    { "StatId": "hyforged:lightning-penetration-bps", "StackType": "FLAT", "Amount": 1500 }
+  ]
+}

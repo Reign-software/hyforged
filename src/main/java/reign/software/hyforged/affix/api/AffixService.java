@@ -387,23 +387,31 @@ public final class AffixService {
             tier = tierDef.tier();
         }
         
-        // Determine value
-        int value;
-        if (spec.hasValue()) {
-            value = spec.requireValue();
-        } else {
-            // Roll random value within tier range
-            value = rollValue(tierDef, random);
-        }
+        // Roll values for all stats in this tier
+        Map<String, RolledAffix.RolledStat> rolledStats = rollAllStats(tierDef, random);
         
-        return new RolledAffix(
-                definition.id(),
-                definition.type(),
-                tier,
-                value,
-                definition.statId(),
-                definition.modifierType()
-        );
+        return RolledAffix.from(definition, tier, rolledStats);
+    }
+    
+    /**
+     * Roll values for all stats in a tier.
+     *
+     * @param tier   The tier definition containing stats
+     * @param random Random source for rolling values
+     * @return Map of stat ID to rolled stat with value and stack type
+     */
+    private Map<String, RolledAffix.RolledStat> rollAllStats(
+            @Nonnull AffixTierDefinition tier,
+            @Nonnull Random random
+    ) {
+        Map<String, RolledAffix.RolledStat> result = new HashMap<>();
+        for (Map.Entry<String, AffixTierStat> entry : tier.stats().entrySet()) {
+            String statId = entry.getKey();
+            AffixTierStat tierStat = entry.getValue();
+            int rolledValue = tierStat.rollValue(random.nextDouble());
+            result.put(statId, new RolledAffix.RolledStat(rolledValue, tierStat.stackType()));
+        }
+        return result;
     }
     
     /**
@@ -439,18 +447,6 @@ public final class AffixService {
             }
         }
         return null;
-    }
-    
-    /**
-     * Roll a value within a tier's range.
-     */
-    private int rollValue(@Nonnull AffixTierDefinition tier, @Nonnull Random random) {
-        int min = tier.minValue();
-        int max = tier.maxValue();
-        if (min >= max) {
-            return min;
-        }
-        return min + random.nextInt(max - min + 1);
     }
     
     // =========================================================================

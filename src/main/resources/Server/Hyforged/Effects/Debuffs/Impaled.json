@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:impaled",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Impale.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:physical-damage-taken-bps", "StackType": "INCREASED", "Amount": 3000 },
+    { "StatId": "hyforged:movement-speed-bps", "StackType": "INCREASED", "Amount": -1500 }
+  ]
+}

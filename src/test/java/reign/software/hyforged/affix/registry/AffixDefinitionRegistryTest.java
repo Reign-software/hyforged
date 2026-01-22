@@ -2,10 +2,8 @@ package reign.software.hyforged.affix.registry;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import reign.software.hyforged.affix.AffixTestFixtures;
 import reign.software.hyforged.affix.model.AffixDefinition;
-import reign.software.hyforged.affix.model.AffixEligibility;
-import reign.software.hyforged.affix.model.AffixTierDefinition;
-import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import java.util.Collection;
@@ -25,9 +23,8 @@ class AffixDefinitionRegistryTest {
 
     private AffixDefinition createAffix(String id, String type, String statName) {
         return new AffixDefinition(id, type, "Test", 
-                StatId.hyforged(statName), HyforgedModifier.StackType.FLAT,
-                List.of(new AffixTierDefinition(1, 1, 10, 0)),
-                AffixEligibility.ANY, 100);
+                List.of(AffixTestFixtures.tier(1, 0, 100, "hyforged:" + statName, HyforgedModifier.StackType.FLAT, 1, 10)),
+                100);
     }
 
     @Test
@@ -57,7 +54,8 @@ class AffixDefinitionRegistryTest {
         AffixDefinition result = AffixDefinitionRegistry.get().get("test");
         assertNotNull(result);
         assertEquals("suffix", result.type());
-        assertEquals(StatId.hyforged("strength"), result.statId());
+        // Verify it has the strength stat in tier definition
+        assertTrue(result.tiers().get(0).stats().containsKey("hyforged:strength"));
     }
 
     @Test
@@ -89,9 +87,9 @@ class AffixDefinitionRegistryTest {
         AffixDefinitionRegistry.get().register(createAffix("a3", "prefix", "strength"));
         
         List<AffixDefinition> armorAffixes = 
-                AffixDefinitionRegistry.get().getByStat(StatId.hyforged("armor"));
+                AffixDefinitionRegistry.get().getByStat("hyforged:armor");
         List<AffixDefinition> strengthAffixes = 
-                AffixDefinitionRegistry.get().getByStat(StatId.hyforged("strength"));
+                AffixDefinitionRegistry.get().getByStat("hyforged:strength");
         
         assertEquals(2, armorAffixes.size());
         assertEquals(1, strengthAffixes.size());
@@ -102,7 +100,7 @@ class AffixDefinitionRegistryTest {
         AffixDefinitionRegistry.get().register(createAffix("a1", "prefix", "armor"));
         
         List<AffixDefinition> result = 
-                AffixDefinitionRegistry.get().getByStat(StatId.hyforged("nonexistent"));
+                AffixDefinitionRegistry.get().getByStat("hyforged:nonexistent");
         
         assertTrue(result.isEmpty());
     }
@@ -137,6 +135,6 @@ class AffixDefinitionRegistryTest {
         
         assertEquals(0, AffixDefinitionRegistry.get().size());
         assertTrue(AffixDefinitionRegistry.get().getByType("prefix").isEmpty());
-        assertTrue(AffixDefinitionRegistry.get().getByStat(StatId.hyforged("armor")).isEmpty());
+        assertTrue(AffixDefinitionRegistry.get().getByStat("hyforged:armor").isEmpty());
     }
 }

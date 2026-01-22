@@ -11,14 +11,13 @@ import com.hypixel.hytale.component.system.RefSystem;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
-import reign.software.hyforged.stats.component.HyforgedStatComponent;
-import reign.software.hyforged.stats.component.ModifierSource;
-import reign.software.hyforged.stats.component.StatModifier;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -49,7 +48,7 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
     private static final String LEVEL_MODIFIER_SOURCE = "hyforged:monster_level";
 
     @Nonnull
-    private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
+    private final ComponentType<EntityStore, EntityStatMap> statMapType;
 
     @Nonnull
     private final ComponentType<EntityStore, MonsterLevelComponent> levelComponentType;
@@ -65,7 +64,7 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
 
     public HyforgedMonsterScalingSystem() {
         HyforgedPlugin plugin = HyforgedPlugin.getInstance();
-        this.statComponentType = plugin.getHyforgedStatComponentType();
+        this.statMapType = EntityStatMap.getComponentType();
         this.levelComponentType = plugin.getMonsterLevelComponentType();
         this.npcComponentType = NPCEntity.getComponentType();
         this.transformComponentType = TransformComponent.getComponentType();
@@ -118,10 +117,10 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
         // Add MonsterLevelComponent
         commandBuffer.putComponent(ref, levelComponentType, new MonsterLevelComponent(level));
 
-        // Apply stat modifiers if entity has HyforgedStatComponent
-        HyforgedStatComponent statComponent = commandBuffer.getComponent(ref, statComponentType);
-        if (statComponent != null) {
-            applyLevelModifiers(statComponent, level, roleName, scalingService);
+        // Apply stat modifiers if entity has EntityStatMap
+        EntityStatMap statMap = commandBuffer.getComponent(ref, statMapType);
+        if (statMap != null) {
+            applyLevelModifiers(statMap, level, roleName, scalingService);
         }
     }
 
@@ -141,13 +140,13 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
      * Stats to scale are read from the NPC's scaling configuration.
      * Each stat entry defines the stat ID, modifier type, and scaling per level.
      *
-     * @param statComponent The entity's stat component
+     * @param statMap The entity's stat map component
      * @param level The monster's level
      * @param roleName The NPC's role name for config lookup
      * @param scalingService The scaling service
      */
     private void applyLevelModifiers(
-            @Nonnull HyforgedStatComponent statComponent,
+            @Nonnull EntityStatMap statMap,
             int level,
             @Nonnull String roleName,
             @Nonnull MonsterScalingService scalingService
@@ -181,25 +180,24 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
                 continue; // No scaling at this level
             }
 
-            // Create and apply the stat modifier
-            StatModifier modifier = new StatModifier(
-                    LEVEL_MODIFIER_SOURCE,
-                    ModifierSource.EFFECT,
-                    entry.getModifierType(),
-                    statIndex,
-                    StatModifier.NO_TAG,
-                    modifierValue,
-                    0, // Priority
-                    0  // No expiration
-            );
+            // Create the stat modifier
+            HyforgedModifier modifier = HyforgedModifier.builder()
+                    .sourceId(LEVEL_MODIFIER_SOURCE)
+                    .sourceType(HyforgedModifier.SourceType.EFFECT)
+                    .stackType(entry.getModifierType())
+                    .targetStat(statIndex)
+                    .amount(modifierValue)
+                    .priority(0)
+                    .permanent()
+                    .build();
             
-            statComponent.addModifier(modifier);
+            // Use unique source key per stat to avoid collisions
+            String sourceKey = LEVEL_MODIFIER_SOURCE + ":" + statId.fullId();
+            statMap.putModifier(statIndex, sourceKey, modifier);
             
             LOGGER.log(Level.FINER, "Applied {0} modifier to stat '{1}': {2} (level {3})",
                     new Object[]{entry.getModifierType(), entry.getStatId(), modifierValue, level});
         }
-
-        // Mark all stats as dirty so they get recomputed
-        statComponent.markAllDirty();
+        // EntityStatMap auto-recomputes, no need to mark dirty
     }
 }

@@ -1,0 +1,32 @@
+﻿{
+  "Id": "hyforged:corrupted-fury",
+  "Type": "forged",
+  "DisplayName": "Corrupted Fury",
+  "Weight": 25,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 78,
+      "Weight": 25,
+      "Stats": {
+        "hyforged:physical-damage-increased-bps": { "MinValue": 2000, "MaxValue": 2800, "StackType": "MORE" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 58,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:physical-damage-increased-bps": { "MinValue": 1400, "MaxValue": 2000, "StackType": "MORE" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 38,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:physical-damage-increased-bps": { "MinValue": 800, "MaxValue": 1400, "StackType": "MORE" }
+      }
+    }
+  ]
+}

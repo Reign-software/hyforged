@@ -4,9 +4,13 @@ import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.codec.codecs.array.ArrayCodec;
+import com.hypixel.hytale.codec.codecs.map.MapCodec;
 import reign.software.hyforged.affix.model.AffixTierDefinition;
+import reign.software.hyforged.affix.model.AffixTierStat;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Codec for AffixTierDefinition within affix asset JSON.
@@ -15,14 +19,23 @@ import javax.annotation.Nonnull;
  * <pre>
  * {
  *   "Tier": 1,
- *   "MinValue": 50,
- *   "MaxValue": 75,
- *   "ItemLevelReq": 40,
- *   "Weight": 100
+ *   "ItemLevelReq": 70,
+ *   "Weight": 35,
+ *   "Stats": {
+ *     "hyforged:strength": { "MinValue": 45, "MaxValue": 55, "StackType": "FLAT" },
+ *     "hyforged:max-health": { "MinValue": 100, "MaxValue": 150, "StackType": "FLAT" }
+ *   }
  * }
  * </pre>
  */
 public class AffixTierAsset {
+
+    /**
+     * Codec for stat map: String -> AffixTierStatAsset
+     * MapCodec takes (valueCodec, mapSupplier) - keys are always strings
+     */
+    private static final MapCodec<AffixTierStatAsset, Map<String, AffixTierStatAsset>> STATS_MAP_CODEC = 
+            new MapCodec<>(AffixTierStatAsset.CODEC, HashMap::new);
 
     /**
      * Codec for a single tier definition.
@@ -35,18 +48,6 @@ public class AffixTierAsset {
                     new KeyedCodec<>("Tier", Codec.INTEGER),
                     (asset, value) -> asset.tier = value != null ? value : 1,
                     asset -> asset.tier
-            )
-            .add()
-            .append(
-                    new KeyedCodec<>("MinValue", Codec.INTEGER),
-                    (asset, value) -> asset.minValue = value != null ? value : 0,
-                    asset -> asset.minValue
-            )
-            .add()
-            .append(
-                    new KeyedCodec<>("MaxValue", Codec.INTEGER),
-                    (asset, value) -> asset.maxValue = value != null ? value : 0,
-                    asset -> asset.maxValue
             )
             .add()
             .append(
@@ -69,6 +70,12 @@ public class AffixTierAsset {
                     asset -> asset.weightExplicitlySet ? asset.weight : null
             )
             .add()
+            .append(
+                    new KeyedCodec<>("Stats", STATS_MAP_CODEC),
+                    (asset, value) -> asset.stats = value != null ? new HashMap<>(value) : new HashMap<>(),
+                    asset -> asset.stats
+            )
+            .add()
             .build();
 
     /**
@@ -77,11 +84,10 @@ public class AffixTierAsset {
     public static final ArrayCodec<AffixTierAsset> ARRAY_CODEC = new ArrayCodec<>(CODEC, AffixTierAsset[]::new);
 
     private int tier = 1;
-    private int minValue = 0;
-    private int maxValue = 0;
     private int itemLevelReq = 0;
     private int weight = -1; // -1 means compute from tier
     private boolean weightExplicitlySet = false;
+    private Map<String, AffixTierStatAsset> stats = new HashMap<>();
 
     public AffixTierAsset() {
     }
@@ -106,7 +112,14 @@ public class AffixTierAsset {
             // T1 (best tier) is rarer, T5 (weaker tier) is more common
             effectiveWeight = AffixTierDefinition.LINEAR_WEIGHT_BASE * tier;
         }
-        return new AffixTierDefinition(tier, minValue, maxValue, itemLevelReq, effectiveWeight);
+        
+        // Convert stats map
+        Map<String, AffixTierStat> convertedStats = new HashMap<>();
+        for (Map.Entry<String, AffixTierStatAsset> entry : stats.entrySet()) {
+            convertedStats.put(entry.getKey(), entry.getValue().toTierStat(entry.getKey()));
+        }
+        
+        return new AffixTierDefinition(tier, itemLevelReq, effectiveWeight, convertedStats);
     }
 
     // ========== Accessors ==========
@@ -115,19 +128,15 @@ public class AffixTierAsset {
         return tier;
     }
 
-    public int getMinValue() {
-        return minValue;
-    }
-
-    public int getMaxValue() {
-        return maxValue;
-    }
-
     public int getItemLevelReq() {
         return itemLevelReq;
     }
 
     public int getWeight() {
         return weight;
+    }
+
+    public Map<String, AffixTierStatAsset> getStats() {
+        return stats;
     }
 }

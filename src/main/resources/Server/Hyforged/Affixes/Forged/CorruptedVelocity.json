@@ -1,0 +1,24 @@
+﻿{
+  "Id": "hyforged:corrupted-velocity",
+  "Type": "forged",
+  "DisplayName": "Corrupted Velocity",
+  "Weight": 15,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 76,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:movement-speed-bps": { "MinValue": 3500, "MaxValue": 4500, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 55,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:movement-speed-bps": { "MinValue": 2500, "MaxValue": 3500, "StackType": "INCREASED" }
+      }
+    }
+  ]
+}

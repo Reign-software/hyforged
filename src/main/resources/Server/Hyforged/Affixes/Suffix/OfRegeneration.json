@@ -1,0 +1,48 @@
+﻿{
+  "Id": "hyforged:of-regeneration",
+  "Type": "suffix",
+  "DisplayName": "of Regeneration",
+  "Weight": 70,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 60,
+      "Weight": 42,
+      "Stats": {
+        "hyforged:life-regen": { "MinValue": 22, "MaxValue": 30, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 44,
+      "Weight": 62,
+      "Stats": {
+        "hyforged:life-regen": { "MinValue": 15, "MaxValue": 22, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 28,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:life-regen": { "MinValue": 9, "MaxValue": 15, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 14,
+      "Weight": 108,
+      "Stats": {
+        "hyforged:life-regen": { "MinValue": 4, "MaxValue": 9, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:life-regen": { "MinValue": 1, "MaxValue": 4, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:double-strike",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/DoubleDamage.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:double-damage-chance-bps", "StackType": "FLAT", "Amount": 3500 }
+  ]
+}

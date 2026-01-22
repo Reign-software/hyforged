@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:serpents-luck",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Luck.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:luck", "StackType": "FLAT", "Amount": 25 },
+    { "StatId": "hyforged:item-rarity-bps", "StackType": "INCREASED", "Amount": 3000 },
+    { "StatId": "hyforged:item-quantity-bps", "StackType": "INCREASED", "Amount": 1500 }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:warlords-might",
+  "EntityEffect": {
+    "Duration": 40,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Melee.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:melee-damage-increased-bps", "StackType": "INCREASED", "Amount": 3000 },
+    { "StatId": "hyforged:attack-power-flat", "StackType": "FLAT", "Amount": 40 },
+    { "StatId": "hyforged:stun-duration-bps", "StackType": "INCREASED", "Amount": 2000 }
+  ]
+}

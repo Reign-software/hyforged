@@ -1,0 +1,48 @@
+﻿{
+  "Id": "hyforged:fireproof",
+  "Type": "prefix",
+  "DisplayName": "Fireproof",
+  "Weight": 80,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 60,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 3200, "MaxValue": 4000, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 44,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 2200, "MaxValue": 3200, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 28,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 1400, "MaxValue": 2200, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 14,
+      "Weight": 105,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 700, "MaxValue": 1400, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 125,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 200, "MaxValue": 700, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

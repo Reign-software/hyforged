@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:ancestral-might",
+  "EntityEffect": {
+    "Duration": 45,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/AllAttributes.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:attribute-all-flat", "StackType": "FLAT", "Amount": 10 }
+  ]
+}

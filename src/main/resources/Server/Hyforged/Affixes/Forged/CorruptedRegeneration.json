@@ -1,0 +1,24 @@
+﻿{
+  "Id": "hyforged:corrupted-regeneration",
+  "Type": "forged",
+  "DisplayName": "Corrupted Regeneration",
+  "Weight": 22,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 76,
+      "Weight": 35,
+      "Stats": {
+        "hyforged:life-regen": { "MinValue": 40, "MaxValue": 55, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 55,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:life-regen": { "MinValue": 28, "MaxValue": 40, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

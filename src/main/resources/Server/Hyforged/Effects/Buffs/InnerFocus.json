@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:inner-focus",
+  "EntityEffect": {
+    "Duration": 20,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Concentration.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:concentration", "StackType": "FLAT", "Amount": 20 }
+  ]
+}

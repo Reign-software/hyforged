@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:poison-immunity",
+  "EntityEffect": {
+    "Duration": 60,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/PoisonResist.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:poison-resistance-bps", "StackType": "FLAT", "Amount": 7500 }
+  ]
+}

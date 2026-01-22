@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:maim",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Maim.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:attack-damage-increased-bps", "StackType": "INCREASED", "Amount": -3000 },
+    { "StatId": "hyforged:attack-speed-bps", "StackType": "INCREASED", "Amount": -2500 }
+  ]
+}

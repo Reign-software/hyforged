@@ -8,9 +8,8 @@ import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
-import reign.software.hyforged.stats.component.ModifierType;
-import reign.software.hyforged.stats.component.StatModifier;
 import reign.software.hyforged.stats.engine.ScalingEngine;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 import reign.software.hyforged.stats.engine.StackingEngine;
 import reign.software.hyforged.stats.scaling.LinearScaling;
 import reign.software.hyforged.stats.scaling.ThresholdScaling;
@@ -58,7 +57,7 @@ class StatInteractionIntegrationTest {
      */
     private void recomputeStats(HyforgedStatComponent component) {
         int[] evalOrder = registry.getEvaluationOrder();
-        List<StatModifier> modifiers = component.getModifiers();
+        List<HyforgedModifier> modifiers = component.getModifiers();
         
         for (int statIdx : evalOrder) {
             StatDefinition statDef = registry.getStat(statIdx);
@@ -77,9 +76,9 @@ class StatInteractionIntegrationTest {
             }
             
             // Collect applicable modifiers
-            List<StatModifier> applicable = new ArrayList<>();
-            for (StatModifier mod : modifiers) {
-                if (mod.targetStatIndex() == statIdx) {
+            List<HyforgedModifier> applicable = new ArrayList<>();
+            for (HyforgedModifier mod : modifiers) {
+                if (mod.getTargetStatIndex() == statIdx) {
                     applicable.add(mod);
                 }
             }
@@ -226,10 +225,12 @@ class StatInteractionIntegrationTest {
             int apIdx = registry.getIndex(ATTACK_POWER);
             
             // Add +5 STR modifier (from equipment)
-            StatModifier strBuff = new StatModifier.Builder("sword")
+            HyforgedModifier strBuff = HyforgedModifier.builder()
+                    .sourceId("sword")
                     .targetStat(strIdx)
-                    .modifierType(ModifierType.FLAT)
-                    .value(5)
+                    .stackType(HyforgedModifier.StackType.FLAT)
+                    .amount(5)
+                    .permanent()
                     .build();
             
             component.addModifier(strBuff);
@@ -265,10 +266,12 @@ class StatInteractionIntegrationTest {
             int apIdx = registry.getIndex(ATTACK_POWER);
             
             // Add +50% STR modifier (5000 bps)
-            StatModifier strBuff = new StatModifier.Builder("buff")
+            HyforgedModifier strBuff = HyforgedModifier.builder()
+                    .sourceId("buff")
                     .targetStat(strIdx)
-                    .modifierType(ModifierType.INCREASED)
-                    .value(5000) // +50%
+                    .stackType(HyforgedModifier.StackType.INCREASED)
+                    .amount(5000) // +50%
+                    .permanent()
                     .build();
             
             component.addModifier(strBuff);
@@ -304,17 +307,21 @@ class StatInteractionIntegrationTest {
             int apIdx = registry.getIndex(ATTACK_POWER);
             
             // Add +10 STR modifier
-            StatModifier strBuff = new StatModifier.Builder("belt")
+            HyforgedModifier strBuff = HyforgedModifier.builder()
+                    .sourceId("belt")
                     .targetStat(strIdx)
-                    .modifierType(ModifierType.FLAT)
-                    .value(10)
+                    .stackType(HyforgedModifier.StackType.FLAT)
+                    .amount(10)
+                    .permanent()
                     .build();
             
             // Add +50 Attack Power modifier (flat bonus to AP itself)
-            StatModifier apBuff = new StatModifier.Builder("ring")
+            HyforgedModifier apBuff = HyforgedModifier.builder()
+                    .sourceId("ring")
                     .targetStat(apIdx)
-                    .modifierType(ModifierType.FLAT)
-                    .value(50)
+                    .stackType(HyforgedModifier.StackType.FLAT)
+                    .amount(50)
+                    .permanent()
                     .build();
             
             component.addModifier(strBuff);
@@ -644,22 +651,28 @@ class StatInteractionIntegrationTest {
             component.setBaseValue(dexIdx, 40);  // 40 DEX
             
             // Equipment modifiers
-            StatModifier strBuff = new StatModifier.Builder("mighty_sword")
+            HyforgedModifier strBuff = HyforgedModifier.builder()
+                    .sourceId("mighty_sword")
                     .targetStat(strIdx)
-                    .modifierType(ModifierType.FLAT)
-                    .value(10) // +10 STR
+                    .stackType(HyforgedModifier.StackType.FLAT)
+                    .amount(10) // +10 STR
+                    .permanent()
                     .build();
             
-            StatModifier apBuff = new StatModifier.Builder("attack_ring")
+            HyforgedModifier apBuff = HyforgedModifier.builder()
+                    .sourceId("attack_ring")
                     .targetStat(apIdx)
-                    .modifierType(ModifierType.INCREASED)
-                    .value(2000) // +20% Attack Power
+                    .stackType(HyforgedModifier.StackType.INCREASED)
+                    .amount(2000) // +20% Attack Power
+                    .permanent()
                     .build();
             
-            StatModifier critBuff = new StatModifier.Builder("crit_amulet")
+            HyforgedModifier critBuff = HyforgedModifier.builder()
+                    .sourceId("crit_amulet")
                     .targetStat(critIdx)
-                    .modifierType(ModifierType.FLAT)
-                    .value(200) // +2% crit
+                    .stackType(HyforgedModifier.StackType.FLAT)
+                    .amount(200) // +2% crit
+                    .permanent()
                     .build();
             
             component.addModifier(strBuff);

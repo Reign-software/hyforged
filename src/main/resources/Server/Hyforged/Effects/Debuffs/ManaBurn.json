@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:mana-burn",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/ManaBurn.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:max-mana-flat", "StackType": "INCREASED", "Amount": -3000 },
+    { "StatId": "hyforged:mana-regen-bps", "StackType": "INCREASED", "Amount": -5000 },
+    { "StatId": "hyforged:mana-cost-bps", "StackType": "INCREASED", "Amount": 4000 }
+  ]
+}

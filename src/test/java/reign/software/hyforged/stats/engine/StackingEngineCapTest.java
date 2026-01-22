@@ -3,8 +3,7 @@ package reign.software.hyforged.stats.engine;
 import org.junit.jupiter.api.Test;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatId;
-import reign.software.hyforged.stats.component.ModifierType;
-import reign.software.hyforged.stats.component.StatModifier;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,20 +21,24 @@ class StackingEngineCapTest {
     private static final int CRIT_STAT_INDEX = 0;
     
     /** Helper to create a FLAT modifier for tests */
-    private static StatModifier flat(int value) {
-        return new StatModifier.Builder("test")
+    private static HyforgedModifier flat(int value) {
+        return HyforgedModifier.builder()
+                .sourceId("test")
                 .targetStat(CRIT_STAT_INDEX)
-                .modifierType(ModifierType.FLAT)
-                .value(value)
+                .stackType(HyforgedModifier.StackType.FLAT)
+                .amount(value)
+                .permanent()
                 .build();
     }
     
     /** Helper to create a CAP modifier for tests */
-    private static StatModifier cap(int value) {
-        return new StatModifier.Builder("test-cap")
+    private static HyforgedModifier cap(int value) {
+        return HyforgedModifier.builder()
+                .sourceId("test-cap")
                 .targetStat(CRIT_STAT_INDEX)
-                .modifierType(ModifierType.CAP)
-                .value(value)
+                .stackType(HyforgedModifier.StackType.CAP)
+                .amount(value)
+                .permanent()
                 .build();
     }
     
@@ -60,7 +63,7 @@ class StackingEngineCapTest {
                 .bounds(0, 100000)
                 .build();
         
-        List<StatModifier> modifiers = List.of(flat(3000));
+        List<HyforgedModifier> modifiers = List.of(flat(3000));
         
         int result = StackingEngine.compute(5000, modifiers, statDef, null);
         
@@ -77,7 +80,7 @@ class StackingEngineCapTest {
                 .build();
         
         // Base 5000 + 4000 flat = 9000, should be capped to 7500
-        List<StatModifier> modifiers = List.of(flat(4000));
+        List<HyforgedModifier> modifiers = List.of(flat(4000));
         
         int result = StackingEngine.compute(5000, modifiers, statDef, null);
         
@@ -94,7 +97,7 @@ class StackingEngineCapTest {
                 .build();
         
         // Base 5000 + 5000 flat = 10000, should be capped to 9000
-        List<StatModifier> modifiers = List.of(flat(5000));
+        List<HyforgedModifier> modifiers = List.of(flat(5000));
         
         int result = StackingEngine.compute(5000, modifiers, statDef, null);
         
@@ -110,7 +113,7 @@ class StackingEngineCapTest {
                 .build();
         
         // Base 5000 + 1000 flat = 6000, under soft cap of 7500
-        List<StatModifier> modifiers = List.of(flat(1000));
+        List<HyforgedModifier> modifiers = List.of(flat(1000));
         
         int result = StackingEngine.compute(5000, modifiers, statDef, null);
         
@@ -131,7 +134,7 @@ class StackingEngineCapTest {
         // Base 5000 + 4000 flat = 9000
         // Bonus stat value = 1000, so effective cap = 7500 + 1000 = 8500
         // Result should be 8500 (capped)
-        List<StatModifier> modifiers = List.of(flat(4000));
+        List<HyforgedModifier> modifiers = List.of(flat(4000));
         
         ToIntFunction<StatId> lookup = statId -> {
             if (statId.equals(CRIT_CAP_BONUS)) {
@@ -157,7 +160,7 @@ class StackingEngineCapTest {
         // Base 5000 + 5000 flat = 10000
         // Bonus stat value = 3000, so adjusted soft cap = 7500 + 3000 = 10500
         // But hard cap is 9000, so effective cap = min(10500, 9000) = 9000
-        List<StatModifier> modifiers = List.of(flat(5000));
+        List<HyforgedModifier> modifiers = List.of(flat(5000));
         
         ToIntFunction<StatId> lookup = statId -> {
             if (statId.equals(CRIT_CAP_BONUS)) {
@@ -181,7 +184,7 @@ class StackingEngineCapTest {
         
         // Base 5000 + 4000 flat = 9000
         // No lookup, so effective cap = soft cap = 7500
-        List<StatModifier> modifiers = List.of(flat(4000));
+        List<HyforgedModifier> modifiers = List.of(flat(4000));
         
         int result = StackingEngine.compute(5000, modifiers, statDef, null);
         
@@ -202,7 +205,7 @@ class StackingEngineCapTest {
         // Base 5000 + 5000 flat = 10000
         // CAP modifier at 9000 → 9000
         // Soft cap at 8000 → 8000
-        List<StatModifier> modifiers = List.of(flat(5000), cap(9000));
+        List<HyforgedModifier> modifiers = List.of(flat(5000), cap(9000));
         
         int result = StackingEngine.compute(5000, modifiers, statDef, null);
         
@@ -219,7 +222,7 @@ class StackingEngineCapTest {
                 .caps(7500, 9000, CRIT_CAP_BONUS)
                 .build();
         
-        List<StatModifier> modifiers = List.of(flat(4000));
+        List<HyforgedModifier> modifiers = List.of(flat(4000));
         
         ToIntFunction<StatId> lookup = statId -> {
             if (statId.equals(CRIT_CAP_BONUS)) {
@@ -248,7 +251,7 @@ class StackingEngineCapTest {
                 .bounds(0, 100000)
                 .build();
         
-        List<StatModifier> modifiers = List.of(flat(4000));
+        List<HyforgedModifier> modifiers = List.of(flat(4000));
         
         StackingEngine.ComputeResult result = StackingEngine.computeWithBreakdown(5000, modifiers, statDef, null);
         
@@ -265,7 +268,7 @@ class StackingEngineCapTest {
                 .softCapBps(9500)
                 .build();
         
-        List<StatModifier> modifiers = List.of(flat(4000));
+        List<HyforgedModifier> modifiers = List.of(flat(4000));
         
         StackingEngine.ComputeResult result = StackingEngine.computeWithBreakdown(5000, modifiers, statDef, null);
         
@@ -329,7 +332,7 @@ class StackingEngineCapTest {
                 .caps(7500, 10000, CRIT_CAP_BONUS)
                 .build();
         
-        List<StatModifier> modifiers = List.of(flat(4000));
+        List<HyforgedModifier> modifiers = List.of(flat(4000));
         
         ToIntFunction<StatId> lookup = statId -> 0; // Bonus stat is 0
         

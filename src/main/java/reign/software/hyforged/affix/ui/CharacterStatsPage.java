@@ -17,17 +17,18 @@ import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.affix.model.HyforgedItemData;
 import reign.software.hyforged.affix.model.RolledAffix;
 import reign.software.hyforged.affix.registry.AffixDefinitionRegistry;
 import reign.software.hyforged.affix.service.HyforgedItemDataService;
 import reign.software.hyforged.stats.DisplayFormat;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
-import reign.software.hyforged.stats.component.ModifierSource;
-import reign.software.hyforged.stats.component.StatModifier;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -97,7 +98,7 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
         HyforgedStatComponent statComponent = getStatComponent(ref, store);
         
         // Build stat categories
-        buildStatCategories(commandBuilder, statComponent);
+        buildStatCategories(commandBuilder, statComponent, store, ref);
         
         // Build equipment affix summary
         buildEquipmentSummary(commandBuilder, ref, store);
@@ -133,8 +134,14 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
     /**
      * Build the stat categories section of the UI.
      */
-    private void buildStatCategories(UICommandBuilder commandBuilder, HyforgedStatComponent statComponent) {
+    private void buildStatCategories(
+            UICommandBuilder commandBuilder,
+            HyforgedStatComponent statComponent,
+            Store<EntityStore> store,
+            Ref<EntityStore> ref
+    ) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        EntityStatMap statMap = StatAccessor.getStatMap(store, ref);
         
         // Group stats by category
         Map<String, List<StatEntry>> categorizedStats = new HashMap<>();
@@ -148,15 +155,15 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
             // Determine category from stat ID prefix
             String category = getCategoryForStat(statDef);
             
-            // Get values
+            // Get values - use StatAccessor for unified access pattern
             int baseValue = statComponent != null ? statComponent.getBaseValue(i) : statDef.defaultValue();
-            int computedValue = statComponent != null ? statComponent.getCachedValue(i) : statDef.defaultValue();
+            int computedValue = StatAccessor.getStatValueInt(store, ref, i);
             int modifierTotal = computedValue - baseValue;
             
             // Get modifier breakdown
             List<ModifierBreakdown> breakdown = new ArrayList<>();
-            if (statComponent != null) {
-                breakdown = getModifierBreakdown(statComponent, i);
+            if (statMap != null) {
+                breakdown = getModifierBreakdown(statMap, i);
             }
             
             StatEntry entry = new StatEntry(statDef, i, baseValue, computedValue, modifierTotal, breakdown);
@@ -277,17 +284,28 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
     /**
      * Get modifier breakdown for a stat.
      */
-    private List<ModifierBreakdown> getModifierBreakdown(HyforgedStatComponent component, int statIndex) {
+    private List<ModifierBreakdown> getModifierBreakdown(EntityStatMap statMap, int statIndex) {
         List<ModifierBreakdown> breakdown = new ArrayList<>();
-        
-        for (StatModifier modifier : component.getModifiers()) {
-            if (modifier.targetStatIndex() == statIndex) {
+
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        for (HyforgedModifier modifier : StatAccessor.getAllHyforgedModifiers(statMap)) {
+            if (modifier.getTargetStatIndex() == statIndex) {
                 breakdown.add(new ModifierBreakdown(
-                        modifier.sourceId(),
-                        modifier.sourceType(),
-                        modifier.value(),
-                        modifier.modifierType()
+                        modifier.getSourceId(),
+                        modifier.getSourceType(),
+                        modifier.getAmount(),
+                        modifier.getStackType()
                 ));
+            } else if (modifier.getTargetTagIndex() != HyforgedModifier.NO_TAG) {
+                var affected = registry.getStatIndicesForTagIndex(modifier.getTargetTagIndex());
+                if (affected.contains(statIndex)) {
+                    breakdown.add(new ModifierBreakdown(
+                            modifier.getSourceId(),
+                            modifier.getSourceType(),
+                            modifier.getAmount(),
+                            modifier.getStackType()
+                    ));
+                }
             }
         }
         
@@ -425,8 +443,8 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
      */
     public record ModifierBreakdown(
             String sourceId,
-            ModifierSource sourceType,
+            HyforgedModifier.SourceType sourceType,
             int value,
-            reign.software.hyforged.stats.component.ModifierType modifierType
+            HyforgedModifier.StackType modifierType
     ) {}
 }

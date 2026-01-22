@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:oracles-boon",
+  "EntityEffect": {
+    "Duration": 60,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Wisdom.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:wisdom", "StackType": "FLAT", "Amount": 20 },
+    { "StatId": "hyforged:mana-regen-bps", "StackType": "INCREASED", "Amount": 2000 },
+    { "StatId": "hyforged:spell-power-flat", "StackType": "FLAT", "Amount": 15 }
+  ]
+}

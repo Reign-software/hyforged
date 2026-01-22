@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:healing-amplification",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Healing.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:healing-effectiveness-bps", "StackType": "INCREASED", "Amount": 5000 },
+    { "StatId": "hyforged:healing-received-bps", "StackType": "INCREASED", "Amount": 3000 }
+  ]
+}

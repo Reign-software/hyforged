@@ -6,7 +6,7 @@ import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.codec.codecs.EnumCodec;
 import com.hypixel.hytale.codec.codecs.array.ArrayCodec;
 import reign.software.hyforged.stats.StatId;
-import reign.software.hyforged.stats.component.ModifierType;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 
@@ -34,9 +34,9 @@ import javax.annotation.Nonnull;
  */
 public class ScaledStatEntry {
     
-    /** Codec for ModifierType enum */
-    private static final EnumCodec<ModifierType> MODIFIER_TYPE_CODEC = 
-            new EnumCodec<>(ModifierType.class);
+    /** Codec for StackType enum */
+    private static final EnumCodec<HyforgedModifier.StackType> STACK_TYPE_CODEC = 
+            new EnumCodec<>(HyforgedModifier.StackType.class);
     
     /** Codec for loading a single ScaledStatEntry from JSON */
     public static final BuilderCodec<ScaledStatEntry> CODEC = BuilderCodec
@@ -48,8 +48,8 @@ public class ScaledStatEntry {
             )
             .add()
             .append(
-                    new KeyedCodec<>("ModifierType", MODIFIER_TYPE_CODEC),
-                    (entry, value) -> entry.modifierType = value != null ? value : ModifierType.FLAT,
+                    new KeyedCodec<>("ModifierType", STACK_TYPE_CODEC),
+                    (entry, value) -> entry.modifierType = value != null ? value : HyforgedModifier.StackType.FLAT,
                     entry -> entry.modifierType
             )
             .add()
@@ -66,7 +66,7 @@ public class ScaledStatEntry {
             new ArrayCodec<>(CODEC, ScaledStatEntry[]::new);
     
     private String statId = "";
-    private ModifierType modifierType = ModifierType.FLAT;
+    private HyforgedModifier.StackType modifierType = HyforgedModifier.StackType.FLAT;
     private int scalePerLevel = 0;
     
     /** Default constructor required for codec */
@@ -74,7 +74,7 @@ public class ScaledStatEntry {
     }
     
     /** Full constructor for programmatic creation */
-    public ScaledStatEntry(@Nonnull String statId, @Nonnull ModifierType modifierType, int scalePerLevel) {
+    public ScaledStatEntry(@Nonnull String statId, @Nonnull HyforgedModifier.StackType modifierType, int scalePerLevel) {
         this.statId = statId;
         this.modifierType = modifierType;
         this.scalePerLevel = scalePerLevel;
@@ -86,7 +86,7 @@ public class ScaledStatEntry {
     }
     
     @Nonnull
-    public ModifierType getModifierType() {
+    public HyforgedModifier.StackType getModifierType() {
         return modifierType;
     }
     
@@ -128,7 +128,7 @@ public class ScaledStatEntry {
      * @param bpsPerLevel Basis points added per level
      */
     public static ScaledStatEntry flat(@Nonnull String statId, int bpsPerLevel) {
-        return new ScaledStatEntry(statId, ModifierType.FLAT, bpsPerLevel);
+        return new ScaledStatEntry(statId, HyforgedModifier.StackType.FLAT, bpsPerLevel);
     }
     
     /**
@@ -138,7 +138,7 @@ public class ScaledStatEntry {
      * @param percentPerLevel Percent increase per level (10 = 10%/level)
      */
     public static ScaledStatEntry increased(@Nonnull String statId, int percentPerLevel) {
-        return new ScaledStatEntry(statId, ModifierType.INCREASED, percentPerLevel);
+        return new ScaledStatEntry(statId, HyforgedModifier.StackType.INCREASED, percentPerLevel);
     }
     
     /**
@@ -148,6 +148,6 @@ public class ScaledStatEntry {
      * @param percentPerLevel Percent multiplier per level
      */
     public static ScaledStatEntry more(@Nonnull String statId, int percentPerLevel) {
-        return new ScaledStatEntry(statId, ModifierType.MORE, percentPerLevel);
+        return new ScaledStatEntry(statId, HyforgedModifier.StackType.MORE, percentPerLevel);
     }
 }

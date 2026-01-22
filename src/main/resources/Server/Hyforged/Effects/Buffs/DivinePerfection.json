@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:divine-perfection",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/AllAttributes.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:attribute-all-flat", "StackType": "INCREASED", "Amount": 3000 }
+  ]
+}

@@ -1,11 +1,13 @@
 package reign.software.hyforged.affix.model;
 
 import org.junit.jupiter.api.Test;
-import reign.software.hyforged.stats.StatId;
+import reign.software.hyforged.affix.AffixTestFixtures;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,22 +15,22 @@ import static org.junit.jupiter.api.Assertions.*;
  * Unit tests for AffixDefinition record.
  */
 class AffixDefinitionTest {
+    
+    private static final String ARMOR = "hyforged:armor";
+    private static final String STRENGTH = "hyforged:strength";
 
     private static AffixDefinition createTestAffix() {
         return new AffixDefinition(
                 "sturdy",
                 "prefix",
                 "Sturdy",
-                StatId.hyforged("armor"),
-                HyforgedModifier.StackType.FLAT,
                 List.of(
-                        new AffixTierDefinition(1, 50, 75, 40),
-                        new AffixTierDefinition(2, 35, 50, 25),
-                        new AffixTierDefinition(3, 20, 35, 10),
-                        new AffixTierDefinition(4, 10, 20, 5),
-                        new AffixTierDefinition(5, 1, 10, 1)
+                        AffixTestFixtures.tier(1, 40, 50, ARMOR, HyforgedModifier.StackType.FLAT, 50, 75),
+                        AffixTestFixtures.tier(2, 25, 100, ARMOR, HyforgedModifier.StackType.FLAT, 35, 50),
+                        AffixTestFixtures.tier(3, 10, 150, ARMOR, HyforgedModifier.StackType.FLAT, 20, 35),
+                        AffixTestFixtures.tier(4, 5, 200, ARMOR, HyforgedModifier.StackType.FLAT, 10, 20),
+                        AffixTestFixtures.tier(5, 1, 250, ARMOR, HyforgedModifier.StackType.FLAT, 1, 10)
                 ),
-                AffixEligibility.ANY,
                 100
         );
     }
@@ -40,55 +42,56 @@ class AffixDefinitionTest {
         assertEquals("sturdy", affix.id());
         assertEquals("prefix", affix.type());
         assertEquals("Sturdy", affix.displayName());
-        assertEquals(StatId.hyforged("armor"), affix.statId());
-        assertEquals(HyforgedModifier.StackType.FLAT, affix.modifierType());
         assertEquals(5, affix.tiers().size());
         assertEquals(100, affix.weight());
+        
+        // Check that stat IDs are properly collected
+        Set<String> statIds = affix.getStatIds();
+        assertEquals(1, statIds.size());
+        assertTrue(statIds.contains(ARMOR));
     }
 
     @Test
     void constructor_nullId_throwsException() {
         assertThrows(NullPointerException.class, () -> 
-                new AffixDefinition(null, "prefix", "Test", StatId.hyforged("armor"),
-                        HyforgedModifier.StackType.FLAT, List.of(new AffixTierDefinition(1, 1, 10, 0)),
-                        AffixEligibility.ANY, 100));
+                new AffixDefinition(null, "prefix", "Test",
+                        List.of(AffixTestFixtures.tier(1, 1, 100, ARMOR, HyforgedModifier.StackType.FLAT, 1, 10)),
+                        100));
     }
 
     @Test
     void constructor_blankId_throwsException() {
         assertThrows(IllegalArgumentException.class, () -> 
-                new AffixDefinition("  ", "prefix", "Test", StatId.hyforged("armor"),
-                        HyforgedModifier.StackType.FLAT, List.of(new AffixTierDefinition(1, 1, 10, 0)),
-                        AffixEligibility.ANY, 100));
+                new AffixDefinition("  ", "prefix", "Test",
+                        List.of(AffixTestFixtures.tier(1, 1, 100, ARMOR, HyforgedModifier.StackType.FLAT, 1, 10)),
+                        100));
     }
 
     @Test
     void constructor_emptyTiers_throwsException() {
         assertThrows(IllegalArgumentException.class, () -> 
-                new AffixDefinition("test", "prefix", "Test", StatId.hyforged("armor"),
-                        HyforgedModifier.StackType.FLAT, List.of(),
-                        AffixEligibility.ANY, 100));
+                new AffixDefinition("test", "prefix", "Test",
+                        List.of(),
+                        100));
     }
 
     @Test
     void constructor_negativeWeight_throwsException() {
         assertThrows(IllegalArgumentException.class, () -> 
-                new AffixDefinition("test", "prefix", "Test", StatId.hyforged("armor"),
-                        HyforgedModifier.StackType.FLAT, List.of(new AffixTierDefinition(1, 1, 10, 0)),
-                        AffixEligibility.ANY, -1));
+                new AffixDefinition("test", "prefix", "Test",
+                        List.of(AffixTestFixtures.tier(1, 1, 100, ARMOR, HyforgedModifier.StackType.FLAT, 1, 10)),
+                        -1));
     }
 
     @Test
     void constructor_makesDefensiveCopy() {
-        List<AffixTierDefinition> tiers = new java.util.ArrayList<>();
-        tiers.add(new AffixTierDefinition(1, 1, 10, 0));
+        List<AffixTierDefinition> tiers = new ArrayList<>();
+        tiers.add(AffixTestFixtures.tier(1, 1, 100, ARMOR, HyforgedModifier.StackType.FLAT, 1, 10));
         
-        AffixDefinition affix = new AffixDefinition("test", "prefix", "Test", 
-                StatId.hyforged("armor"), HyforgedModifier.StackType.FLAT, tiers,
-                AffixEligibility.ANY, 100);
+        AffixDefinition affix = new AffixDefinition("test", "prefix", "Test", tiers, 100);
         
         // Modify original list
-        tiers.add(new AffixTierDefinition(2, 1, 5, 0));
+        tiers.add(AffixTestFixtures.tier(2, 1, 100, ARMOR, HyforgedModifier.StackType.FLAT, 1, 5));
         
         // Affix should not be affected
         assertEquals(1, affix.tiers().size());
@@ -152,11 +155,14 @@ class AffixDefinitionTest {
         
         Optional<AffixTierDefinition> tier1 = affix.getTier(1);
         assertTrue(tier1.isPresent());
-        assertEquals(50, tier1.get().minValue());
+        // Check first stat's min value
+        AffixTierStat stat1 = tier1.get().stats().values().iterator().next();
+        assertEquals(50, stat1.minValue());
         
         Optional<AffixTierDefinition> tier5 = affix.getTier(5);
         assertTrue(tier5.isPresent());
-        assertEquals(1, tier5.get().minValue());
+        AffixTierStat stat5 = tier5.get().stats().values().iterator().next();
+        assertEquals(1, stat5.minValue());
     }
 
     @Test
@@ -191,16 +197,15 @@ class AffixDefinitionTest {
                 .id("test")
                 .type("suffix")
                 .displayName("of Testing")
-                .statId(StatId.hyforged("strength"))
-                .modifierType(HyforgedModifier.StackType.INCREASED)
-                .tiers(List.of(new AffixTierDefinition(1, 100, 200, 0)))
-                .eligibility(AffixEligibility.ANY)
+                .tiers(List.of(AffixTestFixtures.tier(1, 1, 100, STRENGTH, HyforgedModifier.StackType.INCREASED, 100, 200)))
                 .weight(150)
                 .build();
         
         assertEquals("test", affix.id());
         assertEquals("suffix", affix.type());
-        assertEquals(HyforgedModifier.StackType.INCREASED, affix.modifierType());
         assertEquals(150, affix.weight());
+        
+        Set<String> statIds = affix.getStatIds();
+        assertTrue(statIds.contains(STRENGTH));
     }
 }

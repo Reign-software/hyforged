@@ -31,9 +31,18 @@ import javax.annotation.Nullable;
  */
 public class HyforgedModifier extends Modifier {
     
+    /** Basis points representing 100% */
+    public static final int BPS_100_PERCENT = 10000;
+    
+    /** Sentinel value indicating no tag targeting */
+    public static final int NO_TAG = Integer.MIN_VALUE;
+    
     /**
      * Base codec for HyforgedModifier fields (without Type discriminator).
      * Used for JSON deserialization in item StatModifiers.
+     * <p>
+     * Note: TargetStatIndex, TargetTagIndex, and ExpirationTick are optional -
+     * they use boxed types so null means "use default".
      */
     public static final BuilderCodec<HyforgedModifier> CODEC = BuilderCodec.builder(
             HyforgedModifier.class,
@@ -68,6 +77,24 @@ public class HyforgedModifier extends Modifier {
             new KeyedCodec<>("Priority", Codec.INTEGER),
             (mod, value) -> mod.priority = value,
             mod -> mod.priority
+        )
+        .add()
+        .append(
+            new KeyedCodec<>("TargetStatIndex", Codec.INTEGER),
+            (mod, value) -> { if (value != null) mod.targetStatIndex = value; },
+            mod -> mod.targetStatIndex >= 0 ? mod.targetStatIndex : null
+        )
+        .add()
+        .append(
+            new KeyedCodec<>("TargetTagIndex", Codec.INTEGER),
+            (mod, value) -> { if (value != null) mod.targetTagIndex = value; },
+            mod -> mod.targetTagIndex != NO_TAG ? mod.targetTagIndex : null
+        )
+        .add()
+        .append(
+            new KeyedCodec<>("ExpirationTick", Codec.LONG),
+            (mod, value) -> { if (value != null) mod.expirationTick = value; },
+            mod -> mod.expirationTick > 0 ? mod.expirationTick : null
         )
         .add()
         .build();
@@ -127,14 +154,20 @@ public class HyforgedModifier extends Modifier {
         ADMIN
     }
     
-    /** Basis points representing 100% */
-    public static final int BPS_100_PERCENT = 10000;
-    
     protected StackType stackType = StackType.FLAT;
     protected int amount = 0;
     protected SourceType sourceType = SourceType.EQUIPMENT;
     protected String sourceId = "";
     protected int priority = 0;
+    
+    /** Index of the target stat (-1 if targeting a tag) */
+    protected int targetStatIndex = -1;
+    
+    /** Index of the target tag from AssetRegistry (NO_TAG if targeting a specific stat) */
+    protected int targetTagIndex = NO_TAG;
+    
+    /** Game tick when this modifier expires (0 = permanent) */
+    protected long expirationTick = 0;
     
     /**
      * Default constructor for codec deserialization.
@@ -152,7 +185,10 @@ public class HyforgedModifier extends Modifier {
             int amount,
             SourceType sourceType,
             String sourceId,
-            int priority
+            int priority,
+            int targetStatIndex,
+            int targetTagIndex,
+            long expirationTick
     ) {
         super(target);
         this.stackType = stackType;
@@ -160,13 +196,30 @@ public class HyforgedModifier extends Modifier {
         this.sourceType = sourceType;
         this.sourceId = sourceId != null ? sourceId : "";
         this.priority = priority;
+        this.targetStatIndex = targetStatIndex;
+        this.targetTagIndex = targetTagIndex;
+        this.expirationTick = expirationTick;
+    }
+    
+    /**
+     * Legacy constructor for backwards compatibility.
+     */
+    public HyforgedModifier(
+            ModifierTarget target,
+            StackType stackType,
+            int amount,
+            SourceType sourceType,
+            String sourceId,
+            int priority
+    ) {
+        this(target, stackType, amount, sourceType, sourceId, priority, -1, NO_TAG, 0);
     }
     
     /**
      * Convenience constructor for simple modifiers.
      */
     public HyforgedModifier(StackType stackType, int amount) {
-        this(ModifierTarget.MAX, stackType, amount, SourceType.EQUIPMENT, "", 0);
+        this(ModifierTarget.MAX, stackType, amount, SourceType.EQUIPMENT, "", 0, -1, NO_TAG, 0);
     }
     
     // ============ Getters ============
@@ -189,6 +242,39 @@ public class HyforgedModifier extends Modifier {
     
     public int getPriority() {
         return priority;
+    }
+    
+    public int getTargetStatIndex() {
+        return targetStatIndex;
+    }
+    
+    public int getTargetTagIndex() {
+        return targetTagIndex;
+    }
+    
+    public long getExpirationTick() {
+        return expirationTick;
+    }
+    
+    /**
+     * Check if this modifier targets a tag (affects multiple stats).
+     */
+    public boolean isTagModifier() {
+        return targetTagIndex != NO_TAG;
+    }
+    
+    /**
+     * Check if this modifier is expired.
+     */
+    public boolean isExpired(long currentTick) {
+        return expirationTick > 0 && expirationTick <= currentTick;
+    }
+    
+    /**
+     * Check if this modifier is permanent (never expires).
+     */
+    public boolean isPermanent() {
+        return expirationTick == 0;
     }
     
     // ============ Hytale Modifier Integration ============
@@ -259,6 +345,9 @@ public class HyforgedModifier extends Modifier {
         HyforgedModifier that = (HyforgedModifier) o;
         return amount == that.amount
             && priority == that.priority
+            && targetStatIndex == that.targetStatIndex
+            && targetTagIndex == that.targetTagIndex
+            && expirationTick == that.expirationTick
             && stackType == that.stackType
             && sourceType == that.sourceType
             && sourceId.equals(that.sourceId);
@@ -272,6 +361,9 @@ public class HyforgedModifier extends Modifier {
         result = 31 * result + sourceType.hashCode();
         result = 31 * result + sourceId.hashCode();
         result = 31 * result + priority;
+        result = 31 * result + targetStatIndex;
+        result = 31 * result + targetTagIndex;
+        result = 31 * result + Long.hashCode(expirationTick);
         return result;
     }
     
@@ -284,6 +376,9 @@ public class HyforgedModifier extends Modifier {
             ", sourceType=" + sourceType +
             ", sourceId='" + sourceId + "'" +
             ", priority=" + priority +
+            ", targetStatIndex=" + targetStatIndex +
+            ", targetTagIndex=" + targetTagIndex +
+            ", expirationTick=" + expirationTick +
             "} " + super.toString();
     }
     
@@ -303,6 +398,9 @@ public class HyforgedModifier extends Modifier {
         private SourceType sourceType = SourceType.EQUIPMENT;
         private String sourceId = "";
         private int priority = 0;
+        private int targetStatIndex = -1;
+        private int targetTagIndex = NO_TAG;
+        private long expirationTick = 0;
         
         public Builder target(ModifierTarget target) {
             this.target = target;
@@ -364,8 +462,31 @@ public class HyforgedModifier extends Modifier {
             return this;
         }
         
+        public Builder targetStat(int statIndex) {
+            this.targetStatIndex = statIndex;
+            this.targetTagIndex = NO_TAG;
+            return this;
+        }
+        
+        public Builder targetTag(int tagIndex) {
+            this.targetTagIndex = tagIndex;
+            this.targetStatIndex = -1;
+            return this;
+        }
+        
+        public Builder expiresAt(long tick) {
+            this.expirationTick = tick;
+            return this;
+        }
+        
+        public Builder permanent() {
+            this.expirationTick = 0;
+            return this;
+        }
+        
         public HyforgedModifier build() {
-            return new HyforgedModifier(target, stackType, amount, sourceType, sourceId, priority);
+            return new HyforgedModifier(target, stackType, amount, sourceType, sourceId, priority,
+                    targetStatIndex, targetTagIndex, expirationTick);
         }
     }
 }

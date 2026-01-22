@@ -1,7 +1,6 @@
 package reign.software.hyforged.affix.registry;
 
 import reign.software.hyforged.affix.model.AffixDefinition;
-import reign.software.hyforged.stats.StatId;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,7 +30,7 @@ public final class AffixDefinitionRegistry {
     
     // Indexes for efficient lookup
     private final Map<String, Set<String>> affixesByType = new ConcurrentHashMap<>();
-    private final Map<StatId, Set<String>> affixesByStat = new ConcurrentHashMap<>();
+    private final Map<String, Set<String>> affixesByStat = new ConcurrentHashMap<>(); // Key: stat ID string
     
     private boolean frozen = false;
     
@@ -82,10 +81,13 @@ public final class AffixDefinitionRegistry {
                 v.remove(id);
                 return v.isEmpty() ? null : v;
             });
-            affixesByStat.computeIfPresent(existing.statId(), (k, v) -> {
-                v.remove(id);
-                return v.isEmpty() ? null : v;
-            });
+            // Remove from all stat indexes for the old affix
+            for (String statId : existing.getStatIds()) {
+                affixesByStat.computeIfPresent(statId, (k, v) -> {
+                    v.remove(id);
+                    return v.isEmpty() ? null : v;
+                });
+            }
         }
         
         // Register the affix
@@ -93,10 +95,13 @@ public final class AffixDefinitionRegistry {
         
         // Update indexes
         affixesByType.computeIfAbsent(affix.type(), k -> ConcurrentHashMap.newKeySet()).add(id);
-        affixesByStat.computeIfAbsent(affix.statId(), k -> ConcurrentHashMap.newKeySet()).add(id);
+        // Index by all stats this affix grants
+        for (String statId : affix.getStatIds()) {
+            affixesByStat.computeIfAbsent(statId, k -> ConcurrentHashMap.newKeySet()).add(id);
+        }
         
-        LOGGER.log(Level.FINE, "Registered affix: {0} (type={1}, stat={2})", 
-            new Object[]{id, affix.type(), affix.statId()});
+        LOGGER.log(Level.FINE, "Registered affix: {0} (type={1}, stats={2})", 
+            new Object[]{id, affix.type(), affix.getStatIds()});
     }
     
     /**
@@ -154,11 +159,11 @@ public final class AffixDefinitionRegistry {
     /**
      * Get all affixes that modify a specific stat.
      *
-     * @param statId The stat ID
+     * @param statId The stat ID (e.g., "hyforged:strength")
      * @return List of affix definitions that modify that stat
      */
     @Nonnull
-    public List<AffixDefinition> getByStat(@Nonnull StatId statId) {
+    public List<AffixDefinition> getByStat(@Nonnull String statId) {
         Set<String> ids = affixesByStat.get(statId);
         if (ids == null || ids.isEmpty()) {
             return Collections.emptyList();

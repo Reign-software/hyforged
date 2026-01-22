@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:storm-ward",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/LightningResist.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:lightning-resistance-bps", "StackType": "FLAT", "Amount": 4000 },
+    { "StatId": "hyforged:max-lightning-resistance-bps", "StackType": "FLAT", "Amount": 500 }
+  ]
+}

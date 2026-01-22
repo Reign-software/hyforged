@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:rage-unleashed",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/MaxRage.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:max-rage-flat", "StackType": "FLAT", "Amount": 50 },
+    { "StatId": "hyforged:rage-flat", "StackType": "FLAT", "Amount": 30 }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:dagger-mastery",
+  "EntityEffect": {
+    "Duration": 60,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Dagger.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:dagger-skill-levels-flat", "StackType": "FLAT", "Amount": 3 },
+    { "StatId": "hyforged:crit-chance-bps", "StackType": "FLAT", "Amount": 1500 },
+    { "StatId": "hyforged:poison-chance-bps", "StackType": "FLAT", "Amount": 2000 }
+  ]
+}

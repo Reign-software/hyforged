@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:executioner",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/CritDamage.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:crit-multiplier-bps", "StackType": "MORE", "Amount": 5000 },
+    { "StatId": "hyforged:culling-strike-threshold-bps", "StackType": "FLAT", "Amount": 1000 }
+  ]
+}

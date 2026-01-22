@@ -1,6 +1,13 @@
 package reign.software.hyforged.affix.model;
 
+import reign.software.hyforged.stats.StatId;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
+
 import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Defines a single tier within an affix definition.
@@ -8,20 +15,25 @@ import javax.annotation.Nonnull;
  * Affix tiers follow ARPG convention: Tier 1 is the strongest roll,
  * higher tier numbers represent weaker rolls.
  * <p>
+ * Each tier can grant multiple stats, with each stat having its own
+ * value range. For example, a T1 "of the Titan" suffix might grant:
+ * <ul>
+ *   <li>+45-55 Strength (FLAT)</li>
+ *   <li>+100-150 Max Health (FLAT)</li>
+ * </ul>
+ * <p>
  * This is pure immutable data following ECS principles.
  *
  * @param tier The tier number (1 = best, higher = weaker)
- * @param minValue Minimum rolled value for this tier (inclusive)
- * @param maxValue Maximum rolled value for this tier (inclusive)
  * @param itemLevelReq Minimum item level required to roll this tier
  * @param weight Selection weight for this tier during rolling (higher = more likely)
+ * @param stats Map of stat ID to stat configuration (value range, stack type)
  */
 public record AffixTierDefinition(
     int tier,
-    int minValue,
-    int maxValue,
     int itemLevelReq,
-    int weight
+    int weight,
+    @Nonnull Map<String, AffixTierStat> stats
 ) {
     
     /** Default weight for tier selection if not specified */
@@ -42,23 +54,25 @@ public record AffixTierDefinition(
         if (tier < 1) {
             throw new IllegalArgumentException("tier must be >= 1, got: " + tier);
         }
-        if (minValue > maxValue) {
-            throw new IllegalArgumentException(
-                "minValue (" + minValue + ") cannot be greater than maxValue (" + maxValue + ")");
-        }
         if (itemLevelReq < 0) {
             throw new IllegalArgumentException("itemLevelReq cannot be negative: " + itemLevelReq);
         }
         if (weight < 0) {
             throw new IllegalArgumentException("weight cannot be negative: " + weight);
         }
+        Objects.requireNonNull(stats, "stats cannot be null");
+        if (stats.isEmpty()) {
+            throw new IllegalArgumentException("stats cannot be empty - a tier must grant at least one stat");
+        }
+        // Make defensive copy to ensure immutability
+        stats = Collections.unmodifiableMap(new HashMap<>(stats));
     }
     
     /**
      * Create a tier definition with default weight.
      */
-    public AffixTierDefinition(int tier, int minValue, int maxValue, int itemLevelReq) {
-        this(tier, minValue, maxValue, itemLevelReq, DEFAULT_WEIGHT);
+    public AffixTierDefinition(int tier, int itemLevelReq, @Nonnull Map<String, AffixTierStat> stats) {
+        this(tier, itemLevelReq, DEFAULT_WEIGHT, stats);
     }
     
     /**
@@ -72,25 +86,30 @@ public record AffixTierDefinition(
     }
     
     /**
-     * Roll a random value within this tier's range.
-     *
-     * @param randomFraction A random value in [0.0, 1.0)
-     * @return A value between minValue and maxValue (inclusive)
+     * Get the number of stats this tier grants.
      */
-    public int rollValue(double randomFraction) {
-        if (minValue == maxValue) {
-            return minValue;
-        }
-        int range = maxValue - minValue + 1;
-        return minValue + (int) (randomFraction * range);
+    public int getStatCount() {
+        return stats.size();
     }
     
     /**
-     * Get the midpoint value of this tier's range.
-     * Useful for display or comparison purposes.
+     * Check if this tier grants a specific stat.
+     *
+     * @param statId The stat ID to check (e.g., "hyforged:strength")
+     * @return true if this tier grants the stat
      */
-    public int getMidValue() {
-        return (minValue + maxValue) / 2;
+    public boolean grantsStat(@Nonnull String statId) {
+        return stats.containsKey(statId);
+    }
+    
+    /**
+     * Get the stat configuration for a specific stat.
+     *
+     * @param statId The stat ID to get
+     * @return The stat configuration, or null if not present
+     */
+    public AffixTierStat getStat(@Nonnull String statId) {
+        return stats.get(statId);
     }
     
     /**
@@ -98,19 +117,12 @@ public record AffixTierDefinition(
      */
     public static class Builder {
         private int tier = 1;
-        private int minValue = 0;
-        private int maxValue = 0;
         private int itemLevelReq = 0;
         private int weight = DEFAULT_WEIGHT;
+        private final Map<String, AffixTierStat> stats = new HashMap<>();
         
         public Builder tier(int tier) {
             this.tier = tier;
-            return this;
-        }
-        
-        public Builder valueRange(int min, int max) {
-            this.minValue = min;
-            this.maxValue = max;
             return this;
         }
         
@@ -124,9 +136,46 @@ public record AffixTierDefinition(
             return this;
         }
         
+        /**
+         * Add a stat to this tier with a value range.
+         *
+         * @param statId The stat ID (e.g., "hyforged:strength")
+         * @param stackType How this modifier stacks
+         * @param minValue Minimum rolled value
+         * @param maxValue Maximum rolled value
+         */
+        public Builder stat(@Nonnull String statId, 
+                           @Nonnull HyforgedModifier.StackType stackType,
+                           int minValue, int maxValue) {
+            this.stats.put(statId, new AffixTierStat(
+                StatId.parse(statId), stackType, minValue, maxValue));
+            return this;
+        }
+        
+        /**
+         * Add a stat to this tier with a fixed value.
+         *
+         * @param statId The stat ID (e.g., "hyforged:strength")
+         * @param stackType How this modifier stacks
+         * @param value The fixed value
+         */
+        public Builder stat(@Nonnull String statId,
+                           @Nonnull HyforgedModifier.StackType stackType,
+                           int value) {
+            return stat(statId, stackType, value, value);
+        }
+        
+        /**
+         * Add a pre-built AffixTierStat.
+         */
+        public Builder stat(@Nonnull String statId, @Nonnull AffixTierStat stat) {
+            this.stats.put(statId, stat);
+            return this;
+        }
+        
         @Nonnull
         public AffixTierDefinition build() {
-            return new AffixTierDefinition(tier, minValue, maxValue, itemLevelReq, weight);
+            return new AffixTierDefinition(tier, itemLevelReq, weight, stats);
         }
     }
     

@@ -1,0 +1,56 @@
+﻿{
+  "Id": "hyforged:of-the-archmage",
+  "Type": "suffix",
+  "DisplayName": "of the Archmage",
+  "Weight": 75,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 70,
+      "Weight": 35,
+      "Stats": {
+        "hyforged:max-mana": { "MinValue": 85, "MaxValue": 105, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 55,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:max-mana": { "MinValue": 65, "MaxValue": 85, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 40,
+      "Weight": 68,
+      "Stats": {
+        "hyforged:max-mana": { "MinValue": 45, "MaxValue": 65, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 26,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:max-mana": { "MinValue": 28, "MaxValue": 45, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 14,
+      "Weight": 105,
+      "Stats": {
+        "hyforged:max-mana": { "MinValue": 14, "MaxValue": 28, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 1,
+      "Weight": 125,
+      "Stats": {
+        "hyforged:max-mana": { "MinValue": 5, "MaxValue": 14, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

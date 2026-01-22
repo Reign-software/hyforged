@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:venomous-touch",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Poison.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:poison-chance-bps", "StackType": "FLAT", "Amount": 5000 },
+    { "StatId": "hyforged:poison-damage-increased-bps", "StackType": "INCREASED", "Amount": 3000 },
+    { "StatId": "hyforged:poison-duration-bps", "StackType": "INCREASED", "Amount": 2500 }
+  ]
+}

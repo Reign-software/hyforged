@@ -1,0 +1,48 @@
+﻿{
+  "Id": "sharp",
+  "Type": "prefix",
+  "DisplayName": "Sharp",
+  "Weight": 100,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 40,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:physical-damage": { "MinValue": 2500, "MaxValue": 3000, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 25,
+      "Weight": 75,
+      "Stats": {
+        "hyforged:physical-damage": { "MinValue": 1800, "MaxValue": 2500, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 10,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:physical-damage": { "MinValue": 1200, "MaxValue": 1800, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 5,
+      "Weight": 125,
+      "Stats": {
+        "hyforged:physical-damage": { "MinValue": 600, "MaxValue": 1200, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 150,
+      "Stats": {
+        "hyforged:physical-damage": { "MinValue": 200, "MaxValue": 600, "StackType": "INCREASED" }
+      }
+    }
+  ]
+}

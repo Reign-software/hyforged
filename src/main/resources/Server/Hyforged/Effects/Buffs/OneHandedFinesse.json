@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:one-handed-finesse",
+  "EntityEffect": {
+    "Duration": 40,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/OneHanded.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:one-handed-damage-bps", "StackType": "INCREASED", "Amount": 3000 },
+    { "StatId": "hyforged:attack-speed-bps", "StackType": "INCREASED", "Amount": 2500 }
+  ]
+}

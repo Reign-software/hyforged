@@ -8,11 +8,13 @@ import reign.software.hyforged.affix.registry.AffixDefinitionRegistry;
 import reign.software.hyforged.affix.registry.AffixTypeRegistry;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
+import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -254,8 +256,8 @@ public final class AffixTooltipProvider {
         List<TooltipLine> forgedLines = new ArrayList<>();
 
         for (RolledAffix affix : affixes) {
-            TooltipLine line = generateAffixLine(affix, affixRegistry, typeRegistry, statRegistry);
-            if (line == null) {
+            List<TooltipLine> lines = generateAffixLines(affix, affixRegistry, typeRegistry, statRegistry);
+            if (lines.isEmpty()) {
                 continue;
             }
 
@@ -264,12 +266,12 @@ public final class AffixTooltipProvider {
             if (definition != null) {
                 AffixType type = typeRegistry.get(definition.type());
                 if (type != null && type.displayNamePosition() == AffixType.DisplayNamePosition.NONE) {
-                    forgedLines.add(line);
+                    forgedLines.addAll(lines);
                 } else {
-                    regularLines.add(line);
+                    regularLines.addAll(lines);
                 }
             } else {
-                regularLines.add(line); // Default to regular if unknown
+                regularLines.addAll(lines); // Default to regular if unknown
             }
         }
 
@@ -277,15 +279,15 @@ public final class AffixTooltipProvider {
     }
 
     /**
-     * Generate a single tooltip line for an affix.
+     * Generate tooltip lines for an affix (may be multiple lines for multi-stat affixes).
      *
      * @param affix          The rolled affix
      * @param affixRegistry  The affix definition registry
      * @param typeRegistry   The affix type registry
      * @param statRegistry   The stat definition registry
-     * @return The tooltip line, or null if the affix cannot be resolved
+     * @return List of tooltip lines, empty if the affix cannot be resolved
      */
-    private static TooltipLine generateAffixLine(
+    private static List<TooltipLine> generateAffixLines(
         @Nonnull RolledAffix affix,
         @Nonnull AffixDefinitionRegistry affixRegistry,
         @Nonnull AffixTypeRegistry typeRegistry,
@@ -295,41 +297,77 @@ public final class AffixTooltipProvider {
         AffixDefinition definition = affixRegistry.get(affix.affixId());
         if (definition == null) {
             LOGGER.log(Level.WARNING, "Unknown affix for tooltip: {0}", affix.affixId());
-            return null;
+            return List.of();
         }
 
-        // Get stat display name
-        String statName = getStatDisplayName(affix, statRegistry);
-
-        // Build the line text
-        String text = formatAffixLine(
-            affix.tier(),
-            definition.displayName(),
-            affix.value(),
-            affix.modifierType(),
-            statName
-        );
-
-        // Get tier color
         String color = getTierColor(affix.tier());
-
-        return TooltipLine.content(text, color);
+        List<TooltipLine> lines = new ArrayList<>();
+        
+        // First line includes the affix name
+        boolean firstStat = true;
+        for (Map.Entry<String, RolledAffix.RolledStat> entry : affix.rolledStats().entrySet()) {
+            String statIdStr = entry.getKey();
+            RolledAffix.RolledStat rolledStat = entry.getValue();
+            
+            // Get stat display name
+            String statName = getStatDisplayName(statIdStr, statRegistry);
+            
+            String text;
+            if (firstStat) {
+                // First line includes tier and affix name
+                text = formatAffixLine(
+                    affix.tier(),
+                    definition.displayName(),
+                    rolledStat.value(),
+                    rolledStat.stackType(),
+                    statName
+                );
+                firstStat = false;
+            } else {
+                // Subsequent lines just show the stat bonus (indented)
+                text = formatStatLine(
+                    rolledStat.value(),
+                    rolledStat.stackType(),
+                    statName
+                );
+            }
+            
+            lines.add(TooltipLine.content(text, color));
+        }
+        
+        return lines;
     }
 
     /**
-     * Get the display name for the stat affected by an affix.
+     * Get the display name for a stat by ID.
      */
     @Nonnull
     private static String getStatDisplayName(
-        @Nonnull RolledAffix affix,
+        @Nonnull String statIdStr,
         @Nonnull StatDefinitionRegistry statRegistry
     ) {
-        StatDefinition stat = statRegistry.getStat(affix.statId());
+        StatId statId = StatId.parse(statIdStr);
+        StatDefinition stat = statRegistry.getStat(statId);
         if (stat != null) {
             return stat.displayName();
         }
         // Fallback to stat ID if not found
-        return affix.statId().fullId();
+        return statIdStr;
+    }
+    
+    /**
+     * Format an additional stat line (for multi-stat affixes after the first).
+     */
+    @Nonnull
+    private static String formatStatLine(
+        int value,
+        @Nonnull HyforgedModifier.StackType modifierType,
+        @Nonnull String statName
+    ) {
+        String sign = value >= 0 ? "+" : "";
+        String suffix = (modifierType == HyforgedModifier.StackType.INCREASED 
+                      || modifierType == HyforgedModifier.StackType.MORE) ? "%" : "";
+        return String.format("       %s%d%s %s", sign, value, suffix, statName);
     }
 
     /**

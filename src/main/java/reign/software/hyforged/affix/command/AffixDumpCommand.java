@@ -126,16 +126,26 @@ public class AffixDumpCommand extends AbstractPlayerCommand {
             
             String tierColor = getTierColor(affix.tier());
             
+            // Show affix header
             context.sendMessage(Message.raw(String.format(
-                    "  %s[T%d] %s%s: §f+%d %s §7(%s)",
+                    "  %s[T%d] %s%s:",
                     tierColor,
                     affix.tier(),
                     typeColor,
-                    affix.affixId(),
-                    affix.value(),
-                    affix.statId().fullId(),
-                    affix.modifierType().name()
+                    affix.affixId()
             )));
+            
+            // Show each stat in the affix
+            for (var entry : affix.rolledStats().entrySet()) {
+                String statId = entry.getKey();
+                RolledAffix.RolledStat stat = entry.getValue();
+                context.sendMessage(Message.raw(String.format(
+                        "    §f+%d %s §7(%s)",
+                        stat.value(),
+                        statId,
+                        stat.stackType().name()
+                )));
+            }
         }
         
         return true;

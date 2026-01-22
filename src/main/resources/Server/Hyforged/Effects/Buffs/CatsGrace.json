@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:cats-grace",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Dexterity.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:dexterity", "StackType": "FLAT", "Amount": 15 }
+  ]
+}

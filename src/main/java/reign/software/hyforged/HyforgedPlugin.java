@@ -55,6 +55,8 @@ import reign.software.hyforged.stats.system.HyforgedBridgeSystem;
 import reign.software.hyforged.stats.system.HyforgedEffectBridgeSystem;
 import reign.software.hyforged.stats.system.HyforgedStatComputeSystem;
 import reign.software.hyforged.stats.system.HyforgedStatInitSystem;
+import reign.software.hyforged.stats.value.HyforgedStatValueInstaller;
+import reign.software.hyforged.effect.HyforgedEffectAssetLoader;
 
 import javax.annotation.Nonnull;
 import java.util.logging.Level;
@@ -176,6 +178,9 @@ public class HyforgedPlugin extends JavaPlugin {
         // Initialize asset loader for damage type extensions
         // Extensions define which resistance stats apply to each damage type (ECS pattern)
         DamageTypeAssetLoader.initialize(this);
+
+        // Initialize asset loader for Hyforged effects (single-file buff/debuff definitions)
+        HyforgedEffectAssetLoader.initialize(this);
         
         // Initialize asset loader for XP curves (progression system)
         // Curves define experience required for character and class level progression
@@ -269,6 +274,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register HyforgedStatInitSystem (handles player entity lifecycle)
         entityStoreRegistry.registerSystem(new HyforgedStatInitSystem());
         getLogger().at(Level.FINE).log("Registered HyforgedStatInitSystem");
+        
+        // Register HyforgedStatValueInstaller (swaps EntityStatValue → HyforgedStatValue for ARPG stacking)
+        entityStoreRegistry.registerSystem(new HyforgedStatValueInstaller());
+        getLogger().at(Level.FINE).log("Registered HyforgedStatValueInstaller");
         
         // Register NPCStatInitSystem (handles NPC entity stat initialization)
         entityStoreRegistry.registerSystem(new NPCStatInitSystem());

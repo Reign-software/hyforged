@@ -1,5 +1,9 @@
 package reign.software.hyforged.stats.effect;
 
+import com.hypixel.hytale.component.Ref;
+import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
@@ -84,6 +88,35 @@ public class HyforgedEffectService {
         long scaled = (long) baseDuration * (BASIS_100_PERCENT + effectDurationBps) / BASIS_100_PERCENT;
         
         // Clamp to valid range
+        return (int) Math.max(MIN_DURATION_TICKS, Math.min(scaled, Integer.MAX_VALUE));
+    }
+
+    /**
+     * Calculate the scaled duration for an effect using EntityStatMap values.
+     *
+     * @param store The entity store
+     * @param entityRef The entity reference
+     * @param baseDuration The base duration in ticks
+     * @return The scaled duration (minimum 1 tick)
+     */
+    public static int calculateScaledDuration(
+            @Nullable Store<EntityStore> store,
+            @Nullable Ref<EntityStore> entityRef,
+            int baseDuration
+    ) {
+        if (store == null || entityRef == null || baseDuration <= 0) {
+            return Math.max(baseDuration, MIN_DURATION_TICKS);
+        }
+
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        int statIndex = registry.getIndex(EFFECT_DURATION_STAT);
+
+        if (statIndex < 0) {
+            return baseDuration;
+        }
+
+        int effectDurationBps = StatAccessor.getStatValueInt(store, entityRef, statIndex);
+        long scaled = (long) baseDuration * (BASIS_100_PERCENT + effectDurationBps) / BASIS_100_PERCENT;
         return (int) Math.max(MIN_DURATION_TICKS, Math.min(scaled, Integer.MAX_VALUE));
     }
 

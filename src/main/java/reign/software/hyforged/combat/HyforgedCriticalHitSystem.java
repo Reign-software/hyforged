@@ -2,7 +2,6 @@ package reign.software.hyforged.combat;
 
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
-import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.SystemGroup;
@@ -17,11 +16,10 @@ import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import reign.software.hyforged.HyforgedPlugin;
-import reign.software.hyforged.stats.bridge.ProgressionStatBridge;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
-import reign.software.hyforged.stats.component.HyforgedStatComponent;
+import reign.software.hyforged.stats.bridge.ProgressionStatBridge;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -68,9 +66,6 @@ public class HyforgedCriticalHitSystem extends DamageEventSystem {
     
     /** Stat ID for crit multiplier */
     private static final StatId CRIT_MULTIPLIER = StatId.hyforged("crit-multiplier-bps");
-    
-    @Nonnull
-    private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
 
     @Nonnull
     private final Query<EntityStore> query;
@@ -84,10 +79,8 @@ public class HyforgedCriticalHitSystem extends DamageEventSystem {
     private boolean indicesCached = false;
 
     public HyforgedCriticalHitSystem() {
-        this.statComponentType = HyforgedPlugin.getInstance().getHyforgedStatComponentType();
-        
-        // Query for entities with HyforgedStatComponent (defenders)
-        this.query = statComponentType;
+        // Query for entities with EntityStatMap (for stat access)
+        this.query = StatAccessor.getStatMapType();
         
         // Run in inspect group after damage has been calculated/reduced
         // but before entity UI events for crit display
@@ -144,12 +137,6 @@ public class HyforgedCriticalHitSystem extends DamageEventSystem {
             return;
         }
         
-        // Get attacker's stat component
-        HyforgedStatComponent attackerStats = store.getComponent(attackerRef, statComponentType);
-        if (attackerStats == null) {
-            return;
-        }
-        
         // Check if this damage type can crit (environmental damage cannot)
         DamageCause damageCause = DamageCause.getAssetMap().getAsset(damage.getDamageCauseIndex());
         if (damageCause != null && damageCause.doesBypassResistances()) {
@@ -181,7 +168,7 @@ public class HyforgedCriticalHitSystem extends DamageEventSystem {
         // Get crit chance
         int critChanceBps = 0;
         if (critChanceIndex >= 0) {
-            critChanceBps = attackerStats.getCachedValue(critChanceIndex);
+            critChanceBps = StatAccessor.getStatValueInt(store, attackerRef, critChanceIndex);
         }
         
         // Skip if no crit chance
@@ -206,7 +193,7 @@ public class HyforgedCriticalHitSystem extends DamageEventSystem {
         // Get crit multiplier (this is bonus damage, not total multiplier)
         int critMultiplierBps = DEFAULT_CRIT_MULTIPLIER_BPS;
         if (critMultiplierIndex >= 0) {
-            int statValue = attackerStats.getCachedValue(critMultiplierIndex);
+            int statValue = StatAccessor.getStatValueInt(store, attackerRef, critMultiplierIndex);
             if (statValue > 0) {
                 critMultiplierBps = statValue;
             }

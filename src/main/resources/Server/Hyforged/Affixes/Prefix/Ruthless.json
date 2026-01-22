@@ -1,0 +1,48 @@
+﻿{
+  "Id": "hyforged:ruthless",
+  "Type": "prefix",
+  "DisplayName": "Ruthless",
+  "Weight": 70,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 60,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:crit-multiplier-bps": { "MinValue": 4000, "MaxValue": 5000, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 44,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:crit-multiplier-bps": { "MinValue": 2800, "MaxValue": 4000, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 28,
+      "Weight": 82,
+      "Stats": {
+        "hyforged:crit-multiplier-bps": { "MinValue": 1800, "MaxValue": 2800, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 14,
+      "Weight": 105,
+      "Stats": {
+        "hyforged:crit-multiplier-bps": { "MinValue": 1000, "MaxValue": 1800, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:crit-multiplier-bps": { "MinValue": 400, "MaxValue": 1000, "StackType": "INCREASED" }
+      }
+    }
+  ]
+}

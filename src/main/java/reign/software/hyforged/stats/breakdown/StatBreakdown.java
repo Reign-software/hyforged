@@ -2,6 +2,7 @@ package reign.software.hyforged.stats.breakdown;
 
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatId;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -84,28 +85,28 @@ public record StatBreakdown(
     @Nonnull
     public List<BreakdownEntry> getFlatEntries() {
         return entries.stream()
-            .filter(e -> e.modifierType() == reign.software.hyforged.stats.component.ModifierType.FLAT)
+            .filter(e -> e.modifierType() == HyforgedModifier.StackType.FLAT)
             .toList();
     }
     
     @Nonnull
     public List<BreakdownEntry> getIncreasedEntries() {
         return entries.stream()
-            .filter(e -> e.modifierType() == reign.software.hyforged.stats.component.ModifierType.INCREASED)
+            .filter(e -> e.modifierType() == HyforgedModifier.StackType.INCREASED)
             .toList();
     }
     
     @Nonnull
     public List<BreakdownEntry> getMoreEntries() {
         return entries.stream()
-            .filter(e -> e.modifierType() == reign.software.hyforged.stats.component.ModifierType.MORE)
+            .filter(e -> e.modifierType() == HyforgedModifier.StackType.MORE)
             .toList();
     }
     
     @Nonnull
     public List<BreakdownEntry> getCapEntries() {
         return entries.stream()
-            .filter(e -> e.modifierType() == reign.software.hyforged.stats.component.ModifierType.CAP)
+            .filter(e -> e.modifierType() == HyforgedModifier.StackType.CAP)
             .toList();
     }
     

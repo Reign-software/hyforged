@@ -7,6 +7,7 @@ import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -45,7 +46,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     // ========== MODIFIERS ==========
     // List of all active modifiers on this entity
     
-    private final List<StatModifier> modifiers = new ArrayList<>();
+    private final List<HyforgedModifier> modifiers = new ArrayList<>();
     
     // Conditional modifiers that require context evaluation
     private final List<ConditionalStatModifier> conditionalModifiers = new ArrayList<>();
@@ -219,7 +220,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
      * Get all modifiers (unmodifiable view).
      */
     @Nonnull
-    public List<StatModifier> getModifiers() {
+    public List<HyforgedModifier> getModifiers() {
         return List.copyOf(modifiers);
     }
     
@@ -228,7 +229,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
      * If a modifier with the same source/target/type already exists, it is replaced.
      * @return true if added or replaced, false if at max capacity
      */
-    public boolean addModifier(@Nonnull StatModifier modifier) {
+    public boolean addModifier(@Nonnull HyforgedModifier modifier) {
         return upsertModifier(modifier);
     }
 
@@ -238,10 +239,10 @@ public class HyforgedStatComponent implements Component<EntityStore> {
      *
      * @return true if added or replaced, false if at max capacity
      */
-    public boolean upsertModifier(@Nonnull StatModifier modifier) {
+    public boolean upsertModifier(@Nonnull HyforgedModifier modifier) {
         int existingIndex = findMatchingModifierIndex(modifier);
         if (existingIndex >= 0) {
-            StatModifier existing = modifiers.set(existingIndex, modifier);
+            HyforgedModifier existing = modifiers.set(existingIndex, modifier);
             markAffectedStatsDirty(existing);
             markAffectedStatsDirty(modifier);
             return true;
@@ -255,9 +256,9 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         return true;
     }
 
-    private int findMatchingModifierIndex(@Nonnull StatModifier modifier) {
+    private int findMatchingModifierIndex(@Nonnull HyforgedModifier modifier) {
         for (int i = 0; i < modifiers.size(); i++) {
-            StatModifier existing = modifiers.get(i);
+            HyforgedModifier existing = modifiers.get(i);
             if (matchesModifierKey(existing, modifier)) {
                 return i;
             }
@@ -265,12 +266,12 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         return -1;
     }
 
-    private static boolean matchesModifierKey(@Nonnull StatModifier existing, @Nonnull StatModifier incoming) {
-        return existing.sourceId().equals(incoming.sourceId())
-            && existing.sourceType() == incoming.sourceType()
-            && existing.modifierType() == incoming.modifierType()
-            && existing.targetStatIndex() == incoming.targetStatIndex()
-            && existing.targetTagIndex() == incoming.targetTagIndex();
+    private static boolean matchesModifierKey(@Nonnull HyforgedModifier existing, @Nonnull HyforgedModifier incoming) {
+        return existing.getSourceId().equals(incoming.getSourceId())
+            && existing.getSourceType() == incoming.getSourceType()
+            && existing.getStackType() == incoming.getStackType()
+            && existing.getTargetStatIndex() == incoming.getTargetStatIndex()
+            && existing.getTargetTagIndex() == incoming.getTargetTagIndex();
     }
     
     /**
@@ -279,25 +280,25 @@ public class HyforgedStatComponent implements Component<EntityStore> {
      */
     public boolean removeModifiersBySource(@Nonnull String sourceId) {
         // Collect affected stats before removal
-        for (StatModifier m : modifiers) {
-            if (m.sourceId().equals(sourceId)) {
+        for (HyforgedModifier m : modifiers) {
+            if (m.getSourceId().equals(sourceId)) {
                 markAffectedStatsDirty(m);
             }
         }
-        return modifiers.removeIf(m -> m.sourceId().equals(sourceId));
+        return modifiers.removeIf(m -> m.getSourceId().equals(sourceId));
     }
     
     /**
      * Remove all modifiers with the given source type.
      */
-    public boolean removeModifiersBySourceType(@Nonnull ModifierSource sourceType) {
+    public boolean removeModifiersBySourceType(@Nonnull HyforgedModifier.SourceType sourceType) {
         // Collect affected stats before removal
-        for (StatModifier m : modifiers) {
-            if (m.sourceType() == sourceType) {
+        for (HyforgedModifier m : modifiers) {
+            if (m.getSourceType() == sourceType) {
                 markAffectedStatsDirty(m);
             }
         }
-        return modifiers.removeIf(m -> m.sourceType() == sourceType);
+        return modifiers.removeIf(m -> m.getSourceType() == sourceType);
     }
 
     /**
@@ -311,12 +312,12 @@ public class HyforgedStatComponent implements Component<EntityStore> {
      * @return number of modifiers removed
      */
     public int removeModifiersIf(
-            @Nonnull Predicate<StatModifier> predicate,
-            @Nonnull Consumer<StatModifier> onRemoved
+            @Nonnull Predicate<HyforgedModifier> predicate,
+            @Nonnull Consumer<HyforgedModifier> onRemoved
     ) {
         int removed = 0;
-        for (java.util.Iterator<StatModifier> it = modifiers.iterator(); it.hasNext(); ) {
-            StatModifier modifier = it.next();
+        for (java.util.Iterator<HyforgedModifier> it = modifiers.iterator(); it.hasNext(); ) {
+            HyforgedModifier modifier = it.next();
             if (predicate.test(modifier)) {
                 it.remove();
                 removed++;
@@ -417,12 +418,12 @@ public class HyforgedStatComponent implements Component<EntityStore> {
      * Mark all stats affected by a modifier as dirty.
      * Handles both direct stat targeting and tag targeting.
      */
-    private void markAffectedStatsDirty(StatModifier modifier) {
-        if (modifier.targetStatIndex() >= 0) {
-            markStatDirty(modifier.targetStatIndex());
+    private void markAffectedStatsDirty(HyforgedModifier modifier) {
+        if (modifier.getTargetStatIndex() >= 0) {
+            markStatDirty(modifier.getTargetStatIndex());
         }
-        int tagIndex = modifier.targetTagIndex();
-        if (tagIndex != StatModifier.NO_TAG) {
+        int tagIndex = modifier.getTargetTagIndex();
+        if (tagIndex != HyforgedModifier.NO_TAG) {
             for (int statIdx : StatDefinitionRegistry.get().getStatIndicesForTagIndex(tagIndex)) {
                 markStatDirty(statIdx);
             }

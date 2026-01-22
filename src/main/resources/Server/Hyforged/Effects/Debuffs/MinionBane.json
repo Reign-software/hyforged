@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:minion-bane",
+  "EntityEffect": {
+    "Duration": 25,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/MinionBane.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:minion-damage-bps", "StackType": "INCREASED", "Amount": -4000 },
+    { "StatId": "hyforged:minion-life-bps", "StackType": "INCREASED", "Amount": -3000 },
+    { "StatId": "hyforged:minion-speed-bps", "StackType": "INCREASED", "Amount": -2500 }
+  ]
+}

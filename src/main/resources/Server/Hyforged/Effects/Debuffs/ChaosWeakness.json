@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:chaos-weakness",
+  "EntityEffect": {
+    "Duration": 25,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/ChaosVuln.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:chaos-resistance-bps", "StackType": "FLAT", "Amount": -4000 },
+    { "StatId": "hyforged:max-chaos-resistance-bps", "StackType": "FLAT", "Amount": -500 }
+  ]
+}

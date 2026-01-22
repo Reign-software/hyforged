@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:spell-barrier",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/SpellBlock.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:spell-block-chance-bps", "StackType": "FLAT", "Amount": 2000 },
+    { "StatId": "hyforged:spell-suppression-chance-bps", "StackType": "FLAT", "Amount": 1500 },
+    { "StatId": "hyforged:spell-suppression-effect-bps", "StackType": "INCREASED", "Amount": 2500 }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "id": "suffix",
   "DisplayNamePosition": "after",
-  "DisplayFormat": "{name}",
+  "DisplayFormat": "{name} (T{tier})",
   "Stackable": true
 }

@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:clumsy",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Clumsy.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:dexterity", "StackType": "FLAT", "Amount": -15 },
+    { "StatId": "hyforged:attack-speed-bps", "StackType": "INCREASED", "Amount": -2000 },
+    { "StatId": "hyforged:evasion-chance-bps", "StackType": "FLAT", "Amount": -1500 }
+  ]
+}

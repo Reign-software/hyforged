@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:all-skill-amplification",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/AllSkills.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:all-skill-levels-flat", "StackType": "FLAT", "Amount": 2 }
+  ]
+}

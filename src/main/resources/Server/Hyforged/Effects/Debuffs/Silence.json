@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:silence",
+  "EntityEffect": {
+    "Duration": 8,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Silence.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:spell-damage-increased-bps", "StackType": "INCREASED", "Amount": -5000 },
+    { "StatId": "hyforged:cast-speed-bps", "StackType": "INCREASED", "Amount": -5000 }
+  ]
+}

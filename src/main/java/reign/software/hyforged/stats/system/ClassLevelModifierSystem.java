@@ -1,21 +1,18 @@
 package reign.software.hyforged.stats.system;
 
-import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.event.EventRegistration;
 import com.hypixel.hytale.server.core.HytaleServer;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
-import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.progression.event.CharacterLevelUpEvent;
 import reign.software.hyforged.progression.event.ClassLevelUpEvent;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
-import reign.software.hyforged.stats.component.HyforgedStatComponent;
-import reign.software.hyforged.stats.component.ModifierSource;
-import reign.software.hyforged.stats.component.ModifierType;
-import reign.software.hyforged.stats.component.StatModifier;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -36,9 +33,6 @@ public class ClassLevelModifierSystem {
 
     private static final Logger LOGGER = Logger.getLogger(ClassLevelModifierSystem.class.getName());
     
-    @Nonnull
-    private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
-    
     /**
      * Modifier source ID prefix for class level bonuses.
      */
@@ -50,8 +44,6 @@ public class ClassLevelModifierSystem {
     private EventRegistration<Void, CharacterLevelUpEvent> characterLevelRegistration;
 
     public ClassLevelModifierSystem() {
-        this.statComponentType = HyforgedPlugin.getInstance().getHyforgedStatComponentType();
-        
         // Subscribe to level-up events
         registerEventHandlers();
     }
@@ -92,9 +84,9 @@ public class ClassLevelModifierSystem {
         }
         Store<EntityStore> store = entityRef.getStore();
         
-        HyforgedStatComponent statComponent = store.getComponent(entityRef, statComponentType);
-        if (statComponent == null) {
-            LOGGER.fine("ClassLevelModifierSystem: Entity has no stat component");
+        EntityStatMap statMap = StatAccessor.getStatMap(store, entityRef);
+        if (statMap == null) {
+            LOGGER.fine("ClassLevelModifierSystem: Entity has no stat map");
             return;
         }
         
@@ -121,20 +113,16 @@ public class ClassLevelModifierSystem {
             // Create the source ID for this level's bonus
             String sourceId = CLASS_LEVEL_SOURCE_PREFIX + classId + ":" + newLevel + ":" + abilityId;
             
-            StatModifier modifier = new StatModifier.Builder(sourceId)
-                    .sourceType(ModifierSource.CLASS)
-                    .modifierType(ModifierType.FLAT)
+            HyforgedModifier modifier = HyforgedModifier.builder()
+                    .sourceId(sourceId)
+                    .sourceType(HyforgedModifier.SourceType.CLASS)
+                    .flat(bonusValue)
                     .targetStat(statIndex)
-                    .value(bonusValue)
                     .permanent()
                     .build();
             
-            boolean added = statComponent.addModifier(modifier);
-            if (!added) {
-                LOGGER.warning(() -> String.format(
-                        "ClassLevelModifierSystem: Failed to add modifier for %s (max capacity?)",
-                        abilityId));
-            }
+            // putModifier returns the previous modifier or null - no failure case
+            statMap.putModifier(statIndex, sourceId, modifier);
         }
     }
 
@@ -144,6 +132,9 @@ public class ClassLevelModifierSystem {
      * Currently character level-ups don't grant ability bonuses directly
      * (those come from class progression), but this hook is available
      * for future expansion.
+     * <p>
+     * Note: With EntityStatMap, stat values auto-recompute when accessed,
+     * so no explicit dirty flag is needed.
      *
      * @param event The character level-up event
      */
@@ -156,18 +147,8 @@ public class ClassLevelModifierSystem {
                 "ClassLevelModifierSystem: Character level-up to %d (no bonuses applied)",
                 event.newLevel()));
         
-        // Mark stat component dirty so effectiveness calculations use new level
-        Ref<EntityStore> entityRef = event.entityRef();
-        if (!entityRef.isValid()) {
-            return;
-        }
-        Store<EntityStore> store = entityRef.getStore();
-        
-        HyforgedStatComponent statComponent = store.getComponent(entityRef, statComponentType);
-        if (statComponent != null) {
-            // Mark all stats dirty to recompute with new character level
-            statComponent.markAllDirty();
-        }
+        // Note: EntityStatMap auto-recomputes values when accessed,
+        // so no explicit dirty marking is needed for effectiveness calculations
     }
 
     /**
@@ -175,20 +156,16 @@ public class ClassLevelModifierSystem {
      * <p>
      * Called when a player changes their active class to clear old bonuses.
      *
-     * @param statComponent The entity's stat component
+     * @param statMap The entity's stat map
      * @param classId The class ID to remove bonuses for
      * @return The number of modifiers removed
      */
     public static int removeClassModifiers(
-            @Nonnull HyforgedStatComponent statComponent,
+            @Nonnull EntityStatMap statMap,
             @Nonnull String classId
     ) {
         String prefix = CLASS_LEVEL_SOURCE_PREFIX + classId + ":";
-        return statComponent.removeModifiersIf(
-                mod -> mod.sourceType() == ModifierSource.CLASS && 
-                       mod.sourceId().startsWith(prefix),
-                mod -> {} // No additional action needed on removal
-        );
+        return StatAccessor.removeAllModifiersByKeyPrefix(statMap, prefix);
     }
 
     /**
@@ -196,14 +173,10 @@ public class ClassLevelModifierSystem {
      * <p>
      * Called during progression reset.
      *
-     * @param statComponent The entity's stat component
+     * @param statMap The entity's stat map
      * @return The number of modifiers removed
      */
-    public static int removeAllClassModifiers(@Nonnull HyforgedStatComponent statComponent) {
-        return statComponent.removeModifiersIf(
-                mod -> mod.sourceType() == ModifierSource.CLASS && 
-                       mod.sourceId().startsWith(CLASS_LEVEL_SOURCE_PREFIX),
-                mod -> {} // No additional action needed on removal
-        );
+    public static int removeAllClassModifiers(@Nonnull EntityStatMap statMap) {
+        return StatAccessor.removeAllModifiersByKeyPrefix(statMap, CLASS_LEVEL_SOURCE_PREFIX);
     }
 }

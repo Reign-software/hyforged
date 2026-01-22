@@ -1,0 +1,40 @@
+﻿{
+  "Id": "hyforged:mana-siphoning",
+  "Type": "prefix",
+  "DisplayName": "Mana-Siphoning",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 60,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:mana-leech-bps": { "MinValue": 150, "MaxValue": 200, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 42,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:mana-leech-bps": { "MinValue": 100, "MaxValue": 150, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 24,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:mana-leech-bps": { "MinValue": 50, "MaxValue": 100, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 8,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:mana-leech-bps": { "MinValue": 20, "MaxValue": 50, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

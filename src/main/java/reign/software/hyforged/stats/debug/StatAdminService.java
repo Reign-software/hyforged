@@ -6,12 +6,13 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.service.HyforgedStatQueryService;
-import reign.software.hyforged.stats.component.StatModifier;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 import reign.software.hyforged.stats.breakdown.BreakdownEntry;
 import reign.software.hyforged.stats.breakdown.StatBreakdown;
 
@@ -76,14 +77,18 @@ public final class StatAdminService {
             return null;
         }
         
-        return formatInspection(entityRef.getIndex(), component);
+        return formatInspection(entityRef.getIndex(), component, store, entityRef);
     }
     
     /**
      * Format a full inspection of an entity's stat component.
      */
     @Nonnull
-    public static String formatInspection(int entityIndex, @Nonnull HyforgedStatComponent component) {
+    public static String formatInspection(
+            int entityIndex,
+            @Nonnull HyforgedStatComponent component,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> entityRef) {
         StringBuilder sb = new StringBuilder();
         sb.append("========== ENTITY STAT INSPECTION ==========\n");
         sb.append(String.format("Entity Index: %d\n", entityIndex));
@@ -102,11 +107,14 @@ public final class StatAdminService {
         
         // Modifiers
         sb.append("\n--- Modifiers ---\n");
-        List<StatModifier> modifiers = component.getModifiers();
+        List<HyforgedModifier> modifiers = StatAccessor.getAllHyforgedModifiers(store, entityRef);
+        if (modifiers.isEmpty()) {
+            modifiers = component.getModifiers();
+        }
         sb.append(String.format("Count: %d / %d\n", modifiers.size(), HyforgedStatComponent.MAX_MODIFIERS));
         
         if (modifiers.size() <= 20) {
-            for (StatModifier mod : modifiers) {
+            for (HyforgedModifier mod : modifiers) {
                 sb.append(formatModifierLine(mod));
             }
         } else {
@@ -139,23 +147,27 @@ public final class StatAdminService {
         
         // Sample Stats
         sb.append("\n--- Sample Stat Values ---\n");
-        appendStatValue(sb, registry, component, "hyforged:max-health");
-        appendStatValue(sb, registry, component, "hyforged:max-mana");
-        appendStatValue(sb, registry, component, "hyforged:max-stamina");
-        appendStatValue(sb, registry, component, "hyforged:armor");
-        appendStatValue(sb, registry, component, "hyforged:physical-damage");
+        appendStatValue(sb, registry, store, entityRef, "hyforged:max-health");
+        appendStatValue(sb, registry, store, entityRef, "hyforged:max-mana");
+        appendStatValue(sb, registry, store, entityRef, "hyforged:max-stamina");
+        appendStatValue(sb, registry, store, entityRef, "hyforged:armor");
+        appendStatValue(sb, registry, store, entityRef, "hyforged:physical-damage");
         
         sb.append("=============================================\n");
         return sb.toString();
     }
     
-    private static void appendStatValue(StringBuilder sb, StatDefinitionRegistry registry, 
-            HyforgedStatComponent component, String statIdStr) {
+    private static void appendStatValue(
+            StringBuilder sb,
+            StatDefinitionRegistry registry,
+            Store<EntityStore> store,
+            Ref<EntityStore> entityRef,
+            String statIdStr) {
         StatId statId = StatId.parse(statIdStr);
         if (statId != null) {
             int index = registry.getIndex(statId);
             if (index >= 0) {
-                int value = component.getCachedValue(index);
+                int value = StatAccessor.getStatValueInt(store, entityRef, index);
                 StatDefinition def = registry.getStat(index);
                 String name = def != null ? def.displayName() : statIdStr;
                 sb.append(String.format("  %s: %d\n", name, value));
@@ -163,24 +175,24 @@ public final class StatAdminService {
         }
     }
     
-    private static String formatModifierLine(StatModifier mod) {
+    private static String formatModifierLine(HyforgedModifier mod) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         String targetName;
-        if (mod.targetTagIndex() != StatModifier.NO_TAG) {
-            targetName = "tagIndex:" + mod.targetTagIndex();
-        } else if (mod.targetStatIndex() >= 0) {
-            StatDefinition def = registry.getStat(mod.targetStatIndex());
-            targetName = def != null ? def.id().toString() : "idx:" + mod.targetStatIndex();
+        if (mod.getTargetTagIndex() != HyforgedModifier.NO_TAG) {
+            targetName = "tagIndex:" + mod.getTargetTagIndex();
+        } else if (mod.getTargetStatIndex() >= 0) {
+            StatDefinition def = registry.getStat(mod.getTargetStatIndex());
+            targetName = def != null ? def.id().toString() : "idx:" + mod.getTargetStatIndex();
         } else {
             targetName = "?";
         }
         
         return String.format("  [%s] %s %+d to %s from '%s'\n",
-            mod.modifierType().name(),
-            mod.sourceType().name(),
-            mod.value(),
+            mod.getStackType().name(),
+            mod.getSourceType().name(),
+            mod.getAmount(),
             targetName,
-            mod.sourceId()
+            mod.getSourceId()
         );
     }
     
@@ -253,7 +265,7 @@ public final class StatAdminService {
             return null;
         }
         
-        StatBreakdown breakdown = HyforgedStatQueryService.getStatBreakdown(component, statId, targetLevel);
+        StatBreakdown breakdown = HyforgedStatQueryService.getStatBreakdown(component, statId, targetLevel, entityRef);
         if (breakdown == null) {
             return "Stat not found: " + statId;
         }

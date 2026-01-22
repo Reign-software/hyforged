@@ -153,24 +153,45 @@ StatId id = new StatId("yourmod", "custom-stat");
 
 ## Modifier Types (Stacking)
 
+Modifiers are applied in a strict ARPG-style order by `HyforgedStatValue.computeModifiers()`:
+
 ### FLAT
 Direct addition/subtraction to the base value.
 
 ```java
 // +50 to max health
-StatModifier.flat("item-123", ModifierSource.EQUIPMENT, healthIndex, 50);
+HyforgedModifier flatBonus = HyforgedModifier.builder()
+    .amount(50)
+    .stackType(HyforgedModifier.StackType.FLAT)
+    .sourceType(HyforgedModifier.SourceType.EQUIPMENT)
+    .sourceId("item-123")
+    .targetStatIndex(healthIndex)
+    .build();
+entityStatMap.putModifier(healthIndex, "item-123:health", flatBonus);
 ```
 
 ### INCREASED
-Percentage bonus in basis points. All INCREASED modifiers are summed together.
+Percentage bonus in basis points. All INCREASED modifiers are summed together, then applied once.
 
 ```java
 // +10% increased damage (1000 bps)
-StatModifier.increased("passive-1", ModifierSource.PASSIVE, damageIndex, 1000);
+HyforgedModifier bonus1 = HyforgedModifier.builder()
+    .amount(1000)
+    .stackType(HyforgedModifier.StackType.INCREASED)
+    .sourceType(HyforgedModifier.SourceType.PASSIVE)
+    .sourceId("passive-1")
+    .targetStatIndex(damageIndex)
+    .build();
 
-// Another +15% increased damage (1500 bps)  
+// +15% increased damage (1500 bps)  
 // Total: 25% increased applied to base
-StatModifier.increased("passive-2", ModifierSource.PASSIVE, damageIndex, 1500);
+HyforgedModifier bonus2 = HyforgedModifier.builder()
+    .amount(1500)
+    .stackType(HyforgedModifier.StackType.INCREASED)
+    .sourceType(HyforgedModifier.SourceType.PASSIVE)
+    .sourceId("passive-2")
+    .targetStatIndex(damageIndex)
+    .build();
 ```
 
 ### MORE
@@ -178,35 +199,54 @@ Percentage multiplier in basis points. Each MORE modifier is applied sequentiall
 
 ```java
 // 20% more damage (2000 bps)
-StatModifier.more("buff-1", ModifierSource.BUFF, damageIndex, 2000);
+HyforgedModifier more1 = HyforgedModifier.builder()
+    .amount(2000)
+    .stackType(HyforgedModifier.StackType.MORE)
+    .sourceType(HyforgedModifier.SourceType.BUFF)
+    .sourceId("buff-1")
+    .targetStatIndex(damageIndex)
+    .build();
 
 // Another 10% more damage (1000 bps)
 // Applied as: base * 1.20 * 1.10 (NOT base * 1.30)
-StatModifier.more("buff-2", ModifierSource.BUFF, damageIndex, 1000);
+HyforgedModifier more2 = HyforgedModifier.builder()
+    .amount(1000)
+    .stackType(HyforgedModifier.StackType.MORE)
+    .sourceType(HyforgedModifier.SourceType.BUFF)
+    .sourceId("buff-2")
+    .targetStatIndex(damageIndex)
+    .build();
 ```
 
 ### CAP
 Enforces minimum or maximum bounds.
 
 ```java
-// Using the Builder for cap modifiers
-new StatModifier.Builder("class-cap")
-    .sourceType(ModifierSource.CLASS)
-    .modifierType(ModifierType.CAP)
-    .targetStat(critChanceIndex)
-    .value(7500)  // Cap crit chance at 75% (7500 bps)
+// Cap crit chance at 75% (7500 bps)
+HyforgedModifier cap = HyforgedModifier.builder()
+    .amount(7500)
+    .stackType(HyforgedModifier.StackType.CAP)
+    .sourceType(HyforgedModifier.SourceType.CLASS)
+    .sourceId("class-cap")
+    .targetStatIndex(critChanceIndex)
     .build();
+entityStatMap.putModifier(critChanceIndex, "class-cap:crit", cap);
 ```
 
 ---
 
 ## Adding Modifiers via Code
 
-### Getting the Component
+Hyforged uses **HyforgedModifier** as the unified modifier type that integrates directly with Hytale's `EntityStatMap`. This means modifiers can be added via JSON on items/buffs OR programmatically.
+
+### Getting EntityStatMap
 
 ```java
-// From an entity
-HyforgedStatComponent stats = entity.getComponent(HyforgedStatComponent.class);
+// From an archetype chunk in a system
+EntityStatMap statMap = archetypeChunk.getComponent(index, EntityStatMap.getComponentType());
+
+// Or use StatAccessor for direct reads
+int value = StatAccessor.getStatValueInt(archetypeChunk, index, statIndex);
 ```
 
 ### Looking Up Stat Index
@@ -225,38 +265,51 @@ int customIndex = registry.getIndex(customId);
 ### Adding Modifiers
 
 ```java
-// Quick factory methods
-StatModifier flatBonus = StatModifier.flat(
-    "item-uuid-123",           // Unique source ID
-    ModifierSource.EQUIPMENT,  // Source type
-    armorIndex,                // Target stat index
-    100                        // +100 armor
-);
-stats.addModifier(flatBonus);
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
-// Builder for more control
-StatModifier timedBuff = new StatModifier.Builder("speed-potion")
-    .sourceType(ModifierSource.BUFF)
-    .modifierType(ModifierType.INCREASED)
-    .targetStat(attackSpeedIndex)
-    .value(200)                    // +20% attack speed
-    .expiresAt(currentTick + 6000) // Expires in 5 minutes (20 ticks/sec)
-    .priority(10)                  // Lower priority = applied first
+// Create and add a flat bonus modifier
+HyforgedModifier flatBonus = HyforgedModifier.builder()
+    .amount(100)                                     // +100 armor
+    .stackType(HyforgedModifier.StackType.FLAT)
+    .sourceType(HyforgedModifier.SourceType.EQUIPMENT)
+    .sourceId("item-uuid-123")
+    .targetStatIndex(armorIndex)
     .build();
-stats.addModifier(timedBuff);
+
+// Add to EntityStatMap with a unique key
+entityStatMap.putModifier(armorIndex, "item-uuid-123:armor", flatBonus);
+
+// Timed buff with expiration
+HyforgedModifier timedBuff = HyforgedModifier.builder()
+    .amount(2000)                                    // +20% attack speed
+    .stackType(HyforgedModifier.StackType.INCREASED)
+    .sourceType(HyforgedModifier.SourceType.BUFF)
+    .sourceId("speed-potion")
+    .targetStatIndex(attackSpeedIndex)
+    .expirationTick(currentTick + 6000)             // Expires in 5 minutes
+    .build();
+
+entityStatMap.putModifier(attackSpeedIndex, "speed-potion:attack-speed", timedBuff);
 ```
 
 ### Removing Modifiers
 
 ```java
-// Remove all modifiers from a source (e.g., when item unequipped)
-stats.removeModifiersBySource("item-uuid-123");
+// Remove a specific modifier by key
+entityStatMap.removeModifier(armorIndex, "item-uuid-123:armor");
 
-// Remove all modifiers of a type (e.g., clear all buffs)
-stats.removeModifiersBySourceType(ModifierSource.BUFF);
+// Remove all modifiers with a key prefix (e.g., when item unequipped)
+StatAccessor.removeAllModifiersByKeyPrefix(entityStatMap, "item-uuid-123:");
+```
 
-// Remove expired modifiers (called automatically by systems)
-stats.removeExpiredModifiers(currentTick);
+### Reading Stats
+
+```java
+// Get computed stat value (includes all modifiers with ARPG stacking)
+int armorValue = StatAccessor.getStatValueInt(entityStatMap, armorIndex);
+
+// Or from chunk/index in a system
+int armorValue = StatAccessor.getStatValueInt(archetypeChunk, index, armorIndex);
 ```
 
 ---

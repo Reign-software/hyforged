@@ -1,0 +1,56 @@
+﻿{
+  "Id": "hyforged:sages",
+  "Type": "prefix",
+  "DisplayName": "Sage's",
+  "Weight": 80,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 70,
+      "Weight": 35,
+      "Stats": {
+        "hyforged:wisdom": { "MinValue": 45, "MaxValue": 55, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 55,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:wisdom": { "MinValue": 35, "MaxValue": 45, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 40,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:wisdom": { "MinValue": 26, "MaxValue": 35, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 25,
+      "Weight": 90,
+      "Stats": {
+        "hyforged:wisdom": { "MinValue": 18, "MaxValue": 26, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 12,
+      "Weight": 110,
+      "Stats": {
+        "hyforged:wisdom": { "MinValue": 10, "MaxValue": 18, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:wisdom": { "MinValue": 4, "MaxValue": 10, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

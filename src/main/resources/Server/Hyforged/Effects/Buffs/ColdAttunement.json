@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:cold-attunement",
+  "EntityEffect": {
+    "Duration": 45,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/ColdSkill.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:cold-skill-levels-flat", "StackType": "FLAT", "Amount": 2 },
+    { "StatId": "hyforged:cold-damage-increased-bps", "StackType": "INCREASED", "Amount": 3000 },
+    { "StatId": "hyforged:cold-penetration-bps", "StackType": "FLAT", "Amount": 1500 }
+  ]
+}

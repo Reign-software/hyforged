@@ -2,7 +2,7 @@ package reign.software.hyforged.affix.event;
 
 import com.hypixel.hytale.event.IEvent;
 import com.hypixel.hytale.server.core.entity.LivingEntity;
-import reign.software.hyforged.stats.component.StatModifier;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.Objects;
  * eventBus.registerGlobal((short) 0, AffixModifiersAppliedEvent.class, event -> {
  *     LivingEntity entity = event.getEntity();
  *     String slotType = event.getSlotType(); // "armor" or "hand"
- *     List&lt;StatModifier&gt; modifiers = event.getModifiers();
+ *     List&lt;HyforgedModifier&gt; modifiers = event.getModifiers();
  *     // React to stat changes...
  * });
  * </pre>
@@ -31,7 +31,7 @@ public class AffixModifiersAppliedEvent implements IEvent<Void> {
     
     private final LivingEntity entity;
     private final String slotType;
-    private final List<StatModifier> modifiers;
+    private final List<HyforgedModifier> modifiers;
     
     /**
      * Create a new AffixModifiersAppliedEvent.
@@ -43,7 +43,7 @@ public class AffixModifiersAppliedEvent implements IEvent<Void> {
     public AffixModifiersAppliedEvent(
             @Nonnull LivingEntity entity,
             @Nonnull String slotType,
-            @Nonnull List<StatModifier> modifiers
+            @Nonnull List<HyforgedModifier> modifiers
     ) {
         this.entity = Objects.requireNonNull(entity, "entity cannot be null");
         this.slotType = Objects.requireNonNull(slotType, "slotType cannot be null");
@@ -74,7 +74,7 @@ public class AffixModifiersAppliedEvent implements IEvent<Void> {
      * @return Immutable list of applied modifiers
      */
     @Nonnull
-    public List<StatModifier> getModifiers() {
+    public List<HyforgedModifier> getModifiers() {
         return modifiers;
     }
     

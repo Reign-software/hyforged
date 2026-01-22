@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:bears-endurance",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Constitution.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:constitution", "StackType": "FLAT", "Amount": 15 }
+  ]
+}

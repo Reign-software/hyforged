@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:swift-feet",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Speed.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:movement-speed-bps", "StackType": "INCREASED", "Amount": 3500 }
+  ]
+}

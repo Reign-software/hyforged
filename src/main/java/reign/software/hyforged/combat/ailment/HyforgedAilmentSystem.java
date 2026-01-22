@@ -19,10 +19,9 @@ import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
-import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.damage.DamageTypeExtensionRegistry;
 
 import javax.annotation.Nonnull;
@@ -48,15 +47,18 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
     
     /** Stat ID for effect duration scaling */
     private static final StatId EFFECT_DURATION_STAT = StatId.hyforged("effect-duration-bps");
+
+    /** Stat ID for ailment threshold scaling */
+    private static final StatId AILMENT_THRESHOLD_STAT = StatId.hyforged("ailment-threshold-bps");
     
     /** Cached stat index for effect duration */
     private int effectDurationStatIndex = -1;
+
+    /** Cached stat index for ailment threshold */
+    private int ailmentThresholdStatIndex = -1;
     
     @Nonnull
     private final ComponentType<EntityStore, AilmentAccumulatorComponent> accumulatorComponentType;
-    
-    @Nonnull
-    private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
     
     @Nonnull
     private final ComponentType<EntityStore, EffectControllerComponent> effectControllerComponentType;
@@ -71,7 +73,6 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
             @Nonnull ComponentType<EntityStore, AilmentAccumulatorComponent> accumulatorComponentType
     ) {
         this.accumulatorComponentType = accumulatorComponentType;
-        this.statComponentType = HyforgedPlugin.getInstance().getHyforgedStatComponentType();
         this.effectControllerComponentType = EffectControllerComponent.getComponentType();
         
         // Query for entities with the accumulator component
@@ -148,8 +149,9 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
         long currentTime = System.currentTimeMillis();
         float damageAmount = damage.getAmount();
         
-        // Configure accumulator with ailment thresholds (may update dynamically from defender stats)
-        accumulator.setThreshold(elementTag, ailment.baseThreshold());
+        // Configure accumulator with ailment thresholds (scaled by defender stats)
+        int threshold = getScaledAilmentThreshold(ailment, store, archetypeChunk.getReferenceTo(index));
+        accumulator.setThreshold(elementTag, threshold);
         accumulator.setWindow(elementTag, ailment.accumulationWindowMs());
         
         // Check if threshold is reached
@@ -222,13 +224,10 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
         if (damage.getSource() instanceof Damage.EntitySource entitySource) {
             Ref<EntityStore> attackerRef = entitySource.getRef();
             if (attackerRef.isValid()) {
-                HyforgedStatComponent attackerStats = store.getComponent(attackerRef, statComponentType);
-                if (attackerStats != null) {
-                    int effectDurationBps = getEffectDurationBps(attackerStats);
-                    if (effectDurationBps != 0) {
-                        float multiplier = 1.0f + (effectDurationBps / 10000.0f);
-                        return baseDuration * multiplier;
-                    }
+                int effectDurationBps = getEffectDurationBps(store, attackerRef);
+                if (effectDurationBps != 0) {
+                    float multiplier = 1.0f + (effectDurationBps / 10000.0f);
+                    return baseDuration * multiplier;
                 }
             }
         }
@@ -239,7 +238,10 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
     /**
      * Get the effect duration stat value from a stat component.
      */
-    private int getEffectDurationBps(@Nonnull HyforgedStatComponent stats) {
+    private int getEffectDurationBps(
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> attackerRef
+    ) {
         if (effectDurationStatIndex < 0) {
             effectDurationStatIndex = StatDefinitionRegistry.get().getIndex(EFFECT_DURATION_STAT);
         }
@@ -247,8 +249,48 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
         if (effectDurationStatIndex < 0) {
             return 0;
         }
-        
-        return stats.getCachedValue(effectDurationStatIndex);
+
+        return StatAccessor.getStatValueInt(store, attackerRef, effectDurationStatIndex);
+    }
+
+    /**
+     * Get the scaled ailment threshold for the defender.
+     * <p>
+     * Threshold scaling uses {@code ailment-threshold-bps}:
+     * {@code scaled = base * (1 + bps / 10000)}.
+     */
+    private int getScaledAilmentThreshold(
+            @Nonnull AilmentDefinition ailment,
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> defenderRef
+    ) {
+        int baseThreshold = ailment.baseThreshold();
+        int thresholdBps = getAilmentThresholdBps(store, defenderRef);
+        if (thresholdBps == 0) {
+            return baseThreshold;
+        }
+
+        float multiplier = 1.0f + (thresholdBps / 10000.0f);
+        int scaled = Math.round(baseThreshold * multiplier);
+        return Math.max(1, scaled);
+    }
+
+    /**
+     * Get the ailment threshold stat value from a stat component.
+     */
+    private int getAilmentThresholdBps(
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> defenderRef
+    ) {
+        if (ailmentThresholdStatIndex < 0) {
+            ailmentThresholdStatIndex = StatDefinitionRegistry.get().getIndex(AILMENT_THRESHOLD_STAT);
+        }
+
+        if (ailmentThresholdStatIndex < 0) {
+            return 0;
+        }
+
+        return StatAccessor.getStatValueInt(store, defenderRef, ailmentThresholdStatIndex);
     }
     
     /**

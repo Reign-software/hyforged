@@ -4,16 +4,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import reign.software.hyforged.affix.AffixTestFixtures;
 import reign.software.hyforged.affix.model.*;
 import reign.software.hyforged.affix.registry.*;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
-import reign.software.hyforged.stats.StatId;
-import reign.software.hyforged.stats.component.ModifierSource;
-import reign.software.hyforged.stats.component.ModifierType;
-import reign.software.hyforged.stats.component.StatModifier;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,10 +45,7 @@ class EquipmentAffixListenerTest {
                 "sturdy",
                 "prefix",
                 "Sturdy",
-                StatId.hyforged("health"),
-                HyforgedModifier.StackType.FLAT,
-                List.of(new AffixTierDefinition(1, 50, 100, 1)),
-                AffixEligibility.ANY,
+                List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:health", HyforgedModifier.StackType.FLAT, 50, 100)),
                 100
         ));
         
@@ -57,10 +53,7 @@ class EquipmentAffixListenerTest {
                 "swift",
                 "suffix",
                 "of Swiftness",
-                StatId.hyforged("movementSpeed"),
-                HyforgedModifier.StackType.INCREASED,
-                List.of(new AffixTierDefinition(1, 5, 10, 1)),
-                AffixEligibility.ANY,
+                List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:movementSpeed", HyforgedModifier.StackType.INCREASED, 5, 10)),
                 100
         ));
         
@@ -68,10 +61,7 @@ class EquipmentAffixListenerTest {
                 "mighty",
                 "prefix",
                 "Mighty",
-                StatId.hyforged("physicalDamage"),
-                HyforgedModifier.StackType.MORE,
-                List.of(new AffixTierDefinition(1, 10, 25, 1)),
-                AffixEligibility.ANY,
+                List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:physicalDamage", HyforgedModifier.StackType.MORE, 10, 25)),
                 100
         ));
     }
@@ -107,37 +97,43 @@ class EquipmentAffixListenerTest {
     @DisplayName("Rolled Affix to StatModifier Conversion")
     class AffixToModifierConversion {
         
+        private RolledAffix createRolledAffix(String affixId, String type, int tier, String statId, int value, HyforgedModifier.StackType stackType) {
+            Map<String, RolledAffix.RolledStat> stats = new HashMap<>();
+            stats.put(statId, new RolledAffix.RolledStat(value, stackType));
+            return new RolledAffix(affixId, type, tier, stats);
+        }
+        
         @Test
         @DisplayName("FLAT affix maps to FLAT modifier")
         void flatAffixToFlatModifier() {
-            RolledAffix affix = new RolledAffix(
-                    "sturdy", "prefix", 1, 75,
-                    StatId.hyforged("health"), HyforgedModifier.StackType.FLAT
+            RolledAffix affix = createRolledAffix(
+                    "sturdy", "prefix", 1, "hyforged:health", 75, HyforgedModifier.StackType.FLAT
             );
             
-            assertEquals(HyforgedModifier.StackType.FLAT, affix.modifierType());
+            RolledAffix.RolledStat stat = affix.rolledStats().get("hyforged:health");
+            assertEquals(HyforgedModifier.StackType.FLAT, stat.stackType());
         }
         
         @Test
         @DisplayName("INCREASED affix maps to INCREASED modifier")
         void increasedAffixToIncreasedModifier() {
-            RolledAffix affix = new RolledAffix(
-                    "swift", "suffix", 1, 8,
-                    StatId.hyforged("movementSpeed"), HyforgedModifier.StackType.INCREASED
+            RolledAffix affix = createRolledAffix(
+                    "swift", "suffix", 1, "hyforged:movementSpeed", 8, HyforgedModifier.StackType.INCREASED
             );
             
-            assertEquals(HyforgedModifier.StackType.INCREASED, affix.modifierType());
+            RolledAffix.RolledStat stat = affix.rolledStats().get("hyforged:movementSpeed");
+            assertEquals(HyforgedModifier.StackType.INCREASED, stat.stackType());
         }
         
         @Test
         @DisplayName("MORE affix maps to MORE modifier")
         void moreAffixToMoreModifier() {
-            RolledAffix affix = new RolledAffix(
-                    "mighty", "prefix", 1, 15,
-                    StatId.hyforged("physicalDamage"), HyforgedModifier.StackType.MORE
+            RolledAffix affix = createRolledAffix(
+                    "mighty", "prefix", 1, "hyforged:physicalDamage", 15, HyforgedModifier.StackType.MORE
             );
             
-            assertEquals(HyforgedModifier.StackType.MORE, affix.modifierType());
+            RolledAffix.RolledStat stat = affix.rolledStats().get("hyforged:physicalDamage");
+            assertEquals(HyforgedModifier.StackType.MORE, stat.stackType());
         }
     }
     
@@ -157,11 +153,10 @@ class EquipmentAffixListenerTest {
         @Test
         @DisplayName("Item data with affixes detected")
         void itemDataWithAffixesDetected() {
+            Map<String, RolledAffix.RolledStat> stats = new HashMap<>();
+            stats.put("hyforged:health", new RolledAffix.RolledStat(75, HyforgedModifier.StackType.FLAT));
             List<RolledAffix> affixes = List.of(
-                    new RolledAffix(
-                            "sturdy", "prefix", 1, 75,
-                            StatId.hyforged("health"), HyforgedModifier.StackType.FLAT
-                    )
+                    new RolledAffix("sturdy", "prefix", 1, stats)
             );
             
             HyforgedItemData itemData = new HyforgedItemData(1, affixes);
@@ -173,13 +168,17 @@ class EquipmentAffixListenerTest {
         @Test
         @DisplayName("Item data preserves affix order")
         void itemDataPreservesAffixOrder() {
+            Map<String, RolledAffix.RolledStat> sturdyStats = new HashMap<>();
+            sturdyStats.put("hyforged:health", new RolledAffix.RolledStat(75, HyforgedModifier.StackType.FLAT));
+            Map<String, RolledAffix.RolledStat> swiftStats = new HashMap<>();
+            swiftStats.put("hyforged:movementSpeed", new RolledAffix.RolledStat(8, HyforgedModifier.StackType.INCREASED));
+            Map<String, RolledAffix.RolledStat> mightyStats = new HashMap<>();
+            mightyStats.put("hyforged:physicalDamage", new RolledAffix.RolledStat(15, HyforgedModifier.StackType.MORE));
+            
             List<RolledAffix> affixes = List.of(
-                    new RolledAffix("sturdy", "prefix", 1, 75,
-                            StatId.hyforged("health"), HyforgedModifier.StackType.FLAT),
-                    new RolledAffix("swift", "suffix", 1, 8,
-                            StatId.hyforged("movementSpeed"), HyforgedModifier.StackType.INCREASED),
-                    new RolledAffix("mighty", "prefix", 1, 15,
-                            StatId.hyforged("physicalDamage"), HyforgedModifier.StackType.MORE)
+                    new RolledAffix("sturdy", "prefix", 1, sturdyStats),
+                    new RolledAffix("swift", "suffix", 1, swiftStats),
+                    new RolledAffix("mighty", "prefix", 1, mightyStats)
             );
             
             HyforgedItemData itemData = new HyforgedItemData(1, affixes);
@@ -265,14 +264,13 @@ class EquipmentAffixListenerTest {
         @DisplayName("Multiple affixes targeting same stat")
         void multipleAffixesSameStat() {
             // Two different affixes both affecting health
-            RolledAffix affix1 = new RolledAffix(
-                    "sturdy", "prefix", 1, 50,
-                    StatId.hyforged("health"), HyforgedModifier.StackType.FLAT
-            );
-            RolledAffix affix2 = new RolledAffix(
-                    "vital", "prefix", 1, 10,
-                    StatId.hyforged("health"), HyforgedModifier.StackType.INCREASED
-            );
+            Map<String, RolledAffix.RolledStat> affix1Stats = new HashMap<>();
+            affix1Stats.put("hyforged:health", new RolledAffix.RolledStat(50, HyforgedModifier.StackType.FLAT));
+            RolledAffix affix1 = new RolledAffix("sturdy", "prefix", 1, affix1Stats);
+            
+            Map<String, RolledAffix.RolledStat> affix2Stats = new HashMap<>();
+            affix2Stats.put("hyforged:health", new RolledAffix.RolledStat(10, HyforgedModifier.StackType.INCREASED));
+            RolledAffix affix2 = new RolledAffix("vital", "prefix", 1, affix2Stats);
             
             HyforgedItemData itemData = new HyforgedItemData(1, List.of(affix1, affix2));
             
@@ -322,41 +320,37 @@ class EquipmentAffixListenerTest {
         @Test
         @DisplayName("Equipment modifiers use EQUIPMENT source type")
         void equipmentModifiersUseEquipmentSource() {
-            StatModifier modifier = new StatModifier(
-                    "equipment:armor:0:sturdy",
-                    ModifierSource.EQUIPMENT,
-                    ModifierType.FLAT,
-                    0,
-                    StatModifier.NO_TAG,
-                    75,
-                    0,  // Permanent
-                    0   // Default priority
-            );
+            HyforgedModifier modifier = HyforgedModifier.builder()
+                    .sourceId("equipment:armor:0:sturdy")
+                    .sourceType(HyforgedModifier.SourceType.EQUIPMENT)
+                    .stackType(HyforgedModifier.StackType.FLAT)
+                    .targetStat(0)
+                    .amount(75)
+                    .permanent()
+                    .build();
             
-            assertEquals(ModifierSource.EQUIPMENT, modifier.sourceType());
+            assertEquals(HyforgedModifier.SourceType.EQUIPMENT, modifier.getSourceType());
         }
         
         @Test
         @DisplayName("Equipment modifiers have zero expiration (permanent)")
         void equipmentModifiersPermanent() {
-            StatModifier modifier = new StatModifier(
-                    "equipment:hand:swift",
-                    ModifierSource.EQUIPMENT,
-                    ModifierType.INCREASED,
-                    1,
-                    StatModifier.NO_TAG,
-                    8,
-                    0,  // Permanent - removed only when unequipped
-                    0
-            );
+            HyforgedModifier modifier = HyforgedModifier.builder()
+                    .sourceId("equipment:hand:swift")
+                    .sourceType(HyforgedModifier.SourceType.EQUIPMENT)
+                    .stackType(HyforgedModifier.StackType.INCREASED)
+                    .targetStat(1)
+                    .amount(8)
+                    .permanent()
+                    .build();
             
-            assertEquals(0, modifier.expirationTick());
+            assertEquals(0, modifier.getExpirationTick());
         }
         
         @Test
         @DisplayName("NO_TAG constant is Integer.MIN_VALUE for non-tag-specific modifiers")
         void noTagConstantUsed() {
-            assertEquals(Integer.MIN_VALUE, StatModifier.NO_TAG);
+            assertEquals(Integer.MIN_VALUE, HyforgedModifier.NO_TAG);
         }
     }
 }

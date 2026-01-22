@@ -1,0 +1,32 @@
+﻿{
+  "Id": "hyforged:corrupted-intellect",
+  "Type": "forged",
+  "DisplayName": "Corrupted Intellect",
+  "Weight": 30,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 75,
+      "Weight": 30,
+      "Stats": {
+        "hyforged:intelligence": { "MinValue": 65, "MaxValue": 80, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 55,
+      "Weight": 55,
+      "Stats": {
+        "hyforged:intelligence": { "MinValue": 50, "MaxValue": 65, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 35,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:intelligence": { "MinValue": 35, "MaxValue": 50, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

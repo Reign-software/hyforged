@@ -1,0 +1,72 @@
+﻿{
+  "Id": "hyforged:stalwart",
+  "Type": "prefix",
+  "DisplayName": "Stalwart",
+  "Weight": 70,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 80,
+      "Weight": 25,
+      "Stats": {
+        "hyforged:max-health-flat": { "MinValue": 180, "MaxValue": 220, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 65,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:max-health-flat": { "MinValue": 140, "MaxValue": 180, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 52,
+      "Weight": 55,
+      "Stats": {
+        "hyforged:max-health-flat": { "MinValue": 105, "MaxValue": 140, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 40,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:max-health-flat": { "MinValue": 75, "MaxValue": 105, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 28,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:max-health-flat": { "MinValue": 50, "MaxValue": 75, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 16,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:max-health-flat": { "MinValue": 30, "MaxValue": 50, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 7,
+      "ItemLevelReq": 5,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:max-health-flat": { "MinValue": 15, "MaxValue": 30, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 8,
+      "ItemLevelReq": 1,
+      "Weight": 140,
+      "Stats": {
+        "hyforged:max-health-flat": { "MinValue": 5, "MaxValue": 15, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:fire-weakness",
+  "EntityEffect": {
+    "Duration": 20,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/FireVuln.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:fire-resistance-bps", "StackType": "FLAT", "Amount": -3000 },
+    { "StatId": "hyforged:ignite-duration-bps", "StackType": "INCREASED", "Amount": 2500 }
+  ]
+}

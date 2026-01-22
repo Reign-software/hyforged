@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:iron-will",
+  "EntityEffect": {
+    "Duration": 45,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Constitution.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:constitution", "StackType": "FLAT", "Amount": 20 },
+    { "StatId": "hyforged:stun-avoidance-bps", "StackType": "INCREASED", "Amount": 2000 }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:chaos-infusion",
+  "EntityEffect": {
+    "Duration": 20,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Chaos.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:chaos-damage-increased-bps", "StackType": "INCREASED", "Amount": 4000 },
+    { "StatId": "hyforged:chaos-penetration-bps", "StackType": "FLAT", "Amount": 2500 }
+  ]
+}

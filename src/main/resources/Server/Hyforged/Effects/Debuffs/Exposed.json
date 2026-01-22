@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:exposed",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Exposed.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:block-chance-bps", "StackType": "FLAT", "Amount": -3000 },
+    { "StatId": "hyforged:dodge-chance-bps", "StackType": "FLAT", "Amount": -2000 },
+    { "StatId": "hyforged:evasion-chance-bps", "StackType": "FLAT", "Amount": -2500 }
+  ]
+}

@@ -1,0 +1,24 @@
+﻿{
+  "Id": "hyforged:corrupted-dominion",
+  "Type": "forged",
+  "DisplayName": "Corrupted Dominion",
+  "Weight": 20,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 76,
+      "Weight": 32,
+      "Stats": {
+        "hyforged:minion-damage-increased-bps": { "MinValue": 1800, "MaxValue": 2500, "StackType": "MORE" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 55,
+      "Weight": 62,
+      "Stats": {
+        "hyforged:minion-damage-increased-bps": { "MinValue": 1100, "MaxValue": 1800, "StackType": "MORE" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:scatter-brain",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Distraction.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:concentration", "StackType": "FLAT", "Amount": -20 },
+    { "StatId": "hyforged:mana-cost-bps", "StackType": "INCREASED", "Amount": 3000 }
+  ]
+}

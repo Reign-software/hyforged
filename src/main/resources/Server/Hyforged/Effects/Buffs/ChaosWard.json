@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:chaos-ward",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/ChaosResist.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:chaos-resistance-bps", "StackType": "FLAT", "Amount": 4000 },
+    { "StatId": "hyforged:max-chaos-resistance-bps", "StackType": "FLAT", "Amount": 500 }
+  ]
+}

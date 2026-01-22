@@ -8,9 +8,9 @@ import com.hypixel.hytale.component.RemoveReason;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.RefSystem;
-import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.combat.ailment.AilmentAccumulatorComponent;
 import reign.software.hyforged.progression.component.ProgressionComponent;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
@@ -50,7 +50,7 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
     private final ComponentType<EntityStore, EffectBridgeComponent> effectBridgeComponentType;
     
     @Nonnull
-    private final ComponentType<EntityStore, EffectControllerComponent> effectControllerComponentType;
+    private final ComponentType<EntityStore, AilmentAccumulatorComponent> ailmentAccumulatorComponentType;
     
     @Nonnull
     private final Query<EntityStore> query;
@@ -65,7 +65,7 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
         this.statComponentType = plugin.getHyforgedStatComponentType();
         this.progressionComponentType = plugin.getProgressionComponentType();
         this.effectBridgeComponentType = plugin.getEffectBridgeComponentType();
-        this.effectControllerComponentType = EffectControllerComponent.getComponentType();
+        this.ailmentAccumulatorComponentType = plugin.getAilmentAccumulatorComponentType();
         this.query = statComponentType;
     }
 
@@ -94,14 +94,16 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
         // Scaling-based derived stats will be computed by HyforgedStatComputeSystem
         component.markAllDirty();
         
-        // Add EffectBridgeComponent if entity has EffectControllerComponent
-        // This enables the HyforgedEffectBridgeSystem to track effects
-        EffectControllerComponent effectController = commandBuffer.getComponent(ref, effectControllerComponentType);
-        if (effectController != null) {
-            EffectBridgeComponent effectBridge = commandBuffer.getComponent(ref, effectBridgeComponentType);
-            if (effectBridge == null) {
-                commandBuffer.addComponent(ref, effectBridgeComponentType, new EffectBridgeComponent());
-            }
+        // Ensure EffectBridgeComponent exists to track Hytale effects
+        EffectBridgeComponent effectBridge = commandBuffer.getComponent(ref, effectBridgeComponentType);
+        if (effectBridge == null) {
+            commandBuffer.addComponent(ref, effectBridgeComponentType, new EffectBridgeComponent());
+        }
+
+        // Ensure AilmentAccumulatorComponent exists for ailment tracking
+        AilmentAccumulatorComponent accumulator = commandBuffer.getComponent(ref, ailmentAccumulatorComponentType);
+        if (accumulator == null) {
+            commandBuffer.addComponent(ref, ailmentAccumulatorComponentType, new AilmentAccumulatorComponent());
         }
     }
 

@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:bleed-resistance",
+  "EntityEffect": {
+    "Duration": 45,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/BleedResist.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:bleed-resistance-bps", "StackType": "FLAT", "Amount": 5000 }
+  ]
+}

@@ -1,0 +1,40 @@
+﻿{
+  "Id": "hyforged:siphoning",
+  "Type": "prefix",
+  "DisplayName": "Siphoning",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 60,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:life-leech-bps": { "MinValue": 150, "MaxValue": 200, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:life-leech-bps": { "MinValue": 100, "MaxValue": 150, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 20,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:life-leech-bps": { "MinValue": 50, "MaxValue": 100, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:life-leech-bps": { "MinValue": 20, "MaxValue": 50, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

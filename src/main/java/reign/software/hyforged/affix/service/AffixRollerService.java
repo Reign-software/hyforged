@@ -2,7 +2,6 @@ package reign.software.hyforged.affix.service;
 
 import reign.software.hyforged.affix.model.*;
 import reign.software.hyforged.affix.registry.*;
-import reign.software.hyforged.stats.StatId;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -16,8 +15,7 @@ import java.util.stream.Collectors;
  * This implements the core affix rolling algorithm:
  * <ol>
  *   <li>Determine affix capacity from quality tier</li>
- *   <li>Resolve eligible affix pool from item category/tags</li>
- *   <li>Filter affixes by eligibility (item category, tags, quality range)</li>
+ *   <li>Resolve affix pool from item category/tags</li>
  *   <li>Filter tiers by item level</li>
  *   <li>Perform weighted random selection for each slot</li>
  *   <li>Roll tier and value for each selected affix</li>
@@ -133,17 +131,8 @@ public final class AffixRollerService {
         
         LOGGER.log(Level.FINER, "Pool contains {0} affix definitions", poolAffixes.size());
         
-        // Step 4: Filter by eligibility (category, tags, quality)
-        List<AffixDefinition> eligible = filterByEligibility(poolAffixes, context);
-        if (eligible.isEmpty()) {
-            LOGGER.log(Level.FINE, "No eligible affixes for context: {0}", context.itemId());
-            return AffixRollResult.empty(context);
-        }
-        
-        LOGGER.log(Level.FINER, "After eligibility filter: {0} affixes", eligible.size());
-        
-        // Step 5: Separate by type
-        Map<String, List<AffixDefinition>> byType = eligible.stream()
+        // Step 4: Separate by type
+        Map<String, List<AffixDefinition>> byType = poolAffixes.stream()
                 .collect(Collectors.groupingBy(AffixDefinition::type));
         
         List<AffixDefinition> prefixes = byType.getOrDefault("prefix", Collections.emptyList());
@@ -155,7 +144,7 @@ public final class AffixRollerService {
         // usedStats is also global to prevent same stat being rolled multiple times
         List<RolledAffix> rolledAffixes = new ArrayList<>();
         Set<String> usedAffixIds = new HashSet<>();
-        Set<StatId> usedStats = new HashSet<>();
+        Set<String> usedStats = new HashSet<>();
         
         // Roll prefixes
         AffixType prefixType = AffixTypeRegistry.get().get("prefix");
@@ -205,63 +194,6 @@ public final class AffixRollerService {
     }
     
     /**
-     * Filter affixes by eligibility constraints.
-     */
-    private List<AffixDefinition> filterByEligibility(
-            @Nonnull List<AffixDefinition> affixes,
-            @Nonnull AffixRollContext context
-    ) {
-        return affixes.stream()
-                .filter(affix -> isEligible(affix, context))
-                .collect(Collectors.toList());
-    }
-    
-    /**
-     * Check if an affix is eligible for the given context.
-     */
-    private boolean isEligible(@Nonnull AffixDefinition affix, @Nonnull AffixRollContext context) {
-        AffixEligibility eligibility = affix.eligibility();
-        
-        // Check category match (if categories specified)
-        if (eligibility.hasCategoryConstraints()) {
-            boolean categoryMatch = false;
-            for (String category : context.itemCategories()) {
-                if (eligibility.matchesCategory(category)) {
-                    categoryMatch = true;
-                    break;
-                }
-            }
-            if (!categoryMatch) {
-                return false;
-            }
-        }
-        
-        // Check tag match (if tags specified)
-        if (eligibility.hasTagConstraints()) {
-            boolean tagMatch = false;
-            for (String tag : context.itemTags()) {
-                if (eligibility.matchesTag(tag)) {
-                    tagMatch = true;
-                    break;
-                }
-            }
-            if (!tagMatch) {
-                return false;
-            }
-        }
-        
-        // Check exclude tags
-        for (String tag : context.itemTags()) {
-            if (eligibility.isExcludedTag(tag)) {
-                return false;
-            }
-        }
-        
-        // Check quality range
-        return eligibility.isQualityInRange(context.quality(), qualityRegistry);
-    }
-    
-    /**
      * Roll affixes for a specific type (prefix/suffix/forged).
      * 
      * @param affixType The AffixType definition, used to determine stackable behavior.
@@ -274,7 +206,7 @@ public final class AffixRollerService {
             @Nonnull Random random,
             @Nonnull List<RolledAffix> output,
             @Nonnull Set<String> usedAffixIds,
-            @Nonnull Set<StatId> usedStats,
+            @Nonnull Set<String> usedStats,
             AffixType affixType
     ) {
         if (available.isEmpty() || capacity <= 0) {
@@ -289,10 +221,10 @@ public final class AffixRollerService {
                 new Object[]{capacity, type, available.size(), isStackable});
         
         for (int i = 0; i < capacity; i++) {
-            // Filter out already used affixes
+            // Filter out already used affixes and affixes that share stats with already-used ones
             List<AffixDefinition> candidates = available.stream()
                     .filter(a -> !usedAffixIds.contains(a.id()))
-                    .filter(a -> !usedStats.contains(a.statId()))
+                    .filter(a -> a.getStatIds().stream().noneMatch(usedStats::contains))
                     .collect(Collectors.toList());
             
             if (candidates.isEmpty()) {
@@ -318,18 +250,52 @@ public final class AffixRollerService {
                 continue;
             }
             
-            // Roll value within tier range
-            int value = rollValue(tier, random);
+            // Roll values for each stat in the tier
+            Map<String, RolledAffix.RolledStat> rolledStats = rollAllStats(tier, random);
             
-            LOGGER.log(Level.FINEST, "Rolled {0} tier {1} value {2} (range: {3}-{4})", 
-                    new Object[]{selected.id(), tier.tier(), value, tier.minValue(), tier.maxValue()});
+            LOGGER.log(Level.FINEST, "Rolled {0} tier {1} with {2} stats", 
+                    new Object[]{selected.id(), tier.tier(), rolledStats.size()});
             
             // Create rolled affix
-            RolledAffix rolled = RolledAffix.from(selected, tier.tier(), value);
+            RolledAffix rolled = RolledAffix.from(selected, tier.tier(), rolledStats);
             output.add(rolled);
             usedAffixIds.add(selected.id());
-            usedStats.add(selected.statId());
+            // Track all stats this affix grants
+            usedStats.addAll(selected.getStatIds());
         }
+    }
+    
+    /**
+     * Roll values for all stats in a tier.
+     */
+    @Nonnull
+    private Map<String, RolledAffix.RolledStat> rollAllStats(
+            @Nonnull AffixTierDefinition tier, 
+            @Nonnull Random random
+    ) {
+        Map<String, RolledAffix.RolledStat> result = new HashMap<>();
+        for (Map.Entry<String, AffixTierStat> entry : tier.stats().entrySet()) {
+            String statId = entry.getKey();
+            AffixTierStat tierStat = entry.getValue();
+            int rolledValue = rollStatValue(tierStat, random);
+            result.put(statId, new RolledAffix.RolledStat(rolledValue, tierStat.stackType()));
+        }
+        return result;
+    }
+    
+    /**
+     * Roll a value for a single stat within its min/max range.
+     */
+    private int rollStatValue(@Nonnull AffixTierStat stat, @Nonnull Random random) {
+        int min = stat.minValue();
+        int max = stat.maxValue();
+        
+        if (min == max) {
+            return min;
+        }
+        
+        // Inclusive range: [min, max]
+        return min + random.nextInt(max - min + 1);
     }
     
     /**
@@ -406,20 +372,5 @@ public final class AffixRollerService {
         }
         
         return eligibleTiers.get(eligibleTiers.size() - 1);
-    }
-    
-    /**
-     * Roll a value within the tier's min/max range.
-     */
-    private int rollValue(@Nonnull AffixTierDefinition tier, @Nonnull Random random) {
-        int min = tier.minValue();
-        int max = tier.maxValue();
-        
-        if (min == max) {
-            return min;
-        }
-        
-        // Inclusive range: [min, max]
-        return min + random.nextInt(max - min + 1);
     }
 }

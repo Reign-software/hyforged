@@ -28,7 +28,7 @@ public final class QualityAffixRuleRegistry {
     
     private final Map<String, QualityAffixRule> rulesByQuality = new ConcurrentHashMap<>();
     
-    // Quality ordering for eligibility checks (lower = worse quality)
+    // Quality ordering for comparisons (lower = worse quality)
     private final Map<String, Integer> qualityOrder = new ConcurrentHashMap<>();
     
     private boolean frozen = false;
@@ -150,7 +150,7 @@ public final class QualityAffixRuleRegistry {
     }
     
     /**
-     * Get the quality ordering map for eligibility comparisons.
+     * Get the quality ordering map for comparisons.
      * <p>
      * Lower values indicate worse quality. Non-equipment qualities have negative values.
      */

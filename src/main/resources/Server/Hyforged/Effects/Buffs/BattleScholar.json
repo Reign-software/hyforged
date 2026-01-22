@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:battle-scholar",
+  "EntityEffect": {
+    "Duration": 180,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Experience.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:experience-gain-bps", "StackType": "INCREASED", "Amount": 5000 }
+  ]
+}

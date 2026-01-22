@@ -1,0 +1,24 @@
+﻿{
+  "Id": "hyforged:corrupted-all-attributes",
+  "Type": "forged",
+  "DisplayName": "Corrupted All Attributes",
+  "Weight": 10,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 80,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:all-attributes": { "MinValue": 25, "MaxValue": 35, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 60,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:all-attributes": { "MinValue": 16, "MaxValue": 25, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

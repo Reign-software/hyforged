@@ -16,10 +16,9 @@ import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
-import reign.software.hyforged.stats.component.HyforgedStatComponent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -43,9 +42,6 @@ public class HyforgedKnockbackReductionSystem extends DamageEventSystem {
     private static final int MAX_RESISTANCE_BPS = 10000;
 
     @Nonnull
-    private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
-
-    @Nonnull
     private final ComponentType<EntityStore, DamageDataComponent> damageDataComponentType;
 
     @Nonnull
@@ -59,11 +55,10 @@ public class HyforgedKnockbackReductionSystem extends DamageEventSystem {
     private boolean indexInitialized = false;
 
     public HyforgedKnockbackReductionSystem() {
-        this.statComponentType = HyforgedPlugin.getInstance().getHyforgedStatComponentType();
         this.damageDataComponentType = DamageDataComponent.getComponentType();
         
-        // Query for entities with both HyforgedStatComponent and DamageDataComponent
-        this.query = Query.and(statComponentType, damageDataComponentType);
+        // Query for entities with both EntityStatMap and DamageDataComponent
+        this.query = Query.and(StatAccessor.getStatMapType(), damageDataComponentType);
         
         // Run before ApplyDamage in the filter damage group
         this.dependencies = Set.of(
@@ -108,12 +103,6 @@ public class HyforgedKnockbackReductionSystem extends DamageEventSystem {
             return;
         }
 
-        // Get the entity's stat component
-        HyforgedStatComponent statComponent = archetypeChunk.getComponent(index, statComponentType);
-        if (statComponent == null) {
-            return;
-        }
-
         // Initialize stat index on first use
         if (!indexInitialized) {
             initializeStatIndex();
@@ -124,7 +113,7 @@ public class HyforgedKnockbackReductionSystem extends DamageEventSystem {
             return;
         }
 
-        int resistanceBps = statComponent.getCachedValue(knockbackResistanceIndex);
+        int resistanceBps = StatAccessor.getStatValueInt(archetypeChunk, index, knockbackResistanceIndex);
 
         // Clamp resistance to valid range (0 to 100%)
         resistanceBps = Math.max(0, Math.min(MAX_RESISTANCE_BPS, resistanceBps));

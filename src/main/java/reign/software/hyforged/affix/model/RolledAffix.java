@@ -5,18 +5,25 @@ import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.codec.codecs.EnumCodec;
 import com.hypixel.hytale.codec.codecs.array.ArrayCodec;
-import reign.software.hyforged.stats.StatId;
+import com.hypixel.hytale.codec.codecs.map.MapCodec;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
  * Runtime representation of an affix that has been rolled on an item.
  * <p>
  * This is the serialized form of an affix instance, containing the specific
- * tier and value that was rolled. It is stored in the item's metadata and
- * used to reconstruct the affix's stat modifier at runtime.
+ * tier and rolled values for each stat. It is stored in the item's metadata and
+ * used to reconstruct the affix's stat modifiers at runtime.
+ * <p>
+ * Supports multi-stat affixes where each stat has its own rolled value.
  * <p>
  * Schema version is tracked at the container level ({@link HyforgedItemData}),
  * not per-affix.
@@ -24,18 +31,72 @@ import java.util.Objects;
  * @param affixId       The affix definition ID (references AffixDefinitionRegistry)
  * @param type          The affix type ID (prefix, suffix, forged)
  * @param tier          The tier that was rolled (1 = best, higher = worse)
- * @param value         The rolled value within the tier's min/max range
- * @param statId        The stat this affix modifies (denormalized for fast lookup)
- * @param modifierType  The modifier stack type (FLAT, INCREASED, MORE, CAP)
+ * @param rolledStats   Map of stat ID to RolledStat (value + stack type)
  */
 public record RolledAffix(
         @Nonnull String affixId,
         @Nonnull String type,
         int tier,
-        int value,
-        @Nonnull StatId statId,
-        @Nonnull HyforgedModifier.StackType modifierType
+        @Nonnull Map<String, RolledStat> rolledStats
 ) {
+    
+    /**
+     * A single rolled stat value within the affix.
+     */
+    public record RolledStat(
+            int value,
+            @Nonnull HyforgedModifier.StackType stackType
+    ) {
+        public RolledStat {
+            Objects.requireNonNull(stackType, "stackType cannot be null");
+        }
+    }
+    
+    /**
+     * Mutable data for RolledStat codec.
+     */
+    public static final class RolledStatData {
+        public int value = 0;
+        public HyforgedModifier.StackType stackType = HyforgedModifier.StackType.FLAT;
+        
+        public RolledStatData() {}
+        
+        public RolledStatData(RolledStat stat) {
+            this.value = stat.value();
+            this.stackType = stat.stackType();
+        }
+        
+        public RolledStat toRolledStat() {
+            return new RolledStat(value, stackType);
+        }
+    }
+    
+    /**
+     * Codec for RolledStatData.
+     */
+    public static final BuilderCodec<RolledStatData> STAT_CODEC = BuilderCodec.builder(
+            RolledStatData.class,
+            RolledStatData::new
+    )
+    .append(
+            new KeyedCodec<>("Value", Codec.INTEGER),
+            (data, value) -> data.value = value != null ? value : 0,
+            data -> data.value
+    )
+    .add()
+    .append(
+            new KeyedCodec<>("StackType", new EnumCodec<>(HyforgedModifier.StackType.class)),
+            (data, value) -> data.stackType = value != null ? value : HyforgedModifier.StackType.FLAT,
+            data -> data.stackType
+    )
+    .add()
+    .build();
+    
+    /**
+     * Map codec for stat ID -> RolledStatData
+     */
+    private static final MapCodec<RolledStatData, Map<String, RolledStatData>> STATS_MAP_CODEC = 
+            new MapCodec<>(STAT_CODEC, HashMap::new);
     
     /**
      * Codec for serializing RolledAffix to/from BSON.
@@ -64,21 +125,9 @@ public record RolledAffix(
     )
     .add()
     .append(
-            new KeyedCodec<>("Value", Codec.INTEGER),
-            (data, value) -> data.value = value != null ? value : 0,
-            data -> data.value
-    )
-    .add()
-    .append(
-            new KeyedCodec<>("StatId", Codec.STRING),
-            (data, value) -> data.statIdStr = value != null ? value : "",
-            data -> data.statIdStr
-    )
-    .add()
-    .append(
-            new KeyedCodec<>("ModifierType", new EnumCodec<>(HyforgedModifier.StackType.class)),
-            (data, value) -> data.modifierType = value != null ? value : HyforgedModifier.StackType.FLAT,
-            data -> data.modifierType
+            new KeyedCodec<>("Stats", STATS_MAP_CODEC),
+            (data, value) -> data.stats = value != null ? new HashMap<>(value) : new HashMap<>(),
+            data -> data.stats
     )
     .add()
     .build();
@@ -95,9 +144,7 @@ public record RolledAffix(
         public String affixId = "";
         public String type = "";
         public int tier = 1;
-        public int value = 0;
-        public String statIdStr = "";
-        public HyforgedModifier.StackType modifierType = HyforgedModifier.StackType.FLAT;
+        public Map<String, RolledStatData> stats = new HashMap<>();
         
         public RolledAffixData() {}
         
@@ -105,20 +152,17 @@ public record RolledAffix(
             this.affixId = affix.affixId();
             this.type = affix.type();
             this.tier = affix.tier();
-            this.value = affix.value();
-            this.statIdStr = affix.statId().toString();
-            this.modifierType = affix.modifierType();
+            for (Map.Entry<String, RolledStat> entry : affix.rolledStats().entrySet()) {
+                this.stats.put(entry.getKey(), new RolledStatData(entry.getValue()));
+            }
         }
         
         public RolledAffix toRolledAffix() {
-            return new RolledAffix(
-                    affixId,
-                    type,
-                    tier,
-                    value,
-                    StatId.parse(statIdStr),
-                    modifierType
-            );
+            Map<String, RolledStat> converted = new HashMap<>();
+            for (Map.Entry<String, RolledStatData> entry : stats.entrySet()) {
+                converted.put(entry.getKey(), entry.getValue().toRolledStat());
+            }
+            return new RolledAffix(affixId, type, tier, converted);
         }
     }
     
@@ -128,8 +172,7 @@ public record RolledAffix(
     public RolledAffix {
         Objects.requireNonNull(affixId, "affixId cannot be null");
         Objects.requireNonNull(type, "type cannot be null");
-        Objects.requireNonNull(statId, "statId cannot be null");
-        Objects.requireNonNull(modifierType, "modifierType cannot be null");
+        Objects.requireNonNull(rolledStats, "rolledStats cannot be null");
         
         if (affixId.isBlank()) {
             throw new IllegalArgumentException("affixId cannot be blank");
@@ -140,56 +183,104 @@ public record RolledAffix(
         if (tier < 1) {
             throw new IllegalArgumentException("tier must be >= 1, got: " + tier);
         }
+        if (rolledStats.isEmpty()) {
+            throw new IllegalArgumentException("rolledStats cannot be empty");
+        }
+        // Make defensive copy
+        rolledStats = Collections.unmodifiableMap(new HashMap<>(rolledStats));
     }
     
     /**
-     * Create a RolledAffix from an AffixDefinition with a specific tier and value.
+     * Create a RolledAffix from an AffixDefinition with a specific tier and rolled values.
      *
-     * @param definition The affix definition
-     * @param tier       The tier number rolled
-     * @param value      The value rolled within the tier
+     * @param definition  The affix definition
+     * @param tier        The tier number rolled
+     * @param rolledStats Map of stat ID to rolled value (each stat rolled independently)
      * @return A new RolledAffix instance
      */
     public static RolledAffix from(
             @Nonnull AffixDefinition definition,
             int tier,
-            int value
+            @Nonnull Map<String, RolledStat> rolledStats
     ) {
         return new RolledAffix(
                 definition.id(),
                 definition.type(),
                 tier,
-                value,
-                definition.statId(),
-                definition.modifierType()
+                rolledStats
         );
     }
     
     /**
-     * Create a HyforgedModifier from this rolled affix.
+     * Create HyforgedModifiers from this rolled affix.
      *
-     * @param sourceId Identifier for the source of this modifier (usually item ID or affix ID)
-     * @return A new HyforgedModifier representing this affix's stat bonus
+     * @param sourceId Identifier for the source of these modifiers (usually item ID or affix ID)
+     * @return List of HyforgedModifiers for each stat in this affix
      */
-    public HyforgedModifier toModifier(@Nonnull String sourceId) {
-        return new HyforgedModifier(
-                HyforgedModifier.ModifierTarget.MAX,
-                modifierType,
-                value,
-                HyforgedModifier.SourceType.EQUIPMENT,
-                sourceId,
-                0 // No priority for affix modifiers
-        );
+    @Nonnull
+    public List<HyforgedModifier> toModifiers(@Nonnull String sourceId) {
+        List<HyforgedModifier> modifiers = new ArrayList<>();
+        for (Map.Entry<String, RolledStat> entry : rolledStats.entrySet()) {
+            RolledStat stat = entry.getValue();
+            modifiers.add(new HyforgedModifier(
+                    HyforgedModifier.ModifierTarget.MAX,
+                    stat.stackType(),
+                    stat.value(),
+                    HyforgedModifier.SourceType.EQUIPMENT,
+                    sourceId,
+                    0 // No priority for affix modifiers
+            ));
+        }
+        return modifiers;
     }
     
     /**
      * Get a display-friendly description of this affix.
+     * Returns multi-line for multi-stat affixes.
      */
     public String toDisplayString() {
-        String sign = value >= 0 ? "+" : "";
-        String suffix = modifierType == HyforgedModifier.StackType.INCREASED 
-                || modifierType == HyforgedModifier.StackType.MORE ? "%" : "";
-        return String.format("%s%d%s %s", sign, value, suffix, statId.name());
+        StringBuilder sb = new StringBuilder();
+        boolean first = true;
+        for (Map.Entry<String, RolledStat> entry : rolledStats.entrySet()) {
+            if (!first) sb.append("\n");
+            first = false;
+            
+            String statId = entry.getKey();
+            RolledStat stat = entry.getValue();
+            int value = stat.value();
+            String sign = value >= 0 ? "+" : "";
+            String suffix = stat.stackType() == HyforgedModifier.StackType.INCREASED 
+                    || stat.stackType() == HyforgedModifier.StackType.MORE ? "%" : "";
+            
+            // Extract stat name from full ID
+            String statName = statId.contains(":") ? statId.substring(statId.indexOf(':') + 1) : statId;
+            sb.append(String.format("%s%d%s %s", sign, value, suffix, statName));
+        }
+        return sb.toString();
+    }
+    
+    /**
+     * Get the number of stats in this affix.
+     */
+    public int getStatCount() {
+        return rolledStats.size();
+    }
+    
+    /**
+     * Check if this affix grants a specific stat.
+     */
+    public boolean grantsStat(@Nonnull String statId) {
+        return rolledStats.containsKey(statId);
+    }
+    
+    /**
+     * Get the rolled value for a specific stat.
+     *
+     * @param statId The stat ID
+     * @return The rolled stat, or null if not present
+     */
+    public RolledStat getStat(@Nonnull String statId) {
+        return rolledStats.get(statId);
     }
     
     /**

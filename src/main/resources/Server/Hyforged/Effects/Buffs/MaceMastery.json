@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:mace-mastery",
+  "EntityEffect": {
+    "Duration": 60,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Mace.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:mace-skill-levels-flat", "StackType": "FLAT", "Amount": 3 },
+    { "StatId": "hyforged:stun-duration-bps", "StackType": "INCREASED", "Amount": 3000 }
+  ]
+}

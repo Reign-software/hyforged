@@ -15,6 +15,7 @@ import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.modules.entitystats.modifier.Modifier;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
@@ -179,7 +180,7 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
             return;
         }
         
-        int currentValue = hyforgedStats.getCachedValue(maxHealthIndex);
+        int currentValue = StatAccessor.getStatValueInt(entityStatMap, maxHealthIndex);
         int lastBridged = hyforgedStats.getLastBridgedMaxHealth();
         
         int delta = currentValue - lastBridged;
@@ -201,7 +202,7 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
             return;
         }
         
-        int currentValue = hyforgedStats.getCachedValue(maxManaIndex);
+        int currentValue = StatAccessor.getStatValueInt(entityStatMap, maxManaIndex);
         int lastBridged = hyforgedStats.getLastBridgedMaxMana();
         
         int delta = currentValue - lastBridged;
@@ -223,7 +224,7 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
             return;
         }
         
-        int currentValue = hyforgedStats.getCachedValue(maxStaminaIndex);
+        int currentValue = StatAccessor.getStatValueInt(entityStatMap, maxStaminaIndex);
         int lastBridged = hyforgedStats.getLastBridgedMaxStamina();
         
         int delta = currentValue - lastBridged;
@@ -245,7 +246,7 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
             return;
         }
 
-        int currentValue = hyforgedStats.getCachedValue(maxConcentrationIndex);
+        int currentValue = StatAccessor.getStatValueInt(entityStatMap, maxConcentrationIndex);
         int lastBridged = hyforgedStats.getLastBridgedMaxConcentration();
 
         int delta = currentValue - lastBridged;
@@ -267,7 +268,7 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
             return;
         }
 
-        int currentValue = hyforgedStats.getCachedValue(maxRageIndex);
+        int currentValue = StatAccessor.getStatValueInt(entityStatMap, maxRageIndex);
         int lastBridged = hyforgedStats.getLastBridgedMaxRage();
 
         int delta = currentValue - lastBridged;

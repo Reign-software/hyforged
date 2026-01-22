@@ -20,9 +20,8 @@ public class VulnerableMatcher extends SelectInteraction.EntityMatcher {
    }
 
    @Override
-   public boolean test0(Ref<EntityStore> attacker, @Nonnull Ref<EntityStore> target, @Nonnull CommandBuffer<EntityStore> commandBuffer) {
-      boolean invulnerable = commandBuffer.getArchetype(target).contains(Invulnerable.getComponentType());
-      return !invulnerable;
+   public boolean test0(@Nonnull Ref<EntityStore> sourceRef, @Nonnull Ref<EntityStore> targetRef, @Nonnull CommandBuffer<EntityStore> commandBuffer) {
+      return !commandBuffer.getArchetype(targetRef).contains(Invulnerable.getComponentType());
    }
 
    @Nonnull

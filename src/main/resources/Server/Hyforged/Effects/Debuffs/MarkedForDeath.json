@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:marked-for-death",
+  "EntityEffect": {
+    "Duration": 20,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Mark.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:damage-taken-bps", "StackType": "MORE", "Amount": 2000 },
+    { "StatId": "hyforged:ailment-threshold-flat", "StackType": "INCREASED", "Amount": -2500 }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:shield-expert",
+  "EntityEffect": {
+    "Duration": 45,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Shield.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:shield-damage-bps", "StackType": "INCREASED", "Amount": 3000 },
+    { "StatId": "hyforged:block-chance-bps", "StackType": "FLAT", "Amount": 1500 },
+    { "StatId": "hyforged:block-mitigation-bps", "StackType": "INCREASED", "Amount": 2000 }
+  ]
+}

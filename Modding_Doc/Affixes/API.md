@@ -64,8 +64,8 @@ ItemStack deterministicItem = service.rollAffixes(item, 12345L);
 ### Rolling Factors
 
 Affix rolling considers:
-- **Quality**: Determines affix capacity (Common=1 prefix, Legendary=4 prefix + 4 suffix)
-- **Item Level**: Determines which affix tiers are eligible
+- **Quality**: Determines affix capacity (Common=0, Legendary=2 prefix + 2 suffix + 1 forged)
+- **Item Level**: Determines which affix tiers are available
 - **Item Categories/Tags**: Determines which affix pool is used
 
 ## Creating Items with Specific Affixes
@@ -79,9 +79,9 @@ import reign.software.hyforged.affix.api.AffixSpec;
 ItemStack craftedItem = service.createWithAffixes(
     "Items.Weapons.Sword",
     List.of(
-        AffixSpec.of("sturdy", 2, 35),     // Tier 2 Sturdy with value 35
-        AffixSpec.of("of-the-bear", 1),    // Tier 1 Of the Bear, random value
-        AffixSpec.of("mighty")              // Random tier and value
+        AffixSpec.of("sturdy", 2),         // Tier 2 Sturdy, random values
+        AffixSpec.of("of-the-bear", 1),    // Tier 1 Of the Bear
+        AffixSpec.of("mighty")              // Random tier
     )
 );
 ```
@@ -89,13 +89,10 @@ ItemStack craftedItem = service.createWithAffixes(
 ### AffixSpec Options
 
 ```java
-// Full specification: affix ID, tier, and exact value
-AffixSpec.of("sturdy", 2, 35)
-
-// Tier specified, value will be rolled within tier range
+// Tier specified, values will be rolled within tier ranges
 AffixSpec.of("sturdy", 2)
 
-// Affix ID only, tier and value will be rolled
+// Affix ID only, tier will be rolled
 AffixSpec.of("sturdy")
 ```
 
@@ -103,7 +100,7 @@ AffixSpec.of("sturdy")
 
 ```java
 // Add an affix to an existing item
-ItemStack updated = service.addAffix(item, AffixSpec.of("sturdy", 1, 60));
+ItemStack updated = service.addAffix(item, AffixSpec.of("sturdy", 1));
 
 // Remove an affix by ID
 ItemStack withoutSturdy = service.removeAffix(item, "sturdy");
@@ -119,19 +116,47 @@ Plugins can register custom affixes at runtime:
 ### Register an Affix Definition
 
 ```java
-AffixDefinition customAffix = new AffixDefinition(
-    "vampiric",                              // ID
-    "prefix",                                 // Type
-    "Vampiric",                               // Display name
-    StatId.hyforged("lifesteal"),            // Stat to modify
-    HyforgedModifier.StackType.FLAT,         // Modifier type
-    List.of(
-        new AffixTierDefinition(1, 8, 10, 40),  // T1: 8-10%, requires item level 40
-        new AffixTierDefinition(2, 5, 7, 20),   // T2: 5-7%, requires item level 20
-        new AffixTierDefinition(3, 2, 4, 1)     // T3: 2-4%, requires item level 1
+import reign.software.hyforged.affix.model.AffixTierStat;
+import reign.software.hyforged.affix.model.AffixTierDefinition;
+import reign.software.hyforged.affix.model.AffixDefinition;
+
+// Create stats for tier 1
+Map<String, AffixTierStat> tier1Stats = Map.of(
+    "hyforged:strength", new AffixTierStat(
+        StatId.hyforged("strength"),
+        StackType.FLAT,
+        45, 55  // MinValue, MaxValue
     ),
-    AffixEligibility.ANY,                     // Can appear on any equipment
-    100                                        // Selection weight
+    "hyforged:max-health", new AffixTierStat(
+        StatId.hyforged("max-health"),
+        StackType.FLAT,
+        100, 150
+    )
+);
+
+// Create stats for tier 2
+Map<String, AffixTierStat> tier2Stats = Map.of(
+    "hyforged:strength", new AffixTierStat(
+        StatId.hyforged("strength"),
+        StackType.FLAT,
+        30, 40
+    ),
+    "hyforged:max-health", new AffixTierStat(
+        StatId.hyforged("max-health"),
+        StackType.FLAT,
+        60, 90
+    )
+);
+
+AffixDefinition customAffix = new AffixDefinition(
+    "yourmod:of-the-titan",                   // Namespaced ID
+    "suffix",                                  // Type
+    "of the Titan",                            // Display name
+    List.of(
+        new AffixTierDefinition(1, 70, 35, tier1Stats),  // Tier 1: ilvl 70, weight 35
+        new AffixTierDefinition(2, 50, 50, tier2Stats)   // Tier 2: ilvl 50, weight 50
+    ),
+    80                                         // Selection weight
 );
 
 service.registerAffix(customAffix);
@@ -142,12 +167,14 @@ service.registerAffix(customAffix);
 ```java
 AffixPool weaponPool = new AffixPool(
     "my-weapons",                    // Pool ID
-    new String[]{"Items.Weapons"},   // Item categories
-    new String[]{"melee"},           // Item tags
+    150,                             // Priority (higher = preferred)
+    new AffixPoolAppliesTo(
+        Set.of("Items.Weapons"),     // Categories
+        Set.of("melee")              // Tags
+    ),
     List.of("vampiric", "sharp"),    // Prefix affix IDs
     List.of("of-slaying"),           // Suffix affix IDs
-    List.of(),                        // Forged affix IDs
-    150                               // Priority (higher = preferred)
+    List.of()                        // Forged affix IDs
 );
 
 service.registerPool(weaponPool);
@@ -174,13 +201,20 @@ Represents an affix that has been rolled on an item:
 
 ```java
 public record RolledAffix(
-    String affixId,         // Reference to AffixDefinition
-    String type,            // "prefix", "suffix", or "forged"
-    int tier,               // 1 = best, higher = weaker
-    int value,              // Rolled value within tier range
-    StatId statId,          // Stat being modified
-    HyforgedModifier.StackType modifierType  // FLAT, INCREASED, MORE
-) {}
+    String affixId,                           // Reference to AffixDefinition
+    String type,                              // "prefix", "suffix", or "forged"
+    int tier,                                 // 1 = best, higher = weaker
+    Map<String, RolledStat> rolledStats       // Rolled stats with values
+) {
+    // Nested record for each rolled stat
+    public record RolledStat(
+        int value,                            // Rolled value
+        StackType stackType                   // FLAT, INCREASED, or MORE
+    ) {}
+    
+    // Convert to modifiers for stat system
+    public List<HyforgedModifier> toModifiers(String sourceId) { ... }
+}
 ```
 
 ### AffixDefinition
@@ -189,15 +223,15 @@ Defines an affix's properties and tier structure:
 
 ```java
 public record AffixDefinition(
-    String id,              // Unique identifier
-    String type,            // Type reference
-    String displayName,     // Localization key
-    StatId statId,          // Target stat
-    HyforgedModifier.StackType modifierType,
-    List<AffixTierDefinition> tiers,
-    AffixEligibility eligibility,
-    int weight              // Selection weight for rolling
-) {}
+    String id,                                // Unique identifier
+    String type,                              // Type reference
+    String displayName,                       // Localization key
+    List<AffixTierDefinition> tiers,          // Tier definitions with stats
+    int weight                                // Selection weight for rolling
+) {
+    // Get all stat IDs granted by any tier
+    public Set<String> getStatIds() { ... }
+}
 ```
 
 ### AffixTierDefinition
@@ -206,11 +240,33 @@ Defines a single tier within an affix:
 
 ```java
 public record AffixTierDefinition(
-    int tier,           // Tier number (1 = best)
-    int minValue,       // Minimum rolled value
-    int maxValue,       // Maximum rolled value
-    int itemLevelReq    // Required item level to roll this tier
-) {}
+    int tier,                                 // Tier number (1 = best)
+    int itemLevelReq,                         // Required item level
+    int weight,                               // Tier selection weight
+    Map<String, AffixTierStat> stats          // Stats granted by this tier
+) {
+    // Check if tier can roll at item level
+    public boolean canRollAt(int itemLevel) { ... }
+    
+    // Check if tier grants a specific stat
+    public boolean grantsStat(String statId) { ... }
+}
+```
+
+### AffixTierStat
+
+Defines a single stat within a tier:
+
+```java
+public record AffixTierStat(
+    StatId statId,                            // The stat being modified
+    StackType stackType,                      // FLAT, INCREASED, or MORE
+    int minValue,                             // Minimum rolled value
+    int maxValue                              // Maximum rolled value
+) {
+    // Roll a value within the range
+    public int rollValue(double randomFraction) { ... }
+}
 ```
 
 ## Events
@@ -245,25 +301,54 @@ HytaleServer.getEventBus().subscribe(AffixModifiersAppliedEvent.class, event -> 
 
 Affixes can be defined in JSON files under `Server/Hyforged/`:
 
-### Affix Definition (`Server/Hyforged/Affixes/Sturdy.json`)
+### Affix Definition (`Server/Hyforged/Affixes/Prefix/Sturdy.json`)
 
 ```json
 {
-  "Id": "sturdy",
+  "Id": "hyforged:sturdy",
   "Type": "prefix",
   "DisplayName": "Sturdy",
-  "StatId": "hyforged:armor",
-  "ModifierType": "FLAT",
+  "Weight": 100,
   "Tiers": [
-    {"Tier": 1, "MinValue": 50, "MaxValue": 75, "ItemLevelReq": 40},
-    {"Tier": 2, "MinValue": 30, "MaxValue": 49, "ItemLevelReq": 20},
-    {"Tier": 3, "MinValue": 15, "MaxValue": 29, "ItemLevelReq": 1}
-  ],
-  "Eligibility": {
-    "ItemCategories": ["Items.Armor"],
-    "ItemTags": []
-  },
-  "Weight": 100
+    {
+      "Tier": 1,
+      "ItemLevelReq": 40,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:armor": { "MinValue": 50, "MaxValue": 75, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 25,
+      "Weight": 75,
+      "Stats": {
+        "hyforged:armor": { "MinValue": 35, "MaxValue": 50, "StackType": "FLAT" }
+      }
+    }
+  ]
+}
+```
+
+### Multi-Stat Affix (`Server/Hyforged/Affixes/Suffix/OfTheTitan.json`)
+
+```json
+{
+  "Id": "hyforged:of-the-titan",
+  "Type": "suffix",
+  "DisplayName": "of the Titan",
+  "Weight": 80,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 70,
+      "Weight": 35,
+      "Stats": {
+        "hyforged:strength": { "MinValue": 45, "MaxValue": 55, "StackType": "FLAT" },
+        "hyforged:max-health": { "MinValue": 100, "MaxValue": 150, "StackType": "FLAT" }
+      }
+    }
+  ]
 }
 ```
 
@@ -295,15 +380,14 @@ Affixes can be defined in JSON files under `Server/Hyforged/`:
 
 ```json
 {
-  "Id": "armor",
+  "Priority": 100,
   "AppliesTo": {
     "Categories": ["Items.Armor"],
-    "Tags": []
+    "Tags": ["Type:Armor"]
   },
-  "Prefixes": ["sturdy", "reinforced"],
-  "Suffixes": ["of-the-bear", "of-fortitude"],
-  "Forged": [],
-  "Priority": 100
+  "Prefixes": ["Sturdy", "Armored"],
+  "Suffixes": ["OfTheBear", "OfVitality"],
+  "Forged": []
 }
 ```
 
@@ -313,11 +397,13 @@ Affixes can be defined in JSON files under `Server/Hyforged/`:
 
 2. **Register Affixes Early**: Register custom affixes in your plugin's `setup()` method before any items are created.
 
-3. **Use Pools for Organization**: Create separate pools for different item categories to control which affixes appear where.
+3. **Use Pools for Targeting**: Pools determine which items get which affixes. Create separate pools for different item categories.
 
 4. **Tier Design**: Remember Tier 1 = best. Design tier values with meaningful progression.
 
 5. **Weight Balancing**: Use the `weight` field to make some affixes rarer than others within a pool.
+
+6. **Multi-Stat Design**: Use multi-stat affixes for thematic combinations (e.g., "of the Titan" = Strength + Health).
 
 ## Compatibility
 

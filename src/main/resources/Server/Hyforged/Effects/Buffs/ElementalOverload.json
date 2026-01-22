@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:elemental-overload",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/ElementalDamage.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:elemental-damage-increased-bps", "StackType": "MORE", "Amount": 4000 },
+    { "StatId": "hyforged:elemental-penetration-bps", "StackType": "FLAT", "Amount": 1500 }
+  ]
+}

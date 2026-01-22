@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:spirit-walk",
+  "EntityEffect": {
+    "Duration": 25,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Spirit.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:spirit", "StackType": "FLAT", "Amount": 30 },
+    { "StatId": "hyforged:minion-damage-bps", "StackType": "INCREASED", "Amount": 2000 },
+    { "StatId": "hyforged:minion-duration-bps", "StackType": "INCREASED", "Amount": 2500 }
+  ]
+}

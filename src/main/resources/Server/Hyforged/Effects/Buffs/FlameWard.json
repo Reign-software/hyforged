@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:flame-ward",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/FireResist.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:fire-resistance-bps", "StackType": "FLAT", "Amount": 4000 },
+    { "StatId": "hyforged:max-fire-resistance-bps", "StackType": "FLAT", "Amount": 500 }
+  ]
+}

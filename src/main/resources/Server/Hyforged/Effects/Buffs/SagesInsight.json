@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:sages-insight",
+  "EntityEffect": {
+    "Duration": 45,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Intelligence.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:intelligence", "StackType": "FLAT", "Amount": 20 },
+    { "StatId": "hyforged:spell-damage-increased-bps", "StackType": "INCREASED", "Amount": 1500 }
+  ]
+}

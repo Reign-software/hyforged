@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:split-shot",
+  "EntityEffect": {
+    "Duration": 20,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Projectiles.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:additional-projectiles-flat", "StackType": "FLAT", "Amount": 2 },
+    { "StatId": "hyforged:projectile-damage-bps", "StackType": "INCREASED", "Amount": -1500 }
+  ]
+}

@@ -2,7 +2,6 @@ package reign.software.hyforged.combat;
 
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
-import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.SystemGroup;
@@ -17,11 +16,10 @@ import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.bridge.ProgressionStatBridge;
-import reign.software.hyforged.stats.component.HyforgedStatComponent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -52,9 +50,6 @@ public class HyforgedHitResolutionSystem extends DamageEventSystem {
     
     /** Stat ID for evasion chance (defender) */
     private static final StatId EVASION_CHANCE = StatId.hyforged("evasion-chance-bps");
-    
-    @Nonnull
-    private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
 
     @Nonnull
     private final Query<EntityStore> query;
@@ -68,10 +63,8 @@ public class HyforgedHitResolutionSystem extends DamageEventSystem {
     private boolean indicesCached = false;
 
     public HyforgedHitResolutionSystem() {
-        this.statComponentType = HyforgedPlugin.getInstance().getHyforgedStatComponentType();
-        
-        // Query for entities with HyforgedStatComponent (defender must have stats)
-        this.query = statComponentType;
+        // Query for entities with EntityStatMap (entities with stats)
+        this.query = StatAccessor.getStatMapType();
         
         // Run in gather group before any damage filtering
         // This is the earliest point we can intercept damage
@@ -148,31 +141,24 @@ public class HyforgedHitResolutionSystem extends DamageEventSystem {
         // Cache stat indices
         ensureIndicesCached();
         
-        // Get defender's stat component
-        HyforgedStatComponent defenderStats = archetypeChunk.getComponent(index, statComponentType);
-        if (defenderStats == null) {
-            return;
-        }
-        
-        // Get attacker's stat component
+        // Get attacker and defender refs
         Ref<EntityStore> attackerRef = entitySource.getRef();
-        HyforgedStatComponent attackerStats = store.getComponent(attackerRef, statComponentType);
+        Ref<EntityStore> defenderRef = archetypeChunk.getReferenceTo(index);
         
         // Get levels for level difference calculation
         int attackerLevel = ProgressionStatBridge.getCharacterLevel(attackerRef, store);
-        Ref<EntityStore> defenderRef = archetypeChunk.getReferenceTo(index);
         int defenderLevel = ProgressionStatBridge.getCharacterLevel(defenderRef, store);
         
-        // Get accuracy from attacker (0 if no stats)
+        // Get accuracy from attacker (0 if no stat)
         int attackerAccuracy = 0;
-        if (attackerStats != null && accuracyIndex >= 0) {
-            attackerAccuracy = attackerStats.getCachedValue(accuracyIndex);
+        if (accuracyIndex >= 0) {
+            attackerAccuracy = StatAccessor.getStatValueInt(store, attackerRef, accuracyIndex);
         }
         
         // Get evasion chance from defender
         int defenderEvasion = 0;
         if (evasionIndex >= 0) {
-            defenderEvasion = defenderStats.getCachedValue(evasionIndex);
+            defenderEvasion = StatAccessor.getStatValueInt(archetypeChunk, index, evasionIndex);
         }
         
         // Skip hit resolution if defender has no evasion

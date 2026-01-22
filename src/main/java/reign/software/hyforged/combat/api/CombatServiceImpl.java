@@ -2,15 +2,14 @@ package reign.software.hyforged.combat.api;
 
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.ComponentAccessor;
-import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.combat.CombatMath;
 import reign.software.hyforged.combat.CombatMeta;
 import reign.software.hyforged.combat.HyforgedAutoBlockSystem;
@@ -22,7 +21,7 @@ import reign.software.hyforged.combat.log.CombatLogService;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.bridge.ProgressionStatBridge;
-import reign.software.hyforged.stats.component.HyforgedStatComponent;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.damage.DamageTypeExtensionRegistry;
 
 import javax.annotation.Nonnull;
@@ -224,10 +223,6 @@ public final class CombatServiceImpl implements CombatService {
                 .totalBaseDamage(spec.getTotalBaseDamage())
                 .timestamp(System.currentTimeMillis());
 
-        // Get component type
-        ComponentType<EntityStore, HyforgedStatComponent> statType = 
-                HyforgedPlugin.getInstance().getHyforgedStatComponentType();
-
         // Try to get component accessor
         ComponentAccessor<EntityStore> accessor = null;
         CommandBuffer<EntityStore> commandBuffer = null;
@@ -249,11 +244,9 @@ public final class CombatServiceImpl implements CombatService {
             return CombatResult.targetDead(defenderUuid);
         }
 
-        // Get stat components
-        HyforgedStatComponent attackerStats = accessor != null ? 
-                accessor.getComponent(attackerRef, statType) : null;
-        HyforgedStatComponent defenderStats = accessor != null ? 
-                accessor.getComponent(defenderRef, statType) : null;
+        // Get stat maps
+        EntityStatMap attackerStatMap = StatAccessor.getStatMap(attackerRef.getStore(), attackerRef);
+        EntityStatMap defenderStatMap = StatAccessor.getStatMap(defenderRef.getStore(), defenderRef);
 
         // Get levels for formulas
         int attackerLevel = accessor != null ? 
@@ -262,9 +255,9 @@ public final class CombatServiceImpl implements CombatService {
                 ProgressionStatBridge.getCharacterLevel(defenderRef, accessor) : 1;
 
         // Step 1: Hit Resolution (evasion check)
-        if (!spec.isSkipEvasion() && attackerStats != null && defenderStats != null) {
-            int accuracy = attackerStats.getCachedValue(accuracyIndex);
-            int evasion = defenderStats.getCachedValue(evasionIndex);
+        if (!spec.isSkipEvasion() && attackerStatMap != null && defenderStatMap != null) {
+            int accuracy = StatAccessor.getStatValueInt(attackerRef.getStore(), attackerRef, accuracyIndex);
+            int evasion = StatAccessor.getStatValueInt(defenderRef.getStore(), defenderRef, evasionIndex);
             int hitChance = CombatMath.calculateHitChance(accuracy, evasion, attackerLevel, defenderLevel);
 
             if (!CombatMath.rollChance(hitChance)) {
@@ -277,12 +270,12 @@ public final class CombatServiceImpl implements CombatService {
         boolean autoBlocked = false;
         int blockMitigation = 0;
 
-        if (!spec.isSkipBlock() && defenderStats != null) {
-            int blockChance = defenderStats.getCachedValue(blockChanceIndex);
+        if (!spec.isSkipBlock() && defenderStatMap != null) {
+            int blockChance = StatAccessor.getStatValueInt(defenderRef.getStore(), defenderRef, blockChanceIndex);
             if (CombatMath.rollChance(blockChance)) {
                 blocked = true;
                 autoBlocked = true;
-                blockMitigation = defenderStats.getCachedValue(blockMitigationIndex);
+                blockMitigation = StatAccessor.getStatValueInt(defenderRef.getStore(), defenderRef, blockMitigationIndex);
                 if (blockMitigation <= 0) {
                     blockMitigation = 5000; // Default 50%
                 }
@@ -297,15 +290,15 @@ public final class CombatServiceImpl implements CombatService {
 
         if (spec.isForceCrit()) {
             criticalHit = true;
-            critMultiplier = attackerStats != null ? 
-                    attackerStats.getCachedValue(critMultiplierIndex) : 1500;
-        } else if (!spec.isNoCrit() && attackerStats != null) {
-            int critChance = attackerStats.getCachedValue(critChanceIndex);
+            critMultiplier = attackerStatMap != null
+                    ? StatAccessor.getStatValueInt(attackerRef.getStore(), attackerRef, critMultiplierIndex) : 1500;
+        } else if (!spec.isNoCrit() && attackerStatMap != null) {
+            int critChance = StatAccessor.getStatValueInt(attackerRef.getStore(), attackerRef, critChanceIndex);
             int effectiveCritChance = CombatMath.calculateCritChance(critChance, attackerLevel, defenderLevel);
             
             if (CombatMath.rollChance(effectiveCritChance)) {
                 criticalHit = true;
-                critMultiplier = attackerStats.getCachedValue(critMultiplierIndex);
+                critMultiplier = StatAccessor.getStatValueInt(attackerRef.getStore(), attackerRef, critMultiplierIndex);
                 if (critMultiplier <= 0) {
                     critMultiplier = 1500; // Default 15% bonus
                 }
@@ -327,11 +320,11 @@ public final class CombatServiceImpl implements CombatService {
             int resistance = 0;
             int penetration = 0;
 
-            if (!spec.isSkipResistance() && defenderStats != null) {
-                resistance = getResistanceForDamageType(defenderStats, entry.damageCauseId());
+            if (!spec.isSkipResistance() && defenderStatMap != null) {
+                resistance = getResistanceForDamageType(defenderRef, entry.damageCauseId());
             }
-            if (attackerStats != null) {
-                penetration = getPenetrationForDamageType(attackerStats, entry.damageCauseId());
+            if (attackerStatMap != null) {
+                penetration = getPenetrationForDamageType(attackerRef, entry.damageCauseId());
             }
 
             // Apply resistance after penetration
@@ -461,10 +454,12 @@ public final class CombatServiceImpl implements CombatService {
     /**
      * Get resistance stat value for a damage type.
      */
-    private int getResistanceForDamageType(@Nonnull HyforgedStatComponent stats, @Nonnull String damageCauseId) {
+    private int getResistanceForDamageType(
+            @Nonnull Ref<EntityStore> entityRef,
+            @Nonnull String damageCauseId) {
         Integer cachedIndex = resistanceStatIndices.get(damageCauseId);
         if (cachedIndex != null) {
-            return stats.getCachedValue(cachedIndex);
+            return StatAccessor.getStatValueInt(entityRef.getStore(), entityRef, cachedIndex);
         }
 
         DamageCause damageCause = getDamageCause(damageCauseId);
@@ -477,16 +472,18 @@ public final class CombatServiceImpl implements CombatService {
         if (index < 0) return 0;
 
         resistanceStatIndices.put(damageCauseId, index);
-        return stats.getCachedValue(index);
+        return StatAccessor.getStatValueInt(entityRef.getStore(), entityRef, index);
     }
 
     /**
      * Get penetration stat value for a damage type.
      */
-    private int getPenetrationForDamageType(@Nonnull HyforgedStatComponent stats, @Nonnull String damageCauseId) {
+    private int getPenetrationForDamageType(
+            @Nonnull Ref<EntityStore> entityRef,
+            @Nonnull String damageCauseId) {
         Integer cachedIndex = penetrationStatIndices.get(damageCauseId);
         if (cachedIndex != null) {
-            return stats.getCachedValue(cachedIndex);
+            return StatAccessor.getStatValueInt(entityRef.getStore(), entityRef, cachedIndex);
         }
 
         DamageCause damageCause = getDamageCause(damageCauseId);
@@ -499,7 +496,7 @@ public final class CombatServiceImpl implements CombatService {
         if (index < 0) return 0;
 
         penetrationStatIndices.put(damageCauseId, index);
-        return stats.getCachedValue(index);
+        return StatAccessor.getStatValueInt(entityRef.getStore(), entityRef, index);
     }
 
     /**

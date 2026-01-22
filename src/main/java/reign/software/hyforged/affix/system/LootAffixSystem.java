@@ -105,7 +105,7 @@ public class LootAffixSystem extends RefChangeSystem<EntityStore, ItemComponent>
             return;
         }
         
-        // Check eligibility for affixes
+        // Create roll context
         AffixRollContext context = createContext(itemStack);
         if (context == null) {
             return;

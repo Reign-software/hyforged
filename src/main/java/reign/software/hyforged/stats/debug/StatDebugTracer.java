@@ -6,7 +6,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
-import reign.software.hyforged.stats.component.StatModifier;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 import reign.software.hyforged.stats.engine.StackingEngine;
 
 import javax.annotation.Nonnull;
@@ -151,7 +151,7 @@ public final class StatDebugTracer {
         sb.append(String.format("Category: %s | Rating: %s\n", statDef.category(), statDef.isRating()));
         
         // Get applicable modifiers
-        List<StatModifier> applicable = getApplicableModifiers(component, statIndex, statDef, registry);
+        List<HyforgedModifier> applicable = getApplicableModifiers(component, statIndex, statDef, registry);
         
         sb.append(String.format("\n--- Base Value ---\n"));
         sb.append(String.format("Default: %d\n", statDef.defaultValue()));
@@ -162,26 +162,26 @@ public final class StatDebugTracer {
         );
         
         sb.append(String.format("\n--- FLAT Modifiers (%d) ---\n", result.flatModifiers.size()));
-        for (StatModifier mod : result.flatModifiers) {
+        for (HyforgedModifier mod : result.flatModifiers) {
             sb.append(formatModifier(mod));
         }
         sb.append(String.format("Flat Total: %+d → After Flat: %d\n", result.flatTotal, result.afterFlat));
         
         sb.append(String.format("\n--- INCREASED Modifiers (%d) ---\n", result.increasedModifiers.size()));
-        for (StatModifier mod : result.increasedModifiers) {
+        for (HyforgedModifier mod : result.increasedModifiers) {
             sb.append(formatModifier(mod));
         }
         sb.append(String.format("Increased Total: %+d bps (%+.1f%%) → After Increased: %d\n", 
             result.increasedTotalBps, result.increasedTotalBps / 100.0, result.afterIncreased));
         
         sb.append(String.format("\n--- MORE Modifiers (%d) ---\n", result.moreModifiers.size()));
-        for (StatModifier mod : result.moreModifiers) {
+        for (HyforgedModifier mod : result.moreModifiers) {
             sb.append(formatModifier(mod));
         }
         sb.append(String.format("After More: %d\n", result.afterMore));
         
         sb.append(String.format("\n--- CAP Modifiers (%d) ---\n", result.capModifiers.size()));
-        for (StatModifier mod : result.capModifiers) {
+        for (HyforgedModifier mod : result.capModifiers) {
             sb.append(formatModifier(mod));
         }
         sb.append(String.format("After Cap: %d\n", result.afterCap));
@@ -210,7 +210,7 @@ public final class StatDebugTracer {
     /**
      * Trace a modifier addition.
      */
-    public static void traceModifierAdded(int entityIndex, @Nonnull StatModifier modifier) {
+    public static void traceModifierAdded(int entityIndex, @Nonnull HyforgedModifier modifier) {
         if (!isTraceEnabled(entityIndex)) {
             return;
         }
@@ -249,18 +249,18 @@ public final class StatDebugTracer {
     
     // ========== HELPER METHODS ==========
     
-    private static List<StatModifier> getApplicableModifiers(
+    private static List<HyforgedModifier> getApplicableModifiers(
             @Nonnull HyforgedStatComponent component,
             int statIndex,
             @Nonnull StatDefinition statDef,
             @Nonnull StatDefinitionRegistry registry) {
         
-        List<StatModifier> applicable = new ArrayList<>();
-        for (StatModifier mod : component.getModifiers()) {
-            if (mod.targetStatIndex() == statIndex) {
+        List<HyforgedModifier> applicable = new ArrayList<>();
+        for (HyforgedModifier mod : component.getModifiers()) {
+            if (mod.getTargetStatIndex() == statIndex) {
                 applicable.add(mod);
-            } else if (mod.targetTagIndex() != StatModifier.NO_TAG) {
-                if (registry.getStatIndicesForTagIndex(mod.targetTagIndex()).contains(statIndex)) {
+            } else if (mod.getTargetTagIndex() != HyforgedModifier.NO_TAG) {
+                if (registry.getStatIndicesForTagIndex(mod.getTargetTagIndex()).contains(statIndex)) {
                     applicable.add(mod);
                 }
             }
@@ -268,34 +268,34 @@ public final class StatDebugTracer {
         return applicable;
     }
     
-    private static String formatModifier(@Nonnull StatModifier mod) {
+    private static String formatModifier(@Nonnull HyforgedModifier mod) {
         return String.format("  [%s] %s from '%s': %+d (priority: %d)\n",
-            mod.modifierType().name(),
-            mod.sourceType().name(),
-            mod.sourceId(),
-            mod.value(),
-            mod.priority()
+            mod.getStackType().name(),
+            mod.getSourceType().name(),
+            mod.getSourceId(),
+            mod.getAmount(),
+            mod.getPriority()
         );
     }
     
-    private static String formatModifierCompact(@Nonnull StatModifier mod) {
+    private static String formatModifierCompact(@Nonnull HyforgedModifier mod) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         String targetName;
-        if (mod.targetTagIndex() != StatModifier.NO_TAG) {
-            targetName = "tagIndex:" + mod.targetTagIndex();
-        } else if (mod.targetStatIndex() >= 0) {
-            StatDefinition def = registry.getStat(mod.targetStatIndex());
-            targetName = def != null ? def.id().toString() : "index:" + mod.targetStatIndex();
+        if (mod.getTargetTagIndex() != HyforgedModifier.NO_TAG) {
+            targetName = "tagIndex:" + mod.getTargetTagIndex();
+        } else if (mod.getTargetStatIndex() >= 0) {
+            StatDefinition def = registry.getStat(mod.getTargetStatIndex());
+            targetName = def != null ? def.id().toString() : "index:" + mod.getTargetStatIndex();
         } else {
             targetName = "unknown";
         }
         
         return String.format("%s %s %+d to %s from '%s'",
-            mod.modifierType().name(),
-            mod.sourceType().name(),
-            mod.value(),
+            mod.getStackType().name(),
+            mod.getSourceType().name(),
+            mod.getAmount(),
             targetName,
-            mod.sourceId()
+            mod.getSourceId()
         );
     }
 }

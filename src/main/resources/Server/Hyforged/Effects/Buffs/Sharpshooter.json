@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:sharpshooter",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Ranged.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:ranged-damage-increased-bps", "StackType": "INCREASED", "Amount": 3000 },
+    { "StatId": "hyforged:projectile-speed-bps", "StackType": "INCREASED", "Amount": 2000 },
+    { "StatId": "hyforged:projectile-pierce-count-flat", "StackType": "FLAT", "Amount": 1 }
+  ]
+}

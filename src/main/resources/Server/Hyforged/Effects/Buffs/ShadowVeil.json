@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:shadow-veil",
+  "EntityEffect": {
+    "Duration": 20,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Dodge.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:dodge-chance-bps", "StackType": "FLAT", "Amount": 3000 },
+    { "StatId": "hyforged:evasion-chance-bps", "StackType": "FLAT", "Amount": 2000 }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:totem-empowerment",
+  "EntityEffect": {
+    "Duration": 45,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Totem.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:max-totems-flat", "StackType": "FLAT", "Amount": 1 },
+    { "StatId": "hyforged:aura-effect-bps", "StackType": "INCREASED", "Amount": 3000 }
+  ]
+}

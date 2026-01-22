@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:disarm",
+  "EntityEffect": {
+    "Duration": 8,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Disarm.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:attack-power-flat", "StackType": "INCREASED", "Amount": -5000 },
+    { "StatId": "hyforged:melee-damage-increased-bps", "StackType": "INCREASED", "Amount": -4000 }
+  ]
+}

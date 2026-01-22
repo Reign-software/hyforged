@@ -49,14 +49,14 @@ The systems are grouped into phases based on dependencies. Complete each phase b
 ### Phase 5: Combat
 | Order | System | Dependencies | Notes |
 |-------|--------|--------------|-------|
-| 6 | [Combat System](combat-system.md) | Entity Stats, Items | Consumes effective stats for combat math; weapons/armor provide damage/defense. |
+| 6 | [Combat System](combat-system.md) ✅ | Entity Stats, Items | Consumes effective stats for combat math; weapons/armor provide damage/defense. Spec: [combat-system.spec.md](../../Features/combat-system/combat-system.spec.md) |
 
 ### Phase 6: Advanced Progression
 | Order | System | Dependencies | Notes |
 |-------|--------|--------------|-------|
 | 7 | [Passive Trees](passive-trees.md) | Entity Stats, (Combat for testing) | Passives add modifiers to entities. Combat helps validate the impact. |
 
-### Phase 7: Economy & Crafting
+### Phase 7: Economy & Crafting@orchestrator /plan I would like to create a large number of buffs and debuffs using the bbuff display skill for my hyforged plugin. I need a large verity themed to the stats defined
 | Order | System | Dependencies | Notes |
 |-------|--------|--------------|-------|
 | 8 | [Currency: Tradebars](currency-tradebars.md) | None (can start earlier) | Economy foundation. Could be developed in parallel with earlier phases. |
@@ -82,6 +82,7 @@ The systems are grouped into phases based on dependencies. Complete each phase b
 - [Trading & Marketplace](trading-marketplace.md)
 
 ## Change Log
+- 2026-01-22: Marked Combat System as completed in implementation order.
 - 2026-01-20: Added Items Affix System spec for Phase 4.
 - 2026-01-20: Consolidated Experience and Class specs into Progression Systems spec.
 - 2026-01-20: Linked Experience System and Class System specs; clarified progression rewards.

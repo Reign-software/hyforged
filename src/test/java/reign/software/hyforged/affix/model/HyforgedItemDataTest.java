@@ -3,12 +3,13 @@ package reign.software.hyforged.affix.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,14 +20,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class HyforgedItemDataTest {
     
     private static RolledAffix createAffix(String id, String type) {
-        return new RolledAffix(
-                id,
-                type,
-                1,
-                50,
-                StatId.hyforged("health"),
-                HyforgedModifier.StackType.FLAT
-        );
+        Map<String, RolledAffix.RolledStat> stats = new HashMap<>();
+        stats.put("hyforged:health", new RolledAffix.RolledStat(50, HyforgedModifier.StackType.FLAT));
+        return new RolledAffix(id, type, 1, stats);
     }
     
     @Nested

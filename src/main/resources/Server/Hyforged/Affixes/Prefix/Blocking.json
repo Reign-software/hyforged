@@ -1,0 +1,40 @@
+﻿{
+  "Id": "hyforged:blocking",
+  "Type": "prefix",
+  "DisplayName": "Blocking",
+  "Weight": 75,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 55,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:block-chance-bps": { "MinValue": 400, "MaxValue": 500, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:block-chance-bps": { "MinValue": 280, "MaxValue": 400, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 24,
+      "Weight": 95,
+      "Stats": {
+        "hyforged:block-chance-bps": { "MinValue": 160, "MaxValue": 280, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 8,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:block-chance-bps": { "MinValue": 60, "MaxValue": 160, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

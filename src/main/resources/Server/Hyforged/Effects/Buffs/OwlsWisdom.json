@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:owls-wisdom",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Wisdom.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:wisdom", "StackType": "FLAT", "Amount": 15 }
+  ]
+}

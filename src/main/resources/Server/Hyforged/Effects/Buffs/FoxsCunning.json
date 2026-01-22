@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:foxs-cunning",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Intelligence.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:intelligence", "StackType": "FLAT", "Amount": 15 }
+  ]
+}

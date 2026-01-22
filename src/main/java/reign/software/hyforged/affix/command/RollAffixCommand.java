@@ -131,8 +131,8 @@ public class RollAffixCommand extends AbstractPlayerCommand {
         
         for (RolledAffix affix : afterAffixes) {
             String tierInfo = " [T" + affix.tier() + "]";
-            String valueInfo = affix.value() != 0 ? " = " + affix.value() : "";
-            context.sendMessage(Message.raw("§7 - §a" + affix.affixId() + tierInfo + valueInfo));
+            String statsInfo = affix.getStatCount() + " stat(s)";
+            context.sendMessage(Message.raw("§7 - §a" + affix.affixId() + tierInfo + " (" + statsInfo + ")"));
         }
         
         LOGGER.log(Level.FINE, "Rolled {0} affixes on held item (seed: {1})", 

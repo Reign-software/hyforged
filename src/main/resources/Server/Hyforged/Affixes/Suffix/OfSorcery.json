@@ -1,0 +1,56 @@
+﻿{
+  "Id": "hyforged:of-sorcery",
+  "Type": "suffix",
+  "DisplayName": "of Sorcery",
+  "Weight": 80,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 60,
+      "Weight": 38,
+      "Stats": {
+        "hyforged:spell-damage-increased-bps": { "MinValue": 3800, "MaxValue": 4800, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 46,
+      "Weight": 55,
+      "Stats": {
+        "hyforged:spell-damage-increased-bps": { "MinValue": 2800, "MaxValue": 3800, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 32,
+      "Weight": 75,
+      "Stats": {
+        "hyforged:spell-damage-increased-bps": { "MinValue": 1800, "MaxValue": 2800, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 18,
+      "Weight": 95,
+      "Stats": {
+        "hyforged:spell-damage-increased-bps": { "MinValue": 1000, "MaxValue": 1800, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 6,
+      "Weight": 118,
+      "Stats": {
+        "hyforged:spell-damage-increased-bps": { "MinValue": 400, "MaxValue": 1000, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 1,
+      "Weight": 140,
+      "Stats": {
+        "hyforged:spell-damage-increased-bps": { "MinValue": 100, "MaxValue": 400, "StackType": "INCREASED" }
+      }
+    }
+  ]
+}

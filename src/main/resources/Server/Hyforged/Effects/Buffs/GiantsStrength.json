@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:giants-strength",
+  "EntityEffect": {
+    "Duration": 60,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Strength.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:strength", "StackType": "FLAT", "Amount": 25 },
+    { "StatId": "hyforged:melee-damage-increased-bps", "StackType": "INCREASED", "Amount": 1500 }
+  ]
+}

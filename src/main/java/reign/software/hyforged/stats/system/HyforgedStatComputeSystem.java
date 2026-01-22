@@ -12,13 +12,17 @@ import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.tick.EntityTickingSystem;
 import com.hypixel.hytale.event.IEventDispatcher;
 import com.hypixel.hytale.server.core.HytaleServer;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
-import reign.software.hyforged.stats.component.StatModifier;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
+import reign.software.hyforged.stats.value.HyforgedStatValue;
 import reign.software.hyforged.stats.engine.ScalingEngine;
 import reign.software.hyforged.stats.engine.StackingEngine;
 import reign.software.hyforged.stats.event.StatBatchChangedEvent;
@@ -26,6 +30,7 @@ import reign.software.hyforged.stats.event.StatChange;
 import reign.software.hyforged.stats.event.StatChangedEvent;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
@@ -44,6 +49,9 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
 
     @Nonnull
     private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
+
+    @Nonnull
+    private final ComponentType<EntityStore, EntityStatMap> entityStatMapType;
     
     @Nonnull
     private final Query<EntityStore> query;
@@ -54,12 +62,13 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
     /**
      * Reusable list for collecting modifiers per stat (reduces allocations).
      */
-    private final ThreadLocal<List<StatModifier>> tempModifierList = 
+    private final ThreadLocal<List<HyforgedModifier>> tempModifierList = 
             ThreadLocal.withInitial(ArrayList::new);
 
     public HyforgedStatComputeSystem() {
         this.statComponentType = HyforgedPlugin.getInstance().getHyforgedStatComponentType();
-        this.query = statComponentType;
+        this.entityStatMapType = EntityStatMap.getComponentType();
+        this.query = Query.and(statComponentType, entityStatMapType);
         // Run after init system
         this.dependencies = Set.of(
             new SystemDependency<>(Order.AFTER, HyforgedStatInitSystem.class)
@@ -87,6 +96,7 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
             @Nonnull CommandBuffer<EntityStore> commandBuffer
     ) {
         HyforgedStatComponent component = archetypeChunk.getComponent(index, statComponentType);
+        EntityStatMap statMap = archetypeChunk.getComponent(index, entityStatMapType);
         if (component == null) {
             return;
         }
@@ -107,7 +117,7 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
         Ref<EntityStore> entityRef = archetypeChunk.getReferenceTo(index);
         
         // Recompute dirty stats and collect changes
-        List<StatChange> changes = recomputeDirtyStatsWithTracking(component);
+        List<StatChange> changes = recomputeDirtyStatsWithTracking(component, statMap);
         
         // Clear dirty flags after computation
         component.clearAllDirtyFlags();
@@ -157,9 +167,16 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
      * @return List of stat changes (old value != new value)
      */
     @Nonnull
-    private List<StatChange> recomputeDirtyStatsWithTracking(@Nonnull HyforgedStatComponent component) {
+    private List<StatChange> recomputeDirtyStatsWithTracking(
+            @Nonnull HyforgedStatComponent component,
+            @Nullable EntityStatMap statMap) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-        List<StatModifier> allModifiers = component.getModifiers();
+        List<HyforgedModifier> allModifiers = statMap != null
+            ? StatAccessor.getAllHyforgedModifiers(statMap)
+            : component.getModifiers();
+        if (allModifiers.isEmpty()) {
+            allModifiers = component.getModifiers();
+        }
         List<StatChange> changes = new ArrayList<>();
         
         int statCount = registry.getStatCount();
@@ -187,8 +204,12 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
             // Record old value before recomputation
             int oldValue = component.getCachedValue(statIdx);
             
+            // Compute base and update EntityStatMap base bonus when available
+            int baseValue = computeBaseValue(statIdx, statDef, component, registry);
+            updateStatMapBaseBonus(statMap, statIdx, baseValue);
+
             // Compute the new value
-            int newValue = computeStatValue(statIdx, statDef, allModifiers, component, registry);
+            int newValue = computeStatValue(statIdx, statDef, baseValue, allModifiers, component, registry);
             
             // Update cache
             component.setCachedValue(statIdx, newValue);
@@ -253,34 +274,36 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
      * Then collects all applicable modifiers (direct and tag-based)
      * and applies them using the StackingEngine.
      */
-    private int computeStatValue(
+    private int computeBaseValue(
             int statIdx,
             @Nonnull StatDefinition statDef,
-            @Nonnull List<StatModifier> allModifiers,
             @Nonnull HyforgedStatComponent component,
             @Nonnull StatDefinitionRegistry registry
     ) {
-        // Compute base value
-        int baseValue;
-        
         if (statDef.hasScaling()) {
-            // Stat derives its base from other stats via scaling rules
-            // Source value provider reads from cached values (already computed in topo order)
-            baseValue = ScalingEngine.computeScaledBase(
+            return ScalingEngine.computeScaledBase(
                 statDef,
                 component::getCachedValue,
                 registry
             );
-        } else {
-            // Stat uses stored base value or defaultValue
-            baseValue = component.getBaseValue(statIdx);
         }
-        
+
+        return component.getBaseValue(statIdx);
+    }
+
+    private int computeStatValue(
+            int statIdx,
+            @Nonnull StatDefinition statDef,
+            int baseValue,
+            @Nonnull List<HyforgedModifier> allModifiers,
+            @Nonnull HyforgedStatComponent component,
+            @Nonnull StatDefinitionRegistry registry
+    ) {
         // Collect applicable modifiers
-        List<StatModifier> applicable = tempModifierList.get();
+        List<HyforgedModifier> applicable = tempModifierList.get();
         applicable.clear();
         
-        for (StatModifier mod : allModifiers) {
+        for (HyforgedModifier mod : allModifiers) {
             if (isModifierApplicable(mod, statIdx, statDef, registry)) {
                 applicable.add(mod);
             }
@@ -293,6 +316,29 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
         });
     }
 
+    private void updateStatMapBaseBonus(
+            @Nullable EntityStatMap statMap,
+            int statIdx,
+            int baseValue
+    ) {
+        if (statMap == null) {
+            return;
+        }
+
+        var value = statMap.get(statIdx);
+        if (!(value instanceof HyforgedStatValue hyforgedValue)) {
+            return;
+        }
+
+        int baseBonus = baseValue;
+        EntityStatType asset = EntityStatType.getAssetMap().getAsset(statIdx);
+        if (asset != null) {
+            baseBonus = baseValue - Math.round(asset.getInitialValue());
+        }
+
+        hyforgedValue.setHyforgedBaseBonus(baseBonus);
+    }
+
     /**
      * Check if a modifier applies to a specific stat.
      * <p>
@@ -301,19 +347,19 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
      * - OR it targets a tag that includes this stat
      */
     private boolean isModifierApplicable(
-            @Nonnull StatModifier mod,
+            @Nonnull HyforgedModifier mod,
             int statIdx,
             @Nonnull StatDefinition statDef,
             @Nonnull StatDefinitionRegistry registry
     ) {
         // Direct targeting
-        if (mod.targetStatIndex() == statIdx) {
+        if (mod.getTargetStatIndex() == statIdx) {
             return true;
         }
         
         // Tag targeting (using Hytale AssetRegistry integer indices)
-        int tagIndex = mod.targetTagIndex();
-        if (tagIndex != StatModifier.NO_TAG) {
+        int tagIndex = mod.getTargetTagIndex();
+        if (tagIndex != HyforgedModifier.NO_TAG) {
             // Check if this stat is affected by the tag (using integer index for O(1) lookup)
             IntSet affectedStats = registry.getStatIndicesForTagIndex(tagIndex);
             if (affectedStats.contains(statIdx)) {
@@ -330,21 +376,21 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
             @Nonnull StatDefinitionRegistry registry
     ) {
         return component.removeModifiersIf(
-            modifier -> modifier.expirationTick() > 0 && modifier.expirationTick() <= currentTick,
+            modifier -> modifier.getExpirationTick() > 0 && modifier.getExpirationTick() <= currentTick,
             modifier -> markAffectedStatsDirty(component, modifier, registry)
         );
     }
 
     private void markAffectedStatsDirty(
             @Nonnull HyforgedStatComponent component,
-            @Nonnull StatModifier modifier,
+            @Nonnull HyforgedModifier modifier,
             @Nonnull StatDefinitionRegistry registry
     ) {
-        if (modifier.targetStatIndex() >= 0) {
-            component.markStatDirty(modifier.targetStatIndex());
+        if (modifier.getTargetStatIndex() >= 0) {
+            component.markStatDirty(modifier.getTargetStatIndex());
         }
-        int tagIndex = modifier.targetTagIndex();
-        if (tagIndex != StatModifier.NO_TAG) {
+        int tagIndex = modifier.getTargetTagIndex();
+        if (tagIndex != HyforgedModifier.NO_TAG) {
             for (int statIdx : registry.getStatIndicesForTagIndex(tagIndex)) {
                 component.markStatDirty(statIdx);
             }

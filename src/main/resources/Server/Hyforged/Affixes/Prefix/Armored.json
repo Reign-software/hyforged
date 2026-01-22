@@ -1,0 +1,64 @@
+﻿{
+  "Id": "hyforged:armored",
+  "Type": "prefix",
+  "DisplayName": "Armored",
+  "Weight": 100,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 78,
+      "Weight": 28,
+      "Stats": {
+        "hyforged:armor-rating-flat": { "MinValue": 450, "MaxValue": 550, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 64,
+      "Weight": 42,
+      "Stats": {
+        "hyforged:armor-rating-flat": { "MinValue": 350, "MaxValue": 450, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 50,
+      "Weight": 56,
+      "Stats": {
+        "hyforged:armor-rating-flat": { "MinValue": 260, "MaxValue": 350, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 38,
+      "Weight": 72,
+      "Stats": {
+        "hyforged:armor-rating-flat": { "MinValue": 180, "MaxValue": 260, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 26,
+      "Weight": 88,
+      "Stats": {
+        "hyforged:armor-rating-flat": { "MinValue": 115, "MaxValue": 180, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 14,
+      "Weight": 104,
+      "Stats": {
+        "hyforged:armor-rating-flat": { "MinValue": 65, "MaxValue": 115, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 7,
+      "ItemLevelReq": 1,
+      "Weight": 125,
+      "Stats": {
+        "hyforged:armor-rating-flat": { "MinValue": 25, "MaxValue": 65, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

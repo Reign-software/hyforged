@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:regeneration",
+  "EntityEffect": {
+    "Duration": 45,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Regen.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:health-regen-percent-bps", "StackType": "FLAT", "Amount": 200 },
+    { "StatId": "hyforged:life-recovery-rate-bps", "StackType": "INCREASED", "Amount": 2500 }
+  ]
+}

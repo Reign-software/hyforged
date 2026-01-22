@@ -1,0 +1,48 @@
+﻿{
+  "Id": "hyforged:warding",
+  "Type": "prefix",
+  "DisplayName": "Warding",
+  "Weight": 70,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 62,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:magic-resistance-bps": { "MinValue": 2800, "MaxValue": 3500, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 46,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:magic-resistance-bps": { "MinValue": 1900, "MaxValue": 2800, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 30,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:magic-resistance-bps": { "MinValue": 1100, "MaxValue": 1900, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 15,
+      "Weight": 105,
+      "Stats": {
+        "hyforged:magic-resistance-bps": { "MinValue": 500, "MaxValue": 1100, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 125,
+      "Stats": {
+        "hyforged:magic-resistance-bps": { "MinValue": 150, "MaxValue": 500, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

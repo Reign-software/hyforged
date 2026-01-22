@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:monks-concentration",
+  "EntityEffect": {
+    "Duration": 40,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Concentration.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:concentration", "StackType": "FLAT", "Amount": 20 },
+    { "StatId": "hyforged:mana-cost-bps", "StackType": "INCREASED", "Amount": -1500 },
+    { "StatId": "hyforged:cast-speed-bps", "StackType": "INCREASED", "Amount": 1000 }
+  ]
+}

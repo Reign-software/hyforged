@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:prismatic-ward",
+  "EntityEffect": {
+    "Duration": 45,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/AllResist.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:all-resistance-bps", "StackType": "FLAT", "Amount": 2000 }
+  ]
+}

@@ -1,9 +1,9 @@
 package reign.software.hyforged.affix.api;
 
 import org.junit.jupiter.api.*;
+import reign.software.hyforged.affix.AffixTestFixtures;
 import reign.software.hyforged.affix.model.*;
 import reign.software.hyforged.affix.registry.*;
-import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import java.util.List;
@@ -43,51 +43,42 @@ class AffixServiceTest {
     private void registerTestAffixes() {
         AffixDefinitionRegistry registry = AffixDefinitionRegistry.get();
         
-        // Sturdy prefix
+        // Sturdy prefix - armor buff
         registry.register(new AffixDefinition(
                 "sturdy",
                 "prefix",
                 "Sturdy",
-                StatId.hyforged("armor"),
-                HyforgedModifier.StackType.FLAT,
                 List.of(
-                        new AffixTierDefinition(1, 50, 75, 40),
-                        new AffixTierDefinition(2, 30, 49, 20),
-                        new AffixTierDefinition(3, 15, 29, 1)
+                        AffixTestFixtures.tier(1, 40, 50, "hyforged:armor", HyforgedModifier.StackType.FLAT, 50, 75),
+                        AffixTestFixtures.tier(2, 20, 100, "hyforged:armor", HyforgedModifier.StackType.FLAT, 30, 49),
+                        AffixTestFixtures.tier(3, 1, 150, "hyforged:armor", HyforgedModifier.StackType.FLAT, 15, 29)
                 ),
-                AffixEligibility.ANY,
                 100
         ));
         
-        // Mighty prefix
+        // Mighty prefix - strength buff
         registry.register(new AffixDefinition(
                 "mighty",
                 "prefix",
                 "Mighty",
-                StatId.hyforged("strength"),
-                HyforgedModifier.StackType.FLAT,
                 List.of(
-                        new AffixTierDefinition(1, 8, 10, 40),
-                        new AffixTierDefinition(2, 5, 7, 20),
-                        new AffixTierDefinition(3, 2, 4, 1)
+                        AffixTestFixtures.tier(1, 40, 50, "hyforged:strength", HyforgedModifier.StackType.FLAT, 8, 10),
+                        AffixTestFixtures.tier(2, 20, 100, "hyforged:strength", HyforgedModifier.StackType.FLAT, 5, 7),
+                        AffixTestFixtures.tier(3, 1, 150, "hyforged:strength", HyforgedModifier.StackType.FLAT, 2, 4)
                 ),
-                AffixEligibility.ANY,
                 100
         ));
         
-        // Of the Bear suffix
+        // Of the Bear suffix - strength buff
         registry.register(new AffixDefinition(
                 "of-the-bear",
                 "suffix",
                 "of the Bear",
-                StatId.hyforged("strength"),
-                HyforgedModifier.StackType.FLAT,
                 List.of(
-                        new AffixTierDefinition(1, 10, 12, 40),
-                        new AffixTierDefinition(2, 6, 9, 20),
-                        new AffixTierDefinition(3, 3, 5, 1)
+                        AffixTestFixtures.tier(1, 40, 50, "hyforged:strength", HyforgedModifier.StackType.FLAT, 10, 12),
+                        AffixTestFixtures.tier(2, 20, 100, "hyforged:strength", HyforgedModifier.StackType.FLAT, 6, 9),
+                        AffixTestFixtures.tier(3, 1, 150, "hyforged:strength", HyforgedModifier.StackType.FLAT, 3, 5)
                 ),
-                AffixEligibility.ANY,
                 100
         ));
     }
@@ -227,10 +218,7 @@ class AffixServiceTest {
                     "sharp",
                     "prefix",
                     "Sharp",
-                    StatId.hyforged("attack"),
-                    HyforgedModifier.StackType.FLAT,
-                    List.of(new AffixTierDefinition(1, 10, 20, 1)),
-                    AffixEligibility.ANY,
+                    List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:attack", HyforgedModifier.StackType.FLAT, 10, 20)),
                     100
             );
             

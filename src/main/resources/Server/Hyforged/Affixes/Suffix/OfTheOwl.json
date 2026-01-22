@@ -1,0 +1,56 @@
+﻿{
+  "Id": "hyforged:of-the-owl",
+  "Type": "suffix",
+  "DisplayName": "of the Owl",
+  "Weight": 80,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 68,
+      "Weight": 35,
+      "Stats": {
+        "hyforged:wisdom": { "MinValue": 42, "MaxValue": 52, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 52,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:wisdom": { "MinValue": 32, "MaxValue": 42, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 38,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:wisdom": { "MinValue": 23, "MaxValue": 32, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 24,
+      "Weight": 90,
+      "Stats": {
+        "hyforged:wisdom": { "MinValue": 15, "MaxValue": 23, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 12,
+      "Weight": 110,
+      "Stats": {
+        "hyforged:wisdom": { "MinValue": 8, "MaxValue": 15, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:wisdom": { "MinValue": 3, "MaxValue": 8, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

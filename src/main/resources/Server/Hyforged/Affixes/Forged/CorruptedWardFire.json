@@ -1,0 +1,24 @@
+﻿{
+  "Id": "hyforged:corrupted-ward-fire",
+  "Type": "forged",
+  "DisplayName": "Corrupted Fire Ward",
+  "Weight": 25,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 74,
+      "Weight": 35,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 5000, "MaxValue": 6500, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 52,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 3500, "MaxValue": 5000, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import reign.software.hyforged.affix.AffixTestFixtures;
 import reign.software.hyforged.affix.model.*;
 import reign.software.hyforged.affix.registry.AffixDefinitionRegistry;
 import reign.software.hyforged.affix.registry.AffixTypeRegistry;
@@ -15,7 +16,9 @@ import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -126,10 +129,7 @@ class AffixTooltipProviderTest {
             "sturdy",
             "prefix",
             "Sturdy",
-            StatId.hyforged("health"),
-            HyforgedModifier.StackType.FLAT,
-            List.of(new AffixTierDefinition(1, 50, 100, 1)),
-            AffixEligibility.ANY,
+            List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:health", HyforgedModifier.StackType.FLAT, 50, 100)),
             100
         ));
 
@@ -137,10 +137,7 @@ class AffixTooltipProviderTest {
             "sharp",
             "prefix",
             "Sharp",
-            StatId.hyforged("physicalDamage"),
-            HyforgedModifier.StackType.FLAT,
-            List.of(new AffixTierDefinition(1, 10, 25, 1)),
-            AffixEligibility.ANY,
+            List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:physicalDamage", HyforgedModifier.StackType.FLAT, 10, 25)),
             100
         ));
 
@@ -149,14 +146,11 @@ class AffixTooltipProviderTest {
             "of-speed",
             "suffix",
             "of Speed",
-            StatId.hyforged("movementSpeed"),
-            HyforgedModifier.StackType.INCREASED,
             List.of(
-                new AffixTierDefinition(1, 1500, 2000, 1),  // 15-20%
-                new AffixTierDefinition(2, 1000, 1500, 1),  // 10-15%
-                new AffixTierDefinition(3, 500, 1000, 1)    // 5-10%
+                AffixTestFixtures.tier(1, 1, 100, "hyforged:movementSpeed", HyforgedModifier.StackType.INCREASED, 1500, 2000),  // 15-20%
+                AffixTestFixtures.tier(2, 1, 100, "hyforged:movementSpeed", HyforgedModifier.StackType.INCREASED, 1000, 1500),  // 10-15%
+                AffixTestFixtures.tier(3, 1, 100, "hyforged:movementSpeed", HyforgedModifier.StackType.INCREASED, 500, 1000)    // 5-10%
             ),
-            AffixEligibility.ANY,
             100
         ));
 
@@ -164,10 +158,7 @@ class AffixTooltipProviderTest {
             "of-precision",
             "suffix",
             "of Precision",
-            StatId.hyforged("criticalChance"),
-            HyforgedModifier.StackType.FLAT,
-            List.of(new AffixTierDefinition(1, 5, 10, 1)),
-            AffixEligibility.ANY,
+            List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:criticalChance", HyforgedModifier.StackType.FLAT, 5, 10)),
             100
         ));
 
@@ -176,10 +167,7 @@ class AffixTooltipProviderTest {
             "masterwork",
             "forged",
             "Masterwork",
-            StatId.hyforged("quality"),
-            HyforgedModifier.StackType.FLAT,
-            List.of(new AffixTierDefinition(1, 10, 25, 1)),
-            AffixEligibility.ANY,
+            List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:quality", HyforgedModifier.StackType.FLAT, 10, 25)),
             100
         ));
     }
@@ -187,13 +175,19 @@ class AffixTooltipProviderTest {
     private RolledAffix createAffix(String affixId, int tier, int value) {
         AffixDefinition def = AffixDefinitionRegistry.get().get(affixId);
         assertNotNull(def, "Test affix not found: " + affixId);
+        
+        // Get the first stat from the tier definition
+        AffixTierDefinition tierDef = def.tiers().get(0);
+        Map.Entry<String, AffixTierStat> firstStat = tierDef.stats().entrySet().iterator().next();
+        
+        Map<String, RolledAffix.RolledStat> rolledStats = new HashMap<>();
+        rolledStats.put(firstStat.getKey(), new RolledAffix.RolledStat(value, firstStat.getValue().stackType()));
+        
         return new RolledAffix(
             def.id(),
             def.type(),
             tier,
-            value,
-            def.statId(),
-            def.modifierType()
+            rolledStats
         );
     }
 
@@ -631,13 +625,13 @@ class AffixTooltipProviderTest {
         @Test
         @DisplayName("Unknown affix is skipped gracefully")
         void unknownAffixIsSkipped() {
+            Map<String, RolledAffix.RolledStat> unknownStats = new HashMap<>();
+            unknownStats.put("hyforged:unknown-stat", new RolledAffix.RolledStat(50, HyforgedModifier.StackType.FLAT));
             RolledAffix unknownAffix = new RolledAffix(
                 "unknown-affix",
                 "unknown-type",
                 1,
-                50,
-                StatId.hyforged("unknown-stat"),
-                HyforgedModifier.StackType.FLAT
+                unknownStats
             );
 
             // Should not throw, just skip the unknown affix
@@ -649,13 +643,13 @@ class AffixTooltipProviderTest {
         @DisplayName("Mixed known and unknown affixes handles correctly")
         void mixedKnownUnknownAffixes() {
             RolledAffix known = createAffix("sturdy", 1, 50);
+            Map<String, RolledAffix.RolledStat> unknownStats = new HashMap<>();
+            unknownStats.put("hyforged:unknown", new RolledAffix.RolledStat(25, HyforgedModifier.StackType.FLAT));
             RolledAffix unknown = new RolledAffix(
                 "unknown",
                 "unknown",
                 1,
-                25,
-                StatId.hyforged("unknown"),
-                HyforgedModifier.StackType.FLAT
+                unknownStats
             );
 
             TooltipContent content = AffixTooltipProvider.generateTooltip(List.of(known, unknown));

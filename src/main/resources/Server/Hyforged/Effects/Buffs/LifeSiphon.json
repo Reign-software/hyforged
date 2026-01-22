@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:life-siphon",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Leech.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:life-leech-bps", "StackType": "FLAT", "Amount": 500 },
+    { "StatId": "hyforged:life-on-hit-flat", "StackType": "FLAT", "Amount": 10 },
+    { "StatId": "hyforged:leech-rate-bps", "StackType": "INCREASED", "Amount": 3000 }
+  ]
+}

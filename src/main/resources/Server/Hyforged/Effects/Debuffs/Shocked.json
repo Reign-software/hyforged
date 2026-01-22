@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:shocked",
+  "EntityEffect": {
+    "Duration": 10,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Shock.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:damage-taken-bps", "StackType": "INCREASED", "Amount": 2500 },
+    { "StatId": "hyforged:stun-threshold-flat", "StackType": "INCREASED", "Amount": -2000 }
+  ]
+}

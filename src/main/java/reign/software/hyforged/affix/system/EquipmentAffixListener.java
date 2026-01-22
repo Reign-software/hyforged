@@ -1,6 +1,5 @@
 package reign.software.hyforged.affix.system;
 
-import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.event.EventRegistration;
 import com.hypixel.hytale.event.IEventDispatcher;
@@ -10,24 +9,22 @@ import com.hypixel.hytale.server.core.event.events.entity.LivingEntityInventoryC
 import com.hypixel.hytale.server.core.inventory.Inventory;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.affix.event.AffixModifiersAppliedEvent;
 import reign.software.hyforged.affix.model.HyforgedItemData;
 import reign.software.hyforged.affix.model.RolledAffix;
 import reign.software.hyforged.affix.service.HyforgedItemDataService;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
-import reign.software.hyforged.stats.component.HyforgedStatComponent;
-import reign.software.hyforged.stats.component.ModifierSource;
-import reign.software.hyforged.stats.component.ModifierType;
-import reign.software.hyforged.stats.component.StatModifier;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -102,38 +99,35 @@ public class EquipmentAffixListener {
             return;
         }
         
-        // Get the entity's HyforgedStatComponent
+        // Get the entity's EntityStatMap
         Ref<EntityStore> entityRef = entity.getReference();
         if (entityRef == null || !entityRef.isValid()) {
             return;
         }
         
-        HyforgedStatComponent statComponent = getStatComponent(entity);
-        if (statComponent == null) {
-            // Entity doesn't have our stat component
+        EntityStatMap entityStatMap = getEntityStatMap(entityRef);
+        if (entityStatMap == null) {
+            // Entity doesn't have stat map
             return;
         }
         
         // Process the equipment change
         if (isArmorChange) {
-            processArmorChange(entity, statComponent, inventory);
+            processArmorChange(entity, entityStatMap, inventory);
         } else if (isHotbarChange) {
-            processHotbarChange(entity, statComponent, inventory);
+            processHotbarChange(entity, entityStatMap, inventory);
         }
     }
     
     /**
-     * Get the HyforgedStatComponent for an entity.
+     * Get the EntityStatMap for an entity.
      */
     @Nullable
-    private HyforgedStatComponent getStatComponent(@Nonnull LivingEntity entity) {
-        Ref<EntityStore> ref = entity.getReference();
-        if (ref == null || !ref.isValid()) {
+    private EntityStatMap getEntityStatMap(@Nonnull Ref<EntityStore> ref) {
+        if (!ref.isValid()) {
             return null;
         }
-        ComponentType<EntityStore, HyforgedStatComponent> componentType = 
-                HyforgedPlugin.getInstance().getHyforgedStatComponentType();
-        return ref.getStore().getComponent(ref, componentType);
+        return StatAccessor.getStatMap(ref.getStore(), ref);
     }
     
     /**
@@ -141,17 +135,17 @@ public class EquipmentAffixListener {
      */
     private void processArmorChange(
             @Nonnull LivingEntity entity,
-            @Nonnull HyforgedStatComponent statComponent,
+            @Nonnull EntityStatMap entityStatMap,
             @Nonnull Inventory inventory
     ) {
         ItemContainer armorContainer = inventory.getArmor();
         
         // Re-sync all armor slot modifiers
         // First, remove all existing armor affix modifiers
-        removeArmorAffixModifiers(statComponent);
+        removeArmorAffixModifiers(entityStatMap);
         
         // Then apply modifiers from current armor
-        List<StatModifier> appliedModifiers = new ArrayList<>();
+        List<HyforgedModifier> appliedModifiers = new ArrayList<>();
         
         for (short slot = 0; slot < armorContainer.getCapacity(); slot++) {
             ItemStack itemStack = armorContainer.getItemStack(slot);
@@ -159,8 +153,8 @@ public class EquipmentAffixListener {
                 continue;
             }
             
-            List<StatModifier> slotModifiers = applyAffixModifiersFromItem(
-                    statComponent, itemStack, "armor:" + slot);
+            List<HyforgedModifier> slotModifiers = applyAffixModifiersFromItem(
+                    entityStatMap, itemStack, "armor:" + slot);
             appliedModifiers.addAll(slotModifiers);
         }
         
@@ -176,11 +170,11 @@ public class EquipmentAffixListener {
      */
     private void processHotbarChange(
             @Nonnull LivingEntity entity,
-            @Nonnull HyforgedStatComponent statComponent,
+            @Nonnull EntityStatMap entityStatMap,
             @Nonnull Inventory inventory
     ) {
         // Remove existing hand affix modifiers
-        removeHandAffixModifiers(statComponent);
+        removeHandAffixModifiers(entityStatMap);
         
         // Apply modifiers from held item
         ItemStack heldItem = inventory.getItemInHand();
@@ -188,8 +182,8 @@ public class EquipmentAffixListener {
             return;
         }
         
-        List<StatModifier> appliedModifiers = applyAffixModifiersFromItem(
-                statComponent, heldItem, "hand");
+        List<HyforgedModifier> appliedModifiers = applyAffixModifiersFromItem(
+                entityStatMap, heldItem, "hand");
         
         if (!appliedModifiers.isEmpty()) {
             emitModifiersAppliedEvent(entity, "hand", appliedModifiers);
@@ -199,34 +193,34 @@ public class EquipmentAffixListener {
     /**
      * Remove all armor-sourced affix modifiers.
      */
-    private void removeArmorAffixModifiers(@Nonnull HyforgedStatComponent statComponent) {
-        statComponent.removeModifiersIf(
-                m -> m.sourceId().startsWith(EQUIPMENT_SOURCE_PREFIX + "armor:"),
-                m -> LOGGER.log(Level.FINER, "Removed armor affix modifier: {0}", m.sourceId())
-        );
+    private void removeArmorAffixModifiers(@Nonnull EntityStatMap statMap) {
+        int removed = StatAccessor.removeAllModifiersByKeyPrefix(statMap, EQUIPMENT_SOURCE_PREFIX + "armor:");
+        if (removed > 0) {
+            LOGGER.log(Level.FINER, "Removed {0} armor affix modifiers", removed);
+        }
     }
     
     /**
      * Remove all hand-sourced affix modifiers.
      */
-    private void removeHandAffixModifiers(@Nonnull HyforgedStatComponent statComponent) {
-        statComponent.removeModifiersIf(
-                m -> m.sourceId().startsWith(EQUIPMENT_SOURCE_PREFIX + "hand:"),
-                m -> LOGGER.log(Level.FINER, "Removed hand affix modifier: {0}", m.sourceId())
-        );
+    private void removeHandAffixModifiers(@Nonnull EntityStatMap statMap) {
+        int removed = StatAccessor.removeAllModifiersByKeyPrefix(statMap, EQUIPMENT_SOURCE_PREFIX + "hand:");
+        if (removed > 0) {
+            LOGGER.log(Level.FINER, "Removed {0} hand affix modifiers", removed);
+        }
     }
     
     /**
-     * Apply affix modifiers from an item to the stat component.
+     * Apply affix modifiers from an item to the entity stat map.
      *
-     * @param statComponent The stat component to apply to
+     * @param statMap The entity stat map to apply to
      * @param itemStack The item containing affixes
      * @param slotId Slot identifier (e.g., "armor:0", "hand")
      * @return List of applied modifiers
      */
     @Nonnull
-    private List<StatModifier> applyAffixModifiersFromItem(
-            @Nonnull HyforgedStatComponent statComponent,
+    private List<HyforgedModifier> applyAffixModifiersFromItem(
+            @Nonnull EntityStatMap statMap,
             @Nonnull ItemStack itemStack,
             @Nonnull String slotId
     ) {
@@ -235,57 +229,47 @@ public class EquipmentAffixListener {
             return List.of();
         }
         
-        List<StatModifier> applied = new ArrayList<>();
+        List<HyforgedModifier> applied = new ArrayList<>();
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         
         for (RolledAffix affix : itemData.affixes()) {
-            String sourceId = EQUIPMENT_SOURCE_PREFIX + slotId + ":" + affix.affixId();
+            String affixSourcePrefix = EQUIPMENT_SOURCE_PREFIX + slotId + ":" + affix.affixId();
             
-            // Resolve stat index
-            StatId statId = affix.statId();
-            int statIndex = registry.getIndex(statId);
-            if (statIndex < 0) {
-                LOGGER.log(Level.WARNING, "Unknown stat for affix {0}: {1}", 
-                        new Object[]{affix.affixId(), statId});
-                continue;
-            }
-            
-            // Convert affix modifier type to StatModifier.ModifierType
-            ModifierType modifierType = convertModifierType(affix.modifierType());
-            
-            // Create the stat modifier
-            StatModifier modifier = new StatModifier(
-                    sourceId,
-                    ModifierSource.EQUIPMENT,
-                    modifierType,
-                    statIndex,
-                    StatModifier.NO_TAG,
-                    affix.value(),
-                    0, // Permanent (equipment duration)
-                    0  // Default priority
-            );
-            
-            boolean added = statComponent.addModifier(modifier);
-            if (added) {
+            // Apply each stat in the affix
+            for (Map.Entry<String, RolledAffix.RolledStat> entry : affix.rolledStats().entrySet()) {
+                String statIdStr = entry.getKey();
+                RolledAffix.RolledStat rolledStat = entry.getValue();
+                
+                // Resolve stat index
+                StatId statId = StatId.parse(statIdStr);
+                int statIndex = registry.getIndex(statId);
+                if (statIndex < 0) {
+                    LOGGER.log(Level.WARNING, "Unknown stat for affix {0}: {1}", 
+                            new Object[]{affix.affixId(), statIdStr});
+                    continue;
+                }
+                
+                String sourceId = affixSourcePrefix + ":" + statIdStr;
+                
+                // Create the HyforgedModifier
+                HyforgedModifier modifier = HyforgedModifier.builder()
+                        .sourceId(sourceId)
+                        .sourceType(HyforgedModifier.SourceType.EQUIPMENT)
+                        .stackType(rolledStat.stackType())
+                        .amount(rolledStat.value())
+                        .targetStat(statIndex)
+                        .permanent()
+                        .build();
+                
+                // Use putModifier with sourceId as the unique key
+                statMap.putModifier(statIndex, sourceId, modifier);
                 applied.add(modifier);
                 LOGGER.log(Level.FINE, "Applied affix modifier: {0} = {1} {2}", 
-                        new Object[]{statId, affix.value(), modifierType});
+                        new Object[]{statIdStr, rolledStat.value(), rolledStat.stackType()});
             }
         }
         
         return applied;
-    }
-    
-    /**
-     * Convert HyforgedModifier.StackType to StatModifier.ModifierType.
-     */
-    private ModifierType convertModifierType(@Nonnull HyforgedModifier.StackType stackType) {
-        return switch (stackType) {
-            case FLAT -> ModifierType.FLAT;
-            case INCREASED -> ModifierType.INCREASED;
-            case MORE -> ModifierType.MORE;
-            case CAP -> ModifierType.CAP;
-        };
     }
     
     /**
@@ -294,7 +278,7 @@ public class EquipmentAffixListener {
     private void emitModifiersAppliedEvent(
             @Nonnull LivingEntity entity,
             @Nonnull String slotType,
-            @Nonnull List<StatModifier> modifiers
+            @Nonnull List<HyforgedModifier> modifiers
     ) {
         try {
             IEventDispatcher<AffixModifiersAppliedEvent, AffixModifiersAppliedEvent> dispatcher =

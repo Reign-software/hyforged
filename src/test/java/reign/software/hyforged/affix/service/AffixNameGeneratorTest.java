@@ -4,13 +4,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import reign.software.hyforged.affix.AffixTestFixtures;
 import reign.software.hyforged.affix.model.*;
 import reign.software.hyforged.affix.registry.AffixDefinitionRegistry;
 import reign.software.hyforged.affix.registry.AffixTypeRegistry;
-import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -66,10 +68,7 @@ class AffixNameGeneratorTest {
                 "sturdy",
                 "prefix",
                 "Sturdy",
-                StatId.hyforged("health"),
-                HyforgedModifier.StackType.FLAT,
-                List.of(new AffixTierDefinition(1, 50, 100, 1)),
-                AffixEligibility.ANY,
+                List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:health", HyforgedModifier.StackType.FLAT, 50, 100)),
                 100
         ));
         
@@ -77,10 +76,7 @@ class AffixNameGeneratorTest {
                 "gleaming",
                 "prefix",
                 "Gleaming",
-                StatId.hyforged("physicalDamage"),
-                HyforgedModifier.StackType.FLAT,
-                List.of(new AffixTierDefinition(1, 10, 20, 1)),
-                AffixEligibility.ANY,
+                List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:physicalDamage", HyforgedModifier.StackType.FLAT, 10, 20)),
                 100
         ));
         
@@ -88,10 +84,7 @@ class AffixNameGeneratorTest {
                 "sharp",
                 "prefix",
                 "Sharp",
-                StatId.hyforged("criticalChance"),
-                HyforgedModifier.StackType.FLAT,
-                List.of(new AffixTierDefinition(1, 5, 10, 1)),
-                AffixEligibility.ANY,
+                List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:criticalChance", HyforgedModifier.StackType.FLAT, 5, 10)),
                 100
         ));
         
@@ -100,10 +93,7 @@ class AffixNameGeneratorTest {
                 "of-the-bear",
                 "suffix",
                 "of the Bear",
-                StatId.hyforged("strength"),
-                HyforgedModifier.StackType.FLAT,
-                List.of(new AffixTierDefinition(1, 5, 10, 1)),
-                AffixEligibility.ANY,
+                List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:strength", HyforgedModifier.StackType.FLAT, 5, 10)),
                 100
         ));
         
@@ -111,10 +101,7 @@ class AffixNameGeneratorTest {
                 "of-speed",
                 "suffix",
                 "of Speed",
-                StatId.hyforged("movementSpeed"),
-                HyforgedModifier.StackType.INCREASED,
-                List.of(new AffixTierDefinition(1, 5, 10, 1)),
-                AffixEligibility.ANY,
+                List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:movementSpeed", HyforgedModifier.StackType.INCREASED, 5, 10)),
                 100
         ));
         
@@ -122,10 +109,7 @@ class AffixNameGeneratorTest {
                 "of-precision",
                 "suffix",
                 "of Precision",
-                StatId.hyforged("accuracy"),
-                HyforgedModifier.StackType.FLAT,
-                List.of(new AffixTierDefinition(1, 10, 20, 1)),
-                AffixEligibility.ANY,
+                List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:accuracy", HyforgedModifier.StackType.FLAT, 10, 20)),
                 100
         ));
         
@@ -134,10 +118,7 @@ class AffixNameGeneratorTest {
                 "masterwork",
                 "forged",
                 "Masterwork",
-                StatId.hyforged("quality"),
-                HyforgedModifier.StackType.FLAT,
-                List.of(new AffixTierDefinition(1, 10, 25, 1)),
-                AffixEligibility.ANY,
+                List.of(AffixTestFixtures.tier(1, 1, 100, "hyforged:quality", HyforgedModifier.StackType.FLAT, 10, 25)),
                 100
         ));
     }
@@ -145,13 +126,19 @@ class AffixNameGeneratorTest {
     private RolledAffix createAffix(String affixId) {
         AffixDefinition def = AffixDefinitionRegistry.get().get(affixId);
         assertNotNull(def, "Test affix not found: " + affixId);
+        
+        // Get the first stat from the tier definition
+        AffixTierDefinition tierDef = def.tiers().get(0);
+        Map.Entry<String, AffixTierStat> firstStat = tierDef.stats().entrySet().iterator().next();
+        
+        Map<String, RolledAffix.RolledStat> rolledStats = new HashMap<>();
+        rolledStats.put(firstStat.getKey(), new RolledAffix.RolledStat(75, firstStat.getValue().stackType()));
+        
         return new RolledAffix(
                 def.id(),
                 def.type(),
                 1,
-                75,
-                def.statId(),
-                def.modifierType()
+                rolledStats
         );
     }
     
@@ -353,12 +340,13 @@ class AffixNameGeneratorTest {
         @DisplayName("Unknown affix ID is skipped gracefully")
         void unknownAffixSkipped() {
             // Create affix with unknown ID
+            Map<String, RolledAffix.RolledStat> unknownStats = new HashMap<>();
+            unknownStats.put("hyforged:health", new RolledAffix.RolledStat(50, HyforgedModifier.StackType.FLAT));
             RolledAffix unknownAffix = new RolledAffix(
                     "unknown-affix",
                     "prefix",
-                    1, 50,
-                    StatId.hyforged("health"),
-                    HyforgedModifier.StackType.FLAT
+                    1,
+                    unknownStats
             );
             
             List<RolledAffix> affixes = List.of(

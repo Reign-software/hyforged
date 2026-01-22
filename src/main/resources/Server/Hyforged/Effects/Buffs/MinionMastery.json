@@ -1,0 +1,14 @@
+{
+  "Id": "hyforged:minion-mastery",
+  "EntityEffect": {
+    "Duration": 60,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Minions.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:minion-damage-bps", "StackType": "INCREASED", "Amount": 3000 },
+    { "StatId": "hyforged:minion-life-bps", "StackType": "INCREASED", "Amount": 2500 },
+    { "StatId": "hyforged:minion-speed-bps", "StackType": "INCREASED", "Amount": 2000 },
+    { "StatId": "hyforged:max-minions-flat", "StackType": "FLAT", "Amount": 2 }
+  ]
+}

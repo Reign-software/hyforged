@@ -1,0 +1,48 @@
+﻿{
+  "Id": "hyforged:blighting",
+  "Type": "prefix",
+  "DisplayName": "Blighting",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 65,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:chaos-damage-increased-bps": { "MinValue": 3000, "MaxValue": 4000, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 48,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:chaos-damage-increased-bps": { "MinValue": 2000, "MaxValue": 3000, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 32,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:chaos-damage-increased-bps": { "MinValue": 1200, "MaxValue": 2000, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 15,
+      "Weight": 105,
+      "Stats": {
+        "hyforged:chaos-damage-increased-bps": { "MinValue": 500, "MaxValue": 1200, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:chaos-damage-increased-bps": { "MinValue": 200, "MaxValue": 500, "StackType": "INCREASED" }
+      }
+    }
+  ]
+}

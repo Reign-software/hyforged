@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:lightning-weakness",
+  "EntityEffect": {
+    "Duration": 20,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/LightningVuln.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:lightning-resistance-bps", "StackType": "FLAT", "Amount": -3000 },
+    { "StatId": "hyforged:shock-duration-bps", "StackType": "INCREASED", "Amount": 2500 }
+  ]
+}

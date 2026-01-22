@@ -1,0 +1,48 @@
+﻿{
+  "Id": "sturdy",
+  "Type": "prefix",
+  "DisplayName": "Sturdy",
+  "Weight": 100,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 40,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:armor": { "MinValue": 50, "MaxValue": 75, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 25,
+      "Weight": 75,
+      "Stats": {
+        "hyforged:armor": { "MinValue": 35, "MaxValue": 50, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 10,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:armor": { "MinValue": 20, "MaxValue": 35, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 5,
+      "Weight": 125,
+      "Stats": {
+        "hyforged:armor": { "MinValue": 10, "MaxValue": 20, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 150,
+      "Stats": {
+        "hyforged:armor": { "MinValue": 1, "MaxValue": 10, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

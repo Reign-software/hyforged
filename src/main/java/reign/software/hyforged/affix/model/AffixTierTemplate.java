@@ -1,6 +1,11 @@
 package reign.software.hyforged.affix.model;
 
+import reign.software.hyforged.stats.StatId;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
+
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -76,9 +81,16 @@ public record AffixTierTemplate(
      *
      * @param baseItemLevel The minimum item level for tier 1
      * @param itemLevelStep The item level increase per tier
+     * @param statId The stat ID to use for the generated tiers
+     * @param stackType The stack type for the stat modifier
      * @return Array of tier definitions
      */
-    public AffixTierDefinition[] generateTiers(int baseItemLevel, int itemLevelStep) {
+    public AffixTierDefinition[] generateTiers(int baseItemLevel, int itemLevelStep, 
+                                                @Nonnull String statId, 
+                                                @Nonnull HyforgedModifier.StackType stackType) {
+        Objects.requireNonNull(statId, "statId cannot be null");
+        Objects.requireNonNull(stackType, "stackType cannot be null");
+        
         AffixTierDefinition[] tiers = new AffixTierDefinition[tierCount];
         
         for (int i = 0; i < tierCount; i++) {
@@ -89,7 +101,11 @@ public record AffixTierTemplate(
             double progress = tierCount > 1 ? (double) i / (tierCount - 1) : 0;
             int[] range = interpolateRange(progress);
             
-            tiers[i] = new AffixTierDefinition(tier, range[0], range[1], itemLevelReq);
+            // Create stats map with single stat
+            Map<String, AffixTierStat> stats = new HashMap<>();
+            stats.put(statId, new AffixTierStat(StatId.parse(statId), stackType, range[0], range[1]));
+            
+            tiers[i] = new AffixTierDefinition(tier, itemLevelReq, AffixTierDefinition.DEFAULT_WEIGHT, stats);
         }
         
         return tiers;

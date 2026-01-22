@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:frostbite",
+  "EntityEffect": {
+    "Duration": 20,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Frostbite.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:cold-resistance-bps", "StackType": "FLAT", "Amount": -4500 },
+    { "StatId": "hyforged:chill-effect-bps", "StackType": "INCREASED", "Amount": 3000 }
+  ]
+}

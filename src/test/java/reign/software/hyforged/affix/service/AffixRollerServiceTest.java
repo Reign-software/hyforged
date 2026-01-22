@@ -4,9 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import reign.software.hyforged.affix.AffixTestFixtures;
 import reign.software.hyforged.affix.model.*;
 import reign.software.hyforged.affix.registry.*;
-import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import java.util.*;
@@ -53,14 +53,11 @@ class AffixRollerServiceTest {
                 "sturdy",
                 "prefix",
                 "Sturdy",
-                StatId.hyforged("health"),
-                HyforgedModifier.StackType.FLAT,
                 List.of(
-                        new AffixTierDefinition(1, 80, 100, 50),  // T1: 80-100 HP, req lvl 50
-                        new AffixTierDefinition(2, 50, 79, 25),   // T2: 50-79 HP, req lvl 25
-                        new AffixTierDefinition(3, 20, 49, 1)     // T3: 20-49 HP, req lvl 1
+                        AffixTestFixtures.tier(1, 50, 100, "hyforged:health", HyforgedModifier.StackType.FLAT, 80, 100),  // T1: 80-100 HP, req lvl 50
+                        AffixTestFixtures.tier(2, 25, 100, "hyforged:health", HyforgedModifier.StackType.FLAT, 50, 79),   // T2: 50-79 HP, req lvl 25
+                        AffixTestFixtures.tier(3, 1, 100, "hyforged:health", HyforgedModifier.StackType.FLAT, 20, 49)     // T3: 20-49 HP, req lvl 1
                 ),
-                AffixEligibility.ANY,
                 100
         ));
         
@@ -69,14 +66,11 @@ class AffixRollerServiceTest {
                 "mighty",
                 "prefix",
                 "Mighty",
-                StatId.hyforged("damage"),
-                HyforgedModifier.StackType.FLAT,
                 List.of(
-                        new AffixTierDefinition(1, 15, 20, 30),
-                        new AffixTierDefinition(2, 8, 14, 10),
-                        new AffixTierDefinition(3, 3, 7, 1)
+                        AffixTestFixtures.tier(1, 30, 100, "hyforged:damage", HyforgedModifier.StackType.FLAT, 15, 20),
+                        AffixTestFixtures.tier(2, 10, 100, "hyforged:damage", HyforgedModifier.StackType.FLAT, 8, 14),
+                        AffixTestFixtures.tier(3, 1, 100, "hyforged:damage", HyforgedModifier.StackType.FLAT, 3, 7)
                 ),
-                AffixEligibility.ANY,
                 100
         ));
         
@@ -85,14 +79,11 @@ class AffixRollerServiceTest {
                 "of-the-bear",
                 "suffix",
                 "of the Bear",
-                StatId.hyforged("health"),
-                HyforgedModifier.StackType.INCREASED,
                 List.of(
-                        new AffixTierDefinition(1, 1500, 2000, 40),  // 15-20%
-                        new AffixTierDefinition(2, 1000, 1499, 20),  // 10-15%
-                        new AffixTierDefinition(3, 500, 999, 1)      // 5-10%
+                        AffixTestFixtures.tier(1, 40, 100, "hyforged:health", HyforgedModifier.StackType.INCREASED, 1500, 2000),  // 15-20%
+                        AffixTestFixtures.tier(2, 20, 100, "hyforged:health", HyforgedModifier.StackType.INCREASED, 1000, 1499),  // 10-15%
+                        AffixTestFixtures.tier(3, 1, 100, "hyforged:health", HyforgedModifier.StackType.INCREASED, 500, 999)      // 5-10%
                 ),
-                AffixEligibility.ANY,
                 100
         ));
         
@@ -101,14 +92,11 @@ class AffixRollerServiceTest {
                 "of-slaying",
                 "suffix",
                 "of Slaying",
-                StatId.hyforged("damage"),
-                HyforgedModifier.StackType.INCREASED,
                 List.of(
-                        new AffixTierDefinition(1, 1200, 1500, 35),
-                        new AffixTierDefinition(2, 800, 1199, 15),
-                        new AffixTierDefinition(3, 400, 799, 1)
+                        AffixTestFixtures.tier(1, 35, 100, "hyforged:damage", HyforgedModifier.StackType.INCREASED, 1200, 1500),
+                        AffixTestFixtures.tier(2, 15, 100, "hyforged:damage", HyforgedModifier.StackType.INCREASED, 800, 1199),
+                        AffixTestFixtures.tier(3, 1, 100, "hyforged:damage", HyforgedModifier.StackType.INCREASED, 400, 799)
                 ),
-                AffixEligibility.ANY,
                 100
         ));
     }
@@ -227,7 +215,7 @@ class AffixRollerServiceTest {
                 RolledAffix a2 = result2.affixes().get(i);
                 assertEquals(a1.affixId(), a2.affixId());
                 assertEquals(a1.tier(), a2.tier());
-                assertEquals(a1.value(), a2.value());
+                assertEquals(a1.rolledStats(), a2.rolledStats());
             }
         }
         
@@ -380,11 +368,13 @@ class AffixRollerServiceTest {
             for (int seed = 0; seed < 50; seed++) {
                 AffixRollResult result = service.rollAffixes(context, seed);
                 
-                Set<StatId> stats = new HashSet<>();
+                Set<String> stats = new HashSet<>();
                 for (RolledAffix affix : result.affixes()) {
-                    assertFalse(stats.contains(affix.statId()), 
-                            "Duplicate stat found: " + affix.statId());
-                    stats.add(affix.statId());
+                    for (String statId : affix.rolledStats().keySet()) {
+                        assertFalse(stats.contains(statId), 
+                                "Duplicate stat found: " + statId);
+                        stats.add(statId);
+                    }
                 }
             }
         }
@@ -411,11 +401,15 @@ class AffixRollerServiceTest {
                 for (RolledAffix affix : result.affixes()) {
                     // For T3, sturdy is 20-49, mighty is 3-7
                     if (affix.affixId().equals("sturdy")) {
-                        assertTrue(affix.value() >= 20 && affix.value() <= 49,
-                                "Sturdy T3 value should be 20-49, got: " + affix.value());
+                        RolledAffix.RolledStat stat = affix.getStat("hyforged:health");
+                        assertNotNull(stat, "sturdy should have health stat");
+                        assertTrue(stat.value() >= 20 && stat.value() <= 49,
+                                "Sturdy T3 value should be 20-49, got: " + stat.value());
                     } else if (affix.affixId().equals("mighty")) {
-                        assertTrue(affix.value() >= 3 && affix.value() <= 7,
-                                "Mighty T3 value should be 3-7, got: " + affix.value());
+                        RolledAffix.RolledStat stat = affix.getStat("hyforged:damage");
+                        assertNotNull(stat, "mighty should have damage stat");
+                        assertTrue(stat.value() >= 3 && stat.value() <= 7,
+                                "Mighty T3 value should be 3-7, got: " + stat.value());
                     }
                 }
             }

@@ -8,6 +8,7 @@ import com.hypixel.hytale.builtin.hytalegenerator.newsystem.views.EntityContaine
 import com.hypixel.hytale.builtin.hytalegenerator.threadindexer.WorkerIndexer;
 import com.hypixel.hytale.math.vector.Vector3i;
 import javax.annotation.Nonnull;
+import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
 public abstract class Prop {
    public Prop() {
@@ -20,7 +21,10 @@ public abstract class Prop {
    public abstract ContextDependency getContextDependency();
 
    @Nonnull
-   public abstract Bounds3i getWriteBounds();
+   public abstract Bounds3i getReadBounds_voxelGrid();
+
+   @Nonnull
+   public abstract Bounds3i getWriteBounds_voxelGrid();
 
    @Nonnull
    public static Prop noProp() {
@@ -31,7 +35,7 @@ public abstract class Prop {
          }
       };
       final ContextDependency contextDependency = new ContextDependency(new Vector3i(), new Vector3i());
-      final Bounds3i writeBounds_voxelGrid = new Bounds3i();
+      final Bounds3i zeroBounds_voxelGrid = new Bounds3i();
       return new Prop() {
          @Nonnull
          @Override
@@ -49,10 +53,16 @@ public abstract class Prop {
             return contextDependency;
          }
 
+         @NonNullDecl
+         @Override
+         public Bounds3i getReadBounds_voxelGrid() {
+            return zeroBounds_voxelGrid;
+         }
+
          @Nonnull
          @Override
-         public Bounds3i getWriteBounds() {
-            return writeBounds_voxelGrid;
+         public Bounds3i getWriteBounds_voxelGrid() {
+            return zeroBounds_voxelGrid;
          }
       };
    }

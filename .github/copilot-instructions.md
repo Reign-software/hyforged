@@ -12,6 +12,7 @@ This is a Hytale plugin project. Hytale plugins are used to extend the functiona
 - Review TODOs when implementing a plan as they may be from a previous implementation or design decision awaiting the plan.
 - When working with systems, aim to make things generic and data driven. Leverage tags and JSON data wherever possible.
 - DO NOT hard code values; always use data-driven approaches and JSON configuration.
+- Prefer single-file JSON definitions for features that extend Hytale (e.g., buffs/debuffs, effects, interactions). Avoid multi-file JSON solutions unless there is a clear, logical design need.
 
 ## .github/skills
 - Evaluate skills when given a task or problem to solve.

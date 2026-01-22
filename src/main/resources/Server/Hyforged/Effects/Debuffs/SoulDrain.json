@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:soul-drain",
+  "EntityEffect": {
+    "Duration": 25,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/SoulDrain.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:spirit", "StackType": "FLAT", "Amount": -25 },
+    { "StatId": "hyforged:minion-damage-bps", "StackType": "INCREASED", "Amount": -3000 },
+    { "StatId": "hyforged:minion-life-bps", "StackType": "INCREASED", "Amount": -2000 }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:cursed",
+  "EntityEffect": {
+    "Duration": 30,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Curse.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:luck", "StackType": "FLAT", "Amount": -30 },
+    { "StatId": "hyforged:crit-chance-bps", "StackType": "FLAT", "Amount": -2000 },
+    { "StatId": "hyforged:item-rarity-bps", "StackType": "INCREASED", "Amount": -3000 }
+  ]
+}

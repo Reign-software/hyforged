@@ -1,0 +1,32 @@
+﻿{
+  "Id": "hyforged:corrupted-fortress",
+  "Type": "forged",
+  "DisplayName": "Corrupted Fortress",
+  "Weight": 28,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 80,
+      "Weight": 25,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 650, "MaxValue": 850, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 60,
+      "Weight": 48,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 480, "MaxValue": 650, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 40,
+      "Weight": 75,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 320, "MaxValue": 480, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

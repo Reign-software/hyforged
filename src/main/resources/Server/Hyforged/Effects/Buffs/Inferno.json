@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:inferno",
+  "EntityEffect": {
+    "Duration": 25,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Fire.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:fire-damage-increased-bps", "StackType": "INCREASED", "Amount": 4000 },
+    { "StatId": "hyforged:fire-penetration-bps", "StackType": "FLAT", "Amount": 2000 },
+    { "StatId": "hyforged:ignite-chance-bps", "StackType": "FLAT", "Amount": 2500 }
+  ]
+}

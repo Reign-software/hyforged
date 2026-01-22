@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:unarmed-mastery",
+  "EntityEffect": {
+    "Duration": 45,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Unarmed.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:unarmed-damage-bps", "StackType": "INCREASED", "Amount": 5000 },
+    { "StatId": "hyforged:attack-speed-bps", "StackType": "INCREASED", "Amount": 3000 }
+  ]
+}

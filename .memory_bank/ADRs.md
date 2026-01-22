@@ -2,7 +2,7 @@
 
 ## ADR Index
 
-- ADR-0001: Hybrid Hyforged + Hytale Stats (2026-01-19) — Accepted
+- ADR-0001: Hybrid Hyforged + Hytale Stats (2026-01-19) — Superseded by ADR-0010
 - ADR-0002: Extend Hytale Modifier System (2026-01-19) — Accepted
 - ADR-0003: Data-Driven Stat and Tag Definitions (2026-01-19) — Superseded by ADR-0005
 - ADR-0004: Data-Driven Category Definitions (2026-01-19) — Accepted
@@ -11,6 +11,7 @@
 - ADR-0007: Data-Driven Damage Type Extensions (2026-01-20) — Accepted
 - ADR-0008: Use Hytale AssetRegistry Tag System (2026-01-20) — Accepted
 - ADR-0009: Use Hytale Quality and ItemStack Metadata for Affixes (2026-01-20) — Accepted
+- ADR-0010: Unified Stat Integration via EntityStatValue Extension (2026-01-21) — Accepted
 
 
 ## ADR Template
@@ -37,7 +38,7 @@
 
 ### ADR-0001: Hybrid Hyforged + Hytale Stats
 - Date: 2026-01-19
-- Status: Accepted
+- Status: Superseded by ADR-0010
 - Deciders: JBurl
 
 #### Context
@@ -515,3 +516,70 @@ Standard categories established for stat definitions:
 - Spec: `.memory_bank/Features/items-affix-system/items-affix-system.spec.md`
 - Requirements: `.memory_bank/Requirements/rpg-arpg/items-affixes-rarity.md`
 - Hytale: `ItemStack.metadata`, `ItemQuality` asset type
+
+---
+
+### ADR-0010: Unified Stat Integration via EntityStatValue Extension
+- Date: 2026-01-21
+- Status: Accepted
+- Implementation Date: 2026-01-21
+- Deciders: JBurl
+
+#### Context
+- ADR-0001 established a "hybrid" architecture with Hyforged-owned stats layer + Hytale entitystats + bridge systems.
+- This approach requires extensive workarounds:
+  - Every Hytale system (combat, items, buffs, effects) expects `EntityStatValue`
+  - Hyforged must intercept/wrap each integration point with bridge code
+  - Adding new features (e.g., buff system) requires writing Hyforged-aware wrappers
+  - Cannot use Hyforged stats directly in Hytale item/buff JSON
+- The hybrid approach results in "re-writing the whole game" to make Hyforged stats work everywhere.
+- Investigation revealed `EntityStatValue` has protected extensibility:
+  - `protected EntityStatValue()` — allows subclassing
+  - `protected float set(float)` — overridable
+  - `protected void computeModifiers(EntityStatType)` — key extension point for stacking logic
+
+#### Decision
+- Create `HyforgedStatValue extends EntityStatValue` with ARPG stacking semantics.
+- Override `computeModifiers()` to implement FLAT → INCREASED → MORE → CAP order.
+- Create installer system that replaces `EntityStatValue` instances in `EntityStatMap` with `HyforgedStatValue` after entity initialization.
+- This enables:
+  - Items, buffs, effects to use `HyforgedModifier` via standard Hytale APIs
+  - Combat and other systems to automatically use ARPG-modified stats
+  - Gradual deprecation of bridge workarounds
+- Continue using `HyforgedModifier` (ADR-0002) which is already registered with `Modifier.CODEC`.
+
+#### Consequences
+- Pros:
+  - Single stat representation works with both Hyforged and Hytale systems
+  - Items/buffs/effects can use HyforgedModifier directly in JSON
+  - Eliminates need for per-subsystem bridge code
+  - Significantly reduces codebase complexity and maintenance burden
+  - Other mods can use HyforgedModifier without understanding bridge layer
+- Cons:
+  - Must handle EntityStatMap re-instantiation scenarios
+  - Persistence/codec may require custom handling for subclass fields
+  - Some HyforgedStatComponent functionality may need to migrate
+  - Requires installer system to swap values post-initialization
+
+#### Migration Path
+1. Implement HyforgedStatValue and installer (non-breaking)
+2. Verify integration with items, combat, buffs
+3. Gradually deprecate bridge systems
+4. Simplify HyforgedStatComponent to unique functionality only
+
+#### Alternatives Considered
+- Continue with hybrid + bridge approach (ADR-0001):
+  - Rejected: Unsustainable complexity; every new feature requires bridge code
+- Replace EntityStatMap entirely with custom component:
+  - Rejected: Would break more Hytale integrations; higher risk
+- Use reflection/mixins to modify EntityStatMap:
+  - Rejected: Fragile; breaks on Hytale updates; not officially supported
+- Intercept at Modifier.apply() level only:
+  - Rejected: Hytale calls apply() per-modifier; can't implement proper stacking order
+
+#### Links
+- Spec: `.memory_bank/Features/unified-stat-integration/unified-stat-integration.spec.md`
+- Plan: `.memory_bank/Features/unified-stat-integration/unified-stat-integration.plan.md`
+- Supersedes: ADR-0001 (Hybrid approach)
+- Related: ADR-0002 (HyforgedModifier), ADR-0006 (System replacement)
+- Hytale: `EntityStatValue.java`, `EntityStatMap.java`

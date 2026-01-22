@@ -1,0 +1,48 @@
+﻿{
+  "Id": "hyforged:flaming",
+  "Type": "prefix",
+  "DisplayName": "Flaming",
+  "Weight": 75,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 55,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:added-fire-damage-flat": { "MinValue": 40, "MaxValue": 60, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:added-fire-damage-flat": { "MinValue": 28, "MaxValue": 40, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 25,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:added-fire-damage-flat": { "MinValue": 18, "MaxValue": 28, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 12,
+      "Weight": 105,
+      "Stats": {
+        "hyforged:added-fire-damage-flat": { "MinValue": 10, "MaxValue": 18, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 125,
+      "Stats": {
+        "hyforged:added-fire-damage-flat": { "MinValue": 3, "MaxValue": 10, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

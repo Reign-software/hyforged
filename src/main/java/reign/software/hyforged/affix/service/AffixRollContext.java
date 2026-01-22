@@ -8,15 +8,15 @@ import java.util.Objects;
  * <p>
  * This provides all the information needed to determine:
  * <ul>
- *   <li>Which pools are eligible based on item category/tags</li>
+ *   <li>Which pools apply based on item category/tags</li>
  *   <li>How many affixes can roll based on quality</li>
- *   <li>Which affix tiers are eligible based on item level</li>
+ *   <li>Which affix tiers are available based on item level</li>
  *   <li>Any bonuses to tier weight (e.g., from mob difficulty)</li>
  * </ul>
  *
  * @param itemId         The item type identifier
  * @param quality        The item's quality tier (e.g., "common", "rare")
- * @param itemLevel      The item's level for tier eligibility
+ * @param itemLevel      The item's level for tier selection
  * @param itemCategories Array of item category IDs for pool matching
  * @param itemTags       Array of item tags for pool matching
  * @param tierWeightBonus Bonus applied to higher tier weights (positive = better tiers more likely)

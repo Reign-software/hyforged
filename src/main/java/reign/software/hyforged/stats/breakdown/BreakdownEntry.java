@@ -1,7 +1,6 @@
 package reign.software.hyforged.stats.breakdown;
 
-import reign.software.hyforged.stats.component.ModifierSource;
-import reign.software.hyforged.stats.component.ModifierType;
+import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
@@ -19,8 +18,8 @@ import java.util.Objects;
  */
 public record BreakdownEntry(
     @Nonnull String sourceId,
-    @Nonnull ModifierSource sourceType,
-    @Nonnull ModifierType modifierType,
+    @Nonnull HyforgedModifier.SourceType sourceType,
+    @Nonnull HyforgedModifier.StackType modifierType,
     int value,
     @Nonnull String displayName
 ) {
