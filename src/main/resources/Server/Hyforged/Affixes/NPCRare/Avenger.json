@@ -1,0 +1,33 @@
+{
+  "Id": "hyforged:npc_avenger",
+  "Type": "npc_rare",
+  "DisplayName": "Avenger",
+  "Description": "Gains massive power when nearby allies die",
+  "Weight": 50,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 25,
+      "Weight": 100,
+      "Stats": {}
+    }
+  ],
+  "TriggeredEffects": [
+    {
+      "Trigger": { "Type": "on_ally_death", "Radius": 15 },
+      "Effect": { 
+        "Type": "apply_effect", 
+        "EffectId": "hyforged:avengers_wrath",
+        "Duration": 20.0,
+        "TargetSelf": true,
+        "StatModifiers": {
+          "hyforged:damage-bps": 3000,
+          "hyforged:attack-speed-bps": 2000,
+          "hyforged:movement-speed-bps": 1500
+        }
+      },
+      "StackBehavior": "stack",
+      "MaxStacks": 5
+    }
+  ]
+}

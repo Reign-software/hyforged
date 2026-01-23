@@ -1,0 +1,34 @@
+{
+  "Id": "hyforged:npc_illusionist",
+  "Type": "npc_legendary",
+  "DisplayName": "Illusionist",
+  "Description": "Creates mirror images when damaged",
+  "Weight": 45,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 40,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:evasion-bps": { "MinValue": 1500, "MaxValue": 2500, "StackType": "MORE" }
+      }
+    }
+  ],
+  "TriggeredEffects": [
+    {
+      "Trigger": { "Type": "on_damaged", "HealthThresholds": [75, 50, 25] },
+      "Effect": { 
+        "Type": "spawn_prefab",
+        "PrefabId": "hyforged:mirror_image",
+        "Count": 2,
+        "SpawnRadius": 3,
+        "InheritStats": true,
+        "HealthPercent": 0.25,
+        "DamagePercent": 0.5,
+        "Duration": 30.0
+      },
+      "StackBehavior": "shared",
+      "MaxStacks": 3
+    }
+  ]
+}

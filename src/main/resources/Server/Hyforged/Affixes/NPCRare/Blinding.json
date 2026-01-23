@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:npc_blinding",
+  "Type": "npc_rare",
+  "DisplayName": "Blinding",
+  "Description": "Attacks can blind targets, reducing accuracy",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 15,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:blind-chance-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "FLAT" },
+        "hyforged:blind-duration-flat": { "MinValue": 2, "MaxValue": 3, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:blind-chance-bps": { "MinValue": 2000, "MaxValue": 3500, "StackType": "FLAT" },
+        "hyforged:blind-duration-flat": { "MinValue": 3, "MaxValue": 5, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

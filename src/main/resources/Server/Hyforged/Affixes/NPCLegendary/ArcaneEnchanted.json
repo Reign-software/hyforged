@@ -1,0 +1,34 @@
+{
+  "Id": "hyforged:npc_arcane_enchanted",
+  "Type": "npc_legendary",
+  "DisplayName": "Arcane Enchanted",
+  "Description": "Creates orbiting arcane sentries that shoot at nearby enemies",
+  "Weight": 50,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 35,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:damage-bps": { "MinValue": 1000, "MaxValue": 1500, "StackType": "MORE" }
+      }
+    }
+  ],
+  "TriggeredEffects": [
+    {
+      "Trigger": { "Type": "on_combat_start" },
+      "Effect": { 
+        "Type": "spawn_projectile",
+        "ProjectileId": "Hyforged/ArcaneSentry",
+        "Count": 4,
+        "Pattern": "orbit",
+        "Duration": -1,
+        "AttackInterval": 2.0,
+        "AttackDamage": 15,
+        "AttackRange": 8
+      },
+      "StackBehavior": "shared",
+      "MaxStacks": 1
+    }
+  ]
+}

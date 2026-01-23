@@ -1,0 +1,25 @@
+{
+  "Id": "hyforged:npc_reflective",
+  "Type": "npc_rare",
+  "DisplayName": "Reflective",
+  "Description": "Reflects a portion of damage back to attackers",
+  "Weight": 65,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 20,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:damage-reflect-bps": { "MinValue": 500, "MaxValue": 1000, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 45,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:damage-reflect-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

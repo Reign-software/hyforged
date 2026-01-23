@@ -1,0 +1,6 @@
+{
+  "id": "npc",
+  "DisplayNamePosition": "before",
+  "DisplayFormat": "{name}",
+  "Stackable": true
+}

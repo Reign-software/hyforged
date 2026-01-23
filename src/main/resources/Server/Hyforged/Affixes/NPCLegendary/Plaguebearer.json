@@ -1,0 +1,35 @@
+{
+  "Id": "hyforged:npc_plaguebearer",
+  "Type": "npc_legendary",
+  "DisplayName": "Plaguebearer",
+  "Description": "Spreads a deadly plague that chains between nearby enemies",
+  "Weight": 40,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 45,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:poison-resistance-bps": { "MinValue": 5000, "MaxValue": 7500, "StackType": "MORE" }
+      }
+    }
+  ],
+  "TriggeredEffects": [
+    {
+      "Trigger": { "Type": "on_hit", "Chance": 2000 },
+      "Effect": { 
+        "Type": "apply_effect",
+        "EffectId": "Hyforged/Entity/Effects/Status/SpreadingPlague",
+        "Duration": 10.0,
+        "DamagePerSecond": 8,
+        "DamageType": "Poison",
+        "ChainToNearby": true,
+        "ChainRadius": 5,
+        "ChainDelay": 2.0
+      },
+      "StackBehavior": "refresh",
+      "MaxStacks": 1,
+      "CooldownSeconds": 8.0
+    }
+  ]
+}

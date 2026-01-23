@@ -1,0 +1,47 @@
+{
+  "Appearance": "Hyforged/Meteor",
+  "Radius": 0.5,
+  "Height": 0.5,
+  "VerticalCenterShot": 0.5,
+  "HorizontalCenterShot": 0.1,
+  "DepthShot": 1,
+  "PitchAdjustShot": false,
+  "MuzzleVelocity": 25,
+  "TerminalVelocity": 60,
+  "Gravity": 20,
+  "Bounciness": 0,
+  "ImpactSlowdown": 0,
+  "SticksVertically": false,
+  "TimeToLive": 15,
+  "Damage": 80,
+  "DeadTime": 0,
+  "DeadTimeMiss": 0,
+  "MissSoundEventId": "SFX_Fireball_Miss",
+  "DeathSoundEventId": "SFX_Fireball_Death",
+  "MissParticles": {
+    "SystemId": "Explosion_Large"
+  },
+  "DeathParticles": {
+    "SystemId": "Explosion_Large"
+  },
+  "DeathEffectsOnHit": true,
+  "ExplosionConfig": {
+    "DamageEntities": true,
+    "DamageBlocks": false,
+    "BlockDamageRadius": 0,
+    "EntityDamageRadius": 4,
+    "EntityDamageFalloff": 0.5,
+    "Knockback": {
+      "Type": "Point",
+      "VelocityConfig": {
+        "AirResistance": 0.97,
+        "AirResistanceMax": 0.96,
+        "GroundResistance": 0.94,
+        "GroundResistanceMax": 0.3,
+        "Threshold": 3.0
+      },
+      "Force": 10,
+      "VelocityType": "Set"
+    }
+  }
+}

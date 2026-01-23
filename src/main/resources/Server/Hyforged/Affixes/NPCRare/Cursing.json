@@ -1,0 +1,38 @@
+{
+  "Id": "hyforged:npc_cursing",
+  "Type": "npc_rare",
+  "DisplayName": "Cursing",
+  "Description": "Attacks apply a damage-over-time curse",
+  "Weight": 65,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 15,
+      "Weight": 100,
+      "Stats": {}
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 65,
+      "Stats": {}
+    }
+  ],
+  "TriggeredEffects": [
+    {
+      "Trigger": { "Type": "on_hit", "Chance": 2500 },
+      "Effect": { 
+        "Type": "apply_effect", 
+        "EffectId": "hyforged:curse_of_weakness",
+        "Duration": 8.0,
+        "StatModifiers": {
+          "hyforged:damage-bps": -1500,
+          "hyforged:physical-resistance-bps": -1000
+        }
+      },
+      "StackBehavior": "refresh",
+      "MaxStacks": 1,
+      "CooldownSeconds": 5.0
+    }
+  ]
+}

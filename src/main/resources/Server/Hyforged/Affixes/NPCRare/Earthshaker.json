@@ -1,0 +1,40 @@
+{
+  "Id": "hyforged:npc_ground_slam",
+  "Type": "npc_rare",
+  "DisplayName": "Earthshaker",
+  "Description": "Periodically slams the ground, stunning nearby enemies",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 20,
+      "Weight": 100,
+      "Stats": {}
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 45,
+      "Weight": 60,
+      "Stats": {}
+    }
+  ],
+  "TriggeredEffects": [
+    {
+      "Trigger": { "Type": "interval", "IntervalSeconds": 12.0 },
+      "Effect": { 
+        "Type": "damage_area", 
+        "DamageType": "Physical",
+        "BaseDamage": 20,
+        "DamageScaling": 0.3,
+        "Radius": 5,
+        "ApplyEffect": {
+          "EffectId": "hyforged:stun",
+          "Duration": 1.5
+        }
+      },
+      "StackBehavior": "shared",
+      "MaxStacks": 1,
+      "CooldownSeconds": 12.0
+    }
+  ]
+}

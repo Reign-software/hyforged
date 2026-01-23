@@ -1,0 +1,27 @@
+{
+  "Model": "Items/Projectiles/Fireball.blockymodel",
+  "Texture": "Items/Projectiles/Fireball_Textures/SkeletonMage.png",
+  "HitBox": {
+    "Max": {
+      "X": 0.2,
+      "Y": 0.2,
+      "Z": 0.2
+    },
+    "Min": {
+      "X": -0.2,
+      "Y": -0.2,
+      "Z": -0.2
+    }
+  },
+  "MinScale": 1.2,
+  "MaxScale": 1.5,
+  "Particles": [
+    {
+      "SystemId": "Effect_Poison",
+      "TargetNodeName": ""
+    }
+  ],
+  "Light": {
+    "Color": "#cc00ff"
+  }
+}

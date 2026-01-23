@@ -1,0 +1,30 @@
+{
+  "Id": "hyforged:npc_immortal",
+  "Type": "npc_legendary",
+  "DisplayName": "Undying",
+  "Description": "Resurrects once after death with partial health",
+  "Weight": 35,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 40,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:max-health-bps": { "MinValue": 2000, "MaxValue": 3000, "StackType": "MORE" }
+      }
+    }
+  ],
+  "TriggeredEffects": [
+    {
+      "Trigger": { "Type": "on_death" },
+      "Effect": { 
+        "Type": "resurrect",
+        "HealthPercent": 0.5,
+        "Invulnerability": 2.0,
+        "SpawnEffect": "hyforged:dark_resurrection"
+      },
+      "StackBehavior": "shared",
+      "MaxStacks": 1
+    }
+  ]
+}

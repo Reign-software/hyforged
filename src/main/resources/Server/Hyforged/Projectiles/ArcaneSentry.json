@@ -1,0 +1,27 @@
+{
+  "Appearance": "Hyforged/ArcaneSentry",
+  "Radius": 0.2,
+  "Height": 0.2,
+  "VerticalCenterShot": 0.1,
+  "HorizontalCenterShot": 0.1,
+  "DepthShot": 1,
+  "PitchAdjustShot": true,
+  "MuzzleVelocity": 35,
+  "TerminalVelocity": 35,
+  "Gravity": 0,
+  "Bounciness": 0,
+  "ImpactSlowdown": 0,
+  "SticksVertically": false,
+  "TimeToLive": 8,
+  "Damage": 15,
+  "DeadTime": 0,
+  "DeadTimeMiss": 0,
+  "HitSoundEventId": "SFX_Magic_Impact",
+  "MissSoundEventId": "SFX_Magic_Impact",
+  "HitParticles": {
+    "SystemId": "Impact_Blade_01"
+  },
+  "MissParticles": {
+    "SystemId": "Impact_Blade_01"
+  }
+}

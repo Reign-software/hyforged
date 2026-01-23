@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:npc_rallying",
+  "Type": "npc_rare",
+  "DisplayName": "Rallying",
+  "Description": "Buffs nearby allies with increased damage",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 20,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:ally-damage-aura-bps": { "MinValue": 1000, "MaxValue": 1500, "StackType": "MORE" },
+        "hyforged:ally-aura-radius-flat": { "MinValue": 5, "MaxValue": 8, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 45,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:ally-damage-aura-bps": { "MinValue": 1500, "MaxValue": 2500, "StackType": "MORE" },
+        "hyforged:ally-aura-radius-flat": { "MinValue": 8, "MaxValue": 12, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

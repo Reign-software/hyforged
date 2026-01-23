@@ -1,0 +1,35 @@
+{
+  "Id": "hyforged:npc_enraged",
+  "Type": "npc_rare",
+  "DisplayName": "Enraged",
+  "Description": "Deals more damage when low on health",
+  "Weight": 85,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 10,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:damage-bps": { "MinValue": 2000, "MaxValue": 3500, "StackType": "MORE" },
+        "hyforged:attack-speed-bps": { "MinValue": 1000, "MaxValue": 1500, "StackType": "MORE" }
+      },
+      "Condition": {
+        "Type": "health_below_percent",
+        "Value": 30
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:damage-bps": { "MinValue": 3500, "MaxValue": 5000, "StackType": "MORE" },
+        "hyforged:attack-speed-bps": { "MinValue": 1500, "MaxValue": 2500, "StackType": "MORE" }
+      },
+      "Condition": {
+        "Type": "health_below_percent",
+        "Value": 30
+      }
+    }
+  ]
+}

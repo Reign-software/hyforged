@@ -1,0 +1,36 @@
+{
+  "Id": "hyforged:npc_meteor_caller",
+  "Type": "npc_legendary",
+  "DisplayName": "Meteor Caller",
+  "Description": "Calls down devastating meteors on enemies",
+  "Weight": 40,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 45,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 3000, "MaxValue": 5000, "StackType": "MORE" }
+      }
+    }
+  ],
+  "TriggeredEffects": [
+    {
+      "Trigger": { "Type": "interval", "IntervalSeconds": 15.0 },
+      "Effect": { 
+        "Type": "spawn_projectile",
+        "ProjectileId": "Hyforged/Meteor",
+        "Count": 3,
+        "Pattern": "random_area",
+        "TargetRadius": 10,
+        "BaseDamage": 80,
+        "DamageType": "Fire",
+        "ImpactRadius": 3,
+        "Delay": 1.5
+      },
+      "StackBehavior": "shared",
+      "MaxStacks": 1,
+      "CooldownSeconds": 15.0
+    }
+  ]
+}

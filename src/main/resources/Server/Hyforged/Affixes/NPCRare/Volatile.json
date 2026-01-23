@@ -1,0 +1,35 @@
+{
+  "Id": "hyforged:npc_exploding",
+  "Type": "npc_rare",
+  "DisplayName": "Volatile",
+  "Description": "Explodes on death dealing area damage",
+  "Weight": 70,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 15,
+      "Weight": 100,
+      "Stats": {}
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 65,
+      "Stats": {}
+    }
+  ],
+  "TriggeredEffects": [
+    {
+      "Trigger": { "Type": "on_death" },
+      "Effect": { 
+        "Type": "damage_area", 
+        "DamageType": "Fire",
+        "BaseDamage": 25,
+        "DamageScaling": 0.5,
+        "Radius": 4
+      },
+      "StackBehavior": "independent",
+      "MaxStacks": 1
+    }
+  ]
+}

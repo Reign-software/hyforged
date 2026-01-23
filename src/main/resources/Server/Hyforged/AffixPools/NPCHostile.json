@@ -1,0 +1,55 @@
+{
+  "Id": "hyforged:npc_hostile",
+  "Priority": 100,
+  "Description": "Affix pool for all hostile NPCs",
+  "AppliesTo": {
+    "Categories": ["Entities.NPC"],
+    "Tags": ["Type:NPC"]
+  },
+  "Affixes": {
+    "npc": [
+      "hyforged:npc_tough",
+      "hyforged:npc_mighty",
+      "hyforged:npc_swift",
+      "hyforged:npc_armored",
+      "hyforged:npc_fireproof",
+      "hyforged:npc_coldproof",
+      "hyforged:npc_shockproof",
+      "hyforged:npc_regenerating",
+      "hyforged:npc_accurate",
+      "hyforged:npc_brutal"
+    ],
+    "npc_rare": [
+      "hyforged:npc_vampiric",
+      "hyforged:npc_enraged",
+      "hyforged:npc_flaming_aura",
+      "hyforged:npc_freezing_aura",
+      "hyforged:npc_shocking_aura",
+      "hyforged:npc_reflective",
+      "hyforged:npc_teleporting",
+      "hyforged:npc_knockback",
+      "hyforged:npc_rallying",
+      "hyforged:npc_shielding",
+      "hyforged:npc_poisonous",
+      "hyforged:npc_blinding",
+      "hyforged:npc_exploding",
+      "hyforged:npc_summoner",
+      "hyforged:npc_arcane_barrage",
+      "hyforged:npc_cursing",
+      "hyforged:npc_ground_slam",
+      "hyforged:npc_avenger"
+    ],
+    "npc_legendary": [
+      "hyforged:npc_soul_link",
+      "hyforged:npc_time_warp",
+      "hyforged:npc_meteor_caller",
+      "hyforged:npc_immortal",
+      "hyforged:npc_arcane_enchanted",
+      "hyforged:npc_molten",
+      "hyforged:npc_illusionist",
+      "hyforged:npc_vortex",
+      "hyforged:npc_executioner",
+      "hyforged:npc_plaguebearer"
+    ]
+  }
+}

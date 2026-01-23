@@ -1,0 +1,35 @@
+{
+  "Description": "Quality distribution for boss NPCs (always high quality)",
+  "AppliesTo": [
+    "Goblin_Duke",
+    "Goblin_Duke_Phase_2",
+    "Goblin_Duke_Phase_3_Fast",
+    "Goblin_Duke_Phase_3_Slow",
+    "Trork_Chieftain",
+    "Scarak_Broodmother",
+    "Dragon_Fire",
+    "Dragon_Frost"
+  ],
+  "Weights": {
+    "Common": 0,
+    "Uncommon": 0,
+    "Rare": 100,
+    "Epic": 200,
+    "Legendary": 100
+  },
+  "StatMultipliers": {
+    "Rare": 1.0,
+    "Epic": 1.15,
+    "Legendary": 1.35
+  },
+  "LootQualityBonus": {
+    "Rare": 50,
+    "Epic": 100,
+    "Legendary": 200
+  },
+  "AffixSlots": {
+    "Rare": { "npc": 2, "npc_rare": 2, "npc_legendary": 0 },
+    "Epic": { "npc": 2, "npc_rare": 2, "npc_legendary": 2 },
+    "Legendary": { "npc": 2, "npc_rare": 3, "npc_legendary": 3 }
+  }
+}

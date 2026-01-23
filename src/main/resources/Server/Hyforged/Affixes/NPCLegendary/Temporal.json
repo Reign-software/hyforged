@@ -1,0 +1,36 @@
+{
+  "Id": "hyforged:npc_time_warp",
+  "Type": "npc_legendary",
+  "DisplayName": "Temporal",
+  "Description": "Periodically slows time for all nearby players",
+  "Weight": 45,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 40,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:movement-speed-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "MORE" }
+      }
+    }
+  ],
+  "TriggeredEffects": [
+    {
+      "Trigger": { "Type": "interval", "IntervalSeconds": 20.0 },
+      "Effect": { 
+        "Type": "apply_effect",
+        "EffectId": "hyforged:time_warp",
+        "Duration": 4.0,
+        "Radius": 15,
+        "TargetEnemies": true,
+        "StatModifiers": {
+          "hyforged:movement-speed-bps": -5000,
+          "hyforged:attack-speed-bps": -3000
+        }
+      },
+      "StackBehavior": "shared",
+      "MaxStacks": 1,
+      "CooldownSeconds": 20.0
+    }
+  ]
+}

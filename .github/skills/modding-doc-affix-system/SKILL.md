@@ -88,6 +88,27 @@ When extending the active effect system, use these constants from `ActiveEffectI
 }
 ```
 
+### Required Assets for Triggered Effects
+
+**IMPORTANT:** Certain effect types require additional JSON assets to function. The affix will fail silently if these are missing.
+
+| Effect Type | Required Asset(s) | Location |
+|-------------|-------------------|----------|
+| `spawn_projectile` | Projectile JSON + Model JSON | `Server/Hyforged/Projectiles/` + `Server/Hyforged/Models/Projectiles/` |
+| `spawn_prefab` | Prefab definition | `Server/Hyforged/Prefabs/` |
+| `apply_effect` | Entity Effect JSON | `Server/Hyforged/Entity/Effects/` |
+
+See the **[Hytale Entity Effects skill](../hytale-entity-effects/SKILL.md)** for complete documentation on creating projectiles and effects.
+
+**Projectile Quick Reference:**
+
+A `spawn_projectile` effect requires TWO JSON files:
+
+1. **Projectile Definition** (physics/damage): `Server/Hyforged/Projectiles/<Name>.json`
+2. **Model Asset** (visual): `Server/Hyforged/Models/Projectiles/<Name>.json`
+
+The `ProjectileId` in your affix maps to the projectile file (e.g., `hyforged:meteor` → `Server/Hyforged/Projectiles/Meteor.json`).
+
 ---
 
 ## Implementation Workflows

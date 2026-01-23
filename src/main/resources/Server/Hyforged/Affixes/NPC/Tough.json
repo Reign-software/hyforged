@@ -1,0 +1,33 @@
+{
+  "Id": "hyforged:npc_tough",
+  "Type": "npc",
+  "DisplayName": "Tough",
+  "Description": "Increased maximum health",
+  "Weight": 100,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 1,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:max-health-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "MORE" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 20,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:max-health-bps": { "MinValue": 2000, "MaxValue": 3500, "StackType": "MORE" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 40,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:max-health-bps": { "MinValue": 3500, "MaxValue": 5000, "StackType": "MORE" }
+      }
+    }
+  ]
+}

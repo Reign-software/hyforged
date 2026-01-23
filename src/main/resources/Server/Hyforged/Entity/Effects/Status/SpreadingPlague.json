@@ -1,0 +1,30 @@
+{
+  "Name": "effect.hyforged.spreading_plague",
+  "Duration": 10,
+  "Debuff": true,
+  "OverlapBehavior": "Extend",
+  "StatusEffectIcon": "UI/StatusEffects/Poison.png",
+  "ApplicationEffects": {
+    "EntityBottomTint": "#1a0a00",
+    "EntityTopTint": "#4a2a00",
+    "Particles": [
+      {
+        "SystemId": "Effect_Poison",
+        "TargetEntityPart": "Entity",
+        "TargetNodeName": "Pelvis"
+      }
+    ],
+    "WorldSoundEventId": "SFX_Effect_Poison_World",
+    "LocalSoundEventId": "SFX_Effect_Poison_Local"
+  },
+  "DamageCalculatorCooldown": 1,
+  "DamageCalculator": {
+    "BaseDamage": {
+      "Poison": 8
+    }
+  },
+  "DamageEffects": {
+    "WorldSoundEventId": "SFX_Effect_Poison_World",
+    "PlayerSoundEventId": "SFX_Effect_Poison_Local"
+  }
+}

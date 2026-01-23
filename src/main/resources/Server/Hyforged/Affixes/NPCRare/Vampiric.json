@@ -1,0 +1,25 @@
+{
+  "Id": "hyforged:npc_vampiric",
+  "Type": "npc_rare",
+  "DisplayName": "Vampiric",
+  "Description": "Heals on dealing damage",
+  "Weight": 80,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 10,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:life-leech-bps": { "MinValue": 500, "MaxValue": 1000, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 35,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:life-leech-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

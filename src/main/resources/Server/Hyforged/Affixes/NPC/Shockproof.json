@@ -1,0 +1,25 @@
+{
+  "Id": "hyforged:npc_shockproof",
+  "Type": "npc",
+  "DisplayName": "Shockproof",
+  "Description": "Resistant to lightning damage",
+  "Weight": 60,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 1,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:lightning-resistance-bps": { "MinValue": 1500, "MaxValue": 2500, "StackType": "MORE" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 30,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:lightning-resistance-bps": { "MinValue": 2500, "MaxValue": 4000, "StackType": "MORE" }
+      }
+    }
+  ]
+}

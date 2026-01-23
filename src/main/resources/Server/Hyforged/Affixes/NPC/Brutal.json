@@ -1,0 +1,33 @@
+{
+  "Id": "hyforged:npc_brutal",
+  "Type": "npc",
+  "DisplayName": "Brutal",
+  "Description": "Increased critical damage",
+  "Weight": 70,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 1,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:critical-damage-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "MORE" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 30,
+      "Weight": 75,
+      "Stats": {
+        "hyforged:critical-damage-bps": { "MinValue": 2000, "MaxValue": 3500, "StackType": "MORE" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 55,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:critical-damage-bps": { "MinValue": 3500, "MaxValue": 5000, "StackType": "MORE" }
+      }
+    }
+  ]
+}

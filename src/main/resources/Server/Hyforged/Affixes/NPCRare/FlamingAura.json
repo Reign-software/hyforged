@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:npc_flaming_aura",
+  "Type": "npc_rare",
+  "DisplayName": "Flaming",
+  "Description": "Burns nearby enemies with fire damage aura",
+  "Weight": 70,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 15,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:fire-aura-damage-flat": { "MinValue": 3, "MaxValue": 6, "StackType": "FLAT" },
+        "hyforged:fire-aura-radius-flat": { "MinValue": 2, "MaxValue": 3, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:fire-aura-damage-flat": { "MinValue": 6, "MaxValue": 12, "StackType": "FLAT" },
+        "hyforged:fire-aura-radius-flat": { "MinValue": 3, "MaxValue": 4, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

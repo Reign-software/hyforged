@@ -1,0 +1,44 @@
+{
+  "Description": "Quality distribution for goblin NPCs",
+  "AppliesTo": [
+    "Goblin_Scrapper",
+    "Goblin_Scrapper_Patrol",
+    "Goblin_Scavenger",
+    "Goblin_Scavenger_Battleaxe",
+    "Goblin_Scavenger_Sword",
+    "Goblin_Lobber",
+    "Goblin_Lobber_Patrol",
+    "Goblin_Miner",
+    "Goblin_Miner_Patrol",
+    "Goblin_Thief",
+    "Goblin_Thief_Patrol",
+    "Goblin_Hermit",
+    "Goblin_Ogre"
+  ],
+  "Weights": {
+    "Common": 750,
+    "Uncommon": 170,
+    "Rare": 60,
+    "Epic": 16,
+    "Legendary": 4
+  },
+  "StatMultipliers": {
+    "Uncommon": 1.12,
+    "Rare": 1.3,
+    "Epic": 1.55,
+    "Legendary": 2.0
+  },
+  "LootQualityBonus": {
+    "Uncommon": 12,
+    "Rare": 30,
+    "Epic": 55,
+    "Legendary": 110
+  },
+  "AffixSlots": {
+    "Common": { "npc": 0, "npc_rare": 0, "npc_legendary": 0 },
+    "Uncommon": { "npc": 1, "npc_rare": 0, "npc_legendary": 0 },
+    "Rare": { "npc": 1, "npc_rare": 1, "npc_legendary": 0 },
+    "Epic": { "npc": 2, "npc_rare": 1, "npc_legendary": 0 },
+    "Legendary": { "npc": 2, "npc_rare": 1, "npc_legendary": 1 }
+  }
+}

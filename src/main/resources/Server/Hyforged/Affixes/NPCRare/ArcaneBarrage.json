@@ -1,0 +1,37 @@
+{
+  "Id": "hyforged:npc_arcane_barrage",
+  "Type": "npc_rare",
+  "DisplayName": "Arcane",
+  "Description": "Launches arcane projectiles when attacking",
+  "Weight": 60,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 15,
+      "Weight": 100,
+      "Stats": {}
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 65,
+      "Stats": {}
+    }
+  ],
+  "TriggeredEffects": [
+    {
+      "Trigger": { "Type": "on_hit", "Chance": 3500 },
+      "Effect": { 
+        "Type": "spawn_projectile", 
+        "ProjectileId": "Hyforged/ArcaneBolt",
+        "Count": 3,
+        "Pattern": "spread",
+        "BaseDamage": 15,
+        "DamageType": "Arcane"
+      },
+      "StackBehavior": "shared",
+      "MaxStacks": 1,
+      "CooldownSeconds": 3.0
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "Id": "hyforged:npc_molten",
+  "Type": "npc_legendary",
+  "DisplayName": "Molten",
+  "Description": "Leaves a trail of fire and explodes on death",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 30,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 5000, "MaxValue": 7500, "StackType": "MORE" }
+      }
+    }
+  ],
+  "TriggeredEffects": [
+    {
+      "Trigger": { "Type": "interval", "IntervalSeconds": 1.0 },
+      "Effect": { 
+        "Type": "spawn_prefab",
+        "PrefabId": "hyforged:fire_pool",
+        "Duration": 5.0,
+        "DamagePerSecond": 10,
+        "DamageType": "Fire"
+      },
+      "StackBehavior": "shared",
+      "MaxStacks": 1
+    },
+    {
+      "Trigger": { "Type": "on_death" },
+      "Effect": { 
+        "Type": "damage_area",
+        "DamageType": "Fire",
+        "BaseDamage": 60,
+        "DamageScaling": 0.8,
+        "Radius": 6
+      },
+      "StackBehavior": "independent",
+      "MaxStacks": 1
+    }
+  ]
+}

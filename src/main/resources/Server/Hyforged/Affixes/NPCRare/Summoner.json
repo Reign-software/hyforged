@@ -1,0 +1,35 @@
+{
+  "Id": "hyforged:npc_summoner",
+  "Type": "npc_rare",
+  "DisplayName": "Summoner",
+  "Description": "Periodically summons minions to aid in combat",
+  "Weight": 45,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 20,
+      "Weight": 100,
+      "Stats": {}
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 45,
+      "Weight": 60,
+      "Stats": {}
+    }
+  ],
+  "TriggeredEffects": [
+    {
+      "Trigger": { "Type": "interval", "IntervalSeconds": 15.0 },
+      "Effect": { 
+        "Type": "spawn_prefab", 
+        "PrefabId": "hyforged:summoned_minion",
+        "Count": 2,
+        "SpawnRadius": 3
+      },
+      "StackBehavior": "shared",
+      "MaxStacks": 1,
+      "CooldownSeconds": 15.0
+    }
+  ]
+}

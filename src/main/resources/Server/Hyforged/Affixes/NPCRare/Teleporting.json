@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:npc_teleporting",
+  "Type": "npc_rare",
+  "DisplayName": "Teleporting",
+  "Description": "Can teleport short distances to pursue targets",
+  "Weight": 50,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 25,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:teleport-cooldown-flat": { "MinValue": 8, "MaxValue": 12, "StackType": "FLAT" },
+        "hyforged:teleport-range-flat": { "MinValue": 5, "MaxValue": 8, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 50,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:teleport-cooldown-flat": { "MinValue": 5, "MaxValue": 8, "StackType": "FLAT" },
+        "hyforged:teleport-range-flat": { "MinValue": 8, "MaxValue": 12, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

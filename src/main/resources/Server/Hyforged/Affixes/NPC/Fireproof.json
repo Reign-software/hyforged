@@ -1,0 +1,25 @@
+{
+  "Id": "hyforged:npc_fireproof",
+  "Type": "npc",
+  "DisplayName": "Fireproof",
+  "Description": "Resistant to fire damage",
+  "Weight": 60,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 1,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 1500, "MaxValue": 2500, "StackType": "MORE" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 30,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 2500, "MaxValue": 4000, "StackType": "MORE" }
+      }
+    }
+  ]
+}

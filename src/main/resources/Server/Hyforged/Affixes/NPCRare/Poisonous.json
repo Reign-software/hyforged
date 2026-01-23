@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:npc_poisonous",
+  "Type": "npc_rare",
+  "DisplayName": "Poisonous",
+  "Description": "Attacks apply poison damage over time",
+  "Weight": 75,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 10,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:poison-damage-flat": { "MinValue": 2, "MaxValue": 4, "StackType": "FLAT" },
+        "hyforged:poison-duration-flat": { "MinValue": 3, "MaxValue": 5, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 35,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:poison-damage-flat": { "MinValue": 4, "MaxValue": 8, "StackType": "FLAT" },
+        "hyforged:poison-duration-flat": { "MinValue": 5, "MaxValue": 8, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

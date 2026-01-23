@@ -1,0 +1,6 @@
+{
+  "id": "npc_rare",
+  "DisplayNamePosition": "before",
+  "DisplayFormat": "{name}",
+  "Stackable": true
+}

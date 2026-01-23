@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:npc_shielding",
+  "Type": "npc_rare",
+  "DisplayName": "Shielding",
+  "Description": "Periodically generates a damage-absorbing shield",
+  "Weight": 60,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 20,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:shield-amount-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "FLAT" },
+        "hyforged:shield-cooldown-flat": { "MinValue": 15, "MaxValue": 20, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 45,
+      "Weight": 55,
+      "Stats": {
+        "hyforged:shield-amount-bps": { "MinValue": 2000, "MaxValue": 3500, "StackType": "FLAT" },
+        "hyforged:shield-cooldown-flat": { "MinValue": 10, "MaxValue": 15, "StackType": "FLAT" }
+      }
+    }
+  ]
+}

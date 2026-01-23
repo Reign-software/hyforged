@@ -1,0 +1,35 @@
+{
+  "Description": "Quality distribution for elite/champion NPCs (praetorians, knights, ogres)",
+  "AppliesTo": [
+    "Skeleton_Praetorian",
+    "Risen_Knight",
+    "Shadow_Knight",
+    "Goblin_Ogre",
+    "Scarak_Fighter_Royal_Guard"
+  ],
+  "Weights": {
+    "Common": 0,
+    "Uncommon": 200,
+    "Rare": 400,
+    "Epic": 300,
+    "Legendary": 100
+  },
+  "StatMultipliers": {
+    "Uncommon": 1.0,
+    "Rare": 1.15,
+    "Epic": 1.35,
+    "Legendary": 1.6
+  },
+  "LootQualityBonus": {
+    "Uncommon": 25,
+    "Rare": 50,
+    "Epic": 100,
+    "Legendary": 175
+  },
+  "AffixSlots": {
+    "Uncommon": { "npc": 1, "npc_rare": 1, "npc_legendary": 0 },
+    "Rare": { "npc": 2, "npc_rare": 1, "npc_legendary": 0 },
+    "Epic": { "npc": 2, "npc_rare": 2, "npc_legendary": 1 },
+    "Legendary": { "npc": 2, "npc_rare": 2, "npc_legendary": 2 }
+  }
+}

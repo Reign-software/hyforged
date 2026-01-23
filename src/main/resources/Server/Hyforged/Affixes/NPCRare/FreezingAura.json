@@ -1,0 +1,29 @@
+{
+  "Id": "hyforged:npc_freezing_aura",
+  "Type": "npc_rare",
+  "DisplayName": "Freezing",
+  "Description": "Slows nearby enemies with cold aura",
+  "Weight": 70,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 15,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:cold-aura-damage-flat": { "MinValue": 2, "MaxValue": 4, "StackType": "FLAT" },
+        "hyforged:cold-aura-slow-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "FLAT" },
+        "hyforged:cold-aura-radius-flat": { "MinValue": 2, "MaxValue": 3, "StackType": "FLAT" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:cold-aura-damage-flat": { "MinValue": 4, "MaxValue": 8, "StackType": "FLAT" },
+        "hyforged:cold-aura-slow-bps": { "MinValue": 2000, "MaxValue": 3500, "StackType": "FLAT" },
+        "hyforged:cold-aura-radius-flat": { "MinValue": 3, "MaxValue": 4, "StackType": "FLAT" }
+      }
+    }
+  ]
+}
