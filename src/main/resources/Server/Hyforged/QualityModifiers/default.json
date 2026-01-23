@@ -1,0 +1,28 @@
+{
+  "Description": "Global default quality modifiers",
+  "LevelScaling": {
+    "Enabled": true,
+    "CurveId": "Linear",
+    "QualityBonusPerLevel": {
+      "Rare": 0.3,
+      "Epic": 0.1,
+      "Legendary": 0.02
+    }
+  },
+  "ItemRarity": {
+    "Enabled": true,
+    "StatId": "hyforged:item-rarity-increased-bps",
+    "ScalingFactor": 0.01,
+    "MaxBonus": 200,
+    "FallbackValue": 0
+  },
+  "NpcQualityBonus": {
+    "Enabled": true,
+    "BonusPerTier": {
+      "Uncommon": 10,
+      "Rare": 25,
+      "Epic": 50,
+      "Legendary": 100
+    }
+  }
+}

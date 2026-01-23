@@ -9,6 +9,7 @@ import reign.software.hyforged.affix.command.RollAffixCommand;
 import reign.software.hyforged.combat.command.CombatLogCommand;
 import reign.software.hyforged.combat.command.CombatLogHudCommand;
 import reign.software.hyforged.progression.command.ProgressionCommand;
+import reign.software.hyforged.quality.command.QualityCommand;
 
 /**
  * Root command for all Hyforged plugin commands.
@@ -24,6 +25,7 @@ import reign.software.hyforged.progression.command.ProgressionCommand;
  *   <li>{@code rollaffix} - Roll affixes on held item</li>
  *   <li>{@code giveaffix} - Add a specific affix to held item</li>
  *   <li>{@code affixmetrics} - View affix system metrics</li>
+ *   <li>{@code quality} - Quality debug commands</li>
  *   <li>{@code combatlog} - View recent combat history</li>
  *   <li>{@code combatloghud} - Toggle combat log HUD visibility</li>
  * </ul>
@@ -43,6 +45,9 @@ public class HyforgedCommand extends AbstractCommandCollection {
         this.addSubCommand(new RollAffixCommand());
         this.addSubCommand(new GiveAffixCommand());
         this.addSubCommand(new AffixMetricsCommand());
+
+        // Add quality debug commands
+        this.addSubCommand(new QualityCommand());
         
         // Add combat commands
         this.addSubCommand(new CombatLogCommand());

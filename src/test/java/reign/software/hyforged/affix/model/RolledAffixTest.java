@@ -126,14 +126,17 @@ class RolledAffixTest {
         }
         
         @Test
-        @DisplayName("should reject empty rolledStats")
-        void shouldRejectEmptyRolledStats() {
-            assertThrows(IllegalArgumentException.class, () -> new RolledAffix(
-                    "sturdy",
-                    "prefix",
-                    1,
-                    Map.of()
-            ));
+        @DisplayName("should allow empty rolledStats")
+        void shouldAllowEmptyRolledStats() {
+            RolledAffix affix = new RolledAffix(
+                "sturdy",
+                "prefix",
+                1,
+                Map.of()
+            );
+
+            assertEquals(0, affix.getStatCount());
+            assertTrue(affix.rolledStats().isEmpty());
         }
         
         @Test

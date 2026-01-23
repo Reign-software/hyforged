@@ -12,17 +12,14 @@
 
 ## Findings
 
-### Critical (blocking)
+### Critical
 - [ ] <issue>
 
-### Major (blocking)
+### Major
 - [ ] <issue>
 
-### Minor (non-blocking)
+### Minor
 - [ ] <issue>
-
-## Required Actions (Critical/Major)
-- <action>
 
 ## Notes
 - <additional context>

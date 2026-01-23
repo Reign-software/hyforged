@@ -183,15 +183,25 @@ service.registerPool(weaponPool);
 ### Register an Affix Type
 
 ```java
+// NOTE: DisplayNamePosition is deprecated - affixes are now displayed in PoE style
+// in the tooltip, not in the item name. Use NONE for all new types.
 AffixType enchantType = new AffixType(
     "enchant",                                  // Type ID
-    AffixType.DisplayNamePosition.NONE,         // No name modification
-    "Enchanted: {name}",                        // Tooltip format
+    AffixType.DisplayNamePosition.NONE,         // Use NONE (PoE-style tooltip display)
+    "[T{tier}] {name}",                         // Tooltip format (optional)
     false                                        // Not stackable (one per item)
 );
 
 service.registerType(enchantType);
 ```
+
+> **Display Note:** Affixes are displayed in the item tooltip using Path of Exile style:
+> ```
+> [T1] +75 Health (50-100)
+> [T2] +12% Movement Speed (10%-15%)
+> ```
+> The `DisplayNamePosition` field exists for categorization (regular vs forged affixes)
+> but item names are NOT modified by affixes.
 
 ## Data Structures
 
@@ -357,11 +367,15 @@ Affixes can be defined in JSON files under `Server/Hyforged/`:
 ```json
 {
   "Id": "prefix",
-  "DisplayNamePosition": "before",
-  "DisplayFormat": "{name}",
+  "DisplayNamePosition": "none",
+  "DisplayFormat": "[T{tier}] {name}",
   "Stackable": true
 }
 ```
+
+> **Note:** `DisplayNamePosition` is retained for backwards compatibility and to 
+> categorize affixes for tooltip sectioning (regular vs forged). Use `"none"` for 
+> all new types. Affixes are displayed in PoE-style in the tooltip, not in item names.
 
 ### Quality Rules (`Server/Hyforged/QualityAffixRules/Rare.json`)
 

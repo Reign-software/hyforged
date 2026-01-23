@@ -14,6 +14,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.affix.event.AffixModifiersAppliedEvent;
 import reign.software.hyforged.affix.model.HyforgedItemData;
 import reign.software.hyforged.affix.model.RolledAffix;
+import reign.software.hyforged.affix.service.ActiveEffectInitializer;
 import reign.software.hyforged.affix.service.HyforgedItemDataService;
 import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
@@ -117,6 +118,8 @@ public class EquipmentAffixListener {
         } else if (isHotbarChange) {
             processHotbarChange(entity, entityStatMap, inventory);
         }
+
+        ActiveEffectInitializer.refreshFromEquipment(entityRef, inventory, entityRef.getStore());
     }
     
     /**

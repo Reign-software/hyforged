@@ -73,14 +73,20 @@
   - Drop-time roll process via loot event listeners
   - Item level based tier eligibility
   - Deterministic pool resolution when multiple pools match
+  - **Random Quality rolling** — see [random-item-quality.spec.md](../../Features/random-item-quality/random-item-quality.spec.md)
 - UI
   - Tooltip affix display
   - Character stats screen
 - API and integration
   - Register/query affixes
   - Create deterministic items for rewards
+- NPC Quality
+  - Elite/boss NPC variants with quality tiers
+  - NPC affixes for stat modifications
+  - Loot quality boosted by NPC quality
 
 ## Change Log
+- 2026-01-23: Added Random Quality rolling and NPC Quality features; linked random-item-quality spec.
 - 2026-01-20: Updated to use Hytale Quality system; clarified affix types and capacity rules; linked spec.
 - 2026-01-20: Clarified equipment eligibility and deterministic pool resolution.
 - 2026-01-19: Initial version drafted.

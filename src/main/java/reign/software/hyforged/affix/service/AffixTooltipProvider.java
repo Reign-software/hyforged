@@ -1,17 +1,25 @@
 package reign.software.hyforged.affix.service;
 
+import com.hypixel.hytale.protocol.Color;
+import com.hypixel.hytale.server.core.asset.type.item.config.ItemQuality;
+import com.hypixel.hytale.server.core.inventory.ItemStack;
 import reign.software.hyforged.affix.model.AffixDefinition;
+import reign.software.hyforged.affix.model.AffixTierDefinition;
+import reign.software.hyforged.affix.model.AffixTierStat;
 import reign.software.hyforged.affix.model.AffixType;
 import reign.software.hyforged.affix.model.HyforgedItemData;
 import reign.software.hyforged.affix.model.RolledAffix;
 import reign.software.hyforged.affix.registry.AffixDefinitionRegistry;
 import reign.software.hyforged.affix.registry.AffixTypeRegistry;
+import reign.software.hyforged.affix.resource.AffixTierColorConfig;
+import reign.software.hyforged.quality.service.HyforgedQualityService;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,20 +30,21 @@ import java.util.logging.Logger;
 /**
  * Utility class for generating tooltip content for items with affixes.
  * <p>
- * Generates structured tooltip lines with tier coloring and stat information.
+ * Generates Path of Exile-style tooltip lines with tier, rolled value, and roll range.
  * The tooltip format for each affix line is:
  * <pre>
- *   "[T{tier}] {affixName}: +{value} {statName}"
+ *   "[T{tier}] +{value} {statName} ({min}-{max})"
  * </pre>
  * <p>
- * Tier colors (for client-side rendering):
+ * This shows the player:
  * <ul>
- *   <li>T1 (Legendary): Gold (#FFD700)</li>
- *   <li>T2 (Epic): Purple (#9932CC)</li>
- *   <li>T3 (Rare): Blue (#4169E1)</li>
- *   <li>T4 (Uncommon): Green (#32CD32)</li>
- *   <li>T5 (Common): White (#FFFFFF)</li>
+ *   <li>The tier of the affix (T1 = best)</li>
+ *   <li>The actual rolled value they received</li>
+ *   <li>The possible roll range for that tier, so they know how good their roll is</li>
  * </ul>
+ * <p>
+ * Tier colors (for client-side rendering) are data-driven via
+ * {@code Server/Hyforged/GameplayConfigs/AffixTierColors.json}.
  * <p>
  * Forged affixes are displayed in a separate section with a different header.
  * <p>
@@ -50,23 +59,13 @@ public final class AffixTooltipProvider {
 
     private static final Logger LOGGER = Logger.getLogger(AffixTooltipProvider.class.getName());
 
-    // ======= TIER COLORS (HEX) =======
-    /** T1 (Legendary): Gold */
-    public static final String TIER_1_COLOR = "#FFD700";
-    /** T2 (Epic): Purple */
-    public static final String TIER_2_COLOR = "#9932CC";
-    /** T3 (Rare): Blue */
-    public static final String TIER_3_COLOR = "#4169E1";
-    /** T4 (Uncommon): Green */
-    public static final String TIER_4_COLOR = "#32CD32";
-    /** T5 (Common): White */
-    public static final String TIER_5_COLOR = "#FFFFFF";
-
     // ======= SECTION HEADERS =======
     /** Header for the affixes section */
     public static final String AFFIXES_SECTION_HEADER = "Affixes";
     /** Header for the forged affixes section */
     public static final String FORGED_SECTION_HEADER = "Forged Properties";
+    /** Label for quality line */
+    public static final String QUALITY_LABEL = "Quality";
 
     private AffixTooltipProvider() {
         // Utility class - no instantiation
@@ -76,17 +75,11 @@ public final class AffixTooltipProvider {
      * Get the color for a tier number.
      *
      * @param tier The tier number (1-5)
-     * @return The hex color code for the tier
+    * @return The hex color code for the tier, or null to use the default tooltip color
      */
-    @Nonnull
+    @Nullable
     public static String getTierColor(int tier) {
-        return switch (tier) {
-            case 1 -> TIER_1_COLOR;
-            case 2 -> TIER_2_COLOR;
-            case 3 -> TIER_3_COLOR;
-            case 4 -> TIER_4_COLOR;
-            default -> TIER_5_COLOR; // T5+ all use white
-        };
+        return AffixTierColorConfig.get().getTierColor(tier);
     }
 
     /**
@@ -280,6 +273,11 @@ public final class AffixTooltipProvider {
 
     /**
      * Generate tooltip lines for an affix (may be multiple lines for multi-stat affixes).
+     * <p>
+     * Format: "[T{tier}] +{value} {statName} ({min}-{max})"
+     * <p>
+     * Shows the rolled value and the possible range for that tier so players know
+     * how good their roll is.
      *
      * @param affix          The rolled affix
      * @param affixRegistry  The affix definition registry
@@ -300,11 +298,12 @@ public final class AffixTooltipProvider {
             return List.of();
         }
 
+        // Get the tier definition to access roll ranges
+        AffixTierDefinition tierDef = definition.getTier(affix.tier()).orElse(null);
+
         String color = getTierColor(affix.tier());
         List<TooltipLine> lines = new ArrayList<>();
         
-        // First line includes the affix name
-        boolean firstStat = true;
         for (Map.Entry<String, RolledAffix.RolledStat> entry : affix.rolledStats().entrySet()) {
             String statIdStr = entry.getKey();
             RolledAffix.RolledStat rolledStat = entry.getValue();
@@ -312,27 +311,31 @@ public final class AffixTooltipProvider {
             // Get stat display name
             String statName = getStatDisplayName(statIdStr, statRegistry);
             
-            String text;
-            if (firstStat) {
-                // First line includes tier and affix name
-                text = formatAffixLine(
-                    affix.tier(),
-                    definition.displayName(),
-                    rolledStat.value(),
-                    rolledStat.stackType(),
-                    statName
-                );
-                firstStat = false;
-            } else {
-                // Subsequent lines just show the stat bonus (indented)
-                text = formatStatLine(
-                    rolledStat.value(),
-                    rolledStat.stackType(),
-                    statName
-                );
+            // Get roll range from tier definition
+            int minValue = 0;
+            int maxValue = 0;
+            if (tierDef != null) {
+                AffixTierStat tierStat = tierDef.getStat(statIdStr);
+                if (tierStat != null) {
+                    minValue = tierStat.minValue();
+                    maxValue = tierStat.maxValue();
+                }
             }
             
-            lines.add(TooltipLine.content(text, color));
+            String text = formatAffixLine(
+                affix.tier(),
+                rolledStat.value(),
+                rolledStat.stackType(),
+                statName,
+                minValue,
+                maxValue
+            );
+            
+            if (color != null && !color.isBlank()) {
+                lines.add(TooltipLine.content(text, color));
+            } else {
+                lines.add(TooltipLine.content(text));
+            }
         }
         
         return lines;
@@ -354,50 +357,39 @@ public final class AffixTooltipProvider {
         // Fallback to stat ID if not found
         return statIdStr;
     }
-    
-    /**
-     * Format an additional stat line (for multi-stat affixes after the first).
-     */
-    @Nonnull
-    private static String formatStatLine(
-        int value,
-        @Nonnull HyforgedModifier.StackType modifierType,
-        @Nonnull String statName
-    ) {
-        String sign = value >= 0 ? "+" : "";
-        String suffix = (modifierType == HyforgedModifier.StackType.INCREASED 
-                      || modifierType == HyforgedModifier.StackType.MORE) ? "%" : "";
-        return String.format("       %s%d%s %s", sign, value, suffix, statName);
-    }
 
     /**
-     * Format an affix line.
+     * Format an affix line in PoE style.
      * <p>
-     * Format: "[T{tier}] {affixName}: +{value} {statName}"
-     * For percentage modifiers: "[T{tier}] {affixName}: +{value}% {statName}"
+     * Format: "[T{tier}] +{value} {statName} ({min}-{max})"
+     * <p>
+     * Examples:
+     * <ul>
+     *   <li>[T1] +52 Armor (45-55)</li>
+     *   <li>[T2] +8% Increased Physical Damage (5-10)</li>
+     * </ul>
      *
-     * @param tier         The affix tier (1-5)
-     * @param affixName    The display name of the affix
-     * @param value        The rolled value (stored as int, divide by 100 for percentages)
+     * @param tier         The affix tier (1 = best)
+     * @param value        The rolled value
      * @param modifierType The type of modifier (FLAT, INCREASED, MORE)
      * @param statName     The display name of the affected stat
+     * @param minValue     The minimum possible roll for this tier
+     * @param maxValue     The maximum possible roll for this tier
      * @return The formatted line
      */
     @Nonnull
     public static String formatAffixLine(
         int tier,
-        @Nonnull String affixName,
         int value,
         @Nonnull HyforgedModifier.StackType modifierType,
-        @Nonnull String statName
+        @Nonnull String statName,
+        int minValue,
+        int maxValue
     ) {
         StringBuilder sb = new StringBuilder();
 
         // Tier label
         sb.append("[").append(getTierLabel(tier)).append("] ");
-
-        // Affix name
-        sb.append(affixName).append(": ");
 
         // Value formatting
         String valueStr = formatValue(value, modifierType);
@@ -406,7 +398,61 @@ public final class AffixTooltipProvider {
         // Stat name
         sb.append(statName);
 
+        // Roll range (only show if there's a range, i.e., min != max)
+        if (minValue != maxValue) {
+            String rangeStr = formatRange(minValue, maxValue, modifierType);
+            sb.append(" ").append(rangeStr);
+        }
+
         return sb.toString();
+    }
+
+    /**
+     * Format a roll range based on modifier type.
+     *
+     * @param minValue     The minimum value
+     * @param maxValue     The maximum value
+     * @param modifierType The modifier type
+     * @return Formatted range string (e.g., "(35-50)", "(5%-10%)")
+     */
+    @Nonnull
+    public static String formatRange(int minValue, int maxValue, @Nonnull HyforgedModifier.StackType modifierType) {
+        return switch (modifierType) {
+            case FLAT -> "(" + minValue + "-" + maxValue + ")";
+            case INCREASED, MORE -> {
+                // Percentage values stored as basis points
+                double minPct = minValue / 100.0;
+                double maxPct = maxValue / 100.0;
+                String minStr = (minPct == (int) minPct) ? String.valueOf((int) minPct) : String.format("%.1f", minPct);
+                String maxStr = (maxPct == (int) maxPct) ? String.valueOf((int) maxPct) : String.format("%.1f", maxPct);
+                yield "(" + minStr + "%-" + maxStr + "%)";
+            }
+            case CAP -> "(" + minValue + "-" + maxValue + ")";
+        };
+    }
+
+    /**
+     * Format an affix line (legacy method for backwards compatibility).
+     *
+     * @param tier         The affix tier (1-5)
+     * @param affixName    The display name of the affix (no longer used in PoE style)
+     * @param value        The rolled value
+     * @param modifierType The type of modifier (FLAT, INCREASED, MORE)
+     * @param statName     The display name of the affected stat
+     * @return The formatted line
+     * @deprecated Use {@link #formatAffixLine(int, int, HyforgedModifier.StackType, String, int, int)} instead
+     */
+    @Deprecated(since = "1.0.0", forRemoval = true)
+    @Nonnull
+    public static String formatAffixLine(
+        int tier,
+        @Nonnull String affixName,
+        int value,
+        @Nonnull HyforgedModifier.StackType modifierType,
+        @Nonnull String statName
+    ) {
+        // Legacy format without range
+        return formatAffixLine(tier, value, modifierType, statName, value, value);
     }
 
     /**
@@ -466,10 +512,60 @@ public final class AffixTooltipProvider {
      */
     @Nonnull
     public static String generateTextSummary(
-        @Nonnull com.hypixel.hytale.server.core.inventory.ItemStack itemStack
+        @Nonnull ItemStack itemStack
     ) {
         Objects.requireNonNull(itemStack, "itemStack cannot be null");
+        List<TooltipLine> lines = generateTooltipLines(itemStack);
+        if (lines.isEmpty()) {
+            return "";
+        }
+        List<String> textLines = lines.stream()
+                .map(TooltipLine::text)
+                .toList();
+        return String.join("\n", textLines);
+    }
+
+    /**
+     * Generate tooltip lines for an ItemStack, including quality and affix sections.
+     *
+     * @param itemStack The item stack
+     * @return List of tooltip lines (empty if none)
+     */
+    @Nonnull
+    public static List<TooltipLine> generateTooltipLines(@Nonnull ItemStack itemStack) {
+        Objects.requireNonNull(itemStack, "itemStack cannot be null");
+
+        List<TooltipLine> result = new ArrayList<>();
+        result.addAll(buildQualityLines(itemStack));
+
         HyforgedItemData itemData = HyforgedItemDataService.read(itemStack);
-        return generateTextSummary(itemData);
+        TooltipContent content = generateTooltip(itemData);
+        result.addAll(content.getAllLines());
+
+        return result;
+    }
+
+    @Nonnull
+    private static List<TooltipLine> buildQualityLines(@Nonnull ItemStack itemStack) {
+        String qualityId = HyforgedQualityService.getEffectiveQuality(itemStack);
+        if (qualityId == null || qualityId.isBlank()) {
+            return List.of();
+        }
+
+        ItemQuality quality = ItemQuality.getAssetMap().getAsset(qualityId);
+        String text = QUALITY_LABEL + ": " + qualityId;
+        if (quality != null && quality.getTextColor() != null) {
+            return List.of(TooltipLine.content(text, toHexColor(quality.getTextColor())));
+        }
+
+        return List.of(TooltipLine.content(text));
+    }
+
+    @Nonnull
+    private static String toHexColor(@Nonnull Color color) {
+        int r = Byte.toUnsignedInt(color.red);
+        int g = Byte.toUnsignedInt(color.green);
+        int b = Byte.toUnsignedInt(color.blue);
+        return String.format("#%02X%02X%02X", r, g, b);
     }
 }

@@ -9,6 +9,12 @@ import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.affix.asset.AffixAssetLoader;
+import reign.software.hyforged.affix.component.HyforgedActiveEffectsComponent;
+import reign.software.hyforged.affix.resource.AffixTierColorConfigAssetLoader;
+import reign.software.hyforged.affix.system.EffectAffixCastListener;
+import reign.software.hyforged.affix.system.EffectAffixDamageTriggerSystem;
+import reign.software.hyforged.affix.system.EffectAffixIntervalSystem;
+import reign.software.hyforged.affix.system.EffectAffixOnKillSystem;
 import reign.software.hyforged.affix.system.EquipmentAffixListener;
 import reign.software.hyforged.affix.system.LootAffixSystem;
 import reign.software.hyforged.affix.ui.CharacterStatsPage;
@@ -33,6 +39,11 @@ import reign.software.hyforged.progression.xp.XPAwardOnKillSystem;
 import reign.software.hyforged.progression.xp.XPAwardSystem;
 import reign.software.hyforged.progression.xp.XPConfigAssetLoader;
 import reign.software.hyforged.progression.xp.XPNotificationAggregator;
+import reign.software.hyforged.quality.asset.QualityAssetLoader;
+import reign.software.hyforged.quality.component.HyforgedNPCQualityComponent;
+import reign.software.hyforged.quality.system.LootQualitySystem;
+import reign.software.hyforged.quality.system.NPCQualityAffixStatSystem;
+import reign.software.hyforged.quality.system.NPCQualitySystem;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.asset.ClassAssetLoader;
 import reign.software.hyforged.stats.asset.StatAssetLoader;
@@ -83,6 +94,8 @@ public class HyforgedPlugin extends JavaPlugin {
     private ComponentType<EntityStore, EffectBridgeComponent> effectBridgeComponentType;
     private ComponentType<EntityStore, AilmentAccumulatorComponent> ailmentAccumulatorComponentType;
     private ComponentType<EntityStore, MonsterLevelComponent> monsterLevelComponentType;
+    private ComponentType<EntityStore, HyforgedNPCQualityComponent> npcQualityComponentType;
+    private ComponentType<EntityStore, HyforgedActiveEffectsComponent> activeEffectsComponentType;
     
     // ECS Resource Types
     private ResourceType<EntityStore, XPNotificationAggregator.AggregationResource> xpNotificationResourceType;
@@ -192,10 +205,16 @@ public class HyforgedPlugin extends JavaPlugin {
 
         // Initialize asset loader for rage decay configuration
         RageDecayConfigAssetLoader.initialize(this);
+
+        // Initialize asset loader for affix tier colors (tooltip formatting)
+        AffixTierColorConfigAssetLoader.initialize(this);
         
         // Initialize asset loader for affix definitions (affix system)
         // Includes affix types, quality rules, affix definitions, and affix pools
         AffixAssetLoader.initialize(this);
+
+        // Initialize asset loader for quality rolling configurations
+        QualityAssetLoader.initialize(this);
         
         // Initialize asset loader for ailment definitions (combat system)
         // Defines threshold-based status effects triggered by elemental damage
@@ -255,6 +274,22 @@ public class HyforgedPlugin extends JavaPlugin {
         );
         
         getLogger().at(Level.FINE).log("Registered MonsterLevelComponent");
+
+        // Register HyforgedNPCQualityComponent (no persistence - runtime tracking only)
+        npcQualityComponentType = entityStoreRegistry.registerComponent(
+            HyforgedNPCQualityComponent.class,
+            HyforgedNPCQualityComponent::new
+        );
+
+        getLogger().at(Level.FINE).log("Registered HyforgedNPCQualityComponent");
+
+        // Register HyforgedActiveEffectsComponent (no persistence - runtime tracking only)
+        activeEffectsComponentType = entityStoreRegistry.registerComponent(
+            HyforgedActiveEffectsComponent.class,
+            HyforgedActiveEffectsComponent::new
+        );
+
+        getLogger().at(Level.FINE).log("Registered HyforgedActiveEffectsComponent");
         
         // Register XP notification aggregation resource
         xpNotificationResourceType = entityStoreRegistry.registerResource(
@@ -282,6 +317,14 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register NPCStatInitSystem (handles NPC entity stat initialization)
         entityStoreRegistry.registerSystem(new NPCStatInitSystem());
         getLogger().at(Level.FINE).log("Registered NPCStatInitSystem");
+
+        // Register NPCQualitySystem (assigns NPC quality tiers and scaling)
+        entityStoreRegistry.registerSystem(new NPCQualitySystem());
+        getLogger().at(Level.FINE).log("Registered NPCQualitySystem");
+
+        // Register NPCQualityAffixStatSystem (applies NPC affix stat modifiers)
+        entityStoreRegistry.registerSystem(new NPCQualityAffixStatSystem());
+        getLogger().at(Level.FINE).log("Registered NPCQualityAffixStatSystem");
         
         // Register HyforgedEffectBridgeSystem (bridges Hytale effects to Hyforged stats)
         entityStoreRegistry.registerSystem(new HyforgedEffectBridgeSystem());
@@ -313,6 +356,10 @@ public class HyforgedPlugin extends JavaPlugin {
         
         // Register combat systems
         registerCombatSystems(entityStoreRegistry);
+
+        // Register interval-based effect affix system
+        entityStoreRegistry.registerSystem(new EffectAffixIntervalSystem());
+        getLogger().at(Level.FINE).log("Registered EffectAffixIntervalSystem");
         
         // Register ActiveClassResolutionSystem (resolves active class from weapon tags)
         entityStoreRegistry.registerSystem(new ActiveClassResolutionSystem());
@@ -339,6 +386,10 @@ public class HyforgedPlugin extends JavaPlugin {
         getLogger().at(Level.FINE).log("Initialized ClassLevelModifierSystem");
         
         // Register LootAffixSystem (rolls affixes on item drops)
+        entityStoreRegistry.registerSystem(new LootQualitySystem());
+        getLogger().at(Level.FINE).log("Registered LootQualitySystem");
+
+        // Register LootAffixSystem (rolls affixes on item drops)
         entityStoreRegistry.registerSystem(new LootAffixSystem());
         getLogger().at(Level.FINE).log("Registered LootAffixSystem");
         
@@ -346,6 +397,11 @@ public class HyforgedPlugin extends JavaPlugin {
         EquipmentAffixListener equipmentAffixListener = new EquipmentAffixListener();
         equipmentAffixListener.register();
         getLogger().at(Level.FINE).log("Registered EquipmentAffixListener");
+
+        // Register EffectAffixCastListener (triggers on-cast effects)
+        EffectAffixCastListener effectAffixCastListener = new EffectAffixCastListener();
+        effectAffixCastListener.register();
+        getLogger().at(Level.FINE).log("Registered EffectAffixCastListener");
     }
     
     /**
@@ -376,6 +432,14 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register combat log system (runs in inspect group to record final damage)
         entityStoreRegistry.registerSystem(new HyforgedCombatLogSystem());
         getLogger().at(Level.FINE).log("Registered HyforgedCombatLogSystem");
+
+        // Register effect affix triggers on damage events
+        entityStoreRegistry.registerSystem(new EffectAffixDamageTriggerSystem());
+        getLogger().at(Level.FINE).log("Registered EffectAffixDamageTriggerSystem");
+
+        // Register effect affix on-kill triggers
+        entityStoreRegistry.registerSystem(new EffectAffixOnKillSystem());
+        getLogger().at(Level.FINE).log("Registered EffectAffixOnKillSystem");
         
         // Register combat log HUD system (manages WoW-style combat log UI)
         entityStoreRegistry.registerSystem(new CombatLogHudSystem());
@@ -483,5 +547,27 @@ public class HyforgedPlugin extends JavaPlugin {
             throw new IllegalStateException("HyforgedPlugin not initialized");
         }
         return monsterLevelComponentType;
+    }
+
+    /**
+     * Get the HyforgedNPCQualityComponent type for ECS operations.
+     */
+    @Nonnull
+    public ComponentType<EntityStore, HyforgedNPCQualityComponent> getNpcQualityComponentType() {
+        if (npcQualityComponentType == null) {
+            throw new IllegalStateException("HyforgedPlugin not initialized");
+        }
+        return npcQualityComponentType;
+    }
+
+    /**
+     * Get the HyforgedActiveEffectsComponent type for ECS operations.
+     */
+    @Nonnull
+    public ComponentType<EntityStore, HyforgedActiveEffectsComponent> getActiveEffectsComponentType() {
+        if (activeEffectsComponentType == null) {
+            throw new IllegalStateException("HyforgedPlugin not initialized");
+        }
+        return activeEffectsComponentType;
     }
 }

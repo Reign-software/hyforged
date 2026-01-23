@@ -18,20 +18,19 @@ import java.util.logging.Logger;
 /**
  * Utility class for generating display names for items with affixes.
  * <p>
- * Generates names in the format: "{prefixes} {baseName} {suffixes}"
- * <ul>
- *   <li>Prefixes (BEFORE): Names appear before the base item name, space-separated</li>
- *   <li>Suffixes (AFTER): Names appear after the base item name, space-separated</li>
- *   <li>Forged (NONE): Do not modify the item name (shown in tooltip only)</li>
- * </ul>
+ * <b>DEPRECATED:</b> This class follows a traditional ARPG naming pattern where
+ * affixes modify the item's display name (e.g., "Sturdy Iron Sword of the Bear").
  * <p>
- * Example outputs:
- * <ul>
- *   <li>Sturdy Iron Sword of the Bear</li>
- *   <li>Gleaming Sharp Dagger of Speed of Precision</li>
- *   <li>Iron Sword (no affixes)</li>
- * </ul>
+ * Hyforged uses a Path of Exile-style approach where affixes are displayed
+ * in the item's description/tooltip instead, showing tier, rolled value, and
+ * roll range. Use {@link AffixTooltipProvider} for generating affix display content.
+ * <p>
+ * This class is retained for compatibility but should not be used for new features.
+ *
+ * @deprecated Use {@link AffixTooltipProvider} for PoE-style affix display in tooltips.
+ *             Affixes should NOT modify item display names.
  */
+@Deprecated(since = "1.0.0", forRemoval = true)
 public final class AffixNameGenerator {
     
     private static final Logger LOGGER = Logger.getLogger(AffixNameGenerator.class.getName());

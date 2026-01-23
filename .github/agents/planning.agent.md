@@ -39,6 +39,9 @@ You convert approved specifications into actionable, phased implementation plans
 - Apply ACID principles to the plan structure.
 - Ensure each phase can be completed independently and ends with a buildable state.
 - Update step checkboxes as phases complete.
+- Each Phase is a user story with defined exit criteria.
+- Phases should be detailed enough for developers to follow without ambiguity.
+- Tasks should be traceable to spec requirements.
 
 ## ACID Planning Requirements
 - Atomicity: Each phase is independently completable.

@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
  * @param type Affix type reference ("prefix", "suffix", "forged")
  * @param displayName Localization key or display name for the affix
  * @param tiers List of tier definitions (T1 = best), each containing stats with value ranges
+ * @param triggeredEffects List of triggered effect definitions (optional)
  * @param weight Base selection weight for rolling (higher = more likely)
  */
 public record AffixDefinition(
@@ -37,6 +38,7 @@ public record AffixDefinition(
     @Nonnull String type,
     @Nonnull String displayName,
     @Nonnull List<AffixTierDefinition> tiers,
+    @Nonnull List<AffixTriggeredEffect> triggeredEffects,
     int weight
 ) {
     
@@ -59,10 +61,30 @@ public record AffixDefinition(
         if (tiers.isEmpty()) {
             throw new IllegalArgumentException("Affix must have at least one tier");
         }
+        boolean hasStatModifiers = tiers.stream().anyMatch(tier -> !tier.stats().isEmpty());
+        boolean hasTriggeredEffects = triggeredEffects != null && !triggeredEffects.isEmpty();
+        if (!hasStatModifiers && !hasTriggeredEffects) {
+            throw new IllegalArgumentException("Affix must have stat modifiers or triggered effects");
+        }
         
         if (weight < 0) {
             throw new IllegalArgumentException("weight cannot be negative: " + weight);
         }
+
+        triggeredEffects = triggeredEffects != null ? List.copyOf(triggeredEffects) : Collections.emptyList();
+    }
+
+    /**
+     * Backwards-compatible constructor for stat-only affixes.
+     */
+    public AffixDefinition(
+            @Nonnull String id,
+            @Nonnull String type,
+            @Nonnull String displayName,
+            @Nonnull List<AffixTierDefinition> tiers,
+            int weight
+    ) {
+        this(id, type, displayName, tiers, Collections.emptyList(), weight);
     }
     
     /**
@@ -132,6 +154,13 @@ public record AffixDefinition(
             .flatMap(tier -> tier.stats().keySet().stream())
             .collect(Collectors.toSet());
     }
+
+    /**
+     * Check if this affix has any triggered effects.
+     */
+    public boolean hasTriggeredEffects() {
+        return triggeredEffects != null && !triggeredEffects.isEmpty();
+    }
     
     /**
      * Check if this affix modifies a specific stat (in any tier).
@@ -164,6 +193,7 @@ public record AffixDefinition(
         private String type;
         private String displayName = "";
         private List<AffixTierDefinition> tiers = Collections.emptyList();
+        private List<AffixTriggeredEffect> triggeredEffects = Collections.emptyList();
         private int weight = DEFAULT_WEIGHT;
         
         public Builder id(@Nonnull String id) {
@@ -185,6 +215,11 @@ public record AffixDefinition(
             this.tiers = tiers;
             return this;
         }
+
+        public Builder triggeredEffects(@Nonnull List<AffixTriggeredEffect> triggeredEffects) {
+            this.triggeredEffects = triggeredEffects;
+            return this;
+        }
         
         public Builder weight(int weight) {
             this.weight = weight;
@@ -193,7 +228,7 @@ public record AffixDefinition(
         
         @Nonnull
         public AffixDefinition build() {
-            return new AffixDefinition(id, type, displayName, tiers, weight);
+            return new AffixDefinition(id, type, displayName, tiers, triggeredEffects, weight);
         }
     }
     

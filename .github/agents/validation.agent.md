@@ -37,8 +37,12 @@ You validate that the implementation meets specifications and record a structure
 - Only Critical or Major findings must be returned to development.
 
 ## Output Artifacts
-- Review document at .memory_bank/Features/<slug>/reviews/<review>.review.md
+- Review document at .memory_bank/Features/<slug>/reviews/<review>.review-<review-number>.md
 - Updates to plan Test Results / Validation sections
+- Keep skills up to date with all api changes `.github\skills`
+  - modding-doc-overview skill should be updated when there are changes to the modding documentation
+  - check all modding-doc-* to see if any other skills need updating
+  - Add new skills if new documentation is added
 
 ## Guardrails
 - Keep review notes high-level and actionable.

@@ -8,6 +8,7 @@ import reign.software.hyforged.affix.AffixTestFixtures;
 import reign.software.hyforged.affix.model.*;
 import reign.software.hyforged.affix.registry.AffixDefinitionRegistry;
 import reign.software.hyforged.affix.registry.AffixTypeRegistry;
+import reign.software.hyforged.affix.resource.AffixTierColorConfig;
 import reign.software.hyforged.affix.service.AffixTooltipProvider.TooltipContent;
 import reign.software.hyforged.affix.service.AffixTooltipProvider.TooltipLine;
 import reign.software.hyforged.stats.DisplayFormat;
@@ -34,6 +35,15 @@ class AffixTooltipProviderTest {
         AffixTypeRegistry.reset();
         AffixDefinitionRegistry.reset();
         StatDefinitionRegistry.reset();
+
+        // Configure tier colors for tests
+        AffixTierColorConfig.get().applyOverrides(Map.of(
+            1, "#FFD700",
+            2, "#9932CC",
+            3, "#4169E1",
+            4, "#32CD32",
+            5, "#FFFFFF"
+        ), "#FFFFFF");
 
         // Register affix types
         registerAffixTypes();
@@ -312,30 +322,30 @@ class AffixTooltipProviderTest {
     class AffixLineFormattingTests {
 
         @Test
-        @DisplayName("Flat affix line formats correctly")
+        @DisplayName("Flat affix line formats correctly with range")
         void flatAffixLineFormats() {
             String result = AffixTooltipProvider.formatAffixLine(
-                1, "Sturdy", 50, HyforgedModifier.StackType.FLAT, "Health"
+                1, 50, HyforgedModifier.StackType.FLAT, "Health", 40, 60
             );
-            assertEquals("[T1] Sturdy: +50 Health", result);
+            assertEquals("[T1] +50 Health (40-60)", result);
         }
 
         @Test
-        @DisplayName("Percentage affix line formats correctly")
+        @DisplayName("Percentage affix line formats correctly with range")
         void percentageAffixLineFormats() {
             String result = AffixTooltipProvider.formatAffixLine(
-                2, "of Speed", 1500, HyforgedModifier.StackType.INCREASED, "Movement Speed"
+                2, 1500, HyforgedModifier.StackType.INCREASED, "Movement Speed", 1000, 2000
             );
-            assertEquals("[T2] of Speed: +15% Movement Speed", result);
+            assertEquals("[T2] +15% Movement Speed (10%-20%)", result);
         }
 
         @Test
-        @DisplayName("Higher tier formats correctly")
-        void higherTierFormats() {
+        @DisplayName("Fixed value (no range) formats without range")
+        void fixedValueFormatsWithoutRange() {
             String result = AffixTooltipProvider.formatAffixLine(
-                3, "Swift", 800, HyforgedModifier.StackType.INCREASED, "Attack Speed"
+                3, 800, HyforgedModifier.StackType.INCREASED, "Attack Speed", 800, 800
             );
-            assertEquals("[T3] Swift: +8% Attack Speed", result);
+            assertEquals("[T3] +8% Attack Speed", result);
         }
     }
 
@@ -480,8 +490,8 @@ class AffixTooltipProviderTest {
             assertEquals(1, content.regularAffixes().size());
 
             TooltipLine line = content.regularAffixes().get(0);
-            assertEquals("[T1] Sturdy: +75 Health", line.text());
-            assertEquals(AffixTooltipProvider.TIER_1_COLOR, line.color());
+            assertEquals("[T1] +75 Health (50-100)", line.text());
+            assertEquals(AffixTooltipProvider.getTierColor(1), line.color());
         }
 
         @Test
@@ -492,7 +502,7 @@ class AffixTooltipProviderTest {
 
             assertTrue(content.hasRegularAffixes());
             assertEquals(1, content.regularAffixes().size());
-            assertEquals("[T1] of Precision: +7 Critical Chance", content.regularAffixes().get(0).text());
+            assertEquals("[T1] +7 Critical Chance (5-10)", content.regularAffixes().get(0).text());
         }
 
         @Test
@@ -504,7 +514,7 @@ class AffixTooltipProviderTest {
             assertFalse(content.hasRegularAffixes());
             assertTrue(content.hasForgedAffixes());
             assertEquals(1, content.forgedAffixes().size());
-            assertEquals("[T1] Masterwork: +20 Quality", content.forgedAffixes().get(0).text());
+            assertEquals("[T1] +20 Quality (10-25)", content.forgedAffixes().get(0).text());
         }
 
         @Test
@@ -528,7 +538,7 @@ class AffixTooltipProviderTest {
             RolledAffix affix = createAffix("of-speed", 1, 1750); // 17.5%
             TooltipContent content = AffixTooltipProvider.generateTooltip(List.of(affix));
 
-            assertEquals("[T1] of Speed: +17.5% Movement Speed", content.regularAffixes().get(0).text());
+            assertEquals("[T1] +17.5% Movement Speed (15%-20%)", content.regularAffixes().get(0).text());
         }
 
         @Test
@@ -537,7 +547,7 @@ class AffixTooltipProviderTest {
             RolledAffix affix = createAffix("of-speed", 2, 1200);
             TooltipContent content = AffixTooltipProvider.generateTooltip(List.of(affix));
 
-            assertEquals(AffixTooltipProvider.TIER_2_COLOR, content.regularAffixes().get(0).color());
+            assertEquals(AffixTooltipProvider.getTierColor(2), content.regularAffixes().get(0).color());
         }
 
         @Test
@@ -546,7 +556,7 @@ class AffixTooltipProviderTest {
             RolledAffix affix = createAffix("of-speed", 3, 700);
             TooltipContent content = AffixTooltipProvider.generateTooltip(List.of(affix));
 
-            assertEquals(AffixTooltipProvider.TIER_3_COLOR, content.regularAffixes().get(0).color());
+            assertEquals(AffixTooltipProvider.getTierColor(3), content.regularAffixes().get(0).color());
         }
     }
 
@@ -572,7 +582,7 @@ class AffixTooltipProviderTest {
 
             String summary = AffixTooltipProvider.generateTextSummary(itemData);
             assertTrue(summary.contains("Affixes"));
-            assertTrue(summary.contains("[T1] Sturdy: +75 Health"));
+            assertTrue(summary.contains("[T1] +75 Health (50-100)"));
         }
 
         @Test
@@ -660,18 +670,18 @@ class AffixTooltipProviderTest {
         @DisplayName("Zero value affix formats correctly")
         void zeroValueAffixFormats() {
             String line = AffixTooltipProvider.formatAffixLine(
-                1, "Neutral", 0, HyforgedModifier.StackType.FLAT, "Stat"
+                1, 0, HyforgedModifier.StackType.FLAT, "Stat", 0, 0
             );
-            assertEquals("[T1] Neutral: +0 Stat", line);
+            assertEquals("[T1] +0 Stat", line);
         }
 
         @Test
         @DisplayName("Very large value formats correctly")
         void largeValueFormats() {
             String line = AffixTooltipProvider.formatAffixLine(
-                1, "Massive", 999999, HyforgedModifier.StackType.FLAT, "Damage"
+                1, 999999, HyforgedModifier.StackType.FLAT, "Damage", 500000, 1000000
             );
-            assertEquals("[T1] Massive: +999999 Damage", line);
+            assertEquals("[T1] +999999 Damage (500000-1000000)", line);
         }
     }
 }

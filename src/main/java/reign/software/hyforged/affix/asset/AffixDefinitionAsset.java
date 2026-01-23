@@ -10,6 +10,7 @@ import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import reign.software.hyforged.affix.model.AffixDefinition;
 import reign.software.hyforged.affix.model.AffixTierDefinition;
+import reign.software.hyforged.affix.model.AffixTriggeredEffect;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -30,6 +31,12 @@ import java.util.List;
  *   "Type": "suffix",
  *   "DisplayName": "of the Titan",
  *   "Weight": 100,
+ *   "TriggeredEffects": [
+ *     {
+ *       "Trigger": { "Type": "on_hit", "Chance": 1500 },
+ *       "Effect": { "Type": "spawn_projectile", "ProjectileId": "hyforged:orbiting_flame" }
+ *     }
+ *   ],
  *   "Tiers": [
  *     {
  *       "Tier": 1,
@@ -92,6 +99,12 @@ public class AffixDefinitionAsset implements JsonAssetWithMap<String, IndexedLoo
                     asset -> asset.tiers
             )
             .add()
+                .append(
+                    new KeyedCodec<>("TriggeredEffects", AffixTriggeredEffectAsset.ARRAY_CODEC),
+                    (asset, value) -> asset.triggeredEffects = value,
+                    asset -> asset.triggeredEffects
+                )
+                .add()
             .build();
 
     private static AssetStore<String, AffixDefinitionAsset, IndexedLookupTableAssetMap<String, AffixDefinitionAsset>> ASSET_STORE;
@@ -105,6 +118,7 @@ public class AffixDefinitionAsset implements JsonAssetWithMap<String, IndexedLoo
     private String displayName = "";
     private int weight = AffixDefinition.DEFAULT_WEIGHT;
     private AffixTierAsset[] tiers;
+    private AffixTriggeredEffectAsset[] triggeredEffects = new AffixTriggeredEffectAsset[0];
 
     public AffixDefinitionAsset() {
     }
@@ -147,6 +161,13 @@ public class AffixDefinitionAsset implements JsonAssetWithMap<String, IndexedLoo
                 tierList.add(tierAsset.toTierDefinition());
             }
         }
+
+        List<AffixTriggeredEffect> effectList = new ArrayList<>();
+        if (triggeredEffects != null) {
+            for (AffixTriggeredEffectAsset effectAsset : triggeredEffects) {
+                effectList.add(effectAsset.toTriggeredEffect());
+            }
+        }
         
         if (tierList.isEmpty()) {
             throw new IllegalArgumentException(
@@ -158,6 +179,7 @@ public class AffixDefinitionAsset implements JsonAssetWithMap<String, IndexedLoo
                 type,
                 displayName,
                 tierList,
+            effectList,
                 weight
         );
     }
@@ -180,5 +202,9 @@ public class AffixDefinitionAsset implements JsonAssetWithMap<String, IndexedLoo
 
     public AffixTierAsset[] getTiers() {
         return tiers;
+    }
+
+    public AffixTriggeredEffectAsset[] getTriggeredEffects() {
+        return triggeredEffects;
     }
 }

@@ -183,9 +183,6 @@ public record RolledAffix(
         if (tier < 1) {
             throw new IllegalArgumentException("tier must be >= 1, got: " + tier);
         }
-        if (rolledStats.isEmpty()) {
-            throw new IllegalArgumentException("rolledStats cannot be empty");
-        }
         // Make defensive copy
         rolledStats = Collections.unmodifiableMap(new HashMap<>(rolledStats));
     }

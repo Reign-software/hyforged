@@ -4,10 +4,13 @@ import com.hypixel.hytale.assetstore.AssetExtraInfo;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.asset.type.item.config.ItemQuality;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import reign.software.hyforged.quality.service.HyforgedQualityService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -57,7 +60,7 @@ public final class ItemContextExtractor {
         }
         
         // Extract quality from item configuration
-        String quality = extractQuality(item);
+        String quality = HyforgedQualityService.getEffectiveQuality(itemStack);
         
         // Extract item level
         int itemLevel = extractItemLevel(item);
@@ -151,19 +154,48 @@ public final class ItemContextExtractor {
             }
             
             // getRawTags() returns Map<String, String[]> where keys are tag names
-            // and values are tag value expansions (e.g., "Type" -> ["Weapon", "Melee"])
+            // and values are tag values (e.g., "Type" -> ["Weapon", "Melee"])
             Map<String, String[]> rawTags = data.getRawTags();
             if (rawTags == null || rawTags.isEmpty()) {
                 return EMPTY_STRING_ARRAY;
             }
-            
-            // Return the tag keys which represent the tag identifiers
-            // This includes hierarchical tags like "Type:Weapon", "Family:Axe"
-            return rawTags.keySet().toArray(EMPTY_STRING_ARRAY);
+
+            Set<String> expandedTags = expandRawTags(rawTags);
+            return expandedTags.toArray(EMPTY_STRING_ARRAY);
         } catch (Exception e) {
             LOGGER.log(Level.FINE, "Could not extract tags from item", e);
             return EMPTY_STRING_ARRAY;
         }
+    }
+
+    @Nonnull
+    private static Set<String> expandRawTags(@Nonnull Map<String, String[]> rawTags) {
+        Set<String> expanded = new LinkedHashSet<>();
+
+        for (Map.Entry<String, String[]> entry : rawTags.entrySet()) {
+            String category = entry.getKey();
+            if (category == null || category.isBlank()) {
+                continue;
+            }
+
+            String[] values = entry.getValue();
+            if (values == null || values.length == 0) {
+                expanded.add(category);
+                continue;
+            }
+
+            expanded.add(category);
+            for (String value : values) {
+                if (value == null || value.isBlank()) {
+                    continue;
+                }
+                expanded.add(value);
+                expanded.add(category + "=" + value);
+                expanded.add(category + ":" + value);
+            }
+        }
+
+        return expanded;
     }
     
     /**

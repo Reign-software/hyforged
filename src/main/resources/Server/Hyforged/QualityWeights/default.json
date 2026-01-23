@@ -1,0 +1,18 @@
+{
+  "Id": "default",
+  "Description": "Global default quality weights for equipment",
+  "Weights": {
+    "Common": 500,
+    "Uncommon": 300,
+    "Rare": 150,
+    "Epic": 40,
+    "Legendary": 10
+  },
+  "EligibleQualities": [
+    "Common",
+    "Uncommon",
+    "Rare",
+    "Epic",
+    "Legendary"
+  ]
+}

@@ -67,9 +67,9 @@ class AffixTierDefinitionTest {
     }
     
     @Test
-    void constructor_emptyStats_throwsException() {
-        assertThrows(IllegalArgumentException.class, () -> 
-                new AffixTierDefinition(1, 40, 100, new HashMap<>()));
+    void constructor_emptyStats_allowsEmpty() {
+        AffixTierDefinition tier = new AffixTierDefinition(1, 40, 100, new HashMap<>());
+        assertTrue(tier.stats().isEmpty());
     }
     
     @Test

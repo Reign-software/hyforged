@@ -12,6 +12,7 @@
 - ADR-0008: Use Hytale AssetRegistry Tag System (2026-01-20) — Accepted
 - ADR-0009: Use Hytale Quality and ItemStack Metadata for Affixes (2026-01-20) — Accepted
 - ADR-0010: Unified Stat Integration via EntityStatValue Extension (2026-01-21) — Accepted
+- ADR-0011: Runtime Quality Replacement for Items and NPCs (2026-01-23) — Proposed
 
 
 ## ADR Template
@@ -583,3 +584,64 @@ Standard categories established for stat definitions:
 - Supersedes: ADR-0001 (Hybrid approach)
 - Related: ADR-0002 (HyforgedModifier), ADR-0006 (System replacement)
 - Hytale: `EntityStatValue.java`, `EntityStatMap.java`
+
+---
+
+### ADR-0011: Runtime Quality Replacement for Items and NPCs
+- Date: 2026-01-23
+- Status: Proposed
+- Deciders: JBurl
+
+#### Context
+- Hytale defines item Quality statically in item JSON files (e.g., `"Quality": "Common"`).
+- Quality is loaded into `Item.qualityId` and resolved to `qualityIndex` at asset load time.
+- `ItemStack` does not have a dedicated quality override mechanism; it inherits quality from its `Item` config.
+- For an ARPG loot system, items need to have random Quality rolled at drop time.
+- ADR-0009 established using Hytale's Quality system for affix capacity; random quality is the natural extension.
+- As a foundation mod, Hyforged should directly replace quality rather than layering metadata overrides.
+- NPCs should also have Quality tiers (elite/boss variants) that affect their stats and loot drops.
+
+#### Decision
+- **Replace item Quality at runtime** when items spawn from loot/chests.
+  - Research exact mechanism: likely ItemStack metadata with `QualityOverride` key that systems read.
+  - If Hytale syncs `Item.qualityIndex` to clients, may need protocol-level override.
+  - Alternatively, use item state/variant switching if Hytale supports it.
+- **Implement LootQualitySystem** as separate ECS system running before LootAffixSystem.
+  - Uses system dependencies for execution order.
+  - Emits `QualityRolledEvent` for modding integration.
+- **Data-driven quality weights** via JSON configuration.
+  - Global defaults, per-category overrides, per-loot-source overrides.
+  - Context modifiers (mob level, Magic Find, zone difficulty).
+- **NPC Quality Component** for elite/boss variants.
+  - `HyforgedNPCQualityComponent` stores quality and optional affixes.
+  - NPC quality boosts loot quality weights.
+  - NPC stats scaled by quality tier multipliers.
+- **Use Hytale's ItemQuality.getAssetMap()** to programmatically access all quality definitions.
+  - Filter to equipment-eligible qualities (exclude Junk, Tool, Template, Debug, Developer, Technical).
+
+#### Consequences
+- Pros:
+  - Enables ARPG-style random loot quality without modifying base item definitions.
+  - Foundation mod compatibility: other mods see the "real" quality, not metadata overlay.
+  - NPC quality creates elite/boss variety using existing affix infrastructure.
+  - Hytale's Quality UI (colors, particles, tooltips) works automatically.
+  - Data-driven configuration allows server customization without code.
+- Cons:
+  - Technical research needed to determine best quality replacement mechanism.
+  - May require understanding Hytale's client sync for quality display.
+  - NPC quality adds complexity to spawn systems.
+
+#### Alternatives Considered
+- Store quality override in ItemStack.metadata only:
+  - Rejected: Other systems would see base quality; not a true foundation mod approach.
+- Modify Item assets at runtime:
+  - Rejected: Would affect all items of that type, not per-instance.
+- Create separate "Rarity" parallel to Quality:
+  - Rejected: Already rejected in ADR-0009; redundant and confusing.
+- Only roll quality for legendary/unique items:
+  - Rejected: Full random quality provides better loot variety.
+
+#### Links
+- Spec: `.memory_bank/Features/random-item-quality/random-item-quality.spec.md`
+- Related: ADR-0009 (Quality for affixes)
+- Hytale: `ItemQuality.java`, `Item.java`, `ItemStack.java`

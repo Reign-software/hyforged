@@ -16,6 +16,7 @@ This skill provides step-by-step guidance for implementing affix features in Hyf
 | Custom affix at runtime | `AffixService.get().registerAffix(...)` |
 | Roll affixes on item | `AffixService.get().rollAffixes(item)` |
 | Query item affixes | `AffixService.get().getAffixes(item)` |
+| Add triggered effect proc | Add `TriggeredEffects` to affix JSON |
 
 ## Documentation References
 
@@ -41,6 +42,51 @@ Affixes don't define what items they appear on. Instead, **pools** control targe
 - Pools list which affix IDs are available
 - Pools specify categories/tags they apply to
 - Same affix can appear in multiple pools
+
+### Triggered Effect Affixes (Procs)
+
+Affixes can include triggered effects in addition to stat modifiers. This uses a unified model—no separate affix class.
+
+- Add `TriggeredEffects` to the affix JSON definition. Each entry includes a `Trigger`, an `Effect`, and optional stacking/cooldown fields.
+- Trigger types (string-based): `on_hit`, `on_damaged`, `on_kill`, `interval`, `on_cast`, `on_block`.
+- Effect types (string-based): `spawn_projectile`, `spawn_prefab`, `apply_effect`, `damage_area`, `run_interaction`, `modify_stat`.
+- Runtime state is tracked by `HyforgedActiveEffectsComponent` and rebuilt via `ActiveEffectInitializer` for equipment and NPC quality sources.
+- Events: `EffectAffixTriggeredEvent` (cancellable) and `EffectAffixExecutedEvent`.
+
+**Source Type Constants:**
+When extending the active effect system, use these constants from `ActiveEffectInitializer`:
+- `ActiveEffectInitializer.SOURCE_EQUIPMENT` — Effects from equipped items
+- `ActiveEffectInitializer.SOURCE_NPC_QUALITY` — Effects from NPC quality affixes
+
+**Minimal Example:**
+```json
+{
+  "Id": "hyforged:blazing_wrath",
+  "Type": "suffix",
+  "DisplayName": "of Blazing Wrath",
+  "Weight": 50,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 40,
+      "Weight": 25,
+      "Stats": {
+        "hyforged:fire_damage_increased_bps": { "MinValue": 500, "MaxValue": 1500, "StackType": "INCREASED" }
+      }
+    }
+  ],
+  "TriggeredEffects": [
+    {
+      "Trigger": { "Type": "on_hit", "Chance": 1500, "DamageCauses": ["Fire"] },
+      "Effect": { "Type": "spawn_projectile", "ProjectileId": "hyforged:orbiting_flame", "Count": 3, "Pattern": "orbit", "Duration": 5.0 },
+      "StackBehavior": "shared",
+      "MaxStacks": 1,
+      "CooldownSeconds": 2.0,
+      "SharedCooldownGroup": "fire_procs"
+    }
+  ]
+}
+```
 
 ---
 
@@ -143,11 +189,18 @@ Edit or create `src/main/resources/Server/Hyforged/AffixPools/<PoolName>.json`:
 ```
 
 **Key Decisions:**
-- `Type`: Choose `prefix` (before name), `suffix` (after name), or `forged` (hidden)
+- `Type`: Choose `prefix`, `suffix`, or `forged` (displayed in separate tooltip section)
 - `StackType`: `FLAT` adds flat value, `INCREASED` is additive %, `MORE` is multiplicative %
 - `Weight`: Higher = more common. Default baseline is 100.
 - Tier 1 is BEST, higher tiers are weaker
 - Values use basis points for percentages: 10000 = 100%
+
+> **Display Note:** Affixes are displayed in PoE-style in the item tooltip, NOT in the item name:
+> ```
+> [T1] +52 Strength (45-55)
+> [T1] +125 Max Health (100-150)
+> ```
+> Players can see the rolled value and the possible range for that tier.
 
 ---
 

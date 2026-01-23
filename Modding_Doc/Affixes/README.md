@@ -27,11 +27,19 @@ The Hyforged affix system adds ARPG-style affixes to equipment items. Affixes ar
 
 Three types of affixes exist:
 
-| Type | Position | Example |
-|------|----------|---------|
-| `prefix` | Before item name | **Sturdy** Iron Sword |
-| `suffix` | After item name | Iron Sword **of the Bear** |
-| `forged` | Hidden (stat only) | Special unique effects |
+| Type | Category | Description |
+|------|----------|-------------|
+| `prefix` | Regular | Traditional prefix affixes (defensive stats, utility) |
+| `suffix` | Regular | Traditional suffix affixes (offensive stats, "of the X") |
+| `forged` | Special | Unique corrupted effects (hidden from regular tooltip, separate section) |
+
+> **Display Note:** Affixes are displayed in the item's tooltip using Path of Exile style, 
+> showing the rolled value and its possible range. Example:
+> ```
+> [T1] +75 Health (50-100)
+> [T2] +12% Movement Speed (10%-15%)
+> ```
+> Item names are NOT modified by affixes (no "Sturdy Iron Sword of the Bear" pattern).
 
 ### Affix Tiers
 
@@ -66,6 +74,9 @@ Item quality determines how many affixes can roll:
 | Rare | 1 | 1 | 0 |
 | Epic | 2 | 1 | 0 |
 | Legendary | 2 | 2 | 1 |
+
+> **Note:** Hyforged can override item quality via metadata for rolls and systems. The default Hytale UI
+> still displays the base item quality from the asset, so visuals may not reflect the effective quality.
 
 ### Pool-Based Targeting
 

@@ -35,6 +35,11 @@ You implement the approved plan and keep the memory bank updated with high-level
 - Update plan step checkboxes as tasks complete.
 - Update high-level implementation summary and test results in the plan.
 - Record new architectural decisions in .memory_bank/ADRs.md.
+- Keep skills up to date with all api changes `.github\skills`
+  - modding-doc-overview skill should be updated when there are changes to the modding documentation
+  - check all modding-doc-* to see if any other skills need updating
+  - Add new skills if new documentation is added
+- Update review documents if asked to fix review items.
 
 ## Process
 1. Review the plan and spec in the memory bank.

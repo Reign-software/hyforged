@@ -61,9 +61,6 @@ public record AffixTierDefinition(
             throw new IllegalArgumentException("weight cannot be negative: " + weight);
         }
         Objects.requireNonNull(stats, "stats cannot be null");
-        if (stats.isEmpty()) {
-            throw new IllegalArgumentException("stats cannot be empty - a tier must grant at least one stat");
-        }
         // Make defensive copy to ensure immutability
         stats = Collections.unmodifiableMap(new HashMap<>(stats));
     }

@@ -1,0 +1,22 @@
+{
+  "Description": "Default NPC quality distribution",
+  "Weights": {
+    "Common": 850,
+    "Uncommon": 120,
+    "Rare": 25,
+    "Epic": 4,
+    "Legendary": 1
+  },
+  "StatMultipliers": {
+    "Uncommon": 1.1,
+    "Rare": 1.25,
+    "Epic": 1.5,
+    "Legendary": 2.0
+  },
+  "LootQualityBonus": {
+    "Uncommon": 10,
+    "Rare": 25,
+    "Epic": 50,
+    "Legendary": 100
+  }
+}
