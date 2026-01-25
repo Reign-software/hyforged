@@ -5,8 +5,10 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Tracks active triggered effect affixes on an entity at runtime.
@@ -70,6 +72,7 @@ public class HyforgedActiveEffectsComponent implements Component<EntityStore> {
         private long lastTriggeredMs;
         private int stacks;
         private float accumulatedTime;
+        private Set<Integer> triggeredHealthThresholds;
 
         public ActiveEffectState() {
             this.affixId = "";
@@ -79,6 +82,7 @@ public class HyforgedActiveEffectsComponent implements Component<EntityStore> {
             this.lastTriggeredMs = 0L;
             this.stacks = 1;
             this.accumulatedTime = 0f;
+            this.triggeredHealthThresholds = new HashSet<>();
         }
 
         public ActiveEffectState(
@@ -88,7 +92,8 @@ public class HyforgedActiveEffectsComponent implements Component<EntityStore> {
                 @Nonnull String sourceId,
                 long lastTriggeredMs,
                 int stacks,
-                float accumulatedTime
+                float accumulatedTime,
+                @Nonnull Set<Integer> triggeredHealthThresholds
         ) {
             this.affixId = Objects.requireNonNull(affixId, "affixId cannot be null");
             this.effectIndex = effectIndex;
@@ -97,6 +102,7 @@ public class HyforgedActiveEffectsComponent implements Component<EntityStore> {
             this.lastTriggeredMs = lastTriggeredMs;
             this.stacks = stacks;
             this.accumulatedTime = accumulatedTime;
+            this.triggeredHealthThresholds = new HashSet<>(Objects.requireNonNull(triggeredHealthThresholds, "triggeredHealthThresholds cannot be null"));
         }
 
         public ActiveEffectState(@Nonnull ActiveEffectState other) {
@@ -107,7 +113,8 @@ public class HyforgedActiveEffectsComponent implements Component<EntityStore> {
                     other.sourceId,
                     other.lastTriggeredMs,
                     other.stacks,
-                    other.accumulatedTime
+                    other.accumulatedTime,
+                    other.triggeredHealthThresholds != null ? other.triggeredHealthThresholds : new HashSet<>()
             );
         }
 
@@ -152,6 +159,22 @@ public class HyforgedActiveEffectsComponent implements Component<EntityStore> {
 
         public void setAccumulatedTime(float accumulatedTime) {
             this.accumulatedTime = accumulatedTime;
+        }
+
+        public boolean hasTriggeredHealthThreshold(int threshold) {
+            return triggeredHealthThresholds != null && triggeredHealthThresholds.contains(threshold);
+        }
+
+        public void markTriggeredHealthThreshold(int threshold) {
+            if (triggeredHealthThresholds == null) {
+                triggeredHealthThresholds = new HashSet<>();
+            }
+            triggeredHealthThresholds.add(threshold);
+        }
+
+        @Nonnull
+        public Set<Integer> getTriggeredHealthThresholds() {
+            return triggeredHealthThresholds != null ? new HashSet<>(triggeredHealthThresholds) : new HashSet<>();
         }
     }
 }

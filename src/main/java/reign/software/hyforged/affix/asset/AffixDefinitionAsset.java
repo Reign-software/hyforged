@@ -97,6 +97,12 @@ public class AffixDefinitionAsset implements JsonAssetWithMap<String, IndexedLoo
                     asset -> asset.displayName
             )
             .add()
+                .append(
+                    new KeyedCodec<>("Description", Codec.STRING),
+                    (asset, value) -> asset.description = value != null ? value : "",
+                    asset -> asset.description
+                )
+                .add()
             .append(
                     new KeyedCodec<>("Weight", Codec.INTEGER),
                     (asset, value) -> asset.weight = value != null ? value : AffixDefinition.DEFAULT_WEIGHT,
@@ -126,6 +132,7 @@ public class AffixDefinitionAsset implements JsonAssetWithMap<String, IndexedLoo
     // Affix definition fields
     private String type = "prefix";
     private String displayName = "";
+    private String description = "";
     private int weight = AffixDefinition.DEFAULT_WEIGHT;
     private AffixTierAsset[] tiers;
     private AffixTriggeredEffectAsset[] triggeredEffects = new AffixTriggeredEffectAsset[0];

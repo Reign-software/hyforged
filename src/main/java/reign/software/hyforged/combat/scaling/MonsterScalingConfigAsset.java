@@ -53,6 +53,18 @@ public class MonsterScalingConfigAsset implements JsonAssetWithMap<String, Index
                     asset -> asset.data
             )
             .append(
+                new KeyedCodec<>("Id", Codec.STRING),
+                (asset, value) -> asset.id = value != null ? value : asset.id,
+                asset -> asset.id
+            )
+            .add()
+            .append(
+                new KeyedCodec<>("$Comment", Codec.STRING),
+                (asset, value) -> asset.comment = value != null ? value : "",
+                asset -> asset.comment
+            )
+            .add()
+            .append(
                     new KeyedCodec<>("AppliesTo", Codec.STRING_ARRAY),
                     (asset, value) -> asset.appliesTo = value != null ? new ArrayList<>(Arrays.asList(value)) : new ArrayList<>(),
                     asset -> asset.appliesTo.toArray(new String[0])
@@ -75,6 +87,7 @@ public class MonsterScalingConfigAsset implements JsonAssetWithMap<String, Index
     // Configuration fields
     private List<String> appliesTo = new ArrayList<>();
     private List<ScaledStatEntry> scaledStats = new ArrayList<>();
+    private String comment = "";
 
     public MonsterScalingConfigAsset() {
     }

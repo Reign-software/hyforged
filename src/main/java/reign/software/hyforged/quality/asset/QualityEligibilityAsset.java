@@ -10,6 +10,7 @@ import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.codec.codecs.array.ArrayCodec;
+import com.hypixel.hytale.common.util.StringUtil;
 import reign.software.hyforged.quality.model.QualityEligibilityRule;
 import reign.software.hyforged.quality.model.QualityModifierOverrides;
 
@@ -105,20 +106,23 @@ public class QualityEligibilityAsset implements JsonAssetWithMap<String, Indexed
     @Nonnull
     @Override
     public String getId() {
-        return id;
+        return id != null ? StringUtil.capitalize(id, '_') : "";
     }
 
     @Nonnull
     public QualityEligibilityRule toRule() {
+        String normalizedWeightProfileId = weightProfileId != null
+                ? StringUtil.capitalize(weightProfileId, '_')
+                : "";
         QualityModifierOverrides overrides = modifierOverrides != null
                 ? modifierOverrides.toOverrides()
                 : QualityModifierOverrides.EMPTY;
 
         return new QualityEligibilityRule(
-                id,
+                getId(),
                 priority,
                 description,
-                weightProfileId,
+                normalizedWeightProfileId,
                 appliesTo.toModel(),
                 excludes.toModel(),
                 sourceFilter.toModel(),

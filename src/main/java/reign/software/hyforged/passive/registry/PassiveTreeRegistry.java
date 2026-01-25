@@ -367,7 +367,7 @@ public final class PassiveTreeRegistry {
         // Index the new node
         nodeIndex.put(node.id(), new NodeReference(treeId, node));
 
-        LOGGER.info("Added node " + node.id() + " to tree " + treeId);
+        LOGGER.fine("Added node " + node.id() + " to tree " + treeId);
     }
 
     /**
@@ -422,7 +422,7 @@ public final class PassiveTreeRegistry {
         // Replace in registry
         replaceTree(existingTree, newTree);
 
-        LOGGER.info("Added connection from " + fromNodeId + " to " + toNodeId + " in tree " + treeId);
+        LOGGER.fine("Added connection from " + fromNodeId + " to " + toNodeId + " in tree " + treeId);
     }
 
     /**

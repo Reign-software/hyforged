@@ -9,6 +9,8 @@ import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.entity.Entity;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import com.hypixel.hytale.server.core.modules.entity.EntityModule;
+import com.hypixel.hytale.common.util.TimeUtil;
+import com.hypixel.hytale.server.core.entity.damage.DamageDataComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
 import com.hypixel.hytale.server.core.modules.time.TimeResource;
@@ -16,6 +18,10 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.asset.type.model.config.Model;
 import com.hypixel.hytale.server.core.asset.type.model.config.ModelAsset;
 import com.hypixel.hytale.server.core.modules.entity.component.ModelComponent;
+import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.InteractionType;
 import reign.software.hyforged.HyforgedPlugin;
@@ -27,13 +33,16 @@ import reign.software.hyforged.affix.model.AffixTrigger;
 import reign.software.hyforged.affix.model.AffixTriggeredEffect;
 import reign.software.hyforged.affix.registry.AffixDefinitionRegistry;
 import reign.software.hyforged.combat.CombatMath;
+import reign.software.hyforged.stats.resource.RageDecayConfig;
 import reign.software.hyforged.quality.component.HyforgedNPCQualityComponent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -137,6 +146,137 @@ public class EffectAffixProcessor {
         }
     }
 
+    public void processOnDeath(
+            @Nonnull Ref<EntityStore> victim,
+            @Nullable Ref<EntityStore> killer,
+            @Nonnull ComponentAccessor<EntityStore> accessor,
+            @Nullable Vector3d position
+    ) {
+        HyforgedActiveEffectsComponent activeEffects = accessor.getComponent(victim, activeEffectsType);
+        if (activeEffects == null || activeEffects.isEmpty()) {
+            return;
+        }
+
+        long nowMs = getNowMillis(accessor);
+        for (Map.Entry<String, HyforgedActiveEffectsComponent.ActiveEffectState> entry : activeEffects.getActiveEffects().entrySet()) {
+            HyforgedActiveEffectsComponent.ActiveEffectState state = entry.getValue();
+            AffixDefinition definition = affixRegistry.get(state.getAffixId());
+            if (definition == null) {
+                continue;
+            }
+            int effectIndex = state.getEffectIndex();
+            if (effectIndex < 0 || effectIndex >= definition.triggeredEffects().size()) {
+                continue;
+            }
+            AffixTriggeredEffect triggeredEffect = definition.triggeredEffects().get(effectIndex);
+            AffixTrigger trigger = triggeredEffect.trigger();
+            if (!"on_death".equalsIgnoreCase(trigger.type())) {
+                continue;
+            }
+            if (killer != null && killer.isValid() && !matchesTargetTags(killer, trigger.targetTags(), accessor)) {
+                continue;
+            }
+            attemptTrigger(activeEffects, entry.getKey(), state, definition, triggeredEffect, victim, killer, accessor, position, nowMs);
+        }
+    }
+
+    public void processOnAllyDeath(
+            @Nonnull Ref<EntityStore> source,
+            @Nonnull Ref<EntityStore> ally,
+            @Nonnull ComponentAccessor<EntityStore> accessor,
+            @Nullable Vector3d position
+    ) {
+        if (!source.isValid() || !ally.isValid() || source.equals(ally)) {
+            return;
+        }
+        HyforgedActiveEffectsComponent activeEffects = accessor.getComponent(source, activeEffectsType);
+        if (activeEffects == null || activeEffects.isEmpty()) {
+            return;
+        }
+
+        long nowMs = getNowMillis(accessor);
+        for (Map.Entry<String, HyforgedActiveEffectsComponent.ActiveEffectState> entry : activeEffects.getActiveEffects().entrySet()) {
+            HyforgedActiveEffectsComponent.ActiveEffectState state = entry.getValue();
+            AffixDefinition definition = affixRegistry.get(state.getAffixId());
+            if (definition == null) {
+                continue;
+            }
+            int effectIndex = state.getEffectIndex();
+            if (effectIndex < 0 || effectIndex >= definition.triggeredEffects().size()) {
+                continue;
+            }
+            AffixTriggeredEffect triggeredEffect = definition.triggeredEffects().get(effectIndex);
+            AffixTrigger trigger = triggeredEffect.trigger();
+            if (!"on_ally_death".equalsIgnoreCase(trigger.type())) {
+                continue;
+            }
+            if (!matchesTargetTags(ally, trigger.targetTags(), accessor)) {
+                continue;
+            }
+            attemptTrigger(activeEffects, entry.getKey(), state, definition, triggeredEffect, source, ally, accessor, position, nowMs);
+        }
+    }
+
+    public void processOnCombatStart(
+            @Nonnull Ref<EntityStore> source,
+            @Nullable Ref<EntityStore> target,
+            @Nonnull ComponentAccessor<EntityStore> accessor,
+            @Nullable Vector3d position,
+            @Nonnull Instant now
+    ) {
+        if (!source.isValid()) {
+            return;
+        }
+
+        DamageDataComponent damageData = accessor.getComponent(source, DamageDataComponent.getComponentType());
+        if (damageData == null || isInCombat(damageData, now)) {
+            return;
+        }
+
+        HyforgedActiveEffectsComponent activeEffects = accessor.getComponent(source, activeEffectsType);
+        if (activeEffects == null || activeEffects.isEmpty()) {
+            return;
+        }
+
+        long nowMs = now.toEpochMilli();
+        for (Map.Entry<String, HyforgedActiveEffectsComponent.ActiveEffectState> entry : activeEffects.getActiveEffects().entrySet()) {
+            HyforgedActiveEffectsComponent.ActiveEffectState state = entry.getValue();
+            AffixDefinition definition = affixRegistry.get(state.getAffixId());
+            if (definition == null) {
+                continue;
+            }
+            int effectIndex = state.getEffectIndex();
+            if (effectIndex < 0 || effectIndex >= definition.triggeredEffects().size()) {
+                continue;
+            }
+            AffixTriggeredEffect triggeredEffect = definition.triggeredEffects().get(effectIndex);
+            AffixTrigger trigger = triggeredEffect.trigger();
+            if (!"on_combat_start".equalsIgnoreCase(trigger.type())) {
+                continue;
+            }
+            attemptTrigger(activeEffects, entry.getKey(), state, definition, triggeredEffect, source, target, accessor, position, nowMs);
+        }
+    }
+
+    public float resolveMaxAllyDeathRadius() {
+        float maxRadius = 0f;
+        for (AffixDefinition definition : affixRegistry.getAll()) {
+            if (definition == null || !definition.hasTriggeredEffects()) {
+                continue;
+            }
+            for (AffixTriggeredEffect effect : definition.triggeredEffects()) {
+                AffixTrigger trigger = effect.trigger();
+                if (trigger == null) {
+                    continue;
+                }
+                if ("on_ally_death".equalsIgnoreCase(trigger.type())) {
+                    maxRadius = Math.max(maxRadius, trigger.radius());
+                }
+            }
+        }
+        return maxRadius;
+    }
+
     public void processOnCast(
             @Nonnull Ref<EntityStore> caster,
             @Nullable Ref<EntityStore> target,
@@ -225,6 +365,28 @@ public class EffectAffixProcessor {
             if (trigger.minDamage() > 0 && damageAmount < trigger.minDamage()) {
                 continue;
             }
+            if (trigger.targetHealthBelow() > 0f) {
+                Ref<EntityStore> healthTarget = target != null ? target : source;
+                float healthPercent = resolveHealthPercentage(healthTarget, accessor);
+                if (healthPercent < 0f) {
+                    continue;
+                }
+                float threshold = normalizePercent(trigger.targetHealthBelow());
+                if (healthPercent > threshold) {
+                    continue;
+                }
+            }
+            if (trigger.hasHealthThresholds()) {
+                float healthPercent = resolveHealthPercentage(source, accessor);
+                if (healthPercent < 0f) {
+                    continue;
+                }
+                Integer threshold = resolveHealthThreshold(trigger, state, healthPercent);
+                if (threshold == null) {
+                    continue;
+                }
+                state.markTriggeredHealthThreshold(threshold);
+            }
 
             attemptTrigger(activeEffects, entry.getKey(), state, definition, triggeredEffect, source, target, accessor, position, nowMs);
         }
@@ -256,6 +418,10 @@ public class EffectAffixProcessor {
         }
 
         if (!dispatchTriggeredEvent(source, definition.id(), trigger.type(), target)) {
+            return false;
+        }
+
+        if (!matchesTriggerRadius(trigger, source, accessor, position)) {
             return false;
         }
 
@@ -521,6 +687,98 @@ public class EffectAffixProcessor {
                 output.add(category + ":" + value);
             }
         }
+    }
+
+    private boolean matchesTriggerRadius(
+            @Nonnull AffixTrigger trigger,
+            @Nonnull Ref<EntityStore> source,
+            @Nonnull ComponentAccessor<EntityStore> accessor,
+            @Nullable Vector3d position
+    ) {
+        float radius = trigger.radius();
+        if (radius <= 0f) {
+            return true;
+        }
+        if (position == null || !source.isValid()) {
+            return false;
+        }
+        TransformComponent transform = accessor.getComponent(source, TransformComponent.getComponentType());
+        if (transform == null) {
+            return false;
+        }
+        Vector3d sourcePos = transform.getPosition();
+        double dx = sourcePos.getX() - position.getX();
+        double dy = sourcePos.getY() - position.getY();
+        double dz = sourcePos.getZ() - position.getZ();
+        double distanceSq = dx * dx + dy * dy + dz * dz;
+        double radiusSq = radius * radius;
+        return distanceSq <= radiusSq;
+    }
+
+    private float resolveHealthPercentage(
+            @Nonnull Ref<EntityStore> ref,
+            @Nonnull ComponentAccessor<EntityStore> accessor
+    ) {
+        if (!ref.isValid()) {
+            return -1f;
+        }
+        EntityStatMap statMap = accessor.getComponent(ref, EntityStatMap.getComponentType());
+        if (statMap == null) {
+            return -1f;
+        }
+        int healthIndex = DefaultEntityStatTypes.getHealth();
+        if (healthIndex == Integer.MIN_VALUE) {
+            return -1f;
+        }
+        EntityStatValue value = statMap.get(healthIndex);
+        if (value == null) {
+            return -1f;
+        }
+        return value.asPercentage();
+    }
+
+    private float normalizePercent(float value) {
+        if (value <= 0f) {
+            return 0f;
+        }
+        if (value > 1f) {
+            return value / 100f;
+        }
+        return value;
+    }
+
+    @Nullable
+    private Integer resolveHealthThreshold(
+            @Nonnull AffixTrigger trigger,
+            @Nonnull HyforgedActiveEffectsComponent.ActiveEffectState state,
+            float healthPercent
+    ) {
+        Integer candidate = null;
+        for (Integer threshold : trigger.healthThresholds()) {
+            if (threshold == null) {
+                continue;
+            }
+            if (state.hasTriggeredHealthThreshold(threshold)) {
+                continue;
+            }
+            float normalized = normalizePercent(threshold);
+            if (healthPercent <= normalized) {
+                if (candidate == null || threshold < candidate) {
+                    candidate = threshold;
+                }
+            }
+        }
+        return candidate;
+    }
+
+    private boolean isInCombat(@Nonnull DamageDataComponent damageData, @Nonnull Instant now) {
+        RageDecayConfig config = RageDecayConfig.get();
+        float delaySeconds = config.getOutOfCombatDelaySeconds();
+        if (delaySeconds <= 0f) {
+            return true;
+        }
+        Duration delay = Duration.ofMillis(Math.round(delaySeconds * 1000f));
+        return TimeUtil.compareDifference(damageData.getLastCombatAction(), now, delay) < 0;
     }
 
     private long getNowMillis(@Nonnull ComponentAccessor<EntityStore> accessor) {

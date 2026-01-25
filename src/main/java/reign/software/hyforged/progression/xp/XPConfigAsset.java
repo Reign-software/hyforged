@@ -29,6 +29,24 @@ public class XPConfigAsset implements JsonAssetWithMap<String, IndexedLookupTabl
                     (asset, data) -> asset.data = data,
                     asset -> asset.data
             )
+            .append(
+                    new KeyedCodec<>("Id", Codec.STRING),
+                    (asset, value) -> asset.id = value != null ? value : asset.id,
+                    asset -> asset.id
+            )
+            .add()
+            .append(
+                    new KeyedCodec<>("$schema", Codec.STRING),
+                    (asset, value) -> asset.schema = value != null ? value : "",
+                    asset -> asset.schema
+            )
+            .add()
+            .append(
+                    new KeyedCodec<>("Comment", Codec.STRING),
+                    (asset, value) -> asset.comment = value != null ? value : "",
+                    asset -> asset.comment
+            )
+            .add()
             // Combat settings
             .appendInherited(
                     new KeyedCodec<>("CombatBaseXp", Codec.LONG),
@@ -109,6 +127,8 @@ public class XPConfigAsset implements JsonAssetWithMap<String, IndexedLookupTabl
     // Asset metadata
     private String id;
     private AssetExtraInfo.Data data;
+        private String schema = "";
+        private String comment = "";
     
     // Configuration fields
     private long combatBaseXp = 10;

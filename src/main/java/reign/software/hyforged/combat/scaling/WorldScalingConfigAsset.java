@@ -49,6 +49,12 @@ public class WorldScalingConfigAsset implements JsonAssetWithMap<String, Indexed
                     asset -> asset.data
             )
             .append(
+                new KeyedCodec<>("Id", Codec.STRING),
+                (asset, value) -> asset.id = value != null ? value : asset.id,
+                asset -> asset.id
+            )
+            .add()
+            .append(
                     new KeyedCodec<>("Curve", CURVE_CODEC),
                     (asset, value) -> asset.curve = value != null ? value : WorldScalingConfig.ScalingCurve.LINEAR,
                     asset -> asset.curve

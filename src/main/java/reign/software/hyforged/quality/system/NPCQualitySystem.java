@@ -106,7 +106,7 @@ public class NPCQualitySystem extends RefSystem<EntityStore> {
             return;
         }
 
-        NPCQualityRule rule = NPCQualityRegistry.get().getDefaultRule();
+        NPCQualityRule rule = NPCQualityRegistry.get().resolveRuleForRole(npcEntity.getRoleName());
         if (rule == null) {
             LOGGER.log(Level.FINE, "No NPC quality rule available; skipping quality assignment");
             return;

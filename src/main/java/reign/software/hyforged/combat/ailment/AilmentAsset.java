@@ -48,6 +48,12 @@ public class AilmentAsset implements JsonAssetWithMap<String, IndexedLookupTable
                     asset -> asset.data
             )
             .append(
+                new KeyedCodec<>("Id", Codec.STRING),
+                (asset, value) -> asset.id = value != null ? value : asset.id,
+                asset -> asset.id
+            )
+            .add()
+            .append(
                     new KeyedCodec<>("ElementTag", Codec.STRING),
                     (asset, value) -> asset.elementTag = value,
                     asset -> asset.elementTag

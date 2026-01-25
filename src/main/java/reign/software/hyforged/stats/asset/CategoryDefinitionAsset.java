@@ -42,6 +42,12 @@ public class CategoryDefinitionAsset implements JsonAssetWithMap<String, Indexed
                     (asset, data) -> asset.data = data,
                     asset -> asset.data
             )
+            .append(
+                new KeyedCodec<>("Id", Codec.STRING),
+                (asset, value) -> asset.id = value != null ? value : asset.id,
+                asset -> asset.id
+            )
+            .add()
             .appendInherited(
                     new KeyedCodec<>("DisplayName", Codec.STRING),
                     (asset, value) -> asset.displayName = value,

@@ -18,7 +18,10 @@ public record AffixTrigger(
         int minDamage,
         float intervalSeconds,
         boolean requireCombat,
-        @Nonnull List<String> interactionTypes
+    @Nonnull List<String> interactionTypes,
+    float radius,
+    float targetHealthBelow,
+    @Nonnull List<Integer> healthThresholds
 ) {
 
     public static final int DEFAULT_CHANCE_BPS = 10000;
@@ -37,10 +40,17 @@ public record AffixTrigger(
         if (intervalSeconds < 0) {
             throw new IllegalArgumentException("intervalSeconds cannot be negative: " + intervalSeconds);
         }
+        if (radius < 0) {
+            throw new IllegalArgumentException("radius cannot be negative: " + radius);
+        }
+        if (targetHealthBelow < 0) {
+            throw new IllegalArgumentException("targetHealthBelow cannot be negative: " + targetHealthBelow);
+        }
 
         damageCauses = damageCauses != null ? List.copyOf(damageCauses) : Collections.emptyList();
         targetTags = targetTags != null ? List.copyOf(targetTags) : Collections.emptyList();
         interactionTypes = interactionTypes != null ? List.copyOf(interactionTypes) : Collections.emptyList();
+        healthThresholds = healthThresholds != null ? List.copyOf(healthThresholds) : Collections.emptyList();
     }
 
     public boolean hasDamageCauseFilter() {
@@ -53,5 +63,9 @@ public record AffixTrigger(
 
     public boolean hasInteractionTypes() {
         return !interactionTypes.isEmpty();
+    }
+
+    public boolean hasHealthThresholds() {
+        return !healthThresholds.isEmpty();
     }
 }

@@ -132,6 +132,9 @@ public class HyforgedPlugin extends JavaPlugin {
     @Override
     protected void setup() {
         getLogger().at(Level.INFO).log("Initializing Hyforged Stats System...");
+
+        // Preload core registry/model classes to avoid late classloading failures
+        preloadRuntimeTypes();
         
         // Register Hyforged modifier type with Hytale's codec system
         registerModifierTypes();
@@ -160,6 +163,43 @@ public class HyforgedPlugin extends JavaPlugin {
         
         // Note: Actual stat count is logged by StatAssetLoader when assets are loaded asynchronously
         getLogger().at(Level.INFO).log("Hyforged setup complete - asset loading will continue asynchronously");
+    }
+
+    /**
+     * Preload core classes used by asset loaders and registries.
+     * <p>
+     * This forces class resolution early so runtime classloading issues are surfaced
+     * immediately (and avoids late NoClassDefFoundError during asset events).
+     */
+    private void preloadRuntimeTypes() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        String[] classNames = new String[] {
+                "reign.software.hyforged.stats.npc.NPCStatTemplateRegistry",
+                "reign.software.hyforged.stats.damage.DamageTypeExtensionRegistry",
+                "reign.software.hyforged.quality.model.QualityModifierOverrides",
+                "reign.software.hyforged.quality.model.QualityWeightProfile",
+                "reign.software.hyforged.quality.registry.NPCQualityRegistry",
+                "reign.software.hyforged.stats.asset.ClassDefinitionRegistry",
+                "reign.software.hyforged.stats.CategoryDefinition$Builder",
+                "reign.software.hyforged.stats.StatDefinition$Builder",
+                "reign.software.hyforged.stats.resource.RageDecayConfig",
+                "reign.software.hyforged.progression.xp.XPConfig",
+                "reign.software.hyforged.progression.asset.XPCurveRegistry"
+        };
+
+        boolean failed = false;
+        for (String className : classNames) {
+            try {
+                Class.forName(className, true, classLoader);
+            } catch (ClassNotFoundException e) {
+                failed = true;
+                getLogger().at(Level.SEVERE).log("Missing runtime class: " + className, e);
+            }
+        }
+
+        if (failed) {
+            throw new IllegalStateException("Hyforged runtime class preload failed. See logs for missing classes.");
+        }
     }
     
     /**

@@ -1,7 +1,7 @@
 {
     "$schema": "../../../.schema/xp-config.schema.json",
     "Id": "hyforged:xp_config",
-    "comment": "XP Configuration for Hyforged Progression System",
+    "Comment": "XP Configuration for Hyforged Progression System",
     
     "CombatBaseXp": 10,
     

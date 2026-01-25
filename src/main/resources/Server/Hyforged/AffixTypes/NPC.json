@@ -1,5 +1,5 @@
 {
-  "id": "npc",
+  "Id": "npc",
   "DisplayNamePosition": "before",
   "DisplayFormat": "{name}",
   "Stackable": true

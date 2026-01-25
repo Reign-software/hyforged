@@ -58,6 +58,9 @@ public final class PassiveTreeAssetLoader {
     /** Registered node templates by ID */
     private static final Map<String, NodeTemplateAsset> nodeTemplates = new ConcurrentHashMap<>();
 
+    /** Track placeholder templates created for missing IDs */
+    private static final Set<String> placeholderTemplateIds = ConcurrentHashMap.newKeySet();
+
     /** Pending layouts waiting for trees to be registered */
     private static final List<TreeLayoutAsset> pendingLayouts = Collections.synchronizedList(new ArrayList<>());
 
@@ -205,21 +208,31 @@ public final class PassiveTreeAssetLoader {
         LOGGER.info("Loading passive refund configuration...");
 
         PassiveTreeRegistry registry = PassiveTreeRegistry.get();
-        int loaded = 0;
+        PassiveRefundConfigAsset selected = null;
 
         for (PassiveRefundConfigAsset asset : event.getLoadedAssets().values()) {
             try {
-                registry.setRefundConfig(asset);
-                loaded++;
-                LOGGER.fine("Loaded refund config: " + asset.getId() +
-                        " (BaseCost=" + asset.getBaseCost() +
-                        ", LevelMult=" + asset.getLevelMultiplier() + ")");
+                if (selected == null || "hyforged:passive-refund-config".equals(asset.getId())) {
+                    selected = asset;
+                }
             } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Failed to load refund config: " + asset.getId(), e);
+                LOGGER.log(Level.SEVERE, "Failed to evaluate refund config: " + asset.getId(), e);
             }
         }
 
-        LOGGER.info("Loaded " + loaded + " passive refund configuration(s)");
+        if (selected != null) {
+            try {
+                registry.setRefundConfig(selected);
+                LOGGER.fine("Loaded refund config: " + selected.getId() +
+                        " (BaseCost=" + selected.getBaseCost() +
+                        ", LevelMult=" + selected.getLevelMultiplier() + ")");
+                LOGGER.info("Loaded refund config: " + selected.getId());
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "Failed to load refund config: " + selected.getId(), e);
+            }
+        } else {
+            LOGGER.warning("No refund config assets found in Hyforged/Config");
+        }
     }
 
     /**
@@ -415,8 +428,13 @@ public final class PassiveTreeAssetLoader {
             NodeTemplateAsset template = nodeTemplates.get(templateId);
 
             if (template == null) {
-                LOGGER.warning("Layout references unknown node template: " + templateId);
-                continue;
+                NodeTemplateAsset placeholder = NodeTemplateAsset.createPlaceholder(templateId);
+                NodeTemplateAsset existing = nodeTemplates.putIfAbsent(templateId, placeholder);
+                template = existing != null ? existing : placeholder;
+
+                if (existing == null) {
+                    placeholderTemplateIds.add(templateId);
+                }
             }
 
             String effectiveId = placement.getEffectiveId();

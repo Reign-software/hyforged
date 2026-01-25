@@ -2,45 +2,45 @@
 // This layout is rendered client-side and populated by CharacterStatsPage.java
 
 Panel #CharacterStatsPage {
-    Style: (Alignment: Center; Padding: 20);
+    Style: (Alignment: Center, Padding: 20);
     
     // Header
     Panel #Header {
         Label #Title {
             Text: %hyforged.ui.characterStats.title;
-            Style: (FontSize: 24; FontWeight: Bold; Alignment: Center);
+            Style: (FontSize: 24, FontWeight: Bold, Alignment: Center);
         }
     }
     
     // Main Content
     Panel #Content {
-        Style: (Layout: Horizontal; Gap: 20);
+        Style: (Layout: Horizontal, Gap: 20);
         
         // Left Column: Stats
         Panel #StatsColumn {
-            Style: (Width: 400; Layout: Vertical; Gap: 10);
+            Style: (Width: 400, Layout: Vertical, Gap: 10);
             
             // Stat Categories Container
             Panel #StatCategories {
-                Style: (Layout: Vertical; Gap: 15);
+                Style: (Layout: Vertical, Gap: 15);
                 
                 // Category Template (repeated per category)
                 Panel #CategoryTemplate {
                     Label #CategoryName {
-                        Style: (FontSize: 16; FontWeight: Bold; Color: #FFD700);
+                        Style: (FontSize: 16, FontWeight: Bold, Color: #FFD700);
                     }
                     
                     // Stat Rows Container
                     Panel #StatRows {
-                        Style: (Layout: Vertical; Gap: 5);
+                        Style: (Layout: Vertical, Gap: 5);
                         
                         // Stat Row Template
                         Panel #StatRowTemplate {
-                            Style: (Layout: Horizontal; Gap: 10);
+                            Style: (Layout: Horizontal, Gap: 10);
                             Label #StatName { Style: (Width: 150); }
-                            Label #BaseValue { Style: (Width: 60; Alignment: Right); }
-                            Label #ModifierValue { Style: (Width: 60; Alignment: Right; Color: #4CAF50); }
-                            Label #EffectiveValue { Style: (Width: 60; Alignment: Right; FontWeight: Bold); }
+                            Label #BaseValue { Style: (Width: 60, Alignment: Right); }
+                            Label #ModifierValue { Style: (Width: 60, Alignment: Right, Color: #4CAF50); }
+                            Label #EffectiveValue { Style: (Width: 60, Alignment: Right, FontWeight: Bold); }
                             Label #BreakdownTooltip { Style: (Visible: false); }
                         }
                     }
@@ -50,32 +50,32 @@ Panel #CharacterStatsPage {
         
         // Right Column: Equipment
         Panel #EquipmentColumn {
-            Style: (Width: 300; Layout: Vertical; Gap: 10);
+            Style: (Width: 300, Layout: Vertical, Gap: 10);
             
             Label #EquipmentTitle {
                 Text: %hyforged.ui.characterStats.equipment;
-                Style: (FontSize: 16; FontWeight: Bold);
+                Style: (FontSize: 16, FontWeight: Bold);
             }
             
             // Armor Slots
             Panel #ArmorSlots {
-                Style: (Layout: Vertical; Gap: 5);
+                Style: (Layout: Vertical, Gap: 5);
                 
                 Panel #ArmorSlotTemplate {
-                    Style: (Layout: Vertical; Gap: 2);
+                    Style: (Layout: Vertical, Gap: 2);
                     Label #SlotLabel { Style: (FontWeight: Bold); }
-                    Label #AffixSummary { Style: (FontSize: 12; Color: #888888); }
+                    Label #AffixSummary { Style: (FontSize: 12, Color: #888888); }
                 }
             }
             
             // Hand Slots
             Panel #HandSlots {
-                Style: (Layout: Vertical; Gap: 5);
+                Style: (Layout: Vertical, Gap: 5);
                 
                 Panel #HandSlotTemplate {
-                    Style: (Layout: Vertical; Gap: 2);
+                    Style: (Layout: Vertical, Gap: 2);
                     Label #SlotLabel { Style: (FontWeight: Bold); }
-                    Label #AffixSummary { Style: (FontSize: 12; Color: #888888); }
+                    Label #AffixSummary { Style: (FontSize: 12, Color: #888888); }
                 }
             }
         }
@@ -83,7 +83,7 @@ Panel #CharacterStatsPage {
     
     // Footer Buttons
     Panel #Footer {
-        Style: (Layout: Horizontal; Gap: 10; Alignment: Center; Margin: (Top: 20));
+        Style: (Layout: Horizontal, Gap: 10, Alignment: Center, Margin: (Top: 20));
         
         Button #RefreshButton {
             Text: %hyforged.ui.characterStats.refresh;

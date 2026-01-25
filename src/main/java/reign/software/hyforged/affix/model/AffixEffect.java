@@ -3,6 +3,8 @@ package reign.software.hyforged.affix.model;
 import com.hypixel.hytale.math.vector.Vector3d;
 
 import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -33,7 +35,12 @@ public record AffixEffect(
         @Nonnull String statId,
         int amount,
         @Nonnull String stackType,
-        float statDurationSeconds
+    float statDurationSeconds,
+    @Nonnull Map<String, Integer> statModifiers,
+    float damageScaling,
+    @Nonnull String applyEffectId,
+    float applyEffectDurationSeconds,
+    float spawnRadius
 ) {
 
     public AffixEffect {
@@ -53,6 +60,8 @@ public record AffixEffect(
         interactionType = interactionType != null ? interactionType : "";
         statId = statId != null ? statId : "";
         stackType = stackType != null ? stackType : "";
+        statModifiers = statModifiers != null ? Map.copyOf(statModifiers) : Collections.emptyMap();
+        applyEffectId = applyEffectId != null ? applyEffectId : "";
 
         if (count <= 0) {
             count = 1;
@@ -77,6 +86,15 @@ public record AffixEffect(
         }
         if (statDurationSeconds < 0) {
             statDurationSeconds = 0;
+        }
+        if (damageScaling < 0) {
+            damageScaling = 0;
+        }
+        if (applyEffectDurationSeconds < 0) {
+            applyEffectDurationSeconds = 0;
+        }
+        if (spawnRadius < 0) {
+            spawnRadius = 0;
         }
     }
 }

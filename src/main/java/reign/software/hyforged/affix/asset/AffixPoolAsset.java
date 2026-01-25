@@ -9,13 +9,16 @@ import com.hypixel.hytale.assetstore.map.JsonAssetWithMap;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
+import com.hypixel.hytale.codec.codecs.map.MapCodec;
 import reign.software.hyforged.affix.model.AffixPool;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -62,6 +65,9 @@ public class AffixPoolAsset implements JsonAssetWithMap<String, IndexedLookupTab
             .add()
             .build();
 
+    private static final MapCodec<String[], Map<String, String[]>> AFFIXES_CODEC =
+            new MapCodec<>(Codec.STRING_ARRAY, HashMap::new);
+
     /**
      * Codec for loading AffixPoolAsset from JSON.
      */
@@ -75,6 +81,12 @@ public class AffixPoolAsset implements JsonAssetWithMap<String, IndexedLookupTab
                     (asset, data) -> asset.data = data,
                     asset -> asset.data
             )
+                .append(
+                    new KeyedCodec<>("Description", Codec.STRING),
+                    (asset, value) -> asset.description = value != null ? value : "",
+                    asset -> asset.description
+                )
+                .add()
             .append(
                     new KeyedCodec<>("Priority", Codec.INTEGER),
                     (asset, value) -> asset.priority = value != null ? value : AffixPool.DEFAULT_PRIORITY,
@@ -104,6 +116,12 @@ public class AffixPoolAsset implements JsonAssetWithMap<String, IndexedLookupTab
                     (asset, value) -> asset.forged = value,
                     asset -> asset.forged
             )
+                .add()
+                .append(
+                    new KeyedCodec<>("Affixes", AFFIXES_CODEC),
+                    (asset, value) -> asset.affixes = value != null ? value : new HashMap<>(),
+                    asset -> asset.affixes
+                )
             .add()
             .build();
 
@@ -115,10 +133,12 @@ public class AffixPoolAsset implements JsonAssetWithMap<String, IndexedLookupTab
 
     // Pool fields
     private int priority = AffixPool.DEFAULT_PRIORITY;
+    private String description = "";
     private AppliesToAsset appliesTo;
     private String[] prefixes;
     private String[] suffixes;
     private String[] forged;
+    private Map<String, String[]> affixes = new HashMap<>();
 
     public AffixPoolAsset() {
     }

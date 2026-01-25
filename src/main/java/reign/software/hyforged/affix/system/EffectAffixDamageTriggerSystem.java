@@ -15,6 +15,7 @@ import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
+import com.hypixel.hytale.server.core.modules.time.TimeResource;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.affix.service.EffectAffixProcessor;
@@ -23,6 +24,7 @@ import reign.software.hyforged.combat.HyforgedHitResolutionSystem;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.time.Instant;
 import java.util.Set;
 
 /**
@@ -43,6 +45,7 @@ public class EffectAffixDamageTriggerSystem extends DamageEventSystem {
         this.processor = new EffectAffixProcessor(HyforgedPlugin.getInstance().getActiveEffectsComponentType());
         this.dependencies = Set.of(
                 new SystemDependency<>(Order.AFTER, DamageSystems.ApplyDamage.class),
+            new SystemDependency<>(Order.BEFORE, DamageSystems.RecordLastCombat.class),
                 new SystemDependency<>(Order.BEFORE, DamageSystems.EntityUIEvents.class)
         );
     }
@@ -89,6 +92,14 @@ public class EffectAffixDamageTriggerSystem extends DamageEventSystem {
         }
 
         Vector3d position = resolveHitPosition(damage);
+        Instant now = resolveNow(store);
+
+        if (attacker != null && attacker.isValid()) {
+            processor.processOnCombatStart(attacker, victim, commandBuffer, position, now);
+        }
+        if (victim.isValid()) {
+            processor.processOnCombatStart(victim, attacker, commandBuffer, position, now);
+        }
 
         if (attacker != null && attacker.isValid()) {
             processor.processOnHit(attacker, victim, damage, commandBuffer, position);
@@ -117,5 +128,11 @@ public class EffectAffixDamageTriggerSystem extends DamageEventSystem {
             return null;
         }
         return new Vector3d(hit.x, hit.y, hit.z);
+    }
+
+    @Nonnull
+    private Instant resolveNow(@Nonnull Store<EntityStore> store) {
+        TimeResource time = store.getResource(TimeResource.getResourceType());
+        return time != null ? time.getNow() : Instant.now();
     }
 }

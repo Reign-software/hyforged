@@ -13,7 +13,6 @@ import reign.software.hyforged.affix.model.AffixDefinition;
 import reign.software.hyforged.affix.model.AffixTriggeredEffect;
 import reign.software.hyforged.affix.model.RolledAffix;
 import reign.software.hyforged.affix.registry.AffixDefinitionRegistry;
-import reign.software.hyforged.affix.service.HyforgedItemDataService;
 import reign.software.hyforged.quality.component.HyforgedNPCQualityComponent;
 
 import javax.annotation.Nonnull;
@@ -142,6 +141,9 @@ public final class ActiveEffectInitializer {
                     HyforgedActiveEffectsComponent.ActiveEffectState previousState = previousStates.get(key);
                     long lastTriggered = previousState != null ? previousState.getLastTriggeredMs() : 0L;
                     float accumulated = previousState != null ? previousState.getAccumulatedTime() : 0f;
+                        java.util.Set<Integer> thresholds = previousState != null
+                            ? previousState.getTriggeredHealthThresholds()
+                            : java.util.Set.of();
 
                     HyforgedActiveEffectsComponent.ActiveEffectState state =
                             new HyforgedActiveEffectsComponent.ActiveEffectState(
@@ -151,7 +153,8 @@ public final class ActiveEffectInitializer {
                                     source.sourceId,
                                     lastTriggered,
                                     1,
-                                    accumulated
+                                        accumulated,
+                                        thresholds
                             );
                     nextStates.put(key, state);
                 }

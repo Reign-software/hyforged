@@ -44,6 +44,12 @@ public class AffixTypeAsset implements JsonAssetWithMap<String, IndexedLookupTab
                     asset -> asset.data
             )
             .append(
+                new KeyedCodec<>("Id", Codec.STRING),
+                (asset, value) -> asset.id = value != null ? value : asset.id,
+                asset -> asset.id
+            )
+            .add()
+            .append(
                     new KeyedCodec<>("DisplayNamePosition", Codec.STRING),
                     (asset, value) -> asset.displayNamePosition = value != null ? value : "none",
                     asset -> asset.displayNamePosition

@@ -1,5 +1,5 @@
 {
-  "id": "forged",
+  "Id": "forged",
   "DisplayNamePosition": "none",
   "DisplayFormat": "{name} (T{tier})",
   "Stackable": false

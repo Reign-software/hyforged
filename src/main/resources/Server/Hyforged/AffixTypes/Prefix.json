@@ -1,5 +1,5 @@
 {
-  "id": "prefix",
+  "Id": "prefix",
   "DisplayNamePosition": "before",
   "DisplayFormat": "{name} (T{tier})",
   "Stackable": true

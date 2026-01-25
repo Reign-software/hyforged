@@ -10,6 +10,7 @@ import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.codecs.array.ArrayCodec;
 import com.hypixel.hytale.codec.codecs.map.MapCodec;
+import com.hypixel.hytale.common.util.StringUtil;
 import reign.software.hyforged.quality.model.QualityWeightProfile;
 
 import javax.annotation.Nonnull;
@@ -77,11 +78,11 @@ public class QualityWeightProfileAsset implements JsonAssetWithMap<String, Index
     @Nonnull
     @Override
     public String getId() {
-        return id;
+        return id != null ? StringUtil.capitalize(id, '_') : "";
     }
 
     @Nonnull
     public QualityWeightProfile toProfile() {
-        return new QualityWeightProfile(id, description, weights, java.util.List.of(eligibleQualities));
+        return new QualityWeightProfile(getId(), description, weights, java.util.List.of(eligibleQualities));
     }
 }

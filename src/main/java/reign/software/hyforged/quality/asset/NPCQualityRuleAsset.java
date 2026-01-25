@@ -12,6 +12,7 @@ import com.hypixel.hytale.codec.codecs.map.MapCodec;
 import reign.software.hyforged.quality.model.NPCQualityRule;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +27,9 @@ public class NPCQualityRuleAsset implements JsonAssetWithMap<String, IndexedLook
     private static final MapCodec<Double, Map<String, Double>> DOUBLE_MAP_CODEC =
             new MapCodec<>(Codec.DOUBLE, HashMap::new);
 
+        private static final MapCodec<Map<String, Integer>, Map<String, Map<String, Integer>>> AFFIX_SLOTS_CODEC =
+            new MapCodec<>(INT_MAP_CODEC, HashMap::new);
+
     public static final AssetBuilderCodec<String, NPCQualityRuleAsset> CODEC = AssetBuilderCodec
             .builder(
                     NPCQualityRuleAsset.class,
@@ -38,11 +42,15 @@ public class NPCQualityRuleAsset implements JsonAssetWithMap<String, IndexedLook
             )
             .append(new KeyedCodec<>("Description", Codec.STRING), (asset, value) -> asset.description = value != null ? value : "", asset -> asset.description)
             .add()
+            .append(new KeyedCodec<>("AppliesTo", Codec.STRING_ARRAY), (asset, value) -> asset.appliesTo = value != null ? value : new String[0], asset -> asset.appliesTo)
+            .add()
             .append(new KeyedCodec<>("Weights", INT_MAP_CODEC), (asset, value) -> asset.weights = value != null ? value : new HashMap<>(), asset -> asset.weights)
             .add()
             .append(new KeyedCodec<>("StatMultipliers", DOUBLE_MAP_CODEC), (asset, value) -> asset.statMultipliers = value != null ? value : new HashMap<>(), asset -> asset.statMultipliers)
             .add()
             .append(new KeyedCodec<>("LootQualityBonus", INT_MAP_CODEC), (asset, value) -> asset.lootQualityBonus = value != null ? value : new HashMap<>(), asset -> asset.lootQualityBonus)
+            .add()
+            .append(new KeyedCodec<>("AffixSlots", AFFIX_SLOTS_CODEC), (asset, value) -> asset.affixSlots = value != null ? value : new HashMap<>(), asset -> asset.affixSlots)
             .add()
             .build();
 
@@ -51,9 +59,11 @@ public class NPCQualityRuleAsset implements JsonAssetWithMap<String, IndexedLook
     private String id;
     private AssetExtraInfo.Data data;
     private String description = "";
+    private String[] appliesTo = new String[0];
     private Map<String, Integer> weights = new HashMap<>();
     private Map<String, Double> statMultipliers = new HashMap<>();
     private Map<String, Integer> lootQualityBonus = new HashMap<>();
+    private Map<String, Map<String, Integer>> affixSlots = new HashMap<>();
 
     public NPCQualityRuleAsset() {}
 
@@ -73,6 +83,14 @@ public class NPCQualityRuleAsset implements JsonAssetWithMap<String, IndexedLook
 
     @Nonnull
     public NPCQualityRule toRule() {
-        return new NPCQualityRule(id, description, weights, statMultipliers, lootQualityBonus);
+        return new NPCQualityRule(
+                id,
+                description,
+                appliesTo != null ? Arrays.asList(appliesTo) : java.util.List.of(),
+                weights,
+                statMultipliers,
+                lootQualityBonus,
+                affixSlots
+        );
     }
 }

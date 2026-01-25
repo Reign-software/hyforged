@@ -44,6 +44,12 @@ public class XPCurveAsset implements JsonAssetWithMap<String, IndexedLookupTable
                     (asset, data) -> asset.data = data,
                     asset -> asset.data
             )
+            .append(
+                new KeyedCodec<>("Id", Codec.STRING),
+                (asset, value) -> asset.id = value != null ? value : asset.id,
+                asset -> asset.id
+            )
+            .add()
             .appendInherited(
                     new KeyedCodec<>("Type", Codec.STRING),
                     (asset, value) -> asset.type = value != null ? value : "character",

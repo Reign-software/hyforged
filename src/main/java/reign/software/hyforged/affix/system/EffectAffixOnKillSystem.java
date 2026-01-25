@@ -10,11 +10,13 @@ import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathSystems;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.util.TargetUtil;
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.affix.service.EffectAffixProcessor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * Triggers affix effects when an entity kills another entity.
@@ -57,6 +59,18 @@ public class EffectAffixOnKillSystem extends DeathSystems.OnDeathSystem {
         }
         Vector3d position = resolveHitPosition(deathInfo);
         processor.processOnKill(killer, ref, deathInfo, commandBuffer, position);
+        processor.processOnDeath(ref, killer, commandBuffer, position);
+
+        float maxRadius = processor.resolveMaxAllyDeathRadius();
+        if (maxRadius > 0f && position != null) {
+            List<Ref<EntityStore>> nearby = TargetUtil.getAllEntitiesInSphere(position, maxRadius, commandBuffer);
+            for (Ref<EntityStore> candidate : nearby) {
+                if (candidate == null || !candidate.isValid()) {
+                    continue;
+                }
+                processor.processOnAllyDeath(candidate, ref, commandBuffer, position);
+            }
+        }
     }
 
     @Nullable

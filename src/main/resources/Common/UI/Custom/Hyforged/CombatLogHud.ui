@@ -1,137 +1,34 @@
-// Hyforged Combat Log HUD - WoW-style scrolling combat log
-// Positioned in bottom-right corner, shows last 12 combat events
+// Hyforged Combat Log HUD - minimal layout using Custom UI markup
 
-Panel #CombatLogHud {
-    Style: (
-        Alignment: BottomRight;
-        Width: 320;
-        Height: 200;
-        Margin: 10;
-        Background: #1A1A1AE0;
-        BorderColor: #3A3A3A;
-        BorderWidth: 1;
-        CornerRadius: 4;
-        Layout: Vertical;
-        Gap: 0;
-    );
+Group #CombatLogHud {
+    LayoutMode: Top;
 
-    // Header bar
-    Panel #CombatLogHeader {
-        Style: (
-            Width: 100%;
-            Height: 24;
-            Background: #2A2A2ACC;
-            Layout: Horizontal;
-            Padding: 6;
-            Gap: 8;
-        );
-
-        Label #CombatLogTitle {
-            Text: Combat Log;
-            Style: (
-                FontSize: 12;
-                FontWeight: Bold;
-                Color: #FFD700;
-                FlexGrow: 1;
-            );
-        }
-
-        Label #CombatLogToggle {
-            Text: [x];
-            Style: (
-                FontSize: 10;
-                Color: #888888;
-            );
-        }
+    Group #CombatLogHeader {
+        LayoutMode: Top;
+        Label #CombatLogTitle { Text: "Combat Log"; }
+        Label #CombatLogToggle { Text: "[x]"; }
     }
 
-    // Event list container (scrollable area)
-    Panel #CombatLogList {
-        Style: (
-            Width: 100%;
-            FlexGrow: 1;
-            Layout: Vertical;
-            Gap: 1;
-            Padding: 4;
-            Overflow: Hidden;
-        );
-
-        // Placeholder entries - will be dynamically populated
-        // Entry 0 (most recent at bottom)
-        Label #LogEntry0 {
-            Text: ;
-            Style: (FontSize: 10; Color: #AAAAAA; Width: 100%;);
-        }
-        Label #LogEntry1 {
-            Text: ;
-            Style: (FontSize: 10; Color: #AAAAAA; Width: 100%;);
-        }
-        Label #LogEntry2 {
-            Text: ;
-            Style: (FontSize: 10; Color: #AAAAAA; Width: 100%;);
-        }
-        Label #LogEntry3 {
-            Text: ;
-            Style: (FontSize: 10; Color: #AAAAAA; Width: 100%;);
-        }
-        Label #LogEntry4 {
-            Text: ;
-            Style: (FontSize: 10; Color: #AAAAAA; Width: 100%;);
-        }
-        Label #LogEntry5 {
-            Text: ;
-            Style: (FontSize: 10; Color: #AAAAAA; Width: 100%;);
-        }
-        Label #LogEntry6 {
-            Text: ;
-            Style: (FontSize: 10; Color: #AAAAAA; Width: 100%;);
-        }
-        Label #LogEntry7 {
-            Text: ;
-            Style: (FontSize: 10; Color: #AAAAAA; Width: 100%;);
-        }
-        Label #LogEntry8 {
-            Text: ;
-            Style: (FontSize: 10; Color: #AAAAAA; Width: 100%;);
-        }
-        Label #LogEntry9 {
-            Text: ;
-            Style: (FontSize: 10; Color: #AAAAAA; Width: 100%;);
-        }
-        Label #LogEntry10 {
-            Text: ;
-            Style: (FontSize: 10; Color: #AAAAAA; Width: 100%;);
-        }
-        Label #LogEntry11 {
-            Text: ;
-            Style: (FontSize: 10; Color: #AAAAAA; Width: 100%;);
-        }
+    Group #CombatLogList {
+        LayoutMode: Top;
+        Label #LogEntry0 { Text: ""; }
+        Label #LogEntry1 { Text: ""; }
+        Label #LogEntry2 { Text: ""; }
+        Label #LogEntry3 { Text: ""; }
+        Label #LogEntry4 { Text: ""; }
+        Label #LogEntry5 { Text: ""; }
+        Label #LogEntry6 { Text: ""; }
+        Label #LogEntry7 { Text: ""; }
+        Label #LogEntry8 { Text: ""; }
+        Label #LogEntry9 { Text: ""; }
+        Label #LogEntry10 { Text: ""; }
+        Label #LogEntry11 { Text: ""; }
     }
 
-    // Footer with summary stats
-    Panel #CombatLogFooter {
-        Style: (
-            Width: 100%;
-            Height: 20;
-            Background: #2A2A2ACC;
-            Layout: Horizontal;
-            Padding: 4;
-            Gap: 12;
-        );
-
-        Label #DpsLabel {
-            Text: DPS: ----;
-            Style: (FontSize: 9; Color: #88CC88;);
-        }
-
-        Label #HitsLabel {
-            Text: Hits: 0;
-            Style: (FontSize: 9; Color: #AAAAAA;);
-        }
-
-        Label #CritsLabel {
-            Text: Crits: 0;
-            Style: (FontSize: 9; Color: #FF6666;);
-        }
+    Group #CombatLogFooter {
+        LayoutMode: Top;
+        Label #DpsLabel { Text: "DPS: ----"; }
+        Label #HitsLabel { Text: "Hits: 0"; }
+        Label #CritsLabel { Text: "Crits: 0"; }
     }
 }

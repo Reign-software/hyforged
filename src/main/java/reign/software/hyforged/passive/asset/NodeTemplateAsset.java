@@ -79,6 +79,7 @@ public class NodeTemplateAsset {
     private String icon;
     private List<PassiveNodeEffectAsset> effects;
     private String keystoneFamily;
+    private boolean placeholder;
 
     public NodeTemplateAsset() {
         // Required for codec
@@ -117,5 +118,52 @@ public class NodeTemplateAsset {
     @Nullable
     public String getKeystoneFamily() {
         return keystoneFamily;
+    }
+
+    public boolean isPlaceholder() {
+        return placeholder;
+    }
+
+    @Nonnull
+    public static NodeTemplateAsset createPlaceholder(@Nonnull String id) {
+        NodeTemplateAsset asset = new NodeTemplateAsset();
+        asset.id = id;
+
+        String slug = id;
+        int namespaceIndex = id.indexOf(':');
+        if (namespaceIndex >= 0 && namespaceIndex + 1 < id.length()) {
+            slug = id.substring(namespaceIndex + 1);
+        }
+
+        asset.type = slug.startsWith("minor-") ? "minor" : "notable";
+        asset.name = toTitleCase(slug);
+        asset.description = "";
+        asset.effects = new ArrayList<>();
+        asset.placeholder = true;
+
+        return asset;
+    }
+
+    @Nonnull
+    private static String toTitleCase(@Nonnull String slug) {
+        String[] parts = slug.split("-");
+        StringBuilder builder = new StringBuilder();
+
+        for (String part : parts) {
+            if (part == null || part.isBlank()) {
+                continue;
+            }
+
+            if (builder.length() > 0) {
+                builder.append(' ');
+            }
+
+            builder.append(Character.toUpperCase(part.charAt(0)));
+            if (part.length() > 1) {
+                builder.append(part.substring(1));
+            }
+        }
+
+        return builder.toString();
     }
 }

@@ -182,6 +182,28 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
                     }
                 }
             }
+            case "random_area" -> {
+                Vector3d center = resolvePosition(context, true);
+                if (center == null) {
+                    center = origin;
+                }
+                float areaRadius = effect.radius();
+                if (areaRadius <= 0f) {
+                    return false;
+                }
+                FastRandom random = new FastRandom();
+                for (int i = 0; i < count; i++) {
+                    double angle = random.nextDouble() * Math.PI * 2;
+                    double r = Math.sqrt(random.nextDouble()) * areaRadius;
+                    double dx = Math.cos(angle) * r;
+                    double dz = Math.sin(angle) * r;
+                    Vector3d pos = new Vector3d(center.getX() + dx, center.getY(), center.getZ() + dz);
+                    Vector3d velocity = resolveVelocityOverride(velocityOverride, baseRotation);
+                    if (spawnProjectileInstance(timeResource, effect.projectileId(), pos, baseRotation, sourceUuid, accessor, velocity, durationSeconds)) {
+                        spawned++;
+                    }
+                }
+            }
             case "forward" -> {
                 for (int i = 0; i < count; i++) {
                     Vector3d velocity = resolveVelocityOverride(velocityOverride, baseRotation);
@@ -283,17 +305,37 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
             return false;
         }
 
-        Vector3d offset = effect.offset();
-        Vector3d adjusted = new Vector3d(position.getX() + offset.getX(), position.getY() + offset.getY(), position.getZ() + offset.getZ());
-
         IPrefabBuffer prefab = PrefabBufferUtil.getCached(PrefabStore.get().getAssetPrefabsPath().resolve(effect.prefabPath()));
         if (prefab == null) {
             LOGGER.log(Level.FINE, "Prefab not found: {0}", effect.prefabPath());
             return false;
         }
 
-        PrefabUtil.paste(prefab, world, adjusted.toVector3i(), Rotation.None, false, new FastRandom(), accessor);
-        return true;
+        Vector3d offset = effect.offset();
+        int count = Math.max(1, effect.count());
+        float spawnRadius = effect.spawnRadius();
+        FastRandom random = new FastRandom();
+        boolean spawned = false;
+
+        for (int i = 0; i < count; i++) {
+            double dx = 0.0;
+            double dz = 0.0;
+            if (spawnRadius > 0f) {
+                double angle = random.nextDouble() * Math.PI * 2;
+                double r = Math.sqrt(random.nextDouble()) * spawnRadius;
+                dx = Math.cos(angle) * r;
+                dz = Math.sin(angle) * r;
+            }
+            Vector3d adjusted = new Vector3d(
+                    position.getX() + offset.getX() + dx,
+                    position.getY() + offset.getY(),
+                    position.getZ() + offset.getZ() + dz
+            );
+            PrefabUtil.paste(prefab, world, adjusted.toVector3i(), Rotation.None, false, random, accessor);
+            spawned = true;
+        }
+
+        return spawned;
     }
 
     private boolean applyEntityEffect(@Nonnull AffixEffect effect, @Nonnull EffectContext context) {
@@ -302,17 +344,7 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
             return false;
         }
 
-        Ref<EntityStore> targetRef = resolveTargetRef(effect, context);
-        if (targetRef == null || !targetRef.isValid()) {
-            return false;
-        }
-
         ComponentAccessor<EntityStore> accessor = context.accessor();
-        EffectControllerComponent effectController = accessor.getComponent(targetRef, EffectControllerComponent.getComponentType());
-        if (effectController == null) {
-            return false;
-        }
-
         EntityEffect entityEffect = EntityEffect.getAssetMap().getAsset(effectId);
         if (entityEffect == null) {
             LOGGER.log(Level.FINE, "EntityEffect not found: {0}", effectId);
@@ -320,15 +352,84 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
         }
 
         float duration = effect.durationSeconds();
-        if (duration > 0f) {
-            return effectController.addEffect(targetRef, entityEffect, duration, OverlapBehavior.OVERWRITE, accessor);
+        float radius = effect.radius();
+        boolean applied = false;
+
+        if (radius > 0f) {
+            Vector3d position = resolvePosition(context, "target".equalsIgnoreCase(effect.target()));
+            if (position == null) {
+                return false;
+            }
+            List<Ref<EntityStore>> targets = TargetUtil.getAllEntitiesInSphere(position, radius, accessor);
+            for (Ref<EntityStore> targetRef : targets) {
+                if (targetRef == null || !targetRef.isValid()) {
+                    continue;
+                }
+                if (effect.excludeSelf() && targetRef.equals(context.sourceRef())) {
+                    continue;
+                }
+                applied |= applyEffectToTarget(entityEffect, duration, targetRef, accessor);
+                applied |= applyStatModifiers(effect, context, targetRef, duration);
+            }
+            return applied;
+        }
+
+        Ref<EntityStore> targetRef = resolveTargetRef(effect, context);
+        if (targetRef == null || !targetRef.isValid()) {
+            return false;
+        }
+
+        applied = applyEffectToTarget(entityEffect, duration, targetRef, accessor);
+        applied |= applyStatModifiers(effect, context, targetRef, duration);
+        return applied;
+    }
+
+    private boolean applyEffectToTarget(
+            @Nonnull EntityEffect entityEffect,
+            float durationSeconds,
+            @Nonnull Ref<EntityStore> targetRef,
+            @Nonnull ComponentAccessor<EntityStore> accessor
+    ) {
+        EffectControllerComponent effectController = accessor.getComponent(targetRef, EffectControllerComponent.getComponentType());
+        if (effectController == null) {
+            return false;
+        }
+        if (durationSeconds > 0f) {
+            return effectController.addEffect(targetRef, entityEffect, durationSeconds, OverlapBehavior.OVERWRITE, accessor);
         }
         return effectController.addEffect(targetRef, entityEffect, accessor);
     }
 
+    private boolean applyStatModifiers(
+            @Nonnull AffixEffect effect,
+            @Nonnull EffectContext context,
+            @Nonnull Ref<EntityStore> targetRef,
+            float durationSeconds
+    ) {
+        if (effect.statModifiers().isEmpty()) {
+            return false;
+        }
+        float duration = durationSeconds > 0f ? durationSeconds
+                : (effect.statDurationSeconds() > 0f ? effect.statDurationSeconds() : effect.durationSeconds());
+
+        boolean applied = false;
+        for (var entry : effect.statModifiers().entrySet()) {
+            if (entry.getKey() == null || entry.getKey().isBlank()) {
+                continue;
+            }
+            int amount = entry.getValue() != null ? entry.getValue() : 0;
+            if (amount == 0) {
+                continue;
+            }
+            applied |= applyStatModifier(entry.getKey(), amount, effect.stackType(), duration, context, targetRef);
+        }
+        return applied;
+    }
+
     private boolean damageArea(@Nonnull AffixEffect effect, @Nonnull EffectContext context) {
         float radius = effect.radius();
-        if (radius <= 0f || effect.damage() <= 0) {
+        int damageAmount = resolveDamageAmount(effect);
+        if (radius <= 0f || damageAmount <= 0) {
             return false;
         }
 
@@ -343,6 +444,18 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
             return false;
         }
 
+        EntityEffect applyEffect = null;
+        String applyEffectId = effect.applyEffectId();
+        if (!applyEffectId.isBlank()) {
+            applyEffect = EntityEffect.getAssetMap().getAsset(applyEffectId);
+            if (applyEffect == null) {
+                LOGGER.log(Level.FINE, "EntityEffect not found: {0}", applyEffectId);
+            }
+        }
+        float applyDuration = effect.applyEffectDurationSeconds() > 0f
+                ? effect.applyEffectDurationSeconds()
+                : effect.durationSeconds();
+
         List<Ref<EntityStore>> targets = TargetUtil.getAllEntitiesInSphere(position, radius, accessor);
         boolean executed = false;
         for (Ref<EntityStore> targetRef : targets) {
@@ -352,12 +465,27 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
             if (effect.excludeSelf() && targetRef.equals(context.sourceRef())) {
                 continue;
             }
-            Damage damage = new Damage(new Damage.EntitySource(context.sourceRef()), damageCauseIndex, effect.damage());
+            Damage damage = new Damage(new Damage.EntitySource(context.sourceRef()), damageCauseIndex, damageAmount);
             DamageSystems.executeDamage(targetRef, accessor, damage);
+            if (applyEffect != null) {
+                applyEffectToTarget(applyEffect, applyDuration, targetRef, accessor);
+            }
             executed = true;
         }
 
         return executed;
+    }
+
+    private int resolveDamageAmount(@Nonnull AffixEffect effect) {
+        int baseDamage = effect.damage();
+        if (baseDamage <= 0) {
+            return 0;
+        }
+        float scaling = effect.damageScaling();
+        if (scaling > 0f) {
+            return Math.round(baseDamage * scaling);
+        }
+        return baseDamage;
     }
 
     private boolean runInteraction(@Nonnull AffixEffect effect, @Nonnull EffectContext context) {
@@ -393,44 +521,69 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
     }
 
     private boolean modifyStat(@Nonnull AffixEffect effect, @Nonnull EffectContext context) {
-        if (effect.statId().isBlank() || effect.amount() == 0) {
-            return false;
-        }
-
         Ref<EntityStore> targetRef = resolveTargetRef(effect, context);
         if (targetRef == null || !targetRef.isValid()) {
             return false;
         }
+        float duration = effect.statDurationSeconds() > 0f ? effect.statDurationSeconds() : effect.durationSeconds();
 
+        boolean applied = false;
+        if (!effect.statModifiers().isEmpty()) {
+            for (var entry : effect.statModifiers().entrySet()) {
+                if (entry.getKey() == null || entry.getKey().isBlank()) {
+                    continue;
+                }
+                int amount = entry.getValue() != null ? entry.getValue() : 0;
+                if (amount == 0) {
+                    continue;
+                }
+                applied |= applyStatModifier(entry.getKey(), amount, effect.stackType(), duration, context, targetRef);
+            }
+        }
+
+        if (!effect.statId().isBlank() && effect.amount() != 0) {
+            applied |= applyStatModifier(effect.statId(), effect.amount(), effect.stackType(), duration, context, targetRef);
+        }
+
+        return applied;
+    }
+
+    private boolean applyStatModifier(
+            @Nonnull String statIdValue,
+            int amount,
+            @Nullable String stackType,
+            float durationSeconds,
+            @Nonnull EffectContext context,
+            @Nonnull Ref<EntityStore> targetRef
+    ) {
         Store<EntityStore> store = context.getStore();
         if (store == null) {
             return false;
         }
 
-        StatId statId = StatId.parse(effect.statId());
+        StatId statId = StatId.parse(statIdValue);
         int statIndex = StatDefinitionRegistry.get().getIndex(statId);
         if (statIndex < 0) {
-            LOGGER.log(Level.FINE, "Unknown stat for modify_stat: {0}", effect.statId());
+            LOGGER.log(Level.FINE, "Unknown stat for modify_stat: {0}", statIdValue);
             return false;
         }
 
         long expirationTick = 0L;
-        float duration = effect.statDurationSeconds();
-        if (duration > 0f) {
+        if (durationSeconds > 0f) {
             World world = store.getExternalData().getWorld();
             if (world != null) {
                 long currentTick = world.getTick();
-                long ticks = Math.round(duration * world.getTps());
+                long ticks = Math.round(durationSeconds * world.getTps());
                 expirationTick = currentTick + ticks;
             }
         }
 
-        String sourceKey = "affix-effect:" + context.effectKey() + ":" + effect.statId();
+        String sourceKey = "affix-effect:" + context.effectKey() + ":" + statIdValue;
         HyforgedModifier modifier = HyforgedModifier.builder()
                 .sourceType(HyforgedModifier.SourceType.EFFECT)
                 .sourceId(sourceKey)
-                .stackType(parseStackType(effect.stackType()))
-                .amount(effect.amount())
+                .stackType(parseStackType(stackType))
+                .amount(amount)
                 .targetStat(statIndex)
                 .priority(0)
                 .expiresAt(expirationTick)

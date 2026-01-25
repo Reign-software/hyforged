@@ -68,6 +68,18 @@ public final class NPCQualityRegistry {
         return rulesById.values().stream().findFirst().orElse(null);
     }
 
+    @Nullable
+    public NPCQualityRule resolveRuleForRole(@Nullable String roleName) {
+        if (roleName != null && !roleName.isBlank()) {
+            for (NPCQualityRule rule : rulesById.values()) {
+                if (rule.appliesToRole(roleName)) {
+                    return rule;
+                }
+            }
+        }
+        return getDefaultRule();
+    }
+
     public synchronized void freeze() {
         frozen = true;
     }

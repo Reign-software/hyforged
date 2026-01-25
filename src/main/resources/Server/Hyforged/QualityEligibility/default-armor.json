@@ -1,7 +1,7 @@
 {
   "Priority": 0,
   "Description": "Default quality rolling for armor",
-  "WeightProfileId": "default",
+  "WeightProfileId": "Default",
   "AppliesTo": {
     "Categories": ["Items.Armor"],
     "Tags": [],

@@ -1,5 +1,5 @@
 {
-  "id": "npc_legendary",
+  "Id": "npc_legendary",
   "DisplayNamePosition": "before",
   "DisplayFormat": "{name}",
   "Stackable": false
