@@ -21,6 +21,7 @@ import reign.software.hyforged.affix.system.EffectAffixOnKillSystem;
 import reign.software.hyforged.affix.system.EquipmentAffixListener;
 import reign.software.hyforged.affix.system.LootAffixSystem;
 import reign.software.hyforged.affix.ui.CharacterStatsPage;
+import reign.software.hyforged.hub.ui.CharacterHubPage;
 import reign.software.hyforged.combat.HyforgedAutoBlockSystem;
 import reign.software.hyforged.combat.HyforgedCriticalHitSystem;
 import reign.software.hyforged.combat.ailment.AilmentAccumulatorComponent;
@@ -669,6 +670,16 @@ public class HyforgedPlugin extends JavaPlugin {
         );
 
         getLogger().at(Level.FINE).log("Registered PassiveTreePage custom UI interaction");
+
+        // Register CharacterHubPage for central navigation
+        OpenCustomUIInteraction.registerSimple(
+            this,
+            CharacterHubPage.class,
+            "CharacterHubPage",
+            CharacterHubPage::new
+        );
+
+        getLogger().at(Level.FINE).log("Registered CharacterHubPage custom UI interaction");
 
         // Register Point Book interaction for consuming point books
         this.getCodecRegistry(Interaction.CODEC).register(

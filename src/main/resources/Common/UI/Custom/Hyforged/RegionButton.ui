@@ -1,0 +1,22 @@
+// Region Button Template
+// Used for starting region selection in the passive tree
+
+$Common = "../Common.ui";
+
+Button #RegionButton {
+    Anchor: (Width: 120, Height: 80);
+    Background: $Common.@InputBoxBackground;
+    Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+    LayoutMode: Top;
+    Padding: (Full: 8);
+    
+    Label #RegionName {
+        Text: "Region";
+        Style: (FontSize: 14, Alignment: Center, RenderBold: true);
+    }
+    
+    Label #RegionDesc {
+        Text: "Click to select";
+        Style: (FontSize: 10, Alignment: Center);
+    }
+}

@@ -1,41 +1,68 @@
 // Hyforged Concentration Priority Queue UI
+// Uses Button elements for interactive clickable areas
+
+$Common = "../Common.ui";
 
 Group #ConcentrationPriorityPage {
     LayoutMode: Top;
+    Anchor: (Width: 500, Height: 500);
+    Background: $Common.@InputBoxBackground;
+    Padding: (Full: 20);
 
     Group #Header {
         LayoutMode: Top;
+        Anchor: (Height: 80);
 
         Label #Title {
             Text: "Concentration Priorities";
+            Style: (FontSize: 24, Alignment: Center, RenderBold: true);
         }
 
         Label #CurrentConcentration {
             Text: "0/0";
+            Style: (FontSize: 14, Alignment: Center);
         }
 
         Label #Hint {
             Text: "Reorder abilities with the arrows; lower items drop first.";
+            Style: (FontSize: 12, Alignment: Center);
         }
     }
 
     Group #PriorityList {
         LayoutMode: Top;
-        Label #Priority0 { Text: ""; }
-        Label #Priority1 { Text: ""; }
-        Label #Priority2 { Text: ""; }
-        Label #Priority3 { Text: ""; }
-        Label #Priority4 { Text: ""; }
-        Label #Priority5 { Text: ""; }
-        Label #Priority6 { Text: ""; }
-        Label #Priority7 { Text: ""; }
-        Label #Priority8 { Text: ""; }
-        Label #Priority9 { Text: ""; }
+        Padding: (Top: 10);
+        Label #Priority0 { Text: ""; Style: (FontSize: 12); }
+        Label #Priority1 { Text: ""; Style: (FontSize: 12); }
+        Label #Priority2 { Text: ""; Style: (FontSize: 12); }
+        Label #Priority3 { Text: ""; Style: (FontSize: 12); }
+        Label #Priority4 { Text: ""; Style: (FontSize: 12); }
+        Label #Priority5 { Text: ""; Style: (FontSize: 12); }
+        Label #Priority6 { Text: ""; Style: (FontSize: 12); }
+        Label #Priority7 { Text: ""; Style: (FontSize: 12); }
+        Label #Priority8 { Text: ""; Style: (FontSize: 12); }
+        Label #Priority9 { Text: ""; Style: (FontSize: 12); }
     }
 
     Group #Footer {
-        LayoutMode: Top;
-        Label #RefreshButton { Text: "[Refresh]"; }
-        Label #CloseButton { Text: "[Close]"; }
+        LayoutMode: Left;
+        Padding: (Top: 20);
+        Anchor: (Height: 50);
+
+        Button #RefreshButton {
+            Anchor: (Width: 100, Height: 40);
+            Background: $Common.@InputBoxBackground;
+            Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+            Padding: (Full: 8);
+            Label { Text: "[Refresh]"; Style: (FontSize: 12, Alignment: Center); }
+        }
+
+        Button #CloseButton {
+            Anchor: (Width: 80, Height: 40, Left: 10);
+            Background: $Common.@InputBoxBackground;
+            Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+            Padding: (Full: 8);
+            Label { Text: "[Close]"; Style: (FontSize: 12, Alignment: Center); }
+        }
     }
 }

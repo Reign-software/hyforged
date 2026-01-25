@@ -9,6 +9,7 @@ import reign.software.hyforged.affix.command.RollAffixCommand;
 import reign.software.hyforged.combat.command.CombatLogCommand;
 import reign.software.hyforged.combat.command.CombatLogHudCommand;
 import reign.software.hyforged.concentration.command.ConcentrationPriorityCommand;
+import reign.software.hyforged.hub.command.CharacterHubCommand;
 import reign.software.hyforged.progression.command.ProgressionCommand;
 import reign.software.hyforged.quality.command.QualityCommand;
 
@@ -23,6 +24,7 @@ import reign.software.hyforged.quality.command.QualityCommand;
  *   <li>{@code progression} - Progression management commands</li>
  *   <li>{@code character} - Character stats screen</li>
  *   <li>{@code concentration} - Concentration priority queue</li>
+ *   <li>{@code hub} - Character hub navigation page</li>
  *   <li>{@code affixes} - Dump equipped item affixes</li>
  *   <li>{@code rollaffix} - Roll affixes on held item</li>
  *   <li>{@code giveaffix} - Add a specific affix to held item</li>
@@ -42,6 +44,7 @@ public class HyforgedCommand extends AbstractCommandCollection {
         this.addSubCommand(new ProgressionCommand());
         this.addSubCommand(new CharacterStatsCommand());
         this.addSubCommand(new ConcentrationPriorityCommand());
+        this.addSubCommand(new CharacterHubCommand());
         
         // Add affix debug commands
         this.addSubCommand(new AffixDumpCommand());

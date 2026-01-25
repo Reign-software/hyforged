@@ -1,18 +1,29 @@
 // Hyforged Character Stats Page UI
 // Populated by CharacterStatsPage.java
+// Uses Button elements for interactive clickable areas
+
+$Common = "../Common.ui";
 
 Group #CharacterStatsPage {
     LayoutMode: Top;
+    Anchor: (Width: 700, Height: 600);
+    Background: $Common.@InputBoxBackground;
+    Padding: (Full: 20);
 
     // Header
     Group #Header {
         LayoutMode: Top;
-        Label #Title { Text: "Character Stats"; }
+        Anchor: (Height: 40);
+        Label #Title { 
+            Text: "Character Stats"; 
+            Style: (FontSize: 24, Alignment: Center, RenderBold: true);
+        }
     }
 
     // Main Content
     Group #Content {
         LayoutMode: Top;
+        Padding: (Top: 10);
 
         // Stats Column
         Group #StatsColumn {
@@ -25,34 +36,46 @@ Group #CharacterStatsPage {
                 // Core Stats
                 Group #CoreStats {
                     LayoutMode: Top;
-                    Label #CoreStatsTitle { Text: "Core Stats"; }
-                    Label #Stat0 { Text: ""; }
-                    Label #Stat1 { Text: ""; }
-                    Label #Stat2 { Text: ""; }
-                    Label #Stat3 { Text: ""; }
-                    Label #Stat4 { Text: ""; }
+                    Padding: (Bottom: 10);
+                    Label #CoreStatsTitle { 
+                        Text: "Core Stats"; 
+                        Style: (FontSize: 16, RenderBold: true);
+                    }
+                    Label #Stat0 { Text: ""; Style: (FontSize: 12); }
+                    Label #Stat1 { Text: ""; Style: (FontSize: 12); }
+                    Label #Stat2 { Text: ""; Style: (FontSize: 12); }
+                    Label #Stat3 { Text: ""; Style: (FontSize: 12); }
+                    Label #Stat4 { Text: ""; Style: (FontSize: 12); }
                 }
 
                 // Offensive Stats
                 Group #OffensiveStats {
                     LayoutMode: Top;
-                    Label #OffensiveStatsTitle { Text: "Offensive"; }
-                    Label #Stat5 { Text: ""; }
-                    Label #Stat6 { Text: ""; }
-                    Label #Stat7 { Text: ""; }
-                    Label #Stat8 { Text: ""; }
-                    Label #Stat9 { Text: ""; }
+                    Padding: (Bottom: 10);
+                    Label #OffensiveStatsTitle { 
+                        Text: "Offensive"; 
+                        Style: (FontSize: 16, RenderBold: true);
+                    }
+                    Label #Stat5 { Text: ""; Style: (FontSize: 12); }
+                    Label #Stat6 { Text: ""; Style: (FontSize: 12); }
+                    Label #Stat7 { Text: ""; Style: (FontSize: 12); }
+                    Label #Stat8 { Text: ""; Style: (FontSize: 12); }
+                    Label #Stat9 { Text: ""; Style: (FontSize: 12); }
                 }
 
                 // Defensive Stats
                 Group #DefensiveStats {
                     LayoutMode: Top;
-                    Label #DefensiveStatsTitle { Text: "Defensive"; }
-                    Label #Stat10 { Text: ""; }
-                    Label #Stat11 { Text: ""; }
-                    Label #Stat12 { Text: ""; }
-                    Label #Stat13 { Text: ""; }
-                    Label #Stat14 { Text: ""; }
+                    Padding: (Bottom: 10);
+                    Label #DefensiveStatsTitle { 
+                        Text: "Defensive"; 
+                        Style: (FontSize: 16, RenderBold: true);
+                    }
+                    Label #Stat10 { Text: ""; Style: (FontSize: 12); }
+                    Label #Stat11 { Text: ""; Style: (FontSize: 12); }
+                    Label #Stat12 { Text: ""; Style: (FontSize: 12); }
+                    Label #Stat13 { Text: ""; Style: (FontSize: 12); }
+                    Label #Stat14 { Text: ""; Style: (FontSize: 12); }
                 }
             }
         }
@@ -60,31 +83,61 @@ Group #CharacterStatsPage {
         // Equipment Column
         Group #EquipmentColumn {
             LayoutMode: Top;
+            Padding: (Top: 10);
 
-            Label #EquipmentTitle { Text: "Equipment"; }
+            Label #EquipmentTitle { 
+                Text: "Equipment"; 
+                Style: (FontSize: 16, RenderBold: true);
+            }
 
             // Armor Slots
             Group #ArmorSlots {
                 LayoutMode: Top;
-                Label #Armor0 { Text: ""; }
-                Label #Armor1 { Text: ""; }
-                Label #Armor2 { Text: ""; }
-                Label #Armor3 { Text: ""; }
+                Padding: (Top: 5);
+                Label #Armor0 { Text: ""; Style: (FontSize: 12); }
+                Label #Armor1 { Text: ""; Style: (FontSize: 12); }
+                Label #Armor2 { Text: ""; Style: (FontSize: 12); }
+                Label #Armor3 { Text: ""; Style: (FontSize: 12); }
             }
 
             // Hand Slots
             Group #HandSlots {
                 LayoutMode: Top;
-                Label #Hand0 { Text: ""; }
-                Label #Hand1 { Text: ""; }
+                Padding: (Top: 5);
+                Label #Hand0 { Text: ""; Style: (FontSize: 12); }
+                Label #Hand1 { Text: ""; Style: (FontSize: 12); }
             }
         }
     }
 
-    // Footer
+    // Footer with Buttons
     Group #Footer {
-        LayoutMode: Top;
-        Label #RefreshButton { Text: "[Refresh]"; }
-        Label #CloseButton { Text: "[Close]"; }
+        LayoutMode: Left;
+        Padding: (Top: 20);
+        Anchor: (Height: 50);
+
+        Button #PassiveTreeButton {
+            Anchor: (Width: 120, Height: 40);
+            Background: $Common.@InputBoxBackground;
+            Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+            Padding: (Full: 8);
+            Label { Text: "[Passive Tree]"; Style: (FontSize: 12, Alignment: Center); }
+        }
+
+        Button #RefreshButton {
+            Anchor: (Width: 100, Height: 40, Left: 10);
+            Background: $Common.@InputBoxBackground;
+            Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+            Padding: (Full: 8);
+            Label { Text: "[Refresh]"; Style: (FontSize: 12, Alignment: Center); }
+        }
+
+        Button #CloseButton {
+            Anchor: (Width: 80, Height: 40, Left: 10);
+            Background: $Common.@InputBoxBackground;
+            Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+            Padding: (Full: 8);
+            Label { Text: "[Close]"; Style: (FontSize: 12, Alignment: Center); }
+        }
     }
 }

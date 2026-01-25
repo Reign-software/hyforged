@@ -1,4 +1,4 @@
-package reign.software.hyforged.concentration.command;
+package reign.software.hyforged.hub.command;
 
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -10,25 +10,32 @@ import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import reign.software.hyforged.concentration.ui.ConcentrationPriorityPage;
+import reign.software.hyforged.hub.ui.CharacterHubPage;
 
 import javax.annotation.Nonnull;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Command to open the concentration priority queue UI.
+ * Command to open the Character Hub screen.
  * <p>
- * Usage: {@code /hyforged concentration}
+ * Usage: {@code /hyforged hub}
+ * <p>
+ * Opens the character hub page which provides navigation to:
+ * <ul>
+ *   <li>Character Stats</li>
+ *   <li>Passive Tree</li>
+ *   <li>Concentration Priority</li>
+ * </ul>
  */
-public class ConcentrationPriorityCommand extends AbstractAsyncCommand {
-
+public class CharacterHubCommand extends AbstractAsyncCommand {
+    
     private static final Message MESSAGE_PLAYER_NOT_IN_WORLD = Message.raw("§cPlayer is not in a world.");
-
-    public ConcentrationPriorityCommand() {
-        super("concentration", "hyforged.commands.concentration.desc");
-        this.addAliases("concentration-priority", "concentrationqueue", "priority", "conc");
+    
+    public CharacterHubCommand() {
+        super("hub", "hyforged.commands.hub.desc");
+        this.addAliases("menu", "c");
     }
-
+    
     @Nonnull
     @Override
     protected CompletableFuture<Void> executeAsync(@Nonnull CommandContext context) {
@@ -42,7 +49,7 @@ public class ConcentrationPriorityCommand extends AbstractAsyncCommand {
                 return CompletableFuture.runAsync(() -> {
                     PlayerRef playerRefComponent = store.getComponent(ref, PlayerRef.getComponentType());
                     if (playerRefComponent != null) {
-                        ConcentrationPriorityPage page = new ConcentrationPriorityPage(playerRefComponent);
+                        CharacterHubPage page = new CharacterHubPage(playerRefComponent);
                         player.getPageManager().openCustomPage(ref, store, page);
                     }
                 }, world);

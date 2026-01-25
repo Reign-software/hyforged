@@ -36,14 +36,18 @@ Group #PriorityRow {
     }
 
     Group #Controls {
-        LayoutMode: Top;
+        LayoutMode: Left;
 
-        Label #MoveUp {
-            Text: "[Up]";
+        Button #MoveUp {
+            Anchor: (Width: 40, Height: 30);
+            Style: ButtonStyle();
+            Label { Text: "[Up]"; Style: (FontSize: 10, Alignment: Center); }
         }
 
-        Label #MoveDown {
-            Text: "[Down]";
+        Button #MoveDown {
+            Anchor: (Width: 40, Height: 30, Left: 5);
+            Style: ButtonStyle();
+            Label { Text: "[Down]"; Style: (FontSize: 10, Alignment: Center); }
         }
     }
 }

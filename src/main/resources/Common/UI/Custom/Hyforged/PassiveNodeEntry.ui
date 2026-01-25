@@ -1,0 +1,33 @@
+// Passive Node Entry Template
+// Used for dynamically rendering nodes in the passive tree
+
+$Common = "../Common.ui";
+
+Button #NodeEntry {
+    Anchor: (Width: 250, Height: 35);
+    Background: $Common.@InputBoxBackground;
+    Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+    LayoutMode: Left;
+    Padding: (Full: 5);
+    
+    // Status indicator
+    Label #Status {
+        Anchor: (Width: 80);
+        Text: "[LOCKED]";
+        Style: (FontSize: 11, Alignment: Left);
+    }
+    
+    // Node type badge
+    Label #Type {
+        Anchor: (Width: 60, Left: 5);
+        Text: "Minor";
+        Style: (FontSize: 11, Alignment: Left);
+    }
+    
+    // Node name
+    Label #Name {
+        Anchor: (Left: 5);
+        Text: "Node Name";
+        Style: (FontSize: 11, Alignment: Left);
+    }
+}

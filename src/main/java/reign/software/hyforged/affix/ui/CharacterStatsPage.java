@@ -29,6 +29,7 @@ import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
+import reign.software.hyforged.passive.ui.PassiveTreePage;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -116,6 +117,14 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
                 CustomUIEventBindingType.Activating,
                 "#RefreshButton",
                 EventData.of("Action", "refresh"),
+                false
+        );
+        
+        // Add passive tree button event
+        eventBuilder.addEventBinding(
+                CustomUIEventBindingType.Activating,
+                "#PassiveTreeButton",
+                EventData.of("Action", "openPassiveTree"),
                 false
         );
     }
@@ -401,6 +410,13 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
         } else if ("refresh".equals(action)) {
             // Rebuild the page with updated data
             rebuild();
+        } else if ("openPassiveTree".equals(action)) {
+            // Open the passive tree page
+            Player playerComponent = store.getComponent(ref, Player.getComponentType());
+            if (playerComponent != null) {
+                PassiveTreePage passiveTreePage = new PassiveTreePage(this.playerRef);
+                playerComponent.getPageManager().openCustomPage(ref, store, passiveTreePage);
+            }
         }
     }
     

@@ -339,6 +339,9 @@ public final class PassiveTreeAssetLoader {
 
     /**
      * Handle layout files loaded event.
+     * Uses a two-pass approach: first apply all placements and starting nodes,
+     * then apply all connections. This ensures nodes from one layout exist
+     * before connections in another layout reference them.
      */
     private static void onLayoutsLoaded(
             LoadedAssetsEvent<String, TreeLayoutAsset, IndexedLookupTableAssetMap<String, TreeLayoutAsset>> event
@@ -346,9 +349,10 @@ public final class PassiveTreeAssetLoader {
         LOGGER.info("Loading passive tree layouts...");
 
         PassiveTreeRegistry registry = PassiveTreeRegistry.get();
-        int processed = 0;
+        List<TreeLayoutAsset> validLayouts = new ArrayList<>();
         int deferred = 0;
 
+        // First pass: apply placements and starting nodes for all layouts
         for (TreeLayoutAsset layout : event.getLoadedAssets().values()) {
             String treeId = layout.getTreeId();
 
@@ -361,14 +365,23 @@ public final class PassiveTreeAssetLoader {
             }
 
             try {
-                applyLayout(layout);
-                processed++;
+                applyLayoutPlacements(layout);
+                validLayouts.add(layout);
             } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Failed to apply layout: " + layout.getId(), e);
+                LOGGER.log(Level.SEVERE, "Failed to apply layout placements: " + layout.getId(), e);
             }
         }
 
-        LOGGER.info("Applied " + processed + " layouts" +
+        // Second pass: apply connections (now all nodes should exist)
+        for (TreeLayoutAsset layout : validLayouts) {
+            try {
+                applyLayoutConnections(layout);
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "Failed to apply layout connections: " + layout.getId(), e);
+            }
+        }
+
+        LOGGER.info("Applied " + validLayouts.size() + " layouts" +
                 (deferred > 0 ? " (" + deferred + " deferred)" : ""));
     }
 

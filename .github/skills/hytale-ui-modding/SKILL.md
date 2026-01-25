@@ -81,6 +81,48 @@ Use this skill when working on Hytale plugin UI defined in .ui files and rendere
 
 Pages block game input and unlock the mouse.
 
+### Thread Safety (CRITICAL)
+
+Hytale is multi-threaded. **UI must be opened on the main/world thread** or the game will crash.
+
+For commands that open UI pages:
+- Use `AbstractAsyncCommand` instead of `AbstractPlayerCommand`.
+- Get the `World` from the store (it implements `Executor`).
+- Use `CompletableFuture.runAsync(runnable, world)` to run UI opening on the main thread.
+
+```java
+public class MyUICommand extends AbstractAsyncCommand {
+    
+    public MyUICommand() {
+        super("myui", "my.command.desc");
+    }
+    
+    @Nonnull
+    @Override
+    protected CompletableFuture<Void> executeAsync(@Nonnull CommandContext context) {
+        CommandSender sender = context.sender();
+        if (sender instanceof Player player) {
+            player.getWorldMapTracker().tick(0);
+            Ref<EntityStore> ref = player.getReference();
+            if (ref != null && ref.isValid()) {
+                Store<EntityStore> store = ref.getStore();
+                World world = store.getExternalData().getWorld();
+                return CompletableFuture.runAsync(() -> {
+                    PlayerRef playerRefComponent = store.getComponent(ref, PlayerRef.getComponentType());
+                    if (playerRefComponent != null) {
+                        MyPage page = new MyPage(playerRefComponent);
+                        player.getPageManager().openCustomPage(ref, store, page);
+                    }
+                }, world);
+            }
+        }
+        return CompletableFuture.completedFuture(null);
+    }
+}
+```
+
+Note: UI events handled within `InteractiveCustomUIPage.handleDataEvent()` already run on the correct thread, so page-to-page navigation from event handlers does not need this pattern.
+
 ### CustomUIPage (No input)
 
 - Extend CustomUIPage for non-interactive UI pages.
