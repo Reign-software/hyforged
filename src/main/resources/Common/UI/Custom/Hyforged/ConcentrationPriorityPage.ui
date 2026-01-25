@@ -1,0 +1,41 @@
+// Hyforged Concentration Priority Queue UI
+
+Group #ConcentrationPriorityPage {
+    LayoutMode: Top;
+
+    Group #Header {
+        LayoutMode: Top;
+
+        Label #Title {
+            Text: "Concentration Priorities";
+        }
+
+        Label #CurrentConcentration {
+            Text: "0/0";
+        }
+
+        Label #Hint {
+            Text: "Reorder abilities with the arrows; lower items drop first.";
+        }
+    }
+
+    Group #PriorityList {
+        LayoutMode: Top;
+        Label #Priority0 { Text: ""; }
+        Label #Priority1 { Text: ""; }
+        Label #Priority2 { Text: ""; }
+        Label #Priority3 { Text: ""; }
+        Label #Priority4 { Text: ""; }
+        Label #Priority5 { Text: ""; }
+        Label #Priority6 { Text: ""; }
+        Label #Priority7 { Text: ""; }
+        Label #Priority8 { Text: ""; }
+        Label #Priority9 { Text: ""; }
+    }
+
+    Group #Footer {
+        LayoutMode: Top;
+        Label #RefreshButton { Text: "[Refresh]"; }
+        Label #CloseButton { Text: "[Close]"; }
+    }
+}

@@ -8,17 +8,17 @@
   ],
   "ScaledStats": [
     {
-      "StatId": "hyforged:max-health",
+      "StatId": "hyforged:max-health-flat",
       "ModifierType": "Increased",
       "ScalePerLevel": 20
     },
     {
-      "StatId": "hyforged:physical-damage-bps",
+      "StatId": "hyforged:physical-damage-increased-bps",
       "ModifierType": "Increased",
       "ScalePerLevel": 3
     },
     {
-      "StatId": "hyforged:armor-bps",
+      "StatId": "hyforged:armor-rating",
       "ModifierType": "Flat",
       "ScalePerLevel": 150
     },

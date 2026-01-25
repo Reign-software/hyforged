@@ -28,8 +28,8 @@ import java.util.List;
  */
 public class ConcentrationPriorityPage extends InteractiveCustomUIPage<ConcentrationPriorityPage.PageEventData> {
 
-    private static final String PAGE_UI_FILE = "UI/Hyforged/ConcentrationPriorityPage.ui";
-    private static final String ROW_UI_FILE = "UI/Hyforged/ConcentrationPriorityRow.ui";
+    private static final String PAGE_UI_FILE = "Hyforged/ConcentrationPriorityPage.ui";
+    private static final String ROW_UI_FILE = "Hyforged/ConcentrationPriorityRow.ui";
 
     private static final String ACTION_CLOSE = "close";
     private static final String ACTION_REFRESH = "refresh";

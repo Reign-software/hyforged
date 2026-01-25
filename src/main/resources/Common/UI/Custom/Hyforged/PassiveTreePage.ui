@@ -1,0 +1,99 @@
+// Hyforged Passive Tree Page UI
+// Simplified layout using supported Group/Label syntax
+
+Group #PassiveTreePage {
+    LayoutMode: Top;
+
+    // Header
+    Group #Header {
+        LayoutMode: Top;
+        Label #TreeName { Text: "Passive Tree"; }
+        Label #TreeType { Text: ""; }
+    }
+
+    // Tree Selector
+    Group #TreeSelector {
+        LayoutMode: Top;
+        Label #GeneralTreeTab { Text: "[General]"; }
+        Label #ClassTreeTab { Text: "[Class]"; }
+    }
+
+    // Point Summary
+    Group #PointSummary {
+        LayoutMode: Top;
+        Label #PointsTitle { Text: "Points"; }
+        Label #AvailableLabel { Text: "Available:"; }
+        Label #AvailableValue { Text: "0"; }
+        Label #AllocatedLabel { Text: "Allocated:"; }
+        Label #AllocatedValue { Text: "0"; }
+        Label #MaxLabel { Text: "Max:"; }
+        Label #MaxValue { Text: "0"; }
+    }
+
+    // Selected Node Info
+    Group #SelectedNodePanel {
+        LayoutMode: Top;
+        Label #SelectedNodeTitle { Text: "Selected Node"; }
+        Label #SelectedNodeName { Text: ""; }
+        Label #SelectedNodeType { Text: ""; }
+        Label #SelectedNodeDesc { Text: ""; }
+        Label #SelectedNodeEffects { Text: ""; }
+        Label #AllocateButton { Text: "[Allocate]"; }
+        Label #RefundButton { Text: "[Refund]"; }
+    }
+
+    // Search
+    Group #SearchPanel {
+        LayoutMode: Top;
+        Label #SearchLabel { Text: "Search:"; }
+        Label #SearchInput { Text: ""; }
+        Label #ClearSearchButton { Text: "[Clear]"; }
+    }
+
+    // Controls
+    Group #ControlsPanel {
+        LayoutMode: Top;
+        Label #ZoomInButton { Text: "[+]"; }
+        Label #ZoomOutButton { Text: "[-]"; }
+        Label #ResetViewButton { Text: "[Reset]"; }
+        Label #RespecButton { Text: "[Respec All]"; }
+    }
+
+    // Node List (simplified tree view)
+    Group #NodeList {
+        LayoutMode: Top;
+        Label #NodeListTitle { Text: "Nodes"; }
+        Label #Node0 { Text: ""; }
+        Label #Node1 { Text: ""; }
+        Label #Node2 { Text: ""; }
+        Label #Node3 { Text: ""; }
+        Label #Node4 { Text: ""; }
+        Label #Node5 { Text: ""; }
+        Label #Node6 { Text: ""; }
+        Label #Node7 { Text: ""; }
+        Label #Node8 { Text: ""; }
+        Label #Node9 { Text: ""; }
+    }
+
+    // Status Messages
+    Group #StatusPanel {
+        LayoutMode: Top;
+        Label #StatusMessage { Text: ""; }
+        Label #ErrorMessage { Text: ""; }
+    }
+
+    // Confirmation Dialog
+    Group #ConfirmDialog {
+        LayoutMode: Top;
+        Label #ConfirmTitle { Text: "Confirm"; }
+        Label #ConfirmMessage { Text: ""; }
+        Label #ConfirmYes { Text: "[Yes]"; }
+        Label #ConfirmNo { Text: "[No]"; }
+    }
+
+    // Close Button
+    Group #Footer {
+        LayoutMode: Top;
+        Label #CloseButton { Text: "[Close]"; }
+    }
+}

@@ -58,7 +58,7 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
     private static final Logger LOGGER = Logger.getLogger(PassiveTreePage.class.getName());
     
     /** UI file path for the passive tree page layout */
-    private static final String PAGE_UI_FILE = "UI/Hyforged/PassiveTreePage.ui";
+    private static final String PAGE_UI_FILE = "Hyforged/PassiveTreePage.ui";
     
     /** The tree being viewed (null for tree selection mode) */
     @Nullable

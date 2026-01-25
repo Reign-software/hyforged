@@ -58,9 +58,9 @@ public final class MonsterScalingService {
         this.activeConfig = WorldScalingConfig.createDefault("hyforged:default-scaling");
         // Initialize with sensible defaults
         this.defaultScaledStats = List.of(
-            ScaledStatEntry.increased("hyforged:max-health", 10),
-            ScaledStatEntry.increased("hyforged:physical-damage-bps", 5),
-            ScaledStatEntry.flat("hyforged:armor-bps", 50)
+            ScaledStatEntry.increased("hyforged:max-health-flat", 10),
+            ScaledStatEntry.increased("hyforged:physical-damage-increased-bps", 5),
+            ScaledStatEntry.flat("hyforged:armor-rating", 50)
         );
     }
 

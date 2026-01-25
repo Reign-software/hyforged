@@ -58,7 +58,7 @@ import java.util.Map;
 public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPage.PageEventData> {
     
     /** UI file path for the character stats page layout */
-    private static final String PAGE_UI_FILE = "UI/Hyforged/CharacterStatsPage.ui";
+    private static final String PAGE_UI_FILE = "Hyforged/CharacterStatsPage.ui";
     
     /** Category for primary ability scores */
     public static final String CATEGORY_ABILITY_SCORES = "Ability Scores";

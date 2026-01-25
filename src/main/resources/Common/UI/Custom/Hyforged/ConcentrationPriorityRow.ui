@@ -1,0 +1,49 @@
+// Row template for the concentration priority list
+
+Group #PriorityRow {
+    LayoutMode: Top;
+
+    Label #OrderIndex {
+        Text: "1";
+    }
+
+    Group #AbilityDetails {
+        LayoutMode: Top;
+
+        Label #AbilityName {
+            Text: "Ability Name";
+        }
+
+        Label #AbilityId {
+            Text: "namespace:ability-id";
+        }
+    }
+
+    Group #CostColumn {
+        LayoutMode: Top;
+
+        Label #CostLabel {
+            Text: "Cost";
+        }
+
+        Label #Cost {
+            Text: "0";
+        }
+    }
+
+    Label #Status {
+        Text: "Enabled";
+    }
+
+    Group #Controls {
+        LayoutMode: Top;
+
+        Label #MoveUp {
+            Text: "[Up]";
+        }
+
+        Label #MoveDown {
+            Text: "[Down]";
+        }
+    }
+}

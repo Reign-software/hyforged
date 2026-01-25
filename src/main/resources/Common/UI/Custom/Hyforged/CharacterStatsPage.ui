@@ -1,0 +1,90 @@
+// Hyforged Character Stats Page UI
+// Populated by CharacterStatsPage.java
+
+Group #CharacterStatsPage {
+    LayoutMode: Top;
+
+    // Header
+    Group #Header {
+        LayoutMode: Top;
+        Label #Title { Text: "Character Stats"; }
+    }
+
+    // Main Content
+    Group #Content {
+        LayoutMode: Top;
+
+        // Stats Column
+        Group #StatsColumn {
+            LayoutMode: Top;
+
+            // Stat Categories Container
+            Group #StatCategories {
+                LayoutMode: Top;
+
+                // Core Stats
+                Group #CoreStats {
+                    LayoutMode: Top;
+                    Label #CoreStatsTitle { Text: "Core Stats"; }
+                    Label #Stat0 { Text: ""; }
+                    Label #Stat1 { Text: ""; }
+                    Label #Stat2 { Text: ""; }
+                    Label #Stat3 { Text: ""; }
+                    Label #Stat4 { Text: ""; }
+                }
+
+                // Offensive Stats
+                Group #OffensiveStats {
+                    LayoutMode: Top;
+                    Label #OffensiveStatsTitle { Text: "Offensive"; }
+                    Label #Stat5 { Text: ""; }
+                    Label #Stat6 { Text: ""; }
+                    Label #Stat7 { Text: ""; }
+                    Label #Stat8 { Text: ""; }
+                    Label #Stat9 { Text: ""; }
+                }
+
+                // Defensive Stats
+                Group #DefensiveStats {
+                    LayoutMode: Top;
+                    Label #DefensiveStatsTitle { Text: "Defensive"; }
+                    Label #Stat10 { Text: ""; }
+                    Label #Stat11 { Text: ""; }
+                    Label #Stat12 { Text: ""; }
+                    Label #Stat13 { Text: ""; }
+                    Label #Stat14 { Text: ""; }
+                }
+            }
+        }
+
+        // Equipment Column
+        Group #EquipmentColumn {
+            LayoutMode: Top;
+
+            Label #EquipmentTitle { Text: "Equipment"; }
+
+            // Armor Slots
+            Group #ArmorSlots {
+                LayoutMode: Top;
+                Label #Armor0 { Text: ""; }
+                Label #Armor1 { Text: ""; }
+                Label #Armor2 { Text: ""; }
+                Label #Armor3 { Text: ""; }
+            }
+
+            // Hand Slots
+            Group #HandSlots {
+                LayoutMode: Top;
+                Label #Hand0 { Text: ""; }
+                Label #Hand1 { Text: ""; }
+            }
+        }
+    }
+
+    // Footer
+    Group #Footer {
+        LayoutMode: Top;
+        Label #RefreshButton { Text: "[Refresh]"; }
+        Label #CloseButton { Text: "[Close]"; }
+    }
+}
