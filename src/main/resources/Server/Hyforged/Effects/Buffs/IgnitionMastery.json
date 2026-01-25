@@ -6,8 +6,8 @@
     "StatusEffectIcon": "UI/StatusEffects/Ignite.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:ignite-chance-bps", "StackType": "FLAT", "Amount": 4000 },
-    { "StatId": "hyforged:ignite-damage-bps", "StackType": "INCREASED", "Amount": 4000 },
-    { "StatId": "hyforged:ignite-duration-bps", "StackType": "INCREASED", "Amount": 3000 }
+    { "StatId": "hyforged:ignite-chance-bps", "StackType": "Flat", "Amount": 4000 },
+    { "StatId": "hyforged:ignite-damage-bps", "StackType": "Increased", "Amount": 4000 },
+    { "StatId": "hyforged:ignite-duration-bps", "StackType": "Increased", "Amount": 3000 }
   ]
 }

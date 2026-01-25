@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Strength.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:strength", "StackType": "FLAT", "Amount": 25 },
-    { "StatId": "hyforged:melee-damage-increased-bps", "StackType": "INCREASED", "Amount": 1500 }
+    { "StatId": "hyforged:strength", "StackType": "Flat", "Amount": 25 },
+    { "StatId": "hyforged:melee-damage-increased-bps", "StackType": "Increased", "Amount": 1500 }
   ]
 }

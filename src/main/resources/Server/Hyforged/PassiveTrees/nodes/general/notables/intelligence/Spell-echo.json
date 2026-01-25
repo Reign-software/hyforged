@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:spell-echo",
+      "Type": "notable",
+      "Name": "Spell Echo",
+      "Description": "Unlocks Spell Echo.",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:spell-echo" }
+      ]
+    }
+  ]
+}

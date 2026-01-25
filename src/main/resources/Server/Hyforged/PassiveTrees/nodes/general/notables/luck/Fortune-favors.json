@@ -1,0 +1,14 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:fortune-favors",
+      "Type": "notable",
+      "Name": "Fortune Favors",
+      "Description": "+3 Luck\n+8% Critical Strike Multiplier",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:luck", "Value": 3 },
+        { "Type": "stat-modifier", "Stat": "hyforged:crit-multiplier-bps", "Value": 800 }
+      ]
+    }
+  ]
+}

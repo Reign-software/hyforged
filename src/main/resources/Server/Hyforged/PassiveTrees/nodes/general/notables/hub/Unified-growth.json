@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:unified-growth",
+      "Type": "notable",
+      "Name": "Unified Growth",
+      "Description": "+2 to All Attributes",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:attribute-all", "Value": 2 }
+      ]
+    }
+  ]
+}

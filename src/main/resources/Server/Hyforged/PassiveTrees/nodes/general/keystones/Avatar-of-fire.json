@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:avatar-of-fire",
+      "Type": "keystone",
+      "Name": "Avatar of Fire",
+      "Description": "50% of Physical, Cold, and Lightning Damage is converted to Fire\nCannot deal non-Fire Damage",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:avatar-of-fire" }
+      ]
+    }
+  ]
+}

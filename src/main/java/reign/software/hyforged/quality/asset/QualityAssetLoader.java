@@ -79,11 +79,13 @@ public final class QualityAssetLoader {
                 ((HytaleAssetStore.Builder<String, QualityWeightProfileAsset, IndexedLookupTableAssetMap<String, QualityWeightProfileAsset>>)
                         ((HytaleAssetStore.Builder<String, QualityWeightProfileAsset, IndexedLookupTableAssetMap<String, QualityWeightProfileAsset>>)
                                 ((HytaleAssetStore.Builder<String, QualityWeightProfileAsset, IndexedLookupTableAssetMap<String, QualityWeightProfileAsset>>)
-                                        HytaleAssetStore.builder(
-                                                QualityWeightProfileAsset.class,
-                                                new IndexedLookupTableAssetMap<>(QualityWeightProfileAsset[]::new)
-                                        )
-                                                .setPath(QUALITY_WEIGHTS_PATH))
+                                        ((HytaleAssetStore.Builder<String, QualityWeightProfileAsset, IndexedLookupTableAssetMap<String, QualityWeightProfileAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        QualityWeightProfileAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(QualityWeightProfileAsset[]::new)
+                                                )
+                                                        .setPath(QUALITY_WEIGHTS_PATH))
+                                                .setReplaceOnRemove(key -> new QualityWeightProfileAsset()))
                                         .setCodec(QualityWeightProfileAsset.CODEC))
                                 .setKeyFunction(QualityWeightProfileAsset::getId))
                         .build();
@@ -96,11 +98,13 @@ public final class QualityAssetLoader {
                 ((HytaleAssetStore.Builder<String, QualityEligibilityAsset, IndexedLookupTableAssetMap<String, QualityEligibilityAsset>>)
                         ((HytaleAssetStore.Builder<String, QualityEligibilityAsset, IndexedLookupTableAssetMap<String, QualityEligibilityAsset>>)
                                 ((HytaleAssetStore.Builder<String, QualityEligibilityAsset, IndexedLookupTableAssetMap<String, QualityEligibilityAsset>>)
-                                        HytaleAssetStore.builder(
-                                                QualityEligibilityAsset.class,
-                                                new IndexedLookupTableAssetMap<>(QualityEligibilityAsset[]::new)
-                                        )
-                                                .setPath(QUALITY_ELIGIBILITY_PATH))
+                                        ((HytaleAssetStore.Builder<String, QualityEligibilityAsset, IndexedLookupTableAssetMap<String, QualityEligibilityAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        QualityEligibilityAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(QualityEligibilityAsset[]::new)
+                                                )
+                                                        .setPath(QUALITY_ELIGIBILITY_PATH))
+                                                .setReplaceOnRemove(key -> new QualityEligibilityAsset()))
                                         .setCodec(QualityEligibilityAsset.CODEC))
                                 .setKeyFunction(QualityEligibilityAsset::getId))
                         .build();
@@ -113,11 +117,13 @@ public final class QualityAssetLoader {
                 ((HytaleAssetStore.Builder<String, QualityModifierAsset, IndexedLookupTableAssetMap<String, QualityModifierAsset>>)
                         ((HytaleAssetStore.Builder<String, QualityModifierAsset, IndexedLookupTableAssetMap<String, QualityModifierAsset>>)
                                 ((HytaleAssetStore.Builder<String, QualityModifierAsset, IndexedLookupTableAssetMap<String, QualityModifierAsset>>)
-                                        HytaleAssetStore.builder(
-                                                QualityModifierAsset.class,
-                                                new IndexedLookupTableAssetMap<>(QualityModifierAsset[]::new)
-                                        )
-                                                .setPath(QUALITY_MODIFIERS_PATH))
+                                        ((HytaleAssetStore.Builder<String, QualityModifierAsset, IndexedLookupTableAssetMap<String, QualityModifierAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        QualityModifierAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(QualityModifierAsset[]::new)
+                                                )
+                                                        .setPath(QUALITY_MODIFIERS_PATH))
+                                                .setReplaceOnRemove(key -> new QualityModifierAsset()))
                                         .setCodec(QualityModifierAsset.CODEC))
                                 .setKeyFunction(QualityModifierAsset::getId))
                         .build();
@@ -130,11 +136,13 @@ public final class QualityAssetLoader {
                 ((HytaleAssetStore.Builder<String, NPCQualityRuleAsset, IndexedLookupTableAssetMap<String, NPCQualityRuleAsset>>)
                         ((HytaleAssetStore.Builder<String, NPCQualityRuleAsset, IndexedLookupTableAssetMap<String, NPCQualityRuleAsset>>)
                                 ((HytaleAssetStore.Builder<String, NPCQualityRuleAsset, IndexedLookupTableAssetMap<String, NPCQualityRuleAsset>>)
-                                        HytaleAssetStore.builder(
-                                                NPCQualityRuleAsset.class,
-                                                new IndexedLookupTableAssetMap<>(NPCQualityRuleAsset[]::new)
-                                        )
-                                                .setPath(NPC_QUALITY_PATH))
+                                        ((HytaleAssetStore.Builder<String, NPCQualityRuleAsset, IndexedLookupTableAssetMap<String, NPCQualityRuleAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        NPCQualityRuleAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(NPCQualityRuleAsset[]::new)
+                                                )
+                                                        .setPath(NPC_QUALITY_PATH))
+                                                .setReplaceOnRemove(key -> new NPCQualityRuleAsset()))
                                         .setCodec(NPCQualityRuleAsset.CODEC))
                                 .setKeyFunction(NPCQualityRuleAsset::getId))
                         .build();

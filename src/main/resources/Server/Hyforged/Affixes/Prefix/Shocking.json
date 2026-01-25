@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:shocking",
   "Type": "prefix",
   "DisplayName": "Shocking",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 55,
       "Weight": 45,
       "Stats": {
-        "hyforged:added-lightning-damage-flat": { "MinValue": 5, "MaxValue": 80, "StackType": "FLAT" }
+        "hyforged:added-lightning-damage-flat": { "MinValue": 5, "MaxValue": 80, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 40,
       "Weight": 65,
       "Stats": {
-        "hyforged:added-lightning-damage-flat": { "MinValue": 3, "MaxValue": 55, "StackType": "FLAT" }
+        "hyforged:added-lightning-damage-flat": { "MinValue": 3, "MaxValue": 55, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 25,
       "Weight": 85,
       "Stats": {
-        "hyforged:added-lightning-damage-flat": { "MinValue": 2, "MaxValue": 38, "StackType": "FLAT" }
+        "hyforged:added-lightning-damage-flat": { "MinValue": 2, "MaxValue": 38, "StackType": "Flat" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 12,
       "Weight": 105,
       "Stats": {
-        "hyforged:added-lightning-damage-flat": { "MinValue": 1, "MaxValue": 22, "StackType": "FLAT" }
+        "hyforged:added-lightning-damage-flat": { "MinValue": 1, "MaxValue": 22, "StackType": "Flat" }
       }
     },
     {
@@ -41,7 +41,7 @@
       "ItemLevelReq": 1,
       "Weight": 125,
       "Stats": {
-        "hyforged:added-lightning-damage-flat": { "MinValue": 1, "MaxValue": 12, "StackType": "FLAT" }
+        "hyforged:added-lightning-damage-flat": { "MinValue": 1, "MaxValue": 12, "StackType": "Flat" }
       }
     }
   ]

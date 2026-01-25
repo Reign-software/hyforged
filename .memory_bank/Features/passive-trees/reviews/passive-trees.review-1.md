@@ -17,7 +17,7 @@
 - [ ] None
 
 ### Major
-- [ ] General/Class tree content is not at required scale and is only represented by sample assets; required file layout and 1000+ node general tree are not present. **PLANNED: Created detailed implementation plan at `.memory_bank/Features/passive-trees/general-tree-content.plan.md` with 7 ability score regions (STR, DEX, INT, CON, WIS, SPR, LCK), heptagon layout, 1000+ node target, and phased implementation.**
+- [x] General/Class tree content is not at required scale and is only represented by sample assets; required file layout and 1000+ node general tree are not present. **FIXED: Implemented the multi-file general tree content with 1000+ nodes, region layouts, hub, and bridges under `Server/Hyforged/PassiveTrees/`, completing the phased plan.**
 - [x] Starting region selection is not persisted/locked; the general starting node is never stored, which also undermines refund orphan detection for the general tree. **FIXED: allocateNode() now calls setGeneralStartingNode() when allocating a starting node.**
 - [ ] Refund and respec costs are calculated but not enforced or deducted (Tradebar checks are TODO).
 - [x] Class tree starting node auto-allocation on first class level is not implemented. **FIXED: ClassTreeStartingNodeSystem listens for ClassLevelUpEvent and allocates starting node on first level-up.**

@@ -6,8 +6,8 @@
     "StatusEffectIcon": "UI/StatusEffects/Leech.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:life-leech-bps", "StackType": "FLAT", "Amount": 500 },
-    { "StatId": "hyforged:life-on-hit-flat", "StackType": "FLAT", "Amount": 10 },
-    { "StatId": "hyforged:leech-rate-bps", "StackType": "INCREASED", "Amount": 3000 }
+    { "StatId": "hyforged:life-leech-bps", "StackType": "Flat", "Amount": 500 },
+    { "StatId": "hyforged:life-on-hit-flat", "StackType": "Flat", "Amount": 10 },
+    { "StatId": "hyforged:leech-rate-bps", "StackType": "Increased", "Amount": 3000 }
   ]
 }

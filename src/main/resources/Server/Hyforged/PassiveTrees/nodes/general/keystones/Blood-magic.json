@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:blood-magic",
+      "Type": "keystone",
+      "Name": "Blood Magic",
+      "Description": "Spend Life instead of Mana for Skills",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:blood-magic" }
+      ]
+    }
+  ]
+}

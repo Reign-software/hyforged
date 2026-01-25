@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Burn.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:fire-resistance-bps", "StackType": "FLAT", "Amount": -1500 },
-    { "StatId": "hyforged:damage-over-time-taken-bps", "StackType": "INCREASED", "Amount": 3000 }
+    { "StatId": "hyforged:fire-resistance-bps", "StackType": "Flat", "Amount": -1500 },
+    { "StatId": "hyforged:damage-over-time-taken-bps", "StackType": "Increased", "Amount": 3000 }
   ]
 }

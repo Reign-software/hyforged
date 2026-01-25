@@ -36,18 +36,24 @@ public final class PassiveTreeAssetLoader {
     private static final Logger LOGGER = Logger.getLogger(PassiveTreeAssetLoader.class.getName());
 
     /** Path for tree definitions */
-    public static final String TREE_PATH = "*/PassiveTrees/trees";
+    public static final String TREE_PATH = "Hyforged/PassiveTrees/trees";
 
     /** Path for node templates */
-    public static final String NODES_PATH = "*/PassiveTrees/nodes";
+    public static final String NODES_PATH = "Hyforged/PassiveTrees/nodes";
 
     /** Path for layout files */
-    public static final String LAYOUTS_PATH = "*/PassiveTrees/layouts";
+    public static final String LAYOUTS_PATH = "Hyforged/PassiveTrees/layouts";
 
     /** Path for passive refund config */
     public static final String CONFIG_PATH = "Hyforged/Config";
 
     private static boolean initialized = false;
+    
+    /** Track if node templates have been loaded */
+    private static volatile boolean nodeTemplatesLoaded = false;
+    
+    /** Track if trees have been loaded */
+    private static volatile boolean treesLoaded = false;
 
     /** Registered node templates by ID */
     private static final Map<String, NodeTemplateAsset> nodeTemplates = new ConcurrentHashMap<>();
@@ -113,11 +119,13 @@ public final class PassiveTreeAssetLoader {
                 ((HytaleAssetStore.Builder<String, NodeTemplateFileAsset, IndexedLookupTableAssetMap<String, NodeTemplateFileAsset>>)
                         ((HytaleAssetStore.Builder<String, NodeTemplateFileAsset, IndexedLookupTableAssetMap<String, NodeTemplateFileAsset>>)
                                 ((HytaleAssetStore.Builder<String, NodeTemplateFileAsset, IndexedLookupTableAssetMap<String, NodeTemplateFileAsset>>)
-                                        HytaleAssetStore.builder(
-                                                NodeTemplateFileAsset.class,
-                                                new IndexedLookupTableAssetMap<>(NodeTemplateFileAsset[]::new)
-                                        )
-                                                .setPath(NODES_PATH))
+                                        ((HytaleAssetStore.Builder<String, NodeTemplateFileAsset, IndexedLookupTableAssetMap<String, NodeTemplateFileAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        NodeTemplateFileAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(NodeTemplateFileAsset[]::new)
+                                                )
+                                                        .setPath(NODES_PATH))
+                                                .setReplaceOnRemove(key -> new NodeTemplateFileAsset()))
                                         .setCodec(NodeTemplateFileAsset.CODEC))
                                 .setKeyFunction(NodeTemplateFileAsset::getId))
                         .build();
@@ -131,11 +139,13 @@ public final class PassiveTreeAssetLoader {
                 ((HytaleAssetStore.Builder<String, PassiveTreeAsset, IndexedLookupTableAssetMap<String, PassiveTreeAsset>>)
                         ((HytaleAssetStore.Builder<String, PassiveTreeAsset, IndexedLookupTableAssetMap<String, PassiveTreeAsset>>)
                                 ((HytaleAssetStore.Builder<String, PassiveTreeAsset, IndexedLookupTableAssetMap<String, PassiveTreeAsset>>)
-                                        HytaleAssetStore.builder(
-                                                PassiveTreeAsset.class,
-                                                new IndexedLookupTableAssetMap<>(PassiveTreeAsset[]::new)
-                                        )
-                                                .setPath(TREE_PATH))
+                                        ((HytaleAssetStore.Builder<String, PassiveTreeAsset, IndexedLookupTableAssetMap<String, PassiveTreeAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        PassiveTreeAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(PassiveTreeAsset[]::new)
+                                                )
+                                                        .setPath(TREE_PATH))
+                                                .setReplaceOnRemove(key -> new PassiveTreeAsset()))
                                         .setCodec(PassiveTreeAsset.CODEC))
                                 .setKeyFunction(PassiveTreeAsset::getId))
                         .build();
@@ -149,11 +159,13 @@ public final class PassiveTreeAssetLoader {
                 ((HytaleAssetStore.Builder<String, TreeLayoutAsset, IndexedLookupTableAssetMap<String, TreeLayoutAsset>>)
                         ((HytaleAssetStore.Builder<String, TreeLayoutAsset, IndexedLookupTableAssetMap<String, TreeLayoutAsset>>)
                                 ((HytaleAssetStore.Builder<String, TreeLayoutAsset, IndexedLookupTableAssetMap<String, TreeLayoutAsset>>)
-                                        HytaleAssetStore.builder(
-                                                TreeLayoutAsset.class,
-                                                new IndexedLookupTableAssetMap<>(TreeLayoutAsset[]::new)
-                                        )
-                                                .setPath(LAYOUTS_PATH))
+                                        ((HytaleAssetStore.Builder<String, TreeLayoutAsset, IndexedLookupTableAssetMap<String, TreeLayoutAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        TreeLayoutAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(TreeLayoutAsset[]::new)
+                                                )
+                                                        .setPath(LAYOUTS_PATH))
+                                                .setReplaceOnRemove(key -> new TreeLayoutAsset()))
                                         .setCodec(TreeLayoutAsset.CODEC))
                                 .setKeyFunction(TreeLayoutAsset::getId))
                         .build();
@@ -167,11 +179,13 @@ public final class PassiveTreeAssetLoader {
                 ((HytaleAssetStore.Builder<String, PassiveRefundConfigAsset, IndexedLookupTableAssetMap<String, PassiveRefundConfigAsset>>)
                         ((HytaleAssetStore.Builder<String, PassiveRefundConfigAsset, IndexedLookupTableAssetMap<String, PassiveRefundConfigAsset>>)
                                 ((HytaleAssetStore.Builder<String, PassiveRefundConfigAsset, IndexedLookupTableAssetMap<String, PassiveRefundConfigAsset>>)
-                                        HytaleAssetStore.builder(
-                                                PassiveRefundConfigAsset.class,
-                                                new IndexedLookupTableAssetMap<>(PassiveRefundConfigAsset[]::new)
-                                        )
-                                                .setPath(CONFIG_PATH))
+                                        ((HytaleAssetStore.Builder<String, PassiveRefundConfigAsset, IndexedLookupTableAssetMap<String, PassiveRefundConfigAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        PassiveRefundConfigAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(PassiveRefundConfigAsset[]::new)
+                                                )
+                                                        .setPath(CONFIG_PATH))
+                                                .setReplaceOnRemove(key -> new PassiveRefundConfigAsset()))
                                         .setCodec(PassiveRefundConfigAsset.CODEC))
                                 .setKeyFunction(PassiveRefundConfigAsset::getId))
                         .build();
@@ -237,6 +251,9 @@ public final class PassiveTreeAssetLoader {
 
         LOGGER.info("Loaded " + loaded + " node templates" +
                 (skipped > 0 ? " (" + skipped + " skipped due to duplicates)" : ""));
+        
+        nodeTemplatesLoaded = true;
+        tryProcessPendingLayouts();
     }
 
     /**
@@ -282,7 +299,28 @@ public final class PassiveTreeAssetLoader {
         LOGGER.info("Loaded " + loaded + " passive trees" +
                 (skipped > 0 ? " (" + skipped + " skipped due to errors/conflicts)" : ""));
 
-        // Process any pending layouts
+        // Mark trees as loaded and try to process pending layouts
+        treesLoaded = true;
+        tryProcessPendingLayouts();
+    }
+    
+    /**
+     * Attempt to process pending layouts if all prerequisites are loaded.
+     * <p>
+     * Layouts require both node templates AND tree definitions to be loaded first.
+     * This method is called after both events and only processes when ready.
+     */
+    private static synchronized void tryProcessPendingLayouts() {
+        if (!nodeTemplatesLoaded) {
+            LOGGER.fine("Waiting for node templates to load before processing layouts");
+            return;
+        }
+        if (!treesLoaded) {
+            LOGGER.fine("Waiting for trees to load before processing layouts");
+            return;
+        }
+        
+        // Both prerequisites loaded - process any pending layouts
         processPendingLayouts();
     }
 

@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/OnKill.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:life-on-kill-flat", "StackType": "FLAT", "Amount": 25 },
-    { "StatId": "hyforged:mana-on-kill-flat", "StackType": "FLAT", "Amount": 15 }
+    { "StatId": "hyforged:life-on-kill-flat", "StackType": "Flat", "Amount": 25 },
+    { "StatId": "hyforged:mana-on-kill-flat", "StackType": "Flat", "Amount": 15 }
   ]
 }

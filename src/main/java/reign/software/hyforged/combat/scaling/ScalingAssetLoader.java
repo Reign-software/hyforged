@@ -80,11 +80,13 @@ public final class ScalingAssetLoader {
                 ((HytaleAssetStore.Builder<String, WorldScalingConfigAsset, IndexedLookupTableAssetMap<String, WorldScalingConfigAsset>>)
                         ((HytaleAssetStore.Builder<String, WorldScalingConfigAsset, IndexedLookupTableAssetMap<String, WorldScalingConfigAsset>>)
                                 ((HytaleAssetStore.Builder<String, WorldScalingConfigAsset, IndexedLookupTableAssetMap<String, WorldScalingConfigAsset>>)
-                                        HytaleAssetStore.builder(
-                                                WorldScalingConfigAsset.class,
-                                                new IndexedLookupTableAssetMap<>(WorldScalingConfigAsset[]::new)
-                                        )
-                                                .setPath(WORLD_SCALING_PATH))
+                                        ((HytaleAssetStore.Builder<String, WorldScalingConfigAsset, IndexedLookupTableAssetMap<String, WorldScalingConfigAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        WorldScalingConfigAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(WorldScalingConfigAsset[]::new)
+                                                )
+                                                        .setPath(WORLD_SCALING_PATH))
+                                                .setReplaceOnRemove(key -> new WorldScalingConfigAsset()))
                                         .setCodec(WorldScalingConfigAsset.CODEC))
                                 .setKeyFunction(WorldScalingConfigAsset::getId))
                         .build();
@@ -98,11 +100,13 @@ public final class ScalingAssetLoader {
                 ((HytaleAssetStore.Builder<String, MonsterScalingConfigAsset, IndexedLookupTableAssetMap<String, MonsterScalingConfigAsset>>)
                         ((HytaleAssetStore.Builder<String, MonsterScalingConfigAsset, IndexedLookupTableAssetMap<String, MonsterScalingConfigAsset>>)
                                 ((HytaleAssetStore.Builder<String, MonsterScalingConfigAsset, IndexedLookupTableAssetMap<String, MonsterScalingConfigAsset>>)
-                                        HytaleAssetStore.builder(
-                                                MonsterScalingConfigAsset.class,
-                                                new IndexedLookupTableAssetMap<>(MonsterScalingConfigAsset[]::new)
-                                        )
-                                                .setPath(MONSTER_SCALING_PATH))
+                                        ((HytaleAssetStore.Builder<String, MonsterScalingConfigAsset, IndexedLookupTableAssetMap<String, MonsterScalingConfigAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        MonsterScalingConfigAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(MonsterScalingConfigAsset[]::new)
+                                                )
+                                                        .setPath(MONSTER_SCALING_PATH))
+                                                .setReplaceOnRemove(key -> new MonsterScalingConfigAsset()))
                                         .setCodec(MonsterScalingConfigAsset.CODEC))
                                 .setKeyFunction(MonsterScalingConfigAsset::getId))
                         .build();

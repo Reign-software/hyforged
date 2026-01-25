@@ -1,6 +1,5 @@
 package reign.software.hyforged.stats.asset;
 
-import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.scaling.DiminishingScaling;
 import reign.software.hyforged.stats.scaling.LinearScaling;
@@ -184,13 +183,8 @@ public class ScalingRuleAsset {
             return Optional.empty();
         }
         
-        // Check if source stat exists (deferred - may be registered later)
-        // We log a warning but still create the rule; the compute system will handle missing sources
-        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-        if (!registry.hasStat(source)) {
-            LOGGER.warning("Source stat '" + source + "' not found for scaling rule in stat '" + 
-                    contextStatId + "' - rule will be created but may not function");
-        }
+        // Note: Source stat existence is validated post-load by StatAssetLoader.validateScalingRules()
+        // We don't check here because stats may be loaded in any order within the same batch
         
         // Convert based on type
         return switch (type.toLowerCase()) {

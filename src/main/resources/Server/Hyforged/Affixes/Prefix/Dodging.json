@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:dodging",
   "Type": "prefix",
   "DisplayName": "Dodging",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 58,
       "Weight": 45,
       "Stats": {
-        "hyforged:dodge-chance-bps": { "MinValue": 350, "MaxValue": 450, "StackType": "FLAT" }
+        "hyforged:dodge-chance-bps": { "MinValue": 350, "MaxValue": 450, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 42,
       "Weight": 70,
       "Stats": {
-        "hyforged:dodge-chance-bps": { "MinValue": 230, "MaxValue": 350, "StackType": "FLAT" }
+        "hyforged:dodge-chance-bps": { "MinValue": 230, "MaxValue": 350, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 25,
       "Weight": 95,
       "Stats": {
-        "hyforged:dodge-chance-bps": { "MinValue": 120, "MaxValue": 230, "StackType": "FLAT" }
+        "hyforged:dodge-chance-bps": { "MinValue": 120, "MaxValue": 230, "StackType": "Flat" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 8,
       "Weight": 120,
       "Stats": {
-        "hyforged:dodge-chance-bps": { "MinValue": 40, "MaxValue": 120, "StackType": "FLAT" }
+        "hyforged:dodge-chance-bps": { "MinValue": 40, "MaxValue": 120, "StackType": "Flat" }
       }
     }
   ]

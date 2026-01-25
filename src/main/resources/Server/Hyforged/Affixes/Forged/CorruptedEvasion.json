@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:corrupted-evasion",
   "Type": "forged",
   "DisplayName": "Corrupted Evasion",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 78,
       "Weight": 26,
       "Stats": {
-        "hyforged:evasion-rating": { "MinValue": 580, "MaxValue": 780, "StackType": "FLAT" }
+        "hyforged:evasion-rating": { "MinValue": 580, "MaxValue": 780, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 58,
       "Weight": 50,
       "Stats": {
-        "hyforged:evasion-rating": { "MinValue": 420, "MaxValue": 580, "StackType": "FLAT" }
+        "hyforged:evasion-rating": { "MinValue": 420, "MaxValue": 580, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 38,
       "Weight": 78,
       "Stats": {
-        "hyforged:evasion-rating": { "MinValue": 280, "MaxValue": 420, "StackType": "FLAT" }
+        "hyforged:evasion-rating": { "MinValue": 280, "MaxValue": 420, "StackType": "Flat" }
       }
     }
   ]

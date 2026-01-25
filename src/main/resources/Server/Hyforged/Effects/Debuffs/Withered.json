@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Wither.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:life-recovery-rate-bps", "StackType": "INCREASED", "Amount": -5000 },
-    { "StatId": "hyforged:healing-effectiveness-bps", "StackType": "INCREASED", "Amount": -4000 }
+    { "StatId": "hyforged:life-recovery-rate-bps", "StackType": "Increased", "Amount": -5000 },
+    { "StatId": "hyforged:healing-effectiveness-bps", "StackType": "Increased", "Amount": -4000 }
   ]
 }

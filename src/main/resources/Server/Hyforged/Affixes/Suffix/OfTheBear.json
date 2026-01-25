@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "of-the-bear",
   "Type": "suffix",
   "DisplayName": "of the Bear",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 40,
       "Weight": 50,
       "Stats": {
-        "hyforged:strength": { "MinValue": 8, "MaxValue": 10, "StackType": "FLAT" }
+        "hyforged:strength": { "MinValue": 8, "MaxValue": 10, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 25,
       "Weight": 75,
       "Stats": {
-        "hyforged:strength": { "MinValue": 6, "MaxValue": 8, "StackType": "FLAT" }
+        "hyforged:strength": { "MinValue": 6, "MaxValue": 8, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 10,
       "Weight": 100,
       "Stats": {
-        "hyforged:strength": { "MinValue": 4, "MaxValue": 6, "StackType": "FLAT" }
+        "hyforged:strength": { "MinValue": 4, "MaxValue": 6, "StackType": "Flat" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 5,
       "Weight": 125,
       "Stats": {
-        "hyforged:strength": { "MinValue": 2, "MaxValue": 4, "StackType": "FLAT" }
+        "hyforged:strength": { "MinValue": 2, "MaxValue": 4, "StackType": "Flat" }
       }
     },
     {
@@ -41,7 +41,7 @@
       "ItemLevelReq": 1,
       "Weight": 150,
       "Stats": {
-        "hyforged:strength": { "MinValue": 1, "MaxValue": 2, "StackType": "FLAT" }
+        "hyforged:strength": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" }
       }
     }
   ]

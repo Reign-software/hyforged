@@ -6,8 +6,8 @@
     "StatusEffectIcon": "UI/StatusEffects/SpellPower.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:spell-power-flat", "StackType": "FLAT", "Amount": 50 },
-    { "StatId": "hyforged:spell-damage-increased-bps", "StackType": "MORE", "Amount": 3000 },
-    { "StatId": "hyforged:cast-speed-bps", "StackType": "INCREASED", "Amount": 2000 }
+    { "StatId": "hyforged:spell-power-flat", "StackType": "Flat", "Amount": 50 },
+    { "StatId": "hyforged:spell-damage-increased-bps", "StackType": "More", "Amount": 3000 },
+    { "StatId": "hyforged:cast-speed-bps", "StackType": "Increased", "Amount": 2000 }
   ]
 }

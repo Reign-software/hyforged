@@ -1,0 +1,14 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:minor-minion-defense-1",
+      "Type": "minor",
+      "Name": "Minion Fortitude",
+      "Description": "+2% Minion Life\n+2% Minion Duration",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:minion-life-bps", "Value": 200 },
+        { "Type": "stat-modifier", "Stat": "hyforged:minion-duration-bps", "Value": 200 }
+      ]
+    }
+  ]
+}

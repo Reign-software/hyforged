@@ -71,11 +71,13 @@ public final class XPCurveAssetLoader {
                 ((HytaleAssetStore.Builder<String, XPCurveAsset, IndexedLookupTableAssetMap<String, XPCurveAsset>>)
                         ((HytaleAssetStore.Builder<String, XPCurveAsset, IndexedLookupTableAssetMap<String, XPCurveAsset>>)
                                 ((HytaleAssetStore.Builder<String, XPCurveAsset, IndexedLookupTableAssetMap<String, XPCurveAsset>>)
-                                        HytaleAssetStore.builder(
-                                                XPCurveAsset.class,
-                                                new IndexedLookupTableAssetMap<>(XPCurveAsset[]::new)
-                                        )
-                                                .setPath(XP_CURVE_ASSET_PATH))
+                                        ((HytaleAssetStore.Builder<String, XPCurveAsset, IndexedLookupTableAssetMap<String, XPCurveAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        XPCurveAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(XPCurveAsset[]::new)
+                                                )
+                                                        .setPath(XP_CURVE_ASSET_PATH))
+                                                .setReplaceOnRemove(key -> new XPCurveAsset()))
                                         .setCodec(XPCurveAsset.CODEC))
                                 .setKeyFunction(XPCurveAsset::getId))
                         .build();

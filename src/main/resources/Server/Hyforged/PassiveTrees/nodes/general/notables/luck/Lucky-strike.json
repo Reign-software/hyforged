@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:lucky-strike",
+      "Type": "notable",
+      "Name": "Lucky Strike",
+      "Description": "Unlocks Lucky Strike.",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:lucky-strike" }
+      ]
+    }
+  ]
+}

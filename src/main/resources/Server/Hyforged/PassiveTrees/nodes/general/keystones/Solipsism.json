@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:solipsism",
+      "Type": "keystone",
+      "Name": "Solipsism",
+      "Description": "100% of Damage is taken from Mana before Life\nCannot recover Life",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:solipsism" }
+      ]
+    }
+  ]
+}

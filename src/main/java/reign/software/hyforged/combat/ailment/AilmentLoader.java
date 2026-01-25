@@ -66,11 +66,13 @@ public final class AilmentLoader {
                 ((HytaleAssetStore.Builder<String, AilmentAsset, IndexedLookupTableAssetMap<String, AilmentAsset>>)
                         ((HytaleAssetStore.Builder<String, AilmentAsset, IndexedLookupTableAssetMap<String, AilmentAsset>>)
                                 ((HytaleAssetStore.Builder<String, AilmentAsset, IndexedLookupTableAssetMap<String, AilmentAsset>>)
-                                        HytaleAssetStore.builder(
-                                                AilmentAsset.class,
-                                                new IndexedLookupTableAssetMap<>(AilmentAsset[]::new)
-                                        )
-                                                .setPath(AILMENT_ASSET_PATH))
+                                        ((HytaleAssetStore.Builder<String, AilmentAsset, IndexedLookupTableAssetMap<String, AilmentAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        AilmentAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(AilmentAsset[]::new)
+                                                )
+                                                        .setPath(AILMENT_ASSET_PATH))
+                                                .setReplaceOnRemove(key -> new AilmentAsset()))
                                         .setCodec(AilmentAsset.CODEC))
                                 .setKeyFunction(AilmentAsset::getId))
                         .build();

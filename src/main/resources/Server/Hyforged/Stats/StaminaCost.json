@@ -17,6 +17,6 @@
     "Type": [
       "resource"
     ],
-    "Resource": "stamina"
+    "Resource": ["stamina"]
   }
 }

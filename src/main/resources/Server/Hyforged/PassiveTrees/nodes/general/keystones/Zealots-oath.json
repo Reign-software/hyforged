@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:zealots-oath",
+      "Type": "keystone",
+      "Name": "Zealot's Oath",
+      "Description": "Life Regeneration applies to Energy Shield instead",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:zealots-oath" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:eternal-youth",
+      "Type": "keystone",
+      "Name": "Eternal Youth",
+      "Description": "Life Regeneration is doubled\nCannot Leech Life",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:eternal-youth" }
+      ]
+    }
+  ]
+}

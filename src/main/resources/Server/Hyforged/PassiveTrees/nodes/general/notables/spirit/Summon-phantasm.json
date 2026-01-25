@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:summon-phantasm",
+      "Type": "notable",
+      "Name": "Summon Phantasm",
+      "Description": "Unlocks the Summon Phantasm skill.",
+      "Effects": [
+        { "Type": "spell-grant", "SpellId": "hyforged:summon-phantasm" }
+      ]
+    }
+  ]
+}

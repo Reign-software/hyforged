@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:mages",
   "Type": "prefix",
   "DisplayName": "Mage's",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 72,
       "Weight": 32,
       "Stats": {
-        "hyforged:max-mana-flat": { "MinValue": 90, "MaxValue": 110, "StackType": "FLAT" }
+        "hyforged:max-mana-flat": { "MinValue": 90, "MaxValue": 110, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 58,
       "Weight": 48,
       "Stats": {
-        "hyforged:max-mana-flat": { "MinValue": 70, "MaxValue": 90, "StackType": "FLAT" }
+        "hyforged:max-mana-flat": { "MinValue": 70, "MaxValue": 90, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 45,
       "Weight": 64,
       "Stats": {
-        "hyforged:max-mana-flat": { "MinValue": 52, "MaxValue": 70, "StackType": "FLAT" }
+        "hyforged:max-mana-flat": { "MinValue": 52, "MaxValue": 70, "StackType": "Flat" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 32,
       "Weight": 80,
       "Stats": {
-        "hyforged:max-mana-flat": { "MinValue": 38, "MaxValue": 52, "StackType": "FLAT" }
+        "hyforged:max-mana-flat": { "MinValue": 38, "MaxValue": 52, "StackType": "Flat" }
       }
     },
     {
@@ -41,7 +41,7 @@
       "ItemLevelReq": 20,
       "Weight": 96,
       "Stats": {
-        "hyforged:max-mana-flat": { "MinValue": 25, "MaxValue": 38, "StackType": "FLAT" }
+        "hyforged:max-mana-flat": { "MinValue": 25, "MaxValue": 38, "StackType": "Flat" }
       }
     },
     {
@@ -49,7 +49,7 @@
       "ItemLevelReq": 10,
       "Weight": 112,
       "Stats": {
-        "hyforged:max-mana-flat": { "MinValue": 14, "MaxValue": 25, "StackType": "FLAT" }
+        "hyforged:max-mana-flat": { "MinValue": 14, "MaxValue": 25, "StackType": "Flat" }
       }
     },
     {
@@ -57,7 +57,7 @@
       "ItemLevelReq": 1,
       "Weight": 130,
       "Stats": {
-        "hyforged:max-mana-flat": { "MinValue": 5, "MaxValue": 14, "StackType": "FLAT" }
+        "hyforged:max-mana-flat": { "MinValue": 5, "MaxValue": 14, "StackType": "Flat" }
       }
     }
   ]

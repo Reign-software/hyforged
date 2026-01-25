@@ -6,6 +6,6 @@
     "StatusEffectIcon": "UI/StatusEffects/Concentration.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:concentration", "StackType": "FLAT", "Amount": 20 }
+    { "StatId": "hyforged:concentration", "StackType": "Flat", "Amount": 20 }
   ]
 }

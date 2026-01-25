@@ -69,11 +69,13 @@ public final class NPCStatTemplateLoader {
                 ((HytaleAssetStore.Builder<String, NPCStatTemplateAsset, IndexedLookupTableAssetMap<String, NPCStatTemplateAsset>>)
                         ((HytaleAssetStore.Builder<String, NPCStatTemplateAsset, IndexedLookupTableAssetMap<String, NPCStatTemplateAsset>>)
                                 ((HytaleAssetStore.Builder<String, NPCStatTemplateAsset, IndexedLookupTableAssetMap<String, NPCStatTemplateAsset>>)
-                                        HytaleAssetStore.builder(
-                                                NPCStatTemplateAsset.class,
-                                                new IndexedLookupTableAssetMap<>(NPCStatTemplateAsset[]::new)
-                                        )
-                                                .setPath(NPC_STATS_ASSET_PATH))
+                                        ((HytaleAssetStore.Builder<String, NPCStatTemplateAsset, IndexedLookupTableAssetMap<String, NPCStatTemplateAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        NPCStatTemplateAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(NPCStatTemplateAsset[]::new)
+                                                )
+                                                        .setPath(NPC_STATS_ASSET_PATH))
+                                                .setReplaceOnRemove(key -> new NPCStatTemplateAsset()))
                                         .setCodec(NPCStatTemplateAsset.CODEC))
                                 .setKeyFunction(NPCStatTemplateAsset::getId))
                         .build();

@@ -6,8 +6,8 @@
     "StatusEffectIcon": "UI/StatusEffects/Luck.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:luck", "StackType": "FLAT", "Amount": 25 },
-    { "StatId": "hyforged:item-rarity-bps", "StackType": "INCREASED", "Amount": 3000 },
-    { "StatId": "hyforged:item-quantity-bps", "StackType": "INCREASED", "Amount": 1500 }
+    { "StatId": "hyforged:luck", "StackType": "Flat", "Amount": 25 },
+    { "StatId": "hyforged:item-rarity-bps", "StackType": "Increased", "Amount": 3000 },
+    { "StatId": "hyforged:item-quantity-bps", "StackType": "Increased", "Amount": 1500 }
   ]
 }

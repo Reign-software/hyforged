@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Healing.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:healing-effectiveness-bps", "StackType": "INCREASED", "Amount": 5000 },
-    { "StatId": "hyforged:healing-received-bps", "StackType": "INCREASED", "Amount": 3000 }
+    { "StatId": "hyforged:healing-effectiveness-bps", "StackType": "Increased", "Amount": 5000 },
+    { "StatId": "hyforged:healing-received-bps", "StackType": "Increased", "Amount": 3000 }
   ]
 }

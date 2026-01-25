@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:vaal-pact",
+      "Type": "keystone",
+      "Name": "Vaal Pact",
+      "Description": "Life Leech is instant\nLife Regeneration has no effect",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:vaal-pact" }
+      ]
+    }
+  ]
+}

@@ -6,8 +6,8 @@
     "StatusEffectIcon": "UI/StatusEffects/CritChance.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:crit-chance-bps", "StackType": "FLAT", "Amount": 2000 },
-    { "StatId": "hyforged:crit-multiplier-bps", "StackType": "INCREASED", "Amount": 3000 },
-    { "StatId": "hyforged:accuracy-rating-bps", "StackType": "INCREASED", "Amount": 1500 }
+    { "StatId": "hyforged:crit-chance-bps", "StackType": "Flat", "Amount": 2000 },
+    { "StatId": "hyforged:crit-multiplier-bps", "StackType": "Increased", "Amount": 3000 },
+    { "StatId": "hyforged:accuracy-rating-bps", "StackType": "Increased", "Amount": 1500 }
   ]
 }

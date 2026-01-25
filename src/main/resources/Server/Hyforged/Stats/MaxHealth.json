@@ -14,7 +14,7 @@
     "Type": [
       "resource"
     ],
-    "Resource": "health",
+    "Resource": ["health"],
     "Source": [
       "derived"
     ]

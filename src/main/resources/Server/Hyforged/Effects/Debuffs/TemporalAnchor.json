@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Anchor.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:movement-speed-bps", "StackType": "MORE", "Amount": -5000 },
-    { "StatId": "hyforged:cooldown-recovery-bps", "StackType": "INCREASED", "Amount": -5000 }
+    { "StatId": "hyforged:movement-speed-bps", "StackType": "More", "Amount": -5000 },
+    { "StatId": "hyforged:cooldown-recovery-bps", "StackType": "Increased", "Amount": -5000 }
   ]
 }

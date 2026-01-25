@@ -89,11 +89,13 @@ public final class StatAssetLoader {
                 ((HytaleAssetStore.Builder<String, CategoryDefinitionAsset, IndexedLookupTableAssetMap<String, CategoryDefinitionAsset>>)
                         ((HytaleAssetStore.Builder<String, CategoryDefinitionAsset, IndexedLookupTableAssetMap<String, CategoryDefinitionAsset>>)
                                 ((HytaleAssetStore.Builder<String, CategoryDefinitionAsset, IndexedLookupTableAssetMap<String, CategoryDefinitionAsset>>)
-                                        HytaleAssetStore.builder(
-                                                CategoryDefinitionAsset.class,
-                                                new IndexedLookupTableAssetMap<>(CategoryDefinitionAsset[]::new)
-                                        )
-                                                .setPath(CATEGORY_ASSET_PATH))
+                                        ((HytaleAssetStore.Builder<String, CategoryDefinitionAsset, IndexedLookupTableAssetMap<String, CategoryDefinitionAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        CategoryDefinitionAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(CategoryDefinitionAsset[]::new)
+                                                )
+                                                        .setPath(CATEGORY_ASSET_PATH))
+                                                .setReplaceOnRemove(key -> new CategoryDefinitionAsset()))
                                         .setCodec(CategoryDefinitionAsset.CODEC))
                                 .setKeyFunction(CategoryDefinitionAsset::getId))
                         .build();
@@ -110,11 +112,13 @@ public final class StatAssetLoader {
                 ((HytaleAssetStore.Builder<String, StatDefinitionAsset, IndexedLookupTableAssetMap<String, StatDefinitionAsset>>)
                         ((HytaleAssetStore.Builder<String, StatDefinitionAsset, IndexedLookupTableAssetMap<String, StatDefinitionAsset>>)
                                 ((HytaleAssetStore.Builder<String, StatDefinitionAsset, IndexedLookupTableAssetMap<String, StatDefinitionAsset>>)
-                                        HytaleAssetStore.builder(
-                                                StatDefinitionAsset.class,
-                                                new IndexedLookupTableAssetMap<>(StatDefinitionAsset[]::new)
-                                        )
-                                                .setPath(STAT_ASSET_PATH))
+                                        ((HytaleAssetStore.Builder<String, StatDefinitionAsset, IndexedLookupTableAssetMap<String, StatDefinitionAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        StatDefinitionAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(StatDefinitionAsset[]::new)
+                                                )
+                                                        .setPath(STAT_ASSET_PATH))
+                                                .setReplaceOnRemove(key -> new StatDefinitionAsset()))
                                         .setCodec(StatDefinitionAsset.CODEC))
                                 .setKeyFunction(StatDefinitionAsset::getId))
                         .build();
@@ -205,6 +209,33 @@ public final class StatAssetLoader {
         }
 
         LOGGER.info("Loaded " + loaded + " stat definitions from assets (" + skipped + " skipped)");
+        
+        // Validate scaling rules now that all stats are loaded
+        validateScalingRules(registry);
+    }
+    
+    /**
+     * Validate scaling rules after all stats are loaded.
+     * <p>
+     * This checks that all source stats referenced in scaling rules exist.
+     * Called after all stats are registered to avoid false positives from load order.
+     */
+    private static void validateScalingRules(StatDefinitionRegistry registry) {
+        int missingRefs = 0;
+        
+        for (StatDefinition stat : registry.getAllStats()) {
+            for (var rule : stat.scaling()) {
+                String sourceId = rule.source().toString();
+                if (!registry.hasStat(sourceId)) {
+                    LOGGER.warning("Stat '" + stat.id() + "' has scaling rule referencing missing stat: " + sourceId);
+                    missingRefs++;
+                }
+            }
+        }
+        
+        if (missingRefs > 0) {
+            LOGGER.warning("Found " + missingRefs + " scaling rules with missing source stats");
+        }
     }
 
     /**

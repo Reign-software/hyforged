@@ -70,11 +70,13 @@ public final class XPConfigAssetLoader {
                 ((HytaleAssetStore.Builder<String, XPConfigAsset, IndexedLookupTableAssetMap<String, XPConfigAsset>>)
                         ((HytaleAssetStore.Builder<String, XPConfigAsset, IndexedLookupTableAssetMap<String, XPConfigAsset>>)
                                 ((HytaleAssetStore.Builder<String, XPConfigAsset, IndexedLookupTableAssetMap<String, XPConfigAsset>>)
-                                        HytaleAssetStore.builder(
-                                                XPConfigAsset.class,
-                                                new IndexedLookupTableAssetMap<>(XPConfigAsset[]::new)
-                                        )
-                                                .setPath(XP_CONFIG_ASSET_PATH))
+                                        ((HytaleAssetStore.Builder<String, XPConfigAsset, IndexedLookupTableAssetMap<String, XPConfigAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        XPConfigAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(XPConfigAsset[]::new)
+                                                )
+                                                        .setPath(XP_CONFIG_ASSET_PATH))
+                                                .setReplaceOnRemove(key -> new XPConfigAsset()))
                                         .setCodec(XPConfigAsset.CODEC))
                                 .setKeyFunction(a -> CONFIG_ID))
                         .build();

@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:corrupted-essence",
   "Type": "forged",
   "DisplayName": "Corrupted Essence",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 76,
       "Weight": 28,
       "Stats": {
-        "hyforged:max-mana": { "MinValue": 140, "MaxValue": 180, "StackType": "FLAT" }
+        "hyforged:max-mana": { "MinValue": 140, "MaxValue": 180, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 56,
       "Weight": 52,
       "Stats": {
-        "hyforged:max-mana": { "MinValue": 95, "MaxValue": 140, "StackType": "FLAT" }
+        "hyforged:max-mana": { "MinValue": 95, "MaxValue": 140, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 36,
       "Weight": 80,
       "Stats": {
-        "hyforged:max-mana": { "MinValue": 60, "MaxValue": 95, "StackType": "FLAT" }
+        "hyforged:max-mana": { "MinValue": 60, "MaxValue": 95, "StackType": "Flat" }
       }
     }
   ]

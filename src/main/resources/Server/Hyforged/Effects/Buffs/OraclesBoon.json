@@ -6,8 +6,8 @@
     "StatusEffectIcon": "UI/StatusEffects/Wisdom.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:wisdom", "StackType": "FLAT", "Amount": 20 },
-    { "StatId": "hyforged:mana-regen-bps", "StackType": "INCREASED", "Amount": 2000 },
-    { "StatId": "hyforged:spell-power-flat", "StackType": "FLAT", "Amount": 15 }
+    { "StatId": "hyforged:wisdom", "StackType": "Flat", "Amount": 20 },
+    { "StatId": "hyforged:mana-regen-bps", "StackType": "Increased", "Amount": 2000 },
+    { "StatId": "hyforged:spell-power-flat", "StackType": "Flat", "Amount": 15 }
   ]
 }

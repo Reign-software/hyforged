@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:corrupted-ward-cold",
   "Type": "forged",
   "DisplayName": "Corrupted Cold Ward",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 74,
       "Weight": 35,
       "Stats": {
-        "hyforged:cold-resistance-bps": { "MinValue": 5000, "MaxValue": 6500, "StackType": "FLAT" }
+        "hyforged:cold-resistance-bps": { "MinValue": 5000, "MaxValue": 6500, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 52,
       "Weight": 65,
       "Stats": {
-        "hyforged:cold-resistance-bps": { "MinValue": 3500, "MaxValue": 5000, "StackType": "FLAT" }
+        "hyforged:cold-resistance-bps": { "MinValue": 3500, "MaxValue": 5000, "StackType": "Flat" }
       }
     }
   ]

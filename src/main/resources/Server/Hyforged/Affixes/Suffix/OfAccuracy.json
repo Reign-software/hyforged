@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:of-accuracy",
   "Type": "suffix",
   "DisplayName": "of Accuracy",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 52,
       "Weight": 50,
       "Stats": {
-        "hyforged:crit-chance-bps": { "MinValue": 220, "MaxValue": 300, "StackType": "FLAT" }
+        "hyforged:crit-chance-bps": { "MinValue": 220, "MaxValue": 300, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 36,
       "Weight": 75,
       "Stats": {
-        "hyforged:crit-chance-bps": { "MinValue": 150, "MaxValue": 220, "StackType": "FLAT" }
+        "hyforged:crit-chance-bps": { "MinValue": 150, "MaxValue": 220, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 20,
       "Weight": 100,
       "Stats": {
-        "hyforged:crit-chance-bps": { "MinValue": 80, "MaxValue": 150, "StackType": "FLAT" }
+        "hyforged:crit-chance-bps": { "MinValue": 80, "MaxValue": 150, "StackType": "Flat" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 6,
       "Weight": 125,
       "Stats": {
-        "hyforged:crit-chance-bps": { "MinValue": 30, "MaxValue": 80, "StackType": "FLAT" }
+        "hyforged:crit-chance-bps": { "MinValue": 30, "MaxValue": 80, "StackType": "Flat" }
       }
     }
   ]

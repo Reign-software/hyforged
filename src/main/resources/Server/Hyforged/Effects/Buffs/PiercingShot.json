@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Pierce.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:projectile-pierce-count-flat", "StackType": "FLAT", "Amount": 3 },
-    { "StatId": "hyforged:projectile-speed-bps", "StackType": "INCREASED", "Amount": 3000 }
+    { "StatId": "hyforged:projectile-pierce-count-flat", "StackType": "Flat", "Amount": 3 },
+    { "StatId": "hyforged:projectile-speed-bps", "StackType": "Increased", "Amount": 3000 }
   ]
 }

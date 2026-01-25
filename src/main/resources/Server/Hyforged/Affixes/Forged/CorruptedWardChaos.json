@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:corrupted-ward-chaos",
   "Type": "forged",
   "DisplayName": "Corrupted Chaos Ward",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 78,
       "Weight": 40,
       "Stats": {
-        "hyforged:chaos-resistance-bps": { "MinValue": 4500, "MaxValue": 6000, "StackType": "FLAT" }
+        "hyforged:chaos-resistance-bps": { "MinValue": 4500, "MaxValue": 6000, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 58,
       "Weight": 70,
       "Stats": {
-        "hyforged:chaos-resistance-bps": { "MinValue": 3000, "MaxValue": 4500, "StackType": "FLAT" }
+        "hyforged:chaos-resistance-bps": { "MinValue": 3000, "MaxValue": 4500, "StackType": "Flat" }
       }
     }
   ]

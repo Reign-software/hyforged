@@ -6,8 +6,8 @@
     "StatusEffectIcon": "UI/StatusEffects/Dexterity.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:dexterity", "StackType": "FLAT", "Amount": 15 },
-    { "StatId": "hyforged:accuracy-rating-bps", "StackType": "INCREASED", "Amount": 2500 },
-    { "StatId": "hyforged:crit-chance-bps", "StackType": "FLAT", "Amount": 500 }
+    { "StatId": "hyforged:dexterity", "StackType": "Flat", "Amount": 15 },
+    { "StatId": "hyforged:accuracy-rating-bps", "StackType": "Increased", "Amount": 2500 },
+    { "StatId": "hyforged:crit-chance-bps", "StackType": "Flat", "Amount": 500 }
   ]
 }

@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Sword.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:sword-skill-levels-flat", "StackType": "FLAT", "Amount": 3 },
-    { "StatId": "hyforged:melee-damage-increased-bps", "StackType": "INCREASED", "Amount": 2000 }
+    { "StatId": "hyforged:sword-skill-levels-flat", "StackType": "Flat", "Amount": 3 },
+    { "StatId": "hyforged:melee-damage-increased-bps", "StackType": "Increased", "Amount": 2000 }
   ]
 }

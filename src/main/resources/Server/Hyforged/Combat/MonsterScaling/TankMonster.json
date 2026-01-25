@@ -9,27 +9,27 @@
   "ScaledStats": [
     {
       "StatId": "hyforged:max-health",
-      "ModifierType": "INCREASED",
+      "ModifierType": "Increased",
       "ScalePerLevel": 20
     },
     {
       "StatId": "hyforged:physical-damage-bps",
-      "ModifierType": "INCREASED",
+      "ModifierType": "Increased",
       "ScalePerLevel": 3
     },
     {
       "StatId": "hyforged:armor-bps",
-      "ModifierType": "FLAT",
+      "ModifierType": "Flat",
       "ScalePerLevel": 150
     },
     {
       "StatId": "hyforged:fire-resistance-bps",
-      "ModifierType": "FLAT",
+      "ModifierType": "Flat",
       "ScalePerLevel": 75
     },
     {
       "StatId": "hyforged:cold-resistance-bps",
-      "ModifierType": "FLAT",
+      "ModifierType": "Flat",
       "ScalePerLevel": 75
     }
   ]

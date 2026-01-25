@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:corrupted-tempest",
   "Type": "forged",
   "DisplayName": "Corrupted Tempest",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 76,
       "Weight": 30,
       "Stats": {
-        "hyforged:lightning-damage-increased-bps": { "MinValue": 1800, "MaxValue": 2500, "StackType": "MORE" }
+        "hyforged:lightning-damage-increased-bps": { "MinValue": 1800, "MaxValue": 2500, "StackType": "More" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 55,
       "Weight": 60,
       "Stats": {
-        "hyforged:lightning-damage-increased-bps": { "MinValue": 1100, "MaxValue": 1800, "StackType": "MORE" }
+        "hyforged:lightning-damage-increased-bps": { "MinValue": 1100, "MaxValue": 1800, "StackType": "More" }
       }
     }
   ]

@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:ancestral-vision",
+      "Type": "keystone",
+      "Name": "Ancestral Vision",
+      "Description": "Spells have +1 Chain\n-20% Spell Damage per Chain",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:ancestral-vision" }
+      ]
+    }
+  ]
+}

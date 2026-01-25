@@ -1,0 +1,16 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:adamant-bulwark",
+      "Type": "notable",
+      "Name": "Adamant Bulwark",
+      "Description": "3% Reduced Damage Taken\n3% Reduced Physical Damage Taken\n3% Reduced Damage Over Time Taken\n+4% Ailment Threshold",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:damage-taken-bps", "Value": -300 },
+        { "Type": "stat-modifier", "Stat": "hyforged:physical-damage-taken-bps", "Value": -300 },
+        { "Type": "stat-modifier", "Stat": "hyforged:damage-over-time-taken-bps", "Value": -300 },
+        { "Type": "stat-modifier", "Stat": "hyforged:ailment-threshold-bps", "Value": 400 }
+      ]
+    }
+  ]
+}

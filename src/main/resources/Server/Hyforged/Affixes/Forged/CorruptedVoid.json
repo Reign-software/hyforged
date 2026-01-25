@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:corrupted-void",
   "Type": "forged",
   "DisplayName": "Corrupted Void",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 78,
       "Weight": 35,
       "Stats": {
-        "hyforged:chaos-damage-increased-bps": { "MinValue": 1800, "MaxValue": 2500, "StackType": "MORE" }
+        "hyforged:chaos-damage-increased-bps": { "MinValue": 1800, "MaxValue": 2500, "StackType": "More" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 58,
       "Weight": 65,
       "Stats": {
-        "hyforged:chaos-damage-increased-bps": { "MinValue": 1100, "MaxValue": 1800, "StackType": "MORE" }
+        "hyforged:chaos-damage-increased-bps": { "MinValue": 1100, "MaxValue": 1800, "StackType": "More" }
       }
     }
   ]

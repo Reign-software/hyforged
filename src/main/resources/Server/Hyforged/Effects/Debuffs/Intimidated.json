@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Fear.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:damage-increased-bps", "StackType": "INCREASED", "Amount": -2000 },
-    { "StatId": "hyforged:crit-multiplier-bps", "StackType": "INCREASED", "Amount": -2500 }
+    { "StatId": "hyforged:damage-increased-bps", "StackType": "Increased", "Amount": -2000 },
+    { "StatId": "hyforged:crit-multiplier-bps", "StackType": "Increased", "Amount": -2500 }
   ]
 }

@@ -6,8 +6,8 @@
     "StatusEffectIcon": "UI/StatusEffects/Poison.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:poison-chance-bps", "StackType": "FLAT", "Amount": 5000 },
-    { "StatId": "hyforged:poison-damage-increased-bps", "StackType": "INCREASED", "Amount": 3000 },
-    { "StatId": "hyforged:poison-duration-bps", "StackType": "INCREASED", "Amount": 2500 }
+    { "StatId": "hyforged:poison-chance-bps", "StackType": "Flat", "Amount": 5000 },
+    { "StatId": "hyforged:poison-damage-increased-bps", "StackType": "Increased", "Amount": 3000 },
+    { "StatId": "hyforged:poison-duration-bps", "StackType": "Increased", "Amount": 2500 }
   ]
 }

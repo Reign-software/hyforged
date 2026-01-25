@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:tireless",
   "Type": "prefix",
   "DisplayName": "Tireless",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 68,
       "Weight": 38,
       "Stats": {
-        "hyforged:max-stamina": { "MinValue": 50, "MaxValue": 65, "StackType": "FLAT" }
+        "hyforged:max-stamina": { "MinValue": 50, "MaxValue": 65, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 52,
       "Weight": 55,
       "Stats": {
-        "hyforged:max-stamina": { "MinValue": 38, "MaxValue": 50, "StackType": "FLAT" }
+        "hyforged:max-stamina": { "MinValue": 38, "MaxValue": 50, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 36,
       "Weight": 75,
       "Stats": {
-        "hyforged:max-stamina": { "MinValue": 26, "MaxValue": 38, "StackType": "FLAT" }
+        "hyforged:max-stamina": { "MinValue": 26, "MaxValue": 38, "StackType": "Flat" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 22,
       "Weight": 95,
       "Stats": {
-        "hyforged:max-stamina": { "MinValue": 16, "MaxValue": 26, "StackType": "FLAT" }
+        "hyforged:max-stamina": { "MinValue": 16, "MaxValue": 26, "StackType": "Flat" }
       }
     },
     {
@@ -41,7 +41,7 @@
       "ItemLevelReq": 10,
       "Weight": 115,
       "Stats": {
-        "hyforged:max-stamina": { "MinValue": 8, "MaxValue": 16, "StackType": "FLAT" }
+        "hyforged:max-stamina": { "MinValue": 8, "MaxValue": 16, "StackType": "Flat" }
       }
     },
     {
@@ -49,7 +49,7 @@
       "ItemLevelReq": 1,
       "Weight": 135,
       "Stats": {
-        "hyforged:max-stamina": { "MinValue": 3, "MaxValue": 8, "StackType": "FLAT" }
+        "hyforged:max-stamina": { "MinValue": 3, "MaxValue": 8, "StackType": "Flat" }
       }
     }
   ]

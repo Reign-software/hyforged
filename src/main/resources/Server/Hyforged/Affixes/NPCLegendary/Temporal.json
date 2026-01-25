@@ -10,7 +10,7 @@
       "ItemLevelReq": 40,
       "Weight": 100,
       "Stats": {
-        "hyforged:movement-speed-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "MORE" }
+        "hyforged:movement-speed-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "More" }
       }
     }
   ],

@@ -6,8 +6,8 @@
     "StatusEffectIcon": "UI/StatusEffects/ElementalVuln.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:fire-resistance-bps", "StackType": "FLAT", "Amount": -2000 },
-    { "StatId": "hyforged:cold-resistance-bps", "StackType": "FLAT", "Amount": -2000 },
-    { "StatId": "hyforged:lightning-resistance-bps", "StackType": "FLAT", "Amount": -2000 }
+    { "StatId": "hyforged:fire-resistance-bps", "StackType": "Flat", "Amount": -2000 },
+    { "StatId": "hyforged:cold-resistance-bps", "StackType": "Flat", "Amount": -2000 },
+    { "StatId": "hyforged:lightning-resistance-bps", "StackType": "Flat", "Amount": -2000 }
   ]
 }

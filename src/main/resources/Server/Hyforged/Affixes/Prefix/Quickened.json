@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:quickened",
   "Type": "prefix",
   "DisplayName": "Quickened",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 58,
       "Weight": 42,
       "Stats": {
-        "hyforged:cast-speed-bps": { "MinValue": 1800, "MaxValue": 2500, "StackType": "INCREASED" }
+        "hyforged:cast-speed-bps": { "MinValue": 1800, "MaxValue": 2500, "StackType": "Increased" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 42,
       "Weight": 65,
       "Stats": {
-        "hyforged:cast-speed-bps": { "MinValue": 1200, "MaxValue": 1800, "StackType": "INCREASED" }
+        "hyforged:cast-speed-bps": { "MinValue": 1200, "MaxValue": 1800, "StackType": "Increased" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 26,
       "Weight": 90,
       "Stats": {
-        "hyforged:cast-speed-bps": { "MinValue": 700, "MaxValue": 1200, "StackType": "INCREASED" }
+        "hyforged:cast-speed-bps": { "MinValue": 700, "MaxValue": 1200, "StackType": "Increased" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 10,
       "Weight": 115,
       "Stats": {
-        "hyforged:cast-speed-bps": { "MinValue": 300, "MaxValue": 700, "StackType": "INCREASED" }
+        "hyforged:cast-speed-bps": { "MinValue": 300, "MaxValue": 700, "StackType": "Increased" }
       }
     }
   ]

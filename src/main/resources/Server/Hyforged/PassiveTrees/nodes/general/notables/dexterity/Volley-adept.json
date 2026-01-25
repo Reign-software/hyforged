@@ -1,0 +1,15 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:volley-adept",
+      "Type": "notable",
+      "Name": "Volley Adept",
+      "Description": "+1 Additional Projectile\n+1 Projectile Pierce\n+4% Projectile Damage",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:additional-projectiles", "Value": 1 },
+        { "Type": "stat-modifier", "Stat": "hyforged:projectile-pierce-count", "Value": 1 },
+        { "Type": "stat-modifier", "Stat": "hyforged:projectile-damage-bps", "Value": 400 }
+      ]
+    }
+  ]
+}

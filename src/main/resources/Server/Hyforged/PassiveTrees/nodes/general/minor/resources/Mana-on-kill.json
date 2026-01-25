@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:minor-mana-on-kill-1",
+      "Type": "minor",
+      "Name": "Mana Harvest",
+      "Description": "+1% Mana on Kill",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:mana-on-kill-bps", "Value": 100 }
+      ]
+    }
+  ]
+}

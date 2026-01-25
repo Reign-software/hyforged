@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:hardened",
   "Type": "prefix",
   "DisplayName": "Hardened",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 62,
       "Weight": 45,
       "Stats": {
-        "hyforged:physical-resistance-bps": { "MinValue": 2800, "MaxValue": 3500, "StackType": "FLAT" }
+        "hyforged:physical-resistance-bps": { "MinValue": 2800, "MaxValue": 3500, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 46,
       "Weight": 65,
       "Stats": {
-        "hyforged:physical-resistance-bps": { "MinValue": 1900, "MaxValue": 2800, "StackType": "FLAT" }
+        "hyforged:physical-resistance-bps": { "MinValue": 1900, "MaxValue": 2800, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 30,
       "Weight": 85,
       "Stats": {
-        "hyforged:physical-resistance-bps": { "MinValue": 1100, "MaxValue": 1900, "StackType": "FLAT" }
+        "hyforged:physical-resistance-bps": { "MinValue": 1100, "MaxValue": 1900, "StackType": "Flat" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 15,
       "Weight": 105,
       "Stats": {
-        "hyforged:physical-resistance-bps": { "MinValue": 500, "MaxValue": 1100, "StackType": "FLAT" }
+        "hyforged:physical-resistance-bps": { "MinValue": 500, "MaxValue": 1100, "StackType": "Flat" }
       }
     },
     {
@@ -41,7 +41,7 @@
       "ItemLevelReq": 1,
       "Weight": 125,
       "Stats": {
-        "hyforged:physical-resistance-bps": { "MinValue": 150, "MaxValue": 500, "StackType": "FLAT" }
+        "hyforged:physical-resistance-bps": { "MinValue": 150, "MaxValue": 500, "StackType": "Flat" }
       }
     }
   ]

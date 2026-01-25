@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:of-the-serpent",
   "Type": "suffix",
   "DisplayName": "of the Serpent",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 66,
       "Weight": 38,
       "Stats": {
-        "hyforged:luck": { "MinValue": 38, "MaxValue": 48, "StackType": "FLAT" }
+        "hyforged:luck": { "MinValue": 38, "MaxValue": 48, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 50,
       "Weight": 55,
       "Stats": {
-        "hyforged:luck": { "MinValue": 28, "MaxValue": 38, "StackType": "FLAT" }
+        "hyforged:luck": { "MinValue": 28, "MaxValue": 38, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 36,
       "Weight": 75,
       "Stats": {
-        "hyforged:luck": { "MinValue": 20, "MaxValue": 28, "StackType": "FLAT" }
+        "hyforged:luck": { "MinValue": 20, "MaxValue": 28, "StackType": "Flat" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 22,
       "Weight": 95,
       "Stats": {
-        "hyforged:luck": { "MinValue": 12, "MaxValue": 20, "StackType": "FLAT" }
+        "hyforged:luck": { "MinValue": 12, "MaxValue": 20, "StackType": "Flat" }
       }
     },
     {
@@ -41,7 +41,7 @@
       "ItemLevelReq": 10,
       "Weight": 115,
       "Stats": {
-        "hyforged:luck": { "MinValue": 6, "MaxValue": 12, "StackType": "FLAT" }
+        "hyforged:luck": { "MinValue": 6, "MaxValue": 12, "StackType": "Flat" }
       }
     },
     {
@@ -49,7 +49,7 @@
       "ItemLevelReq": 1,
       "Weight": 135,
       "Stats": {
-        "hyforged:luck": { "MinValue": 2, "MaxValue": 6, "StackType": "FLAT" }
+        "hyforged:luck": { "MinValue": 2, "MaxValue": 6, "StackType": "Flat" }
       }
     }
   ]

@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Health.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:max-health-flat", "StackType": "INCREASED", "Amount": 3000 },
-    { "StatId": "hyforged:health-regen-bps", "StackType": "INCREASED", "Amount": 5000 }
+    { "StatId": "hyforged:max-health-flat", "StackType": "Increased", "Amount": 3000 },
+    { "StatId": "hyforged:health-regen-bps", "StackType": "Increased", "Amount": 5000 }
   ]
 }

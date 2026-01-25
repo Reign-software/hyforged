@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Shock.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:damage-taken-bps", "StackType": "INCREASED", "Amount": 2500 },
-    { "StatId": "hyforged:stun-threshold-flat", "StackType": "INCREASED", "Amount": -2000 }
+    { "StatId": "hyforged:damage-taken-bps", "StackType": "Increased", "Amount": 2500 },
+    { "StatId": "hyforged:stun-threshold-flat", "StackType": "Increased", "Amount": -2000 }
   ]
 }

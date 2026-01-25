@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Suppress.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:cooldown-recovery-bps", "StackType": "INCREASED", "Amount": -3000 },
-    { "StatId": "hyforged:mana-cost-bps", "StackType": "INCREASED", "Amount": 2500 }
+    { "StatId": "hyforged:cooldown-recovery-bps", "StackType": "Increased", "Amount": -3000 },
+    { "StatId": "hyforged:mana-cost-bps", "StackType": "Increased", "Amount": 2500 }
   ]
 }

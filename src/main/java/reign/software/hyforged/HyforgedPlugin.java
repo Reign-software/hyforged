@@ -53,7 +53,6 @@ import reign.software.hyforged.concentration.ConcentrationService;
 import reign.software.hyforged.concentration.HyforgedConcentrationDisruptionSystem;
 import reign.software.hyforged.concentration.HyforgedConcentrationRegenerationSystem;
 import reign.software.hyforged.concentration.ui.ConcentrationPriorityPage;
-import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.asset.ClassAssetLoader;
 import reign.software.hyforged.stats.asset.StatAssetLoader;
 import reign.software.hyforged.stats.bridge.HyforgedDamageReductionSystem;
@@ -159,9 +158,8 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register custom UI pages (for interaction-based access)
         registerCustomUIPages();
         
-        getLogger().at(Level.INFO).log("Hyforged Stats System initialized with %d stats and %d tags",
-            StatDefinitionRegistry.get().getStatCount(),
-            StatDefinitionRegistry.get().getAllTags().size());
+        // Note: Actual stat count is logged by StatAssetLoader when assets are loaded asynchronously
+        getLogger().at(Level.INFO).log("Hyforged setup complete - asset loading will continue asynchronously");
     }
     
     /**
@@ -438,13 +436,14 @@ public class HyforgedPlugin extends JavaPlugin {
         entityStoreRegistry.registerSystem(new NPCQualityAffixStatSystem());
         getLogger().at(Level.FINE).log("Registered NPCQualityAffixStatSystem");
         
+        // Register HyforgedStatComputeSystem (recomputes dirty stats)
+        // NOTE: Must be registered before HyforgedEffectBridgeSystem (which depends on it)
+        entityStoreRegistry.registerSystem(new HyforgedStatComputeSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedStatComputeSystem");
+        
         // Register HyforgedEffectBridgeSystem (bridges Hytale effects to Hyforged stats)
         entityStoreRegistry.registerSystem(new HyforgedEffectBridgeSystem());
         getLogger().at(Level.FINE).log("Registered HyforgedEffectBridgeSystem");
-        
-        // Register HyforgedStatComputeSystem (recomputes dirty stats)
-        entityStoreRegistry.registerSystem(new HyforgedStatComputeSystem());
-        getLogger().at(Level.FINE).log("Registered HyforgedStatComputeSystem");
         
         // Register HyforgedBridgeSystem (bridges to Hytale's EntityStatMap)
         entityStoreRegistry.registerSystem(new HyforgedBridgeSystem());
@@ -510,12 +509,13 @@ public class HyforgedPlugin extends JavaPlugin {
         getLogger().at(Level.FINE).log("Initialized PassiveTreeMigrationSystem");
         
         // Register LootAffixSystem (rolls affixes on item drops)
-        entityStoreRegistry.registerSystem(new LootQualitySystem());
-        getLogger().at(Level.FINE).log("Registered LootQualitySystem");
-
-        // Register LootAffixSystem (rolls affixes on item drops)
+        // NOTE: Must be registered before LootQualitySystem (which depends on it)
         entityStoreRegistry.registerSystem(new LootAffixSystem());
         getLogger().at(Level.FINE).log("Registered LootAffixSystem");
+
+        // Register LootQualitySystem (assigns quality tiers to loot)
+        entityStoreRegistry.registerSystem(new LootQualitySystem());
+        getLogger().at(Level.FINE).log("Registered LootQualitySystem");
         
         // Register EquipmentAffixListener (applies affix modifiers on equipment change)
         EquipmentAffixListener equipmentAffixListener = new EquipmentAffixListener();

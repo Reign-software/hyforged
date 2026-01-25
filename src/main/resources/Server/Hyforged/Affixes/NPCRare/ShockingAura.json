@@ -10,8 +10,8 @@
       "ItemLevelReq": 15,
       "Weight": 100,
       "Stats": {
-        "hyforged:lightning-aura-damage-flat": { "MinValue": 4, "MaxValue": 8, "StackType": "FLAT" },
-        "hyforged:lightning-aura-radius-flat": { "MinValue": 2, "MaxValue": 3, "StackType": "FLAT" }
+        "hyforged:lightning-aura-damage-flat": { "MinValue": 4, "MaxValue": 8, "StackType": "Flat" },
+        "hyforged:lightning-aura-radius-flat": { "MinValue": 2, "MaxValue": 3, "StackType": "Flat" }
       }
     },
     {
@@ -19,8 +19,8 @@
       "ItemLevelReq": 40,
       "Weight": 65,
       "Stats": {
-        "hyforged:lightning-aura-damage-flat": { "MinValue": 8, "MaxValue": 16, "StackType": "FLAT" },
-        "hyforged:lightning-aura-radius-flat": { "MinValue": 3, "MaxValue": 4, "StackType": "FLAT" }
+        "hyforged:lightning-aura-damage-flat": { "MinValue": 8, "MaxValue": 16, "StackType": "Flat" },
+        "hyforged:lightning-aura-radius-flat": { "MinValue": 3, "MaxValue": 4, "StackType": "Flat" }
       }
     }
   ]

@@ -46,11 +46,17 @@ public class PassiveTreeAsset implements JsonAssetWithMap<String, IndexedLookupT
             PassiveTreeAsset.class,
             PassiveTreeAsset::new,
             Codec.STRING,
-            (asset, id) -> asset.id = id,
+            (asset, id) -> { if (asset.id == null || asset.id.isEmpty()) asset.id = id; },
             asset -> asset.id,
             (asset, data) -> asset.data = data,
             asset -> asset.data
         )
+        .append(
+            new KeyedCodec<>("Id", Codec.STRING),
+            (asset, value) -> asset.id = value,
+            asset -> asset.id
+        )
+        .add()
         .append(
             new KeyedCodec<>("TreeType", Codec.STRING),
             (asset, value) -> asset.treeType = value,

@@ -10,7 +10,7 @@
       "ItemLevelReq": 1,
       "Weight": 100,
       "Stats": {
-        "hyforged:physical-resistance-bps": { "MinValue": 500, "MaxValue": 1000, "StackType": "MORE" }
+        "hyforged:physical-resistance-bps": { "MinValue": 500, "MaxValue": 1000, "StackType": "More" }
       }
     },
     {
@@ -18,7 +18,7 @@
       "ItemLevelReq": 25,
       "Weight": 80,
       "Stats": {
-        "hyforged:physical-resistance-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "MORE" }
+        "hyforged:physical-resistance-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "More" }
       }
     },
     {
@@ -26,7 +26,7 @@
       "ItemLevelReq": 50,
       "Weight": 60,
       "Stats": {
-        "hyforged:physical-resistance-bps": { "MinValue": 2000, "MaxValue": 3000, "StackType": "MORE" }
+        "hyforged:physical-resistance-bps": { "MinValue": 2000, "MaxValue": 3000, "StackType": "More" }
       }
     }
   ]

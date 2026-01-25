@@ -57,12 +57,14 @@ public final class HyforgedEffectAssetLoader {
                 ((HytaleAssetStore.Builder<String, HyforgedEffectAsset, IndexedLookupTableAssetMap<String, HyforgedEffectAsset>>)
                         ((HytaleAssetStore.Builder<String, HyforgedEffectAsset, IndexedLookupTableAssetMap<String, HyforgedEffectAsset>>)
                                 ((HytaleAssetStore.Builder<String, HyforgedEffectAsset, IndexedLookupTableAssetMap<String, HyforgedEffectAsset>>)
-                                        HytaleAssetStore.builder(
-                                                HyforgedEffectAsset.class,
-                                                new IndexedLookupTableAssetMap<>(HyforgedEffectAsset[]::new)
-                                        )
-                                                .setPath(HYFORGED_EFFECT_PATH)
-                                                .loadsBefore(EntityEffect.class))
+                                        ((HytaleAssetStore.Builder<String, HyforgedEffectAsset, IndexedLookupTableAssetMap<String, HyforgedEffectAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        HyforgedEffectAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(HyforgedEffectAsset[]::new)
+                                                )
+                                                        .setPath(HYFORGED_EFFECT_PATH)
+                                                        .loadsBefore(EntityEffect.class))
+                                                .setReplaceOnRemove(key -> new HyforgedEffectAsset()))
                                         .setCodec(HyforgedEffectAsset.CODEC))
                                 .setKeyFunction(HyforgedEffectAsset::getId))
                         .build();

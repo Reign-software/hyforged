@@ -6,8 +6,8 @@
     "StatusEffectIcon": "UI/StatusEffects/Evasion.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:evasion-rating-flat", "StackType": "FLAT", "Amount": 300 },
-    { "StatId": "hyforged:evasion-chance-bps", "StackType": "FLAT", "Amount": 1500 },
-    { "StatId": "hyforged:dodge-chance-bps", "StackType": "FLAT", "Amount": 1000 }
+    { "StatId": "hyforged:evasion-rating-flat", "StackType": "Flat", "Amount": 300 },
+    { "StatId": "hyforged:evasion-chance-bps", "StackType": "Flat", "Amount": 1500 },
+    { "StatId": "hyforged:dodge-chance-bps", "StackType": "Flat", "Amount": 1000 }
   ]
 }

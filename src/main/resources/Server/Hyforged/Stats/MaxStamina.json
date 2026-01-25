@@ -14,7 +14,7 @@
     "Type": [
       "resource"
     ],
-    "Resource": "stamina",
+    "Resource": ["stamina"],
     "Source": [
       "derived"
     ]

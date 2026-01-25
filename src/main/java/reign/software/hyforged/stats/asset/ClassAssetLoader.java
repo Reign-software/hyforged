@@ -73,11 +73,13 @@ public final class ClassAssetLoader {
                 ((HytaleAssetStore.Builder<String, ClassDefinitionAsset, IndexedLookupTableAssetMap<String, ClassDefinitionAsset>>)
                         ((HytaleAssetStore.Builder<String, ClassDefinitionAsset, IndexedLookupTableAssetMap<String, ClassDefinitionAsset>>)
                                 ((HytaleAssetStore.Builder<String, ClassDefinitionAsset, IndexedLookupTableAssetMap<String, ClassDefinitionAsset>>)
-                                        HytaleAssetStore.builder(
-                                                ClassDefinitionAsset.class,
-                                                new IndexedLookupTableAssetMap<>(ClassDefinitionAsset[]::new)
-                                        )
-                                                .setPath(CLASS_ASSET_PATH))
+                                        ((HytaleAssetStore.Builder<String, ClassDefinitionAsset, IndexedLookupTableAssetMap<String, ClassDefinitionAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        ClassDefinitionAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(ClassDefinitionAsset[]::new)
+                                                )
+                                                        .setPath(CLASS_ASSET_PATH))
+                                                .setReplaceOnRemove(key -> new ClassDefinitionAsset()))
                                         .setCodec(ClassDefinitionAsset.CODEC))
                                 .setKeyFunction(ClassDefinitionAsset::getId))
                         .build();

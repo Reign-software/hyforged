@@ -1,0 +1,15 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:windrunner",
+      "Type": "notable",
+      "Name": "Windrunner",
+      "Description": "+4% Movement Speed\n+2% Dodge Chance\n+10 Evasion Rating",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:movement-speed-bps", "Value": 400 },
+        { "Type": "stat-modifier", "Stat": "hyforged:dodge-chance-bps", "Value": 200 },
+        { "Type": "stat-modifier", "Stat": "hyforged:evasion-rating", "Value": 10 }
+      ]
+    }
+  ]
+}

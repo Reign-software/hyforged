@@ -6,8 +6,8 @@
     "StatusEffectIcon": "UI/StatusEffects/Dagger.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:dagger-skill-levels-flat", "StackType": "FLAT", "Amount": 3 },
-    { "StatId": "hyforged:crit-chance-bps", "StackType": "FLAT", "Amount": 1500 },
-    { "StatId": "hyforged:poison-chance-bps", "StackType": "FLAT", "Amount": 2000 }
+    { "StatId": "hyforged:dagger-skill-levels-flat", "StackType": "Flat", "Amount": 3 },
+    { "StatId": "hyforged:crit-chance-bps", "StackType": "Flat", "Amount": 1500 },
+    { "StatId": "hyforged:poison-chance-bps", "StackType": "Flat", "Amount": 2000 }
   ]
 }

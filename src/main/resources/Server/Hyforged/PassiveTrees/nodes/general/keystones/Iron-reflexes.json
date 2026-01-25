@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:iron-reflexes",
+      "Type": "keystone",
+      "Name": "Iron Reflexes",
+      "Description": "Evasion Rating is converted to Armour",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:iron-reflexes" }
+      ]
+    }
+  ]
+}

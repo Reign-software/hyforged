@@ -17,6 +17,6 @@
     "Type": [
       "resource"
     ],
-    "Resource": "mana"
+    "Resource": ["mana"]
   }
 }

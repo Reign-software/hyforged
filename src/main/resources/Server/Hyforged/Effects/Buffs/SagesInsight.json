@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Intelligence.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:intelligence", "StackType": "FLAT", "Amount": 20 },
-    { "StatId": "hyforged:spell-damage-increased-bps", "StackType": "INCREASED", "Amount": 1500 }
+    { "StatId": "hyforged:intelligence", "StackType": "Flat", "Amount": 20 },
+    { "StatId": "hyforged:spell-damage-increased-bps", "StackType": "Increased", "Amount": 1500 }
   ]
 }

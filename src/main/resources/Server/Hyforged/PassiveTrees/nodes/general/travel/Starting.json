@@ -1,0 +1,67 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:start-strength",
+      "Type": "starting",
+      "Name": "Strength Starting Point",
+      "Description": "Begin your journey with +2 Strength",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:strength", "Value": 2 }
+      ]
+    },
+    {
+      "Id": "hyforged:start-dexterity",
+      "Type": "starting",
+      "Name": "Dexterity Starting Point",
+      "Description": "Begin your journey with +2 Dexterity",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:dexterity", "Value": 2 }
+      ]
+    },
+    {
+      "Id": "hyforged:start-intelligence",
+      "Type": "starting",
+      "Name": "Intelligence Starting Point",
+      "Description": "Begin your journey with +2 Intelligence",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:intelligence", "Value": 2 }
+      ]
+    },
+    {
+      "Id": "hyforged:start-spirit",
+      "Type": "starting",
+      "Name": "Spirit Starting Point",
+      "Description": "Begin your journey with +2 Spirit",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:spirit", "Value": 2 }
+      ]
+    },
+    {
+      "Id": "hyforged:start-wisdom",
+      "Type": "starting",
+      "Name": "Wisdom Starting Point",
+      "Description": "Begin your journey with +2 Wisdom",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:wisdom", "Value": 2 }
+      ]
+    },
+    {
+      "Id": "hyforged:start-constitution",
+      "Type": "starting",
+      "Name": "Constitution Starting Point",
+      "Description": "Begin your journey with +2 Constitution",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:constitution", "Value": 2 }
+      ]
+    },
+    {
+      "Id": "hyforged:start-luck",
+      "Type": "starting",
+      "Name": "Luck Starting Point",
+      "Description": "Begin your journey with +2 Luck",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:luck", "Value": 2 }
+      ]
+    }
+  ]
+}

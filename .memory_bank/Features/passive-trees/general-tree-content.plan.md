@@ -758,72 +758,72 @@ PassiveTrees/
 - [x] Create `layouts/general/dexterity.json`
 
 #### Phase 2.2.5: Intelligence Region (Build Gate: 300+ nodes)
-- [ ] Create INT notable templates - 4 files
-- [ ] Create INT keystone templates - 3 files
-- [ ] Create `layouts/general/intelligence.json`
+- [x] Create INT notable templates - 4 files
+- [x] Create INT keystone templates - 3 files
+- [x] Create `layouts/general/intelligence.json`
 
 #### Phase 2.2.6: Constitution Region (Build Gate: 400+ nodes)
-- [ ] Create CON notable templates - 4 files
-- [ ] Create CON keystone templates - 3 files
-- [ ] Create `layouts/general/constitution.json`
+- [x] Create CON notable templates - 4 files
+- [x] Create CON keystone templates - 3 files
+- [x] Create `layouts/general/constitution.json`
 
 #### Phase 2.2.7: Wisdom Region (Build Gate: 500+ nodes)
-- [ ] Create WIS notable templates - 4 files
-- [ ] Create WIS keystone templates - 3 files
-- [ ] Create `layouts/general/wisdom.json`
+- [x] Create WIS notable templates - 4 files
+- [x] Create WIS keystone templates - 3 files
+- [x] Create `layouts/general/wisdom.json`
 
 #### Phase 2.2.8: Spirit Region (Build Gate: 600+ nodes)
-- [ ] Create SPR notable templates - 4 files
-- [ ] Create SPR keystone templates - 3 files
-- [ ] Create `layouts/general/spirit.json`
+- [x] Create SPR notable templates - 4 files
+- [x] Create SPR keystone templates - 3 files
+- [x] Create `layouts/general/spirit.json`
 
 #### Phase 2.2.9: Luck Region (Build Gate: 700+ nodes)
-- [ ] Create LCK notable templates - 4 files
-- [ ] Create LCK keystone templates - 3 files
-- [ ] Create `layouts/general/luck.json`
+- [x] Create LCK notable templates - 4 files
+- [x] Create LCK keystone templates - 3 files
+- [x] Create `layouts/general/luck.json`
 
 #### Phase 2.2.10: Central Hub (Build Gate: 800+ nodes)
-- [ ] Create hub notable templates (`nodes/general/notables/hub/*.json`)
-- [ ] Create central keystone templates - 5 files
-- [ ] Create `layouts/general/central-hub.json`
-- [ ] Connect hub to all 7 regions
+- [x] Create hub notable templates (`nodes/general/notables/hub/*.json`)
+- [x] Create central keystone templates - 5 files
+- [x] Create `layouts/general/central-hub.json`
+- [x] Connect hub to all 7 regions
 
 #### Phase 2.2.11: Bridges (Build Gate: 900+ nodes)
-- [ ] Create `layouts/general/bridges.json` with inter-region connections
-- [ ] Add hybrid splash nodes in bridge areas
-- [ ] Ensure full graph connectivity
+- [x] Create `layouts/general/bridges.json` with inter-region connections
+- [x] Add hybrid splash nodes in bridge areas
+- [x] Ensure full graph connectivity
 
 #### Phase 2.2.12: Fill and Polish (Build Gate: 1000+ nodes)
-- [ ] Add additional travel node placements to reach density target
-- [ ] Review and validate all stat values
-- [ ] Ensure all connections form valid graph
-- [ ] Update review document
+- [x] Add additional travel node placements to reach density target
+- [x] Review and validate all stat values
+- [x] Ensure all connections form valid graph
+- [x] Update review document
 
 ---
 
 ## Phase 3: Validation
 
 ### 3.1 Node Count Validation
-- Total nodes >= 1000
-- Each region has 90+ nodes
-- 7 starting nodes present
-- 18+ keystones present
+- [x] Total nodes >= 1000
+- [x] Each region has 90+ nodes
+- [x] 7 starting nodes present
+- [x] 18+ keystones present
 
 ### 3.2 Graph Validation
-- All nodes reachable from at least one starting node
-- No orphaned nodes
-- No duplicate node IDs
-- All connections reference valid nodes
+- [x] All nodes reachable from at least one starting node
+- [x] No orphaned nodes
+- [x] No duplicate node IDs
+- [x] All connections reference valid nodes
 
 ### 3.3 Stat Validation
-- All stat references are valid stat IDs from Stats folder
-- Values are in correct units (basis points for percentages)
-- No conflicting or impossible modifiers
+- [x] All stat references are valid stat IDs from Stats folder
+- [x] Values are in correct units (basis points for percentages)
+- [x] No conflicting or impossible modifiers
 
 ### 3.4 Build Validation
-- Plugin compiles successfully
-- Multi-file tree loading works
-- Tree renders in UI (visual spot check)
+- [x] Plugin compiles successfully
+- [ ] Multi-file tree loading works
+- [ ] Tree renders in UI (visual spot check)
 
 ---
 
@@ -850,17 +850,32 @@ PassiveTrees/
 - Added general tree definition, travel node templates, starting node layout, and minor template categories for offensive/defensive/resource/utility stats.
 - Implemented Strength region templates (notables + keystones) and a connected Strength layout with 100+ placements.
 - Implemented Dexterity region templates (notables + keystones) and a connected Dexterity layout with 100+ placements.
+- Implemented Intelligence region templates (notables + keystones) and a connected Intelligence layout with 100+ placements.
+- Implemented Constitution region templates (notables + keystones) and a connected Constitution layout with 100+ placements.
+- Implemented Wisdom region templates (notables + keystones) and a connected Wisdom layout with 100+ placements.
+- Implemented Spirit region templates (notables + keystones) and a connected Spirit layout with 100+ placements.
+- Added supporting minor templates for minion, curse, totem/brand, trap/mine, and spirit resource stats.
+- Implemented Luck region templates (notables + keystones) and a connected Luck layout with 100+ placements.
+- Added supporting minor templates for chaos/poison, culling, and mana-on-kill clusters.
+- Implemented central hub notables, keystones, and a connected hub layout with all-attributes spokes and core clusters.
+- Added hub support minor templates for generic damage, attack damage, and area of effect.
+- Implemented inter-region bridge layout with hybrid splash nodes connecting adjacent regions.
+- Extended hub travel placements to reach 1000 nodes and validated stat IDs, connections, and reachability across the graph.
+- Updated the passive tree review to reflect the completed general tree content.
+- Added attribute splash minor templates (luck, intelligence, wisdom) and placed luck-focused branches in every region for more stat variety.
+- Replaced select travel nodes with mixed-stat splash nodes to reduce pure pathing density and diversify regional stat mixes.
+- Updated hub spokes to keep 1–2 all-attributes connectors per region and then use region-specific travel nodes to the outer rings.
 
 ## Test Results
-- Not run (not requested).
+- Build Plugin (mvn package -DskipTests -s .mvn/settings.xml)
 
 ---
 
 ## Exit Criteria
 
-- [ ] General passive tree has 1000+ nodes
-- [ ] 7 starting nodes (one per ability score)
-- [ ] All 7 regions have themed content
-- [ ] 18+ keystones distributed across regions
-- [ ] Plugin builds successfully
-- [ ] Review document updated to mark finding as fixed
+- [x] General passive tree has 1000+ nodes
+- [x] 7 starting nodes (one per ability score)
+- [x] All 7 regions have themed content
+- [x] 18+ keystones distributed across regions
+- [x] Plugin builds successfully
+- [x] Review document updated to mark finding as fixed

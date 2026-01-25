@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Bleed.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:damage-over-time-taken-bps", "StackType": "INCREASED", "Amount": 2000 },
-    { "StatId": "hyforged:health-regen-bps", "StackType": "INCREASED", "Amount": -3000 }
+    { "StatId": "hyforged:damage-over-time-taken-bps", "StackType": "Increased", "Amount": 2000 },
+    { "StatId": "hyforged:health-regen-bps", "StackType": "Increased", "Amount": -3000 }
   ]
 }

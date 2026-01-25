@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:of-the-leech",
   "Type": "suffix",
   "DisplayName": "of the Leech",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 58,
       "Weight": 48,
       "Stats": {
-        "hyforged:life-leech-bps": { "MinValue": 140, "MaxValue": 180, "StackType": "FLAT" }
+        "hyforged:life-leech-bps": { "MinValue": 140, "MaxValue": 180, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 40,
       "Weight": 72,
       "Stats": {
-        "hyforged:life-leech-bps": { "MinValue": 90, "MaxValue": 140, "StackType": "FLAT" }
+        "hyforged:life-leech-bps": { "MinValue": 90, "MaxValue": 140, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 22,
       "Weight": 100,
       "Stats": {
-        "hyforged:life-leech-bps": { "MinValue": 45, "MaxValue": 90, "StackType": "FLAT" }
+        "hyforged:life-leech-bps": { "MinValue": 45, "MaxValue": 90, "StackType": "Flat" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 6,
       "Weight": 130,
       "Stats": {
-        "hyforged:life-leech-bps": { "MinValue": 15, "MaxValue": 45, "StackType": "FLAT" }
+        "hyforged:life-leech-bps": { "MinValue": 15, "MaxValue": 45, "StackType": "Flat" }
       }
     }
   ]

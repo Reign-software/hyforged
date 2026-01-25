@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:enduring-cry",
+      "Type": "notable",
+      "Name": "Enduring Cry",
+      "Description": "Unlocks the Enduring Cry skill.",
+      "Effects": [
+        { "Type": "spell-grant", "SpellId": "hyforged:enduring-cry" }
+      ]
+    }
+  ]
+}

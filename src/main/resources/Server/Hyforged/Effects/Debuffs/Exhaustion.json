@@ -6,8 +6,8 @@
     "StatusEffectIcon": "UI/StatusEffects/Exhaustion.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:constitution", "StackType": "FLAT", "Amount": -15 },
-    { "StatId": "hyforged:max-health-flat", "StackType": "INCREASED", "Amount": -1500 },
-    { "StatId": "hyforged:stamina-regen-bps", "StackType": "INCREASED", "Amount": -3000 }
+    { "StatId": "hyforged:constitution", "StackType": "Flat", "Amount": -15 },
+    { "StatId": "hyforged:max-health-flat", "StackType": "Increased", "Amount": -1500 },
+    { "StatId": "hyforged:stamina-regen-bps", "StackType": "Increased", "Amount": -3000 }
   ]
 }

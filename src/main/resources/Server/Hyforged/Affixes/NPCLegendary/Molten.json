@@ -10,7 +10,7 @@
       "ItemLevelReq": 30,
       "Weight": 100,
       "Stats": {
-        "hyforged:fire-resistance-bps": { "MinValue": 5000, "MaxValue": 7500, "StackType": "MORE" }
+        "hyforged:fire-resistance-bps": { "MinValue": 5000, "MaxValue": 7500, "StackType": "More" }
       }
     }
   ],

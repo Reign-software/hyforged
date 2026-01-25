@@ -1,0 +1,24 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:minor-trap-mine-1",
+      "Type": "minor",
+      "Name": "Demolitions",
+      "Description": "+2% Mine Damage\n+2% Mine Throwing Speed",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:mine-damage-bps", "Value": 200 },
+        { "Type": "stat-modifier", "Stat": "hyforged:mine-throwing-speed-bps", "Value": 200 }
+      ]
+    },
+    {
+      "Id": "hyforged:minor-trap-mine-2",
+      "Type": "minor",
+      "Name": "Quick Arming",
+      "Description": "+2% Mine Arming Speed\n+1 Maximum Traps",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:mine-arming-speed-bps", "Value": 200 },
+        { "Type": "stat-modifier", "Stat": "hyforged:max-traps", "Value": 1 }
+      ]
+    }
+  ]
+}

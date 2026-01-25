@@ -21,9 +21,6 @@ import java.util.List;
  */
 public class NodeTemplateAsset {
 
-    public static final ArrayCodec<NodeTemplateAsset> ARRAY_CODEC =
-        new ArrayCodec<>(NodeTemplateAsset.CODEC, NodeTemplateAsset[]::new);
-
     public static final BuilderCodec<NodeTemplateAsset> CODEC = BuilderCodec.builder(
             NodeTemplateAsset.class,
             NodeTemplateAsset::new
@@ -71,6 +68,9 @@ public class NodeTemplateAsset {
         )
         .add()
         .build();
+
+    public static final ArrayCodec<NodeTemplateAsset> ARRAY_CODEC =
+        new ArrayCodec<>(CODEC, NodeTemplateAsset[]::new);
 
     private String id;
     private String type;

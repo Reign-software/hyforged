@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:elemental-overload",
+      "Type": "keystone",
+      "Name": "Elemental Overload",
+      "Description": "+25% more Elemental Damage if you've Crit Recently\nElemental Crit Multiplier has no effect",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:elemental-overload" }
+      ]
+    }
+  ]
+}

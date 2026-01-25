@@ -10,8 +10,8 @@
       "ItemLevelReq": 20,
       "Weight": 100,
       "Stats": {
-        "hyforged:shield-amount-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "FLAT" },
-        "hyforged:shield-cooldown-flat": { "MinValue": 15, "MaxValue": 20, "StackType": "FLAT" }
+        "hyforged:shield-amount-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "Flat" },
+        "hyforged:shield-cooldown-flat": { "MinValue": 15, "MaxValue": 20, "StackType": "Flat" }
       }
     },
     {
@@ -19,8 +19,8 @@
       "ItemLevelReq": 45,
       "Weight": 55,
       "Stats": {
-        "hyforged:shield-amount-bps": { "MinValue": 2000, "MaxValue": 3500, "StackType": "FLAT" },
-        "hyforged:shield-cooldown-flat": { "MinValue": 10, "MaxValue": 15, "StackType": "FLAT" }
+        "hyforged:shield-amount-bps": { "MinValue": 2000, "MaxValue": 3500, "StackType": "Flat" },
+        "hyforged:shield-cooldown-flat": { "MinValue": 10, "MaxValue": 15, "StackType": "Flat" }
       }
     }
   ]

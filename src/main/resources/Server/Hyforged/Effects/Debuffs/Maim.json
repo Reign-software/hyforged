@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Maim.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:attack-damage-increased-bps", "StackType": "INCREASED", "Amount": -3000 },
-    { "StatId": "hyforged:attack-speed-bps", "StackType": "INCREASED", "Amount": -2500 }
+    { "StatId": "hyforged:attack-damage-increased-bps", "StackType": "Increased", "Amount": -3000 },
+    { "StatId": "hyforged:attack-speed-bps", "StackType": "Increased", "Amount": -2500 }
   ]
 }

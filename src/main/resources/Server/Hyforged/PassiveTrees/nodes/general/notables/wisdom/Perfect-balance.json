@@ -1,0 +1,15 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:perfect-balance",
+      "Type": "notable",
+      "Name": "Perfect Balance",
+      "Description": "+5% Reservation Efficiency\n-3% Mana Cost\n+4% Concentration Loss Reduction",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:reservation-efficiency-bps", "Value": 500 },
+        { "Type": "stat-modifier", "Stat": "hyforged:mana-cost-bps", "Value": -300 },
+        { "Type": "stat-modifier", "Stat": "hyforged:concentration-loss-reduction-bps", "Value": 400 }
+      ]
+    }
+  ]
+}

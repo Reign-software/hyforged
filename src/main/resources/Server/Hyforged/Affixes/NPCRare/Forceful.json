@@ -10,7 +10,7 @@
       "ItemLevelReq": 10,
       "Weight": 100,
       "Stats": {
-        "hyforged:knockback-strength-flat": { "MinValue": 2, "MaxValue": 4, "StackType": "FLAT" }
+        "hyforged:knockback-strength-flat": { "MinValue": 2, "MaxValue": 4, "StackType": "Flat" }
       }
     },
     {
@@ -18,7 +18,7 @@
       "ItemLevelReq": 35,
       "Weight": 70,
       "Stats": {
-        "hyforged:knockback-strength-flat": { "MinValue": 4, "MaxValue": 7, "StackType": "FLAT" }
+        "hyforged:knockback-strength-flat": { "MinValue": 4, "MaxValue": 7, "StackType": "Flat" }
       }
     }
   ]

@@ -1,6 +1,15 @@
 {
   "Nodes": [
     {
+      "Id": "hyforged:minor-critical-1",
+      "Type": "minor",
+      "Name": "Critical Focus",
+      "Description": "+1% Critical Strike Chance",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:crit-chance-bps", "Value": 100 }
+      ]
+    },
+    {
       "Id": "hyforged:minor-crit-1",
       "Type": "minor",
       "Name": "Deadly Precision",

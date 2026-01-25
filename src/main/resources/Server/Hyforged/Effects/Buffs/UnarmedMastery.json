@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Unarmed.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:unarmed-damage-bps", "StackType": "INCREASED", "Amount": 5000 },
-    { "StatId": "hyforged:attack-speed-bps", "StackType": "INCREASED", "Amount": 3000 }
+    { "StatId": "hyforged:unarmed-damage-bps", "StackType": "Increased", "Amount": 5000 },
+    { "StatId": "hyforged:attack-speed-bps", "StackType": "Increased", "Amount": 3000 }
   ]
 }

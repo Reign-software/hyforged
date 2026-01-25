@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:eldritch-battery",
+      "Type": "keystone",
+      "Name": "Eldritch Battery",
+      "Description": "Mana Recovery applies to Energy Shield",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:eldritch-battery" }
+      ]
+    }
+  ]
+}

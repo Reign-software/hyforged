@@ -10,7 +10,7 @@
       "ItemLevelReq": 35,
       "Weight": 100,
       "Stats": {
-        "hyforged:damage-bps": { "MinValue": 1000, "MaxValue": 1500, "StackType": "MORE" }
+        "hyforged:damage-bps": { "MinValue": 1000, "MaxValue": 1500, "StackType": "More" }
       }
     }
   ],

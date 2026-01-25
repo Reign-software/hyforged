@@ -10,7 +10,7 @@
       "ItemLevelReq": 40,
       "Weight": 100,
       "Stats": {
-        "hyforged:evasion-bps": { "MinValue": 1500, "MaxValue": 2500, "StackType": "MORE" }
+        "hyforged:evasion-bps": { "MinValue": 1500, "MaxValue": 2500, "StackType": "More" }
       }
     }
   ],

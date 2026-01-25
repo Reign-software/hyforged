@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/MaxRage.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:max-rage-flat", "StackType": "FLAT", "Amount": 50 },
-    { "StatId": "hyforged:rage-flat", "StackType": "FLAT", "Amount": 30 }
+    { "StatId": "hyforged:max-rage-flat", "StackType": "Flat", "Amount": 50 },
+    { "StatId": "hyforged:rage-flat", "StackType": "Flat", "Amount": 30 }
   ]
 }

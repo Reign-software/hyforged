@@ -16,9 +16,6 @@ import javax.annotation.Nullable;
  */
 public class NodePlacementAsset {
 
-    public static final ArrayCodec<NodePlacementAsset> ARRAY_CODEC =
-        new ArrayCodec<>(NodePlacementAsset.CODEC, NodePlacementAsset[]::new);
-
     public static final BuilderCodec<NodePlacementAsset> CODEC = BuilderCodec.builder(
             NodePlacementAsset.class,
             NodePlacementAsset::new
@@ -48,6 +45,9 @@ public class NodePlacementAsset {
         )
         .add()
         .build();
+
+    public static final ArrayCodec<NodePlacementAsset> ARRAY_CODEC =
+        new ArrayCodec<>(CODEC, NodePlacementAsset[]::new);
 
     private String nodeId;
     private PassiveNodePositionAsset position;

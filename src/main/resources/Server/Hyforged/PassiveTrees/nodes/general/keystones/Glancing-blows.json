@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:glancing-blows",
+      "Type": "keystone",
+      "Name": "Glancing Blows",
+      "Description": "Double Block Chance\nBlocking prevents 50% of Damage",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:glancing-blows" }
+      ]
+    }
+  ]
+}

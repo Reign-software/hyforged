@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:corrupted-all-damage",
   "Type": "forged",
   "DisplayName": "Corrupted All Damage",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 80,
       "Weight": 50,
       "Stats": {
-        "hyforged:damage-increased-bps": { "MinValue": 1500, "MaxValue": 2200, "StackType": "MORE" }
+        "hyforged:damage-increased-bps": { "MinValue": 1500, "MaxValue": 2200, "StackType": "More" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 62,
       "Weight": 75,
       "Stats": {
-        "hyforged:damage-increased-bps": { "MinValue": 900, "MaxValue": 1500, "StackType": "MORE" }
+        "hyforged:damage-increased-bps": { "MinValue": 900, "MaxValue": 1500, "StackType": "More" }
       }
     }
   ]

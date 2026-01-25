@@ -1,0 +1,14 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:treasure-hunter",
+      "Type": "notable",
+      "Name": "Treasure Hunter",
+      "Description": "+10% Item Rarity\n+5% Item Quantity",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:item-rarity-increased-bps", "Value": 1000 },
+        { "Type": "stat-modifier", "Stat": "hyforged:item-quantity-increased-bps", "Value": 500 }
+      ]
+    }
+  ]
+}

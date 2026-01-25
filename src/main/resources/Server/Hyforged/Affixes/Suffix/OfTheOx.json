@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:of-the-ox",
   "Type": "suffix",
   "DisplayName": "of the Ox",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 68,
       "Weight": 35,
       "Stats": {
-        "hyforged:constitution": { "MinValue": 42, "MaxValue": 52, "StackType": "FLAT" }
+        "hyforged:constitution": { "MinValue": 42, "MaxValue": 52, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 52,
       "Weight": 50,
       "Stats": {
-        "hyforged:constitution": { "MinValue": 32, "MaxValue": 42, "StackType": "FLAT" }
+        "hyforged:constitution": { "MinValue": 32, "MaxValue": 42, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 38,
       "Weight": 70,
       "Stats": {
-        "hyforged:constitution": { "MinValue": 23, "MaxValue": 32, "StackType": "FLAT" }
+        "hyforged:constitution": { "MinValue": 23, "MaxValue": 32, "StackType": "Flat" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 24,
       "Weight": 90,
       "Stats": {
-        "hyforged:constitution": { "MinValue": 15, "MaxValue": 23, "StackType": "FLAT" }
+        "hyforged:constitution": { "MinValue": 15, "MaxValue": 23, "StackType": "Flat" }
       }
     },
     {
@@ -41,7 +41,7 @@
       "ItemLevelReq": 12,
       "Weight": 110,
       "Stats": {
-        "hyforged:constitution": { "MinValue": 8, "MaxValue": 15, "StackType": "FLAT" }
+        "hyforged:constitution": { "MinValue": 8, "MaxValue": 15, "StackType": "Flat" }
       }
     },
     {
@@ -49,7 +49,7 @@
       "ItemLevelReq": 1,
       "Weight": 130,
       "Stats": {
-        "hyforged:constitution": { "MinValue": 3, "MaxValue": 8, "StackType": "FLAT" }
+        "hyforged:constitution": { "MinValue": 3, "MaxValue": 8, "StackType": "Flat" }
       }
     }
   ]

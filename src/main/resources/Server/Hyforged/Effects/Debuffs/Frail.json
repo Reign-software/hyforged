@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Frail.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:max-health-flat", "StackType": "INCREASED", "Amount": -2500 },
-    { "StatId": "hyforged:healing-received-bps", "StackType": "INCREASED", "Amount": -3000 }
+    { "StatId": "hyforged:max-health-flat", "StackType": "Increased", "Amount": -2500 },
+    { "StatId": "hyforged:healing-received-bps", "StackType": "Increased", "Amount": -3000 }
   ]
 }

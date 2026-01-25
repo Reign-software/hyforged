@@ -221,31 +221,31 @@ XP behavior is configured via `Server/Hyforged/Progression/XPConfig.json`:
 ```json
 {
   "Id": "hyforged:xp_config",
-  "combatBaseXp": 10,
-  "discoveryBiomeXp": 100,
-  "discoveryLandmarkXp": 50,
-  "objectiveMinorXp": 25,
-  "objectiveStandardXp": 50,
-  "objectiveMajorXp": 100,
-  "objectiveLegendaryXp": 250,
-  "classXpRatio": 1.0,
-  "maxCharacterLevel": 100,
-  "maxClassLevel": 20
+  "CombatBaseXp": 10,
+  "DiscoveryBiomeXp": 100,
+  "DiscoveryLandmarkXp": 50,
+  "ObjectiveMinorXp": 25,
+  "ObjectiveStandardXp": 50,
+  "ObjectiveMajorXp": 100,
+  "ObjectiveLegendaryXp": 250,
+  "ClassXpRatio": 1.0,
+  "MaxCharacterLevel": 100,
+  "MaxClassLevel": 20
 }
 ```
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `combatBaseXp` | long | Base XP for combat kills |
-| `discoveryBiomeXp` | long | XP for discovering a major zone |
-| `discoveryLandmarkXp` | long | XP for discovering a minor zone |
-| `objectiveMinorXp` | long | XP for minor objective completion |
-| `objectiveStandardXp` | long | XP for standard objective completion |
-| `objectiveMajorXp` | long | XP for major objective completion |
-| `objectiveLegendaryXp` | long | XP for legendary objective completion |
-| `classXpRatio` | double | Ratio of class XP to character XP (1.0 = same amount) |
-| `maxCharacterLevel` | int | Maximum character level |
-| `maxClassLevel` | int | Maximum class level |
+| `CombatBaseXp` | long | Base XP for combat kills |
+| `DiscoveryBiomeXp` | long | XP for discovering a major zone |
+| `DiscoveryLandmarkXp` | long | XP for discovering a minor zone |
+| `ObjectiveMinorXp` | long | XP for minor objective completion |
+| `ObjectiveStandardXp` | long | XP for standard objective completion |
+| `ObjectiveMajorXp` | long | XP for major objective completion |
+| `ObjectiveLegendaryXp` | long | XP for legendary objective completion |
+| `ClassXpRatio` | double | Ratio of class XP to character XP (1.0 = same amount) |
+| `MaxCharacterLevel` | int | Maximum character level |
+| `MaxClassLevel` | int | Maximum class level |
 
 ## XP Sources
 
@@ -253,9 +253,9 @@ Hyforged awards XP from multiple sources:
 
 | Source | Trigger | Configuration |
 |--------|---------|---------------|
-| Combat | Entity kill | `combatBaseXp` scaled by enemy stats |
-| Discovery | Zone discovery | `discoveryBiomeXp` / `discoveryLandmarkXp` based on zone type |
-| Objective | Quest completion | `objectiveMinorXp` / `objectiveStandardXp` / `objectiveMajorXp` / `objectiveLegendaryXp` |
+| Combat | Entity kill | `CombatBaseXp` scaled by enemy stats |
+| Discovery | Zone discovery | `DiscoveryBiomeXp` / `DiscoveryLandmarkXp` based on zone type |
+| Objective | Quest completion | `ObjectiveMinorXp` / `ObjectiveStandardXp` / `ObjectiveMajorXp` / `ObjectiveLegendaryXp` |
 
 ### Adding XP to Objectives
 

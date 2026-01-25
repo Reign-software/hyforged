@@ -1,0 +1,15 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:glacial-control",
+      "Type": "notable",
+      "Name": "Glacial Control",
+      "Description": "+5% Cold Damage\n+3% Cold Penetration\n+3% Freeze Duration",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:cold-damage-increased-bps", "Value": 500 },
+        { "Type": "stat-modifier", "Stat": "hyforged:cold-penetration-bps", "Value": 300 },
+        { "Type": "stat-modifier", "Stat": "hyforged:freeze-duration-bps", "Value": 300 }
+      ]
+    }
+  ]
+}

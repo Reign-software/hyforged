@@ -1,0 +1,43 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:minor-all-attributes-1",
+      "Type": "minor",
+      "Name": "Balanced Growth",
+      "Description": "+1 to All Attributes",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:attribute-all", "Value": 1 }
+      ]
+    },
+    {
+      "Id": "hyforged:minor-luck-1",
+      "Type": "minor",
+      "Name": "Fortunate",
+      "Description": "+1 Luck\n+1% Item Rarity",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:luck", "Value": 1 },
+        { "Type": "stat-modifier", "Stat": "hyforged:item-rarity-increased-bps", "Value": 100 }
+      ]
+    },
+    {
+      "Id": "hyforged:minor-intelligence-1",
+      "Type": "minor",
+      "Name": "Insightful",
+      "Description": "+1 Intelligence\n+1% Cast Speed",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:intelligence", "Value": 1 },
+        { "Type": "stat-modifier", "Stat": "hyforged:cast-speed-bps", "Value": 100 }
+      ]
+    },
+    {
+      "Id": "hyforged:minor-wisdom-1",
+      "Type": "minor",
+      "Name": "Sagecraft",
+      "Description": "+1 Wisdom\n+1% Cooldown Recovery",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:wisdom", "Value": 1 },
+        { "Type": "stat-modifier", "Stat": "hyforged:cooldown-recovery-rate-bps", "Value": 100 }
+      ]
+    }
+  ]
+}

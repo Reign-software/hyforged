@@ -1,0 +1,15 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:unbreakable-focus",
+      "Type": "notable",
+      "Name": "Unbreakable Focus",
+      "Description": "+5 Concentration\n+5% Concentration Regen Rate\n+4% Concentration Loss Threshold",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:concentration", "Value": 5 },
+        { "Type": "stat-modifier", "Stat": "hyforged:concentration-regen-rate-bps", "Value": 500 },
+        { "Type": "stat-modifier", "Stat": "hyforged:concentration-loss-threshold-bps", "Value": 400 }
+      ]
+    }
+  ]
+}

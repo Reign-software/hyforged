@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:chaos-inoculation",
+      "Type": "keystone",
+      "Name": "Chaos Inoculation",
+      "Description": "Immune to Chaos Damage\nMaximum Health becomes 1",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:chaos-inoculation" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:mortal-conviction",
+      "Type": "keystone",
+      "Name": "Mortal Conviction",
+      "Description": "Skills Cost Life instead of Mana\n35% reduced Mana Cost of Skills",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:mortal-conviction" }
+      ]
+    }
+  ]
+}

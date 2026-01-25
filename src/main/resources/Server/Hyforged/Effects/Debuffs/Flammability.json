@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Flammable.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:fire-resistance-bps", "StackType": "FLAT", "Amount": -4500 },
-    { "StatId": "hyforged:ignite-damage-bps", "StackType": "INCREASED", "Amount": 3000 }
+    { "StatId": "hyforged:fire-resistance-bps", "StackType": "Flat", "Amount": -4500 },
+    { "StatId": "hyforged:ignite-damage-bps", "StackType": "Increased", "Amount": 3000 }
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:mind-over-matter",
+      "Type": "keystone",
+      "Name": "Mind Over Matter",
+      "Description": "20% of Damage is taken from Mana before Life",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:mind-over-matter" }
+      ]
+    }
+  ]
+}

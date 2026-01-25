@@ -51,11 +51,13 @@ public final class RageDecayConfigAssetLoader {
                 ((HytaleAssetStore.Builder<String, RageDecayConfigAsset, IndexedLookupTableAssetMap<String, RageDecayConfigAsset>>)
                         ((HytaleAssetStore.Builder<String, RageDecayConfigAsset, IndexedLookupTableAssetMap<String, RageDecayConfigAsset>>)
                                 ((HytaleAssetStore.Builder<String, RageDecayConfigAsset, IndexedLookupTableAssetMap<String, RageDecayConfigAsset>>)
-                                        HytaleAssetStore.builder(
-                                                RageDecayConfigAsset.class,
-                                                new IndexedLookupTableAssetMap<>(RageDecayConfigAsset[]::new)
-                                        )
-                                                .setPath(RAGE_DECAY_ASSET_PATH))
+                                        ((HytaleAssetStore.Builder<String, RageDecayConfigAsset, IndexedLookupTableAssetMap<String, RageDecayConfigAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        RageDecayConfigAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(RageDecayConfigAsset[]::new)
+                                                )
+                                                        .setPath(RAGE_DECAY_ASSET_PATH))
+                                                .setReplaceOnRemove(key -> new RageDecayConfigAsset()))
                                 .setCodec(RageDecayConfigAsset.CODEC))
                         .setKeyFunction(a -> CONFIG_ID))
                         .build();

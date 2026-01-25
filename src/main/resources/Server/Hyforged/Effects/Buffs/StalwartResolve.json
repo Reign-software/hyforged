@@ -6,8 +6,8 @@
     "StatusEffectIcon": "UI/StatusEffects/StunImmunity.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:stun-avoidance-bps", "StackType": "FLAT", "Amount": 5000 },
-    { "StatId": "hyforged:stun-threshold-flat", "StackType": "INCREASED", "Amount": 3000 },
-    { "StatId": "hyforged:knockback-resistance-bps", "StackType": "FLAT", "Amount": 5000 }
+    { "StatId": "hyforged:stun-avoidance-bps", "StackType": "Flat", "Amount": 5000 },
+    { "StatId": "hyforged:stun-threshold-flat", "StackType": "Increased", "Amount": 3000 },
+    { "StatId": "hyforged:knockback-resistance-bps", "StackType": "Flat", "Amount": 5000 }
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:necromantic-aegis",
+      "Type": "keystone",
+      "Name": "Necromantic Aegis",
+      "Description": "Shield bonuses apply to Minions instead of you",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:necromantic-aegis" }
+      ]
+    }
+  ]
+}

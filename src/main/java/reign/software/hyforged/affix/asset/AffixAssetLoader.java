@@ -106,11 +106,13 @@ public final class AffixAssetLoader {
                 ((HytaleAssetStore.Builder<String, AffixTypeAsset, IndexedLookupTableAssetMap<String, AffixTypeAsset>>)
                         ((HytaleAssetStore.Builder<String, AffixTypeAsset, IndexedLookupTableAssetMap<String, AffixTypeAsset>>)
                                 ((HytaleAssetStore.Builder<String, AffixTypeAsset, IndexedLookupTableAssetMap<String, AffixTypeAsset>>)
-                                        HytaleAssetStore.builder(
-                                                AffixTypeAsset.class,
-                                                new IndexedLookupTableAssetMap<>(AffixTypeAsset[]::new)
-                                        )
-                                                .setPath(AFFIX_TYPE_PATH))
+                                        ((HytaleAssetStore.Builder<String, AffixTypeAsset, IndexedLookupTableAssetMap<String, AffixTypeAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        AffixTypeAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(AffixTypeAsset[]::new)
+                                                )
+                                                        .setPath(AFFIX_TYPE_PATH))
+                                                .setReplaceOnRemove(key -> new AffixTypeAsset()))
                                         .setCodec(AffixTypeAsset.CODEC))
                                 .setKeyFunction(AffixTypeAsset::getId))
                         .build();
@@ -124,11 +126,13 @@ public final class AffixAssetLoader {
                 ((HytaleAssetStore.Builder<String, QualityAffixRuleAsset, IndexedLookupTableAssetMap<String, QualityAffixRuleAsset>>)
                         ((HytaleAssetStore.Builder<String, QualityAffixRuleAsset, IndexedLookupTableAssetMap<String, QualityAffixRuleAsset>>)
                                 ((HytaleAssetStore.Builder<String, QualityAffixRuleAsset, IndexedLookupTableAssetMap<String, QualityAffixRuleAsset>>)
-                                        HytaleAssetStore.builder(
-                                                QualityAffixRuleAsset.class,
-                                                new IndexedLookupTableAssetMap<>(QualityAffixRuleAsset[]::new)
-                                        )
-                                                .setPath(QUALITY_RULE_PATH))
+                                        ((HytaleAssetStore.Builder<String, QualityAffixRuleAsset, IndexedLookupTableAssetMap<String, QualityAffixRuleAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        QualityAffixRuleAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(QualityAffixRuleAsset[]::new)
+                                                )
+                                                        .setPath(QUALITY_RULE_PATH))
+                                                .setReplaceOnRemove(key -> new QualityAffixRuleAsset()))
                                         .setCodec(QualityAffixRuleAsset.CODEC))
                                 .setKeyFunction(QualityAffixRuleAsset::getId))
                         .build();
@@ -142,11 +146,13 @@ public final class AffixAssetLoader {
                 ((HytaleAssetStore.Builder<String, AffixDefinitionAsset, IndexedLookupTableAssetMap<String, AffixDefinitionAsset>>)
                         ((HytaleAssetStore.Builder<String, AffixDefinitionAsset, IndexedLookupTableAssetMap<String, AffixDefinitionAsset>>)
                                 ((HytaleAssetStore.Builder<String, AffixDefinitionAsset, IndexedLookupTableAssetMap<String, AffixDefinitionAsset>>)
-                                        HytaleAssetStore.builder(
-                                                AffixDefinitionAsset.class,
-                                                new IndexedLookupTableAssetMap<>(AffixDefinitionAsset[]::new)
-                                        )
-                                                .setPath(AFFIX_DEFINITION_PATH))
+                                        ((HytaleAssetStore.Builder<String, AffixDefinitionAsset, IndexedLookupTableAssetMap<String, AffixDefinitionAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        AffixDefinitionAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(AffixDefinitionAsset[]::new)
+                                                )
+                                                        .setPath(AFFIX_DEFINITION_PATH))
+                                                .setReplaceOnRemove(key -> new AffixDefinitionAsset()))
                                         .setCodec(AffixDefinitionAsset.CODEC))
                                 .setKeyFunction(AffixDefinitionAsset::getId))
                         .build();
@@ -160,11 +166,13 @@ public final class AffixAssetLoader {
                 ((HytaleAssetStore.Builder<String, AffixPoolAsset, IndexedLookupTableAssetMap<String, AffixPoolAsset>>)
                         ((HytaleAssetStore.Builder<String, AffixPoolAsset, IndexedLookupTableAssetMap<String, AffixPoolAsset>>)
                                 ((HytaleAssetStore.Builder<String, AffixPoolAsset, IndexedLookupTableAssetMap<String, AffixPoolAsset>>)
-                                        HytaleAssetStore.builder(
-                                                AffixPoolAsset.class,
-                                                new IndexedLookupTableAssetMap<>(AffixPoolAsset[]::new)
-                                        )
-                                                .setPath(AFFIX_POOL_PATH))
+                                        ((HytaleAssetStore.Builder<String, AffixPoolAsset, IndexedLookupTableAssetMap<String, AffixPoolAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        AffixPoolAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(AffixPoolAsset[]::new)
+                                                )
+                                                        .setPath(AFFIX_POOL_PATH))
+                                                .setReplaceOnRemove(key -> new AffixPoolAsset()))
                                         .setCodec(AffixPoolAsset.CODEC))
                                 .setKeyFunction(AffixPoolAsset::getId))
                         .build();

@@ -1,6 +1,6 @@
 {
   "Id": "hyforged:default-scaling",
-  "Curve": "LINEAR",
+  "Curve": "Linear",
   "BlocksPerLevel": 500,
   "MinLevel": 1,
   "MaxLevel": 100

@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Dodge.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:dodge-chance-bps", "StackType": "FLAT", "Amount": 3000 },
-    { "StatId": "hyforged:evasion-chance-bps", "StackType": "FLAT", "Amount": 2000 }
+    { "StatId": "hyforged:dodge-chance-bps", "StackType": "Flat", "Amount": 3000 },
+    { "StatId": "hyforged:evasion-chance-bps", "StackType": "Flat", "Amount": 2000 }
   ]
 }

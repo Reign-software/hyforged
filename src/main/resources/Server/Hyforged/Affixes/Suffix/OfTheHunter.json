@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:of-the-hunter",
   "Type": "suffix",
   "DisplayName": "of the Hunter",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 60,
       "Weight": 38,
       "Stats": {
-        "hyforged:ranged-damage-increased-bps": { "MinValue": 3800, "MaxValue": 4800, "StackType": "INCREASED" }
+        "hyforged:ranged-damage-increased-bps": { "MinValue": 3800, "MaxValue": 4800, "StackType": "Increased" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 46,
       "Weight": 55,
       "Stats": {
-        "hyforged:ranged-damage-increased-bps": { "MinValue": 2800, "MaxValue": 3800, "StackType": "INCREASED" }
+        "hyforged:ranged-damage-increased-bps": { "MinValue": 2800, "MaxValue": 3800, "StackType": "Increased" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 32,
       "Weight": 75,
       "Stats": {
-        "hyforged:ranged-damage-increased-bps": { "MinValue": 1800, "MaxValue": 2800, "StackType": "INCREASED" }
+        "hyforged:ranged-damage-increased-bps": { "MinValue": 1800, "MaxValue": 2800, "StackType": "Increased" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 18,
       "Weight": 95,
       "Stats": {
-        "hyforged:ranged-damage-increased-bps": { "MinValue": 1000, "MaxValue": 1800, "StackType": "INCREASED" }
+        "hyforged:ranged-damage-increased-bps": { "MinValue": 1000, "MaxValue": 1800, "StackType": "Increased" }
       }
     },
     {
@@ -41,7 +41,7 @@
       "ItemLevelReq": 6,
       "Weight": 115,
       "Stats": {
-        "hyforged:ranged-damage-increased-bps": { "MinValue": 500, "MaxValue": 1000, "StackType": "INCREASED" }
+        "hyforged:ranged-damage-increased-bps": { "MinValue": 500, "MaxValue": 1000, "StackType": "Increased" }
       }
     },
     {
@@ -49,7 +49,7 @@
       "ItemLevelReq": 1,
       "Weight": 135,
       "Stats": {
-        "hyforged:ranged-damage-increased-bps": { "MinValue": 150, "MaxValue": 500, "StackType": "INCREASED" }
+        "hyforged:ranged-damage-increased-bps": { "MinValue": 150, "MaxValue": 500, "StackType": "Increased" }
       }
     }
   ]

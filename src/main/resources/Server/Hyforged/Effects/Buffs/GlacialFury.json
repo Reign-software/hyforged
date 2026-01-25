@@ -6,8 +6,8 @@
     "StatusEffectIcon": "UI/StatusEffects/Cold.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:cold-damage-increased-bps", "StackType": "INCREASED", "Amount": 4000 },
-    { "StatId": "hyforged:cold-penetration-bps", "StackType": "FLAT", "Amount": 2000 },
-    { "StatId": "hyforged:freeze-chance-bps", "StackType": "FLAT", "Amount": 2500 }
+    { "StatId": "hyforged:cold-damage-increased-bps", "StackType": "Increased", "Amount": 4000 },
+    { "StatId": "hyforged:cold-penetration-bps", "StackType": "Flat", "Amount": 2000 },
+    { "StatId": "hyforged:freeze-chance-bps", "StackType": "Flat", "Amount": 2500 }
   ]
 }

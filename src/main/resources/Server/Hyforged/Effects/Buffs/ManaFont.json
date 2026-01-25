@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Mana.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:max-mana-flat", "StackType": "INCREASED", "Amount": 3000 },
-    { "StatId": "hyforged:mana-regen-bps", "StackType": "INCREASED", "Amount": 5000 }
+    { "StatId": "hyforged:max-mana-flat", "StackType": "Increased", "Amount": 3000 },
+    { "StatId": "hyforged:mana-regen-bps", "StackType": "Increased", "Amount": 5000 }
   ]
 }

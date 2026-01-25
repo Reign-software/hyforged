@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:perfect-agony",
+      "Type": "keystone",
+      "Name": "Perfect Agony",
+      "Description": "Crit Multiplier applies to Ailment Damage at 30% value\n-20% Critical Strike Multiplier",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:perfect-agony" }
+      ]
+    }
+  ]
+}

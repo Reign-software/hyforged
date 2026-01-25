@@ -31,7 +31,7 @@ public class XPConfigAsset implements JsonAssetWithMap<String, IndexedLookupTabl
             )
             // Combat settings
             .appendInherited(
-                    new KeyedCodec<>("combatBaseXp", Codec.LONG),
+                    new KeyedCodec<>("CombatBaseXp", Codec.LONG),
                     (asset, value) -> asset.combatBaseXp = value != null ? value : 10L,
                     asset -> asset.combatBaseXp,
                     (asset, parent) -> asset.combatBaseXp = parent.combatBaseXp
@@ -39,14 +39,14 @@ public class XPConfigAsset implements JsonAssetWithMap<String, IndexedLookupTabl
             .add()
             // Discovery settings
             .appendInherited(
-                    new KeyedCodec<>("discoveryBiomeXp", Codec.LONG),
+                    new KeyedCodec<>("DiscoveryBiomeXp", Codec.LONG),
                     (asset, value) -> asset.discoveryBiomeXp = value != null ? value : 100L,
                     asset -> asset.discoveryBiomeXp,
                     (asset, parent) -> asset.discoveryBiomeXp = parent.discoveryBiomeXp
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("discoveryLandmarkXp", Codec.LONG),
+                    new KeyedCodec<>("DiscoveryLandmarkXp", Codec.LONG),
                     (asset, value) -> asset.discoveryLandmarkXp = value != null ? value : 50L,
                     asset -> asset.discoveryLandmarkXp,
                     (asset, parent) -> asset.discoveryLandmarkXp = parent.discoveryLandmarkXp
@@ -54,28 +54,28 @@ public class XPConfigAsset implements JsonAssetWithMap<String, IndexedLookupTabl
             .add()
             // Objective settings
             .appendInherited(
-                    new KeyedCodec<>("objectiveMinorXp", Codec.LONG),
+                    new KeyedCodec<>("ObjectiveMinorXp", Codec.LONG),
                     (asset, value) -> asset.objectiveMinorXp = value != null ? value : 25L,
                     asset -> asset.objectiveMinorXp,
                     (asset, parent) -> asset.objectiveMinorXp = parent.objectiveMinorXp
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("objectiveStandardXp", Codec.LONG),
+                    new KeyedCodec<>("ObjectiveStandardXp", Codec.LONG),
                     (asset, value) -> asset.objectiveStandardXp = value != null ? value : 50L,
                     asset -> asset.objectiveStandardXp,
                     (asset, parent) -> asset.objectiveStandardXp = parent.objectiveStandardXp
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("objectiveMajorXp", Codec.LONG),
+                    new KeyedCodec<>("ObjectiveMajorXp", Codec.LONG),
                     (asset, value) -> asset.objectiveMajorXp = value != null ? value : 100L,
                     asset -> asset.objectiveMajorXp,
                     (asset, parent) -> asset.objectiveMajorXp = parent.objectiveMajorXp
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("objectiveLegendaryXp", Codec.LONG),
+                    new KeyedCodec<>("ObjectiveLegendaryXp", Codec.LONG),
                     (asset, value) -> asset.objectiveLegendaryXp = value != null ? value : 250L,
                     asset -> asset.objectiveLegendaryXp,
                     (asset, parent) -> asset.objectiveLegendaryXp = parent.objectiveLegendaryXp
@@ -83,7 +83,7 @@ public class XPConfigAsset implements JsonAssetWithMap<String, IndexedLookupTabl
             .add()
             // Class XP
             .appendInherited(
-                    new KeyedCodec<>("classXpRatio", Codec.DOUBLE),
+                    new KeyedCodec<>("ClassXpRatio", Codec.DOUBLE),
                     (asset, value) -> asset.classXpRatio = value != null ? value : 1.0,
                     asset -> asset.classXpRatio,
                     (asset, parent) -> asset.classXpRatio = parent.classXpRatio
@@ -91,14 +91,14 @@ public class XPConfigAsset implements JsonAssetWithMap<String, IndexedLookupTabl
             .add()
             // Level caps
             .appendInherited(
-                    new KeyedCodec<>("maxCharacterLevel", Codec.INTEGER),
+                    new KeyedCodec<>("MaxCharacterLevel", Codec.INTEGER),
                     (asset, value) -> asset.maxCharacterLevel = value != null ? value : 100,
                     asset -> asset.maxCharacterLevel,
                     (asset, parent) -> asset.maxCharacterLevel = parent.maxCharacterLevel
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("maxClassLevel", Codec.INTEGER),
+                    new KeyedCodec<>("MaxClassLevel", Codec.INTEGER),
                     (asset, value) -> asset.maxClassLevel = value != null ? value : 20,
                     asset -> asset.maxClassLevel,
                     (asset, parent) -> asset.maxClassLevel = parent.maxClassLevel

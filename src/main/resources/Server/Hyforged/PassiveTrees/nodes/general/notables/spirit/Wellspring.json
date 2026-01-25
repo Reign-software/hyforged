@@ -1,0 +1,15 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:wellspring",
+      "Type": "notable",
+      "Name": "Wellspring",
+      "Description": "+3 Spirit\n+12 Max Mana\n+6% Mana Regen",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:spirit", "Value": 3 },
+        { "Type": "stat-modifier", "Stat": "hyforged:max-mana-flat", "Value": 12 },
+        { "Type": "stat-modifier", "Stat": "hyforged:mana-regen-percent-bps", "Value": 600 }
+      ]
+    }
+  ]
+}

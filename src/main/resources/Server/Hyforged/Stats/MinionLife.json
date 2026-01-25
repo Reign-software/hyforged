@@ -17,6 +17,6 @@
     "Mechanic": [
       "minion"
     ],
-    "Resource": "health"
+    "Resource": ["health"]
   }
 }

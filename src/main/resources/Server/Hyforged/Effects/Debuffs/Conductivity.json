@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Conductivity.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:lightning-resistance-bps", "StackType": "FLAT", "Amount": -4500 },
-    { "StatId": "hyforged:shock-effect-bps", "StackType": "INCREASED", "Amount": 3000 }
+    { "StatId": "hyforged:lightning-resistance-bps", "StackType": "Flat", "Amount": -4500 },
+    { "StatId": "hyforged:shock-effect-bps", "StackType": "Increased", "Amount": 3000 }
   ]
 }

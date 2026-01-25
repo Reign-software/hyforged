@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:attuned",
   "Type": "prefix",
   "DisplayName": "Attuned",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 62,
       "Weight": 40,
       "Stats": {
-        "hyforged:mana-regen": { "MinValue": 18, "MaxValue": 25, "StackType": "FLAT" }
+        "hyforged:mana-regen": { "MinValue": 18, "MaxValue": 25, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 46,
       "Weight": 60,
       "Stats": {
-        "hyforged:mana-regen": { "MinValue": 12, "MaxValue": 18, "StackType": "FLAT" }
+        "hyforged:mana-regen": { "MinValue": 12, "MaxValue": 18, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 30,
       "Weight": 82,
       "Stats": {
-        "hyforged:mana-regen": { "MinValue": 7, "MaxValue": 12, "StackType": "FLAT" }
+        "hyforged:mana-regen": { "MinValue": 7, "MaxValue": 12, "StackType": "Flat" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 15,
       "Weight": 105,
       "Stats": {
-        "hyforged:mana-regen": { "MinValue": 4, "MaxValue": 7, "StackType": "FLAT" }
+        "hyforged:mana-regen": { "MinValue": 4, "MaxValue": 7, "StackType": "Flat" }
       }
     },
     {
@@ -41,7 +41,7 @@
       "ItemLevelReq": 1,
       "Weight": 130,
       "Stats": {
-        "hyforged:mana-regen": { "MinValue": 1, "MaxValue": 4, "StackType": "FLAT" }
+        "hyforged:mana-regen": { "MinValue": 1, "MaxValue": 4, "StackType": "Flat" }
       }
     }
   ]

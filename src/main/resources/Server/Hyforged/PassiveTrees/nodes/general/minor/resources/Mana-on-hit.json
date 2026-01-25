@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:minor-mana-on-hit-1",
+      "Type": "minor",
+      "Name": "Mana Siphon",
+      "Description": "+1 Mana on Hit",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:mana-on-hit-flat", "Value": 1 }
+      ]
+    }
+  ]
+}

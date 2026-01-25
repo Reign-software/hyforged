@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Regen.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:health-regen-percent-bps", "StackType": "FLAT", "Amount": 200 },
-    { "StatId": "hyforged:life-recovery-rate-bps", "StackType": "INCREASED", "Amount": 2500 }
+    { "StatId": "hyforged:health-regen-percent-bps", "StackType": "Flat", "Amount": 200 },
+    { "StatId": "hyforged:life-recovery-rate-bps", "StackType": "Increased", "Amount": 2500 }
   ]
 }

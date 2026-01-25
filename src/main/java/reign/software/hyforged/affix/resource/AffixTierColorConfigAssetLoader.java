@@ -50,11 +50,13 @@ public final class AffixTierColorConfigAssetLoader {
                 ((HytaleAssetStore.Builder<String, AffixTierColorConfigAsset, IndexedLookupTableAssetMap<String, AffixTierColorConfigAsset>>)
                         ((HytaleAssetStore.Builder<String, AffixTierColorConfigAsset, IndexedLookupTableAssetMap<String, AffixTierColorConfigAsset>>)
                                 ((HytaleAssetStore.Builder<String, AffixTierColorConfigAsset, IndexedLookupTableAssetMap<String, AffixTierColorConfigAsset>>)
-                                        HytaleAssetStore.builder(
-                                                AffixTierColorConfigAsset.class,
-                                                new IndexedLookupTableAssetMap<>(AffixTierColorConfigAsset[]::new)
-                                        )
-                                                .setPath(CONFIG_ASSET_PATH))
+                                        ((HytaleAssetStore.Builder<String, AffixTierColorConfigAsset, IndexedLookupTableAssetMap<String, AffixTierColorConfigAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        AffixTierColorConfigAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(AffixTierColorConfigAsset[]::new)
+                                                )
+                                                        .setPath(CONFIG_ASSET_PATH))
+                                                .setReplaceOnRemove(key -> new AffixTierColorConfigAsset()))
                                         .setCodec(AffixTierColorConfigAsset.CODEC))
                                 .setKeyFunction(asset -> CONFIG_ID))
                         .build();

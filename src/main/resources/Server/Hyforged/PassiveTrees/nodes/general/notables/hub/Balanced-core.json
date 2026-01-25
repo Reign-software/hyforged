@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:balanced-core",
+      "Type": "notable",
+      "Name": "Balanced Core",
+      "Description": "+2 to All Attributes",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:attribute-all", "Value": 2 }
+      ]
+    }
+  ]
+}

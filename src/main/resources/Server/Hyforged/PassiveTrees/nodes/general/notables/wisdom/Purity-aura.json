@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:purity-aura",
+      "Type": "notable",
+      "Name": "Purity Aura",
+      "Description": "Unlocks the Purity Aura skill.",
+      "Effects": [
+        { "Type": "spell-grant", "SpellId": "hyforged:purity-aura" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:endless-wellspring",
+      "Type": "notable",
+      "Name": "Endless Wellspring",
+      "Description": "+15 Max Mana\n+8% Mana Regen\n+3% Mana on Kill",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:max-mana-flat", "Value": 15 },
+        { "Type": "stat-modifier", "Stat": "hyforged:mana-regen-percent-bps", "Value": 800 },
+        { "Type": "stat-modifier", "Stat": "hyforged:mana-on-kill-bps", "Value": 300 }
+      ]
+    }
+  ]
+}

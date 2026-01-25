@@ -1,0 +1,30 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:hub-center",
+      "Type": "starting",
+      "Name": "Center of the Tree",
+      "Description": "The center point of the passive tree. All paths lead from here.",
+      "Effects": []
+    },
+    {
+      "Id": "hyforged:scion-core",
+      "Type": "starting",
+      "Name": "Scion Core",
+      "Description": "The core of the Scion's power. Grants balanced attribute bonuses.",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:attribute-all", "Value": 1 }
+      ]
+    },
+    {
+      "Id": "hyforged:versatility",
+      "Type": "notable",
+      "Name": "Versatility",
+      "Description": "+1 to All Attributes\n+5% increased Damage",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:attribute-all", "Value": 1 },
+        { "Type": "stat-modifier", "Stat": "hyforged:damage-percent", "Value": 500 }
+      ]
+    }
+  ]
+}

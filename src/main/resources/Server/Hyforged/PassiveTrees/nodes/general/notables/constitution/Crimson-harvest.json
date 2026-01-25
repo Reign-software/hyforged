@@ -1,0 +1,16 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:crimson-harvest",
+      "Type": "notable",
+      "Name": "Crimson Harvest",
+      "Description": "+6% Life Leech\n+6% Leech Rate\n+2% Max Life Leech Rate\n+3 Life on Hit",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:life-leech-bps", "Value": 600 },
+        { "Type": "stat-modifier", "Stat": "hyforged:leech-rate-bps", "Value": 600 },
+        { "Type": "stat-modifier", "Stat": "hyforged:max-life-leech-rate-bps", "Value": 200 },
+        { "Type": "stat-modifier", "Stat": "hyforged:life-on-hit-flat", "Value": 3 }
+      ]
+    }
+  ]
+}

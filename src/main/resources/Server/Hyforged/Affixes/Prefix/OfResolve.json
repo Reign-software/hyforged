@@ -9,7 +9,7 @@
       "ItemLevelReq": 60,
       "Weight": 50,
       "Stats": {
-        "hyforged:concentration-loss-reduction-bps": { "MinValue": 1200, "MaxValue": 1500, "StackType": "FLAT" }
+        "hyforged:concentration-loss-reduction-bps": { "MinValue": 1200, "MaxValue": 1500, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 45,
       "Weight": 75,
       "Stats": {
-        "hyforged:concentration-loss-reduction-bps": { "MinValue": 800, "MaxValue": 1200, "StackType": "FLAT" }
+        "hyforged:concentration-loss-reduction-bps": { "MinValue": 800, "MaxValue": 1200, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 30,
       "Weight": 100,
       "Stats": {
-        "hyforged:concentration-loss-reduction-bps": { "MinValue": 400, "MaxValue": 800, "StackType": "FLAT" }
+        "hyforged:concentration-loss-reduction-bps": { "MinValue": 400, "MaxValue": 800, "StackType": "Flat" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 15,
       "Weight": 125,
       "Stats": {
-        "hyforged:concentration-loss-reduction-bps": { "MinValue": 200, "MaxValue": 400, "StackType": "FLAT" }
+        "hyforged:concentration-loss-reduction-bps": { "MinValue": 200, "MaxValue": 400, "StackType": "Flat" }
       }
     },
     {
@@ -41,7 +41,7 @@
       "ItemLevelReq": 1,
       "Weight": 150,
       "Stats": {
-        "hyforged:concentration-loss-reduction-bps": { "MinValue": 80, "MaxValue": 200, "StackType": "FLAT" }
+        "hyforged:concentration-loss-reduction-bps": { "MinValue": 80, "MaxValue": 200, "StackType": "Flat" }
       }
     }
   ]

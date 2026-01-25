@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Frostbite.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:cold-resistance-bps", "StackType": "FLAT", "Amount": -4500 },
-    { "StatId": "hyforged:chill-effect-bps", "StackType": "INCREASED", "Amount": 3000 }
+    { "StatId": "hyforged:cold-resistance-bps", "StackType": "Flat", "Amount": -4500 },
+    { "StatId": "hyforged:chill-effect-bps", "StackType": "Increased", "Amount": 3000 }
   ]
 }

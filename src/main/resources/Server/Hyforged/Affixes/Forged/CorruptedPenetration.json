@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:corrupted-penetration",
   "Type": "forged",
   "DisplayName": "Corrupted Penetration",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 76,
       "Weight": 35,
       "Stats": {
-        "hyforged:armor-penetration-bps": { "MinValue": 3000, "MaxValue": 4000, "StackType": "FLAT" }
+        "hyforged:armor-penetration-bps": { "MinValue": 3000, "MaxValue": 4000, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 54,
       "Weight": 65,
       "Stats": {
-        "hyforged:armor-penetration-bps": { "MinValue": 2000, "MaxValue": 3000, "StackType": "FLAT" }
+        "hyforged:armor-penetration-bps": { "MinValue": 2000, "MaxValue": 3000, "StackType": "Flat" }
       }
     }
   ]

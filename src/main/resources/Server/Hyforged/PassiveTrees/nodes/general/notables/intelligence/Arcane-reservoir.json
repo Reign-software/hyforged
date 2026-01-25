@@ -1,0 +1,15 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:arcane-reservoir",
+      "Type": "notable",
+      "Name": "Arcane Reservoir",
+      "Description": "+12 Max Mana\n-4% Mana Cost\n+8% Mana Recovery Rate",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:max-mana-flat", "Value": 12 },
+        { "Type": "stat-modifier", "Stat": "hyforged:mana-cost-bps", "Value": -400 },
+        { "Type": "stat-modifier", "Stat": "hyforged:mana-recovery-rate-bps", "Value": 800 }
+      ]
+    }
+  ]
+}

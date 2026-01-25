@@ -22,6 +22,19 @@ This document provides code examples for working with the Hyforged Passive Trees
 PassiveTreeService service = PassiveTreeService.get();
 ```
 
+### Initialize the Service (required)
+
+Call during plugin setup after component registration:
+
+```java
+PassiveTreeService.get().initialize(
+    passiveTreeComponentType,
+    playerUnlocksComponentType,
+    playerSpellsComponentType,
+    progressionComponentType
+);
+```
+
 ### Get the Registry
 
 ```java
@@ -81,11 +94,12 @@ if (result.success()) {
 } else {
     // Check failure reason
     switch (result.reason()) {
-        case AllocationResult.ALREADY_ALLOCATED -> { /* ... */ }
-        case AllocationResult.NOT_ADJACENT -> { /* ... */ }
-        case AllocationResult.INSUFFICIENT_POINTS -> { /* ... */ }
-        case AllocationResult.REQUIREMENTS_NOT_MET -> { /* ... */ }
-        case AllocationResult.KEYSTONE_CONFLICT -> { /* ... */ }
+        case AllocationResult.REASON_ALREADY_ALLOCATED -> { /* ... */ }
+        case AllocationResult.REASON_NOT_CONNECTED -> { /* ... */ }
+        case AllocationResult.REASON_INSUFFICIENT_POINTS -> { /* ... */ }
+        case AllocationResult.REASON_KEYSTONE_CONFLICT -> { /* ... */ }
+        case AllocationResult.REASON_NODE_NOT_FOUND -> { /* ... */ }
+        case AllocationResult.REASON_TREE_NOT_FOUND -> { /* ... */ }
     }
 }
 ```
@@ -130,14 +144,15 @@ int totalCost = service.calculateTotalRefundCost(entityRef, List.of(node1, node2
 RefundResult result = service.refundNode(entityRef, treeId, nodeId);
 
 if (result.success()) {
-    int pointsRefunded = result.pointsRefunded();
-    int currencySpent = result.currencySpent();
+    int pointsRefunded = result.pointsReturned();
+    int tradebarCost = result.totalCost();
 } else {
     // Check failure reason
     switch (result.reason()) {
-        case RefundResult.NOT_ALLOCATED -> { /* ... */ }
-        case RefundResult.WOULD_ORPHAN -> { /* ... */ }
-        case RefundResult.INSUFFICIENT_CURRENCY -> { /* ... */ }
+        case RefundResult.REASON_NODE_NOT_ALLOCATED -> { /* ... */ }
+        case RefundResult.REASON_CANNOT_REFUND_STARTING_NODE -> { /* ... */ }
+        case RefundResult.REASON_INSUFFICIENT_TRADEBARS -> { /* ... */ }
+        case RefundResult.REASON_TREE_NOT_FOUND -> { /* ... */ }
     }
 }
 ```
@@ -166,52 +181,56 @@ Set<String> orphaned = service.getOrphanedNodes(entityRef, treeId, nodeId);
 ### Node Allocated Event
 
 ```java
-EventRegistry.register(PassiveNodeAllocatedEvent.class, EventPriority.NORMAL, event -> {
-    Ref<EntityStore> entityRef = event.getEntityRef();
-    String treeId = event.getTreeId();
-    String nodeId = event.getNodeId();
-    PassiveNode node = event.getNode();
-    
-    // React to allocation
-});
+HytaleServer.get().getEventBus()
+    .registerGlobal((short) 0, PassiveNodeAllocatedEvent.class, event -> {
+        Ref<EntityStore> entityRef = event.entityRef();
+        String treeId = event.treeId();
+        String nodeId = event.nodeId();
+        int remaining = event.remainingPoints();
+        
+        // React to allocation
+    });
 ```
 
 ### Node Refunded Event
 
 ```java
-EventRegistry.register(PassiveNodeRefundedEvent.class, EventPriority.NORMAL, event -> {
-    Ref<EntityStore> entityRef = event.getEntityRef();
-    String treeId = event.getTreeId();
-    String nodeId = event.getNodeId();
-    int currencySpent = event.getCurrencySpent();
-    
-    // React to refund
-});
+HytaleServer.get().getEventBus()
+    .registerGlobal((short) 0, PassiveNodeRefundedEvent.class, event -> {
+        Ref<EntityStore> entityRef = event.entityRef();
+        String treeId = event.treeId();
+        List<String> refunded = event.refundedNodes();
+        int tradebarCost = event.tradebarCost();
+        
+        // React to refund
+    });
 ```
 
 ### Tree Respec Event
 
 ```java
-EventRegistry.register(PassiveTreeRespecEvent.class, EventPriority.NORMAL, event -> {
-    Ref<EntityStore> entityRef = event.getEntityRef();
-    String treeId = event.getTreeId();
-    int nodesRefunded = event.getNodesRefunded();
-    int totalCost = event.getTotalCost();
-    
-    // React to full respec
-});
+HytaleServer.get().getEventBus()
+    .registerGlobal((short) 0, PassiveTreeRespecEvent.class, event -> {
+        Ref<EntityStore> entityRef = event.entityRef();
+        String treeId = event.treeId();
+        int nodesRefunded = event.nodeCount();
+        int totalCost = event.tradebarCost();
+        
+        // React to full respec
+    });
 ```
 
 ### Point Book Consumed Event
 
 ```java
-EventRegistry.register(PointBookConsumedEvent.class, EventPriority.NORMAL, event -> {
-    Ref<EntityStore> entityRef = event.getEntityRef();
-    int pointsGranted = event.getPointsGranted();
-    int totalBookPoints = event.getTotalBookPoints();
-    
-    // React to point book use
-});
+HytaleServer.get().getEventBus()
+    .registerGlobal((short) 0, PointBookConsumedEvent.class, event -> {
+        Ref<EntityStore> entityRef = event.entityRef();
+        int totalBookPoints = event.newBookPointTotal();
+        int maxBookPoints = event.maxBookPoints();
+        
+        // React to point book use
+    });
 ```
 
 ---
@@ -226,7 +245,7 @@ public class MyCustomEffectHandler implements PassiveEffectHandler {
     @Override
     public void apply(Ref<EntityStore> entityRef, PassiveNode node, PassiveNodeEffect effect) {
         // Extract data from effect
-        String customData = effect.data().getString("CustomField");
+        String customData = effect.getString("CustomField");
         
         // Apply your effect
         // ...
@@ -263,7 +282,6 @@ public void setup(PluginHandle handle) {
     "Type": "notable",
     "Name": "Custom Node",
     "Description": "Grants a custom effect.",
-    "Position": { "X": 0, "Y": 0 },
     "Effects": [
         { 
             "Type": "my-custom-effect",
@@ -287,12 +305,14 @@ Define the item in `Server/<YourMod>/Item/point-book.json`:
     "DisplayName": "Book of Skill Points",
     "Description": "Grants 1 passive skill point when consumed.",
     "MaxStackSize": 99,
-    "Interactions": [
-        {
-            "Type": "hyforged:point-book",
-            "PointsGranted": 1
+    "Interactions": {
+        "Secondary": {
+            "Type": "Simple",
+            "Interactions": [
+                { "Type": "hyforged:point-book-consume" }
+            ]
         }
-    ]
+    }
 }
 ```
 
@@ -301,7 +321,7 @@ Define the item in `Server/<YourMod>/Item/point-book.json`:
 ```java
 PassiveTreeComponent component = entityRef.get(passiveTreeComponentType);
 if (component != null) {
-    component.addBookPoints(1);
+    component.addBookPoint();
 }
 ```
 
@@ -354,7 +374,7 @@ int classCount = component.getClassAllocatedCount("hyforged:warrior");
 
 // Book points
 int bookPoints = component.getBookPointsUsed();
-component.addBookPoints(1);
+component.addBookPoint();
 ```
 
 ### PlayerUnlocksComponent

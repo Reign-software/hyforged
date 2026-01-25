@@ -3,17 +3,17 @@
     "Id": "hyforged:xp_config",
     "comment": "XP Configuration for Hyforged Progression System",
     
-    "combatBaseXp": 10,
+    "CombatBaseXp": 10,
     
-    "discoveryBiomeXp": 100,
-    "discoveryLandmarkXp": 50,
+    "DiscoveryBiomeXp": 100,
+    "DiscoveryLandmarkXp": 50,
     
-    "objectiveMinorXp": 25,
-    "objectiveStandardXp": 50,
-    "objectiveMajorXp": 100,
-    "objectiveLegendaryXp": 250,
+    "ObjectiveMinorXp": 25,
+    "ObjectiveStandardXp": 50,
+    "ObjectiveMajorXp": 100,
+    "ObjectiveLegendaryXp": 250,
     
-    "classXpRatio": 1.0,
-    "maxCharacterLevel": 100,
-    "maxClassLevel": 20
+    "ClassXpRatio": 1.0,
+    "MaxCharacterLevel": 100,
+    "MaxClassLevel": 20
 }

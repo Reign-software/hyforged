@@ -9,9 +9,11 @@ This guide explains how to create and customize passive skill trees in Hyforged.
 
 ## Quick Start
 
-1. Create a passive tree JSON in your mod's `Server/<YourMod>/PassiveTrees/` folder
-2. For class trees, place them in `Server/<YourMod>/PassiveTrees/classes/`
-3. Use namespaced IDs to avoid conflicts with other mods
+1. Create node templates in `Server/<YourMod>/PassiveTrees/nodes/` (general or class)
+2. If you are adding a new tree, add a tree definition in `Server/<YourMod>/PassiveTrees/trees/`
+3. Create layout files in `Server/<YourMod>/PassiveTrees/layouts/` to place nodes and connections
+4. (Optional) Configure refund costs in `Server/Hyforged/Config/passive-refund.json`
+5. Use namespaced IDs to avoid conflicts with other mods
 
 ---
 
@@ -75,27 +77,32 @@ Any mod can add nodes and connections to any tree. Connections reference nodes b
 ```
 Server/<YourMod>/PassiveTrees/
 ├── trees/
+│   ├── general.json              # Only if creating your own general tree
 │   └── classes/
-│       └── my-class.json         # Only needed for new class trees
+│       └── my-class.json         # New class trees
 ├── nodes/
 │   ├── general/                  # Node templates for general tree
 │   │   ├── strength.json
 │   │   └── defense.json
 │   └── classes/
-│       └── warrior/
+│       └── my-class/
 │           └── core.json
 └── layouts/
     ├── general/                  # Placements & connections (additive)
     │   └── yourmod-nodes.json
     └── classes/
-        └── warrior/
+        └── my-class/
             └── yourmod-additions.json
 ```
 
 ### Load Order & Merging
-1. All `nodes/` files across all mods are loaded (node templates registered)
-2. All `layouts/` files are merged additively (placements, connections)
-3. Connections can reference any node from any mod by namespaced ID
+1. Refund config is loaded from `Server/Hyforged/Config/passive-refund.json`
+2. All `nodes/` files across all mods are loaded (node templates registered)
+3. All `trees/` files are loaded (tree metadata only)
+4. All `layouts/` files are merged additively (placements, connections, starting nodes)
+5. Connections can reference any node from any mod by namespaced ID
+
+**Note**: The legacy single-file tree format in `PassiveTrees/classes/` is not loaded by the current asset loader.
 
 ---
 
@@ -406,8 +413,22 @@ End-of-path nodes that offer a choice between mutually exclusive bonuses.
         {
             "Type": "mastery-choice",
             "Choices": [
-                { "Type": "stat-modifier", "Stat": "hyforged:attack-damage-increase", "Value": 2000 },
-                { "Type": "stat-modifier", "Stat": "hyforged:life-leech", "Value": 500 }
+                {
+                    "Id": "berserk-damage",
+                    "Name": "Berserker Damage",
+                    "Description": "Increased attack damage",
+                    "Effects": [
+                        { "Type": "stat-modifier", "Stat": "hyforged:attack-damage-increase", "Value": 200, "StackType": "INCREASED" }
+                    ]
+                },
+                {
+                    "Id": "berserk-leech",
+                    "Name": "Berserker Leech",
+                    "Description": "Life leech on hit",
+                    "Effects": [
+                        { "Type": "stat-modifier", "Stat": "hyforged:life-leech", "Value": 500 }
+                    ]
+                }
             ]
         }
     ]
@@ -439,11 +460,13 @@ Applies a stat modifier to the player.
 {
     "Type": "stat-modifier",
     "Stat": "hyforged:strength",
-    "Value": 10
+    "Value": 10,
+    "StackType": "FLAT"
 }
 ```
 
-Values use basis points for percentages (10000 = 100%).
+- `StackType` is optional (`FLAT`, `INCREASED`, `MORE`), default is `FLAT`.
+- For `INCREASED`/`MORE`, values use basis points: 100 = 1%.
 
 ### spell-grant
 Grants access to a spell/ability.
@@ -461,7 +484,8 @@ Sets a gameplay flag that other systems can check.
 ```json
 {
     "Type": "unlock-flag",
-    "FlagId": "hyforged:stun-immune"
+    "FlagId": "hyforged:stun-immune",
+    "Description": "Cannot be stunned"
 }
 ```
 
@@ -472,8 +496,22 @@ Presents mutually exclusive options. Player selects one on allocation.
 {
     "Type": "mastery-choice",
     "Choices": [
-        { "Type": "stat-modifier", "Stat": "hyforged:damage-increase", "Value": 2000 },
-        { "Type": "stat-modifier", "Stat": "hyforged:defense-increase", "Value": 2000 }
+        {
+            "Id": "offense",
+            "Name": "Offense",
+            "Description": "Increased damage",
+            "Effects": [
+                { "Type": "stat-modifier", "Stat": "hyforged:damage-increase", "Value": 200, "StackType": "INCREASED" }
+            ]
+        },
+        {
+            "Id": "defense",
+            "Name": "Defense",
+            "Description": "Increased defense",
+            "Effects": [
+                { "Type": "stat-modifier", "Stat": "hyforged:defense-increase", "Value": 200, "StackType": "INCREASED" }
+            ]
+        }
     ]
 }
 ```
@@ -539,21 +577,27 @@ If refunding a node would disconnect other nodes from the start, all orphaned no
 
 ### Refund Configuration
 
-Configure refund costs in `Server/<YourMod>/PassiveTrees/refund-config.json`:
+Configure refund costs in `Server/Hyforged/Config/passive-refund.json`:
 
 ```json
 {
+    "Id": "hyforged:passive-refund-config",
     "BaseCost": 10,
-    "CostPerLevel": 5,
-    "MaxBookPoints": 30
+    "LevelMultiplier": 2,
+    "MaxBookPoints": 20
 }
 ```
 
+Refund cost per node:
+$$\text{Cost} = \text{BaseCost} + (\text{Character Level} \times \text{LevelMultiplier})$$
+
 | Field | Type | Description |
 |-------|------|-------------|
-| `BaseCost` | int | Base currency cost per refund |
-| `CostPerLevel` | int | Additional cost per character level |
+| `BaseCost` | int | Base Tradebar cost per refund |
+| `LevelMultiplier` | int | Cost increase per character level |
 | `MaxBookPoints` | int | Maximum bonus points from Point Books |
+
+**Note**: The service currently calculates costs but does not deduct Tradebars (TODO in service).
 
 ---
 
@@ -659,10 +703,13 @@ Configure refund costs in `Server/<YourMod>/PassiveTrees/refund-config.json`:
 
 ### Complete Sample Trees
 
-See the Hyforged sample trees for complete examples:
+See the Hyforged general tree content for examples:
 
-- `Server/Hyforged/PassiveTrees/` — General tree with multiple regions
-- `Server/Hyforged/PassiveTrees/classes/` — Class trees with mastery nodes
+- `Server/Hyforged/PassiveTrees/trees/` — General tree definition
+- `Server/Hyforged/PassiveTrees/nodes/` — Node templates
+- `Server/Hyforged/PassiveTrees/layouts/` — Layouts and connections
+
+Legacy single-file class tree samples in `Server/Hyforged/PassiveTrees/classes/` are not loaded by the current asset loader.
 
 ---
 

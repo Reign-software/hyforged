@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Projectiles.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:additional-projectiles-flat", "StackType": "FLAT", "Amount": 2 },
-    { "StatId": "hyforged:projectile-damage-bps", "StackType": "INCREASED", "Amount": -1500 }
+    { "StatId": "hyforged:additional-projectiles-flat", "StackType": "Flat", "Amount": 2 },
+    { "StatId": "hyforged:projectile-damage-bps", "StackType": "Increased", "Amount": -1500 }
   ]
 }

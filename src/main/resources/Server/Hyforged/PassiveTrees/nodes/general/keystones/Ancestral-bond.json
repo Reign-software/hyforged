@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:ancestral-bond",
+      "Type": "keystone",
+      "Name": "Ancestral Bond",
+      "Description": "Cannot deal damage yourself\n+1 Maximum Totems",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:ancestral-bond" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:windfall",
+      "Type": "notable",
+      "Name": "Windfall",
+      "Description": "+6% Experience Gain\n+4% Culling Strike Threshold\n+3% Double Damage Chance",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:experience-gain-bps", "Value": 600 },
+        { "Type": "stat-modifier", "Stat": "hyforged:culling-strike-threshold-bps", "Value": 400 },
+        { "Type": "stat-modifier", "Stat": "hyforged:chance-to-deal-double-damage-bps", "Value": 300 }
+      ]
+    }
+  ]
+}

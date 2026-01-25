@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:iron-will",
+      "Type": "keystone",
+      "Name": "Iron Will",
+      "Description": "Strength's damage bonus applies to Spell Damage",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:iron-will" }
+      ]
+    }
+  ]
+}

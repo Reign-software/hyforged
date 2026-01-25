@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:magebane",
+      "Type": "keystone",
+      "Name": "Magebane",
+      "Description": "Spell Suppression Chance is Lucky",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:magebane" }
+      ]
+    }
+  ]
+}

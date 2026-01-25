@@ -27,11 +27,13 @@
   - NPC Quality & Affixes — spec: [random-item-quality.spec.md](.memory_bank/Features/random-item-quality/random-item-quality.spec.md), plan: [random-item-quality.plan.md](.memory_bank/Features/random-item-quality/random-item-quality.plan.md) (included in Random Item Quality)
   - Combat System — spec: [combat-system.spec.md](.memory_bank/Features/combat-system/combat-system.spec.md)
   - Passive Trees
+  - Passive Tree Stat Diversity — spec: [passive-tree-stat-diversity.spec.md](.memory_bank/Features/passive-tree-stat-diversity/passive-tree-stat-diversity.spec.md), plan: [passive-tree-stat-diversity.plan.md](.memory_bank/Features/passive-tree-stat-diversity/passive-tree-stat-diversity.plan.md)
   - Currency (Tradebars)
   - Enchanting, Runes, and Forging
   - Trading & Marketplace
 
 ## Change Log
+- 2026-01-25: Added Passive Tree Stat Diversity plan to feature index.
 - 2026-01-24: Added Concentration Disruption System spec to feature index.
 - 2026-01-23: Added Random Item Quality plan to feature index.
 - 2026-01-23: Added Random Item Quality spec to feature index; linked Items Affix System spec.

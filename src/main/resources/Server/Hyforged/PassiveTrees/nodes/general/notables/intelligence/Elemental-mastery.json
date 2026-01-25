@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:elemental-mastery",
+      "Type": "notable",
+      "Name": "Elemental Mastery",
+      "Description": "+5% Elemental Damage",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:elemental-damage-increased-bps", "Value": 500 }
+      ]
+    }
+  ]
+}

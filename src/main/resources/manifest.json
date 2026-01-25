@@ -12,9 +12,11 @@
   ],
   "Website": "https://your-plugin-website.com",
   "ServerVersion": "*",
-  "Dependencies": {},
+  "Dependencies": {
+    "Buuz135:MultipleHUD": "*"
+  },
   "OptionalDependencies": {},
   "DisabledByDefault": false,
-  "IncludesAssetPack": false,
+  "IncludesAssetPack": true,
   "Main": "reign.software.hyforged.HyforgedPlugin"
 }

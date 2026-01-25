@@ -1,4 +1,4 @@
-﻿{
+{
   "Id": "hyforged:stalwart",
   "Type": "prefix",
   "DisplayName": "Stalwart",
@@ -9,7 +9,7 @@
       "ItemLevelReq": 80,
       "Weight": 25,
       "Stats": {
-        "hyforged:max-health-flat": { "MinValue": 180, "MaxValue": 220, "StackType": "FLAT" }
+        "hyforged:max-health-flat": { "MinValue": 180, "MaxValue": 220, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 65,
       "Weight": 40,
       "Stats": {
-        "hyforged:max-health-flat": { "MinValue": 140, "MaxValue": 180, "StackType": "FLAT" }
+        "hyforged:max-health-flat": { "MinValue": 140, "MaxValue": 180, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 52,
       "Weight": 55,
       "Stats": {
-        "hyforged:max-health-flat": { "MinValue": 105, "MaxValue": 140, "StackType": "FLAT" }
+        "hyforged:max-health-flat": { "MinValue": 105, "MaxValue": 140, "StackType": "Flat" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 40,
       "Weight": 70,
       "Stats": {
-        "hyforged:max-health-flat": { "MinValue": 75, "MaxValue": 105, "StackType": "FLAT" }
+        "hyforged:max-health-flat": { "MinValue": 75, "MaxValue": 105, "StackType": "Flat" }
       }
     },
     {
@@ -41,7 +41,7 @@
       "ItemLevelReq": 28,
       "Weight": 85,
       "Stats": {
-        "hyforged:max-health-flat": { "MinValue": 50, "MaxValue": 75, "StackType": "FLAT" }
+        "hyforged:max-health-flat": { "MinValue": 50, "MaxValue": 75, "StackType": "Flat" }
       }
     },
     {
@@ -49,7 +49,7 @@
       "ItemLevelReq": 16,
       "Weight": 100,
       "Stats": {
-        "hyforged:max-health-flat": { "MinValue": 30, "MaxValue": 50, "StackType": "FLAT" }
+        "hyforged:max-health-flat": { "MinValue": 30, "MaxValue": 50, "StackType": "Flat" }
       }
     },
     {
@@ -57,7 +57,7 @@
       "ItemLevelReq": 5,
       "Weight": 120,
       "Stats": {
-        "hyforged:max-health-flat": { "MinValue": 15, "MaxValue": 30, "StackType": "FLAT" }
+        "hyforged:max-health-flat": { "MinValue": 15, "MaxValue": 30, "StackType": "Flat" }
       }
     },
     {
@@ -65,7 +65,7 @@
       "ItemLevelReq": 1,
       "Weight": 140,
       "Stats": {
-        "hyforged:max-health-flat": { "MinValue": 5, "MaxValue": 15, "StackType": "FLAT" }
+        "hyforged:max-health-flat": { "MinValue": 5, "MaxValue": 15, "StackType": "Flat" }
       }
     }
   ]

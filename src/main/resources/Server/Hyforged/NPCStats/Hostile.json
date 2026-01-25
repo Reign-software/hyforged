@@ -1,6 +1,5 @@
 {
-    "Id": "hyforged:hostile",
-    "Parent": "hyforged:base",
+    "Parent": "Base",
     "MaxHealth": 100,
     "MaxHealthPerLevel": 15,
     "Strength": 10,

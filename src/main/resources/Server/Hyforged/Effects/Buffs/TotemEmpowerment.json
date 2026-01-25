@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Totem.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:max-totems-flat", "StackType": "FLAT", "Amount": 1 },
-    { "StatId": "hyforged:aura-effect-bps", "StackType": "INCREASED", "Amount": 3000 }
+    { "StatId": "hyforged:max-totems-flat", "StackType": "Flat", "Amount": 1 },
+    { "StatId": "hyforged:aura-effect-bps", "StackType": "Increased", "Amount": 3000 }
   ]
 }

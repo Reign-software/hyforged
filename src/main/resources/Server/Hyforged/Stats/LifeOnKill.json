@@ -8,7 +8,7 @@
   "MaxValue": 2147483647,
   "IsRating": false,
   "Tags": {
-    "Resource": "health",
+    "Resource": ["health"],
     "Type": [
       "resource"
     ]

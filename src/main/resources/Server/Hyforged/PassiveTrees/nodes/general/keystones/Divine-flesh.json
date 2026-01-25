@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:divine-flesh",
+      "Type": "keystone",
+      "Name": "Divine Flesh",
+      "Description": "50% of Elemental Damage taken as Chaos\n+3% Max Chaos Resistance",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:divine-flesh" }
+      ]
+    }
+  ]
+}

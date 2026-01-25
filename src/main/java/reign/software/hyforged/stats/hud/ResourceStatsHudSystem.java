@@ -1,6 +1,5 @@
 package reign.software.hyforged.stats.hud;
 
-import com.buuz135.mhud.MultipleHUD;
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.ComponentType;
@@ -21,8 +20,25 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 
 public class ResourceStatsHudSystem extends DelayedEntitySystem<EntityStore> {
+
+    private static final Logger LOGGER = Logger.getLogger(ResourceStatsHudSystem.class.getName());
+
+    /** Whether MultipleHUD is available at runtime */
+    private static final boolean MULTIPLE_HUD_AVAILABLE;
+
+    static {
+        boolean available = false;
+        try {
+            Class.forName("com.buuz135.mhud.MultipleHUD");
+            available = true;
+        } catch (ClassNotFoundException e) {
+            LOGGER.warning("MultipleHUD not available - resource stats HUD disabled");
+        }
+        MULTIPLE_HUD_AVAILABLE = available;
+    }
 
     /** Unique identifier for this HUD in MultipleHUD */
     public static final String HUD_ID = "hyforged:resource_stats";
@@ -101,7 +117,12 @@ public class ResourceStatsHudSystem extends DelayedEntitySystem<EntityStore> {
         boolean showRage = rageValue != null && rageValue.getMax() > 0.0f;
         boolean shouldShowHud = showConcentration || showRage;
 
-        MultipleHUD multipleHUD = MultipleHUD.getInstance();
+        // Skip if MultipleHUD is not available
+        if (!MULTIPLE_HUD_AVAILABLE) {
+            return;
+        }
+
+        com.buuz135.mhud.MultipleHUD multipleHUD = com.buuz135.mhud.MultipleHUD.getInstance();
         ResourceStatsHud existingHud = playerHuds.get(playerUuid);
 
         if (!shouldShowHud) {

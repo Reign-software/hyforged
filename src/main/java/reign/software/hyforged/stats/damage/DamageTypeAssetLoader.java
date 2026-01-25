@@ -66,11 +66,13 @@ public final class DamageTypeAssetLoader {
                 ((HytaleAssetStore.Builder<String, DamageTypeExtensionAsset, IndexedLookupTableAssetMap<String, DamageTypeExtensionAsset>>)
                         ((HytaleAssetStore.Builder<String, DamageTypeExtensionAsset, IndexedLookupTableAssetMap<String, DamageTypeExtensionAsset>>)
                                 ((HytaleAssetStore.Builder<String, DamageTypeExtensionAsset, IndexedLookupTableAssetMap<String, DamageTypeExtensionAsset>>)
-                                        HytaleAssetStore.builder(
-                                                DamageTypeExtensionAsset.class,
-                                                new IndexedLookupTableAssetMap<>(DamageTypeExtensionAsset[]::new)
-                                        )
-                                                .setPath(DAMAGE_TYPE_ASSET_PATH))
+                                        ((HytaleAssetStore.Builder<String, DamageTypeExtensionAsset, IndexedLookupTableAssetMap<String, DamageTypeExtensionAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        DamageTypeExtensionAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(DamageTypeExtensionAsset[]::new)
+                                                )
+                                                        .setPath(DAMAGE_TYPE_ASSET_PATH))
+                                                .setReplaceOnRemove(key -> new DamageTypeExtensionAsset()))
                                         .setCodec(DamageTypeExtensionAsset.CODEC))
                                 .setKeyFunction(DamageTypeExtensionAsset::getId))
                         .build();
