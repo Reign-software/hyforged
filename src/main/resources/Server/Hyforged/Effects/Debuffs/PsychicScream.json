@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:psychic-scream",
+  "EntityEffect": {
+    "Duration": 5,
+    "Debuff": true,
+    "StatusEffectIcon": "UI/StatusEffects/Concentration.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:concentration-loss-reduction-bps", "StackType": "Flat", "Amount": -2500 }
+  ]
+}

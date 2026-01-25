@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:travel-luck",
+      "Type": "minor",
+      "Name": "Luck",
+      "Description": "+1 to Luck",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:luck", "Value": 1 }
+      ]
+    }
+  ]
+}

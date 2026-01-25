@@ -1,0 +1,6 @@
+{
+    "Id": "hyforged:passive-refund-config",
+    "BaseCost": 10,
+    "LevelMultiplier": 2,
+    "MaxBookPoints": 20
+}

@@ -1,0 +1,14 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:minor-attack-speed-1",
+      "Type": "minor",
+      "Name": "Quick Strikes",
+      "Description": "+2% Attack Speed\n+5 Accuracy Rating",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:attack-speed-bps", "Value": 200 },
+        { "Type": "stat-modifier", "Stat": "hyforged:accuracy-rating", "Value": 5 }
+      ]
+    }
+  ]
+}

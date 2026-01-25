@@ -1,0 +1,14 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:minor-dot-1",
+      "Type": "minor",
+      "Name": "Lingering Wounds",
+      "Description": "+2% Damage Over Time\n+2% Bleed Damage",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:damage-over-time-bps", "Value": 200 },
+        { "Type": "stat-modifier", "Stat": "hyforged:bleed-damage-bps", "Value": 200 }
+      ]
+    }
+  ]
+}

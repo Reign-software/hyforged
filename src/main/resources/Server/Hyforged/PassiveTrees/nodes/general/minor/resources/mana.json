@@ -1,0 +1,14 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:minor-mana-1",
+      "Type": "minor",
+      "Name": "Mana Flow",
+      "Description": "+4 Max Mana\n+2% Mana Regen",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:max-mana-flat", "Value": 4 },
+        { "Type": "stat-modifier", "Stat": "hyforged:mana-regen-percent-bps", "Value": 200 }
+      ]
+    }
+  ]
+}

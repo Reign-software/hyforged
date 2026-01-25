@@ -1,13 +1,11 @@
 {
   "Id": "hyforged:mind-fog",
   "EntityEffect": {
-    "Duration": 20,
+    "Duration": 10,
     "Debuff": true,
     "StatusEffectIcon": "UI/StatusEffects/MindFog.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:intelligence", "StackType": "FLAT", "Amount": -20 },
-    { "StatId": "hyforged:spell-damage-increased-bps", "StackType": "INCREASED", "Amount": -2500 },
-    { "StatId": "hyforged:cast-speed-bps", "StackType": "INCREASED", "Amount": -1500 }
+    { "StatId": "hyforged:concentration-regen-rate-bps", "StackType": "Increased", "Amount": -3000 }
   ]
 }

@@ -9,6 +9,7 @@ Welcome to the Hyforged modding documentation. This folder contains guides for e
 | [Affix System](Affixes/README.md) | Add ARPG-style affixes (prefixes, suffixes, forged) to equipment |
 | [Stats System](Stats/README.md) | Add custom stats, modifiers, and integrate with the ARPG stat framework |
 | [Progression System](Progression/README.md) | XP, leveling, classes, and progression configuration |
+| [Passive Trees](PassiveTrees/README.md) | Create passive skill trees with 1000+ nodes |
 
 ## Getting Started
 

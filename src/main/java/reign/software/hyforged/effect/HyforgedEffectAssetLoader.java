@@ -90,7 +90,13 @@ public final class HyforgedEffectAssetLoader {
                 }
 
                 List<HyforgedEffectModifierSpec> modifiers = asset.getHyforgedModifiers();
-                registry.register(effectId, modifiers);
+                registry.register(
+                    effectId,
+                    modifiers,
+                    asset.getConcentrationCost(),
+                    asset.getConcentrationAbilityId(),
+                    asset.getConcentrationPriority()
+                );
                 loaded++;
             } catch (Exception e) {
                 LOGGER.log(Level.WARNING, "Failed to register Hyforged effect: " + asset.getId(), e);

@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:dash-master",
+      "Type": "notable",
+      "Name": "Dash Master",
+      "Description": "Unlocks the Dash ability.",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:dash-unlocked" }
+      ]
+    }
+  ]
+}

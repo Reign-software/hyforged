@@ -1,0 +1,14 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:fleet-footed",
+      "Type": "notable",
+      "Name": "Fleet Footed",
+      "Description": "+3 Dexterity\n+3% Movement Speed",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:dexterity", "Value": 3 },
+        { "Type": "stat-modifier", "Stat": "hyforged:movement-speed-bps", "Value": 300 }
+      ]
+    }
+  ]
+}

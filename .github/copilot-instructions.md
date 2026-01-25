@@ -1,6 +1,7 @@
 # Hytale plugin
 This is a Hytale plugin project. Hytale plugins are used to extend the functionality of the Hytale server. Plugins can add new features, modify existing behavior, or integrate with other systems. Plugins are typically written in Java and packaged as JAR files that can be loaded by the Hytale server. The plugins are sent to the client at runtime so they are only needed on the server.
 
+- When you want to build the plugin, run the task build plugin
 - The `.memory_bank` directory contains important context such as ADRs, requirements, and design decisions. Keep this up to date as you work on the project.
 - Hytale uses an Entity Component System (ECS) architecture. Very data driven. Do not hard code values.
 - Before implementing new features, review the ECS patterns and existing components in the Hytale server code.

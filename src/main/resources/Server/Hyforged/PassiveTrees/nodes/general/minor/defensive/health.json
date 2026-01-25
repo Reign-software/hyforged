@@ -1,0 +1,14 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:minor-health-1",
+      "Type": "minor",
+      "Name": "Sturdy",
+      "Description": "+4 Max Health\n+2 Life on Kill",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:max-health-flat", "Value": 4 },
+        { "Type": "stat-modifier", "Stat": "hyforged:life-on-kill-flat", "Value": 2 }
+      ]
+    }
+  ]
+}

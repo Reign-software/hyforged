@@ -15,10 +15,10 @@ import javax.annotation.Nonnull;
  * JSON format:
  * <pre>
  * {
- *   "tierCount": 5,
- *   "t1Range": [8, 10],
- *   "t5Range": [1, 2],
- *   "scalingCurve": "linear"
+ *   "TierCount": 5,
+ *   "T1Range": [8, 10],
+ *   "T5Range": [1, 2],
+ *   "ScalingCurve": "linear"
  * }
  * </pre>
  */
@@ -30,25 +30,25 @@ public class AffixTierTemplateAsset {
     public static final BuilderCodec<AffixTierTemplateAsset> CODEC = BuilderCodec
             .builder(AffixTierTemplateAsset.class, AffixTierTemplateAsset::new)
             .append(
-                    new KeyedCodec<>("tierCount", Codec.INTEGER),
+                    new KeyedCodec<>("TierCount", Codec.INTEGER),
                     (asset, value) -> asset.tierCount = value != null ? value : 5,
                     asset -> asset.tierCount
             )
             .add()
             .append(
-                    new KeyedCodec<>("t1Range", Codec.INT_ARRAY),
+                    new KeyedCodec<>("T1Range", Codec.INT_ARRAY),
                     (asset, value) -> asset.t1Range = value != null && value.length >= 2 ? value : new int[]{10, 15},
                     asset -> asset.t1Range
             )
             .add()
             .append(
-                    new KeyedCodec<>("t5Range", Codec.INT_ARRAY),
+                    new KeyedCodec<>("T5Range", Codec.INT_ARRAY),
                     (asset, value) -> asset.t5Range = value != null && value.length >= 2 ? value : new int[]{1, 3},
                     asset -> asset.t5Range
             )
             .add()
             .append(
-                    new KeyedCodec<>("scalingCurve", Codec.STRING),
+                    new KeyedCodec<>("ScalingCurve", Codec.STRING),
                     (asset, value) -> asset.scalingCurve = value != null ? value : "linear",
                     asset -> asset.scalingCurve
             )

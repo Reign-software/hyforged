@@ -4,8 +4,11 @@ import com.hypixel.hytale.component.ComponentRegistryProxy;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.ResourceType;
 import com.hypixel.hytale.server.core.modules.entitystats.modifier.Modifier;
+import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.server.OpenCustomUIInteraction;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
+import reign.software.hyforged.passive.interaction.PointBookInteraction;
+import reign.software.hyforged.passive.ui.PassiveTreePage;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.affix.asset.AffixAssetLoader;
@@ -44,6 +47,12 @@ import reign.software.hyforged.quality.component.HyforgedNPCQualityComponent;
 import reign.software.hyforged.quality.system.LootQualitySystem;
 import reign.software.hyforged.quality.system.NPCQualityAffixStatSystem;
 import reign.software.hyforged.quality.system.NPCQualitySystem;
+import reign.software.hyforged.concentration.ConcentrationPriorityCodec;
+import reign.software.hyforged.concentration.ConcentrationPriorityComponent;
+import reign.software.hyforged.concentration.ConcentrationService;
+import reign.software.hyforged.concentration.HyforgedConcentrationDisruptionSystem;
+import reign.software.hyforged.concentration.HyforgedConcentrationRegenerationSystem;
+import reign.software.hyforged.concentration.ui.ConcentrationPriorityPage;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.asset.ClassAssetLoader;
 import reign.software.hyforged.stats.asset.StatAssetLoader;
@@ -68,6 +77,18 @@ import reign.software.hyforged.stats.system.HyforgedStatComputeSystem;
 import reign.software.hyforged.stats.system.HyforgedStatInitSystem;
 import reign.software.hyforged.stats.value.HyforgedStatValueInstaller;
 import reign.software.hyforged.effect.HyforgedEffectAssetLoader;
+import reign.software.hyforged.passive.asset.PassiveTreeAssetLoader;
+import reign.software.hyforged.passive.system.ClassTreeStartingNodeSystem;
+import reign.software.hyforged.passive.system.PassiveTreeMigrationSystem;
+import reign.software.hyforged.passive.component.PassiveTreeComponent;
+import reign.software.hyforged.passive.component.PlayerSpellsComponent;
+import reign.software.hyforged.passive.component.PlayerUnlocksComponent;
+import reign.software.hyforged.passive.effect.MasteryChoiceEffectHandler;
+import reign.software.hyforged.passive.effect.PassiveEffectRegistry;
+import reign.software.hyforged.passive.effect.SpellGrantEffectHandler;
+import reign.software.hyforged.passive.effect.StatModifierEffectHandler;
+import reign.software.hyforged.passive.effect.UnlockFlagEffectHandler;
+import reign.software.hyforged.passive.service.PassiveTreeService;
 
 import javax.annotation.Nonnull;
 import java.util.logging.Level;
@@ -96,6 +117,10 @@ public class HyforgedPlugin extends JavaPlugin {
     private ComponentType<EntityStore, MonsterLevelComponent> monsterLevelComponentType;
     private ComponentType<EntityStore, HyforgedNPCQualityComponent> npcQualityComponentType;
     private ComponentType<EntityStore, HyforgedActiveEffectsComponent> activeEffectsComponentType;
+    private ComponentType<EntityStore, ConcentrationPriorityComponent> concentrationPriorityComponentType;
+    private ComponentType<EntityStore, PassiveTreeComponent> passiveTreeComponentType;
+    private ComponentType<EntityStore, PlayerUnlocksComponent> playerUnlocksComponentType;
+    private ComponentType<EntityStore, PlayerSpellsComponent> playerSpellsComponentType;
     
     // ECS Resource Types
     private ResourceType<EntityStore, XPNotificationAggregator.AggregationResource> xpNotificationResourceType;
@@ -224,6 +249,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Includes world scaling (level calculation) and monster scaling (per-NPC stat scaling)
         ScalingAssetLoader.initialize(this);
         
+        // Initialize asset loader for passive tree definitions (passive skill tree system)
+        // Includes general tree, class trees, and refund configuration
+        PassiveTreeAssetLoader.initialize(this);
+        
         getLogger().at(Level.FINE).log("Stat and tag asset loading initialized, awaiting asset load...");
     }
     
@@ -290,6 +319,52 @@ public class HyforgedPlugin extends JavaPlugin {
         );
 
         getLogger().at(Level.FINE).log("Registered HyforgedActiveEffectsComponent");
+
+        // Register ConcentrationPriorityComponent with persistence codec
+        concentrationPriorityComponentType = entityStoreRegistry.registerComponent(
+            ConcentrationPriorityComponent.class,
+            ConcentrationPriorityCodec.COMPONENT_ID,
+            ConcentrationPriorityCodec.CODEC
+        );
+
+        getLogger().at(Level.FINE).log("Registered ConcentrationPriorityComponent with persistence codec");
+
+        // Register PassiveTreeComponent (no persistence codec yet - will add in Phase 5)
+        passiveTreeComponentType = entityStoreRegistry.registerComponent(
+            PassiveTreeComponent.class,
+            PassiveTreeComponent::new
+        );
+
+        getLogger().at(Level.FINE).log("Registered PassiveTreeComponent");
+
+        // Register PlayerUnlocksComponent (no persistence codec yet)
+        playerUnlocksComponentType = entityStoreRegistry.registerComponent(
+            PlayerUnlocksComponent.class,
+            PlayerUnlocksComponent::new
+        );
+
+        getLogger().at(Level.FINE).log("Registered PlayerUnlocksComponent");
+
+        // Register PlayerSpellsComponent (no persistence codec yet)
+        playerSpellsComponentType = entityStoreRegistry.registerComponent(
+            PlayerSpellsComponent.class,
+            PlayerSpellsComponent::new
+        );
+
+        getLogger().at(Level.FINE).log("Registered PlayerSpellsComponent");
+
+        // Initialize PassiveTreeService with component types
+        PassiveTreeService.get().initialize(
+            passiveTreeComponentType,
+            playerUnlocksComponentType,
+            playerSpellsComponentType,
+            progressionComponentType
+        );
+
+        getLogger().at(Level.FINE).log("Initialized PassiveTreeService");
+
+        // Register passive effect handlers
+        registerPassiveEffectHandlers();
         
         // Register XP notification aggregation resource
         xpNotificationResourceType = entityStoreRegistry.registerResource(
@@ -299,12 +374,49 @@ public class HyforgedPlugin extends JavaPlugin {
         
         getLogger().at(Level.FINE).log("Registered XPNotificationAggregator resource");
     }
+
+    /**
+     * Register passive tree effect handlers.
+     */
+    private void registerPassiveEffectHandlers() {
+        PassiveEffectRegistry registry = PassiveEffectRegistry.get();
+
+        // Register stat modifier handler
+        registry.register(
+            StatModifierEffectHandler.EFFECT_TYPE,
+            new StatModifierEffectHandler(hyforgedStatComponentType)
+        );
+
+        // Register spell grant handler
+        registry.register(
+            SpellGrantEffectHandler.EFFECT_TYPE,
+            new SpellGrantEffectHandler(playerSpellsComponentType)
+        );
+
+        // Register unlock flag handler
+        registry.register(
+            UnlockFlagEffectHandler.EFFECT_TYPE,
+            new UnlockFlagEffectHandler(playerUnlocksComponentType)
+        );
+
+        // Register mastery choice handler
+        registry.register(
+            MasteryChoiceEffectHandler.EFFECT_TYPE,
+            new MasteryChoiceEffectHandler(passiveTreeComponentType)
+        );
+
+        getLogger().at(Level.FINE).log("Registered " + registry.getHandlerCount() + " passive effect handlers");
+    }
     
     /**
      * Register ECS systems with Hytale's entity store.
      */
     private void registerSystems() {
         ComponentRegistryProxy<EntityStore> entityStoreRegistry = this.getEntityStoreRegistry();
+
+        // Initialize concentration service singleton
+        ConcentrationService.get();
+        getLogger().at(Level.FINE).log("Initialized ConcentrationService");
         
         // Register HyforgedStatInitSystem (handles player entity lifecycle)
         entityStoreRegistry.registerSystem(new HyforgedStatInitSystem());
@@ -341,6 +453,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register RageDecaySystem (out-of-combat rage decay)
         entityStoreRegistry.registerSystem(new RageDecaySystem());
         getLogger().at(Level.FINE).log("Registered RageDecaySystem");
+
+        // Register concentration regeneration system (always active)
+        entityStoreRegistry.registerSystem(new HyforgedConcentrationRegenerationSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedConcentrationRegenerationSystem");
 
         // Register ResourceStatsHudSystem (custom HUD for resource bars)
         entityStoreRegistry.registerSystem(new ResourceStatsHudSystem());
@@ -384,6 +500,14 @@ public class HyforgedPlugin extends JavaPlugin {
         // Initialize ClassLevelModifierSystem (event-driven, applies class level bonuses)
         new ClassLevelModifierSystem();
         getLogger().at(Level.FINE).log("Initialized ClassLevelModifierSystem");
+
+        // Initialize ClassTreeStartingNodeSystem (auto-allocates class tree starting nodes)
+        new ClassTreeStartingNodeSystem();
+        getLogger().at(Level.FINE).log("Initialized ClassTreeStartingNodeSystem");
+
+        // Initialize PassiveTreeMigrationSystem (runs migrations on player connect)
+        new PassiveTreeMigrationSystem();
+        getLogger().at(Level.FINE).log("Initialized PassiveTreeMigrationSystem");
         
         // Register LootAffixSystem (rolls affixes on item drops)
         entityStoreRegistry.registerSystem(new LootQualitySystem());
@@ -449,6 +573,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Ailment definitions are loaded via AilmentLoader.initialize() in initializeStatDefinitions()
         entityStoreRegistry.registerSystem(new HyforgedAilmentSystem(ailmentAccumulatorComponentType));
         getLogger().at(Level.FINE).log("Registered HyforgedAilmentSystem");
+
+        // Register concentration disruption system (runs last in inspect group)
+        entityStoreRegistry.registerSystem(new HyforgedConcentrationDisruptionSystem(concentrationPriorityComponentType));
+        getLogger().at(Level.FINE).log("Registered HyforgedConcentrationDisruptionSystem");
         
         // Register monster scaling system (assigns levels to NPCs based on spawn distance)
         entityStoreRegistry.registerSystem(new HyforgedMonsterScalingSystem());
@@ -460,6 +588,7 @@ public class HyforgedPlugin extends JavaPlugin {
      */
     private void registerCommands() {
         this.getCommandRegistry().registerCommand(new HyforgedCommand());
+        this.getCommandRegistry().registerCommand(new reign.software.hyforged.passive.command.PassiveCommand());
         getLogger().at(Level.FINE).log("Registered Hyforged commands");
     }
     
@@ -481,6 +610,34 @@ public class HyforgedPlugin extends JavaPlugin {
         );
         
         getLogger().at(Level.FINE).log("Registered CharacterStatsPage custom UI interaction");
+
+        OpenCustomUIInteraction.registerSimple(
+            this,
+            ConcentrationPriorityPage.class,
+            "ConcentrationPriorityPage",
+            ConcentrationPriorityPage::new
+        );
+
+        getLogger().at(Level.FINE).log("Registered ConcentrationPriorityPage custom UI interaction");
+
+        // Register PassiveTreePage for passive tree viewing/allocation
+        OpenCustomUIInteraction.registerSimple(
+            this,
+            PassiveTreePage.class,
+            "PassiveTreePage",
+            PassiveTreePage::new
+        );
+
+        getLogger().at(Level.FINE).log("Registered PassiveTreePage custom UI interaction");
+
+        // Register Point Book interaction for consuming point books
+        this.getCodecRegistry(Interaction.CODEC).register(
+            PointBookInteraction.TYPE_ID,
+            PointBookInteraction.class,
+            PointBookInteraction.CODEC
+        );
+
+        getLogger().at(Level.FINE).log("Registered PointBookInteraction");
     }
 
     /**
@@ -569,5 +726,49 @@ public class HyforgedPlugin extends JavaPlugin {
             throw new IllegalStateException("HyforgedPlugin not initialized");
         }
         return activeEffectsComponentType;
+    }
+
+    /**
+     * Get the ConcentrationPriorityComponent type for ECS operations.
+     */
+    @Nonnull
+    public ComponentType<EntityStore, ConcentrationPriorityComponent> getConcentrationPriorityComponentType() {
+        if (concentrationPriorityComponentType == null) {
+            throw new IllegalStateException("HyforgedPlugin not initialized");
+        }
+        return concentrationPriorityComponentType;
+    }
+
+    /**
+     * Get the PassiveTreeComponent type for ECS operations.
+     */
+    @Nonnull
+    public ComponentType<EntityStore, PassiveTreeComponent> getPassiveTreeComponentType() {
+        if (passiveTreeComponentType == null) {
+            throw new IllegalStateException("HyforgedPlugin not initialized");
+        }
+        return passiveTreeComponentType;
+    }
+
+    /**
+     * Get the PlayerUnlocksComponent type for ECS operations.
+     */
+    @Nonnull
+    public ComponentType<EntityStore, PlayerUnlocksComponent> getPlayerUnlocksComponentType() {
+        if (playerUnlocksComponentType == null) {
+            throw new IllegalStateException("HyforgedPlugin not initialized");
+        }
+        return playerUnlocksComponentType;
+    }
+
+    /**
+     * Get the PlayerSpellsComponent type for ECS operations.
+     */
+    @Nonnull
+    public ComponentType<EntityStore, PlayerSpellsComponent> getPlayerSpellsComponentType() {
+        if (playerSpellsComponentType == null) {
+            throw new IllegalStateException("HyforgedPlugin not initialized");
+        }
+        return playerSpellsComponentType;
     }
 }

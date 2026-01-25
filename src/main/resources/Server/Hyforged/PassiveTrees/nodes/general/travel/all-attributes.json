@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:travel-all-attributes",
+      "Type": "minor",
+      "Name": "All Attributes",
+      "Description": "+1 to All Attributes",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:attribute-all", "Value": 1 }
+      ]
+    }
+  ]
+}

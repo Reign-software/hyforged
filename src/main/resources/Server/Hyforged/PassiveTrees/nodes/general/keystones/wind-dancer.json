@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:wind-dancer",
+      "Type": "keystone",
+      "Name": "Wind Dancer",
+      "Description": "Take 10% less damage if you haven't been Hit Recently",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:wind-dancer" }
+      ]
+    }
+  ]
+}

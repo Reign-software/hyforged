@@ -1,0 +1,40 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:minor-elemental-1",
+      "Type": "minor",
+      "Name": "Elemental Focus",
+      "Description": "+2% Elemental Damage",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:elemental-damage-increased-bps", "Value": 200 }
+      ]
+    },
+    {
+      "Id": "hyforged:minor-fire-1",
+      "Type": "minor",
+      "Name": "Fire Attunement",
+      "Description": "+2% Fire Damage",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:fire-damage-increased-bps", "Value": 200 }
+      ]
+    },
+    {
+      "Id": "hyforged:minor-cold-1",
+      "Type": "minor",
+      "Name": "Cold Attunement",
+      "Description": "+2% Cold Damage",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:cold-damage-increased-bps", "Value": 200 }
+      ]
+    },
+    {
+      "Id": "hyforged:minor-lightning-1",
+      "Type": "minor",
+      "Name": "Lightning Attunement",
+      "Description": "+2% Lightning Damage",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:lightning-damage-increased-bps", "Value": 200 }
+      ]
+    }
+  ]
+}

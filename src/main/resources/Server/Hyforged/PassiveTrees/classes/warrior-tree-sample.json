@@ -1,0 +1,91 @@
+{
+    "Id": "hyforged:passive-tree-warrior",
+    "TreeType": "class",
+    "ClassId": "hyforged:warrior",
+    "Version": 1,
+    "StartingNodes": [
+        "hyforged:warrior-start"
+    ],
+    "Nodes": [
+        {
+            "Id": "hyforged:warrior-start",
+            "Type": "minor",
+            "Name": "Warrior's Resolve",
+            "Description": "Starting point for the Warrior class tree.",
+            "Icon": "hyforged:icons/passive/warrior-start",
+            "Position": { "X": 0, "Y": 0 },
+            "Region": "core",
+            "Effects": [
+                { "Type": "stat-modifier", "Stat": "hyforged:strength", "Value": 5 }
+            ]
+        },
+        {
+            "Id": "hyforged:warrior-armor-1",
+            "Type": "minor",
+            "Name": "Hardened Skin",
+            "Description": "+10 to Armor",
+            "Icon": "hyforged:icons/passive/armor",
+            "Position": { "X": 0, "Y": -20 },
+            "Region": "defense",
+            "Effects": [
+                { "Type": "stat-modifier", "Stat": "hyforged:flat-armor", "Value": 10 }
+            ]
+        },
+        {
+            "Id": "hyforged:warrior-melee-notable",
+            "Type": "notable",
+            "Name": "Cleaving Strikes",
+            "Description": "15% increased Melee Damage.\n5% increased Attack Speed.",
+            "Icon": "hyforged:icons/passive/cleaving",
+            "Position": { "X": 20, "Y": -40 },
+            "Region": "offense",
+            "Effects": [
+                { "Type": "stat-modifier", "Stat": "hyforged:melee-damage-increase", "Value": 1500 },
+                { "Type": "stat-modifier", "Stat": "hyforged:attack-speed-increase", "Value": 500 }
+            ],
+            "Requirements": {
+                "AllocatedNodes": 2
+            }
+        },
+        {
+            "Id": "hyforged:warrior-warcry-unlock",
+            "Type": "unlock",
+            "Name": "Warcry Mastery",
+            "Description": "Unlocks the Rallying Cry skill.",
+            "Icon": "hyforged:icons/passive/warcry",
+            "Position": { "X": -20, "Y": -40 },
+            "Region": "utility",
+            "Effects": [
+                { "Type": "spell-grant", "SpellId": "hyforged:rallying-cry" }
+            ]
+        },
+        {
+            "Id": "hyforged:warrior-mastery-berserker",
+            "Type": "mastery",
+            "Name": "Berserker Mastery",
+            "Description": "Choose a berserker specialization.",
+            "Icon": "hyforged:icons/passive/berserker",
+            "Position": { "X": 0, "Y": -60 },
+            "Region": "mastery",
+            "Effects": [
+                {
+                    "Type": "mastery-choice",
+                    "Choices": [
+                        { "Type": "stat-modifier", "Stat": "hyforged:attack-damage-increase", "Value": 2000 },
+                        { "Type": "stat-modifier", "Stat": "hyforged:life-leech", "Value": 500 }
+                    ]
+                }
+            ],
+            "Requirements": {
+                "AllocatedNodes": 5
+            }
+        }
+    ],
+    "Connections": [
+        { "From": "hyforged:warrior-start", "To": "hyforged:warrior-armor-1" },
+        { "From": "hyforged:warrior-armor-1", "To": "hyforged:warrior-melee-notable" },
+        { "From": "hyforged:warrior-armor-1", "To": "hyforged:warrior-warcry-unlock" },
+        { "From": "hyforged:warrior-melee-notable", "To": "hyforged:warrior-mastery-berserker" },
+        { "From": "hyforged:warrior-warcry-unlock", "To": "hyforged:warrior-mastery-berserker" }
+    ]
+}

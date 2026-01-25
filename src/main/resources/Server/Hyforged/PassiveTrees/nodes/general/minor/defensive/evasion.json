@@ -1,0 +1,14 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:minor-evasion-1",
+      "Type": "minor",
+      "Name": "Evasive",
+      "Description": "+5 Evasion Rating\n+1% Dodge Chance",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:evasion-rating", "Value": 5 },
+        { "Type": "stat-modifier", "Stat": "hyforged:dodge-chance-bps", "Value": 100 }
+      ]
+    }
+  ]
+}

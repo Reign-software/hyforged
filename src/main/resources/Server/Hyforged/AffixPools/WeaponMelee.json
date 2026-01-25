@@ -4,7 +4,7 @@
     "Categories": ["Items.Weapons"],
     "Tags": ["Type:Weapon"]
   },
-  "Prefixes": ["Sharp"],
+  "Prefixes": ["Sharp", "hyforged:of-clarity", "hyforged:of-resolve", "hyforged:steadfast"],
   "Suffixes": ["OfTheBear"],
-  "Forged": []
+  "Forged": ["hyforged:mental-bastion", "hyforged:unshakeable-focus"]
 }

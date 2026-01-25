@@ -13,6 +13,7 @@
 - ADR-0009: Use Hytale Quality and ItemStack Metadata for Affixes (2026-01-20) — Accepted
 - ADR-0010: Unified Stat Integration via EntityStatValue Extension (2026-01-21) — Accepted
 - ADR-0011: Runtime Quality Replacement for Items and NPCs (2026-01-23) — Proposed
+- ADR-0012: Concentration Priority UI Reordering Controls (2026-02-01) — Accepted
 
 
 ## ADR Template
@@ -162,6 +163,36 @@
 - Tags path: `src/main/resources/Server/Hyforged/Tags/`
 - Loader: `reign.software.hyforged.stats.asset.StatAssetLoader`
 - Related ADR: ADR-0001 (Hybrid approach)
+
+---
+
+### ADR-0012: Concentration Priority UI Reordering Controls
+- Date: 2026-02-01
+- Status: Accepted
+- Deciders: JBurl
+
+#### Context
+- Manual priority ordering requires a player-facing UI.
+- Drag-and-drop support in the custom UI system is not fully documented or guaranteed.
+- A reliable ordering interaction is needed without client-side uncertainty.
+
+#### Decision
+- Implement a custom priority queue page with explicit up/down reorder controls.
+- Listen for reorder events when provided by the client, but do not depend on them.
+- Reconcile enabled/disabled states server-side after any reorder.
+
+#### Consequences
+- UI works consistently without requiring drag-and-drop support.
+- Drag-and-drop can be layered in later without backend changes.
+- Row layout includes additional control affordances.
+
+#### Alternatives Considered
+- Drag-and-drop only: rejected due to unclear client support.
+- Backend-only ordering: rejected because UI is in scope.
+
+#### Links
+- Spec: .memory_bank/Features/concentration-disruption/concentration-disruption.spec.md
+- Plan: .memory_bank/Features/concentration-disruption/concentration-disruption.plan.md
 
 ---
 

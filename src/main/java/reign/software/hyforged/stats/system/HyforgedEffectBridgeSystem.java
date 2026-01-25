@@ -3,6 +3,7 @@ package reign.software.hyforged.stats.system;
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.ComponentType;
+import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.dependency.Dependency;
 import com.hypixel.hytale.component.dependency.Order;
@@ -22,11 +23,15 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.concentration.ConcentratedAbility;
+import reign.software.hyforged.concentration.ConcentrationPriorityComponent;
+import reign.software.hyforged.concentration.ConcentrationService;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.effect.HyforgedEffectDefinition;
 import reign.software.hyforged.effect.HyforgedEffectRegistry;
 import reign.software.hyforged.effect.HyforgedEffectModifierSpec;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.component.EffectBridgeComponent;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
@@ -68,6 +73,8 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
      */
     public static final String EFFECT_SOURCE_PREFIX = "effect:";
 
+    private static final StatId RESERVATION_EFFICIENCY_STAT = StatId.hyforged("reservation-efficiency-bps");
+
     @Nonnull
     private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
 
@@ -81,10 +88,16 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
     private final ComponentType<EntityStore, EffectBridgeComponent> effectBridgeType;
 
     @Nonnull
+    private final ComponentType<EntityStore, ConcentrationPriorityComponent> concentrationPriorityType;
+
+    @Nonnull
     private final Query<EntityStore> query;
 
     @Nonnull
     private final Set<Dependency<EntityStore>> dependencies;
+
+    private int reservationEfficiencyIndex = -1;
+    private boolean reservationEfficiencyInitialized = false;
 
     public HyforgedEffectBridgeSystem() {
         HyforgedPlugin plugin = HyforgedPlugin.getInstance();
@@ -92,6 +105,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
         this.entityStatMapType = EntityStatMap.getComponentType();
         this.effectControllerType = EffectControllerComponent.getComponentType();
         this.effectBridgeType = plugin.getEffectBridgeComponentType();
+        this.concentrationPriorityType = plugin.getConcentrationPriorityComponentType();
 
         // Query for entities with all required components
         // EntityStatMap is needed for putModifier/removeModifier operations
@@ -135,7 +149,8 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
             return;
         }
 
-        processEffectChanges(statComponent, entityStatMap, effectController, effectBridge);
+        Ref<EntityStore> entityRef = chunk.getReferenceTo(index);
+        processEffectChanges(entityRef, store, statComponent, entityStatMap, effectController, effectBridge);
     }
 
     /**
@@ -150,6 +165,8 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
      * @param effectBridge The entity's effect bridge tracking component
      */
     private void processEffectChanges(
+            @Nonnull Ref<EntityStore> entityRef,
+            @Nonnull Store<EntityStore> store,
             @Nonnull HyforgedStatComponent statComponent,
             @Nonnull EntityStatMap entityStatMap,
             @Nonnull EffectControllerComponent effectController,
@@ -164,6 +181,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
         for (int bridgedIndex : bridgedSet.toIntArray()) {
             if (!currentSet.contains(bridgedIndex)) {
                 removeEffectModifiers(statComponent, entityStatMap, bridgedIndex);
+                handleConcentrationRemoval(entityRef, store, bridgedIndex);
                 effectBridge.unmarkBridged(bridgedIndex);
             }
         }
@@ -172,9 +190,146 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
         for (int effectIndex : currentEffectIndices) {
             if (!bridgedSet.contains(effectIndex)) {
                 applyEffectModifiers(statComponent, entityStatMap, effectIndex);
+                handleConcentrationReservation(entityRef, store, effectIndex);
                 effectBridge.markBridged(effectIndex);
             }
         }
+    }
+
+    private void handleConcentrationReservation(
+            @Nonnull Ref<EntityStore> entityRef,
+            @Nonnull Store<EntityStore> store,
+            int effectIndex
+    ) {
+        EntityEffect effect = getEntityEffect(effectIndex);
+        if (effect == null) {
+            return;
+        }
+
+        HyforgedEffectDefinition definition = HyforgedEffectRegistry.get().get(effect.getId());
+        if (definition == null) {
+            return;
+        }
+
+        int baseCost = definition.getConcentrationCost();
+        if (baseCost <= 0) {
+            return;
+        }
+
+        String abilityId = resolveConcentrationAbilityId(effect.getId(), definition.getConcentrationAbilityId());
+        int adjustedCost = applyReservationEfficiency(store, entityRef, baseCost);
+
+        ConcentrationService service = ConcentrationService.get();
+        service.reserveConcentration(
+                entityRef,
+                abilityId,
+                adjustedCost,
+                () -> removeEffectIfActive(store, entityRef, effectIndex),
+                () -> addEffectIfMissing(store, entityRef, effectIndex)
+        );
+
+        Integer priority = definition.getConcentrationPriority();
+        if (priority != null) {
+            service.setPriority(entityRef, abilityId, priority);
+        }
+    }
+
+    private void handleConcentrationRemoval(
+            @Nonnull Ref<EntityStore> entityRef,
+            @Nonnull Store<EntityStore> store,
+            int effectIndex
+    ) {
+        EntityEffect effect = getEntityEffect(effectIndex);
+        if (effect == null) {
+            return;
+        }
+
+        HyforgedEffectDefinition definition = HyforgedEffectRegistry.get().get(effect.getId());
+        if (definition == null || definition.getConcentrationCost() <= 0) {
+            return;
+        }
+
+        String abilityId = resolveConcentrationAbilityId(effect.getId(), definition.getConcentrationAbilityId());
+        ConcentrationPriorityComponent priorityComponent = store.getComponent(entityRef, concentrationPriorityType);
+        if (priorityComponent != null) {
+            ConcentratedAbility ability = priorityComponent.getAbility(abilityId);
+            if (ability != null && !ability.enabled()) {
+                return;
+            }
+        }
+
+        ConcentrationService.get().releaseConcentration(entityRef, abilityId);
+    }
+
+    @Nonnull
+    private String resolveConcentrationAbilityId(
+            @Nonnull String effectId,
+            @Nullable String overrideId
+    ) {
+        if (overrideId == null || overrideId.isBlank()) {
+            return effectId;
+        }
+        return overrideId;
+    }
+
+    private int applyReservationEfficiency(
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> entityRef,
+            int baseCost
+    ) {
+        if (baseCost <= 0) {
+            return 0;
+        }
+        ensureReservationEfficiencyIndex();
+        if (reservationEfficiencyIndex < 0) {
+            return baseCost;
+        }
+        int efficiencyBps = StatAccessor.getStatValueInt(store, entityRef, reservationEfficiencyIndex);
+        float multiplier = (HyforgedModifier.BPS_100_PERCENT - efficiencyBps) / (float) HyforgedModifier.BPS_100_PERCENT;
+        return Math.max(0, Math.round(baseCost * multiplier));
+    }
+
+    private void ensureReservationEfficiencyIndex() {
+        if (reservationEfficiencyInitialized) {
+            return;
+        }
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        reservationEfficiencyIndex = registry.getIndex(RESERVATION_EFFICIENCY_STAT);
+        reservationEfficiencyInitialized = true;
+    }
+
+    private void removeEffectIfActive(
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> entityRef,
+            int effectIndex
+    ) {
+        if (!entityRef.isValid()) {
+            return;
+        }
+        EffectControllerComponent effectController = store.getComponent(entityRef, effectControllerType);
+        if (effectController == null || !effectController.getActiveEffects().containsKey(effectIndex)) {
+            return;
+        }
+        effectController.removeEffect(entityRef, effectIndex, store);
+    }
+
+    private void addEffectIfMissing(
+            @Nonnull Store<EntityStore> store,
+            @Nonnull Ref<EntityStore> entityRef,
+            int effectIndex
+    ) {
+        if (!entityRef.isValid()) {
+            return;
+        }
+        EffectControllerComponent effectController = store.getComponent(entityRef, effectControllerType);
+        if (effectController == null || effectController.getActiveEffects().containsKey(effectIndex)) {
+            return;
+        }
+        EntityEffect effect = getEntityEffect(effectIndex);
+        if (effect == null) {
+            return;
+        }
+        effectController.addEffect(entityRef, effect, store);
     }
 
     /**

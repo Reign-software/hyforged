@@ -1,12 +1,11 @@
 {
   "Id": "hyforged:iron-will",
   "EntityEffect": {
-    "Duration": 45,
+    "Duration": 20,
     "Debuff": false,
-    "StatusEffectIcon": "UI/StatusEffects/Constitution.png"
+    "StatusEffectIcon": "UI/StatusEffects/Concentration.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:constitution", "StackType": "FLAT", "Amount": 20 },
-    { "StatId": "hyforged:stun-avoidance-bps", "StackType": "INCREASED", "Amount": 2000 }
+    { "StatId": "hyforged:concentration-loss-reduction-bps", "StackType": "Flat", "Amount": 1500 }
   ]
 }

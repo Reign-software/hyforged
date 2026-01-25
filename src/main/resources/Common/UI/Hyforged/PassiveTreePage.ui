@@ -1,0 +1,374 @@
+// Hyforged Passive Tree Page UI
+// This layout is rendered client-side and populated by PassiveTreePage.java
+// Supports: Tree canvas, node rendering, zoom/pan, tooltips, allocation panel
+
+Panel #PassiveTreePage {
+    Style: (Alignment: Fill; Padding: 0);
+    
+    // Main Layout: Side Panel + Tree Canvas
+    Panel #MainLayout {
+        Style: (Layout: Horizontal; Alignment: Fill);
+        
+        // Left Side Panel: Allocation Info & Controls
+        Panel #SidePanel {
+            Style: (Width: 280; Layout: Vertical; Gap: 10; Padding: 15; Background: rgba(20, 20, 30, 0.9));
+            
+            // Tree Header
+            Panel #TreeHeader {
+                Style: (Layout: Vertical; Gap: 5);
+                
+                Label #TreeName {
+                    Text: %hyforged.ui.passiveTree.title;
+                    Style: (FontSize: 20; FontWeight: Bold; Color: #FFD700; Alignment: Center);
+                }
+                
+                Label #TreeType {
+                    Style: (FontSize: 12; Color: #AAAAAA; Alignment: Center);
+                }
+            }
+            
+            // Tree Selector Tabs
+            Panel #TreeSelector {
+                Style: (Layout: Horizontal; Gap: 5; Alignment: Center);
+                
+                Button #GeneralTreeTab {
+                    Text: %hyforged.ui.passiveTree.general;
+                    Style: (Width: 80; Height: 30);
+                    DataEvent: { Action: "SelectTree", TreeId: "general" };
+                }
+                
+                Button #ClassTreeTab {
+                    Text: %hyforged.ui.passiveTree.class;
+                    Style: (Width: 80; Height: 30);
+                    DataEvent: { Action: "SelectTree", TreeId: "class" };
+                }
+            }
+            
+            // Class Tree Dropdown (visible when class tab selected)
+            Panel #ClassSelector {
+                Style: (Layout: Vertical; Gap: 5; Visible: false);
+                
+                Label #ClassLabel {
+                    Text: %hyforged.ui.passiveTree.selectClass;
+                    Style: (FontSize: 12; Color: #AAAAAA);
+                }
+                
+                // Populated dynamically with available class trees
+                Panel #ClassList {
+                    Style: (Layout: Vertical; Gap: 3);
+                }
+            }
+            
+            // Point Summary
+            Panel #PointSummary {
+                Style: (Layout: Vertical; Gap: 8; Padding: 10; Background: rgba(40, 40, 50, 0.8); BorderRadius: 5);
+                
+                Label #PointsTitle {
+                    Text: %hyforged.ui.passiveTree.points;
+                    Style: (FontSize: 14; FontWeight: Bold; Color: #FFFFFF);
+                }
+                
+                Panel #PointsRow {
+                    Style: (Layout: Horizontal; Gap: 10);
+                    
+                    Panel #AvailablePoints {
+                        Style: (Layout: Vertical; Alignment: Center);
+                        Label #AvailableLabel { Text: %hyforged.ui.passiveTree.available; Style: (FontSize: 10; Color: #AAAAAA); }
+                        Label #AvailableValue { Text: "0"; Style: (FontSize: 18; FontWeight: Bold; Color: #4CAF50); }
+                    }
+                    
+                    Panel #AllocatedPoints {
+                        Style: (Layout: Vertical; Alignment: Center);
+                        Label #AllocatedLabel { Text: %hyforged.ui.passiveTree.allocated; Style: (FontSize: 10; Color: #AAAAAA); }
+                        Label #AllocatedValue { Text: "0"; Style: (FontSize: 18; FontWeight: Bold; Color: #2196F3); }
+                    }
+                    
+                    Panel #MaxPoints {
+                        Style: (Layout: Vertical; Alignment: Center);
+                        Label #MaxLabel { Text: %hyforged.ui.passiveTree.max; Style: (FontSize: 10; Color: #AAAAAA); }
+                        Label #MaxValue { Text: "0"; Style: (FontSize: 18; FontWeight: Bold; Color: #FFFFFF); }
+                    }
+                }
+                
+                // Book Points (General Tree only)
+                Panel #BookPointsRow {
+                    Style: (Layout: Horizontal; Gap: 5; Visible: false);
+                    Label #BookPointsLabel { Text: %hyforged.ui.passiveTree.bookPoints; Style: (FontSize: 11; Color: #AAAAAA); }
+                    Label #BookPointsValue { Text: "0"; Style: (FontSize: 11; Color: #9C27B0); }
+                }
+            }
+            
+            // Search Bar
+            Panel #SearchPanel {
+                Style: (Layout: Vertical; Gap: 5);
+                
+                TextInput #SearchInput {
+                    Placeholder: %hyforged.ui.passiveTree.search;
+                    Style: (Width: 250; Height: 30);
+                    DataEvent: { Action: "Search" };
+                }
+                
+                // Filter Presets
+                Panel #FilterPresets {
+                    Style: (Layout: Horizontal; Gap: 5; FlexWrap: wrap);
+                    
+                    Button #FilterKeystones {
+                        Text: %hyforged.ui.passiveTree.keystones;
+                        Style: (Height: 24; FontSize: 10);
+                        DataEvent: { Action: "Filter", FilterType: "keystone" };
+                    }
+                    
+                    Button #FilterNotables {
+                        Text: %hyforged.ui.passiveTree.notables;
+                        Style: (Height: 24; FontSize: 10);
+                        DataEvent: { Action: "Filter", FilterType: "notable" };
+                    }
+                    
+                    Button #FilterMasteries {
+                        Text: %hyforged.ui.passiveTree.masteries;
+                        Style: (Height: 24; FontSize: 10);
+                        DataEvent: { Action: "Filter", FilterType: "mastery" };
+                    }
+                }
+            }
+            
+            // Quick Actions
+            Panel #QuickActions {
+                Style: (Layout: Vertical; Gap: 8; MarginTop: 10);
+                
+                Button #FullRespec {
+                    Text: %hyforged.ui.passiveTree.fullRespec;
+                    Style: (Width: 250; Height: 35; Background: #D32F2F);
+                    DataEvent: { Action: "FullRespec" };
+                }
+                
+                Button #UndoLast {
+                    Text: %hyforged.ui.passiveTree.undoLast;
+                    Style: (Width: 250; Height: 30);
+                    DataEvent: { Action: "UndoLast" };
+                }
+            }
+            
+            // Tradebar Balance
+            Panel #TradebarPanel {
+                Style: (Layout: Horizontal; Gap: 5; MarginTop: 10);
+                Image #TradebarIcon { Source: "UI/Icons/Tradebar.png"; Style: (Width: 20; Height: 20); }
+                Label #TradebarBalance { Text: "0"; Style: (FontSize: 14; Color: #FFD700); }
+            }
+        }
+        
+        // Main Tree Canvas Area
+        Panel #TreeCanvasArea {
+            Style: (Alignment: Fill; Layout: Vertical);
+            
+            // Zoom Controls
+            Panel #ZoomControls {
+                Style: (Layout: Horizontal; Gap: 5; Padding: 10; Alignment: TopRight);
+                
+                Button #ZoomOut {
+                    Text: "-";
+                    Style: (Width: 30; Height: 30);
+                    DataEvent: { Action: "Zoom", Direction: "out" };
+                }
+                
+                Label #ZoomLevel {
+                    Text: "50%";
+                    Style: (Width: 50; Alignment: Center);
+                }
+                
+                Button #ZoomIn {
+                    Text: "+";
+                    Style: (Width: 30; Height: 30);
+                    DataEvent: { Action: "Zoom", Direction: "in" };
+                }
+                
+                Button #ZoomReset {
+                    Text: %hyforged.ui.passiveTree.reset;
+                    Style: (Width: 60; Height: 30);
+                    DataEvent: { Action: "Zoom", Direction: "reset" };
+                }
+            }
+            
+            // Tree Canvas (nodes rendered here)
+            Canvas #TreeCanvas {
+                Style: (Alignment: Fill; Background: rgba(10, 10, 20, 1));
+                
+                // Nodes are rendered dynamically based on tree data
+                // Node template structure:
+                // Panel #Node_{nodeId} {
+                //     Image #NodeIcon { ... }
+                //     Panel #NodeGlow { ... } // For allocated/reachable states
+                // }
+                
+                // Connection lines rendered via Canvas draw commands
+            }
+        }
+    }
+    
+    // Tooltip Overlay (positioned absolutely)
+    Panel #TooltipOverlay {
+        Style: (Position: Absolute; Visible: false; ZIndex: 100);
+        
+        Panel #Tooltip {
+            Style: (Layout: Vertical; Gap: 5; Padding: 10; Background: rgba(30, 30, 40, 0.95); BorderRadius: 5; MaxWidth: 300);
+            
+            // Node Header
+            Panel #TooltipHeader {
+                Style: (Layout: Horizontal; Gap: 8);
+                
+                Image #TooltipIcon { Style: (Width: 32; Height: 32); }
+                
+                Panel #TooltipTitles {
+                    Style: (Layout: Vertical);
+                    Label #TooltipName { Style: (FontSize: 14; FontWeight: Bold; Color: #FFFFFF); }
+                    Label #TooltipType { Style: (FontSize: 10; Color: #AAAAAA); }
+                }
+            }
+            
+            // Node Description
+            Label #TooltipDescription {
+                Style: (FontSize: 11; Color: #CCCCCC; WordWrap: true);
+            }
+            
+            // Effects List
+            Panel #TooltipEffects {
+                Style: (Layout: Vertical; Gap: 3; MarginTop: 5);
+                
+                Label #EffectsHeader {
+                    Text: %hyforged.ui.passiveTree.effects;
+                    Style: (FontSize: 10; FontWeight: Bold; Color: #FFD700);
+                }
+                
+                // Dynamically populated effect entries
+                Panel #EffectsList {
+                    Style: (Layout: Vertical; Gap: 2);
+                }
+            }
+            
+            // Path Cost (for unallocated nodes)
+            Panel #PathCostPanel {
+                Style: (Layout: Horizontal; Gap: 5; MarginTop: 5; Visible: false);
+                Label #PathCostLabel { Text: %hyforged.ui.passiveTree.pathCost; Style: (FontSize: 10; Color: #AAAAAA); }
+                Label #PathCostValue { Style: (FontSize: 10; FontWeight: Bold; Color: #4CAF50); }
+            }
+            
+            // Refund Cost (for allocated nodes)
+            Panel #RefundCostPanel {
+                Style: (Layout: Horizontal; Gap: 5; MarginTop: 5; Visible: false);
+                Label #RefundCostLabel { Text: %hyforged.ui.passiveTree.refundCost; Style: (FontSize: 10; Color: #AAAAAA); }
+                Image #RefundTradebarIcon { Source: "UI/Icons/Tradebar.png"; Style: (Width: 14; Height: 14); }
+                Label #RefundCostValue { Style: (FontSize: 10; FontWeight: Bold; Color: #D32F2F); }
+            }
+        }
+    }
+    
+    // Confirmation Dialog Overlay
+    Panel #ConfirmationOverlay {
+        Style: (Position: Absolute; Alignment: Fill; Background: rgba(0, 0, 0, 0.7); Visible: false; ZIndex: 200);
+        
+        Panel #ConfirmationDialog {
+            Style: (Layout: Vertical; Gap: 15; Padding: 20; Background: rgba(40, 40, 50, 0.98); BorderRadius: 8; Width: 400; Alignment: Center);
+            
+            Label #ConfirmTitle {
+                Style: (FontSize: 18; FontWeight: Bold; Color: #FFFFFF; Alignment: Center);
+            }
+            
+            Label #ConfirmMessage {
+                Style: (FontSize: 12; Color: #CCCCCC; WordWrap: true; Alignment: Center);
+            }
+            
+            // Cost Summary (for respec)
+            Panel #CostSummary {
+                Style: (Layout: Vertical; Gap: 5; Padding: 10; Background: rgba(60, 60, 70, 0.8); BorderRadius: 5; Visible: false);
+                
+                Panel #NodeCountRow {
+                    Style: (Layout: Horizontal; Gap: 10);
+                    Label #NodeCountLabel { Text: %hyforged.ui.passiveTree.nodeCount; Style: (Color: #AAAAAA); }
+                    Label #NodeCountValue { Style: (FontWeight: Bold; Color: #FFFFFF); }
+                }
+                
+                Panel #TotalCostRow {
+                    Style: (Layout: Horizontal; Gap: 10);
+                    Label #TotalCostLabel { Text: %hyforged.ui.passiveTree.totalCost; Style: (Color: #AAAAAA); }
+                    Image #CostTradebarIcon { Source: "UI/Icons/Tradebar.png"; Style: (Width: 16; Height: 16); }
+                    Label #TotalCostValue { Style: (FontWeight: Bold; Color: #FFD700); }
+                }
+                
+                Panel #BalanceRow {
+                    Style: (Layout: Horizontal; Gap: 10);
+                    Label #BalanceLabel { Text: %hyforged.ui.passiveTree.balance; Style: (Color: #AAAAAA); }
+                    Label #BalanceValue { Style: (FontWeight: Bold); }
+                }
+            }
+            
+            // Keystone Effects Preview
+            Panel #KeystonePreview {
+                Style: (Layout: Vertical; Gap: 5; Visible: false);
+                
+                Label #KeystoneEffectsHeader {
+                    Text: %hyforged.ui.passiveTree.keystoneEffects;
+                    Style: (FontSize: 12; FontWeight: Bold; Color: #FFD700);
+                }
+                
+                Panel #KeystoneEffectsList {
+                    Style: (Layout: Vertical; Gap: 3);
+                }
+            }
+            
+            // Dialog Buttons
+            Panel #DialogButtons {
+                Style: (Layout: Horizontal; Gap: 15; Alignment: Center);
+                
+                Button #ConfirmCancel {
+                    Text: %hyforged.ui.cancel;
+                    Style: (Width: 100; Height: 35);
+                    DataEvent: { Action: "ConfirmCancel" };
+                }
+                
+                Button #ConfirmAccept {
+                    Text: %hyforged.ui.confirm;
+                    Style: (Width: 100; Height: 35; Background: #4CAF50);
+                    DataEvent: { Action: "ConfirmAccept" };
+                }
+            }
+        }
+    }
+    
+    // Starting Region Selection (first-time General Tree)
+    Panel #RegionSelectionOverlay {
+        Style: (Position: Absolute; Alignment: Fill; Background: rgba(0, 0, 0, 0.8); Visible: false; ZIndex: 150);
+        
+        Panel #RegionSelectionDialog {
+            Style: (Layout: Vertical; Gap: 15; Padding: 25; Background: rgba(40, 40, 50, 0.98); BorderRadius: 8; Width: 500; Alignment: Center);
+            
+            Label #RegionTitle {
+                Text: %hyforged.ui.passiveTree.selectRegion;
+                Style: (FontSize: 20; FontWeight: Bold; Color: #FFD700; Alignment: Center);
+            }
+            
+            Label #RegionDescription {
+                Text: %hyforged.ui.passiveTree.selectRegionDesc;
+                Style: (FontSize: 12; Color: #CCCCCC; WordWrap: true; Alignment: Center);
+            }
+            
+            // Region Options (populated dynamically)
+            Panel #RegionOptions {
+                Style: (Layout: Horizontal; Gap: 15; FlexWrap: wrap; Alignment: Center);
+                
+                // Template for region option
+                // Panel #Region_{regionId} {
+                //     Image #RegionIcon { ... }
+                //     Label #RegionName { ... }
+                //     DataEvent: { Action: "SelectRegion", RegionId: "{regionId}" };
+                // }
+            }
+        }
+    }
+    
+    // Close Button
+    Button #CloseButton {
+        Text: "×";
+        Style: (Position: Absolute; Top: 10; Right: 10; Width: 30; Height: 30; FontSize: 20; ZIndex: 50);
+        DataEvent: { Action: "Close" };
+    }
+}

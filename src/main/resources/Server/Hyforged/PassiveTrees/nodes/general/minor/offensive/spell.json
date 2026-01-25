@@ -1,0 +1,14 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:minor-spell-1",
+      "Type": "minor",
+      "Name": "Arcane Spark",
+      "Description": "+2% Spell Damage\n+2% Cast Speed",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:spell-damage-increased-bps", "Value": 200 },
+        { "Type": "stat-modifier", "Stat": "hyforged:cast-speed-bps", "Value": 200 }
+      ]
+    }
+  ]
+}

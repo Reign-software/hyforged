@@ -1,0 +1,35 @@
+{
+  "Id": "hyforged:mental-bastion",
+  "Type": "forged",
+  "DisplayName": "Mental Bastion",
+  "Weight": 25,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 78,
+      "Weight": 30,
+      "Stats": {
+        "hyforged:concentration-loss-reduction-bps": { "MinValue": 2000, "MaxValue": 2500, "StackType": "MORE" },
+        "hyforged:concentration-regen-rate-bps": { "MinValue": 1000, "MaxValue": 1500, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 58,
+      "Weight": 55,
+      "Stats": {
+        "hyforged:concentration-loss-reduction-bps": { "MinValue": 1400, "MaxValue": 2000, "StackType": "MORE" },
+        "hyforged:concentration-regen-rate-bps": { "MinValue": 700, "MaxValue": 1000, "StackType": "INCREASED" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 38,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:concentration-loss-reduction-bps": { "MinValue": 800, "MaxValue": 1400, "StackType": "MORE" },
+        "hyforged:concentration-regen-rate-bps": { "MinValue": 400, "MaxValue": 700, "StackType": "INCREASED" }
+      }
+    }
+  ]
+}

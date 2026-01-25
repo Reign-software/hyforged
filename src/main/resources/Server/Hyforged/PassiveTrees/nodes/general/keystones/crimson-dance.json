@@ -1,0 +1,14 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:crimson-dance",
+      "Type": "keystone",
+      "Name": "Crimson Dance",
+      "Description": "Bleeding can affect immune enemies\nBleeding deals damage faster",
+      "Effects": [
+        { "Type": "unlock-flag", "FlagId": "hyforged:bleed-immunity-bypass" },
+        { "Type": "unlock-flag", "FlagId": "hyforged:bleed-faster" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "Book of Passive Mastery",
+    "Description": "Grants +1 general passive tree point when consumed. Maximum 20 can be used per character."
+  },
+  "Categories": [
+    "Items.Consumables",
+    "Items.Hyforged"
+  ],
+  "Icon": "Icons/ItemsGenerated/Spellbook.png",
+  "Quality": "Legendary",
+  "Consumable": true,
+  "MaxStack": 1,
+  "MaxDurability": 1,
+  "Tags": {
+    "Type": [
+      "Book",
+      "Consumable",
+      "Hyforged"
+    ]
+  },
+  "Interactions": {
+    "Secondary": {
+      "RequireNewClick": true,
+      "Interactions": [
+        {
+          "Type": "Condition",
+          "RequiredGameMode": "Adventure",
+          "Next": {
+            "Type": "hyforged:point-book-consume"
+          },
+          "Failed": "Block_Secondary"
+        }
+      ]
+    }
+  },
+  "Utility": {
+    "Compatible": false
+  },
+  "BlockType": {
+    "DrawType": "Model",
+    "Flags": {
+      "IsUsable": true
+    },
+    "HitboxType": "Default",
+    "Material": "Empty",
+    "Opacity": "Transparent"
+  }
+}

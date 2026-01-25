@@ -1,0 +1,25 @@
+{
+  "Id": "hyforged:concentration-regen-rate-bps",
+  "Category": "resource",
+  "DisplayName": "Concentration Regen Rate",
+  "Description": "Increases the rate at which concentration regenerates.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 100000,
+  "IsRating": false,
+  "Tags": {
+    "Domain": [
+      "resource"
+    ],
+    "Mechanic": [
+      "aura",
+      "minion"
+    ],
+    "Type": [
+      "rate"
+    ],
+    "Modifier": [
+      "percent"
+    ]
+  }
+}

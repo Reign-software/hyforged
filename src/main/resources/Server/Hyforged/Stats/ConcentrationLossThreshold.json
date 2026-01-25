@@ -1,0 +1,25 @@
+{
+  "Id": "hyforged:concentration-loss-threshold-bps",
+  "Category": "resource",
+  "DisplayName": "Concentration Loss Threshold",
+  "Description": "HP percentage below which concentration loss occurs when hit.",
+  "DefaultValue": 7500,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "IsRating": false,
+  "Tags": {
+    "Domain": [
+      "resource"
+    ],
+    "Mechanic": [
+      "aura",
+      "minion"
+    ],
+    "Type": [
+      "threshold"
+    ],
+    "Modifier": [
+      "percent"
+    ]
+  }
+}

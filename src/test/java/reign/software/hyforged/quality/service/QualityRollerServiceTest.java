@@ -1,5 +1,10 @@
 package reign.software.hyforged.quality.service;
 
+import com.hypixel.hytale.assetstore.AssetRegistry;
+import com.hypixel.hytale.assetstore.AssetStore;
+import com.hypixel.hytale.assetstore.TestAssetStore;
+import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
+import com.hypixel.hytale.server.core.asset.type.item.config.ItemQuality;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -23,10 +28,19 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("QualityRollerService")
 class QualityRollerServiceTest {
 
+    private static final List<ItemQuality> TEST_QUALITIES = List.of(
+        new ItemQuality("Legendary"),
+        new ItemQuality("Epic"),
+        new ItemQuality("Rare"),
+        new ItemQuality("Uncommon"),
+        new ItemQuality("Common")
+    );
+
     private QualityRollerService service;
 
     @BeforeEach
     void setUp() {
+        ensureItemQualityAssets();
         // Reset singletons for test isolation
         QualityEligibilityRegistry.reset();
         QualityWeightRegistry.reset();
@@ -67,6 +81,25 @@ class QualityRollerServiceTest {
         ));
 
         service = new QualityRollerService(eligibilityRegistry, weightRegistry, modifierRegistry);
+    }
+
+    private static void ensureItemQualityAssets() {
+        AssetStore<String, ItemQuality, IndexedLookupTableAssetMap<String, ItemQuality>> store =
+            (AssetStore<String, ItemQuality, IndexedLookupTableAssetMap<String, ItemQuality>>) AssetRegistry.getAssetStore(ItemQuality.class);
+
+        if (store == null) {
+            store = TestAssetStore.builder(String.class, ItemQuality.class, new IndexedLookupTableAssetMap<>(ItemQuality[]::new))
+                .setPath("Item/Qualities")
+                .setCodec(ItemQuality.CODEC)
+                .setKeyFunction(ItemQuality::getId)
+                .setReplaceOnRemove(ItemQuality::new)
+                .build();
+            AssetRegistry.register(store);
+        }
+
+        if (store.getAssetMap().getAssetCount() == 0) {
+            store.loadAssets("Hytale:Hytale", TEST_QUALITIES);
+        }
     }
 
     @Nested

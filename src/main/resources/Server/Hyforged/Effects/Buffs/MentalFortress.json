@@ -1,0 +1,11 @@
+{
+  "Id": "hyforged:mental-fortress",
+  "EntityEffect": {
+    "Duration": 15,
+    "Debuff": false,
+    "StatusEffectIcon": "UI/StatusEffects/Concentration.png"
+  },
+  "HyforgedModifiers": [
+    { "StatId": "hyforged:concentration-loss-threshold-bps", "StackType": "Flat", "Amount": 1000 }
+  ]
+}

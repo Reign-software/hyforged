@@ -27,11 +27,27 @@ public final class HyforgedEffectRegistry {
     }
 
     public void register(@Nonnull String effectId, @Nonnull List<HyforgedEffectModifierSpec> modifiers) {
+        register(effectId, modifiers, 0, null, null);
+    }
+
+    public void register(
+            @Nonnull String effectId,
+            @Nonnull List<HyforgedEffectModifierSpec> modifiers,
+            int concentrationCost,
+            @Nullable String concentrationAbilityId,
+            @Nullable Integer concentrationPriority
+    ) {
         if (definitions.containsKey(effectId)) {
             LOGGER.warning("Duplicate Hyforged effect definition for: " + effectId + " (ignoring duplicate)");
             return;
         }
-        definitions.put(effectId, new HyforgedEffectDefinition(effectId, modifiers));
+        definitions.put(effectId, new HyforgedEffectDefinition(
+                effectId,
+                modifiers,
+                concentrationCost,
+                concentrationAbilityId,
+                concentrationPriority
+        ));
     }
 
     @Nullable

@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:travel-strength",
+      "Type": "minor",
+      "Name": "Strength",
+      "Description": "+1 to Strength",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:strength", "Value": 1 }
+      ]
+    }
+  ]
+}

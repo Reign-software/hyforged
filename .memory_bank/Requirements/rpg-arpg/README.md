@@ -54,7 +54,7 @@ The systems are grouped into phases based on dependencies. Complete each phase b
 ### Phase 6: Advanced Progression
 | Order | System | Dependencies | Notes |
 |-------|--------|--------------|-------|
-| 7 | [Passive Trees](passive-trees.md) | Entity Stats, (Combat for testing) | Passives add modifiers to entities. Combat helps validate the impact. |
+| 7 | [Passive Trees](passive-trees.md) | Entity Stats, Progression Systems, Currency | Passives add modifiers to entities. Spec: [passive-trees.spec.md](../../Features/passive-trees/passive-trees.spec.md) |
 
 ### Phase 7: Economy & Crafting@orchestrator /plan I would like to create a large number of buffs and debuffs using the bbuff display skill for my hyforged plugin. I need a large verity themed to the stats defined
 | Order | System | Dependencies | Notes |
@@ -82,6 +82,7 @@ The systems are grouped into phases based on dependencies. Complete each phase b
 - [Trading & Marketplace](trading-marketplace.md)
 
 ## Change Log
+- 2026-01-24: Added Passive Trees spec linking; updated Phase 6 dependencies.
 - 2026-01-22: Marked Combat System as completed in implementation order.
 - 2026-01-20: Added Items Affix System spec for Phase 4.
 - 2026-01-20: Consolidated Experience and Class specs into Progression Systems spec.

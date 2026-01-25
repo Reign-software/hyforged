@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:warcry-master",
+      "Type": "notable",
+      "Name": "Warcry Master",
+      "Description": "Unlocks the Rallying Cry skill.",
+      "Effects": [
+        { "Type": "spell-grant", "SpellId": "hyforged:rallying-cry" }
+      ]
+    }
+  ]
+}

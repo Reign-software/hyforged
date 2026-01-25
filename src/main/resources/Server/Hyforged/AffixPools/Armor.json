@@ -4,7 +4,7 @@
     "Categories": ["Items.Armor"],
     "Tags": ["Type:Armor"]
   },
-  "Prefixes": ["Sturdy"],
+  "Prefixes": ["Sturdy", "hyforged:of-clarity", "hyforged:of-resolve", "hyforged:steadfast"],
   "Suffixes": ["OfTheBear"],
-  "Forged": []
+  "Forged": ["hyforged:mental-bastion", "hyforged:unshakeable-focus"]
 }

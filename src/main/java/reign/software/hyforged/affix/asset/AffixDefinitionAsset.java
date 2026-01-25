@@ -70,11 +70,21 @@ public class AffixDefinitionAsset implements JsonAssetWithMap<String, IndexedLoo
                     AffixDefinitionAsset.class,
                     AffixDefinitionAsset::new,
                     Codec.STRING,
-                    (asset, id) -> asset.id = id,
+                    (asset, id) -> {
+                    if (asset.id == null || asset.id.isBlank()) {
+                        asset.id = id;
+                    }
+                    },
                     asset -> asset.id,
                     (asset, data) -> asset.data = data,
                     asset -> asset.data
             )
+                .append(
+                    new KeyedCodec<>("Id", Codec.STRING),
+                    (asset, value) -> asset.id = value != null ? value : asset.id,
+                    asset -> asset.id
+                )
+                .add()
             .append(
                     new KeyedCodec<>("Type", Codec.STRING),
                     (asset, value) -> asset.type = value != null ? value : "prefix",

@@ -12,6 +12,7 @@ This skill summarizes Modding_Doc/README and points to the system guides.
 - [Modding Overview](../../../Modding_Doc/README.md) — Getting started, folder structure, ECS guidance
 - [Affix System](../../../Modding_Doc/Affixes/README.md) — Affix system guide
 - [Combat System](../../../Modding_Doc/Combat/README.md) — Combat system guide
+- [Passive Trees](../../../Modding_Doc/PassiveTrees/README.md) — Passive skill trees guide
 - [Progression System](../../../Modding_Doc/Progression/README.md) — Progression guide
 - [Scaling](../../../Modding_Doc/Scaling/README.md) — Monster scaling guide
 - [Stats System](../../../Modding_Doc/Stats/README.md) — Stats system guide

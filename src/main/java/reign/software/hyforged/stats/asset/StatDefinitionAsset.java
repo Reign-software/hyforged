@@ -8,7 +8,6 @@ import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
 import com.hypixel.hytale.assetstore.map.JsonAssetWithMap;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
-import com.hypixel.hytale.codec.codecs.map.MapCodec;
 import reign.software.hyforged.affix.asset.AffixTierTemplateAsset;
 import reign.software.hyforged.affix.model.AffixTierTemplate;
 import reign.software.hyforged.stats.StatDefinition;
@@ -18,7 +17,7 @@ import reign.software.hyforged.stats.scaling.ScalingRule;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -58,103 +57,106 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
      */
     public static final AssetBuilderCodec<String, StatDefinitionAsset> CODEC = AssetBuilderCodec
             .builder(
-                    StatDefinitionAsset.class,
-                    StatDefinitionAsset::new,
-                    Codec.STRING,
-                    (asset, id) -> asset.id = id,
-                    asset -> asset.id,
-                    (asset, data) -> asset.data = data,
-                    asset -> asset.data
+                StatDefinitionAsset.class,
+                StatDefinitionAsset::new,
+                Codec.STRING,
+                    (asset, id) -> {
+                    if (asset.id == null || asset.id.isBlank()) {
+                        asset.id = id;
+                    }
+                    },
+                asset -> asset.id,
+                (asset, data) -> asset.data = data,
+                asset -> asset.data
             )
+                .append(
+                    new KeyedCodec<>("Id", Codec.STRING),
+                    (asset, value) -> asset.id = value != null ? value : asset.id,
+                    asset -> asset.id
+                )
+                .add()
             .appendInherited(
-                    new KeyedCodec<>("Category", Codec.STRING),
-                    (asset, value) -> asset.category = value != null ? value : "utility",
-                    asset -> asset.category,
-                    (asset, parent) -> asset.category = parent.category
-            )
-            .add()
-            .appendInherited(
-                    new KeyedCodec<>("DisplayName", Codec.STRING),
-                    (asset, value) -> asset.displayName = value,
-                    asset -> asset.displayName,
-                    (asset, parent) -> asset.displayName = parent.displayName
-            )
-            .add()
-            .appendInherited(
-                    new KeyedCodec<>("Description", Codec.STRING),
-                    (asset, value) -> asset.description = value,
-                    asset -> asset.description,
-                    (asset, parent) -> asset.description = parent.description
+                new KeyedCodec<>("Category", Codec.STRING),
+                (asset, value) -> asset.category = value != null ? value : "utility",
+                asset -> asset.category,
+                (asset, parent) -> asset.category = parent.category
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("DefaultValue", Codec.INTEGER),
-                    (asset, value) -> asset.defaultValue = value != null ? value : 0,
-                    asset -> asset.defaultValue,
-                    (asset, parent) -> asset.defaultValue = parent.defaultValue
+                new KeyedCodec<>("DisplayName", Codec.STRING),
+                (asset, value) -> asset.displayName = value,
+                asset -> asset.displayName,
+                (asset, parent) -> asset.displayName = parent.displayName
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("MinValue", Codec.INTEGER),
-                    (asset, value) -> asset.minValue = value != null ? value : Integer.MIN_VALUE,
-                    asset -> asset.minValue,
-                    (asset, parent) -> asset.minValue = parent.minValue
+                new KeyedCodec<>("Description", Codec.STRING),
+                (asset, value) -> asset.description = value,
+                asset -> asset.description,
+                (asset, parent) -> asset.description = parent.description
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("MaxValue", Codec.INTEGER),
-                    (asset, value) -> asset.maxValue = value != null ? value : Integer.MAX_VALUE,
-                    asset -> asset.maxValue,
-                    (asset, parent) -> asset.maxValue = parent.maxValue
+                new KeyedCodec<>("DefaultValue", Codec.INTEGER),
+                (asset, value) -> asset.defaultValue = value != null ? value : 0,
+                asset -> asset.defaultValue,
+                (asset, parent) -> asset.defaultValue = parent.defaultValue
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("IsRating", Codec.BOOLEAN),
-                    (asset, value) -> asset.isRating = value != null && value,
-                    asset -> asset.isRating,
-                    (asset, parent) -> asset.isRating = parent.isRating
+                new KeyedCodec<>("MinValue", Codec.INTEGER),
+                (asset, value) -> asset.minValue = value != null ? value : Integer.MIN_VALUE,
+                asset -> asset.minValue,
+                (asset, parent) -> asset.minValue = parent.minValue
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("Tags", new MapCodec<>(Codec.STRING_ARRAY, HashMap::new)),
-                    (asset, value) -> asset.rawTags = value != null ? value : new HashMap<>(),
-                    asset -> asset.rawTags,
-                    (asset, parent) -> asset.rawTags = new HashMap<>(parent.rawTags)
+                new KeyedCodec<>("MaxValue", Codec.INTEGER),
+                (asset, value) -> asset.maxValue = value != null ? value : Integer.MAX_VALUE,
+                asset -> asset.maxValue,
+                (asset, parent) -> asset.maxValue = parent.maxValue
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("Scaling", ScalingRuleAssetCodec.ARRAY_CODEC),
-                    (asset, value) -> asset.scalingAssets = value,
-                    asset -> asset.scalingAssets,
-                    (asset, parent) -> asset.scalingAssets = parent.scalingAssets
+                new KeyedCodec<>("IsRating", Codec.BOOLEAN),
+                (asset, value) -> asset.isRating = value != null && value,
+                asset -> asset.isRating,
+                (asset, parent) -> asset.isRating = parent.isRating
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("AffixTierTemplate", AffixTierTemplateAsset.CODEC),
-                    (asset, value) -> asset.affixTierTemplateAsset = value,
-                    asset -> asset.affixTierTemplateAsset,
-                    (asset, parent) -> asset.affixTierTemplateAsset = parent.affixTierTemplateAsset
+                new KeyedCodec<>("Scaling", ScalingRuleAssetCodec.ARRAY_CODEC),
+                (asset, value) -> asset.scalingAssets = value,
+                asset -> asset.scalingAssets,
+                (asset, parent) -> asset.scalingAssets = parent.scalingAssets
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("SoftCapBps", Codec.INTEGER),
-                    (asset, value) -> asset.softCapBps = value != null ? value : StatDefinition.NO_CAP,
-                    asset -> asset.softCapBps,
-                    (asset, parent) -> asset.softCapBps = parent.softCapBps
+                new KeyedCodec<>("AffixTierTemplate", AffixTierTemplateAsset.CODEC),
+                (asset, value) -> asset.affixTierTemplateAsset = value,
+                asset -> asset.affixTierTemplateAsset,
+                (asset, parent) -> asset.affixTierTemplateAsset = parent.affixTierTemplateAsset
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("HardCapBps", Codec.INTEGER),
-                    (asset, value) -> asset.hardCapBps = value != null ? value : StatDefinition.NO_CAP,
-                    asset -> asset.hardCapBps,
-                    (asset, parent) -> asset.hardCapBps = parent.hardCapBps
+                new KeyedCodec<>("SoftCapBps", Codec.INTEGER),
+                (asset, value) -> asset.softCapBps = value != null ? value : StatDefinition.NO_CAP,
+                asset -> asset.softCapBps,
+                (asset, parent) -> asset.softCapBps = parent.softCapBps
             )
             .add()
             .appendInherited(
-                    new KeyedCodec<>("SoftCapBonusStat", Codec.STRING),
-                    (asset, value) -> asset.softCapBonusStatId = value,
-                    asset -> asset.softCapBonusStatId,
-                    (asset, parent) -> asset.softCapBonusStatId = parent.softCapBonusStatId
+                new KeyedCodec<>("HardCapBps", Codec.INTEGER),
+                (asset, value) -> asset.hardCapBps = value != null ? value : StatDefinition.NO_CAP,
+                asset -> asset.hardCapBps,
+                (asset, parent) -> asset.hardCapBps = parent.hardCapBps
+            )
+            .add()
+            .appendInherited(
+                new KeyedCodec<>("SoftCapBonusStat", Codec.STRING),
+                (asset, value) -> asset.softCapBonusStatId = value,
+                asset -> asset.softCapBonusStatId,
+                (asset, parent) -> asset.softCapBonusStatId = parent.softCapBonusStatId
             )
             .add()
             .build();
@@ -173,7 +175,6 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
     private int minValue = 0;
     private int maxValue = Integer.MAX_VALUE;
     private boolean isRating = false;
-    private Map<String, String[]> rawTags = new HashMap<>();
     private ScalingRuleAsset[] scalingAssets = new ScalingRuleAsset[0];
     private AffixTierTemplateAsset affixTierTemplateAsset = null;
     private int softCapBps = StatDefinition.NO_CAP;
@@ -241,12 +242,11 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
      */
     @Nonnull
     public Map<String, String[]> getRawTags() {
-        return rawTags;
+        return data != null ? data.getRawTags() : Collections.emptyMap();
     }
     
     /**
      * Expand the hierarchical tags into a flat set.
-     * <p>
      * Following Hytale's tag expansion pattern, each entry in the map
      * generates: the key itself, each value, and key=value combinations.
      * <p>
@@ -256,7 +256,7 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
     @Nonnull
     public Set<String> getExpandedTags() {
         Set<String> expandedTags = new HashSet<>();
-        for (Map.Entry<String, String[]> entry : rawTags.entrySet()) {
+        for (Map.Entry<String, String[]> entry : getRawTags().entrySet()) {
             String key = entry.getKey();
             expandedTags.add(key);
             for (String value : entry.getValue()) {

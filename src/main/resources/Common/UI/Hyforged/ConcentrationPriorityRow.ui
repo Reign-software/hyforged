@@ -1,0 +1,57 @@
+// Row template for the concentration priority list
+
+Panel #PriorityRow {
+    Style: (Layout: Horizontal; Gap: 10; Padding: 6; Background: #1d1d1d);
+
+    Label #OrderIndex {
+        Text: 1;
+        Style: (Width: 24; Alignment: Center; FontWeight: Bold);
+    }
+
+    Panel #AbilityDetails {
+        Style: (Layout: Vertical; Gap: 2; Width: 220);
+
+        Label #AbilityName {
+            Text: Ability Name;
+            Style: (FontSize: 12; FontWeight: Bold);
+        }
+
+        Label #AbilityId {
+            Text: namespace:ability-id;
+            Style: (FontSize: 10; Color: #888888);
+        }
+    }
+
+    Panel #CostColumn {
+        Style: (Layout: Vertical; Gap: 2; Width: 60);
+
+        Label #CostLabel {
+            Text: Cost;
+            Style: (FontSize: 10; Color: #888888);
+        }
+
+        Label #Cost {
+            Text: 0;
+            Style: (FontSize: 12);
+        }
+    }
+
+    Label #Status {
+        Text: Enabled;
+        Style: (Width: 70; Alignment: Center; FontSize: 11);
+    }
+
+    Panel #Controls {
+        Style: (Layout: Vertical; Gap: 2);
+
+        Button #MoveUp {
+            Text: ▲;
+            Style: (Width: 22; Height: 18);
+        }
+
+        Button #MoveDown {
+            Text: ▼;
+            Style: (Width: 22; Height: 18);
+        }
+    }
+}

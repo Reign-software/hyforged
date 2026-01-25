@@ -20,6 +20,7 @@
   - Stats System ✅
   - Entity Stats
   - Resource Stats UI (Concentration & Rage) — spec: [resource-stats-ui.spec.md](.memory_bank/Features/resource-stats-ui/resource-stats-ui.spec.md), plan: [resource-stats-ui.plan.md](.memory_bank/Features/resource-stats-ui/resource-stats-ui.plan.md)
+  - Concentration Disruption System — spec: [concentration-disruption.spec.md](.memory_bank/Features/concentration-disruption/concentration-disruption.spec.md)
   - Progression Systems (Experience + Class) — spec: [progression-systems.spec.md](.memory_bank/Features/progression-systems/progression-systems.spec.md), plan: [progression-systems.plan.md](.memory_bank/Features/progression-systems/progression-systems.plan.md)
   - Items (Affixes & Rarity) — spec: [items-affix-system.spec.md](.memory_bank/Features/items-affix-system/items-affix-system.spec.md)
   - Random Item Quality — spec: [random-item-quality.spec.md](.memory_bank/Features/random-item-quality/random-item-quality.spec.md), plan: [random-item-quality.plan.md](.memory_bank/Features/random-item-quality/random-item-quality.plan.md)
@@ -31,6 +32,7 @@
   - Trading & Marketplace
 
 ## Change Log
+- 2026-01-24: Added Concentration Disruption System spec to feature index.
 - 2026-01-23: Added Random Item Quality plan to feature index.
 - 2026-01-23: Added Random Item Quality spec to feature index; linked Items Affix System spec.
 - 2026-01-20: Added Combat System spec to feature index.

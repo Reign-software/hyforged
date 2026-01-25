@@ -34,6 +34,9 @@ import java.util.List;
  *     "Debuff": false,
  *     "StatusEffectIcon": "UI/StatusEffects/Haste.png"
  *   },
+ *   "ConcentrationCost": 20,
+ *   "ConcentrationAbilityId": "hyforged:haste",
+ *   "ConcentrationPriority": 100,
  *   "HyforgedModifiers": [
  *     { "StatId": "hyforged:movement-speed-bps", "StackType": "INCREASED", "Amount": 1500 }
  *   ]
@@ -47,11 +50,21 @@ public class HyforgedEffectAsset implements JsonAssetWithMap<String, IndexedLook
                     HyforgedEffectAsset.class,
                     HyforgedEffectAsset::new,
                     Codec.STRING,
-                    (asset, id) -> asset.id = id,
+                    (asset, id) -> {
+                    if (asset.id == null || asset.id.isBlank()) {
+                        asset.id = id;
+                    }
+                    },
                     asset -> asset.id,
                     (asset, data) -> asset.data = data,
                     asset -> asset.data
             )
+                .append(
+                    new KeyedCodec<>("Id", Codec.STRING),
+                    (asset, value) -> asset.id = value != null ? value : asset.id,
+                    asset -> asset.id
+                )
+                .add()
             .append(
                     new KeyedCodec<>(
                             "EntityEffect",
@@ -67,6 +80,24 @@ public class HyforgedEffectAsset implements JsonAssetWithMap<String, IndexedLook
                     asset -> asset.hyforgedModifiers
             )
             .add()
+                .append(
+                    new KeyedCodec<>("ConcentrationCost", Codec.INTEGER),
+                    (asset, value) -> asset.concentrationCost = value != null ? value : asset.concentrationCost,
+                    asset -> asset.concentrationCost
+                )
+                .add()
+                .append(
+                    new KeyedCodec<>("ConcentrationAbilityId", Codec.STRING),
+                    (asset, value) -> asset.concentrationAbilityId = value,
+                    asset -> asset.concentrationAbilityId
+                )
+                .add()
+                .append(
+                    new KeyedCodec<>("ConcentrationPriority", Codec.INTEGER),
+                    (asset, value) -> asset.concentrationPriority = value,
+                    asset -> asset.concentrationPriority
+                )
+                .add()
             .build();
 
     private static AssetStore<String, HyforgedEffectAsset, IndexedLookupTableAssetMap<String, HyforgedEffectAsset>> ASSET_STORE;
@@ -76,6 +107,9 @@ public class HyforgedEffectAsset implements JsonAssetWithMap<String, IndexedLook
 
     private String entityEffectId;
     private HyforgedEffectModifierSpec[] hyforgedModifiers = new HyforgedEffectModifierSpec[0];
+    private int concentrationCost = 0;
+    private String concentrationAbilityId;
+    private Integer concentrationPriority;
 
     public HyforgedEffectAsset() {
     }
@@ -109,5 +143,29 @@ public class HyforgedEffectAsset implements JsonAssetWithMap<String, IndexedLook
             return Collections.emptyList();
         }
         return Collections.unmodifiableList(Arrays.asList(hyforgedModifiers));
+    }
+
+    /**
+     * Concentration cost reserved while this effect remains active.
+     */
+    public int getConcentrationCost() {
+        return concentrationCost;
+    }
+
+    /**
+     * Optional ability identifier to use for concentration reservation.
+     * Defaults to the effect ID when not provided.
+     */
+    @Nullable
+    public String getConcentrationAbilityId() {
+        return concentrationAbilityId;
+    }
+
+    /**
+     * Optional priority override for concentration reservation.
+     */
+    @Nullable
+    public Integer getConcentrationPriority() {
+        return concentrationPriority;
     }
 }

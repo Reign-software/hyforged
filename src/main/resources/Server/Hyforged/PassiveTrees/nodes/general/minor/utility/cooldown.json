@@ -1,0 +1,13 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:minor-cooldown-1",
+      "Type": "minor",
+      "Name": "Swift Recovery",
+      "Description": "+1% Cooldown Recovery",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:cooldown-recovery-rate-bps", "Value": 100 }
+      ]
+    }
+  ]
+}
