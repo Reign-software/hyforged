@@ -6,9 +6,10 @@ import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
 import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
-import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
+import com.hypixel.hytale.server.core.command.system.basecommands.AbstractWorldCommand;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.passive.ui.PassiveTreePage;
 
@@ -20,8 +21,11 @@ import javax.annotation.Nonnull;
  * Usage: {@code /passive ui <player>}
  * <p>
  * Opens the interactive passive tree page where players can view and allocate nodes.
+ * <p>
+ * This command extends {@link AbstractWorldCommand} to ensure it runs on the world thread,
+ * which is required to safely access the entity store.
  */
-public class PassiveUICommand extends CommandBase {
+public class PassiveUICommand extends AbstractWorldCommand {
 
     private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cPlayer not found or not in world.");
 
@@ -34,7 +38,7 @@ public class PassiveUICommand extends CommandBase {
     }
 
     @Override
-    protected void executeSync(@Nonnull CommandContext context) {
+    protected void execute(@Nonnull CommandContext context, @Nonnull World world, @Nonnull Store<EntityStore> store) {
         PlayerRef targetPlayerRef = this.playerArg.get(context);
         Ref<EntityStore> ref = targetPlayerRef.getReference();
         
@@ -43,7 +47,6 @@ public class PassiveUICommand extends CommandBase {
             return;
         }
         
-        Store<EntityStore> store = ref.getStore();
         Player player = store.getComponent(ref, Player.getComponentType());
         
         if (player == null) {

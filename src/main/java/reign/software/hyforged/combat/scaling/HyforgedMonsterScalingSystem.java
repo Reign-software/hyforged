@@ -111,8 +111,7 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
         MonsterScalingService scalingService = MonsterScalingService.get();
         int level = scalingService.calculateMonsterLevel(world, position);
 
-        LOGGER.log(Level.FINE, "Assigning level {0} to NPC '{1}' at ({2}, {3}, {4})",
-                new Object[]{level, roleName, position.getX(), position.getY(), position.getZ()});
+        LOGGER.log(Level.FINE, "Assigning level " + level + " to NPC '" + roleName + "' at (" + position.getX() + ", " + position.getY() + ", " + position.getZ() + ")");
 
         // Add MonsterLevelComponent
         commandBuffer.putComponent(ref, levelComponentType, new MonsterLevelComponent(level));
@@ -155,7 +154,7 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
         List<ScaledStatEntry> scaledStats = scalingService.getScaledStats(roleName);
         
         if (scaledStats.isEmpty()) {
-            LOGGER.log(Level.FINE, "No scaled stats configured for NPC '{0}'", roleName);
+            LOGGER.log(Level.FINE, "No scaled stats configured for NPC '" + roleName + "'");
             return;
         }
 
@@ -168,8 +167,7 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
             int statIndex = registry.getIndex(statId);
             
             if (statIndex < 0) {
-                LOGGER.log(Level.WARNING, "Unknown stat '{0}' in scaling config for NPC '{1}'",
-                        new Object[]{entry.getStatId(), roleName});
+                LOGGER.log(Level.WARNING, "Unknown stat '" + entry.getStatId() + "' in scaling config for NPC '" + roleName + "'");
                 continue;
             }
 
@@ -195,8 +193,7 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
             String sourceKey = LEVEL_MODIFIER_SOURCE + ":" + statId.fullId();
             statMap.putModifier(statIndex, sourceKey, modifier);
             
-            LOGGER.log(Level.FINER, "Applied {0} modifier to stat '{1}': {2} (level {3})",
-                    new Object[]{entry.getModifierType(), entry.getStatId(), modifierValue, level});
+            LOGGER.log(Level.FINER, "Applied " + entry.getModifierType() + " modifier to stat '" + entry.getStatId() + "': " + modifierValue + " (level " + level + ")");
         }
         // EntityStatMap auto-recomputes, no need to mark dirty
     }

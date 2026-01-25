@@ -20,7 +20,8 @@
       "Effect": { 
         "Type": "resurrect",
         "HealthPercent": 0.5,
-        "Invulnerability": 2.0,
+        "Invulnerability": true,
+        "InvulnerabilityDuration": 2.0,
         "SpawnEffect": "hyforged:dark_resurrection"
       },
       "StackBehavior": "shared",

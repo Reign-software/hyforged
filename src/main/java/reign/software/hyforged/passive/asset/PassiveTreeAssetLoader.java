@@ -374,6 +374,8 @@ public final class PassiveTreeAssetLoader {
 
     /**
      * Process any layouts that were deferred waiting for trees.
+     * Uses a two-pass approach: first process all placements and starting nodes,
+     * then process all connections. This ensures nodes exist before connections reference them.
      */
     private static void processPendingLayouts() {
         if (pendingLayouts.isEmpty()) {
@@ -384,8 +386,10 @@ public final class PassiveTreeAssetLoader {
 
         PassiveTreeRegistry registry = PassiveTreeRegistry.get();
         List<TreeLayoutAsset> stillPending = new ArrayList<>();
+        List<TreeLayoutAsset> validLayouts = new ArrayList<>();
         int processed = 0;
 
+        // First pass: validate layouts and apply placements/starting nodes
         for (TreeLayoutAsset layout : pendingLayouts) {
             String treeId = layout.getTreeId();
 
@@ -396,10 +400,20 @@ public final class PassiveTreeAssetLoader {
             }
 
             try {
-                applyLayout(layout);
+                applyLayoutPlacements(layout);
+                validLayouts.add(layout);
                 processed++;
             } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Failed to apply deferred layout: " + layout.getId(), e);
+                LOGGER.log(Level.SEVERE, "Failed to apply deferred layout placements: " + layout.getId(), e);
+            }
+        }
+
+        // Second pass: apply connections (now all nodes should exist)
+        for (TreeLayoutAsset layout : validLayouts) {
+            try {
+                applyLayoutConnections(layout);
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "Failed to apply deferred layout connections: " + layout.getId(), e);
             }
         }
 
@@ -411,9 +425,9 @@ public final class PassiveTreeAssetLoader {
     }
 
     /**
-     * Apply a layout to its target tree.
+     * Apply placements and starting nodes from a layout to its target tree.
      */
-    private static void applyLayout(TreeLayoutAsset layout) {
+    private static void applyLayoutPlacements(TreeLayoutAsset layout) {
         PassiveTreeRegistry registry = PassiveTreeRegistry.get();
         String treeId = layout.getTreeId();
         PassiveTree tree = registry.getTree(treeId);
@@ -481,6 +495,16 @@ public final class PassiveTreeAssetLoader {
             }
         }
 
+        LOGGER.fine("Applied placements from layout " + layout.getId() + " to tree " + treeId);
+    }
+
+    /**
+     * Apply connections from a layout to its target tree.
+     */
+    private static void applyLayoutConnections(TreeLayoutAsset layout) {
+        PassiveTreeRegistry registry = PassiveTreeRegistry.get();
+        String treeId = layout.getTreeId();
+
         // Process connections
         for (PassiveConnectionAsset conn : layout.getConnections()) {
             String fromId = conn.getFrom();
@@ -493,7 +517,15 @@ public final class PassiveTreeAssetLoader {
             }
         }
 
-        LOGGER.fine("Applied layout " + layout.getId() + " to tree " + treeId);
+        LOGGER.fine("Applied connections from layout " + layout.getId() + " to tree " + treeId);
+    }
+
+    /**
+     * Apply a layout to its target tree (legacy method, uses two-pass internally).
+     */
+    private static void applyLayout(TreeLayoutAsset layout) {
+        applyLayoutPlacements(layout);
+        applyLayoutConnections(layout);
     }
 
     /**
