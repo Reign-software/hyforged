@@ -169,22 +169,25 @@ public final class PassiveTreeService {
 
     /**
      * Get available general passive points.
-     * Formula: (characterLevel - 1) + bookPointsUsed - allocatedCount
+     * Formula: characterLevel + bookPointsUsed - allocatedCount
+     * Players start with 1 point at level 1.
      */
     public int getAvailableGeneralPoints(@Nonnull Ref<EntityStore> entityRef) {
         PassiveTreeComponent passiveComponent = getPassiveTreeComponent(entityRef);
         ProgressionComponent progressionComponent = getProgressionComponent(entityRef);
 
-        if (passiveComponent == null || progressionComponent == null) {
-            return 0;
+        // If no passive component, return 1 point (default for new players)
+        if (passiveComponent == null) {
+            return 1;
         }
 
-        int characterLevel = progressionComponent.getCharacterLevel();
+        // Default to level 1 if no progression component
+        int characterLevel = progressionComponent != null ? progressionComponent.getCharacterLevel() : 1;
         int bookPoints = passiveComponent.getBookPointsUsed();
         int allocated = passiveComponent.getGeneralAllocatedCount();
 
-        // (characterLevel - 1) + bookPointsUsed - allocated
-        return Math.max(0, (characterLevel - 1) + bookPoints - allocated);
+        // characterLevel + bookPointsUsed - allocated (1 point at level 1)
+        return Math.max(0, characterLevel + bookPoints - allocated);
     }
 
     /**

@@ -26,9 +26,9 @@ public class XPSetCommand extends CommandBase {
 
     private static final Logger LOGGER = Logger.getLogger(XPSetCommand.class.getName());
 
-    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cPlayer not found or not in a world.");
-    private static final Message MESSAGE_NO_COMPONENT = Message.raw("§cPlayer does not have a progression component.");
-    private static final Message MESSAGE_INVALID_AMOUNT = Message.raw("§cXP amount must be non-negative.");
+    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in a world.");
+    private static final Message MESSAGE_NO_COMPONENT = Message.raw("Player does not have a progression component.");
+    private static final Message MESSAGE_INVALID_AMOUNT = Message.raw("XP amount must be non-negative.");
 
     @Nonnull
     private final RequiredArg<PlayerRef> playerArg = this.withRequiredArg(
@@ -102,7 +102,7 @@ public class XPSetCommand extends CommandBase {
                     adminName, playerName, oldXp, amount));
 
             context.sendMessage(Message.raw(String.format(
-                    "§aSet XP for §f%s§a from §f%d§a to §f%d§a.",
+                    "Set XP for %s from %d to %d.",
                     playerName, oldXp, amount)));
         });
     }

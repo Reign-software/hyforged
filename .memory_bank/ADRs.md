@@ -14,6 +14,7 @@
 - ADR-0010: Unified Stat Integration via EntityStatValue Extension (2026-01-21) — Accepted
 - ADR-0011: Runtime Quality Replacement for Items and NPCs (2026-01-23) — Proposed
 - ADR-0012: Concentration Priority UI Reordering Controls (2026-02-01) — Accepted
+- ADR-0013: Top-Down Vertical Passive Tree Layout (2026-01-26) — Accepted
 
 
 ## ADR Template
@@ -193,6 +194,67 @@
 #### Links
 - Spec: .memory_bank/Features/concentration-disruption/concentration-disruption.spec.md
 - Plan: .memory_bank/Features/concentration-disruption/concentration-disruption.plan.md
+
+---
+
+### ADR-0013: Top-Down Vertical Passive Tree Layout
+- Date: 2026-01-26
+- Status: Accepted
+- Deciders: JBurl
+
+#### Context
+- Original passive tree design used a radial layout with 7 regions (STR, DEX, INT, WIS, CON, SPI, LUCK) centered around a hub.
+- HyUI framework only supports vertical scrolling (TopScrolling/BottomScrolling modes), not horizontal scrolling.
+- Radial layout requires both horizontal and vertical scrolling for navigation, which is not supported.
+- A redesign was needed to work within HyUI's scrolling constraints while maintaining player progression depth.
+
+#### Decision
+- Adopt a **top-down vertical layout** with 4 main attribute lanes:
+  - Strength (X: -250 to -150)
+  - Dexterity (X: -120 to -20)
+  - Intelligence (X: 20 to 120)
+  - Wisdom (X: 150 to 250)
+- **Starting nodes** positioned at Y=0 (top of tree), one per lane.
+- **3 vertical sub-paths per lane** extending downward (Y increases), allowing for branching and reconnection.
+- **Bridge zones** between adjacent lanes using Constitution, Spirit, and Luck nodes:
+  - STR↔DEX: Constitution bridges (X=-135)
+  - DEX↔INT: Spirit bridges (X=0)
+  - INT↔WIS: Luck bridges (X=135)
+- Fixed viewport (800×600px) with native vertical scrolling only.
+- Tree content horizontally centered in viewport.
+- COORD_SCALE=1.5f for denser node display.
+
+#### Consequences
+- Pros:
+  - Works natively with HyUI's TopScrolling layout mode.
+  - Clear visual lanes for attribute-focused builds.
+  - Bridge zones enable hybrid builds (e.g., STR+DEX via Constitution).
+  - Constitution, Spirit, Luck remain meaningful as bridge attributes.
+  - Simpler navigation: scroll down to progress, scroll up to return.
+- Cons:
+  - Less visual variety compared to radial layout.
+  - Tree is narrower; may feel more linear than PoE-style trees.
+  - Horizontal pathing limited to fixed bridge points.
+
+#### Alternatives Considered
+- Custom scrolling implementation:
+  - Rejected: HyUI's native scrolling is more reliable and performant.
+- Radial with zoom-only (no pan):
+  - Rejected: 1000+ node tree cannot fit in viewport at readable zoom.
+- Multiple smaller trees:
+  - Rejected: Spec requires single large tree with 1000+ nodes.
+
+#### Layout Files
+- `layouts/general/starting-nodes.json`: 4 starting nodes at Y=0
+- `layouts/general/strength.json`: 3 paths, Y=40→570
+- `layouts/general/dexterity.json`: 3 paths, Y=40→570
+- `layouts/general/intelligence.json`: 3 paths, Y=40→570
+- `layouts/general/wisdom.json`: 3 paths, Y=40→570
+- `layouts/general/bridges.json`: Constitution/Spirit/Luck bridge clusters
+
+#### Links
+- Spec: .memory_bank/Features/passive-trees/passive-trees.spec.md
+- Plan: .memory_bank/Features/passive-trees/passive-trees.plan.md
 
 ---
 

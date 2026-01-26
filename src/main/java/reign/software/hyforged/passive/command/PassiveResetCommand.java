@@ -18,6 +18,7 @@ import reign.software.hyforged.passive.model.PassiveTree;
 import reign.software.hyforged.passive.registry.PassiveTreeRegistry;
 import reign.software.hyforged.passive.service.PassiveTreeService;
 import reign.software.hyforged.passive.service.RefundResult;
+import reign.software.hyforged.util.MessageColors;
 
 import javax.annotation.Nonnull;
 
@@ -32,13 +33,13 @@ import javax.annotation.Nonnull;
  */
 public class PassiveResetCommand extends CommandBase {
 
-    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cPlayer not found or not in world.");
-    private static final Message MESSAGE_NO_COMPONENT = Message.raw("§cPlayer has no passive tree data.");
-    private static final Message MESSAGE_TREE_NOT_FOUND = Message.raw("§cTree not found: %s");
-    private static final Message MESSAGE_RESET_GENERAL = Message.raw("§aReset general tree for %s (%d nodes refunded, %d points returned)");
-    private static final Message MESSAGE_RESET_CLASS = Message.raw("§aReset class tree '%s' for %s (%d nodes refunded, %d points returned)");
-    private static final Message MESSAGE_RESET_ALL = Message.raw("§aReset all trees for %s");
-    private static final Message MESSAGE_RESET_FAILED = Message.raw("§cReset failed: %s");
+    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in world.").color(MessageColors.ERROR);
+    private static final Message MESSAGE_NO_COMPONENT = Message.raw("Player has no passive tree data.").color(MessageColors.ERROR);
+    private static final Message MESSAGE_TREE_NOT_FOUND = Message.raw("Tree not found: %s").color(MessageColors.ERROR);
+    private static final Message MESSAGE_RESET_GENERAL = Message.raw("Reset general tree for %s (%d nodes refunded, %d points returned)").color(MessageColors.SUCCESS);
+    private static final Message MESSAGE_RESET_CLASS = Message.raw("Reset class tree '%s' for %s (%d nodes refunded, %d points returned)").color(MessageColors.SUCCESS);
+    private static final Message MESSAGE_RESET_ALL = Message.raw("Reset all trees for %s").color(MessageColors.SUCCESS);
+    private static final Message MESSAGE_RESET_FAILED = Message.raw("Reset failed: %s").color(MessageColors.ERROR);
 
     @Nonnull
     private final RequiredArg<PlayerRef> playerArg = this.withRequiredArg(
@@ -99,17 +100,17 @@ public class PassiveResetCommand extends CommandBase {
             if (treeId.equalsIgnoreCase("general")) {
                 PassiveTree generalTree = PassiveTreeRegistry.get().getGeneralTree();
                 if (generalTree == null) {
-                    context.sendMessage(Message.raw("§cGeneral tree not loaded."));
+                    context.sendMessage(Message.raw("General tree not loaded.").color(MessageColors.ERROR));
                     return;
                 }
                 
                 RefundResult result = service.refundAllFree(ref, generalTree.getId());
                 if (result.success()) {
                     context.sendMessage(Message.raw(String.format(
-                            "§aReset general tree for %s (%d nodes refunded, %d points returned)",
-                            username, result.refundedNodes().size(), result.pointsReturned())));
+                            "Reset general tree for %s (%d nodes refunded, %d points returned)",
+                            username, result.refundedNodes().size(), result.pointsReturned())).color(MessageColors.SUCCESS));
                 } else {
-                    context.sendMessage(Message.raw("§cReset failed: " + result.reason()));
+                    context.sendMessage(Message.raw("Reset failed: " + result.reason()).color(MessageColors.ERROR));
                 }
                 return;
             }
@@ -120,16 +121,16 @@ public class PassiveResetCommand extends CommandBase {
                 RefundResult result = service.refundAllFree(ref, classTree.getId());
                 if (result.success()) {
                     context.sendMessage(Message.raw(String.format(
-                            "§aReset class tree '%s' for %s (%d nodes refunded, %d points returned)",
-                            treeId, username, result.refundedNodes().size(), result.pointsReturned())));
+                            "Reset class tree '%s' for %s (%d nodes refunded, %d points returned)",
+                            treeId, username, result.refundedNodes().size(), result.pointsReturned())).color(MessageColors.SUCCESS));
                 } else {
-                    context.sendMessage(Message.raw("§cReset failed: " + result.reason()));
+                    context.sendMessage(Message.raw("Reset failed: " + result.reason()).color(MessageColors.ERROR));
                 }
                 return;
             }
 
             // Unknown tree
-            context.sendMessage(Message.raw(String.format("§cTree not found: %s", treeId)));
+            context.sendMessage(Message.raw(String.format("Tree not found: %s", treeId)).color(MessageColors.ERROR));
         });
     }
 
@@ -166,7 +167,7 @@ public class PassiveResetCommand extends CommandBase {
         }
 
         context.sendMessage(Message.raw(String.format(
-                "§aReset all trees for %s (%d nodes refunded, %d points returned)",
-                username, totalNodesRefunded, totalPointsReturned)));
+                "Reset all trees for %s (%d nodes refunded, %d points returned)",
+                username, totalNodesRefunded, totalPointsReturned)).color(MessageColors.SUCCESS));
     }
 }

@@ -28,17 +28,17 @@ public class CombatLogHud extends CustomUIHud {
     public static final int MAX_ENTRIES = 12;
 
     // Color codes for different event types (Minecraft-style formatting)
-    private static final String COLOR_DAMAGE_PHYSICAL = "§f";  // White
-    private static final String COLOR_DAMAGE_FIRE = "§c";       // Red
-    private static final String COLOR_DAMAGE_ICE = "§b";        // Aqua
-    private static final String COLOR_DAMAGE_LIGHTNING = "§e";  // Yellow
-    private static final String COLOR_DAMAGE_POISON = "§2";     // Dark Green
-    private static final String COLOR_DAMAGE_ARCANE = "§d";     // Light Purple
-    private static final String COLOR_CRIT = "§c";              // Red (bold in text)
-    private static final String COLOR_BLOCK = "§6";             // Gold
-    private static final String COLOR_MISS = "§7";              // Gray
-    private static final String COLOR_HEAL = "§a";              // Green
-    private static final String COLOR_DEFAULT = "§f";           // White
+    private static final String COLOR_DAMAGE_PHYSICAL = "";  // White
+    private static final String COLOR_DAMAGE_FIRE = "";       // Red
+    private static final String COLOR_DAMAGE_ICE = "";        // Aqua
+    private static final String COLOR_DAMAGE_LIGHTNING = "";  // Yellow
+    private static final String COLOR_DAMAGE_POISON = "";     // Dark Green
+    private static final String COLOR_DAMAGE_ARCANE = "";     // Light Purple
+    private static final String COLOR_CRIT = "";              // Red (bold in text)
+    private static final String COLOR_BLOCK = "";             // Gold
+    private static final String COLOR_MISS = "";              // Gray
+    private static final String COLOR_HEAL = "";              // Green
+    private static final String COLOR_DEFAULT = "";           // White
 
     public CombatLogHud(@Nonnull PlayerRef playerRef) {
         super(playerRef);
@@ -150,10 +150,10 @@ public class CombatLogHud extends CustomUIHud {
         
         // Damage amount
         if (event.criticalHit()) {
-            sb.append("§l"); // Bold for crits
+            sb.append(""); // Bold for crits
         }
         sb.append(Math.round(event.finalDamage()));
-        sb.append("§r"); // Reset formatting
+        sb.append(""); // Reset formatting
         
         // Damage type
         sb.append(" ");

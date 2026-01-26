@@ -6,9 +6,11 @@
 ## Goals
 - Tree structure
   - **General Passive Tree**: A massive tree (1000+ nodes) for all characters.
-    - Multiple starting regions positioned on the outer edge of the tree.
-    - Players freely choose a starting region on first allocation.
-    - Starting region choice persists until full respec.
+    - **Top-down vertical layout** with 4 main attribute lanes (STR, DEX, INT, WIS).
+    - Starting nodes positioned at top of tree (Y=0), one per lane.
+    - Bridge zones between lanes using Constitution, Spirit, and Luck nodes.
+    - Players freely choose a starting lane on first allocation.
+    - Starting lane choice persists until full respec.
   - **Class Passive Trees**: Smaller, focused trees per class (ascendancy-style, 50-150 nodes typical).
     - Each class tree has a single central starting node (auto-allocated on first class level).
     - Players can have allocations in multiple class trees (tied to weapon proficiency).
@@ -88,7 +90,8 @@
 
 ## Feature Index
 - Graph model
-  - General Tree: 1000+ nodes, multiple outer starting regions
+  - General Tree: 1000+ nodes, 4 main attribute lanes (STR, DEX, INT, WIS)
+  - Bridge zones: Constitution (STR↔DEX), Spirit (DEX↔INT), Luck (INT↔WIS)
   - Class Trees: 50-150 nodes, single central starting node
   - Connectivity/eligibility rules
 - Point economy

@@ -23,9 +23,9 @@ import java.util.UUID;
  */
 public class CombatLogHudCommand extends AbstractPlayerCommand {
 
-    private static final Message MESSAGE_NO_UUID = Message.raw("§cCould not find player UUID.");
-    private static final Message MESSAGE_HUD_ENABLED = Message.raw("§aCombat log HUD enabled. Combat events will be displayed in the corner.");
-    private static final Message MESSAGE_HUD_DISABLED = Message.raw("§7Combat log HUD disabled.");
+    private static final Message MESSAGE_NO_UUID = Message.raw("Could not find player UUID.");
+    private static final Message MESSAGE_HUD_ENABLED = Message.raw("Combat log HUD enabled. Combat events will be displayed in the corner.");
+    private static final Message MESSAGE_HUD_DISABLED = Message.raw("Combat log HUD disabled.");
 
     public CombatLogHudCommand() {
         super("combatloghud", "hyforged.commands.combatloghud.desc");

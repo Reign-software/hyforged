@@ -24,8 +24,8 @@ import javax.annotation.Nonnull;
  */
 public class ProgressionInfoCommand extends CommandBase {
 
-    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cPlayer not found or not in a world.");
-    private static final Message MESSAGE_NO_COMPONENT = Message.raw("§cPlayer does not have a progression component.");
+    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in a world.");
+    private static final Message MESSAGE_NO_COMPONENT = Message.raw("Player does not have a progression component.");
 
     @Nonnull
     private final RequiredArg<PlayerRef> playerArg = this.withRequiredArg(
@@ -85,46 +85,46 @@ public class ProgressionInfoCommand extends CommandBase {
             @Nonnull ProgressionComponent progression
     ) {
         StringBuilder sb = new StringBuilder();
-        sb.append("§6═══════ Progression for ").append(playerName).append(" ═══════§r\n");
+        sb.append("═══════ Progression for ").append(playerName).append(" ═══════\n");
 
         // Character progression
-        sb.append("\n§e▸ Character§r\n");
-        sb.append("  Level: §f").append(progression.getCharacterLevel())
-          .append("§7/§f").append(CharacterProgression.MAX_LEVEL).append("§r\n");
-        sb.append("  XP: §f").append(progression.getCharacterXp())
-          .append("§7/§f").append(progression.getCharacterXpToNext()).append("§r\n");
-        sb.append("  General Passive Points: §f")
+        sb.append("\n▸ Character\n");
+        sb.append("  Level: ").append(progression.getCharacterLevel())
+          .append("/").append(CharacterProgression.MAX_LEVEL).append("\n");
+        sb.append("  XP: ").append(progression.getCharacterXp())
+          .append("/").append(progression.getCharacterXpToNext()).append("\n");
+        sb.append("  General Passive Points: ")
           .append(progression.getAvailableGeneralPassivePoints())
-          .append("§7 (").append(progression.getGeneralPassivePointsAllocated())
-          .append(" allocated)§r\n");
+          .append(" (").append(progression.getGeneralPassivePointsAllocated())
+          .append(" allocated)\n");
 
         // Active class
         String activeClass = progression.getActiveClassId();
-        sb.append("\n§e▸ Active Class§r\n");
+        sb.append("\n▸ Active Class\n");
         if (activeClass != null) {
             ProgressionComponent.ClassProgressionData classData = progression.getClassProgression(activeClass);
             if (classData != null) {
-                sb.append("  Class: §f").append(activeClass).append("§r\n");
-                sb.append("  Level: §f").append(classData.level).append("§7/§f20§r\n");
-                sb.append("  XP: §f").append(classData.xp).append("§r\n");
+                sb.append("  Class: ").append(activeClass).append("\n");
+                sb.append("  Level: ").append(classData.level).append("/20\n");
+                sb.append("  XP: ").append(classData.xp).append("\n");
             } else {
-                sb.append("  Class: §f").append(activeClass).append("§r (no progression data)\n");
+                sb.append("  Class: ").append(activeClass).append(" (no progression data)\n");
             }
         } else {
-            sb.append("  §7None§r\n");
+            sb.append("  None\n");
         }
 
         // All class progressions
         java.util.Set<String> classIds = progression.getClassIds();
         if (!classIds.isEmpty()) {
-            sb.append("\n§e▸ All Class Progressions§r\n");
+            sb.append("\n▸ All Class Progressions\n");
             for (String classId : classIds) {
                 ProgressionComponent.ClassProgressionData data = progression.getClassProgression(classId);
                 if (data != null) {
-                    String marker = classId.equals(activeClass) ? "§a» " : "  ";
-                    sb.append(marker).append("§f").append(classId)
-                      .append("§7: Lv.§f").append(data.level)
-                      .append("§7 (").append(data.xp).append(" XP)§r\n");
+                    String marker = classId.equals(activeClass) ? "» " : "  ";
+                    sb.append(marker).append("").append(classId)
+                      .append(": Lv.").append(data.level)
+                      .append(" (").append(data.xp).append(" XP)\n");
                 }
             }
         }

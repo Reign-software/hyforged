@@ -26,9 +26,9 @@ public class ClassXPAddCommand extends CommandBase {
 
     private static final Logger LOGGER = Logger.getLogger(ClassXPAddCommand.class.getName());
 
-    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cPlayer not found or not in a world.");
-    private static final Message MESSAGE_NO_COMPONENT = Message.raw("§cPlayer does not have a progression component.");
-    private static final Message MESSAGE_INVALID_AMOUNT = Message.raw("§cXP amount must be positive.");
+    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in a world.");
+    private static final Message MESSAGE_NO_COMPONENT = Message.raw("Player does not have a progression component.");
+    private static final Message MESSAGE_INVALID_AMOUNT = Message.raw("XP amount must be positive.");
 
     @Nonnull
     private final RequiredArg<PlayerRef> playerArg = this.withRequiredArg(
@@ -116,7 +116,7 @@ public class ClassXPAddCommand extends CommandBase {
                     adminName, amount, playerName, classId, oldLevel, oldXp, newLevel, newXp));
 
             context.sendMessage(Message.raw(String.format(
-                    "§aAdded §f%d§a XP to §f%s§a's class §f%s§a. Level: §f%d§a, XP: §f%d§a",
+                    "Added %d XP to %s's class %s. Level: %d, XP: %d",
                     amount, playerName, classId, newLevel, newXp)));
         });
     }

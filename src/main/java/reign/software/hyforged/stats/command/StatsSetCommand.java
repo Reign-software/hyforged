@@ -29,8 +29,8 @@ import javax.annotation.Nonnull;
  */
 public class StatsSetCommand extends CommandBase {
 
-    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cPlayer not found or not in a world.");
-    private static final Message MESSAGE_NO_STAT_COMPONENT = Message.raw("§cPlayer does not have a Hyforged stat component.");
+    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in a world.");
+    private static final Message MESSAGE_NO_STAT_COMPONENT = Message.raw("Player does not have a Hyforged stat component.");
 
     @Nonnull
     private final RequiredArg<PlayerRef> playerArg = this.withRequiredArg(
@@ -102,13 +102,13 @@ public class StatsSetCommand extends CommandBase {
             StatDefinitionRegistry registry = StatDefinitionRegistry.get();
             int index = registry.getIndex(statId);
             if (index < 0) {
-                context.sendMessage(Message.raw("§cStat not found: " + statIdStr));
+                context.sendMessage(Message.raw("Stat not found: " + statIdStr));
                 return;
             }
 
             StatDefinition def = registry.getStat(index);
             if (def == null) {
-                context.sendMessage(Message.raw("§cStat not found: " + statIdStr));
+                context.sendMessage(Message.raw("Stat not found: " + statIdStr));
                 return;
             }
 
@@ -129,12 +129,12 @@ public class StatsSetCommand extends CommandBase {
             String displayName = formatStatName(statId);
 
             // Send success message
-            String message = String.format("§aSet §f%s§a to §f%d§a for §f%s§a (was: %d)%s",
+            String message = String.format("Set %s to %d for %s (was: %d)%s",
                     displayName,
                     clampedValue,
                     playerName,
                     oldValue,
-                    clampedValue != value ? String.format(" §7[clamped from %d]", value) : ""
+                    clampedValue != value ? String.format(" [clamped from %d]", value) : ""
             );
             context.sendMessage(Message.raw(message));
         });

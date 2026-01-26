@@ -33,8 +33,8 @@ import java.util.logging.Logger;
 public class GiveAffixCommand extends AbstractPlayerCommand {
     
     private static final Logger LOGGER = Logger.getLogger(GiveAffixCommand.class.getName());
-    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cCould not find player component.");
-    private static final Message MESSAGE_NO_ITEM = Message.raw("§cYou must hold an item in your main hand.");
+    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Could not find player component.");
+    private static final Message MESSAGE_NO_ITEM = Message.raw("You must hold an item in your main hand.");
     
     @Nonnull
     private final RequiredArg<String> affixIdArg = this.withRequiredArg(
@@ -103,15 +103,15 @@ public class GiveAffixCommand extends AbstractPlayerCommand {
         // Validate affix exists
         AffixDefinition affixDef = affixService.getAffixDefinition(affixId);
         if (affixDef == null) {
-            context.sendMessage(Message.raw("§cUnknown affix ID: §e" + affixId));
-            context.sendMessage(Message.raw("§7Available affixes: " + String.join(", ", affixService.getAllAffixIds())));
+            context.sendMessage(Message.raw("Unknown affix ID: " + affixId));
+            context.sendMessage(Message.raw("Available affixes: " + String.join(", ", affixService.getAllAffixIds())));
             return;
         }
         
         // Validate tier
         int maxTier = affixDef.tiers().size();
         if (tier < 1 || tier > maxTier) {
-            context.sendMessage(Message.raw("§cInvalid tier: §e" + tier + "§c. Valid range: 1-" + maxTier));
+            context.sendMessage(Message.raw("Invalid tier: " + tier + ". Valid range: 1-" + maxTier));
             return;
         }
         
@@ -126,13 +126,13 @@ public class GiveAffixCommand extends AbstractPlayerCommand {
         List<RolledAffix> afterAffixes = affixService.getAffixes(resultItem);
         
         // Report success
-        context.sendMessage(Message.raw("§aAdded affix: §e" + affixId + " §a[T" + tier + "]"));
-        context.sendMessage(Message.raw("§7Item now has " + afterAffixes.size() + " affix(es):"));
+        context.sendMessage(Message.raw("Added affix: " + affixId + " [T" + tier + "]"));
+        context.sendMessage(Message.raw("Item now has " + afterAffixes.size() + " affix(es):"));
         
         for (RolledAffix affix : afterAffixes) {
             String tierInfo = " [T" + affix.tier() + "]";
             String statsInfo = affix.getStatCount() + " stat(s)";
-            context.sendMessage(Message.raw("§7 - §a" + affix.affixId() + tierInfo + " (" + statsInfo + ")"));
+            context.sendMessage(Message.raw(" - " + affix.affixId() + tierInfo + " (" + statsInfo + ")"));
         }
         
         LOGGER.log(Level.FINE, "Added affix {0} tier {1} to held item", new Object[]{affixId, tier});

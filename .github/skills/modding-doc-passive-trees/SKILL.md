@@ -16,6 +16,56 @@ This skill reflects the current implementation described in Modding_Doc/PassiveT
 | Reuse a node template | Use `InstanceId` in layout placements |
 | Connect to existing nodes | Reference node IDs in layout `Connections` |
 | Cross-mod connections | Use namespaced IDs (e.g., `hyforged:notable-fire-mastery`) |
+| Mark a starting node | Use `IsStarting: true` on placement or add to `StartingNodes` array |
+
+## General Tree Layout Architecture
+
+The general passive tree uses a **top-down vertical layout** designed for vertical-only scrolling.
+
+### 4 Main Attribute Lanes
+
+| Lane | X Range | Sub-paths (X) | Theme |
+|------|---------|---------------|-------|
+| Strength | -250 to -150 | -230, -200, -170 | Physical damage, melee, DoT |
+| Dexterity | -120 to -20 | -100, -70, -40 | Evasion, accuracy, projectiles |
+| Intelligence | 20 to 120 | 40, 70, 100 | Spells, mana, elemental |
+| Wisdom | 150 to 250 | 170, 200, 230 | Regen, resistance, concentration |
+
+### Bridge Zones
+
+Bridge zones connect adjacent lanes, allowing hybrid builds:
+
+| Bridge | Position | Nodes Used | Connects |
+|--------|----------|------------|----------|
+| Constitution | X = -135 | `travel-constitution`, `thick-skin`, `second-wind` | STR ↔ DEX |
+| Spirit | X = 0 | `travel-spirit`, `wellspring`, `soul-siphon` | DEX ↔ INT |
+| Luck | X = 135 | `travel-luck`, `fortune-favors`, `lucky-strike` | INT ↔ WIS |
+
+### Coordinate System
+
+- **Y = 0**: Starting nodes (top of tree)
+- **Y increases downward**: Tree extends from Y=40 to Y=570+
+- **X centered around 0**: Lanes spread from X=-250 to X=250
+- **COORD_SCALE = 1.5f**: Multiplier for rendering positions
+
+### Layout File Organization
+
+```
+layouts/general/
+├── starting-nodes.json    # 4 starting nodes at Y=0
+├── strength.json          # STR lane (3 vertical paths)
+├── dexterity.json         # DEX lane (3 vertical paths)
+├── intelligence.json      # INT lane (3 vertical paths)
+├── wisdom.json            # WIS lane (3 vertical paths)
+├── bridges.json           # CON/SPI/LUCK bridge clusters
+└── stat-coverage.json     # Test/debug nodes (disconnected)
+```
+
+### UI Constraints
+
+- **Vertical-only scrolling**: HyUI's `TopScrolling` layout mode
+- **Fixed viewport**: 800×600px with 120px sidebar
+- **Horizontal centering**: Tree content centered in viewport
 
 ## Documentation References
 
@@ -137,7 +187,8 @@ For class trees:
             "NodeId": "yourmod:node-template-id",
             "Position": { "X": 100, "Y": 200 },
             "Region": "strength",
-            "InstanceId": "yourmod:unique-instance-id"
+            "InstanceId": "yourmod:unique-instance-id",
+            "IsStarting": true
         }
     ],
     "Connections": [
@@ -146,6 +197,23 @@ For class trees:
     "StartingNodes": ["yourmod:start-node"]
 }
 ```
+
+**Placement fields:**
+- `NodeId` — Reference to a node template (required)
+- `Position` — `{ "X": number, "Y": number }` (required)
+- `Region` — Visual grouping (`strength`, `dexterity`, `intelligence`, `wisdom`, `bridge`)
+- `InstanceId` — Unique ID when placing same template multiple times
+- `IsStarting` — Mark this placement as a starting node (alternative to `StartingNodes` array)
+
+**Region values for general tree:**
+- `strength`, `dexterity`, `intelligence`, `wisdom` — Main lanes
+- `bridge` — Cross-lane connection zones
+
+**Position guidelines:**
+- Y=0 is reserved for starting nodes
+- Y=40+ for first tier of regular nodes
+- Keep X within lane ranges (see Layout Architecture above)
+- Bridge nodes use X positions between lanes
 
 ## Node Types
 
@@ -345,6 +413,9 @@ Increment `Version` when changing tree structure. The system refunds invalid all
 2. Connect via your own layout files; do not edit other mods’ files.
 3. Use `InstanceId` for template reuse to avoid duplicate ID errors.
 4. Keep layouts additive and minimal.
+5. **For general tree additions**: Place nodes in appropriate lane X ranges.
+6. **For bridge nodes**: Use X positions between lanes (-135, 0, or 135).
+7. **Connect to existing nodes**: Reference `hyforged:` prefixed IDs from main layouts.
 
 ## Troubleshooting
 
@@ -354,3 +425,5 @@ Increment `Version` when changing tree structure. The system refunds invalid all
 | Connection not working | Verify both node IDs exist (typos, namespacing) |
 | Duplicate node error | Use `InstanceId` when placing the same template multiple times |
 | Layout not loading | Ensure JSON is valid and in correct folder path |
+| Node outside viewport | Check X is within -250 to 250 range |
+| Node not reachable | Ensure connection path exists from starting node |

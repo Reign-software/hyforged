@@ -32,9 +32,9 @@ import java.util.logging.Logger;
 public class RollAffixCommand extends AbstractPlayerCommand {
     
     private static final Logger LOGGER = Logger.getLogger(RollAffixCommand.class.getName());
-    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cCould not find player component.");
-    private static final Message MESSAGE_NO_ITEM = Message.raw("§cYou must hold an item in your main hand.");
-    private static final Message MESSAGE_NO_AFFIXES_ROLLED = Message.raw("§7No affixes were rolled for this item (may not be eligible).");
+    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Could not find player component.");
+    private static final Message MESSAGE_NO_ITEM = Message.raw("You must hold an item in your main hand.");
+    private static final Message MESSAGE_NO_AFFIXES_ROLLED = Message.raw("No affixes were rolled for this item (may not be eligible).");
     
     @Nonnull
     private final DefaultArg<String> seedArg = this.withDefaultArg(
@@ -97,7 +97,7 @@ public class RollAffixCommand extends AbstractPlayerCommand {
                 seed = Long.parseLong(seedStr);
                 usedProvidedSeed = true;
             } catch (NumberFormatException e) {
-                context.sendMessage(Message.raw("§cInvalid seed: " + seedStr + ". Using random seed."));
+                context.sendMessage(Message.raw("Invalid seed: " + seedStr + ". Using random seed."));
                 seed = new Random().nextLong();
             }
         } else {
@@ -124,15 +124,15 @@ public class RollAffixCommand extends AbstractPlayerCommand {
         
         // Report results
         if (usedProvidedSeed) {
-            context.sendMessage(Message.raw("§6Rolled affixes with seed: §e" + seed));
+            context.sendMessage(Message.raw("Rolled affixes with seed: " + seed));
         } else {
-            context.sendMessage(Message.raw("§6Rolled affixes (seed: §e" + seed + "§6)"));
+            context.sendMessage(Message.raw("Rolled affixes (seed: " + seed + ")"));
         }
         
         for (RolledAffix affix : afterAffixes) {
             String tierInfo = " [T" + affix.tier() + "]";
             String statsInfo = affix.getStatCount() + " stat(s)";
-            context.sendMessage(Message.raw("§7 - §a" + affix.affixId() + tierInfo + " (" + statsInfo + ")"));
+            context.sendMessage(Message.raw(" - " + affix.affixId() + tierInfo + " (" + statsInfo + ")"));
         }
         
         LOGGER.log(Level.FINE, "Rolled {0} affixes on held item (seed: {1})", 

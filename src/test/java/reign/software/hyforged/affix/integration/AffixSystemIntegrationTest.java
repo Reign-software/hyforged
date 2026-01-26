@@ -17,7 +17,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * Integration tests for the complete affix system flow.
  * <p>
  * These tests verify end-to-end behavior across multiple components.
+ * <p>
+ * Note: Uses deprecated AffixNameGenerator for testing name generation which is marked for removal.
  */
+@SuppressWarnings("removal")
 class AffixSystemIntegrationTest {
     
     private AffixDefinitionRegistry affixRegistry;

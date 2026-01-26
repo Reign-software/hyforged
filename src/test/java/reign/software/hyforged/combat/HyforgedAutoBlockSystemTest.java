@@ -12,7 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the mathematical formulas used by HyforgedAutoBlockSystem.
  * Full integration tests would require mocking the ECS, so these focus
  * on the CombatMath utilities used by the system.
+ * <p>
+ * Note: Uses deprecated CombatMath.calculateBlockChance(int) for backwards compatibility testing.
  */
+@SuppressWarnings("deprecation")
 class HyforgedAutoBlockSystemTest {
     
     @Nested

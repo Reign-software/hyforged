@@ -18,8 +18,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for {@link AffixNameGenerator}.
+ * <p>
+ * This tests a deprecated class that is marked for removal.
+ * The tests ensure the class continues to function correctly until it is removed.
  */
 @DisplayName("AffixNameGenerator")
+@SuppressWarnings("removal")
 class AffixNameGeneratorTest {
     
     @BeforeEach

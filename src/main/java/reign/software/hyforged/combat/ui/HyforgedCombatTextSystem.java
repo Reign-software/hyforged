@@ -39,9 +39,9 @@ import java.util.Set;
  * Hytale's built-in {@code EntityUIEvents} system. It provides custom combat text
  * that includes:
  * <ul>
- *   <li>Critical hit indicators (§c✦ prefix)</li>
- *   <li>Block indicators (§6⛨ prefix)</li>
- *   <li>Miss text (§7Miss)</li>
+ *   <li>Critical hit indicators (✦ prefix)</li>
+ *   <li>Block indicators (⛨ prefix)</li>
+ *   <li>Miss text (Miss)</li>
  * </ul>
  * <p>
  * Combat text is sent to the attacker's client via the entity viewer system.
@@ -53,10 +53,10 @@ public class HyforgedCombatTextSystem extends DamageEventSystem {
             Damage.META_REGISTRY.registerMetaObject(data -> Boolean.FALSE);
     
     // Color codes for combat text
-    private static final String COLOR_CRIT = "§c";      // Red for crits
-    private static final String COLOR_BLOCK = "§6";     // Gold for blocks
-    private static final String COLOR_MISS = "§7";      // Gray for misses
-    private static final String COLOR_NORMAL = "§f";    // White for normal hits
+    private static final String COLOR_CRIT = "";      // Red for crits
+    private static final String COLOR_BLOCK = "";     // Gold for blocks
+    private static final String COLOR_MISS = "";      // Gray for misses
+    private static final String COLOR_NORMAL = "";    // White for normal hits
     
     // Symbol prefixes
     private static final String SYMBOL_CRIT = "✦ ";     // Sparkle for crit

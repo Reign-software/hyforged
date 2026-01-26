@@ -8,6 +8,7 @@ import com.hypixel.hytale.server.core.asset.HytaleAssetStore;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import reign.software.hyforged.passive.model.*;
 import reign.software.hyforged.passive.registry.PassiveTreeRegistry;
+import reign.software.hyforged.passive.registry.StatIconRegistry;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -82,6 +83,7 @@ public final class PassiveTreeAssetLoader {
 
         // Register all asset stores
         registerRefundConfigAssetStore();
+        registerStatIconConfigAssetStore();
         registerNodeTemplateAssetStore();
         registerPassiveTreeAssetStore();
         registerLayoutAssetStore();
@@ -91,6 +93,12 @@ public final class PassiveTreeAssetLoader {
                 LoadedAssetsEvent.class,
                 PassiveRefundConfigAsset.class,
                 PassiveTreeAssetLoader::onRefundConfigAssetsLoaded
+        );
+
+        plugin.getEventRegistry().register(
+                LoadedAssetsEvent.class,
+                StatIconConfigAsset.class,
+                PassiveTreeAssetLoader::onStatIconConfigLoaded
         );
 
         plugin.getEventRegistry().register(
@@ -197,7 +205,49 @@ public final class PassiveTreeAssetLoader {
         LOGGER.fine("Registered PassiveRefundConfigAsset store at path: " + CONFIG_PATH);
     }
 
+    private static void registerStatIconConfigAssetStore() {
+        AssetStore<String, StatIconConfigAsset, IndexedLookupTableAssetMap<String, StatIconConfigAsset>> store =
+                ((HytaleAssetStore.Builder<String, StatIconConfigAsset, IndexedLookupTableAssetMap<String, StatIconConfigAsset>>)
+                        ((HytaleAssetStore.Builder<String, StatIconConfigAsset, IndexedLookupTableAssetMap<String, StatIconConfigAsset>>)
+                                ((HytaleAssetStore.Builder<String, StatIconConfigAsset, IndexedLookupTableAssetMap<String, StatIconConfigAsset>>)
+                                        ((HytaleAssetStore.Builder<String, StatIconConfigAsset, IndexedLookupTableAssetMap<String, StatIconConfigAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        StatIconConfigAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(StatIconConfigAsset[]::new)
+                                                )
+                                                        .setPath(CONFIG_PATH))
+                                                .setReplaceOnRemove(key -> new StatIconConfigAsset()))
+                                        .setCodec(StatIconConfigAsset.CODEC))
+                                .setKeyFunction(asset -> "stat-icons"))  // Single config file
+                        .build();
+
+        AssetRegistry.register(store);
+        LOGGER.fine("Registered StatIconConfigAsset store at path: " + CONFIG_PATH);
+    }
+
     // ========== Event Handlers ==========
+
+    /**
+     * Handle stat icon config loaded event.
+     */
+    private static void onStatIconConfigLoaded(
+            LoadedAssetsEvent<String, StatIconConfigAsset, IndexedLookupTableAssetMap<String, StatIconConfigAsset>> event
+    ) {
+        LOGGER.info("Loading stat icon configuration...");
+
+        StatIconConfigAsset selected = null;
+        for (StatIconConfigAsset asset : event.getLoadedAssets().values()) {
+            selected = asset;  // Take the last one (or the only one)
+        }
+
+        if (selected != null) {
+            StatIconRegistry.get().load(selected);
+            LOGGER.info("Loaded stat icon configuration");
+        } else {
+            LOGGER.info("No stat icon config found, using defaults");
+            StatIconRegistry.get().loadDefaults();
+        }
+    }
 
     /**
      * Handle refund config assets loaded event.
@@ -466,7 +516,8 @@ public final class PassiveTreeAssetLoader {
 
             String effectiveId = placement.getEffectiveId();
 
-            // Check if node already exists
+            // Check if node already exists (refetch tree to get latest state)
+            tree = registry.getTree(treeId);
             if (tree.getNode(effectiveId) != null) {
                 LOGGER.fine("Node already exists in tree: " + effectiveId);
                 continue;
@@ -482,8 +533,19 @@ public final class PassiveTreeAssetLoader {
             }
         }
 
+        // Refetch tree to get all added nodes before processing starting nodes
+        tree = registry.getTree(treeId);
+
+        // Collect starting nodes from both the array and placement IsStarting flags
+        Set<String> startingNodeIds = new HashSet<>(layout.getStartingNodes());
+        for (NodePlacementAsset placement : layout.getPlacements()) {
+            if (placement.isStarting()) {
+                startingNodeIds.add(placement.getEffectiveId());
+            }
+        }
+
         // Process starting nodes
-        for (String startingNodeId : layout.getStartingNodes()) {
+        for (String startingNodeId : startingNodeIds) {
             if (tree.getStartingNodeIds().contains(startingNodeId)) {
                 continue;
             }
@@ -503,6 +565,7 @@ public final class PassiveTreeAssetLoader {
                 // Update registry
                 registry.replaceTree(tree, updatedTree);
                 tree = updatedTree;
+                LOGGER.info("Added starting node '" + startingNodeId + "' to tree '" + treeId + "'. Total starting nodes: " + tree.getStartingNodeIds().size());
             } catch (Exception e) {
                 LOGGER.log(Level.WARNING, "Failed to add starting node " + startingNodeId, e);
             }

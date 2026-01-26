@@ -16,6 +16,7 @@ import reign.software.hyforged.passive.model.PassiveNodeEffect;
 import reign.software.hyforged.passive.model.PassiveNodeType;
 import reign.software.hyforged.passive.model.PassiveTree;
 import reign.software.hyforged.passive.registry.PassiveTreeRegistry;
+import reign.software.hyforged.passive.registry.StatIconRegistry;
 import reign.software.hyforged.passive.service.PassiveTreeService;
 
 import javax.annotation.Nonnull;
@@ -41,8 +42,11 @@ public class PassiveTreePageHyUI {
     private static final Logger LOGGER = Logger.getLogger(PassiveTreePageHyUI.class.getName());
     
     // Layout constants
-    private static final int SIDEBAR_WIDTH = 220;
-    private static final float COORD_SCALE = 2.0f;
+    private static final float COORD_SCALE = 1.5f;  // Scale tree coords to pixels
+    private static final int VIEWPORT_WIDTH = 900;  // Fixed tree area width in pixels
+    private static final int SIDEBAR_WIDTH = 140;   // Sidebar width in pixels
+    private static final int TOTAL_WIDTH = VIEWPORT_WIDTH + SIDEBAR_WIDTH;  // Total page width
+    private static final int TOTAL_HEIGHT = 600;    // Fixed page height in pixels
     
     // State
     private final PlayerRef playerRef;
@@ -98,9 +102,15 @@ public class PassiveTreePageHyUI {
             return;
         }
         
+        // Debug: log starting nodes
+        LOGGER.info("Tree " + activeTreeId + " has " + tree.getNodeCount() + " nodes, starting nodes: " + tree.getStartingNodeIds());
+        
         // Gather allocation data
         Set<String> allocatedNodes = getAllocatedNodes(component, tree);
         Set<String> reachableNodes = getReachableNodes(tree, allocatedNodes);
+        
+        // Debug: log reachable nodes
+        LOGGER.info("Allocated: " + allocatedNodes.size() + ", Reachable: " + reachableNodes.size());
         int availablePoints = PassiveTreeService.get().getAvailablePoints(entityRef, activeTreeId);
         int allocatedCount = allocatedNodes.size();
         int maxPoints = availablePoints + allocatedCount;
@@ -170,16 +180,22 @@ public class PassiveTreePageHyUI {
         NodesHtmlResult nodesResult = buildNodesHtml(tree, allocatedNodes, reachableNodes);
         
         // Calculate tree bounds for connections (same logic as buildNodesHtml)
-        int minX = Integer.MAX_VALUE, minY = Integer.MAX_VALUE;
+        int minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE;
+        int minY = Integer.MAX_VALUE;
         for (PassiveNode node : tree.getNodes().values()) {
             minX = Math.min(minX, node.position().x());
+            maxX = Math.max(maxX, node.position().x());
             minY = Math.min(minY, node.position().y());
         }
-        int treePadding = 100;
-        minX -= treePadding;
+        int treePadding = 50;
         minY -= treePadding;
         
-        String connectionsHtml = buildConnectionsHtml(tree, allocatedNodes, reachableNodes, minX, minY);
+        // Calculate horizontal centering offset
+        int treeWidthPx = (int) ((maxX - minX) * COORD_SCALE);
+        int xOffset = (VIEWPORT_WIDTH - treeWidthPx) / 2;
+        if (xOffset < 0) xOffset = 0;
+        
+        String connectionsHtml = buildConnectionsHtml(tree, allocatedNodes, reachableNodes, minX, minY, xOffset);
         
         template.setVariable("nodesHtml", nodesResult.html());
         template.setVariable("connectionsHtml", connectionsHtml);
@@ -209,12 +225,17 @@ public class PassiveTreePageHyUI {
     ) {
         StringBuilder sb = new StringBuilder();
         Set<String> startingNodes = tree.getStartingNodeIds();
-        Set<String> renderedNodeIds = new HashSet<>();
+        Set<String> renderedNodeIds = new LinkedHashSet<>(); // Preserve insertion order
+        
+        // Sort nodes by ID for consistent rendering order
+        List<PassiveNode> sortedNodes = tree.getNodes().values().stream()
+            .sorted((a, b) -> a.id().compareTo(b.id()))
+            .toList();
         
         // Find tree bounds
         int minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE;
         int minY = Integer.MAX_VALUE, maxY = Integer.MIN_VALUE;
-        for (PassiveNode node : tree.getNodes().values()) {
+        for (PassiveNode node : sortedNodes) {
             minX = Math.min(minX, node.position().x());
             maxX = Math.max(maxX, node.position().x());
             minY = Math.min(minY, node.position().y());
@@ -222,17 +243,25 @@ public class PassiveTreePageHyUI {
         }
         
         // Add padding around tree
-        int treePadding = 100;
-        minX -= treePadding;
+        int treePadding = 50;
         minY -= treePadding;
-        maxX += treePadding;
         maxY += treePadding;
         
-        // Calculate canvas size (scale tree coords to pixels)
-        int canvasWidth = (int) ((maxX - minX) * COORD_SCALE);
+        // Calculate tree dimensions in pixels
+        int treeWidthPx = (int) ((maxX - minX) * COORD_SCALE);
         int canvasHeight = (int) ((maxY - minY) * COORD_SCALE);
         
-        for (PassiveNode node : tree.getNodes().values()) {
+        // Center tree horizontally within viewport
+        int xOffset = (VIEWPORT_WIDTH - treeWidthPx) / 2;
+        if (xOffset < 0) xOffset = 0; // Don't go negative if tree wider than viewport
+        
+        // Canvas width is viewport width (fixed), height is tree height (scrollable)
+        int canvasWidth = VIEWPORT_WIDTH;
+        
+        // Nodes are positioned at fixed coordinates within the canvas
+        // Scrolling is handled by moving the entire canvas container
+        
+        for (PassiveNode node : sortedNodes) {
             // Apply search filter
             if (!searchMatchNodes.isEmpty() && !searchMatchNodes.contains(node.id())) {
                 continue;
@@ -241,27 +270,56 @@ public class PassiveTreePageHyUI {
             int nodeX = node.position().x();
             int nodeY = node.position().y();
             
-            // Calculate screen position (offset from minX/minY, scaled)
-            int screenX = (int) ((nodeX - minX) * COORD_SCALE);
+            // Calculate position within canvas (centered horizontally)
+            int screenX = (int) ((nodeX - minX) * COORD_SCALE) + xOffset;
             int screenY = (int) ((nodeY - minY) * COORD_SCALE);
             
             boolean isAllocated = allocatedNodes.contains(node.id());
-            boolean isReachable = reachableNodes.contains(node.id()) || startingNodes.contains(node.id());
+            boolean isStarting = startingNodes.contains(node.id());
+            // Starting nodes are always reachable, even if not in the reachable set
+            boolean isReachable = isStarting || reachableNodes.contains(node.id());
             
-            int nodeSize = getNodeSize(node.type());
-            String nodeImage = getNodeImage(node.type(), isAllocated, isReachable);
+            int nodeSize = isStarting ? 36 : getNodeSize(node.type()); // Starting nodes are larger
+            String nodeImage = isStarting 
+                ? getStartingNodeImage(isAllocated, isReachable)
+                : getNodeImage(node.type(), isAllocated, isReachable);
             String nodeElementId = sanitizeId(node.id());
             
             // Build rich tooltip text
-            String tooltipText = buildTooltipText(node, isAllocated, isReachable);
+            String tooltipText = buildTooltipText(node, isAllocated, isReachable, isStarting);
             
             // Center the node on its position
             int posX = screenX - nodeSize / 2;
             int posY = screenY - nodeSize / 2;
             
-            // Use div with background-image for clickable node with texture
+            // Add attribute label above starting nodes
+            if (isStarting) {
+                String attributeLabel = getStartingNodeLabel(node.id());
+                int labelWidth = 120;
+                int labelX = screenX - labelWidth / 2;
+                int labelY = posY - 20; // Above the node
+                sb.append(String.format(
+                    "<div style=\"anchor-left: %d; anchor-top: %d; anchor-width: %d; anchor-height: 16; font-size: 11; text-align: center; color: #FFD700;\">%s</div>",
+                    labelX, labelY, labelWidth, attributeLabel
+                ));
+            }
+            
+            // Add stat icon background based on node region (rendered behind the frame)
+            String statIcon = getStatIconForNode(node, isStarting);
+            if (statIcon != null) {
+                int iconSize = (int) (nodeSize * 0.80); // Icon fills most of the frame
+                int iconX = posX + (nodeSize - iconSize) / 2;
+                int iconY = posY + (nodeSize - iconSize) / 2;
+                sb.append(String.format(
+                    "<div style=\"anchor-left: %d; anchor-top: %d; anchor-width: %d; anchor-height: %d; background-image: url('%s'); background-repeat: no-repeat; background-position: center; background-size: contain;\"></div>",
+                    iconX, iconY, iconSize, iconSize, statIcon
+                ));
+            }
+            
+            // Clickable node container - use a styled div with the node image
+            // The button events work on divs too when using addEventListener
             sb.append(String.format(
-                "<div id=\"%s\" style=\"anchor-left: %d; anchor-top: %d; anchor-width: %d; anchor-height: %d; background-image: url('%s');\" data-hyui-tooltiptext=\"%s\"></div>",
+                "<div id=\"%s\" style=\"anchor-left: %d; anchor-top: %d; anchor-width: %d; anchor-height: %d; background-image: url('%s'); background-repeat: no-repeat; background-position: center; background-size: contain;\" data-hyui-tooltiptext=\"%s\"></div>",
                 nodeElementId, posX, posY, nodeSize, nodeSize,
                 nodeImage,
                 escapeHtml(tooltipText)
@@ -275,30 +333,28 @@ public class PassiveTreePageHyUI {
     }
     
     /**
-     * Build a detailed tooltip text for a node.
+     * Build a compact tooltip text for a node.
      */
-    private String buildTooltipText(@Nonnull PassiveNode node, boolean isAllocated, boolean canAllocate) {
+    private String buildTooltipText(@Nonnull PassiveNode node, boolean isAllocated, boolean canAllocate, boolean isStarting) {
         StringBuilder sb = new StringBuilder();
-        sb.append(node.name()).append(" (").append(formatNodeType(node.type())).append(")");
+        sb.append(node.name());
         
+        // Add description if present (truncate long descriptions)
         if (node.description() != null && !node.description().isEmpty()) {
-            sb.append("\n").append(node.description());
-        }
-        
-        if (!node.effects().isEmpty()) {
-            sb.append("\n---");
-            for (PassiveNodeEffect effect : node.effects()) {
-                sb.append("\n").append(formatEffect(effect));
+            String desc = node.description();
+            if (desc.length() > 60) {
+                desc = desc.substring(0, 57) + "...";
             }
+            sb.append("\n").append(desc);
         }
         
-        sb.append("\n---\n");
+        // Status indicator - single line
         if (isAllocated) {
-            sb.append("[ALLOCATED] Click to refund");
-        } else if (canAllocate) {
-            sb.append("[AVAILABLE] Click to allocate");
+            sb.append("\n[Allocated]");
+        } else if (canAllocate || isStarting) {
+            sb.append("\n[Click to allocate]");
         } else {
-            sb.append("[LOCKED] Allocate connected nodes first");
+            sb.append("\n[Locked]");
         }
         
         return sb.toString();
@@ -306,24 +362,33 @@ public class PassiveTreePageHyUI {
     
     /**
      * Build HTML for connection lines between nodes.
+     * Connections are positioned at fixed coordinates within the canvas.
      */
     private String buildConnectionsHtml(
             @Nonnull PassiveTree tree,
             @Nonnull Set<String> allocatedNodes,
             @Nonnull Set<String> reachableNodes,
-            int minX, int minY
+            int minX, int minY, int xOffset
     ) {
         StringBuilder sb = new StringBuilder();
         Set<String> startingNodes = tree.getStartingNodeIds();
         Set<String> renderedConnections = new HashSet<>();
         
-        for (PassiveNode node : tree.getNodes().values()) {
+        // Sort nodes by ID for consistent rendering order
+        List<PassiveNode> sortedNodes = tree.getNodes().values().stream()
+            .sorted((a, b) -> a.id().compareTo(b.id()))
+            .toList();
+        
+        for (PassiveNode node : sortedNodes) {
             int nodeX = node.position().x();
             int nodeY = node.position().y();
             
-            Set<String> adjacentNodes = tree.getAdjacentNodes(node.id());
+            // Sort adjacent nodes for consistent connection order
+            List<String> sortedAdjacentNodes = tree.getAdjacentNodes(node.id()).stream()
+                .sorted()
+                .toList();
             
-            for (String targetId : adjacentNodes) {
+            for (String targetId : sortedAdjacentNodes) {
                 String connKey = node.id().compareTo(targetId) < 0 ?
                     node.id() + "-" + targetId : targetId + "-" + node.id();
                 if (renderedConnections.contains(connKey)) continue;
@@ -335,9 +400,10 @@ public class PassiveTreePageHyUI {
                 int targetX = targetNode.position().x();
                 int targetY = targetNode.position().y();
                 
-                int screenX1 = (int) ((nodeX - minX) * COORD_SCALE);
+                // Apply horizontal centering offset
+                int screenX1 = (int) ((nodeX - minX) * COORD_SCALE) + xOffset;
                 int screenY1 = (int) ((nodeY - minY) * COORD_SCALE);
-                int screenX2 = (int) ((targetX - minX) * COORD_SCALE);
+                int screenX2 = (int) ((targetX - minX) * COORD_SCALE) + xOffset;
                 int screenY2 = (int) ((targetY - minY) * COORD_SCALE);
                 
                 boolean nodeAllocated = allocatedNodes.contains(node.id());
@@ -359,23 +425,56 @@ public class PassiveTreePageHyUI {
                 
                 int thickness = 3;
                 
-                // Draw straight line using a rotated div or just horizontal/vertical segments
-                // For simplicity, draw L-shaped connections
-                if (Math.abs(screenX2 - screenX1) > 2) {
+                // Draw L-shaped connections with consistent elbow direction
+                // Horizontal first (from source X to dest X at source Y), then vertical down
+                // This makes branches clearly independent from parent
+                
+                boolean needsLShape = Math.abs(screenX2 - screenX1) > 2 && Math.abs(screenY2 - screenY1) > 2;
+                
+                if (needsLShape) {
+                    // Determine source and target based on Y position (higher node is source/parent)
+                    int srcX, srcY, dstX, dstY;
+                    if (screenY1 <= screenY2) {
+                        // node is higher (parent), draw from node to target
+                        srcX = screenX1; srcY = screenY1; dstX = screenX2; dstY = screenY2;
+                    } else {
+                        // target is higher (parent), draw from target to node
+                        srcX = screenX2; srcY = screenY2; dstX = screenX1; dstY = screenY1;
+                    }
+                    
+                    // Draw: horizontal from srcX to dstX at srcY, then vertical down to dstY
+                    // This puts the elbow at (dstX, srcY) - branches go out then down
+                    
+                    // Horizontal segment: from srcX to dstX at srcY
+                    int hMinX = Math.min(srcX, dstX);
+                    int hWidth = Math.abs(dstX - srcX);
+                    sb.append(String.format(
+                        "<div style=\"anchor-left: %d; anchor-top: %d; anchor-width: %d; anchor-height: %d; background-color: %s;\"></div>",
+                        hMinX, srcY - thickness/2, hWidth + thickness, thickness, lineColor
+                    ));
+                    
+                    // Vertical segment: from srcY to dstY at dstX
+                    int vMinY = Math.min(srcY, dstY);
+                    int vHeight = Math.abs(dstY - srcY);
+                    sb.append(String.format(
+                        "<div style=\"anchor-left: %d; anchor-top: %d; anchor-width: %d; anchor-height: %d; background-color: %s;\"></div>",
+                        dstX - thickness/2, vMinY, thickness, vHeight, lineColor
+                    ));
+                } else if (Math.abs(screenX2 - screenX1) > 2) {
+                    // Purely horizontal
                     int hMinX = Math.min(screenX1, screenX2);
                     int hWidth = Math.abs(screenX2 - screenX1);
                     sb.append(String.format(
                         "<div style=\"anchor-left: %d; anchor-top: %d; anchor-width: %d; anchor-height: %d; background-color: %s;\"></div>",
                         hMinX, screenY1 - thickness/2, hWidth, thickness, lineColor
                     ));
-                }
-                
-                if (Math.abs(screenY2 - screenY1) > 2) {
+                } else if (Math.abs(screenY2 - screenY1) > 2) {
+                    // Purely vertical
                     int vMinY = Math.min(screenY1, screenY2);
                     int vHeight = Math.abs(screenY2 - screenY1);
                     sb.append(String.format(
                         "<div style=\"anchor-left: %d; anchor-top: %d; anchor-width: %d; anchor-height: %d; background-color: %s;\"></div>",
-                        screenX2 - thickness/2, vMinY, thickness, vHeight, lineColor
+                        screenX1 - thickness/2, vMinY, thickness, vHeight, lineColor
                     ));
                 }
             }
@@ -429,6 +528,7 @@ public class PassiveTreePageHyUI {
             @Nonnull Set<String> renderedNodeIds
     ) {
         Set<String> startingNodes = tree.getStartingNodeIds();
+        int eventCount = 0;
         
         for (String nodeId : renderedNodeIds) {
             PassiveNode node = tree.getNode(nodeId);
@@ -438,13 +538,18 @@ public class PassiveTreePageHyUI {
             boolean isAllocated = allocatedNodes.contains(nodeId);
             boolean isReachable = reachableNodes.contains(nodeId) || startingNodes.contains(nodeId);
             
-            // Click to allocate or refund
+            // Click to allocate or refund (use MouseButtonReleased which works on all elements)
             final String finalNodeId = nodeId;
-            builder.addEventListener(nodeElementId, CustomUIEventBindingType.Activating, (data, ctx) -> {
-                if (isAllocated) {
+            final boolean finalIsAllocated = isAllocated;
+            final boolean finalIsReachable = isReachable;
+            builder.addEventListener(nodeElementId, CustomUIEventBindingType.MouseButtonReleased, (data, ctx) -> {
+                LOGGER.info("Node clicked: " + finalNodeId + " (allocated=" + finalIsAllocated + ", reachable=" + finalIsReachable + ")");
+                if (finalIsAllocated) {
                     handleRefund(finalNodeId);
-                } else if (isReachable) {
+                } else if (finalIsReachable) {
                     handleAllocate(finalNodeId);
+                } else {
+                    LOGGER.info("Node " + finalNodeId + " cannot be allocated - not reachable");
                 }
             });
             
@@ -456,28 +561,36 @@ public class PassiveTreePageHyUI {
             builder.addEventListener(nodeElementId, CustomUIEventBindingType.MouseExited, (data, ctx) -> {
                 hideTooltip();
             });
+            
+            eventCount++;
         }
+        
+        LOGGER.info("Registered click events for " + eventCount + " nodes (button overlay IDs)");
     }
     
     // ========== ACTION HANDLERS ==========
     
     private void handleAllocate(@Nonnull String nodeId) {
         String activeTreeId = getActiveTreeId();
+        LOGGER.info("Attempting to allocate node: " + nodeId + " in tree: " + activeTreeId);
         var result = PassiveTreeService.get().allocateNode(entityRef, activeTreeId, nodeId);
         if (result.success()) {
+            LOGGER.info("Allocation successful for: " + nodeId);
             rebuild();
         } else {
-            LOGGER.fine("Allocation failed: " + result.reason());
+            LOGGER.warning("Allocation failed for " + nodeId + ": " + result.reason());
         }
     }
     
     private void handleRefund(@Nonnull String nodeId) {
         String activeTreeId = getActiveTreeId();
+        LOGGER.info("Attempting to refund node: " + nodeId + " in tree: " + activeTreeId);
         var result = PassiveTreeService.get().refundNode(entityRef, activeTreeId, nodeId);
         if (result.success()) {
+            LOGGER.info("Refund successful for: " + nodeId);
             rebuild();
         } else {
-            LOGGER.fine("Refund failed: " + result.reason());
+            LOGGER.warning("Refund failed for " + nodeId + ": " + result.reason());
         }
     }
     
@@ -581,10 +694,24 @@ public class PassiveTreePageHyUI {
     @Nonnull
     private Set<String> getReachableNodes(@Nonnull PassiveTree tree, @Nonnull Set<String> allocatedNodes) {
         Set<String> reachable = new HashSet<>();
+        
+        Set<String> startingNodeIds = tree.getStartingNodeIds();
+        
+        // If nothing allocated yet, only starting nodes are reachable
+        if (allocatedNodes.isEmpty()) {
+            reachable.addAll(startingNodeIds);
+            return reachable;
+        }
+        
+        // Nodes adjacent to allocated nodes are reachable
         for (String allocatedId : allocatedNodes) {
             reachable.addAll(tree.getAdjacentNodes(allocatedId));
         }
-        reachable.addAll(tree.getStartingNodeIds());
+        
+        // Starting nodes are always reachable (for refund path)
+        reachable.addAll(startingNodeIds);
+        
+        // Remove already allocated nodes from reachable set
         reachable.removeAll(allocatedNodes);
         return reachable;
     }
@@ -614,32 +741,46 @@ public class PassiveTreePageHyUI {
         };
     }
     
-    private String formatNodeType(@Nonnull String type) {
-        return switch (type.toLowerCase()) {
-            case PassiveNodeType.MINOR -> "Minor Passive";
-            case PassiveNodeType.NOTABLE -> "Notable Passive";
-            case PassiveNodeType.KEYSTONE -> "Keystone";
-            case PassiveNodeType.MASTERY -> "Mastery";
-            case PassiveNodeType.UNLOCK -> "Unlock";
-            default -> "Passive";
-        };
+    private String getStartingNodeImage(boolean allocated, boolean canAllocate) {
+        // Starting nodes use a distinctive frame
+        String suffix = allocated ? "Allocated" : (canAllocate ? "CanAllocate" : "Normal");
+        return "Hyforged/Textures/PassiveSkillScreenAscendancyFrameLarge" + suffix + ".png";
     }
     
-    private String formatEffect(@Nonnull PassiveNodeEffect effect) {
-        var data = effect.data();
-        return switch (effect.type()) {
-            case "stat-modifier" -> {
-                String stat = String.valueOf(data.getOrDefault("Stat", data.getOrDefault("stat", "?")));
-                String value = String.valueOf(data.getOrDefault("Value", data.getOrDefault("value", "0")));
-                String mod = String.valueOf(data.getOrDefault("Modifier", data.getOrDefault("modifier", "flat")));
-                String prefix = value.startsWith("-") ? "" : "+";
-                String suffix = "percent".equalsIgnoreCase(mod) ? "%" : "";
-                yield prefix + value + suffix + " " + stat.replace("_", " ");
+    private String getStartingNodeLabel(@Nonnull String nodeId) {
+        // Extract attribute from node ID (e.g., "hyforged:start-strength" -> "STRENGTH")
+        String id = nodeId.toLowerCase();
+        if (id.contains("strength")) return "STRENGTH";
+        if (id.contains("dexterity")) return "DEXTERITY";
+        if (id.contains("intelligence")) return "INTELLIGENCE";
+        if (id.contains("wisdom")) return "WISDOM";
+        // Fallback: extract from the ID itself
+        int colonIndex = nodeId.indexOf(':');
+        if (colonIndex >= 0 && colonIndex + 1 < nodeId.length()) {
+            String slug = nodeId.substring(colonIndex + 1);
+            if (slug.startsWith("start-")) {
+                slug = slug.substring(6);
             }
-            case "spell-grant" -> "Grants: " + data.getOrDefault("SpellId", data.getOrDefault("spell", "?"));
-            case "unlock-flag" -> "Unlocks: " + data.getOrDefault("Description", data.getOrDefault("FlagId", "?"));
-            default -> effect.type() + ": " + data;
-        };
+            return slug.toUpperCase().replace("-", " ");
+        }
+        return "START";
+    }
+    
+    /**
+     * Get the stat icon texture for a node using the data-driven StatIconRegistry.
+     * <p>
+     * Resolution order:
+     * <ol>
+     *   <li>Explicit node icon (from node JSON)</li>
+     *   <li>Starting node attribute icon</li>
+     *   <li>Node type icon (keystone, notable)</li>
+     *   <li>Stat pattern matching from effects</li>
+     *   <li>Default icon</li>
+     * </ol>
+     */
+    @Nullable
+    private String getStatIconForNode(@Nonnull PassiveNode node, boolean isStarting) {
+        return StatIconRegistry.get().getIconForNode(node, isStarting);
     }
     
     private String sanitizeId(@Nonnull String id) {
@@ -659,26 +800,51 @@ public class PassiveTreePageHyUI {
     
     private static final String PAGE_TEMPLATE = """
         <style>
+            .page-container {
+                anchor-width: 1040;
+                anchor-height: 600;
+                anchor-left: 50%%;
+                anchor-top: 50%%;
+                margin-left: -520;
+                margin-top: -300;
+                background-color: #1a1a1e;
+            }
+            
             .sidebar {
                 anchor-left: 0;
                 anchor-top: 0;
                 anchor-bottom: 0;
-                anchor-width: 220;
+                anchor-width: 140;
                 layout-mode: Top;
                 background-color: #121215;
-                padding: 8;
+                padding: 6;
             }
             
             .sidebar-section {
                 layout-mode: Top;
-                padding-top: 8;
-                padding-bottom: 8;
+                padding-top: 4;
+                padding-bottom: 4;
             }
             
             .tree-tabs {
-                layout-mode: Left;
-                anchor-height: 28;
-                padding-bottom: 6;
+                layout-mode: Top;
+                padding-bottom: 4;
+            }
+            
+            .tab-btn {
+                anchor-height: 20;
+                font-size: 9;
+            }
+            
+            .small-btn {
+                anchor-height: 16;
+                anchor-width: 24;
+                font-size: 5;
+            }
+            
+            .action-btn {
+                anchor-height: 24;
+                font-size: 10;
             }
             
             .separator {
@@ -687,42 +853,38 @@ public class PassiveTreePageHyUI {
             }
             
             .points-label {
-                font-size: 12;
+                font-size: 9;
                 color: #888888;
             }
             
             .points-value {
-                font-size: 14;
+                font-size: 12;
                 font-weight: bold;
                 color: #ffffff;
             }
             
             .stats-label {
-                font-size: 11;
+                font-size: 9;
                 color: #888888;
             }
             
             .tree-area {
-                anchor-left: 220;
+                anchor-left: 140;
                 anchor-top: 0;
-                anchor-right: 0;
+                anchor-width: 900;
                 anchor-bottom: 0;
                 background-color: #0a0a0f;
-            }
-            
-            .tree-canvas {
-                anchor-width: {{$canvasWidth}};
-                anchor-height: {{$canvasHeight}};
+                layout-mode: TopScrolling;
             }
         </style>
         
-        <div class="page-overlay" style="background-color: #1a1a1e;">
+        <div class="page-container">
             <!-- LEFT SIDEBAR -->
             <div class="sidebar">
                 <!-- Tree Type Tabs -->
                 <div class="tree-tabs">
-                    <button id="GeneralTreeBtn">General</button>
-                    <button id="ClassTreeBtn">Class</button>
+                    <button id="GeneralTreeBtn" class="tab-btn">General</button>
+                    <button id="ClassTreeBtn" class="tab-btn">Class</button>
                 </div>
                 
                 <div class="separator"></div>
@@ -737,10 +899,10 @@ public class PassiveTreePageHyUI {
                 <div class="separator"></div>
                 
                 <!-- Search -->
-                <div class="sidebar-section" style="layout-mode: Left; anchor-height: 28;">
-                    <input type="text" id="SearchInput" value="" placeholder="Search nodes..." 
-                           style="anchor-width: 160;" />
-                    <button id="SearchBtn">Go</button>
+                <div class="sidebar-section" style="layout-mode: Top;">
+                    <input type="text" id="SearchInput" value="" placeholder="Search..." 
+                           style="anchor-height: 20; font-size: 9;" />
+                    <button id="SearchBtn" style="anchor-height: 20; font-size: 9;">Search</button>
                 </div>
                 
                 <div class="separator"></div>
@@ -749,7 +911,7 @@ public class PassiveTreePageHyUI {
                 <div class="sidebar-section" style="flex-weight: 1;">
                     <p class="stats-label">Allocated Stats</p>
                     <div id="StatsList" style="layout-mode: Top;">
-                        <p style="font-size: 10; color: #666666;">No nodes allocated</p>
+                        <p style="font-size: 6; color: #666666;">No nodes allocated</p>
                     </div>
                 </div>
                 
@@ -757,14 +919,14 @@ public class PassiveTreePageHyUI {
                 
                 <!-- Action Buttons -->
                 <div class="sidebar-section">
-                    <button id="ResetTreeBtn">Reset Tree</button>
-                    <button id="CloseBtn">Close</button>
+                    <button id="ResetTreeBtn" class="action-btn">Reset</button>
+                    <button id="CloseBtn" class="action-btn">Close</button>
                 </div>
             </div>
             
-            <!-- MAIN TREE AREA -->
+            <!-- MAIN TREE AREA (with native scrolling via TopScrolling layout mode) -->
             <div class="tree-area">
-                <div id="TreeCanvas" class="tree-canvas">
+                <div id="TreeCanvas" style="anchor-width: {{$canvasWidth}}; anchor-height: {{$canvasHeight}};">
                     {{{connectionsHtml}}}
                     {{{nodesHtml}}}
                 </div>

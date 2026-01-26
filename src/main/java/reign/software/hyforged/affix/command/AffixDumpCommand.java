@@ -29,8 +29,8 @@ import java.util.logging.Logger;
 public class AffixDumpCommand extends AbstractPlayerCommand {
     
     private static final Logger LOGGER = Logger.getLogger(AffixDumpCommand.class.getName());
-    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cCould not find player component.");
-    private static final Message MESSAGE_NO_AFFIXES = Message.raw("§7No affixes found on equipped items.");
+    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Could not find player component.");
+    private static final Message MESSAGE_NO_AFFIXES = Message.raw("No affixes found on equipped items.");
     
     public AffixDumpCommand() {
         super("affixes", "hyforged.commands.affixes.desc");
@@ -61,7 +61,7 @@ public class AffixDumpCommand extends AbstractPlayerCommand {
         AffixService affixService = AffixService.get();
         boolean foundAny = false;
         
-        context.sendMessage(Message.raw("§6=== Equipped Affix Dump ==="));
+        context.sendMessage(Message.raw("=== Equipped Affix Dump ==="));
         
         // Check armor container
         ItemContainer armorContainer = inventory.getArmor();
@@ -114,14 +114,14 @@ public class AffixDumpCommand extends AbstractPlayerCommand {
             return false;
         }
         
-        context.sendMessage(Message.raw("§e" + slotName + ": §f" + itemStack.getItemId()));
+        context.sendMessage(Message.raw("" + slotName + ": " + itemStack.getItemId()));
         
         for (RolledAffix affix : affixes) {
             String typeColor = switch (affix.type()) {
-                case "prefix" -> "§b";
-                case "suffix" -> "§d";
-                case "forged" -> "§6";
-                default -> "§7";
+                case "prefix" -> "";
+                case "suffix" -> "";
+                case "forged" -> "";
+                default -> "";
             };
             
             String tierColor = getTierColor(affix.tier());
@@ -140,7 +140,7 @@ public class AffixDumpCommand extends AbstractPlayerCommand {
                 String statId = entry.getKey();
                 RolledAffix.RolledStat stat = entry.getValue();
                 context.sendMessage(Message.raw(String.format(
-                        "    §f+%d %s §7(%s)",
+                        "    +%d %s (%s)",
                         stat.value(),
                         statId,
                         stat.stackType().name()
@@ -153,11 +153,11 @@ public class AffixDumpCommand extends AbstractPlayerCommand {
     
     private String getTierColor(int tier) {
         return switch (tier) {
-            case 1 -> "§6"; // Gold
-            case 2 -> "§5"; // Purple
-            case 3 -> "§9"; // Blue
-            case 4 -> "§a"; // Green
-            default -> "§f"; // White
+            case 1 -> ""; // Gold
+            case 2 -> ""; // Purple
+            case 3 -> ""; // Blue
+            case 4 -> ""; // Green
+            default -> ""; // White
         };
     }
 }

@@ -1,0 +1,85 @@
+{
+  "Id": "hyforged:stat-icons",
+  "StatIconMappings": [
+    {
+      "Pattern": "strength",
+      "Icon": "Hyforged/Textures/Strength.png",
+      "Priority": 100
+    },
+    {
+      "Pattern": "dexterity",
+      "Icon": "Hyforged/Textures/Dexterity.png",
+      "Priority": 100
+    },
+    {
+      "Pattern": "intelligence",
+      "Icon": "Hyforged/Textures/Intelligence.png",
+      "Priority": 100
+    },
+    {
+      "Pattern": "wisdom",
+      "Icon": "Hyforged/Textures/Wisdom.png",
+      "Priority": 100
+    },
+    {
+      "Pattern": "constitution",
+      "Icon": "Hyforged/Textures/Constitution.png",
+      "Priority": 90
+    },
+    {
+      "Pattern": "spirit",
+      "Icon": "Hyforged/Textures/Spirit.png",
+      "Priority": 90
+    },
+    {
+      "Pattern": "luck",
+      "Icon": "Hyforged/Textures/Luck.png",
+      "Priority": 90
+    },
+    {
+      "Pattern": "health|life|hp|vitality",
+      "Icon": "Hyforged/Textures/Health.png",
+      "Priority": 80
+    },
+    {
+      "Pattern": "regen",
+      "Icon": "Hyforged/Textures/Health.png",
+      "Priority": 70
+    },
+    {
+      "Pattern": "resist|armor|defence|defense|block|reduction",
+      "Icon": "Hyforged/Textures/Resist.png",
+      "Priority": 80
+    },
+    {
+      "Pattern": "fire|cold|lightning|elemental|ice|frost",
+      "Icon": "Hyforged/Textures/Elemental.png",
+      "Priority": 75
+    },
+    {
+      "Pattern": "physical|melee|weapon",
+      "Icon": "Hyforged/Textures/Strength.png",
+      "Priority": 70
+    },
+    {
+      "Pattern": "spell|magic|cast",
+      "Icon": "Hyforged/Textures/Intelligence.png",
+      "Priority": 70
+    },
+    {
+      "Pattern": "critical|crit",
+      "Icon": "Hyforged/Textures/Dexterity.png",
+      "Priority": 70
+    },
+    {
+      "Pattern": "attack|speed",
+      "Icon": "Hyforged/Textures/Dexterity.png",
+      "Priority": 60
+    }
+  ],
+  "NodeTypeIcons": {
+    "keystone": "Hyforged/Textures/Keystone.png",
+    "notable": "Hyforged/Textures/Notable.png"
+  },
+  "DefaultIcon": "Hyforged/Textures/Passive.png"
+}

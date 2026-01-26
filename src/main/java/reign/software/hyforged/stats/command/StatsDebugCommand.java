@@ -35,8 +35,8 @@ import java.util.List;
  */
 public class StatsDebugCommand extends CommandBase {
 
-    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cPlayer not found or not in a world.");
-    private static final Message MESSAGE_NO_STAT_COMPONENT = Message.raw("§cPlayer does not have a Hyforged stat component.");
+    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in a world.");
+    private static final Message MESSAGE_NO_STAT_COMPONENT = Message.raw("Player does not have a Hyforged stat component.");
 
     @Nonnull
     private final RequiredArg<PlayerRef> playerArg = this.withRequiredArg(
@@ -114,22 +114,22 @@ public class StatsDebugCommand extends CommandBase {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
 
         StringBuilder sb = new StringBuilder();
-        sb.append("§6═══════ Stats for ").append(playerName).append(" ═══════§r\n");
+        sb.append("═══════ Stats for ").append(playerName).append(" ═══════\n");
 
         // Ability Scores - query by Type=ability-score tag
-        sb.append("\n§e▸ Ability Scores§r\n");
+        sb.append("\n▸ Ability Scores\n");
         for (StatId statId : registry.getStatIdsForTagValue("Type", "ability-score")) {
             appendStatLine(sb, registry, component, statId, store, ref);
         }
 
         // Offensive stats - query by category
-        sb.append("\n§e▸ Offensive§r\n");
+        sb.append("\n▸ Offensive\n");
         for (StatDefinition stat : registry.getStatsInCategory("offense")) {
             appendStatLine(sb, registry, component, stat.id(), store, ref);
         }
 
         // Defensive stats - query by category
-        sb.append("\n§e▸ Defensive§r\n");
+        sb.append("\n▸ Defensive\n");
         for (StatDefinition stat : registry.getStatsInCategory("defense")) {
             appendStatLine(sb, registry, component, stat.id(), store, ref);
         }
@@ -139,7 +139,7 @@ public class StatsDebugCommand extends CommandBase {
         if (modifiers.isEmpty()) {
             modifiers = component.getModifiers();
         }
-        sb.append("\n§7Active modifiers: ").append(modifiers.size()).append("§r\n");
+        sb.append("\nActive modifiers: ").append(modifiers.size()).append("\n");
 
         context.sendMessage(Message.raw(sb.toString()));
     }
@@ -183,10 +183,10 @@ public class StatsDebugCommand extends CommandBase {
         }
 
         if (bonus != 0) {
-            String bonusColor = bonus > 0 ? "§a" : "§c";
-            sb.append(String.format("  §f%-20s §7%s %s(%+d)§r\n", displayName, valueStr, bonusColor, bonus));
+            String bonusColor = bonus > 0 ? "" : "";
+            sb.append(String.format("  %-20s %s %s(%+d)\n", displayName, valueStr, bonusColor, bonus));
         } else {
-            sb.append(String.format("  §f%-20s §7%s§r\n", displayName, valueStr));
+            sb.append(String.format("  %-20s %s\n", displayName, valueStr));
         }
     }
 
@@ -213,13 +213,13 @@ public class StatsDebugCommand extends CommandBase {
 
         int index = registry.getIndex(statId);
         if (index < 0) {
-            context.sendMessage(Message.raw("§cStat not found: " + statIdStr));
+            context.sendMessage(Message.raw("Stat not found: " + statIdStr));
             return;
         }
 
         StatDefinition def = registry.getStat(index);
         if (def == null) {
-            context.sendMessage(Message.raw("§cStat not found: " + statIdStr));
+            context.sendMessage(Message.raw("Stat not found: " + statIdStr));
             return;
         }
 
@@ -227,42 +227,42 @@ public class StatsDebugCommand extends CommandBase {
         StatBreakdown breakdown = HyforgedStatQueryService.getStatBreakdown(component, index, 1, ref);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("§6═══════ ").append(formatStatName(statId)).append(" Breakdown ═══════§r\n");
-        sb.append("§7Player: ").append(playerName).append("§r\n\n");
+        sb.append("═══════ ").append(formatStatName(statId)).append(" Breakdown ═══════\n");
+        sb.append("Player: ").append(playerName).append("\n\n");
 
         // Definition info
-        sb.append("§e▸ Definition§r\n");
-        sb.append(String.format("  §7ID: §f%s§r\n", statId));
-        sb.append(String.format("  §7Category: §f%s§r\n", def.category()));
-        sb.append(String.format("  §7Is Rating: §f%s§r\n", def.isRating()));
-        sb.append(String.format("  §7Bounds: §f[%d, %d]§r\n", def.minValue(), def.maxValue()));
+        sb.append("▸ Definition\n");
+        sb.append(String.format("  ID: %s\n", statId));
+        sb.append(String.format("  Category: %s\n", def.category()));
+        sb.append(String.format("  Is Rating: %s\n", def.isRating()));
+        sb.append(String.format("  Bounds: [%d, %d]\n", def.minValue(), def.maxValue()));
 
         // Base value
-        sb.append("\n§e▸ Base Value§r\n");
+        sb.append("\n▸ Base Value\n");
         int baseValue = component.getBaseValue(index);
-        sb.append(String.format("  §7Allocated/Default: §f%d§r\n", baseValue));
+        sb.append(String.format("  Allocated/Default: %d\n", baseValue));
 
         if (breakdown != null) {
             // Scaling contributions
             if (!breakdown.scalingContributions().isEmpty()) {
-                sb.append("\n§e▸ Scaling Contributions§r\n");
+                sb.append("\n▸ Scaling Contributions\n");
                 for (var contrib : breakdown.scalingContributions()) {
-                    sb.append(String.format("  §7%s: §f%+d §7(%s)§r\n",
+                    sb.append(String.format("  %s: %+d (%s)\n",
                             contrib.sourceDisplayName(), contrib.contribution(), contrib.ruleType()));
                 }
             }
 
             // Modifier breakdown
             if (!breakdown.entries().isEmpty()) {
-                sb.append("\n§e▸ Modifiers§r\n");
+                sb.append("\n▸ Modifiers\n");
                 for (var entry : breakdown.entries()) {
                     String typeColor = switch (entry.modifierType()) {
-                        case FLAT -> "§b";
-                        case INCREASED -> "§a";
-                        case MORE -> "§d";
-                        case CAP -> "§c";
+                        case FLAT -> "";
+                        case INCREASED -> "";
+                        case MORE -> "";
+                        case CAP -> "";
                     };
-                    sb.append(String.format("  %s[%s]§r §7%s§r: §f%+d§r from '%s'\n",
+                    sb.append(String.format("  %s[%s] %s: %+d from '%s'\n",
                             typeColor,
                             entry.modifierType().name(),
                             entry.sourceType().name(),
@@ -272,17 +272,17 @@ public class StatsDebugCommand extends CommandBase {
             }
 
             // Stacking phases
-            sb.append("\n§e▸ Stacking Calculation§r\n");
-            sb.append(String.format("  §7After Flat: §f%d§r\n", breakdown.afterFlat()));
-            sb.append(String.format("  §7After Increased: §f%d§r\n", breakdown.afterIncreased()));
-            sb.append(String.format("  §7After More: §f%d§r\n", breakdown.afterMore()));
-            sb.append(String.format("  §7After Cap: §f%d§r\n", breakdown.afterCap()));
+            sb.append("\n▸ Stacking Calculation\n");
+            sb.append(String.format("  After Flat: %d\n", breakdown.afterFlat()));
+            sb.append(String.format("  After Increased: %d\n", breakdown.afterIncreased()));
+            sb.append(String.format("  After More: %d\n", breakdown.afterMore()));
+            sb.append(String.format("  After Cap: %d\n", breakdown.afterCap()));
         }
 
         // Final value - use StatAccessor for unified access
         int finalValue = StatAccessor.getStatValueInt(store, ref, index);
-        sb.append("\n§e▸ Final Value§r\n");
-        sb.append(String.format("  §a%d§r\n", finalValue));
+        sb.append("\n▸ Final Value\n");
+        sb.append(String.format("  %d\n", finalValue));
 
         context.sendMessage(Message.raw(sb.toString()));
     }

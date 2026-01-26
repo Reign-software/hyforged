@@ -2,55 +2,38 @@
   "TreeId": "hyforged:passive-tree-general",
   "Placements": [
     {
-      "NodeId": "hyforged:travel-wisdom",
-      "Position": { "X": 0, "Y": -500 },
-      "Region": "wisdom",
-      "InstanceId": "hyforged:start-wisdom"
-    },
-    {
-      "NodeId": "hyforged:travel-luck",
-      "Position": { "X": 391, "Y": -312 },
-      "Region": "luck",
-      "InstanceId": "hyforged:start-luck"
-    },
-    {
-      "NodeId": "hyforged:travel-constitution",
-      "Position": { "X": 487, "Y": 112 },
-      "Region": "constitution",
-      "InstanceId": "hyforged:start-constitution"
-    },
-    {
       "NodeId": "hyforged:travel-strength",
-      "Position": { "X": 222, "Y": 450 },
+      "Position": { "X": -200, "Y": 0 },
       "Region": "strength",
-      "InstanceId": "hyforged:start-strength"
+      "InstanceId": "hyforged:start-strength",
+      "IsStarting": true
     },
     {
       "NodeId": "hyforged:travel-dexterity",
-      "Position": { "X": -222, "Y": 450 },
+      "Position": { "X": -70, "Y": 0 },
       "Region": "dexterity",
-      "InstanceId": "hyforged:start-dexterity"
+      "InstanceId": "hyforged:start-dexterity",
+      "IsStarting": true
     },
     {
       "NodeId": "hyforged:travel-intelligence",
-      "Position": { "X": -487, "Y": 112 },
+      "Position": { "X": 70, "Y": 0 },
       "Region": "intelligence",
-      "InstanceId": "hyforged:start-intelligence"
+      "InstanceId": "hyforged:start-intelligence",
+      "IsStarting": true
     },
     {
-      "NodeId": "hyforged:travel-spirit",
-      "Position": { "X": -391, "Y": -312 },
-      "Region": "spirit",
-      "InstanceId": "hyforged:start-spirit"
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": { "X": 200, "Y": 0 },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:start-wisdom",
+      "IsStarting": true
     }
   ],
   "StartingNodes": [
     "hyforged:start-strength",
     "hyforged:start-dexterity",
     "hyforged:start-intelligence",
-    "hyforged:start-constitution",
-    "hyforged:start-wisdom",
-    "hyforged:start-spirit",
-    "hyforged:start-luck"
+    "hyforged:start-wisdom"
   ]
 }

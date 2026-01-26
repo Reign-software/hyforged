@@ -44,6 +44,12 @@ public class NodePlacementAsset {
             asset -> asset.instanceId
         )
         .add()
+        .append(
+            new KeyedCodec<>("IsStarting", Codec.BOOLEAN),
+            (asset, value) -> asset.isStarting = value != null && value,
+            asset -> asset.isStarting ? asset.isStarting : null
+        )
+        .add()
         .build();
 
     public static final ArrayCodec<NodePlacementAsset> ARRAY_CODEC =
@@ -53,6 +59,7 @@ public class NodePlacementAsset {
     private PassiveNodePositionAsset position;
     private String region;
     private String instanceId;
+    private boolean isStarting;
 
     public NodePlacementAsset() {
         // Required for codec
@@ -102,5 +109,16 @@ public class NodePlacementAsset {
     @Nonnull
     public String getEffectiveId() {
         return instanceId != null && !instanceId.isBlank() ? instanceId : getNodeId();
+    }
+
+    /**
+     * Check if this placement marks the node as a starting node.
+     * <p>
+     * Starting nodes are entry points into the tree that players can allocate
+     * without any prerequisites. This is an alternative to listing node IDs
+     * in the layout's StartingNodes array.
+     */
+    public boolean isStarting() {
+        return isStarting;
     }
 }

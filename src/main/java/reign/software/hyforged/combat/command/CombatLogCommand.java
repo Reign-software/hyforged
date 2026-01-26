@@ -28,9 +28,9 @@ import java.util.UUID;
  */
 public class CombatLogCommand extends AbstractPlayerCommand {
 
-    private static final Message MESSAGE_NO_UUID = Message.raw("§cCould not find player UUID.");
-    private static final Message MESSAGE_NO_LOG = Message.raw("§7No combat history found.");
-    private static final Message MESSAGE_HEADER = Message.raw("§6=== Combat Log ===");
+    private static final Message MESSAGE_NO_UUID = Message.raw("Could not find player UUID.");
+    private static final Message MESSAGE_NO_LOG = Message.raw("No combat history found.");
+    private static final Message MESSAGE_HEADER = Message.raw("=== Combat Log ===");
     
     private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm:ss");
 
@@ -92,7 +92,7 @@ public class CombatLogCommand extends AbstractPlayerCommand {
         }
         
         context.sendMessage(Message.raw(String.format(
-            "§e--- Encounter #%d [%s] %.1fs, %.0f damage ---",
+            "--- Encounter #%d [%s] %.1fs, %.0f damage ---",
             num, startTime, durationSec, totalDamage
         )));
         
@@ -113,7 +113,7 @@ public class CombatLogCommand extends AbstractPlayerCommand {
         }
         
         context.sendMessage(Message.raw(String.format(
-            "§7  Hits: §f%d §7| Crits: §c%d §7| Blocks: §6%d §7| Misses: §8%d",
+            "  Hits: %d | Crits: %d | Blocks: %d | Misses: %d",
             hits, crits, blocks, misses
         )));
         
@@ -122,7 +122,7 @@ public class CombatLogCommand extends AbstractPlayerCommand {
         int startIdx = events.size() - eventsToShow;
         
         if (eventsToShow > 0) {
-            context.sendMessage(Message.raw("§7  Recent attacks:"));
+            context.sendMessage(Message.raw("  Recent attacks:"));
         }
         
         for (int i = startIdx; i < events.size(); i++) {
@@ -132,45 +132,45 @@ public class CombatLogCommand extends AbstractPlayerCommand {
         
         if (events.size() > 5) {
             context.sendMessage(Message.raw(String.format(
-                "§8  ... and %d more attacks",
+                "  ... and %d more attacks",
                 events.size() - 5
             )));
         }
     }
     
     private void displayEvent(@Nonnull CommandContext context, @Nonnull CombatEvent event) {
-        StringBuilder sb = new StringBuilder("§7    ");
+        StringBuilder sb = new StringBuilder("    ");
         
         // Time
         String time = TIME_FORMAT.format(new Date(event.timestamp()));
-        sb.append("§8[").append(time).append("] ");
+        sb.append("[").append(time).append("] ");
         
         // Source
         String attackerName = event.attackerName() != null ? event.attackerName() : "Unknown";
-        sb.append("§f").append(attackerName);
-        sb.append(" §7→ ");
+        sb.append("").append(attackerName);
+        sb.append(" → ");
         
         // Target
         String defenderName = event.defenderName() != null ? event.defenderName() : "Unknown";
-        sb.append("§f").append(defenderName);
+        sb.append("").append(defenderName);
         sb.append(": ");
         
         // Damage info
         if (event.missed()) {
-            sb.append("§8MISS");
+            sb.append("MISS");
         } else {
             // Damage amount with modifiers
             if (event.criticalHit()) {
-                sb.append("§c✦ ");
+                sb.append("✦ ");
             } else if (event.blocked() || event.autoBlocked()) {
-                sb.append("§6⛨ ");
+                sb.append("⛨ ");
             }
             
-            sb.append("§f").append((int) event.finalDamage());
+            sb.append("").append((int) event.finalDamage());
             
             // Show base damage if different
             if (Math.abs(event.baseDamage() - event.finalDamage()) > 0.5f) {
-                sb.append(" §8(").append((int) event.baseDamage()).append(")");
+                sb.append(" (").append((int) event.baseDamage()).append(")");
             }
             
             // Damage type
@@ -181,7 +181,7 @@ public class CombatLogCommand extends AbstractPlayerCommand {
                 if (colonIdx >= 0) {
                     damageType = damageType.substring(colonIdx + 1);
                 }
-                sb.append(" §7[").append(damageType).append("]");
+                sb.append(" [").append(damageType).append("]");
             }
         }
         

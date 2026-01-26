@@ -227,10 +227,14 @@ public final class CombatServiceImpl implements CombatService {
         ComponentAccessor<EntityStore> accessor = null;
         CommandBuffer<EntityStore> commandBuffer = null;
         
-        if (bufferOrAccessor instanceof ComponentAccessor) {
-            accessor = (ComponentAccessor<EntityStore>) bufferOrAccessor;
-        } else if (bufferOrAccessor instanceof CommandBuffer) {
-            commandBuffer = (CommandBuffer<EntityStore>) bufferOrAccessor;
+        if (bufferOrAccessor instanceof ComponentAccessor<?> ca) {
+            @SuppressWarnings("unchecked") // Safe: we only pass ComponentAccessor<EntityStore> to this method
+            ComponentAccessor<EntityStore> typedAccessor = (ComponentAccessor<EntityStore>) ca;
+            accessor = typedAccessor;
+        } else if (bufferOrAccessor instanceof CommandBuffer<?> cb) {
+            @SuppressWarnings("unchecked") // Safe: we only pass CommandBuffer<EntityStore> to this method
+            CommandBuffer<EntityStore> typedBuffer = (CommandBuffer<EntityStore>) cb;
+            commandBuffer = typedBuffer;
             // For command buffer, we can't directly access components, so we'll use simpler path
         }
 

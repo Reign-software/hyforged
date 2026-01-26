@@ -189,8 +189,59 @@ Node templates define **what** a node does, without **where** it's placed. This 
 | `Name` | string | ✓ | Display name |
 | `Description` | string | ✓ | Tooltip description |
 | `Effects` | Effect[] | | Array of effects granted |
-| `Icon` | string | | Asset reference for node icon |
+| `Icon` | string | | Asset reference for node icon (overrides automatic detection) |
 | `KeystoneFamily` | string | | For keystones — only one per family allowed |
+
+### Stat Icons
+
+The passive tree UI automatically displays stat icons inside node frames based on the node's effects. You can override this behavior by setting the `Icon` field on a node.
+
+**Icon Resolution Order:**
+1. Explicit `Icon` field on the node (highest priority)
+2. Starting nodes: attribute icon based on node ID (e.g., `start-strength` → Strength icon)
+3. Keystones and Notables: their respective type icons
+4. Stat pattern matching from `stat-icons.json` configuration
+5. Default icon (`Hyforged/Textures/Passive.png`)
+
+#### Data-Driven Stat Icon Configuration
+
+Configure stat-to-icon mappings in `Server/Hyforged/Config/stat-icons.json`:
+
+```json
+{
+  "Id": "hyforged:stat-icons",
+  "StatIconMappings": [
+    {
+      "Pattern": "strength",
+      "Icon": "Hyforged/Textures/Strength.png",
+      "Priority": 100
+    },
+    {
+      "Pattern": "health|life|hp|vitality",
+      "Icon": "Hyforged/Textures/Health.png",
+      "Priority": 80
+    },
+    {
+      "Pattern": "fire|cold|lightning|elemental",
+      "Icon": "Hyforged/Textures/Elemental.png",
+      "Priority": 75
+    }
+  ],
+  "NodeTypeIcons": {
+    "keystone": "Hyforged/Textures/Keystone.png",
+    "notable": "Hyforged/Textures/Notable.png"
+  },
+  "DefaultIcon": "Hyforged/Textures/Passive.png"
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `Pattern` | string | Regex pattern to match against stat IDs (case-insensitive) |
+| `Icon` | string | Asset path to the icon texture |
+| `Priority` | int | Higher priority patterns are checked first (default: 50) |
+| `NodeTypeIcons` | map | Icons for specific node types (keystone, notable) |
+| `DefaultIcon` | string | Fallback icon when no pattern matches |
 
 ---
 
@@ -246,6 +297,34 @@ Layout files define **where** nodes are placed and how they connect. Each mod pr
 | `Position` | object | ✓ | `{ "X": number, "Y": number }` |
 | `Region` | string | | Visual grouping region |
 | `InstanceId` | string | | Unique ID when placing same template multiple times |
+| `IsStarting` | boolean | | Mark this placement as a starting node (alternative to `StartingNodes` array) |
+
+### Starting Nodes
+
+Starting nodes are entry points where players can begin allocating. There are two equivalent ways to mark a node as a starting node:
+
+**Option 1: Using the `StartingNodes` array** (legacy approach):
+```json
+{
+    "TreeId": "hyforged:passive-tree-general",
+    "Placements": [
+        { "NodeId": "yourmod:start-node", "Position": { "X": 0, "Y": 0 }, "InstanceId": "yourmod:my-start" }
+    ],
+    "StartingNodes": ["yourmod:my-start"]
+}
+```
+
+**Option 2: Using `IsStarting` on the placement** (preferred):
+```json
+{
+    "TreeId": "hyforged:passive-tree-general",
+    "Placements": [
+        { "NodeId": "yourmod:start-node", "Position": { "X": 0, "Y": 0 }, "InstanceId": "yourmod:my-start", "IsStarting": true }
+    ]
+}
+```
+
+Both approaches are equivalent and can be mixed. `IsStarting: true` on a placement is often more convenient as it keeps the starting node designation with the placement definition.
 
 ### Node Reuse with InstanceId
 

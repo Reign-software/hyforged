@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
  */
 public class ConcentrationPriorityCommand extends AbstractAsyncCommand {
 
-    private static final Message MESSAGE_PLAYER_NOT_IN_WORLD = Message.raw("§cPlayer is not in a world.");
+    private static final Message MESSAGE_PLAYER_NOT_IN_WORLD = Message.raw("Player is not in a world.");
 
     public ConcentrationPriorityCommand() {
         super("concentration", "hyforged.commands.concentration.desc");

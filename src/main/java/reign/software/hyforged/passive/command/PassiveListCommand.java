@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.passive.component.PassiveTreeComponent;
 import reign.software.hyforged.passive.service.PassiveTreeService;
+import reign.software.hyforged.util.MessageColors;
 
 import javax.annotation.Nonnull;
 import java.util.Set;
@@ -31,16 +32,16 @@ import java.util.Set;
  */
 public class PassiveListCommand extends CommandBase {
 
-    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cPlayer not found or not in world.");
-    private static final Message MESSAGE_NO_COMPONENT = Message.raw("§cPlayer has no passive tree data.");
-    private static final Message MESSAGE_HEADER = Message.raw("§6=== Passive Tree Allocations for %s ===");
-    private static final Message MESSAGE_GENERAL_TREE = Message.raw("§e[General Tree]");
-    private static final Message MESSAGE_STARTING_NODE = Message.raw("  §7Starting Node: §f%s");
-    private static final Message MESSAGE_ALLOCATED = Message.raw("  §7Allocated Nodes: §f%d");
-    private static final Message MESSAGE_AVAILABLE_POINTS = Message.raw("  §7Available Points: §a%d");
-    private static final Message MESSAGE_BOOK_POINTS = Message.raw("  §7Book Points Used: §f%d");
-    private static final Message MESSAGE_CLASS_TREE = Message.raw("§e[Class Tree: %s]");
-    private static final Message MESSAGE_NO_ALLOCATIONS = Message.raw("  §7(No allocations)");
+    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in world.").color(MessageColors.ERROR);
+    private static final Message MESSAGE_NO_COMPONENT = Message.raw("Player has no passive tree data.").color(MessageColors.ERROR);
+    private static final Message MESSAGE_HEADER = Message.raw("=== Passive Tree Allocations for %s ===").color(MessageColors.GOLD);
+    private static final Message MESSAGE_GENERAL_TREE = Message.raw("[General Tree]").color(MessageColors.WARNING);
+    private static final Message MESSAGE_STARTING_NODE = Message.raw("  Starting Node: %s").color(MessageColors.GRAY);
+    private static final Message MESSAGE_ALLOCATED = Message.raw("  Allocated Nodes: %d").color(MessageColors.GRAY);
+    private static final Message MESSAGE_AVAILABLE_POINTS = Message.raw("  Available Points: %d").color(MessageColors.GRAY);
+    private static final Message MESSAGE_BOOK_POINTS = Message.raw("  Book Points Used: %d").color(MessageColors.GRAY);
+    private static final Message MESSAGE_CLASS_TREE = Message.raw("[Class Tree: %s]").color(MessageColors.WARNING);
+    private static final Message MESSAGE_NO_ALLOCATIONS = Message.raw("  (No allocations)").color(MessageColors.GRAY);
 
     @Nonnull
     private final RequiredArg<PlayerRef> playerArg = this.withRequiredArg(
@@ -83,35 +84,35 @@ public class PassiveListCommand extends CommandBase {
             String username = playerRefComponent != null ? playerRefComponent.getUsername() : "Unknown";
             
             // Header
-            context.sendMessage(Message.raw(String.format("§6=== Passive Tree Allocations for %s ===", username)));
+            context.sendMessage(Message.raw(String.format("=== Passive Tree Allocations for %s ===", username)).color(MessageColors.GOLD));
 
             // General tree info
             context.sendMessage(MESSAGE_GENERAL_TREE);
             
             String startingNode = passiveComponent.getGeneralStartingNode();
-            context.sendMessage(Message.raw(String.format("  §7Starting Node: §f%s", 
-                    startingNode != null ? startingNode : "(not chosen)")));
+            context.sendMessage(Message.raw(String.format("  Starting Node: %s", 
+                    startingNode != null ? startingNode : "(not chosen)")).color(MessageColors.GRAY));
             
             int generalAllocated = passiveComponent.getGeneralAllocatedCount();
-            context.sendMessage(Message.raw(String.format("  §7Allocated Nodes: §f%d", generalAllocated)));
+            context.sendMessage(Message.raw(String.format("  Allocated Nodes: %d", generalAllocated)).color(MessageColors.GRAY));
             
             int availableGeneral = PassiveTreeService.get().getAvailableGeneralPoints(ref);
-            context.sendMessage(Message.raw(String.format("  §7Available Points: §a%d", availableGeneral)));
+            context.sendMessage(Message.raw(String.format("  Available Points: %d", availableGeneral)).color(MessageColors.SUCCESS));
             
-            context.sendMessage(Message.raw(String.format("  §7Book Points Used: §f%d", 
-                    passiveComponent.getBookPointsUsed())));
+            context.sendMessage(Message.raw(String.format("  Book Points Used: %d", 
+                    passiveComponent.getBookPointsUsed())).color(MessageColors.GRAY));
 
             // Class tree info
             Set<String> classIds = passiveComponent.getClassIdsWithAllocations();
             if (!classIds.isEmpty()) {
                 for (String classId : classIds) {
-                    context.sendMessage(Message.raw(String.format("§e[Class Tree: %s]", classId)));
+                    context.sendMessage(Message.raw(String.format("[Class Tree: %s]", classId)).color(MessageColors.WARNING));
                     
                     int classAllocated = passiveComponent.getClassAllocatedCount(classId);
-                    context.sendMessage(Message.raw(String.format("  §7Allocated Nodes: §f%d", classAllocated)));
+                    context.sendMessage(Message.raw(String.format("  Allocated Nodes: %d", classAllocated)).color(MessageColors.GRAY));
                     
                     int availableClass = PassiveTreeService.get().getAvailableClassPoints(ref, classId);
-                    context.sendMessage(Message.raw(String.format("  §7Available Points: §a%d", availableClass)));
+                    context.sendMessage(Message.raw(String.format("  Available Points: %d", availableClass)).color(MessageColors.SUCCESS));
                 }
             }
         });

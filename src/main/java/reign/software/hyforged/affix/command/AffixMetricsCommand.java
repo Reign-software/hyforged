@@ -26,34 +26,34 @@ public class AffixMetricsCommand extends CommandBase {
     protected void executeSync(@Nonnull CommandContext context) {
         AffixMetrics metrics = AffixMetrics.get();
         
-        context.sendMessage(Message.raw("§6=== Affix System Metrics ==="));
-        context.sendMessage(Message.raw("§7Roll Attempts: §f" + metrics.getRollAttempts()));
-        context.sendMessage(Message.raw("§7Roll Successes: §a" + metrics.getRollSuccesses()));
-        context.sendMessage(Message.raw("§7Roll Failures: §c" + metrics.getRollFailures()));
-        context.sendMessage(Message.raw("§7Success Rate: §e" + String.format("%.1f%%", metrics.getSuccessRate())));
-        context.sendMessage(Message.raw("§7Total Affixes Rolled: §f" + metrics.getTotalAffixesRolled()));
-        context.sendMessage(Message.raw("§7Avg Affixes/Roll: §f" + String.format("%.2f", metrics.getAverageAffixesPerRoll())));
+        context.sendMessage(Message.raw("=== Affix System Metrics ==="));
+        context.sendMessage(Message.raw("Roll Attempts: " + metrics.getRollAttempts()));
+        context.sendMessage(Message.raw("Roll Successes: " + metrics.getRollSuccesses()));
+        context.sendMessage(Message.raw("Roll Failures: " + metrics.getRollFailures()));
+        context.sendMessage(Message.raw("Success Rate: " + String.format("%.1f%%", metrics.getSuccessRate())));
+        context.sendMessage(Message.raw("Total Affixes Rolled: " + metrics.getTotalAffixesRolled()));
+        context.sendMessage(Message.raw("Avg Affixes/Roll: " + String.format("%.2f", metrics.getAverageAffixesPerRoll())));
         
         Map<String, Long> byQuality = metrics.getRollsByQuality();
         if (!byQuality.isEmpty()) {
-            context.sendMessage(Message.raw("§6By Quality:"));
+            context.sendMessage(Message.raw("By Quality:"));
             byQuality.forEach((k, v) -> 
-                    context.sendMessage(Message.raw("  §7" + k + ": §f" + v)));
+                    context.sendMessage(Message.raw("  " + k + ": " + v)));
         }
         
         Map<Integer, Long> byTier = metrics.getRollsByTier();
         if (!byTier.isEmpty()) {
-            context.sendMessage(Message.raw("§6By Tier:"));
+            context.sendMessage(Message.raw("By Tier:"));
             byTier.entrySet().stream()
                     .sorted(Map.Entry.comparingByKey())
-                    .forEach(e -> context.sendMessage(Message.raw("  §7T" + e.getKey() + ": §f" + e.getValue())));
+                    .forEach(e -> context.sendMessage(Message.raw("  T" + e.getKey() + ": " + e.getValue())));
         }
         
         Map<String, Long> byType = metrics.getRollsByType();
         if (!byType.isEmpty()) {
-            context.sendMessage(Message.raw("§6By Type:"));
+            context.sendMessage(Message.raw("By Type:"));
             byType.forEach((k, v) -> 
-                    context.sendMessage(Message.raw("  §7" + k + ": §f" + v)));
+                    context.sendMessage(Message.raw("  " + k + ": " + v)));
         }
     }
 }

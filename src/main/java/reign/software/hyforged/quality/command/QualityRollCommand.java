@@ -30,10 +30,10 @@ import java.util.logging.Logger;
 public class QualityRollCommand extends AbstractPlayerCommand {
 
     private static final Logger LOGGER = Logger.getLogger(QualityRollCommand.class.getName());
-    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cCould not find player component.");
-    private static final Message MESSAGE_NO_ITEM = Message.raw("§cYou must hold an item in your main hand.");
-    private static final Message MESSAGE_NOT_ELIGIBLE = Message.raw("§7Item is not eligible for quality rolling.");
-    private static final Message MESSAGE_NO_QUALITY = Message.raw("§7No quality was rolled for this item.");
+    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Could not find player component.");
+    private static final Message MESSAGE_NO_ITEM = Message.raw("You must hold an item in your main hand.");
+    private static final Message MESSAGE_NOT_ELIGIBLE = Message.raw("Item is not eligible for quality rolling.");
+    private static final Message MESSAGE_NO_QUALITY = Message.raw("No quality was rolled for this item.");
 
     @Nonnull
     private final DefaultArg<String> seedArg = this.withDefaultArg(
@@ -112,7 +112,7 @@ public class QualityRollCommand extends AbstractPlayerCommand {
                 seed = Long.parseLong(seedStr);
                 usedProvidedSeed = true;
             } catch (NumberFormatException e) {
-                context.sendMessage(Message.raw("§cInvalid seed: " + seedStr + ". Using random seed."));
+                context.sendMessage(Message.raw("Invalid seed: " + seedStr + ". Using random seed."));
             }
         }
 
@@ -132,11 +132,11 @@ public class QualityRollCommand extends AbstractPlayerCommand {
         }
 
         if (usedProvidedSeed) {
-            context.sendMessage(Message.raw("§6Rolled quality with seed: §e" + seed));
+            context.sendMessage(Message.raw("Rolled quality with seed: " + seed));
         } else {
-            context.sendMessage(Message.raw("§6Rolled quality (seed: §e" + seed + "§6)"));
+            context.sendMessage(Message.raw("Rolled quality (seed: " + seed + ")"));
         }
-        context.sendMessage(Message.raw("§7" + originalQuality + " → §a" + rolledQuality));
+        context.sendMessage(Message.raw("" + originalQuality + " → " + rolledQuality));
 
         LOGGER.log(Level.FINE, "Quality roll completed for item {0} (seed: {1})",
                 new Object[]{heldItem.getItemId(), seed});

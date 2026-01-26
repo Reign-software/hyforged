@@ -30,22 +30,22 @@ public class QualityMetricsCommand extends CommandBase {
         long failures = Math.max(0, attempts - successes);
         double successRate = attempts > 0 ? (successes * 100.0 / attempts) : 0.0;
 
-        context.sendMessage(Message.raw("§6=== Quality Roll Metrics ==="));
-        context.sendMessage(Message.raw("§7Roll Attempts: §f" + attempts));
-        context.sendMessage(Message.raw("§7Roll Successes: §a" + successes));
-        context.sendMessage(Message.raw("§7Roll Failures: §c" + failures));
-        context.sendMessage(Message.raw("§7Success Rate: §e" + String.format("%.1f%%", successRate)));
+        context.sendMessage(Message.raw("=== Quality Roll Metrics ==="));
+        context.sendMessage(Message.raw("Roll Attempts: " + attempts));
+        context.sendMessage(Message.raw("Roll Successes: " + successes));
+        context.sendMessage(Message.raw("Roll Failures: " + failures));
+        context.sendMessage(Message.raw("Success Rate: " + String.format("%.1f%%", successRate)));
 
         Map<String, Long> byQuality = metrics.getRollsByQuality();
         if (!byQuality.isEmpty()) {
-            context.sendMessage(Message.raw("§6By Quality:"));
-            byQuality.forEach((k, v) -> context.sendMessage(Message.raw("  §7" + k + ": §f" + v)));
+            context.sendMessage(Message.raw("By Quality:"));
+            byQuality.forEach((k, v) -> context.sendMessage(Message.raw("  " + k + ": " + v)));
         }
 
         Map<String, Long> bySource = metrics.getRollsBySourceType();
         if (!bySource.isEmpty()) {
-            context.sendMessage(Message.raw("§6By Source Type:"));
-            bySource.forEach((k, v) -> context.sendMessage(Message.raw("  §7" + k + ": §f" + v)));
+            context.sendMessage(Message.raw("By Source Type:"));
+            bySource.forEach((k, v) -> context.sendMessage(Message.raw("  " + k + ": " + v)));
         }
     }
 }

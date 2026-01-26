@@ -29,8 +29,8 @@ import javax.annotation.Nonnull;
  */
 public class ProgressionDebugCommand extends CommandBase {
 
-    private static final Message MESSAGE_NO_COMPONENT = Message.raw("§cPlayer has no progression component.");
-    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cPlayer not found or not in a world.");
+    private static final Message MESSAGE_NO_COMPONENT = Message.raw("Player has no progression component.");
+    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in a world.");
 
     @Nonnull
     private final RequiredArg<PlayerRef> playerArg = this.withRequiredArg(
@@ -90,60 +90,60 @@ public class ProgressionDebugCommand extends CommandBase {
             @Nonnull ProgressionComponent progression
     ) {
         StringBuilder sb = new StringBuilder();
-        sb.append("§6=== Progression Debug: §e").append(playerName).append(" §6===\n");
+        sb.append("=== Progression Debug: ").append(playerName).append(" ===\n");
         
         // Character progression
-        sb.append("\n§b[Character Progression]§r\n");
-        sb.append("  Level: §f").append(progression.getCharacterLevel());
-        sb.append("§7/§f").append(CharacterProgression.MAX_LEVEL).append("§r\n");
-        sb.append("  XP: §f").append(String.format("%,d", progression.getCharacterXp())).append("§r\n");
-        sb.append("  XP to Next: §f").append(String.format("%,d", progression.getCharacterXpToNext())).append("§r\n");
-        sb.append("  General Passive Points: §f").append(progression.getAvailableGeneralPassivePoints()).append("§r\n");
-        sb.append("  Allocated Points: §f").append(progression.getGeneralPassivePointsAllocated()).append("§r\n");
-        sb.append("  Dirty Flag: §f").append(progression.isDirty()).append("§r\n");
+        sb.append("\n[Character Progression]\n");
+        sb.append("  Level: ").append(progression.getCharacterLevel());
+        sb.append("/").append(CharacterProgression.MAX_LEVEL).append("\n");
+        sb.append("  XP: ").append(String.format("%,d", progression.getCharacterXp())).append("\n");
+        sb.append("  XP to Next: ").append(String.format("%,d", progression.getCharacterXpToNext())).append("\n");
+        sb.append("  General Passive Points: ").append(progression.getAvailableGeneralPassivePoints()).append("\n");
+        sb.append("  Allocated Points: ").append(progression.getGeneralPassivePointsAllocated()).append("\n");
+        sb.append("  Dirty Flag: ").append(progression.isDirty()).append("\n");
         
         // Active class
-        sb.append("\n§b[Active Class]§r\n");
+        sb.append("\n[Active Class]\n");
         String activeClassId = progression.getActiveClassId();
         if (activeClassId != null) {
-            sb.append("  ID: §f").append(activeClassId).append("§r\n");
+            sb.append("  ID: ").append(activeClassId).append("\n");
             
             ClassDefinition classDef = ClassDefinitionRegistry.get().get(activeClassId);
             if (classDef != null) {
-                sb.append("  Display Name: §f").append(classDef.displayName()).append("§r\n");
-                sb.append("  Weapon Tags: §7").append(String.join(", ", classDef.weaponTagFamilies())).append("§r\n");
+                sb.append("  Display Name: ").append(classDef.displayName()).append("\n");
+                sb.append("  Weapon Tags: ").append(String.join(", ", classDef.weaponTagFamilies())).append("\n");
             } else {
-                sb.append("  §c(Class definition not found)§r\n");
+                sb.append("  (Class definition not found)\n");
             }
         } else {
-            sb.append("  §7(None set)§r\n");
+            sb.append("  (None set)\n");
         }
         
         // Class progressions
-        sb.append("\n§b[Class Progressions]§r\n");
+        sb.append("\n[Class Progressions]\n");
         var classIds = progression.getClassIds();
         if (classIds.isEmpty()) {
-            sb.append("  §7(No class progressions)§r\n");
+            sb.append("  (No class progressions)\n");
         } else {
             for (String classId : classIds) {
                 var classData = progression.getClassProgression(classId);
                 if (classData != null) {
                     boolean isActive = classId.equals(activeClassId);
-                    String prefix = isActive ? "§a► " : "  ";
-                    sb.append(prefix).append("§e").append(classId).append("§r\n");
-                    sb.append("    Level: §f").append(classData.level);
-                    sb.append("§7/§f").append(ClassProgression.MAX_LEVEL).append("§r\n");
-                    sb.append("    XP: §f").append(String.format("%,d", classData.xp)).append("§r\n");
+                    String prefix = isActive ? "► " : "  ";
+                    sb.append(prefix).append("").append(classId).append("\n");
+                    sb.append("    Level: ").append(classData.level);
+                    sb.append("/").append(ClassProgression.MAX_LEVEL).append("\n");
+                    sb.append("    XP: ").append(String.format("%,d", classData.xp)).append("\n");
                 }
             }
         }
         
         // Registries status
-        sb.append("\n§b[Registries]§r\n");
+        sb.append("\n[Registries]\n");
         XPCurveRegistry curveRegistry = XPCurveRegistry.get();
         int curveCount = curveRegistry != null ? curveRegistry.getCurveCount() : 0;
-        sb.append("  XP Curves Loaded: §f").append(curveCount).append("§r\n");
-        sb.append("  Class Definitions: §f").append(ClassDefinitionRegistry.get().getClassCount()).append("§r\n");
+        sb.append("  XP Curves Loaded: ").append(curveCount).append("\n");
+        sb.append("  Class Definitions: ").append(ClassDefinitionRegistry.get().getClassCount()).append("\n");
         
         context.sendMessage(Message.raw(sb.toString()));
     }

@@ -27,9 +27,9 @@ public class ClassLevelSetCommand extends CommandBase {
 
     private static final Logger LOGGER = Logger.getLogger(ClassLevelSetCommand.class.getName());
 
-    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cPlayer not found or not in a world.");
-    private static final Message MESSAGE_NO_COMPONENT = Message.raw("§cPlayer does not have a progression component.");
-    private static final Message MESSAGE_INVALID_LEVEL = Message.raw("§cClass level must be between 1 and " + ClassProgression.MAX_LEVEL + ".");
+    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in a world.");
+    private static final Message MESSAGE_NO_COMPONENT = Message.raw("Player does not have a progression component.");
+    private static final Message MESSAGE_INVALID_LEVEL = Message.raw("Class level must be between 1 and " + ClassProgression.MAX_LEVEL + ".");
 
     @Nonnull
     private final RequiredArg<PlayerRef> playerArg = this.withRequiredArg(
@@ -113,7 +113,7 @@ public class ClassLevelSetCommand extends CommandBase {
                     adminName, playerName, classId, oldLevel, level));
 
             context.sendMessage(Message.raw(String.format(
-                    "§aSet class level for §f%s§a's class §f%s§a from §f%d§a to §f%d§a.",
+                    "Set class level for %s's class %s from %d to %d.",
                     playerName, classId, oldLevel, level)));
         });
     }

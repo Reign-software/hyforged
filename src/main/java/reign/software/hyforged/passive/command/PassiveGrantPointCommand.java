@@ -29,10 +29,10 @@ import javax.annotation.Nonnull;
  */
 public class PassiveGrantPointCommand extends CommandBase {
 
-    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cPlayer not found or not in world.");
-    private static final Message MESSAGE_NO_COMPONENT = Message.raw("§cPlayer has no passive tree data.");
-    private static final Message MESSAGE_GRANTED_GENERAL = Message.raw("§aGranted 1 general passive point to %s (new book points: %d)");
-    private static final Message MESSAGE_CLASS_NOT_SUPPORTED = Message.raw("§cClass tree point grants are not yet supported. Use level commands instead.");
+    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in world.");
+    private static final Message MESSAGE_NO_COMPONENT = Message.raw("Player has no passive tree data.");
+    private static final Message MESSAGE_GRANTED_GENERAL = Message.raw("Granted 1 general passive point to %s (new book points: %d)");
+    private static final Message MESSAGE_CLASS_NOT_SUPPORTED = Message.raw("Class tree point grants are not yet supported. Use level commands instead.");
 
     @Nonnull
     private final RequiredArg<PlayerRef> playerArg = this.withRequiredArg(
@@ -85,7 +85,7 @@ public class PassiveGrantPointCommand extends CommandBase {
             if (treeId.equalsIgnoreCase("general")) {
                 int newTotal = passiveComponent.addBookPoint();
                 context.sendMessage(Message.raw(String.format(
-                        "§aGranted 1 general passive point to %s (new book points: %d)", 
+                        "Granted 1 general passive point to %s (new book points: %d)", 
                         username, newTotal)));
                 return;
             }
@@ -99,7 +99,7 @@ public class PassiveGrantPointCommand extends CommandBase {
             }
 
             // Unknown tree
-            context.sendMessage(Message.raw("§cUnknown tree: " + treeId + ". Use 'general' or a valid class ID."));
+            context.sendMessage(Message.raw("Unknown tree: " + treeId + ". Use 'general' or a valid class ID."));
         });
     }
 }

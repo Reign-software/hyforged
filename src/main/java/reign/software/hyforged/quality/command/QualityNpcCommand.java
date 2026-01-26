@@ -24,8 +24,8 @@ import java.util.List;
  */
 public class QualityNpcCommand extends AbstractPlayerCommand {
 
-    private static final Message MESSAGE_NO_TARGET = Message.raw("§cNo target entity found.");
-    private static final Message MESSAGE_NO_QUALITY = Message.raw("§7Target has no NPC quality assigned.");
+    private static final Message MESSAGE_NO_TARGET = Message.raw("No target entity found.");
+    private static final Message MESSAGE_NO_QUALITY = Message.raw("Target has no NPC quality assigned.");
 
     public QualityNpcCommand() {
         super("npc", "hyforged.commands.quality.npc.desc");
@@ -59,16 +59,16 @@ public class QualityNpcCommand extends AbstractPlayerCommand {
         NPCEntity npcEntity = store.getComponent(targetRef, NPCEntity.getComponentType());
         String roleName = npcEntity != null ? npcEntity.getRoleName() : "Unknown";
 
-        context.sendMessage(Message.raw("§6NPC Quality: §e" + component.getQualityId()));
-        context.sendMessage(Message.raw("§7Role: §f" + roleName));
+        context.sendMessage(Message.raw("NPC Quality: " + component.getQualityId()));
+        context.sendMessage(Message.raw("Role: " + roleName));
 
         List<RolledAffix> affixes = component.getAffixes();
         int affixCount = affixes != null ? affixes.size() : 0;
-        context.sendMessage(Message.raw("§7Affixes: §f" + affixCount));
+        context.sendMessage(Message.raw("Affixes: " + affixCount));
 
         if (affixCount > 0) {
             for (RolledAffix affix : affixes) {
-                context.sendMessage(Message.raw("  §7- §a" + affix.affixId() + " [T" + affix.tier() + "]"));
+                context.sendMessage(Message.raw("  - " + affix.affixId() + " [T" + affix.tier() + "]"));
             }
         }
     }

@@ -16,6 +16,7 @@ This is a Hytale plugin project. Hytale plugins are used to extend the functiona
 - DO NOT hard code values; always use data-driven approaches and JSON configuration.
 - Prefer single-file JSON definitions for features that extend Hytale (e.g., buffs/debuffs, effects, interactions). Avoid multi-file JSON solutions unless there is a clear, logical design need.
 - There is a build and deploy task that will build the plugin and copy it to the local Hytale server plugins directory for testing. Use this to speed up your development workflow.
+- There should be no warnings or errors when compiling the plugin. (ignoring pom.xml warnings)
 
 ## .github/skills
 - Evaluate skills when given a task or problem to solve.

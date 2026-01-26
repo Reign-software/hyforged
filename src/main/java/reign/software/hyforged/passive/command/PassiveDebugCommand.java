@@ -38,8 +38,8 @@ import java.util.Set;
  */
 public class PassiveDebugCommand extends CommandBase {
 
-    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("§cPlayer not found or not in world.");
-    private static final Message MESSAGE_NO_COMPONENT = Message.raw("§cPlayer has no passive tree data.");
+    private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in world.");
+    private static final Message MESSAGE_NO_COMPONENT = Message.raw("Player has no passive tree data.");
 
     @Nonnull
     private final RequiredArg<PlayerRef> playerArg = this.withRequiredArg(
@@ -86,53 +86,53 @@ public class PassiveDebugCommand extends CommandBase {
             String username = playerRefComponent != null ? playerRefComponent.getUsername() : "Unknown";
             
             // Header
-            context.sendMessage(Message.raw("§6========================================"));
-            context.sendMessage(Message.raw("§6Passive Tree Debug for: §e" + username));
-            context.sendMessage(Message.raw("§6========================================"));
+            context.sendMessage(Message.raw("========================================"));
+            context.sendMessage(Message.raw("Passive Tree Debug for: " + username));
+            context.sendMessage(Message.raw("========================================"));
 
             // Character Level
             int characterLevel = progressionComponent != null ? progressionComponent.getCharacterLevel() : 0;
-            context.sendMessage(Message.raw("§7Character Level: §f" + characterLevel));
-            context.sendMessage(Message.raw("§7Schema Version: §f" + PassiveTreeComponent.SCHEMA_VERSION));
+            context.sendMessage(Message.raw("Character Level: " + characterLevel));
+            context.sendMessage(Message.raw("Schema Version: " + PassiveTreeComponent.SCHEMA_VERSION));
             context.sendMessage(Message.raw(""));
 
             // === GENERAL TREE ===
-            context.sendMessage(Message.raw("§e[GENERAL TREE]"));
+            context.sendMessage(Message.raw("[GENERAL TREE]"));
             
             String startingNode = passiveComponent.getGeneralStartingNode();
-            context.sendMessage(Message.raw("  §7Starting Node: §f" + (startingNode != null ? startingNode : "(none)")));
+            context.sendMessage(Message.raw("  Starting Node: " + (startingNode != null ? startingNode : "(none)")));
             
             int bookPoints = passiveComponent.getBookPointsUsed();
             int generalAllocated = passiveComponent.getGeneralAllocatedCount();
             int earnedPoints = characterLevel - 1;
             int availableGeneral = PassiveTreeService.get().getAvailableGeneralPoints(ref);
             
-            context.sendMessage(Message.raw("  §7Points Breakdown:"));
-            context.sendMessage(Message.raw("    §8- Earned (level-1): §f" + earnedPoints));
-            context.sendMessage(Message.raw("    §8- Book Points: §f" + bookPoints));
-            context.sendMessage(Message.raw("    §8- Allocated: §c-" + generalAllocated));
-            context.sendMessage(Message.raw("    §8= Available: §a" + availableGeneral));
+            context.sendMessage(Message.raw("  Points Breakdown:"));
+            context.sendMessage(Message.raw("    - Earned (level-1): " + earnedPoints));
+            context.sendMessage(Message.raw("    - Book Points: " + bookPoints));
+            context.sendMessage(Message.raw("    - Allocated: -" + generalAllocated));
+            context.sendMessage(Message.raw("    = Available: " + availableGeneral));
             
             // Tree version
             int generalVersion = passiveComponent.getTreeVersion("general");
-            context.sendMessage(Message.raw("  §7Tree Version: §f" + (generalVersion > 0 ? generalVersion : "(not tracked)")));
+            context.sendMessage(Message.raw("  Tree Version: " + (generalVersion > 0 ? generalVersion : "(not tracked)")));
             
             // Allocated nodes
             Set<String> generalNodes = passiveComponent.getGeneralAllocatedNodes();
-            context.sendMessage(Message.raw("  §7Allocated Nodes (" + generalNodes.size() + "):"));
+            context.sendMessage(Message.raw("  Allocated Nodes (" + generalNodes.size() + "):"));
             
             PassiveTree generalTree = PassiveTreeRegistry.get().getGeneralTree();
             if (generalTree != null && !generalNodes.isEmpty()) {
                 int count = 0;
                 for (String nodeId : generalNodes) {
                     if (count >= 20) {
-                        context.sendMessage(Message.raw("    §8... and " + (generalNodes.size() - 20) + " more"));
+                        context.sendMessage(Message.raw("    ... and " + (generalNodes.size() - 20) + " more"));
                         break;
                     }
                     PassiveNode node = generalTree.getNode(nodeId);
                     String type = node != null ? node.type() : "?";
                     String effects = node != null ? String.valueOf(node.effects().size()) : "?";
-                    context.sendMessage(Message.raw("    §f" + nodeId + " §8[" + type + ", " + effects + " effects]"));
+                    context.sendMessage(Message.raw("    " + nodeId + " [" + type + ", " + effects + " effects]"));
                     count++;
                 }
             }
@@ -142,7 +142,7 @@ public class PassiveDebugCommand extends CommandBase {
             Set<String> classIds = passiveComponent.getClassIdsWithAllocations();
             if (!classIds.isEmpty()) {
                 for (String classId : classIds) {
-                    context.sendMessage(Message.raw("§e[CLASS TREE: " + classId + "]"));
+                    context.sendMessage(Message.raw("[CLASS TREE: " + classId + "]"));
                     
                     int classAllocated = passiveComponent.getClassAllocatedCount(classId);
                     int availableClass = PassiveTreeService.get().getAvailableClassPoints(ref, classId);
@@ -154,29 +154,29 @@ public class PassiveDebugCommand extends CommandBase {
                         classLevel = classData != null ? classData.level : 0;
                     }
                     
-                    context.sendMessage(Message.raw("  §7Class Level: §f" + classLevel));
-                    context.sendMessage(Message.raw("  §7Allocated: §f" + classAllocated));
-                    context.sendMessage(Message.raw("  §7Available: §a" + availableClass));
+                    context.sendMessage(Message.raw("  Class Level: " + classLevel));
+                    context.sendMessage(Message.raw("  Allocated: " + classAllocated));
+                    context.sendMessage(Message.raw("  Available: " + availableClass));
                     
                     // Tree version
                     int classVersion = passiveComponent.getTreeVersion(classId);
-                    context.sendMessage(Message.raw("  §7Tree Version: §f" + (classVersion > 0 ? classVersion : "(not tracked)")));
+                    context.sendMessage(Message.raw("  Tree Version: " + (classVersion > 0 ? classVersion : "(not tracked)")));
                     
                     // Allocated nodes
                     Set<String> classNodes = passiveComponent.getClassAllocatedNodes(classId);
-                    context.sendMessage(Message.raw("  §7Allocated Nodes (" + classNodes.size() + "):"));
+                    context.sendMessage(Message.raw("  Allocated Nodes (" + classNodes.size() + "):"));
                     
                     PassiveTree classTree = PassiveTreeRegistry.get().getClassTree(classId);
                     if (classTree != null) {
                         int count = 0;
                         for (String nodeId : classNodes) {
                             if (count >= 10) {
-                                context.sendMessage(Message.raw("    §8... and " + (classNodes.size() - 10) + " more"));
+                                context.sendMessage(Message.raw("    ... and " + (classNodes.size() - 10) + " more"));
                                 break;
                             }
                             PassiveNode node = classTree.getNode(nodeId);
                             String type = node != null ? node.type() : "?";
-                            context.sendMessage(Message.raw("    §f" + nodeId + " §8[" + type + "]"));
+                            context.sendMessage(Message.raw("    " + nodeId + " [" + type + "]"));
                             count++;
                         }
                     }
@@ -187,9 +187,9 @@ public class PassiveDebugCommand extends CommandBase {
             // === MASTERY CHOICES ===
             Map<String, String> masteryChoices = passiveComponent.getAllMasteryChoices();
             if (!masteryChoices.isEmpty()) {
-                context.sendMessage(Message.raw("§e[MASTERY CHOICES]"));
+                context.sendMessage(Message.raw("[MASTERY CHOICES]"));
                 for (Map.Entry<String, String> entry : masteryChoices.entrySet()) {
-                    context.sendMessage(Message.raw("  §f" + entry.getKey() + " §8-> §f" + entry.getValue()));
+                    context.sendMessage(Message.raw("  " + entry.getKey() + " -> " + entry.getValue()));
                 }
                 context.sendMessage(Message.raw(""));
             }
@@ -197,13 +197,13 @@ public class PassiveDebugCommand extends CommandBase {
             // === PENDING MASTERY ===
             Set<String> pendingMastery = passiveComponent.getPendingMasteryChoices();
             if (!pendingMastery.isEmpty()) {
-                context.sendMessage(Message.raw("§e[PENDING MASTERY CHOICES]"));
+                context.sendMessage(Message.raw("[PENDING MASTERY CHOICES]"));
                 for (String masteryId : pendingMastery) {
-                    context.sendMessage(Message.raw("  §c" + masteryId + " §8(awaiting selection)"));
+                    context.sendMessage(Message.raw("  " + masteryId + " (awaiting selection)"));
                 }
             }
 
-            context.sendMessage(Message.raw("§6========================================"));
+            context.sendMessage(Message.raw("========================================"));
         });
     }
 }
