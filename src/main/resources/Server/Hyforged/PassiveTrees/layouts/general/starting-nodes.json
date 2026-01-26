@@ -3,7 +3,7 @@
   "Placements": [
     {
       "NodeId": "hyforged:travel-strength",
-      "Position": { "X": -200, "Y": 0 },
+      "Position": { "X": -210, "Y": 0 },
       "Region": "strength",
       "InstanceId": "hyforged:start-strength",
       "IsStarting": true
@@ -24,11 +24,25 @@
     },
     {
       "NodeId": "hyforged:travel-wisdom",
-      "Position": { "X": 200, "Y": 0 },
+      "Position": { "X": 210, "Y": 0 },
       "Region": "wisdom",
       "InstanceId": "hyforged:start-wisdom",
       "IsStarting": true
     }
+  ],
+  "Connections": [
+    { "From": "hyforged:start-strength", "To": "hyforged:str-p1-phys-01" },
+    { "From": "hyforged:start-strength", "To": "hyforged:str-p2-melee-01" },
+    { "From": "hyforged:start-strength", "To": "hyforged:str-p3-dot-01" },
+    { "From": "hyforged:start-dexterity", "To": "hyforged:dex-p1-eva-01" },
+    { "From": "hyforged:start-dexterity", "To": "hyforged:dex-p2-acc-01" },
+    { "From": "hyforged:start-dexterity", "To": "hyforged:dex-p3-move-01" },
+    { "From": "hyforged:start-intelligence", "To": "hyforged:int-p1-spell-01" },
+    { "From": "hyforged:start-intelligence", "To": "hyforged:int-p2-mana-01" },
+    { "From": "hyforged:start-intelligence", "To": "hyforged:int-p3-elem-01" },
+    { "From": "hyforged:start-wisdom", "To": "hyforged:wis-p1-regen-01" },
+    { "From": "hyforged:start-wisdom", "To": "hyforged:wis-p2-conc-01" },
+    { "From": "hyforged:start-wisdom", "To": "hyforged:wis-p3-resist-01" }
   ],
   "StartingNodes": [
     "hyforged:start-strength",
