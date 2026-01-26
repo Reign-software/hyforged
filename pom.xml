@@ -27,6 +27,12 @@
             <version>1.0.2</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>curse.maven</groupId>
+            <artifactId>hyui-1431415</artifactId>
+            <version>7522546</version>
+            <scope>provided</scope>
+        </dependency>
         <!-- Test dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -41,6 +47,11 @@
             <id>hytale-modding</id>
             <name>Hytale Modding Maven</name>
             <url>https://maven.hytale-modding.info/releases</url>
+        </repository>
+        <repository>
+            <id>cursemaven</id>
+            <name>CurseMaven</name>
+            <url>https://www.cursemaven.com</url>
         </repository>
         <repository>
             <id>curseforge</id>

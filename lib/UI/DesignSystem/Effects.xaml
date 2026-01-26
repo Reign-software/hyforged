@@ -1,0 +1,19 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions">
+
+    <DropShadowEffect x:Key="Glow.RecipeListItemHover" ShadowDepth="0" Direction="0" Color="#FFB31E" BlurRadius="6" Opacity="0.4"/>
+    <DropShadowEffect x:Key="Glow.ExpanderHover" ShadowDepth="0" Direction="0" Color="#FFB31E" BlurRadius="6" Opacity="0.4"/>
+    <DropShadowEffect x:Key="Glow.ItemSlotHover" ShadowDepth="0" Direction="0" Color="#FFB31E" BlurRadius="6" Opacity="0.4"/>
+    <DropShadowEffect x:Key="Glow.ScrollHover" ShadowDepth="0" Direction="0" Color="#FFB31E" BlurRadius="4" Opacity="0.7"/>
+    <DropShadowEffect x:Key="Shadow.ContextMenu" Direction="0" ShadowDepth="0" BlurRadius="20" Opacity="0.5" Color="#0E091E"/>
+    <DropShadowEffect x:Key="Shadow.Text" Direction="0" ShadowDepth="0" BlurRadius="16" Opacity="0.75"/>
+    <DropShadowEffect x:Key="Shadow.BusinessCard" Direction="90" ShadowDepth="2" BlurRadius="24" Opacity="0.25"/>
+    <DropShadowEffect x:Key="Shadow.Modal" Direction="0" ShadowDepth="0" BlurRadius="20" Opacity="0.5" Color="#0E091E"/>
+
+    <LinearGradientBrush x:Key="Mask.ItemLists" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="#FF000000" Offset="0.97"/>
+        <GradientStop Offset="1"/>
+    </LinearGradientBrush>
+</ResourceDictionary>

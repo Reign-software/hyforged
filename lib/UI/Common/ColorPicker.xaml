@@ -1,0 +1,147 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                    xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+                    xmlns:hy="clr-namespace:HytaleClient.UI.Common">
+  <!-- ColorPicker default style -->
+  <Style TargetType="{x:Type hy:ColorPickerControl}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type hy:ColorPickerControl}">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="PART_SvArea" Grid.Row="0">
+              <Grid.Background>
+                <SolidColorBrush x:Name="PART_HueBrush"/>
+              </Grid.Background>
+              <Grid>
+                <Grid.Background>
+                  <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                    <GradientStop Color="#00FFFFFF" Offset="1"/>
+                  </LinearGradientBrush>
+                </Grid.Background>
+              </Grid>
+              <Grid>
+                <Grid.Background>
+                  <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#00000000" Offset="0"/>
+                    <GradientStop Color="#FF000000" Offset="1"/>
+                  </LinearGradientBrush>
+                </Grid.Background>
+              </Grid>
+              <Canvas>
+                <Ellipse x:Name="PART_Selector" Width="10" Height="10" Stroke="White" StrokeThickness="2" Fill="Transparent" Canvas.Left="0" Canvas.Top="0" />
+              </Canvas>
+            </Grid>
+            <Border x:Name="PART_HueArea" Grid.Row="0" Grid.Column="1" Margin="4,0,0,0">
+              <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                  <GradientStop Color="#FFFF0000" Offset="0"/>
+                  <GradientStop Color="#FFFFFF00" Offset="0.17"/>
+                  <GradientStop Color="#FF00FF00" Offset="0.33"/>
+                  <GradientStop Color="#FF00FFFF" Offset="0.50"/>
+                  <GradientStop Color="#FF0000FF" Offset="0.67"/>
+                  <GradientStop Color="#FFFF00FF" Offset="0.83"/>
+                  <GradientStop Color="#FFFF0000" Offset="1"/>
+                </LinearGradientBrush>
+              </Border.Background>
+              <Canvas x:Name="PART_HueCanvas">
+                <!-- Indicator container moved as a single unit vertically -->
+                <Grid x:Name="PART_HueIndicator" HorizontalAlignment="Stretch" Height="10">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                  </Grid.ColumnDefinitions>
+                  <Path Grid.Column="2" Fill="White" Stroke="Black" StrokeThickness="0.5" Data="M6,0 L0,5 6,10 Z" HorizontalAlignment="Left"/>
+                  <Path Grid.Column="0" Fill="White" Stroke="Black" StrokeThickness="0.5" Data="M0,0 L6,5 0,10 Z" HorizontalAlignment="Right"/>
+                </Grid>
+              </Canvas>
+            </Border>
+            <!-- Selected Color Preview Bar and Hex input -->
+            <Grid Grid.Row="1" Grid.ColumnSpan="2" Height="20" Margin="0,4,0,0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <Grid Grid.Column="0">
+                <!-- Checkerboard transparency background -->
+                <Rectangle>
+                  <Rectangle.Fill>
+                    <!-- Use relative units; Noesis supports VisualBrush tiling with RelativeToBoundingBox -->
+                    <VisualBrush TileMode="Tile" Stretch="None" AlignmentX="Left" AlignmentY="Top" ViewportUnits="RelativeToBoundingBox" ViewboxUnits="RelativeToBoundingBox" Viewport="0,0,0.1,0.1" Viewbox="0,0,1,1">
+                      <VisualBrush.Visual>
+                        <Grid>
+                          <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                          </Grid.RowDefinitions>
+                          <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                          </Grid.ColumnDefinitions>
+                          <Rectangle Grid.RowSpan="2" Grid.ColumnSpan="2" Fill="#FFF0F0F0"/>
+                          <Rectangle Grid.Row="0" Grid.Column="0" Fill="#FFD0D0D0"/>
+                          <Rectangle Grid.Row="1" Grid.Column="1" Fill="#FFD0D0D0"/>
+                        </Grid>
+                      </VisualBrush.Visual>
+                    </VisualBrush>
+                  </Rectangle.Fill>
+                </Rectangle>
+                <!-- Solid color overlay -->
+                <Rectangle>
+                  <Rectangle.Fill>
+                    <SolidColorBrush Color="{Binding Color, RelativeSource={RelativeSource TemplatedParent}}"/>
+                  </Rectangle.Fill>
+                </Rectangle>
+              </Grid>
+              <TextBox Grid.Column="1" Width="90" Margin="6,0,0,0" VerticalContentAlignment="Center" Padding="4,0,4,0">
+                <TextBox.Text>
+                  <Binding Path="Color" RelativeSource="{RelativeSource TemplatedParent}" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.Converter>
+                      <hy:ColorToHexConverter/>
+                    </Binding.Converter>
+                  </Binding>
+                </TextBox.Text>
+              </TextBox>
+            </Grid>
+            <!-- Opacity slider -->
+            <Grid Grid.Row="2" Grid.ColumnSpan="2" Margin="0,6,0,0">
+              <Grid.Style>
+                <Style TargetType="Grid">
+                  <Setter Property="Visibility" Value="Visible"/>
+                  <Style.Triggers>
+                    <DataTrigger Binding="{Binding SupportsAlpha, RelativeSource={RelativeSource TemplatedParent}}" Value="False">
+                      <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </Grid.Style>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <TextBlock Grid.Column="0" Text="Opacity" VerticalAlignment="Center" Margin="0,0,6,0"/>
+              <Slider Grid.Column="1" Minimum="0" Maximum="1" TickFrequency="0.01" IsSnapToTickEnabled="False" Value="{Binding Alpha, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+              <TextBlock Grid.Column="2" Width="36" TextAlignment="Right" VerticalAlignment="Center">
+                <TextBlock.Text>
+                  <Binding Path="Alpha" RelativeSource="{RelativeSource TemplatedParent}" StringFormat="{}{0:P0}"/>
+                </TextBlock.Text>
+              </TextBlock>
+            </Grid>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

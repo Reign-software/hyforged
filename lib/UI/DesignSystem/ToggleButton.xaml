@@ -1,0 +1,250 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:NoesisGUIExtensions">
+
+    <!-- TOGGLE BUTTON ANIMATIONS -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <!-- These animations scale down the whole button on press and scale it back up on release -->
+    <Storyboard x:Key="Anim.Press">
+        <DoubleAnimation
+            Storyboard.TargetName="TemplateRoot"
+            Storyboard.TargetProperty="RenderTransform.ScaleX"
+            To="0.95"
+            Duration="0:0:0.1"
+            DecelerationRatio="0.25"/>
+
+        <DoubleAnimation
+            Storyboard.TargetName="TemplateRoot"
+            Storyboard.TargetProperty="RenderTransform.ScaleY"
+            To="0.95"
+            Duration="0:0:0.1"
+            DecelerationRatio="0.25"/>
+    </Storyboard>
+
+    <Storyboard x:Key="Anim.Release">
+        <DoubleAnimation
+            Storyboard.TargetName="TemplateRoot"
+            Storyboard.TargetProperty="RenderTransform.ScaleX"
+            To="1"
+            Duration="0:0:0.2"
+            DecelerationRatio="1"/>
+
+        <DoubleAnimation
+            Storyboard.TargetName="TemplateRoot"
+            Storyboard.TargetProperty="RenderTransform.ScaleY"
+            To="1"
+            Duration="0:0:0.2"
+            DecelerationRatio="1"/>
+    </Storyboard>
+
+    <!-- TOGGLE BUTTON TEMPLATE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <!-- This is the base toggle button template -->
+    <ControlTemplate x:Key="Template.ToggleButton" TargetType="ToggleButton">
+        <!-- The TemplateRoot wraps all of the elements of the toggle button -->
+        <Grid x:Name="TemplateRoot" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <ScaleTransform />
+            </Grid.RenderTransform>
+
+            <!-- The ToggleButton.Base the button's container over which we render its content -->
+            <Border
+                x:Name="ToggleButton.Base"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="4"/>
+
+            <!-- The ContentPresenter renders content inside of the toggle button -->
+            <ContentPresenter
+                x:Name="PART_ContentPresenter"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                Margin="{TemplateBinding Padding}"/>
+        </Grid>
+
+        <!-- This trigger plays the above scale animations when pressing the button -->
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource Anim.Press}"/>
+                </Trigger.EnterActions>
+
+                <Trigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource Anim.Release}"/>
+                </Trigger.ExitActions>
+            </Trigger>
+        </ControlTemplate.Triggers>
+      </ControlTemplate>
+
+
+    <!-- TOGGLE BUTTON SECONDARY STYLE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <!-- This style defines the secondary variant appearance of the toggle button as defined in our Figma Design System -->
+    <Style x:Key="Style.ToggleButton.Secondary" TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ContentControl}}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Background" Value="{DynamicResource Color.Background.Control}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Color.Border.Control}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="12,0,12,0"/>
+        <Setter Property="Template" Value="{StaticResource Template.ToggleButton}"/>
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Style.Focus}"/>
+
+        <!-- These triggers define the property changes that happen in the different interactive states of the toggle button -->
+        <!-- They are set in the style, not the control template, so that designers can easily add variants with new appearance without having to create new templates -->
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Color.Border.Control.Hover}"/>
+            </Trigger>
+
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Color.Background.Control.Press}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Color.Border.Control.Hover}"/>
+            </Trigger>
+
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Color.Background.Control.Selection}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Color.Border.Control.Active}"/>
+            </Trigger>
+
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource Color.TextDisable}"/>
+                <Setter Property="Background" Value="{DynamicResource Color.Background.Control.Disable}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Color.Border.Control.Disable}"/>
+            </Trigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsEnabled" Value="False"/>
+                    <Condition Property="IsChecked" Value="True"/>
+                </MultiTrigger.Conditions>
+
+                <Setter Property="Foreground" Value="{DynamicResource Color.TextDisable}"/>
+                <Setter Property="Background" Value="{DynamicResource Color.Background.Control.Disable}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Color.Border.Control.Disable}" />
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- TOGGLE BUTTON SORT TEMPLATE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <!-- This template defines a unique variant of the toggle button that allows players to change the sort order in a collection of items -->
+    <ControlTemplate x:Key="Template.ToggleButton.Sort" TargetType="ToggleButton">
+        <!-- The TemplateRoot wraps all of the elements of the toggle button -->
+        <Grid x:Name="TemplateRoot" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <ScaleTransform />
+            </Grid.RenderTransform>
+
+            <!-- The ToggleButton.Base the button's container over which we render its content -->
+            <Border
+                x:Name="ToggleButton.Base"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="4"/>
+
+            <!-- Icon.SortDesc displays an icon that indicates that the current sorting order is descending. It's visible by default -->
+            <Image
+                x:Name="Icon.SortDesc"
+                Source="../Textures/Icons/IconSortDesc.png"
+                Width="28"
+                Height="24"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                IsHitTestVisible="False"
+                Visibility="Visible"/>
+
+            <!-- Icon.SortAsc displays an icon that indicates that the current sorting order is ascending -->
+            <Image
+                x:Name="Icon.SortAsc"
+                Source="../Textures/Icons/IconSortAsc.png"
+                Width="28"
+                Height="24"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                IsHitTestVisible="False"
+                Visibility="Collapsed"/>
+
+            <ContentPresenter
+                x:Name="PART_ContentPresenter"
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                Margin="{TemplateBinding Padding}"/>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <!-- This trigger plays the above scale animations when pressing the button -->
+            <Trigger Property="IsPressed" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource Anim.Press}"/>
+                </Trigger.EnterActions>
+
+                <Trigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource Anim.Release}"/>
+                </Trigger.ExitActions>
+            </Trigger>
+
+            <!-- These triggers change which icon is visible based on whether the toggle button is checked or not -->
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Visibility" Value="Visible" TargetName="Icon.SortDesc"/>
+                <Setter Property="Visibility" Value="Collapsed" TargetName="Icon.SortAsc"/>
+            </Trigger>
+
+            <Trigger Property="IsChecked" Value="False">
+                <Setter Property="Visibility" Value="Collapsed" TargetName="Icon.SortDesc"/>
+                <Setter Property="Visibility" Value="Visible" TargetName="Icon.SortAsc"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+      </ControlTemplate>
+
+    <!-- TOGGLE BUTTON SORT STYLE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <Style x:Key="Style.ToggleButton.Sort" TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ContentControl}}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Background" Value="{DynamicResource Color.Background.Control}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Color.Border.Control}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="12,0,12,0"/>
+        <Setter Property="Template" Value="{StaticResource Template.ToggleButton.Sort}"/>
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Style.Focus}"/>
+
+        <!-- These triggers define the property changes that happen in the different interactive states of the toggle button -->
+        <!-- They are set in the style, not the control template, so that designers can easily add variants with new appearance without having to create new templates -->
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Color.Border.Control.Hover}"/>
+            </Trigger>
+
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Color.Background.Control.Press}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Color.Border.Control.Hover}"/>
+            </Trigger>
+
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource Color.TextDisable}"/>
+                <Setter Property="Background" Value="{DynamicResource Color.Background.Control.Disable}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Color.Border.Control.Disable}"/>
+            </Trigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsEnabled" Value="False"/>
+                    <Condition Property="IsChecked" Value="True"/>
+                </MultiTrigger.Conditions>
+
+                <Setter Property="Foreground" Value="{DynamicResource Color.TextDisable}"/>
+                <Setter Property="Background" Value="{DynamicResource Color.Background.Control.Disable}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource Color.Border.Control.Disable}" />
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

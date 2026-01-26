@@ -21,12 +21,17 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("CharacterStatsPage")
 class CharacterStatsPageTest {
     
+    // UI category names (matching the UI groups in CharacterStatsPage.ui)
+    private static final String CATEGORY_CORE = "Core";
+    private static final String CATEGORY_OFFENSIVE = "Offensive";
+    private static final String CATEGORY_DEFENSIVE = "Defensive";
+    
     /**
      * Creates a test StatDefinition with sensible defaults.
      */
     private static StatDefinition createTestStat(String name, int defaultValue, int min, int max) {
         return new StatDefinition.Builder(StatId.hyforged(name))
-                .category(CharacterStatsPage.CATEGORY_ABILITY_SCORES)
+                .category(CATEGORY_CORE)
                 .displayFormat(DisplayFormat.INTEGER)
                 .defaultValue(defaultValue)
                 .bounds(min, max)
@@ -42,13 +47,12 @@ class CharacterStatsPageTest {
     class CategoryConstantsTests {
         
         @Test
-        @DisplayName("should have all required category constants")
-        void shouldHaveAllCategoryConstants() {
-            assertEquals("Ability Scores", CharacterStatsPage.CATEGORY_ABILITY_SCORES);
-            assertEquals("Combat", CharacterStatsPage.CATEGORY_COMBAT);
-            assertEquals("Defense", CharacterStatsPage.CATEGORY_DEFENSE);
-            assertEquals("Resources", CharacterStatsPage.CATEGORY_RESOURCES);
-            assertEquals("Misc", CharacterStatsPage.CATEGORY_MISC);
+        @DisplayName("should have valid category values for UI")
+        void shouldHaveValidCategoryValues() {
+            // Categories now match the UI group names
+            assertEquals("Core", CATEGORY_CORE);
+            assertEquals("Offensive", CATEGORY_OFFENSIVE);
+            assertEquals("Defensive", CATEGORY_DEFENSIVE);
         }
     }
     

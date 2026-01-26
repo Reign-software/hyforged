@@ -1,0 +1,643 @@
+<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:HytaleClient.UI.Machinima"
+    xmlns:hy="clr-namespace:HytaleClient.UI.Common"
+    xmlns:noesis="clr-namespace:NoesisGUIExtensions"
+    UseLayoutRounding="True"
+    x:Name="MachinimaPage"
+>
+    <Grid>
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <hy:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+            <local:RadianToDegreeConverter x:Key="RadianToDegreeConverter" />
+
+            <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                <Setter Property="Foreground" Value="{StaticResource Color.Text}"/>
+                <Setter Property="Margin" Value="0 0 0 5"/>
+            </Style>
+
+            <ControlTemplate x:Key="ModalTemplate" TargetType="ContentControl">
+                <ControlTemplate.Triggers>
+                    <DataTrigger Binding="{Binding ConfirmCommand}" Value="{x:Null}">
+                        <Setter TargetName="ConfirmButton" Property="Visibility" Value="Collapsed"/>
+                        <Setter TargetName="CloseButton" Property="Grid.ColumnSpan" Value="3"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsDestructiveAction}" Value="True">
+                        <Setter TargetName="ConfirmButton" Property="Style" Value="{StaticResource Style.Button.Danger}"/>
+                    </DataTrigger>
+                </ControlTemplate.Triggers>
+
+                <StackPanel>
+                    <TextBlock
+                        FontSize="{StaticResource Font.Size.Heading1}"
+                        FontFamily="{StaticResource Font.LexendBold}"
+                        TextAlignment="Center"
+                        Text="{Binding Title}"
+                    />
+                    <Border Height="1" Background="{StaticResource Color.Separator}" Margin="0 10 0 20" />
+                    <ContentPresenter />
+                    <Border Height="1" Background="{StaticResource Color.Separator}" Margin="0 10 0 20" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="7" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button
+                            x:Name="CloseButton"
+                            Grid.Column="0"
+                            Style="{StaticResource Style.Button.Secondary}"
+                            Content="{Binding CloseButtonText}"
+                            Command="{Binding CloseCommand}"
+                        />
+
+                        <Button
+                            x:Name="ConfirmButton"
+                            Grid.Column="2"
+                            Style="{StaticResource Style.Button.Primary}"
+                            Content="{Binding ConfirmButtonText}"
+                            Command="{Binding ConfirmCommand}"
+                        />
+                    </Grid>
+                </StackPanel>
+            </ControlTemplate>
+
+            <DataTemplate DataType="{x:Type hy:ModalViewModel}">
+                <ContentControl Template="{StaticResource ModalTemplate}">
+                    <ContentControl Content="{Binding Content}" />
+                </ContentControl>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type local:CreateSceneModalViewModel}">
+                <ContentControl Template="{StaticResource ModalTemplate}">
+                    <StackPanel>
+                        <Label Content="{hy:Loc client.machinima.modal.label.name}" />
+                        <TextBox
+                            x:Name="SceneName"
+                            Text="{Binding SceneName}"
+                            Style="{StaticResource Style.TextBox}"
+                            hy:FocusBehavior.FocusOnVisible="True"
+                        />
+                    </StackPanel>
+                </ContentControl>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type local:SceneSettingsModalViewModel}">
+                <ContentControl Template="{StaticResource ModalTemplate}">
+                    <StackPanel>
+
+                    </StackPanel>
+                </ContentControl>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type local:InputBindingsModalViewModel}">
+                <ContentControl Template="{StaticResource ModalTemplate}">
+                    <ItemsControl ItemsSource="{Binding InputBindings}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0 0 0 7">
+                                    <TextBlock Text="{hy:LocBinding Name}" Width="300" Padding="5" Foreground="{StaticResource Color.Text}" />
+
+                                    <ContentControl Style="{StaticResource Style.ControlHint.Icon}">
+                                        <TextBlock Text="{Binding BindingLabel}" Style="{StaticResource Style.ControlHint.Label}" />
+                                    </ContentControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ContentControl>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type local:CreateActorModalViewModel}">
+                <ContentControl Template="{StaticResource ModalTemplate}">
+                    <StackPanel>
+                        <Label Content="{hy:Loc client.machinima.modal.label.name}" />
+                        <TextBox
+                            x:Name="ActorName"
+                            Style="{StaticResource Style.TextBox}"
+                            Placeholder="{hy:Loc client.machinima.modal.placeholder.actorName}"
+                            Text="{Binding ActorName}"
+                            hy:FocusBehavior.FocusOnVisible="True"
+                        />
+                        <Label Content="{hy:Loc client.machinima.modal.label.type}" Margin="0 10 0 0" />
+                        <ComboBox
+                            x:Name="ActorType"
+                            Style="{StaticResource Style.ComboBoxControl}"
+                            Placeholder="{hy:Loc client.machinima.modal.placeholder.selectActorType}"
+                            Height="40"
+                            Margin="0 7 0 0"
+                            SelectedItem="{Binding SelectedActorType}"
+                            ItemsSource="{Binding ActorTypes}"
+                        />
+                    </StackPanel>
+                </ContentControl>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type local:AddKeyframeSettingModalViewModel}">
+                <ContentControl Template="{StaticResource ModalTemplate}">
+                    <StackPanel>
+                        <Label Content="{hy:Loc client.machinima.modal.label.type}" />
+                        <ComboBox
+                            x:Name="SettingType"
+                            Style="{StaticResource Style.ComboBoxControl}"
+                            Height="40"
+                            Margin="0 0 0 10"
+                            SelectedItem="{Binding SelectedSettingType}"
+                            ItemsSource="{Binding SettingTypes}"
+                        />
+                    </StackPanel>
+                </ContentControl>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type local:AddKeyframeEventModalViewModel}">
+                <ContentControl Template="{StaticResource ModalTemplate}">
+                    <StackPanel>
+                        <Label Content="{hy:Loc client.machinima.modal.label.type}" />
+                        <ComboBox
+                            x:Name="EventType"
+                            Style="{StaticResource Style.ComboBoxControl}"
+                            Height="40"
+                            Margin="0 0 0 10"
+                            Placeholder="{hy:Loc client.machinima.modal.placeholder.selectEvent}"
+                            SelectedItem="{Binding SelectedEventType}"
+                            ItemsSource="{Binding EventTypes}"
+                        />
+                    </StackPanel>
+                </ContentControl>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type local:EditKeyframeEventModalViewModel}">
+                <ContentControl Template="{StaticResource ModalTemplate}">
+                    <ContentControl Content="{Binding Event}">
+                        <ContentControl.Resources>
+                            <DataTemplate DataType="{x:Type local:AnimationKeyframeEventViewModel}">
+                                <StackPanel>
+                                    <Label Content="{hy:Loc client.machinima.modal.label.animationSlot}" />
+                                    <ComboBox
+                                        Style="{StaticResource Style.ComboBoxControl}"
+                                        Height="40"
+                                        Margin="0 0 0 10"
+                                        SelectedItem="{Binding AnimationSlot}"
+                                        ItemsSource="{Binding AvailableAnimationSlots}"
+                                        x:Name="AnimationSlot"
+                                    />
+                                    <Label Content="{hy:Loc client.machinima.modal.label.animationId}" />
+                                    <TextBox x:Name="AnimationId" Style="{StaticResource Style.TextBox}" Text="{Binding AnimationId}" Margin="0 0 0 10"  />
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type local:CameraKeyframeEventViewModel}">
+                                <StackPanel>
+                                    <CheckBox
+                                        Content="{hy:Loc client.machinima.modal.checkbox.activateCamera}"
+                                        IsChecked="{Binding CameraState}"
+                                        Margin="0 0 0 10" />
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type local:CommandKeyframeEventViewModel}">
+                                <StackPanel>
+                                    <Label Content="{hy:Loc client.machinima.modal.label.command}" />
+                                    <TextBox x:Name="Command" Style="{StaticResource Style.TextBox}" Text="{Binding Command}" Margin="0 0 0 10"  />
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type local:ParticleKeyframeEventViewModel}">
+                                <StackPanel>
+                                    <Label Content="{hy:Loc client.machinima.modal.label.particleSystem}" />
+                                    <ComboBox
+                                        Style="{StaticResource Style.ComboBoxControl}"
+                                        Height="40"
+                                        Margin="0 0 0 10"
+                                        SelectedItem="{Binding ParticleSystemId}"
+                                        ItemsSource="{Binding Assets.ParticleSystemIds}"
+                                        IsEditable="True"
+                                        x:Name="ParticleSystem"
+                                    />
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <DataTemplate DataType="{x:Type local:TargetKeyframeEventViewModel}">
+                                <StackPanel>
+                                    <Label Content="{hy:Loc client.machinima.modal.label.targetActor}" />
+                                    <ComboBox
+                                        Style="{StaticResource Style.ComboBoxControl}"
+                                        Height="40"
+                                        Margin="0 0 0 10"
+                                        SelectedItem="{Binding TargetName}"
+                                        ItemsSource="{Binding Assets.ActorTargetIds}"
+                                        IsEditable="True"
+                                        x:Name="TargetName"
+                                    />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ContentControl.Resources>
+                    </ContentControl>
+                </ContentControl>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type local:ActorSettingsModalViewModel}">
+                <ContentControl Template="{StaticResource ModalTemplate}">
+                    <StackPanel>
+                        <Label Content="{hy:Loc client.machinima.modal.label.actorType}" />
+                        <ComboBox
+                            x:Name="ActorType"
+                            IsEnabled="False"
+                            Style="{StaticResource Style.ComboBoxControl}"
+                            Height="40"
+                            Margin="0 0 0 10"
+                            SelectedItem="{Binding Actor.ActorType}"
+                            ItemsSource="{Binding ActorTypes}"
+                        />
+                        <Label Content="{hy:Loc client.machinima.modal.label.name}" />
+                        <TextBox x:Name="ActorName" Style="{StaticResource Style.TextBox}" Text="{Binding Actor.Name}" Margin="0 0 0 10"  />
+
+                        <ContentControl Content="{Binding Actor}">
+                            <ContentControl.Resources>
+                                <DataTemplate DataType="{x:Type local:ActorViewModel}">
+                                    <!-- This is the base class, all modals have the appropriate fields already -->
+                                </DataTemplate>
+
+                                <DataTemplate DataType="{x:Type local:ItemActorViewModel}">
+                                    <StackPanel>
+                                        <Label Content="{hy:Loc client.machinima.modal.label.item}" />
+                                        <ComboBox
+                                            Style="{StaticResource Style.ComboBoxControl}"
+                                            Placeholder="{hy:Loc client.machinima.modal.placeholder.selectItem}"
+                                            Height="40"
+                                            Margin="0 0 0 10"
+                                            SelectedItem="{Binding ItemId}"
+                                            ItemsSource="{Binding Assets.ItemIds}"
+                                            x:Name="ItemId"
+                                        />
+                                        <Label Content="{hy:Loc client.machinima.modal.label.scale}" />
+                                        <TextBox x:Name="Scale" Style="{StaticResource Style.TextBox}" Text="{Binding Scale}" Margin="0 0 0 10"  />
+                                    </StackPanel>
+                                </DataTemplate>
+
+                                <DataTemplate DataType="{x:Type local:EntityActorViewModel}">
+                                    <StackPanel>
+                                        <Label Content="{hy:Loc client.machinima.modal.label.model}" />
+                                        <!--<ComboBox
+                                            x:Name="ModelId"
+                                            Style="{StaticResource Style.ComboBoxControl}"
+                                            Placeholder="Select a Model"
+                                            Height="40"
+                                            Margin="0 0 0 10"
+                                            SelectedItem="{Binding ModelId}"
+                                            ItemsSource="{Binding Assets.ModelIds}"
+                                        />-->
+                                        <TextBox x:Name="ModelId" Style="{StaticResource Style.TextBox}" Text="{Binding ModelId}" Margin="0 0 0 10"  />
+                                        <Label Content="{hy:Loc client.machinima.modal.label.scale}" />
+                                        <TextBox x:Name="Scale" Style="{StaticResource Style.TextBox}" Text="{Binding Scale}" Margin="0 0 0 10"  />
+
+                                        <CheckBox Content="{hy:Loc client.machinima.modal.label.lighting}" IsChecked="{Binding Lighting}" Margin="0 0 0 10" />
+
+                                        <Label Content="{hy:Loc client.machinima.modal.label.light}" IsEnabled="{Binding Lighting}"/>
+                                        <hy:ColorPickerControl
+                                            SupportsAlpha="False"
+                                            Color="{Binding LightColor}"
+                                            Visibility="{Binding Lighting, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Height="200">
+                                        </hy:ColorPickerControl>
+
+                                    </StackPanel>
+                                </DataTemplate>
+
+                                <DataTemplate DataType="{x:Type local:CameraActorViewModel}">
+                                    <StackPanel>
+                                        <Label Content="{hy:Loc client.machinima.modal.label.fieldOfView}" />
+                                        <TextBox x:Name="FieldOfView" Style="{StaticResource Style.TextBox}" Text="{Binding FieldOfView}" Margin="0 0 0 10"  />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ContentControl.Resources>
+                        </ContentControl>
+                    </StackPanel>
+                </ContentControl>
+            </DataTemplate>
+        </Grid.Resources>
+
+        <Grid Height="400" VerticalAlignment="Bottom" Background="{StaticResource Color.BackgroundSecondary}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="59"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="{StaticResource Color.BorderOutPrimary}" Padding="5">
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox
+                        Style="{StaticResource Style.ComboBoxControl}"
+                        Placeholder="{hy:Loc client.machinima.header.placeholder.selectScene}"
+                        Width="250"
+                        Margin="0 0 10 0"
+                        ItemsSource="{Binding Scenes}"
+                        SelectedItem="{Binding ActiveSceneName}"
+                    />
+                    <Separator />
+                    <Button Content="{hy:Loc client.machinima.header.button.create}" Style="{StaticResource Style.Button.Secondary}" Margin="0,0,8,0" Command="{Binding CreateSceneCommand}" />
+                    <Button Content="{hy:Loc client.machinima.header.button.delete}" Margin="0,0,8,0" Command="{Binding DeleteSceneCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource Style.Button.Secondary}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ActiveScene}" Value="{x:Null}">
+                                        <Setter Property="IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Content="{hy:Loc client.machinima.header.button.save}" Margin="0,0,8,0" Command="{Binding SaveSceneCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource Style.Button.Secondary}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ActiveScene}" Value="{x:Null}">
+                                        <Setter Property="IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button x:Name="HelpButton" Content="{hy:Loc client.machinima.header.button.help}" Style="{StaticResource Style.Button.Secondary}" Margin="0,0,8,0" Command="{Binding ShowInputBindingsCommand}" />
+                </StackPanel>
+            </Border>
+
+            <!-- Timeline Control -->
+            <Border Grid.Row="1">
+                <hy:TimelineControl
+                                        MinorInterval="1.0"
+                                        KeyframeSnapStep="1.0"
+                                        PixelsPerTimeUnit="35"
+                                        PlayCommand="{Binding PlayCommand}"
+                                        PauseCommand="{Binding PauseCommand}"
+                                        ToggleLoopCommand="{Binding ToggleAutoRestartSceneCommand}"
+                                        StopCommand="{Binding StopCommand}"
+                                        SeekToCommand="{Binding SeekToCommand}"
+                                        SelectTrackCommand="{Binding SelectTrackCommand}"
+                                        SelectKeyframeCommand="{Binding SelectKeyframeCommand}"
+                                        AddTrackCommand="{Binding CreateActorModalCommand}"
+                                        RemoveTrackCommand="{Binding RemoveTrackCommand}"
+                                        DuplicateTrackCommand="{Binding DuplicateTrackCommand}"
+                                        AddKeyframeCommand="{Binding AddKeyframeCommand}"
+                                        RemoveKeyframeCommand="{Binding RemoveKeyframeCommand}"
+                                        MoveKeyframeCommand="{Binding MoveKeyframeCommand}"
+                                        EditTrackCommand="{Binding EditTrackCommand}"
+                                        Timeline="{Binding ActiveTimeline}">
+                    <hy:TimelineControl.KeyframeContent>
+                        <ContentControl Content="{Binding ActiveKeyframe}">
+                            <ContentControl.Resources>
+                                <DataTemplate DataType="{x:Type local:KeyframeViewModel}">
+                                    <TabControl Background="{StaticResource Color.BackgroundSecondary}" Padding="0">
+                                        <TabItem Height="40" Padding="6">
+                                            <TabItem.Header>
+                                                <TextBlock Text="{hy:Loc client.machinima.keyframe.tab.settings}" Foreground="White" Padding="7,5" Margin="0" Height="50" />
+                                            </TabItem.Header>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <Border BorderBrush="{StaticResource Color.BorderOutPrimary}" BorderThickness="0,1,0,1">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock
+                                                            Text="Time"
+                                                            Margin="10,10,0,5"
+                                                            Width="120"
+                                                            VerticalAlignment="Center" />
+                                                        <TextBox
+                                                            Text="{Binding Time}"
+                                                            Style="{StaticResource Style.TextBox}"
+                                                            Width="80"
+                                                            Margin="0 0 5 0">
+                                                            <b:Interaction.Triggers>
+                                                                <b:EventTrigger EventName="LostFocus">
+                                                                    <b:InvokeCommandAction
+                                                                        Command="{Binding DataContext.MoveKeyframeCommand, RelativeSource={RelativeSource AncestorType=hy:TimelineControl}}"
+                                                                        CommandParameter="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" />
+                                                                </b:EventTrigger>
+                                                            </b:Interaction.Triggers>
+                                                        </TextBox>
+                                                    </StackPanel>
+                                                </Border>
+                                                <Button Grid.Row="1" Content="{hy:Loc client.machinima.keyframe.button.addSetting}" Margin="5" Style="{StaticResource Style.Button.Secondary}" Height="36" Command="{Binding DataContext.AddKeyframeSettingCommand, RelativeSource={RelativeSource AncestorType=hy:TimelineControl}}" />
+                                                <Border Grid.Row="2" BorderBrush="{StaticResource Color.BorderOutPrimary}" BorderThickness="0,0,0,1" />
+                                                <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
+                                                    <ItemsControl ItemsSource="{Binding Settings}">
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Border BorderBrush="{StaticResource Color.BorderOutPrimary}" BorderThickness="0,0,0,1">
+                                                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 5">
+                                                                        <TextBlock
+                                                                            Text="{Binding Name}"
+                                                                            Margin="10,10,0,5"
+                                                                            Width="120"
+                                                                            VerticalAlignment="Center"
+                                                                        />
+                                                                        <ContentControl Content="{Binding}">
+                                                                            <ContentControl.Resources>
+                                                                                <DataTemplate DataType="{x:Type local:ThreeFloatKeyframeSettingViewModel}">
+                                                                                    <StackPanel Orientation="Horizontal">
+                                                                                        <TextBox
+                                                                                            Style="{StaticResource Style.TextBox}"
+                                                                                            Text="{Binding X}"
+                                                                                            Width="80"
+                                                                                            Margin="0 0 5 0"
+                                                                                        />
+                                                                                        <TextBox
+                                                                                            Style="{StaticResource Style.TextBox}"
+                                                                                            Text="{Binding Y}"
+                                                                                            Width="80"
+                                                                                            Margin="0 0 5 0"
+                                                                                        />
+                                                                                        <TextBox
+                                                                                            Style="{StaticResource Style.TextBox}"
+                                                                                            Text="{Binding Z}"
+                                                                                            Width="80"
+                                                                                        />
+                                                                                    </StackPanel>
+                                                                                </DataTemplate>
+
+                                                                                <DataTemplate DataType="{x:Type local:RotationKeyframeSettingViewModel}">
+                                                                                    <StackPanel Orientation="Horizontal">
+                                                                                        <TextBox
+                                                                                            Style="{StaticResource Style.TextBox}"
+                                                                                            Text="{Binding X, Converter={StaticResource RadianToDegreeConverter}}"
+                                                                                            Width="80"
+                                                                                            Margin="0 0 5 0"
+                                                                                        />
+                                                                                        <TextBox
+                                                                                            Style="{StaticResource Style.TextBox}"
+                                                                                            Text="{Binding Y, Converter={StaticResource RadianToDegreeConverter}}"
+                                                                                            Width="80"
+                                                                                            Margin="0 0 5 0"
+                                                                                        />
+                                                                                        <TextBox
+                                                                                            Style="{StaticResource Style.TextBox}"
+                                                                                            Text="{Binding Z, Converter={StaticResource RadianToDegreeConverter}}"
+                                                                                            Width="80"
+                                                                                        />
+                                                                                    </StackPanel>
+                                                                                </DataTemplate>
+
+                                                                                <DataTemplate DataType="{x:Type local:LookKeyframeSettingViewModel}">
+                                                                                    <StackPanel Orientation="Horizontal">
+                                                                                        <TextBox
+                                                                                            Style="{StaticResource Style.TextBox}"
+                                                                                            Text="{Binding X, Converter={StaticResource RadianToDegreeConverter}}"
+                                                                                            Width="80"
+                                                                                            Margin="0 0 5 0"
+                                                                                        />
+                                                                                        <TextBox
+                                                                                            Style="{StaticResource Style.TextBox}"
+                                                                                            Text="{Binding Y, Converter={StaticResource RadianToDegreeConverter}}"
+                                                                                            Width="80"
+                                                                                            Margin="0 0 5 0"
+                                                                                        />
+                                                                                        <TextBox
+                                                                                            Style="{StaticResource Style.TextBox}"
+                                                                                            Text="{Binding Z, Converter={StaticResource RadianToDegreeConverter}}"
+                                                                                            Width="80"
+                                                                                        />
+                                                                                    </StackPanel>
+                                                                                </DataTemplate>
+
+                                                                                <DataTemplate DataType="{x:Type local:FovKeyframeSettingViewModel}">
+                                                                                    <StackPanel Orientation="Horizontal">
+                                                                                        <TextBox
+                                                                                            Style="{StaticResource Style.TextBox}"
+                                                                                            Text="{Binding Fov}"
+                                                                                            Width="250"
+                                                                                            Margin="0 0 5 0"
+                                                                                        />
+                                                                                    </StackPanel>
+                                                                                </DataTemplate>
+
+                                                                                <DataTemplate DataType="{x:Type local:EasingKeyframeSettingViewModel}">
+                                                                                    <ComboBox
+                                                                                        Style="{StaticResource Style.ComboBoxControl}"
+                                                                                        SelectedItem="{Binding SelectedValue}"
+                                                                                        ItemsSource="{Binding EnumValues}"
+                                                                                        MinWidth="250"
+                                                                                    />
+                                                                                </DataTemplate>
+
+                                                                                <DataTemplate DataType="{x:Type local:CurveKeyframeSettingViewModel}">
+                                                                                    <!-- TODO -->
+                                                                                </DataTemplate>
+                                                                            </ContentControl.Resources>
+                                                                        </ContentControl>
+                                                                    </StackPanel>
+                                                                </Border>
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                </ScrollViewer>
+                                            </Grid>
+                                        </TabItem>
+                                        <TabItem Height="40" Padding="6">
+                                            <TabItem.Header>
+                                                <TextBlock Text="{hy:Loc client.machinima.keyframe.tab.events}" Foreground="White" Padding="7,5" Margin="0" Height="50" />
+                                            </TabItem.Header>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <Button Grid.Row="0" Content="{hy:Loc client.machinima.keyframe.button.addEvent}" Margin="5" Style="{StaticResource Style.Button.Secondary}" Height="36" Command="{Binding DataContext.AddKeyframeEventCommand, RelativeSource={RelativeSource AncestorType=hy:TimelineControl}}" />
+                                                <Border Grid.Row="1" BorderBrush="{StaticResource Color.BorderOutPrimary}" BorderThickness="0,0,0,1" />
+                                                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                                                    <ItemsControl ItemsSource="{Binding Events}">
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Border x:Name="EventBorder" BorderBrush="{StaticResource Color.BorderOutPrimary}" BorderThickness="0,0,0,1" Background="Transparent" Height="40 " Padding="10 0">
+                                                                    <Grid>
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="*" />
+                                                                            <ColumnDefinition Width="Auto" />
+                                                                            <ColumnDefinition Width="Auto" />
+                                                                        </Grid.ColumnDefinitions>
+
+                                                                        <TextBlock
+                                                                            Grid.Column="0"
+                                                                            Text="{Binding Name}"
+                                                                            TextAlignment="Left"
+                                                                            HorizontalAlignment="Left"
+                                                                            VerticalAlignment="Center"
+                                                                        />
+
+                                                                        <Button
+                                                                            Grid.Column="1"
+                                                                            Content="{hy:Loc client.machinima.keyframe.button.edit}"
+                                                                            Margin="10,0,0,0"
+                                                                            Height="30"
+                                                                            Padding="5 0"
+                                                                            Command="{Binding DataContext.EditEventCommand, RelativeSource={RelativeSource AncestorType=hy:TimelineControl}}"
+                                                                            CommandParameter="{Binding}"
+                                                                        >
+                                                                            <Button.Style>
+                                                                                <Style TargetType="ToggleButton" BasedOn="{StaticResource Style.Button.Secondary}">
+                                                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    <Style.Triggers>
+                                                                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=EventBorder}" Value="True">
+                                                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                                                        </DataTrigger>
+                                                                                    </Style.Triggers>
+                                                                                </Style>
+                                                                            </Button.Style>
+                                                                        </Button>
+
+                                                                        <Button
+                                                                            Grid.Column="2"
+                                                                            Content="{hy:Loc client.machinima.keyframe.button.delete}"
+                                                                            ToolTip="{hy:Loc client.machinima.keyframe.tooltip.deleteEvent}"
+                                                                            Padding="5 0"
+                                                                            Margin="5,0,0,0"
+                                                                            Height="30"
+                                                                            Command="{Binding DataContext.DeleteEventCommand, RelativeSource={RelativeSource AncestorType=hy:TimelineControl}}"
+                                                                            CommandParameter="{Binding}"
+                                                                        >
+                                                                            <Button.Style>
+                                                                                <Style TargetType="ToggleButton" BasedOn="{StaticResource Style.Button.Danger}">
+                                                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                    <Style.Triggers>
+                                                                                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=EventBorder}" Value="True">
+                                                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                                                        </DataTrigger>
+                                                                                    </Style.Triggers>
+                                                                                </Style>
+                                                                            </Button.Style>
+                                                                        </Button>
+                                                                    </Grid>
+                                                                </Border>
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                </ScrollViewer>
+                                            </Grid>
+                                        </TabItem>
+                                    </TabControl>
+                                </DataTemplate>
+                            </ContentControl.Resources>
+                        </ContentControl>
+                    </hy:TimelineControl.KeyframeContent>
+                </hy:TimelineControl>
+            </Border>
+        </Grid>
+
+        <Grid x:Name="Modal" Background="#C5000000" Visibility="{Binding Modal, Converter={StaticResource NullToVisibilityConverter}}">
+            <StackPanel VerticalAlignment="Center">
+                <UserControl Style="{StaticResource Style.Modal}" Width="600" Height="Auto">
+                    <ContentControl Content="{Binding Modal}" Margin="30" />
+                </UserControl>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

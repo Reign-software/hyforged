@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.core.entity.entities.player.pages.InteractiveCu
 import com.hypixel.hytale.server.core.ui.builder.EventData;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
+import com.hypixel.hytale.server.core.ui.Value;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
@@ -89,9 +90,9 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
     /** Comparison mode: shows stat differences */
     private boolean comparisonMode;
     
-    /** Node ID being compared in comparison mode */
-    @Nullable
-    private String comparisonNodeId;
+    /** Maps UI button index to node ID for click handling */
+    @Nonnull
+    private final String[] displayedNodeIds = new String[50]; // Increased for visual tree
     
     /** Current zoom level (1.0 = 100%) */
     private float zoomLevel = 1.0f;
@@ -105,11 +106,29 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
     /** Zoom step per action */
     private static final float ZOOM_STEP = 0.25f;
     
-    /** Pan offset X */
-    private int panOffsetX = 0;
+    /** Pan offset X (in tree coordinate units) */
+    private int panOffsetX = 200;
     
-    /** Pan offset Y */
-    private int panOffsetY = 0;
+    /** Pan offset Y (in tree coordinate units) */
+    private int panOffsetY = 400;
+    
+    /** Pan step per button click */
+    private static final int PAN_STEP = 100;
+    
+    /** Sidebar width in pixels */
+    private static final int SIDEBAR_WIDTH = 220;
+    
+    /** Viewport width in pixels (screen width minus sidebar) */
+    private static final int VIEWPORT_WIDTH = 1280 - SIDEBAR_WIDTH;
+    
+    /** Viewport height in pixels (screen height minus bottom bar) */
+    private static final int VIEWPORT_HEIGHT = 720 - 32;
+    
+    /** Scale factor from tree coords to screen pixels */
+    private static final float COORD_SCALE = 1.5f;
+    
+    /** Node counter for dynamic node IDs */
+    private int dynamicNodeCounter = 0;
     
     /**
      * Create a new PassiveTreePage for the general tree.
@@ -264,6 +283,42 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
                 false
         );
         
+        // Add pan navigation events
+        eventBuilder.addEventBinding(
+                CustomUIEventBindingType.Activating,
+                "#PanUp",
+                EventData.of("Action", "panUp"),
+                false
+        );
+        
+        eventBuilder.addEventBinding(
+                CustomUIEventBindingType.Activating,
+                "#PanDown",
+                EventData.of("Action", "panDown"),
+                false
+        );
+        
+        eventBuilder.addEventBinding(
+                CustomUIEventBindingType.Activating,
+                "#PanLeft",
+                EventData.of("Action", "panLeft"),
+                false
+        );
+        
+        eventBuilder.addEventBinding(
+                CustomUIEventBindingType.Activating,
+                "#PanRight",
+                EventData.of("Action", "panRight"),
+                false
+        );
+        
+        eventBuilder.addEventBinding(
+                CustomUIEventBindingType.Activating,
+                "#CenterOnStart",
+                EventData.of("Action", "centerOnStart"),
+                false
+        );
+        
         // Add comparison mode toggle event
         eventBuilder.addEventBinding(
                 CustomUIEventBindingType.Activating,
@@ -313,24 +368,15 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
             int bookPoints,
             boolean isGeneralTree
     ) {
-        // Set tree name
-        String treeName = tree != null ? tree.getId() : "Passive Tree";
-        commandBuilder.set("#TreeName.Text", treeName);
+        // Set points display
+        String pointsText = String.format("%d / %d", allocatedCount, maxPoints);
+        commandBuilder.set("#PointsDisplay.Text", pointsText);
         
-        // Set tree type label
-        String treeType = isGeneralTree ? "General Passive Tree" : "Class: " + (tree != null ? tree.getClassId() : "Unknown");
-        commandBuilder.set("#TreeType.Text", treeType);
-        
-        // Set point values
-        commandBuilder.set("#AvailableValue.Text", String.valueOf(availablePoints));
-        commandBuilder.set("#AllocatedValue.Text", String.valueOf(allocatedCount));
-        commandBuilder.set("#MaxValue.Text", String.valueOf(maxPoints));
-        
-        // Show/hide book points row (general tree only)
-        commandBuilder.set("#BookPointsRow.Visible", isGeneralTree);
-        if (isGeneralTree) {
-            commandBuilder.set("#BookPointsValue.Text", String.valueOf(bookPoints));
-        }
+        // Set ascendancy points (if applicable)
+        String ascText = isGeneralTree ? 
+                String.format("From books: %d", bookPoints) :
+                String.format("Ascendancy: %d/8", allocatedCount);
+        commandBuilder.set("#AscendancyPointsLabel.Text", ascText);
         
         // Note: Tab selection styling would require dynamic style changes
         // For now, just rely on the tree name/type labels to show which is active
@@ -390,31 +436,8 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
     }
     
     /**
-     * Get color for a region (for visual theming).
-     */
-    private String getRegionColor(@Nullable String region) {
-        if (region == null) return "rgba(80, 80, 90, 0.9)";
-        
-        String lower = region.toLowerCase();
-        if (lower.contains("strength") || lower.contains("str") || lower.contains("warrior")) {
-            return "rgba(180, 50, 50, 0.9)"; // Red
-        } else if (lower.contains("dexterity") || lower.contains("dex") || lower.contains("ranger")) {
-            return "rgba(50, 150, 50, 0.9)"; // Green
-        } else if (lower.contains("intelligence") || lower.contains("int") || lower.contains("mage")) {
-            return "rgba(50, 80, 180, 0.9)"; // Blue
-        }
-        return "rgba(80, 80, 90, 0.9)"; // Default grey
-    }
-    
-    /** Node entry template path */
-    private static final String NODE_ENTRY_TEMPLATE = "Hyforged/PassiveNodeEntry.ui";
-    
-    /** Counter for unique node entry IDs */
-    private int nodeEntryCounter = 0;
-    
-    /**
      * Render the tree nodes and connections on the canvas.
-     * Uses template file approach instead of appendInline to avoid parse errors.
+     * Creates a visual tree with positioned nodes based on their coordinates.
      */
     private void renderTreeCanvas(
             @Nonnull UICommandBuilder commandBuilder,
@@ -423,177 +446,284 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
             @Nonnull Set<String> allocatedNodes,
             @Nullable PassiveTreeComponent passiveComponent
     ) {
-        // Clear canvas first
-        commandBuilder.clear("#TreeCanvas");
-        
-        // Reset counter
-        nodeEntryCounter = 0;
-        
         // Get starting nodes for the tree
         Set<String> startingNodes = tree.getStartingNodeIds();
         
         // Calculate reachable nodes (nodes adjacent to allocated ones)
         Set<String> reachableNodes = new HashSet<>();
         for (String allocatedNodeId : allocatedNodes) {
-            // Get adjacent nodes from the tree's adjacency list
             reachableNodes.addAll(tree.getAdjacentNodes(allocatedNodeId));
         }
-        // Starting nodes are always reachable
         reachableNodes.addAll(startingNodes);
-        // Remove already allocated nodes from reachable
         reachableNodes.removeAll(allocatedNodes);
         
-        // Render nodes - limit to first 20 for performance
-        int count = 0;
-        int maxNodes = 20;
+        // Clear displayed node IDs tracking and dynamic canvas
+        java.util.Arrays.fill(displayedNodeIds, null);
+        commandBuilder.clear("#TreeCanvas");
+        commandBuilder.clear("#ConnectionsCanvas");
+        dynamicNodeCounter = 0;
         
+        // Calculate viewport bounds (in tree coordinates)
+        int viewportTreeWidth = (int) (VIEWPORT_WIDTH / COORD_SCALE / zoomLevel);
+        int viewportTreeHeight = (int) (VIEWPORT_HEIGHT / COORD_SCALE / zoomLevel);
+        int viewMinX = panOffsetX - viewportTreeWidth / 2;
+        int viewMaxX = panOffsetX + viewportTreeWidth / 2;
+        int viewMinY = panOffsetY - viewportTreeHeight / 2;
+        int viewMaxY = panOffsetY + viewportTreeHeight / 2;
+        
+        // Update viewport info
+        commandBuilder.set("#ViewportInfo.Text", String.format("View: %d,%d Zoom: %.0f%%", panOffsetX, panOffsetY, zoomLevel * 100));
+        
+        // Render connection lines between nodes first (so they appear behind nodes)
+        renderConnectionLines(commandBuilder, tree, allocatedNodes, startingNodes, reachableNodes,
+                viewMinX, viewMaxX, viewMinY, viewMaxY);
+        
+        int totalNodes = tree.getNodes().size();
+        int renderedCount = 0;
+        int maxVisibleNodes = 50; // Limit for performance
+        
+        // Render nodes that are within the viewport
         for (PassiveNode node : tree.getNodes().values()) {
-            if (count >= maxNodes) break;
+            if (renderedCount >= maxVisibleNodes) break;
             
             // Apply search filter if active
             if (!searchMatchNodes.isEmpty() && !searchMatchNodes.contains(node.id())) {
                 continue;
             }
             
-            renderNodeEntry(commandBuilder, eventBuilder, node, allocatedNodes, reachableNodes, startingNodes, count);
-            count++;
+            int nodeX = node.position().x();
+            int nodeY = node.position().y();
+            
+            // Check if node is in viewport (with some padding for node size)
+            int nodePadding = 30;
+            if (nodeX < viewMinX - nodePadding || nodeX > viewMaxX + nodePadding ||
+                nodeY < viewMinY - nodePadding || nodeY > viewMaxY + nodePadding) {
+                continue; // Node is outside viewport
+            }
+            
+            // Calculate screen position relative to viewport
+            int screenX = (int) ((nodeX - viewMinX) * COORD_SCALE * zoomLevel);
+            int screenY = (int) ((nodeY - viewMinY) * COORD_SCALE * zoomLevel);
+            
+            // Clamp to viewport bounds
+            screenX = Math.max(0, Math.min(VIEWPORT_WIDTH - 30, screenX));
+            screenY = Math.max(0, Math.min(VIEWPORT_HEIGHT - 30, screenY));
+            
+            String nodeId = node.id();
+            boolean isAllocated = allocatedNodes.contains(nodeId);
+            boolean isReachable = reachableNodes.contains(nodeId);
+            boolean isStarting = startingNodes.contains(nodeId);
+            
+            // Store node ID for click handler lookup
+            if (renderedCount < displayedNodeIds.length) {
+                displayedNodeIds[renderedCount] = nodeId;
+            }
+            
+            // Determine node size based on type
+            int nodeSize = getNodeSize(node.type());
+            
+            // Determine background image based on node type and state
+            String bgImage = getNodeBackgroundImage(node.type(), isAllocated, isReachable || isStarting);
+            
+            // Create a positioned node button using inline UI with image background
+            String nodeElementId = "VisNode" + dynamicNodeCounter++;
+            
+            // Inline UI for a positioned node button with image background
+            // Note: Cannot use variable references like $Common.@ButtonSounds in appendInline
+            String nodeUI = String.format(
+                "Button #%s { Anchor: (Left: %d, Top: %d, Width: %d, Height: %d); " +
+                "Background: PatchStyle(TexturePath: \"%s\"); }",
+                nodeElementId, screenX, screenY, nodeSize, nodeSize,
+                bgImage
+            );
+            
+            commandBuilder.appendInline("#TreeCanvas", nodeUI);
+            
+            // Add event binding for clicking this node - directly allocate or refund
+            String clickAction = isAllocated ? "refund" : "allocate";
+            eventBuilder.addEventBinding(
+                    CustomUIEventBindingType.Activating,
+                    "#" + nodeElementId,
+                    EventData.of("Action", clickAction).append("NodeId", nodeId),
+                    false
+            );
+            
+            // Add hover events for tooltip
+            eventBuilder.addEventBinding(
+                    CustomUIEventBindingType.MouseEntered,
+                    "#" + nodeElementId,
+                    EventData.of("Action", "showTooltip").append("NodeId", nodeId),
+                    false
+            );
+            eventBuilder.addEventBinding(
+                    CustomUIEventBindingType.MouseExited,
+                    "#" + nodeElementId,
+                    EventData.of("Action", "hideTooltip"),
+                    false
+            );
+            
+            renderedCount++;
         }
         
-        // Show node count info
-        int totalNodes = tree.getNodes().size();
-        int shownNodes = Math.min(count, maxNodes);
-        String countText = String.format("Showing %d of %d nodes", shownNodes, totalNodes);
+        // Update viewport info with node count
+        String countText = String.format("%d,%d | %d nodes | %.0f%%", panOffsetX, panOffsetY, renderedCount, zoomLevel * 100);
         if (!searchMatchNodes.isEmpty()) {
-            countText += String.format(" (%d match search)", searchMatchNodes.size());
+            countText += String.format(" | %d match", searchMatchNodes.size());
         }
-        commandBuilder.set("#TreeName.Text", tree.getId() + " - " + countText);
+        commandBuilder.set("#ViewportInfo.Text", countText);
+        
+        LOGGER.info("Rendered " + renderedCount + " nodes in viewport from tree with " + totalNodes + " total nodes");
     }
     
     /**
-     * Render a single node entry using the template approach.
+     * Get the background image path for a node based on its type and state.
      */
-    private void renderNodeEntry(
-            @Nonnull UICommandBuilder commandBuilder,
-            @Nonnull UIEventBuilder eventBuilder,
-            @Nonnull PassiveNode node,
-            @Nonnull Set<String> allocatedNodes,
-            @Nonnull Set<String> reachableNodes,
-            @Nonnull Set<String> startingNodes,
-            int index
-    ) {
-        String nodeId = node.id();
-        boolean isAllocated = allocatedNodes.contains(nodeId);
-        boolean isReachable = reachableNodes.contains(nodeId);
-        boolean isStarting = startingNodes.contains(nodeId);
+    private String getNodeBackgroundImage(@Nonnull String type, boolean allocated, boolean canAllocate) {
+        String prefix = switch (type.toLowerCase()) {
+            case PassiveNodeType.KEYSTONE -> "Hyforged/Textures/KeystoneFrame";
+            case PassiveNodeType.NOTABLE -> "Hyforged/Textures/NotableFrame";
+            case PassiveNodeType.MASTERY -> "Hyforged/Textures/PassiveSkillScreenAscendancyFrameLarge";
+            case PassiveNodeType.UNLOCK -> "Hyforged/Textures/PassiveSkillScreenAscendancyFrameLarge";
+            case PassiveNodeType.MINOR -> "Hyforged/Textures/PassiveSkillScreenAscendancyFrameSmall";
+            default -> "Hyforged/Textures/PassiveSkillScreenAscendancyFrameSmall";
+        };
         
-        // Build status text
-        String status;
-        if (isAllocated) {
-            status = "[ALLOCATED]";
-        } else if (isReachable || isStarting) {
-            status = "[AVAILABLE]";
-        } else {
-            status = "[LOCKED]";
+        String suffix = allocated ? "Allocated" : (canAllocate ? "CanAllocate" : "Normal");
+        // Minor nodes use "Normal" instead of "Unallocated"
+        if (!allocated && !canAllocate && (type.equalsIgnoreCase(PassiveNodeType.KEYSTONE) || 
+                type.equalsIgnoreCase(PassiveNodeType.NOTABLE))) {
+            suffix = "Unallocated";
         }
         
-        // Use simple inline markup - just the element type and ID
-        // Following HyUI pattern: append template file, then set properties
-        String entryId = "NodeEntry" + (nodeEntryCounter++);
-        
-        // Append using simple inline Group to contain the node
-        // Format: Group #id { } - minimal inline markup that works
-        String inlineGroup = String.format("Group #%s { LayoutMode: Left; Padding: (Bottom: 2); }", entryId);
-        commandBuilder.appendInline("#TreeCanvas", inlineGroup);
-        
-        // Now append the template inside the group
-        commandBuilder.append("#" + entryId, NODE_ENTRY_TEMPLATE);
-        
-        // Configure the template elements
-        String entrySelector = "#" + entryId + " #NodeEntry";
-        commandBuilder.set(entrySelector + " #Status.Text", status);
-        commandBuilder.set(entrySelector + " #Type.Text", formatNodeType(node.type()));
-        commandBuilder.set(entrySelector + " #Name.Text", node.name());
-        
-        // Add event binding for clicking the node
-        eventBuilder.addEventBinding(
-                CustomUIEventBindingType.Activating,
-                entrySelector,
-                EventData.of("Action", isAllocated ? "refund" : "allocate").append("NodeId", nodeId),
-                false
-        );
+        return prefix + suffix + ".png";
     }
     
     /**
      * Render connection lines between nodes.
-     * Note: Connections are not visually rendered in simplified mode.
+     * Lines are rendered as narrow Group elements with a background color.
      */
-    private void renderConnections(
+    private void renderConnectionLines(
             @Nonnull UICommandBuilder commandBuilder,
             @Nonnull PassiveTree tree,
-            @Nonnull Set<String> allocatedNodes
-    ) {
-        // Connections are implied by node relationships in simplified list view
-        // Full graphical rendering would require client-side canvas support
-    }
-    
-    /**
-     * Render a single node as a simple list item.
-     * Note: Using simple Label since complex nested inline UI isn't well supported.
-     */
-    private void renderNodeSimple(
-            @Nonnull UICommandBuilder commandBuilder,
-            @Nonnull UIEventBuilder eventBuilder,
-            @Nonnull PassiveNode node,
             @Nonnull Set<String> allocatedNodes,
-            @Nonnull Set<String> reachableNodes,
             @Nonnull Set<String> startingNodes,
-            int index
+            @Nonnull Set<String> reachableNodes,
+            int viewMinX, int viewMaxX, int viewMinY, int viewMaxY
     ) {
-        String nodeId = node.id();
-        boolean isAllocated = allocatedNodes.contains(nodeId);
-        boolean isReachable = reachableNodes.contains(nodeId);
-        boolean isStarting = startingNodes.contains(nodeId);
+        int lineCounter = 0;
+        int maxLines = 100; // Limit for performance
         
-        // Build status indicator
-        String status;
-        if (isAllocated) {
-            status = "[ALLOCATED]";
-        } else if (isReachable || isStarting) {
-            status = "[AVAILABLE]";
-        } else {
-            status = "[LOCKED]";
+        // Track rendered connections to avoid duplicates
+        Set<String> renderedConnections = new HashSet<>();
+        
+        for (PassiveNode node : tree.getNodes().values()) {
+            if (lineCounter >= maxLines) break;
+            
+            int nodeX = node.position().x();
+            int nodeY = node.position().y();
+            
+            // Skip if node is far outside viewport
+            int padding = 100;
+            if (nodeX < viewMinX - padding || nodeX > viewMaxX + padding ||
+                nodeY < viewMinY - padding || nodeY > viewMaxY + padding) {
+                continue;
+            }
+            
+            // Get adjacent nodes for this node from the tree (not from the node itself)
+            Set<String> adjacentNodes = tree.getAdjacentNodes(node.id());
+            if (adjacentNodes.isEmpty()) continue;
+            
+            for (String targetId : adjacentNodes) {
+                // Create unique connection key to avoid duplicates
+                String connKey = node.id().compareTo(targetId) < 0 ? 
+                        node.id() + "-" + targetId : targetId + "-" + node.id();
+                if (renderedConnections.contains(connKey)) continue;
+                renderedConnections.add(connKey);
+                
+                PassiveNode targetNode = tree.getNode(targetId);
+                if (targetNode == null) continue;
+                
+                int targetX = targetNode.position().x();
+                int targetY = targetNode.position().y();
+                
+                // Calculate screen positions
+                int screenX1 = (int) ((nodeX - viewMinX) * COORD_SCALE * zoomLevel);
+                int screenY1 = (int) ((nodeY - viewMinY) * COORD_SCALE * zoomLevel);
+                int screenX2 = (int) ((targetX - viewMinX) * COORD_SCALE * zoomLevel);
+                int screenY2 = (int) ((targetY - viewMinY) * COORD_SCALE * zoomLevel);
+                
+                // Determine line color based on allocation state
+                boolean nodeAllocated = allocatedNodes.contains(node.id());
+                boolean targetAllocated = allocatedNodes.contains(targetId);
+                boolean bothAllocated = nodeAllocated && targetAllocated;
+                boolean eitherReachable = reachableNodes.contains(node.id()) || 
+                        reachableNodes.contains(targetId) ||
+                        startingNodes.contains(node.id()) || 
+                        startingNodes.contains(targetId);
+                
+                String lineColor;
+                if (bothAllocated) {
+                    lineColor = "#4CAF50"; // Green - allocated path
+                } else if (nodeAllocated || targetAllocated || eitherReachable) {
+                    lineColor = "#806030"; // Gold/amber - available path
+                } else {
+                    lineColor = "#404050"; // Dark gray - locked path
+                }
+                
+                // Render line as multiple segments (horizontal then vertical for L-shape)
+                // Simple approach: create a thin rectangle
+                String lineId = "Line" + (lineCounter++);
+                
+                // Offset to center of nodes
+                int nodeSize1 = getNodeSize(node.type()) / 2;
+                int nodeSize2 = getNodeSize(targetNode.type()) / 2;
+                int centerX1 = screenX1 + nodeSize1;
+                int centerY1 = screenY1 + nodeSize1;
+                int centerX2 = screenX2 + nodeSize2;
+                int centerY2 = screenY2 + nodeSize2;
+                
+                // Render as two segments (L-shape): horizontal then vertical
+                int thickness = (int) Math.max(2, 3 * zoomLevel);
+                
+                // Horizontal segment
+                if (Math.abs(centerX2 - centerX1) > 5) {
+                    int hMinX = Math.min(centerX1, centerX2);
+                    int hWidth = Math.abs(centerX2 - centerX1);
+                    String hLineUI = String.format(
+                        "Group #%sH { Anchor: (Left: %d, Top: %d, Width: %d, Height: %d); Background: PatchStyle(Color: %s); }",
+                        lineId, hMinX, centerY1 - thickness/2, hWidth, thickness, lineColor
+                    );
+                    commandBuilder.appendInline("#ConnectionsCanvas", hLineUI);
+                }
+                
+                // Vertical segment
+                if (Math.abs(centerY2 - centerY1) > 5) {
+                    int vMinY = Math.min(centerY1, centerY2);
+                    int vHeight = Math.abs(centerY2 - centerY1);
+                    String vLineUI = String.format(
+                        "Group #%sV { Anchor: (Left: %d, Top: %d, Width: %d, Height: %d); Background: PatchStyle(Color: %s); }",
+                        lineId, centerX2 - thickness/2, vMinY, thickness, vHeight, lineColor
+                    );
+                    commandBuilder.appendInline("#ConnectionsCanvas", vLineUI);
+                }
+            }
         }
         
-        // Format node type
-        String typeLabel = formatNodeType(node.type());
-        
-        // Sanitize node name for UI text (escape special chars)
-        String safeName = node.name().replace("\"", "'").replace(";", ",");
-        
-        // Create simple label entry - no nesting, no # in inline IDs
-        String nodeUI = String.format(
-            "Label { Text: %s %s - %s; Style: (FontSize: 11); }",
-            status,
-            typeLabel,
-            safeName
-        );
-        commandBuilder.appendInline("#TreeCanvas", nodeUI);
+        LOGGER.fine("Rendered " + lineCounter + " connection lines");
     }
-    
-    /**
-     * Render a single node (legacy method - redirects to simple rendering).
-     */
-    private void renderNode(
-            @Nonnull UICommandBuilder commandBuilder,
-            @Nonnull UIEventBuilder eventBuilder,
-            @Nonnull PassiveNode node,
-            @Nonnull PassiveTree tree,
-            @Nonnull Set<String> allocatedNodes,
-            @Nonnull Set<String> reachableNodes,
-            @Nonnull Set<String> startingNodes
-    ) {
-        // Delegate to simple rendering
-        renderNodeSimple(commandBuilder, eventBuilder, node, allocatedNodes, reachableNodes, startingNodes, 0);
+
+    @Nonnull
+    private Value<?> getNodeFrameRef(@Nonnull String type, boolean allocated, boolean canAllocate) {
+        String stateSuffix = allocated ? "Allocated" : (canAllocate ? "CanAllocate" : "Unallocated");
+        String prefix = switch (type.toLowerCase()) {
+            case PassiveNodeType.KEYSTONE -> "FrameKeystone";
+            case PassiveNodeType.NOTABLE -> "FrameNotable";
+            case PassiveNodeType.MASTERY -> "FrameMastery";
+            case PassiveNodeType.UNLOCK -> "FrameUnlock";
+            case PassiveNodeType.MINOR -> "FrameMinor";
+            default -> "FrameMinor";
+        };
+        return Value.ref(PAGE_UI_FILE, prefix + stateSuffix);
     }
     
     /**
@@ -607,34 +737,6 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
             case PassiveNodeType.MASTERY -> 36;
             case PassiveNodeType.UNLOCK -> 30;
             default -> 24;
-        };
-    }
-    
-    /**
-     * Get node border radius based on type (for shape).
-     */
-    private String getNodeShape(@Nonnull String type) {
-        return switch (type.toLowerCase()) {
-            case PassiveNodeType.MINOR -> "50%"; // Circle
-            case PassiveNodeType.NOTABLE -> "4px"; // Rounded square
-            case PassiveNodeType.KEYSTONE -> "0"; // Sharp octagon-like
-            case PassiveNodeType.MASTERY -> "50%"; // Circle with star overlay
-            case PassiveNodeType.UNLOCK -> "50%"; // Lock shape
-            default -> "50%";
-        };
-    }
-    
-    /**
-     * Get node color based on type.
-     */
-    private String getNodeColor(@Nonnull String type) {
-        return switch (type.toLowerCase()) {
-            case PassiveNodeType.MINOR -> "#607D8B"; // Blue-grey
-            case PassiveNodeType.NOTABLE -> "#FFD700"; // Gold
-            case PassiveNodeType.KEYSTONE -> "#9C27B0"; // Purple
-            case PassiveNodeType.MASTERY -> "#FF9800"; // Orange
-            case PassiveNodeType.UNLOCK -> "#4CAF50"; // Green
-            default -> "#607D8B";
         };
     }
     
@@ -690,6 +792,11 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
             case "zoomIn" -> handleZoomIn();
             case "zoomOut" -> handleZoomOut();
             case "zoomReset" -> handleZoomReset();
+            case "panUp" -> handlePan(0, -PAN_STEP);
+            case "panDown" -> handlePan(0, PAN_STEP);
+            case "panLeft" -> handlePan(-PAN_STEP, 0);
+            case "panRight" -> handlePan(PAN_STEP, 0);
+            case "centerOnStart" -> handleCenterOnStart(ref, store);
             case "toggleComparison" -> handleToggleComparison(ref, store);
             case "clearSearch" -> handleClearSearch(ref, store);
             case "highlightPath" -> handleHighlightPath(ref, store, eventData);
@@ -838,7 +945,7 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
         
         if (classTreeCount == 0) {
             builder.appendInline("#ClassTreeOptions", 
-                "Label { Text: \"No class trees available\"; Style: (FontSize: 14; Color: #999); }");
+                "Label { Text: \"No class trees available\"; Style: (FontSize: 14); }");
         }
         
         sendUpdate(builder, eventBuilder, false);
@@ -903,18 +1010,58 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
     
     private void handleZoomReset() {
         this.zoomLevel = 1.0f;
-        this.panOffsetX = 0;
-        this.panOffsetY = 0;
-        applyZoomAndPan();
+        this.panOffsetX = 200;
+        this.panOffsetY = 400;
+        rebuild();
         LOGGER.fine("Zoom reset");
+    }
+    
+    /**
+     * Handle pan navigation.
+     */
+    private void handlePan(int deltaX, int deltaY) {
+        this.panOffsetX += deltaX;
+        this.panOffsetY += deltaY;
+        
+        // Clamp to reasonable bounds (tree coords are roughly 0-500 X, 0-2000 Y based on layout files)
+        this.panOffsetX = Math.max(0, Math.min(500, this.panOffsetX));
+        this.panOffsetY = Math.max(0, Math.min(2000, this.panOffsetY));
+        
+        rebuild();
+        LOGGER.fine("Pan to: " + panOffsetX + ", " + panOffsetY);
+    }
+    
+    /**
+     * Center the viewport on a starting node.
+     */
+    private void handleCenterOnStart(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
+        String activeTreeId = getActiveTreeId();
+        PassiveTree tree = PassiveTreeRegistry.get().getTree(activeTreeId);
+        if (tree == null) {
+            return;
+        }
+        
+        // Find a starting node and center on it
+        Set<String> startingIds = tree.getStartingNodeIds();
+        if (!startingIds.isEmpty()) {
+            String firstStartId = startingIds.iterator().next();
+            PassiveNode startNode = tree.getNode(firstStartId);
+            if (startNode != null) {
+                // Center viewport on this node
+                this.panOffsetX = startNode.position().x();
+                this.panOffsetY = startNode.position().y();
+                rebuild();
+                LOGGER.fine("Centered on start node: " + firstStartId + " at " + panOffsetX + ", " + panOffsetY);
+            }
+        }
     }
     
     private void applyZoomAndPan() {
         UICommandBuilder builder = new UICommandBuilder();
         
-        // Note: Zoom/pan transforms are not supported in Hytale UI
-        // Just update the zoom level indicator
+        // Update viewport info and zoom level indicator
         builder.set("#ZoomLevel.Text", String.format("%.0f%%", zoomLevel * 100));
+        builder.set("#ViewportInfo.Text", String.format("View: %d,%d", panOffsetX, panOffsetY));
         
         sendUpdate(builder, new UIEventBuilder(), false);
     }
@@ -1038,21 +1185,56 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
                  passiveComponent.getClassAllocatedNodes(tree.getClassId())) : Set.of();
         boolean isAllocated = allocatedNodes.contains(nodeId);
         
+        // Calculate reachable nodes
+        Set<String> reachableNodes = new HashSet<>();
+        for (String allocatedNodeId : allocatedNodes) {
+            reachableNodes.addAll(tree.getAdjacentNodes(allocatedNodeId));
+        }
+        reachableNodes.addAll(tree.getStartingNodeIds());
+        reachableNodes.removeAll(allocatedNodes);
+        boolean canAllocate = reachableNodes.contains(nodeId) || tree.getStartingNodeIds().contains(nodeId);
+        
         UICommandBuilder builder = new UICommandBuilder();
         
         // Show and populate tooltip
         builder.set("#TooltipOverlay.Visible", true);
         builder.set("#TooltipName.Text", node.name());
         builder.set("#TooltipType.Text", formatNodeType(node.type()));
-        builder.set("#TooltipDescription.Text", node.description());
         
-        // Populate effects list
-        builder.clear("#EffectsList");
+        // Show node status
+        String status;
+        if (isAllocated) {
+            status = "ALLOCATED";
+        } else if (canAllocate) {
+            status = "AVAILABLE";
+        } else {
+            status = "LOCKED";
+        }
+        builder.set("#TooltipStatus.Text", status);
+        
+        builder.set("#TooltipDescription.Text", node.description() != null ? node.description() : "");
+        
+        // Populate effects list - build as text instead of appendInline
+        StringBuilder effectsText = new StringBuilder();
         for (PassiveNodeEffect effect : node.effects()) {
             String effectText = formatEffectText(effect);
-            builder.appendInline("#EffectsList", 
-                String.format("Label { Text: \"%s\"; Style: (FontSize: 11; Color: #CCCCCC); }", effectText));
+            if (effectsText.length() > 0) {
+                effectsText.append("\n");
+            }
+            effectsText.append("• ").append(effectText);
         }
+        builder.set("#TooltipEffects.Text", effectsText.toString());
+        
+        // Set action hint based on node state
+        String actionHint;
+        if (isAllocated) {
+            actionHint = "Click to refund this node";
+        } else if (canAllocate) {
+            actionHint = "Click to allocate this node";
+        } else {
+            actionHint = "Allocate connected nodes first";
+        }
+        builder.set("#TooltipActionHint.Text", actionHint);
         
         // Show path cost or refund cost
         List<String> path = null;
@@ -1081,9 +1263,9 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
         // Comparison mode - show stat impact if enabled
         if (comparisonMode && !isAllocated) {
             builder.set("#ComparisonStatsPanel.Visible", true);
-            builder.clear("#ComparisonStatsList");
             
-            // List the stat effects this node would add
+            // Build comparison stats as text
+            StringBuilder comparisonText = new StringBuilder();
             for (PassiveNodeEffect effect : node.effects()) {
                 if ("stat-modifier".equals(effect.type())) {
                     String stat = String.valueOf(effect.data().getOrDefault("Stat", effect.data().getOrDefault("stat", "")));
@@ -1092,26 +1274,23 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
                     
                     String prefix = value.startsWith("-") ? "" : "+";
                     String suffix = "percent".equalsIgnoreCase(modifier) ? "%" : "";
-                    String color = value.startsWith("-") ? "#D32F2F" : "#4CAF50";
                     
-                    String statLabel = String.format(
-                        "Panel { Style: (Direction: Row; Gap: 5); " +
-                        "Label { Text: \"%s\"; Style: (FontSize: 11; Color: %s); } " +
-                        "Label { Text: \"%s\"; Style: (FontSize: 11; Color: #AAAAAA); } }",
-                        prefix + value + suffix, color, formatStatName(stat)
-                    );
-                    builder.appendInline("#ComparisonStatsList", statLabel);
+                    if (comparisonText.length() > 0) {
+                        comparisonText.append("\n");
+                    }
+                    comparisonText.append(prefix).append(value).append(suffix).append(" ").append(formatStatName(stat));
                 }
             }
+            builder.set("#ComparisonStatsText.Text", comparisonText.toString());
         } else {
             builder.set("#ComparisonStatsPanel.Visible", false);
         }
         
-        // Set icon if available
+        // Set icon background if available (using PatchStyle format)
         if (node.icon() != null) {
-            builder.set("#TooltipIcon.Source", node.icon());
+            builder.set("#TooltipIcon.Background", "PatchStyle(TexturePath: \"" + node.icon() + "\")");
         } else {
-            builder.set("#TooltipIcon.Source", getDefaultIcon(node.type()));
+            builder.set("#TooltipIcon.Background", "PatchStyle(TexturePath: \"" + getDefaultIcon(node.type()) + "\")");
         }
         
         sendUpdate(builder, new UIEventBuilder(), false);

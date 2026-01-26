@@ -19,21 +19,17 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import reign.software.hyforged.HyforgedPlugin;
-import reign.software.hyforged.affix.model.HyforgedItemData;
-import reign.software.hyforged.affix.model.RolledAffix;
-import reign.software.hyforged.affix.registry.AffixDefinitionRegistry;
-import reign.software.hyforged.affix.service.HyforgedItemDataService;
 import reign.software.hyforged.stats.DisplayFormat;
 import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
-import reign.software.hyforged.passive.ui.PassiveTreePage;
+import reign.software.hyforged.passive.ui.PassiveTreePageHyUI;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,21 +56,6 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
     
     /** UI file path for the character stats page layout */
     private static final String PAGE_UI_FILE = "Hyforged/CharacterStatsPage.ui";
-    
-    /** Category for primary ability scores */
-    public static final String CATEGORY_ABILITY_SCORES = "Ability Scores";
-    
-    /** Category for combat stats */
-    public static final String CATEGORY_COMBAT = "Combat";
-    
-    /** Category for defensive stats */
-    public static final String CATEGORY_DEFENSE = "Defense";
-    
-    /** Category for resource stats */
-    public static final String CATEGORY_RESOURCES = "Resources";
-    
-    /** Category for miscellaneous stats */
-    public static final String CATEGORY_MISC = "Misc";
     
     /**
      * Create a new CharacterStatsPage for a player.
@@ -142,6 +123,10 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
     
     /**
      * Build the stat categories section of the UI.
+     * Uses the fixed stat slots defined in CharacterStatsPage.ui:
+     * - #CoreStats: #Stat0-4
+     * - #OffensiveStats: #Stat5-9
+     * - #DefensiveStats: #Stat10-14
      */
     private void buildStatCategories(
             UICommandBuilder commandBuilder,
@@ -153,7 +138,10 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
         EntityStatMap statMap = StatAccessor.getStatMap(store, ref);
         
         // Group stats by category
-        Map<String, List<StatEntry>> categorizedStats = new HashMap<>();
+        Map<String, List<StatEntry>> categorizedStats = new LinkedHashMap<>();
+        categorizedStats.put("Core", new ArrayList<>());
+        categorizedStats.put("Offensive", new ArrayList<>());
+        categorizedStats.put("Defensive", new ArrayList<>());
         
         for (int i = 0; i < registry.getStatCount(); i++) {
             StatDefinition statDef = registry.getStat(i);
@@ -177,41 +165,70 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
             
             StatEntry entry = new StatEntry(statDef, i, baseValue, computedValue, modifierTotal, breakdown);
             
-            categorizedStats.computeIfAbsent(category, k -> new ArrayList<>()).add(entry);
+            // Add to appropriate category
+            if (categorizedStats.containsKey(category)) {
+                categorizedStats.get(category).add(entry);
+            } else {
+                // Default to Core for unknown categories
+                categorizedStats.get("Core").add(entry);
+            }
         }
         
-        // Build UI for each category
-        int categoryIndex = 0;
-        for (Map.Entry<String, List<StatEntry>> categoryEntry : categorizedStats.entrySet()) {
-            String category = categoryEntry.getKey();
-            List<StatEntry> stats = categoryEntry.getValue();
-            
-            String categorySelector = "#StatCategories[" + categoryIndex + "]";
-            
-            // Set category header
-            commandBuilder.set(categorySelector + " #CategoryName.Text", category);
-            
-            // Build stat rows
-            int statRowIndex = 0;
-            for (StatEntry stat : stats) {
-                String rowSelector = categorySelector + " #StatRows[" + statRowIndex + "]";
-                
-                commandBuilder.set(rowSelector + " #StatName.Text", stat.definition.displayName());
-                commandBuilder.set(rowSelector + " #BaseValue.Text", formatValue(stat.baseValue, stat.definition.displayFormat()));
-                commandBuilder.set(rowSelector + " #ModifierValue.Text", formatModifierValue(stat.modifierTotal, stat.definition.displayFormat()));
-                commandBuilder.set(rowSelector + " #EffectiveValue.Text", formatValue(stat.computedValue, stat.definition.displayFormat()));
-                
-                // Set breakdown tooltip (simplified for now)
-                if (!stat.breakdown.isEmpty()) {
-                    String tooltip = buildBreakdownTooltip(stat);
-                    commandBuilder.set(rowSelector + " #BreakdownTooltip.Text", tooltip);
-                }
-                
-                statRowIndex++;
-            }
-            
-            categoryIndex++;
+        // Build UI for Core stats (slots 0-4)
+        int statIndex = 0;
+        List<StatEntry> coreStats = categorizedStats.get("Core");
+        for (int i = 0; i < 5 && i < coreStats.size(); i++) {
+            StatEntry stat = coreStats.get(i);
+            String text = formatStatLine(stat);
+            commandBuilder.set("#Stat" + statIndex + ".Text", text);
+            statIndex++;
         }
+        // Clear remaining core stat slots
+        for (int i = coreStats.size(); i < 5; i++) {
+            commandBuilder.set("#Stat" + statIndex + ".Text", "");
+            statIndex++;
+        }
+        
+        // Build UI for Offensive stats (slots 5-9)
+        List<StatEntry> offensiveStats = categorizedStats.get("Offensive");
+        for (int i = 0; i < 5 && i < offensiveStats.size(); i++) {
+            StatEntry stat = offensiveStats.get(i);
+            String text = formatStatLine(stat);
+            commandBuilder.set("#Stat" + statIndex + ".Text", text);
+            statIndex++;
+        }
+        // Clear remaining offensive stat slots
+        for (int i = offensiveStats.size(); i < 5; i++) {
+            commandBuilder.set("#Stat" + statIndex + ".Text", "");
+            statIndex++;
+        }
+        
+        // Build UI for Defensive stats (slots 10-14)
+        List<StatEntry> defensiveStats = categorizedStats.get("Defensive");
+        for (int i = 0; i < 5 && i < defensiveStats.size(); i++) {
+            StatEntry stat = defensiveStats.get(i);
+            String text = formatStatLine(stat);
+            commandBuilder.set("#Stat" + statIndex + ".Text", text);
+            statIndex++;
+        }
+        // Clear remaining defensive stat slots
+        for (int i = defensiveStats.size(); i < 5; i++) {
+            commandBuilder.set("#Stat" + statIndex + ".Text", "");
+            statIndex++;
+        }
+    }
+    
+    /**
+     * Format a stat entry as a display line.
+     */
+    private String formatStatLine(StatEntry stat) {
+        String name = stat.definition.displayName();
+        String value = formatValue(stat.computedValue, stat.definition.displayFormat());
+        String modifier = "";
+        if (stat.modifierTotal != 0) {
+            modifier = " (" + formatModifierValue(stat.modifierTotal, stat.definition.displayFormat()) + ")";
+        }
+        return name + ": " + value + modifier;
     }
     
     /**
@@ -229,65 +246,46 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
             return;
         }
         
-        // Build armor slot summaries
+        // Build armor slot summaries (use fixed selectors #Armor0-3)
         ItemContainer armorContainer = inventory.getArmor();
         if (armorContainer != null) {
-            buildEquipmentSlotSummary(commandBuilder, armorContainer, "Armor", "#ArmorSlots");
+            int slotCount = Math.min((int) armorContainer.getCapacity(), 4);
+            for (int i = 0; i < slotCount; i++) {
+                ItemStack itemStack = armorContainer.getItemStack((short) i);
+                String slotText = buildSlotText("Armor", i, itemStack);
+                commandBuilder.set("#Armor" + i + ".Text", slotText);
+            }
+            // Clear remaining slots
+            for (int i = slotCount; i < 4; i++) {
+                commandBuilder.set("#Armor" + i + ".Text", "");
+            }
         }
         
-        // Build hotbar summary (first slot is typically main hand)
+        // Build hand slot summaries (use fixed selectors #Hand0-1)
         ItemContainer hotbar = inventory.getHotbar();
         if (hotbar != null) {
-            buildEquipmentSlotSummary(commandBuilder, hotbar, "Hand", "#HandSlots");
+            // Only show first 2 hotbar slots as "hands"
+            for (int i = 0; i < 2; i++) {
+                ItemStack itemStack = i < hotbar.getCapacity() ? hotbar.getItemStack((short) i) : null;
+                String slotText = buildSlotText("Hand", i, itemStack);
+                commandBuilder.set("#Hand" + i + ".Text", slotText);
+            }
         }
     }
     
     /**
-     * Build summary for a set of equipment slots.
+     * Build text for an equipment slot.
      */
-    private void buildEquipmentSlotSummary(
-            UICommandBuilder commandBuilder,
-            ItemContainer container,
-            String slotType,
-            String selector
-    ) {
-        short slotCount = container.getCapacity();
-        
-        for (short i = 0; i < slotCount; i++) {
-            ItemStack itemStack = container.getItemStack(i);
-            String slotSelector = selector + "[" + i + "]";
-            
-            if (itemStack == null || itemStack.isEmpty()) {
-                commandBuilder.set(slotSelector + " #SlotLabel.Text", slotType + " " + (i + 1) + ": Empty");
-                commandBuilder.set(slotSelector + " #AffixSummary.Text", "");
-                continue;
-            }
-            
-            // Get item name
-            String itemName = itemStack.getItem() != null ? itemStack.getItem().getId() : "Unknown";
-            commandBuilder.set(slotSelector + " #SlotLabel.Text", slotType + " " + (i + 1) + ": " + itemName);
-            
-            // Get affixes
-            HyforgedItemData itemData = HyforgedItemDataService.read(itemStack);
-            if (itemData == null || itemData.affixes().isEmpty()) {
-                commandBuilder.set(slotSelector + " #AffixSummary.Text", "No affixes");
-                continue;
-            }
-            
-            // Build affix summary
-            StringBuilder summary = new StringBuilder();
-            for (RolledAffix affix : itemData.affixes()) {
-                if (summary.length() > 0) {
-                    summary.append(", ");
-                }
-                
-                var affixDef = AffixDefinitionRegistry.get().get(affix.affixId());
-                String affixName = affixDef != null ? affixDef.displayName() : affix.affixId();
-                summary.append("[T").append(affix.tier()).append("] ").append(affixName);
-            }
-            
-            commandBuilder.set(slotSelector + " #AffixSummary.Text", summary.toString());
+    private String buildSlotText(String slotType, int index, ItemStack itemStack) {
+        if (itemStack == null || itemStack.isEmpty()) {
+            return slotType + " " + (index + 1) + ": Empty";
         }
+        String itemName = itemStack.getItem() != null ? itemStack.getItem().getId() : "Unknown";
+        // Simplify the ID for display
+        if (itemName.contains(":")) {
+            itemName = itemName.substring(itemName.lastIndexOf(':') + 1);
+        }
+        return slotType + " " + (index + 1) + ": " + itemName;
     }
     
     /**
@@ -322,32 +320,11 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
     }
     
     /**
-     * Determine category for a stat based on its ID.
+     * Determine category for a stat based on its definition.
+     * Returns "Core", "Offensive", or "Defensive" to match UI groups.
      */
     private String getCategoryForStat(StatDefinition statDef) {
-        String id = statDef.id().toString();
-        
-        if (id.contains("strength") || id.contains("dexterity") || id.contains("intelligence") ||
-            id.contains("vitality") || id.contains("wisdom") || id.contains("charisma")) {
-            return CATEGORY_ABILITY_SCORES;
-        }
-        
-        if (id.contains("attack") || id.contains("damage") || id.contains("critical") ||
-            id.contains("accuracy") || id.contains("penetration")) {
-            return CATEGORY_COMBAT;
-        }
-        
-        if (id.contains("armor") || id.contains("defense") || id.contains("resistance") ||
-            id.contains("block") || id.contains("evasion")) {
-            return CATEGORY_DEFENSE;
-        }
-        
-        if (id.contains("health") || id.contains("mana") || id.contains("stamina") ||
-            id.contains("regen") || id.contains("max")) {
-            return CATEGORY_RESOURCES;
-        }
-        
-        return CATEGORY_MISC;
+        return statDef.category().toLowerCase();
     }
     
     /**
@@ -374,26 +351,6 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
         return (value >= 0 ? "+" : "-") + formatted;
     }
     
-    /**
-     * Build a tooltip string for modifier breakdown.
-     */
-    private String buildBreakdownTooltip(StatEntry stat) {
-        if (stat.breakdown.isEmpty()) {
-            return "No modifiers";
-        }
-        
-        StringBuilder sb = new StringBuilder();
-        sb.append("Modifiers:\n");
-        
-        for (ModifierBreakdown mod : stat.breakdown) {
-            sb.append("  ").append(mod.sourceId).append(": ");
-            sb.append(mod.value >= 0 ? "+" : "").append(mod.value);
-            sb.append(" (").append(mod.sourceType.name().toLowerCase()).append(")\n");
-        }
-        
-        return sb.toString();
-    }
-    
     @Override
     public void handleDataEvent(
             @Nonnull Ref<EntityStore> ref,
@@ -411,12 +368,8 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
             // Rebuild the page with updated data
             rebuild();
         } else if ("openPassiveTree".equals(action)) {
-            // Open the passive tree page
-            Player playerComponent = store.getComponent(ref, Player.getComponentType());
-            if (playerComponent != null) {
-                PassiveTreePage passiveTreePage = new PassiveTreePage(this.playerRef);
-                playerComponent.getPageManager().openCustomPage(ref, store, passiveTreePage);
-            }
+            // Open the passive tree page using HyUI
+            PassiveTreePageHyUI.open(this.playerRef, ref, store, null);
         }
     }
     

@@ -1,0 +1,277 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors">
+
+    <!-- This animation increases and then decreases the item amount font size to create a "pop out" effect -->
+    <Storyboard x:Key="Animation.NotificationItem.AmountChange">
+        <DoubleAnimation
+            Storyboard.TargetName="NotificationItem.Amount"
+            Storyboard.TargetProperty="FontSize"
+            From="{DynamicResource Font.Size.Body}"
+            To="24"
+            AutoReverse="True"
+            Duration="0:0:0.05"/>
+    </Storyboard>
+
+    <!-- NOTIFICATION ITEM TEMPLATE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <ControlTemplate x:Key="Template.NotificationItem" TargetType="ListBoxItem">
+
+        <!-- The NotificationItem.Layout defines the layout of the notification -->
+        <Grid
+            x:Name="NotificationItem.Layout"
+            Width="400"
+            Height="{TemplateBinding Height}">
+
+            <!-- NotificationItem.Base displays the background of the notification -->
+            <Border
+                x:Name="NotificationItem.Base"
+                Background="{DynamicResource Color.Background.NotificationItem}">
+
+                <Border.Effect>
+                    <BlurEffect Radius="4"/>
+                </Border.Effect>
+            </Border>
+
+            <!-- NotificationItem.Flash displays the yellow background we flash when we load a notification -->
+            <Border
+                x:Name="NotificationItem.Flash"
+                Background="{DynamicResource Color.Background.NotificationItem.Flash}"
+                Opacity="0">
+
+                <Border.Effect>
+                    <BlurEffect Radius="4"/>
+                </Border.Effect>
+            </Border>
+
+            <!-- The ContentPresenter allows us to render content inside of the notification -->
+            <!-- Content is rendered via data templates which we set in the ItemTemplate property of whichever ItemsControl loads the notification -->
+            <ContentPresenter
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"/>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <!-- This trigger fades in the notification when it is first loaded and displays a quick yellow flash -->
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation
+                            Storyboard.TargetName="NotificationItem.Layout"
+                            Storyboard.TargetProperty="Opacity"
+                            From="0"
+                            To="1"
+                            Duration="0:0:0.1"/>
+
+                        <DoubleAnimation
+                            Storyboard.TargetName="NotificationItem.Flash"
+                            Storyboard.TargetProperty="Opacity"
+                            From="0"
+                            To="1"
+                            AutoReverse="True"
+                            Duration="0:0:0.1">
+                        </DoubleAnimation>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+
+            <!-- This trigger fades out the notification when it expires -->
+            <DataTrigger Binding="{Binding Expiring}" Value="True">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetName="NotificationItem.Layout"
+                                Storyboard.TargetProperty="Opacity"
+                                From="1"
+                                To="0"
+                                Duration="0:0:0.1"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- NOTIFICATION ITEM STYLE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <Style x:Key="Style.NotificationItem" TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ContentControl}}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Margin" Value="0,0,0,8" />
+        <Setter Property="Height" Value="48" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Template" Value="{DynamicResource Template.NotificationItem}" />
+    </Style>
+
+    <!-- NOTIFICATION ITEM DATA TEMPLATE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <DataTemplate x:Key="DataTemplate.NotificationItem">
+        <Grid x:Name="NotificationItem.Content" Height="40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="64"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- The NotificationItem.Icon displays the item's icon -->
+            <Image
+                x:Name="NotificationItem.Icon"
+                Grid.Column="1"
+                Source="{Binding Icon}"
+                Stretch="Uniform"/>
+
+            <!-- The NotificationItem.Text wraps the Item Name and Amount so that we can move their X position simultaneously -->
+            <Grid x:Name="NotificationItem.Text" Grid.Column="3">
+                <Grid.RenderTransform>
+                    <TranslateTransform x:Name="NotificationItem.Text.Translate" X="0" Y="0"/>
+                </Grid.RenderTransform>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="8"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- The NotificationItem.Name displays the item's name -->
+                <TextBlock
+                    x:Name="NotificationItem.Name"
+                    Grid.Column="0"
+                    Text="{Binding Text}"
+                    FontFamily="{DynamicResource Font.CoreSans}"
+                    FontSize="{DynamicResource Font.Size.Body}"
+                    Foreground="{DynamicResource Color.Text}"
+                    VerticalAlignment="Center"/>
+
+                <!-- The NotificationItem.Amount displays the amount added or substracted -->
+                <TextBlock
+                    x:Name="NotificationItem.Amount"
+                    Grid.Column="2"
+                    Text="{Binding DisplayAmount}"
+                    FontFamily="{DynamicResource Font.CoreSansBold}"
+                    FontSize="{DynamicResource Font.Size.Body}"
+                    Foreground="{DynamicResource Color.TextAdd}"
+                    VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- This trigger plays the animation that changes the font size of the item amount -->
+            <!-- The animation is played only when we update the item amount of an already loaded notification -->
+            <b:Interaction.Triggers>
+                <b:PropertyChangedTrigger Binding="{Binding DisplayAmount}">
+                    <b:ControlStoryboardAction Storyboard="{StaticResource Animation.NotificationItem.AmountChange}"/>
+                </b:PropertyChangedTrigger>
+            </b:Interaction.Triggers>
+        </Grid>
+
+        <DataTemplate.Triggers>
+            <!-- This trigger sets the color of the item amount to Color.TextAdd if the notification is for adding items -->
+            <DataTrigger Binding="{Binding IsAddition}" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource Color.TextAdd}" TargetName="NotificationItem.Amount"/>
+            </DataTrigger>
+
+            <!-- This trigger sets the color of the item amount to Color.TextRemove if the notification is for removing items -->
+            <DataTrigger Binding="{Binding IsAddition}" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource Color.TextRemove}" TargetName="NotificationItem.Amount"/>
+            </DataTrigger>
+
+            <!-- This trigger animates the X position of the item name and amount when the notification is loaded  -->
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation
+                            Storyboard.TargetName="NotificationItem.Text.Translate"
+                            Storyboard.TargetProperty="(TranslateTransform.X)"
+                            From="-18"
+                            To="0"
+                            Duration="0:0:0.3">
+
+                            <DoubleAnimation.EasingFunction>
+                                <PowerEase EasingMode="EaseOut" Power="3"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <!-- NOTIFICATION NEW RECIPE STYLE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <Style x:Key="Style.NotificationRecipe" TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ContentControl}}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Margin" Value="0,0,0,8" />
+        <Setter Property="Height" Value="64" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Template" Value="{DynamicResource Template.NotificationItem}" />
+    </Style>
+
+    <!-- NOTIFICATION NEW RECIPE DATA TEMPLATE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <DataTemplate x:Key="DataTemplate.NotificationRecipe">
+        <Grid x:Name="Root">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="64"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Displays the item's icon -->
+            <Image
+                x:Name="NotificationToast.Icon"
+                Grid.Column="1"
+                Source="{Binding Icon}"
+                Stretch="Uniform"/>
+
+            <!-- Wraps the item text elements so that we can move their X position simultaneously -->
+            <StackPanel x:Name="NotificationToast.Text" Grid.Column="3" VerticalAlignment="Center">
+                <StackPanel.RenderTransform>
+                    <TranslateTransform x:Name="NotificationToast.Text.Translate" X="0" Y="0"/>
+                </StackPanel.RenderTransform>
+
+                <!-- Displays the item's category -->
+                <TextBlock
+                    x:Name="NotificationToast.Category"
+                    Text="{Binding TextCategory}"
+                    FontFamily="{DynamicResource Font.CoreSansBold}"
+                    FontSize="{DynamicResource Font.Size.Medium}"
+                    Foreground="{DynamicResource Color.Text}"/>
+
+                <!-- Displays the item's name -->
+                <TextBlock
+                    x:Name="NotificationToast.Name"
+                    Text="{Binding Text}"
+                    FontFamily="{DynamicResource Font.CoreSans}"
+                    FontSize="{DynamicResource Font.Size.Body}"
+                    Foreground="{DynamicResource Color.Text}"/>
+            </StackPanel>
+        </Grid>
+
+        <DataTemplate.Triggers>
+            <!-- This trigger animates the X position of the item name and amount when the notification is loaded  -->
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation
+                            Storyboard.TargetName="NotificationToast.Text.Translate"
+                            Storyboard.TargetProperty="(TranslateTransform.X)"
+                            From="-18"
+                            To="0"
+                            Duration="0:0:0.3">
+
+                            <DoubleAnimation.EasingFunction>
+                                <PowerEase EasingMode="EaseOut" Power="3"/>
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+</ResourceDictionary>

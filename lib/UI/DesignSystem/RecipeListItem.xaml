@@ -1,0 +1,291 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+
+    <!-- RECIPE LIST ITEM TEMPLATE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <ControlTemplate x:Key="Template.RecipeListItem" TargetType="ListBoxItem">
+        <Grid x:Name="RecipeListItem">
+
+            <!-- STATE MANAGER -->
+            <!-- This part defines the Recipe List Item states and the animations they trigger -->
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup Name="CommonStates">
+
+                    <!-- NORMAL STATE -->
+                    <VisualState Name="Normal"/>
+
+                    <!-- HOVERED STATE -->
+                    <!-- When the mouse pointer is hovering over the control we trigger 3 animations -->
+                    <!-- The first two DoubleAnimations increase the scale of the Recipe List Item -->
+                    <!-- The third DoubleAnimation sets the opacity of the outer hover border to 1 and brings it into view  -->
+                    <VisualState Name="MouseOver">
+                        <Storyboard>
+                            <DoubleAnimation
+                                    Storyboard.TargetName="RecipeListItem.Hover"
+                                    Storyboard.TargetProperty="Opacity"
+                                    To="1"
+                                    Duration="0:0:0.4">
+                                <DoubleAnimation.EasingFunction>
+                                    <PowerEase EasingMode="EaseOut" Power="4"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </VisualState>
+
+                    <!-- PRESSED STATE -->
+                    <VisualState Name="Pressed"/>
+
+                    <!-- DISABLED STATE -->
+                    <VisualState Name="Disabled"/>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+
+            <!-- The RecipeListItem.Layout defines the layout of the item -->
+            <!-- On MouseOver we increase its scale in the VisualStateManager -->
+            <Grid
+                x:Name="RecipeListItem.Layout"
+                RenderTransformOrigin="0.5,0.5">
+
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform x:Name="RecipeListItem.Layout.Scale" ScaleX="1" ScaleY="1"/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+
+                <!-- The RecipeListItem.Hover displays an external border around the item on MouseOver -->
+                <Border
+                    x:Name="RecipeListItem.Hover"
+                    BorderBrush="{DynamicResource Color.BorderRecipeListItemHover}"
+                    BorderThickness="2"
+                    Border.Effect="{DynamicResource Glow.RecipeListItemHover}"
+                    Opacity="0">
+                </Border>
+
+                <!-- The RecipeListItem.Wrapper adds a padding on all sides which we need to create space to render the RecipeListItem.Hover border -->
+                <Border
+                    x:Name="RecipeListItem.Wrapper"
+                    Padding="2">
+
+                    <!-- The RecipeListItem.Base defines the container in which we render the background and internal border of the Recipe List Item -->
+                    <Border
+                        x:Name="RecipeListItem.Base"
+                        Background="{DynamicResource Color.Background.RecipeListItem}"
+                        BorderBrush="{DynamicResource Color.BorderOut.RecipeListItem}"
+                        BorderThickness="2">
+
+                        <Grid>
+                            <!-- The RecipeListItem.Content defines the area in which we can render content -->
+                            <Border
+                                x:Name="RecipeListItem.Content"
+                                BorderBrush="{DynamicResource Color.BorderIn.RecipeListItem}"
+                                BorderThickness="2">
+
+                                <Border.Background>
+                                    <ImageBrush ImageSource="../Textures/Decorations/PatternRunicRecipeListItem.png" AlignmentX="Right" Stretch="None"/>
+                                </Border.Background>
+
+                                <!-- The ContentPresenter renders content inside of the item -->
+                                <ContentPresenter
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+
+                            <!-- The RecipeListItem.Selected displays the border when the item is selected -->
+                            <Image
+                                x:Name="RecipeListItem.Selected"
+                                Source="../Textures/Controls/SelectorRecipe.png"
+                                Stretch="None"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Visibility="Hidden"/>
+                        </Grid>
+                    </Border>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <!-- This trigger changes the background of the item and displays a border via RecipeListItem.Selected when the item is selected -->
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Color.Background.RecipeListItem.Selected}" TargetName="RecipeListItem.Base"/>
+                <Setter Property="Visibility" Value="Visible" TargetName="RecipeListItem.Selected"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+    <!-- RECIPE LIST ITEM STYLE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <Style x:Key="Style.RecipeListItem" TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ContentControl}}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="Margin" Value="0,0,0,4"/>
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+        <Setter Property="Template" Value="{StaticResource Template.RecipeListItem}"/>
+    </Style>
+
+    <!-- RECIPE LIST ITEM DATA TEMPLATE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <!-- This is the content we are loading in the Recipe List Item -->
+    <DataTemplate x:Key="Content.RecipeListItem">
+        <DataTemplate.Resources>
+            <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        </DataTemplate.Resources>
+
+        <Grid x:Name="Layout" Height="76" Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="76"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="24"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- The RecipeListItem.Icon displays the crafting recipe's item -->
+            <!-- It's currently displaying a placeholder icon which we'll substitute with a binding -->
+            <Border
+                x:Name="RecipeListItem.IconWrapper"
+                Grid.Column="0"
+                Background="{DynamicResource Color.Background.Item.Rarity.Common}"
+                Padding="10">
+
+                <Image
+                    x:Name="RecipeListItem.Icon"
+                    Source="{Binding Icon}"
+                    Stretch="Uniform"/>
+            </Border>
+
+            <!-- The RecipeListItem.Name displays the crafting recipe's name -->
+            <!-- Currently bound to the color of a gradient stop from the temporary Recipes collection -->
+            <TextBlock
+                x:Name="RecipeListItem.Name"
+                Grid.Column="2"
+                Text="{Binding Name}"
+                TextWrapping="Wrap"
+                FontFamily="{DynamicResource Font.CoreSans}"
+                FontSize="{DynamicResource Font.Size.Body}"
+                Foreground="{DynamicResource Color.Text}"
+                VerticalAlignment="Center"/>
+
+            <Grid Grid.Column="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- This displays an icon to communicate to players their inventory is full and they can't craft this recipe -->
+                <Image
+                    x:Name="RecipeListItem.Icon.InventoryFull"
+                    Source="../Textures/Icons/IconInventoryFull.png"
+                    Grid.Column="0"
+                    Width="21"
+                    Height="21"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Margin="0,0,12,0"
+                    Visibility="Hidden"/>
+
+                <Border
+                    x:Name="RecipeListItem.Label.New"
+                    Grid.Column="1"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource Color.IconFill}"
+                    CornerRadius="4,4,4,4"
+                    VerticalAlignment="Center"
+                    Padding="6,4,6,4"
+                    Margin="0,0,8,0">
+
+                    <TextBlock
+                        Text="NEW!"
+                        FontFamily="{DynamicResource Font.CoreSansBold}"
+                        FontSize="{DynamicResource Font.Size.Medium}"
+                        Foreground="{DynamicResource Color.Text}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"/>
+                </Border>
+
+                <!-- This displays a hammer icon to communicate to players this number is how many they can craft -->
+                <Image
+                    x:Name="CraftIcon"
+                    Grid.Column="2"
+                    Source="../Textures/Icons/IconHammer.png"
+                    Width="24"
+                    Height="24"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="0,0,8,0"
+                    Visibility="Collapsed"/>
+
+                <!-- This border wraps the CraftNumber in a pill -->
+                <Grid Grid.Column="3">
+                    <Border
+                        x:Name="RecipeListItem.CraftNumber.Pill"
+                        Width="36"
+                        Height="36"
+                        CornerRadius="18"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="4,0,4,0">
+
+                        <Border.Background>
+                            <SolidColorBrush Color="#121212" Opacity="0.5"/>
+                        </Border.Background>
+                    </Border>
+
+                    <!-- The RecipeListItem.CraftNumber displays how many times the player can ccraft this recipe based on how many ingredients they currently have -->
+                    <TextBlock
+                        x:Name="RecipeListItem.CraftNumber"
+                        Text="{Binding CraftableQuantity}"
+                        FontFamily="{DynamicResource Font.CoreSansBold}"
+                        FontSize="{DynamicResource Font.Size.Default}"
+                        Foreground="{DynamicResource Color.Text}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"/>
+                </Grid>
+            </Grid>
+
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="MouseEnter">
+                    <b:ChangePropertyAction PropertyName="Visibility" Value="Visible" TargetName="CraftIcon"/>
+                </b:EventTrigger>
+
+                <b:EventTrigger EventName="MouseLeave">
+                    <b:ChangePropertyAction PropertyName="Visibility" Value="Collapsed" TargetName="CraftIcon"/>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+        </Grid>
+
+        <DataTemplate.Triggers>
+            <!-- This trigger decreases the opacity of the recipe icon and name and changes the craft number color -->
+            <!-- to red when the amount of times this recipe can be crafted by the player is 0 -->
+            <DataTrigger Binding="{Binding CraftableQuantity}" Value="0">
+                <Setter Property="Foreground" Value="{DynamicResource Color.TextError}" TargetName="RecipeListItem.CraftNumber"/>
+                <Setter Property="Opacity" Value="0.5" TargetName="RecipeListItem.CraftNumber.Pill"/>
+                <Setter Property="Opacity" Value="0.5" TargetName="RecipeListItem.Name"/>
+                <Setter Property="Opacity" Value="0.25" TargetName="RecipeListItem.IconWrapper"/>
+            </DataTrigger>
+
+            <!-- This trigger displays an icon when the player's inventory is full and they can't craft the recipe until they clear up space -->
+            <DataTrigger Binding="{Binding HasSpace}" Value="False">
+                <Setter Property="Visibility" Value="Visible" TargetName="RecipeListItem.Icon.InventoryFull"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding NewIndicator}" Value="True">
+                <Setter Property="Visibility" Value="Visible" TargetName="RecipeListItem.Label.New"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding NewIndicator}" Value="False">
+                <Setter Property="Visibility" Value="Collapsed" TargetName="RecipeListItem.Label.New"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+</ResourceDictionary>

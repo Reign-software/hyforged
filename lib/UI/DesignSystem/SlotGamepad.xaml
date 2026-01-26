@@ -1,0 +1,96 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors">
+
+
+    <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+
+    <!-- GAMEPAD SLOT TEMPLATE -->
+    <!-- We load this template into a slot style when the player moves item and the slot IsGamepadTarget=True -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <ControlTemplate x:Key="Template.SlotGamepad" TargetType="{x:Type ListBoxItem}">
+        <Grid>
+            <!-- This is the Item Slot parent container -->
+            <Grid x:Name="SlotItemLayout"
+                Style="{DynamicResource SlotLayoutStyle}">
+
+                <!-- This displays the default background  -->
+                <Border
+                    x:Name="SlotItemBase"
+                    Style="{DynamicResource SlotBaseStyle}">
+
+                    <!-- This displays the internal slot border -->
+                    <Border
+                        x:Name="SlotItemBorder"
+                        Style="{DynamicResource SlotBorderStyle}">
+
+                        <!-- The ContentPresenter renders content inside of the item -->
+                        <ContentPresenter
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                </Border>
+
+                <!-- This part displays the border when the gamepad is focused on the Item Slot -->
+                <Border
+                    x:Name="SlotItemGamepadTarget"
+                    Style="{DynamicResource SlotGamepadTargetStyle}"
+                    Visibility="{Binding IsGamepadTarget, Converter={StaticResource BoolToVisConverter}}"
+                    RenderTransformOrigin="0.5,0.5">
+
+                    <Image Source="../Textures/Inventory/SlotHighlight.png" Stretch="Uniform"/>
+                </Border>
+            </Grid>
+
+            <!-- This is the Gamepad Source Item Slot parent container -->
+            <Grid x:Name="Slot.GamepadSourceItem"
+                Style="{DynamicResource SlotLayoutStyle}"
+                RenderTransformOrigin="0.5,0.5">
+
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform X="-8" Y="-8"/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+
+                <!-- This part displays the border and glow we show on hover over the Item Slot -->
+                <Border
+                    x:Name="Slot.GamepadSourceItem.Hovered"
+                    Style="{DynamicResource SlotHoveredStyle}"/>
+
+                <!-- This displays the default background  -->
+                <Border
+                    x:Name="Slot.GamepadSourceItem.Base"
+                    Style="{DynamicResource SlotBaseStyle}">
+
+                    <!-- This displays the internal slot border -->
+                    <Border
+                        x:Name="Slot.GamepadSourceItem.Border"
+                        Style="{DynamicResource SlotBorderStyle}">
+
+                        <Grid x:Name="Slot.GamepadSourceItem.Wrapper">
+
+                            <!-- This part displays the content of the Item Slot - the item icon, amount and index -->
+                            <Grid x:Name="Slot.GamepadSourceItem.Content">
+                                <Image
+                                    x:Name="Slot.GamepadSourceItem.Icon"
+                                    Style="{DynamicResource SlotItemIconStyle}"
+                                    Source="{Binding GamepadSourceItem.Icon}"/>
+
+                                <TextBlock
+                                    x:Name="Slot.GamepadSourceItem.Amount"
+                                    Style="{DynamicResource SlotItemAmountStyle}"
+                                    Text="{Binding GamepadSourceItem.DisplayAmount}"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Border>
+            </Grid>
+        </Grid>
+    </ControlTemplate>
+</ResourceDictionary>

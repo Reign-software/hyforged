@@ -1,0 +1,239 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Tooltip.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <ResourceDictionary x:Key="EquipmentSlotsDictionary">
+        <system:String x:Key="d0555a7d-4012-411f-bce4-5fb625059fbd">HeadSlot</system:String>
+        <system:String x:Key="c9f25815-5ca3-4ee8-94b5-e441ae8534e6">ChestSlot</system:String>
+        <system:String x:Key="48f3e8f3-0186-49ed-85d3-1524a0fe5492">HandsSlot</system:String>
+        <system:String x:Key="94979d97-b58b-462e-9833-044f796bd003">BeltSlot</system:String>
+        <system:String x:Key="907ecb69-d64f-4b81-ba32-ea756141f5fd">FeetSlot</system:String>
+        <system:String x:Key="5a6eb1a8-4a7a-421a-80ff-87af617a28e0">BackSlot</system:String>
+        <system:String x:Key="826e6791-e409-4b63-bf0f-fb2acb1c22fd">RingSlot_1</system:String>
+        <system:String x:Key="c9b98d80-ade9-4bf2-a07e-359bfcefd708">RingSlot_2</system:String>
+        <system:String x:Key="2fc66bb9-2b8c-4d74-b1b5-8aac9e59f58e">PrimaryHandSlot_1</system:String>
+        <system:String x:Key="535d75c5-bcfd-4f64-96e5-ae12ef3c97d9">SecondaryHandSlot_1</system:String>
+        <system:String x:Key="1ab92b8b-1430-491d-bf03-0699a0f1589f">PrimaryHandSlot_2</system:String>
+        <system:String x:Key="95f0f5c2-17b8-44af-997d-30317a10c494">SecondaryHandSlot_2</system:String>
+    </ResourceDictionary>
+
+    <ResourceDictionary x:Key="ActiveEquipmentSlotDictionary">
+        <system:String x:Key="498020a8-8dfa-43ee-b349-4d3f82e20990">ActiveHotbarSlot</system:String>
+    </ResourceDictionary>
+
+    <!-- EQUIPMENT SLOT TEMPLATE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <ControlTemplate x:Key="Template.SlotEquipment" TargetType="{x:Type ListBoxItem}">
+        <ContentControl Padding="0" Focusable="False">
+
+            <!-- STATE MANAGER -->
+            <!-- This part defines the Equipment Slot states and the animations they trigger -->
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup Name="CommonStates">
+
+                    <!-- NORMAL STATE -->
+                    <VisualState Name="Normal"/>
+
+                    <!-- HOVERED STATE -->
+                    <VisualState Name="MouseOver">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames
+                                    Storyboard.TargetName="SlotEquipmentHovered"
+                                    Storyboard.TargetProperty="Visibility">
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Visible</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+
+                            <DoubleAnimation
+                                    Storyboard.TargetName="SlotEquipmentHovered"
+                                    Storyboard.TargetProperty="Opacity"
+                                    To="1"
+                                    Duration="0:0:0.2">
+                                <DoubleAnimation.EasingFunction>
+                                    <QuarticEase EasingMode="EaseOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+
+                            <DoubleAnimation
+                                    Storyboard.TargetName="BorderHoveredScale"
+                                    Storyboard.TargetProperty="(ScaleTransform.ScaleX)"
+                                    To="1"
+                                    Duration="0:0:0.2">
+                                <DoubleAnimation.EasingFunction>
+                                    <PowerEase EasingMode="EaseOut" Power="4"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+
+                            <DoubleAnimation
+                                    Storyboard.TargetName="BorderHoveredScale"
+                                    Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
+                                    To="1"
+                                    Duration="0:0:0.2">
+                                <DoubleAnimation.EasingFunction>
+                                    <PowerEase EasingMode="EaseOut" Power="4"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </VisualState>
+
+                    <!-- PRESSED STATE -->
+                    <VisualState Name="Pressed"/>
+
+                    <!-- DISABLED STATE -->
+                    <VisualState Name="Disabled">
+                        <Storyboard>
+                            <DoubleAnimation
+                                    Storyboard.TargetName="SlotEquipmentLayout"
+                                    Storyboard.TargetProperty="Opacity"
+                                    To="0.6"/>
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+
+                <!-- CUSTOM STATES -->
+                <VisualStateGroup Name="CustomStates">
+
+                    <!-- DROP NOT ALLOWED STATE -->
+                    <!-- Visual state responsible for providing a visual feedback that the item being dragged CANNOT be dropped in this Slot -->
+                    <VisualState Name="DropNotAllowed">
+                        <Storyboard>
+                            <DoubleAnimation
+                                    Storyboard.TargetName="SlotEquipmentLayout"
+                                    Storyboard.TargetProperty="Opacity"
+                                    Duration="0:0:0.1"
+                                    To="0.5"/>
+                        </Storyboard>
+                    </VisualState>
+
+                    <!-- DROP ALLOWED STATE -->
+                    <!-- Visual state responsible for providing a visual feedback that the item being dragged CAN be dropped in this Slot -->
+                    <VisualState Name="DropAllowed">
+                        <Storyboard>
+                            <DoubleAnimation
+                                    Storyboard.TargetName="SlotEquipmentLayout"
+                                    Storyboard.TargetProperty="Opacity"
+                                    Duration="0:0:0.1"
+                                    To="1"/>
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+
+            <!-- This is the Equipment Slot parent container -->
+            <Grid x:Name="SlotEquipmentLayout"
+                Style="{DynamicResource SlotLayoutStyle}">
+
+                <!-- This part displays the border and glow we show on hover over the Item Slot -->
+                <Border
+                    x:Name="SlotEquipmentHovered"
+                    Style="{DynamicResource SlotHoveredStyle}"
+                    Visibility="Hidden"
+                    Opacity="0"
+                    RenderTransformOrigin="0.5,0.5">
+
+                    <Border.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform x:Name="BorderHoveredScale" ScaleX="0.9" ScaleY="0.9"/>
+                        </TransformGroup>
+                    </Border.RenderTransform>
+                </Border>
+
+                <!-- This displays the default background  -->
+                <Border
+                    x:Name="SlotEquipmentBase"
+                    Style="{DynamicResource SlotBaseStyle}">
+
+                    <!-- This displays the internal slot border -->
+                    <Border
+                        x:Name="SlotEquipmentBorder"
+                        Style="{DynamicResource SlotBorderStyle}">
+
+                        <Grid x:Name="SlotEquipmentWrapper">
+
+                            <!-- This part displays the content of the Equipment Slot - the icon when the slot is empty, the item icon and amount -->
+                            <Grid x:Name="SlotEquipmentContent">
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="{Binding EmptySlotIcon}" Stretch="Uniform" />
+                                </Grid.Background>
+
+                                <Image
+                                    x:Name="ItemIcon"
+                                    Style="{DynamicResource SlotItemIconStyle}"
+                                    Source="{Binding Item.Icon}"/>
+
+                                <TextBlock
+                                    x:Name="ItemAmount"
+                                    Style="{DynamicResource SlotItemAmountStyle}"
+                                    Text="{Binding Item.DisplayAmount}"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Border>
+            </Grid>
+
+            <!-- This displays a tooltip when the player hovers over the slot -->
+            <ToolTipService.ToolTip>
+                <ToolTip Style="{StaticResource Style.Tooltip.Default}" Content="{StaticResource Content.Tooltip.Item}"/>
+            </ToolTipService.ToolTip>
+
+            <b:Interaction.Triggers>
+                <!-- This allows the player to DoubleClick to unequip the item from the slot -->
+                <b:EventTrigger EventName="MouseDoubleClick">
+                    <b:InvokeCommandAction
+                            Command="{Binding DataContext.UnEquipItem, ElementName=Root}"
+                            CommandParameter="{Binding}">
+                    </b:InvokeCommandAction>
+                </b:EventTrigger>
+
+                <!-- These two triggers change the Visual State of the Slot, providing a visual feedback to the player if the item
+                    can be dropped in the current slot or not. According to the value of "IsDropAllowed". -->
+                <b:DataTrigger Binding="{Binding IsDropAllowed}" Value="False">
+                    <b:GoToStateAction StateName="DropNotAllowed"/>
+                </b:DataTrigger>
+
+                <b:DataTrigger Binding="{Binding IsDropAllowed}" Value="True">
+                    <b:GoToStateAction StateName="DropAllowed"/>
+                </b:DataTrigger>
+
+                <!-- These two triggers change the opacity of the slot based on whether the slot is the source of a gamepad move -->
+                <b:DataTrigger Binding="{Binding IsGamepadSource}" Value="True">
+                    <b:ChangePropertyAction PropertyName="Opacity" Value="0.5" TargetName="SlotEquipmentLayout"/>
+                </b:DataTrigger>
+
+                <b:DataTrigger Binding="{Binding IsGamepadSource}" Value="False">
+                    <b:ChangePropertyAction PropertyName="Opacity" Value="1" TargetName="SlotEquipmentLayout"/>
+                </b:DataTrigger>
+            </b:Interaction.Triggers>
+        </ContentControl>
+    </ControlTemplate>
+
+    <!-- EQUIPMENT SLOT STYLE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <Style x:Key="Style.SlotEquipment" TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ContentControl}}">
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Style.Focus}"/>
+        <Setter Property="Template" Value="{DynamicResource Template.SlotEquipment}"/>
+        <Setter Property="ContextMenu" Value="{DynamicResource ContextMenu.Slot}" />
+
+        <!-- This trigger ensures that the context menu is only shown if there's an item in the slot -->
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Item.Asset.EntityId}" Value="0">
+                <Setter Property="ContextMenu" Value="{x:Null}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding IsGamepadTarget}" Value="True">
+                <Setter Property="Template" Value="{DynamicResource Template.SlotGamepad}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,140 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../DesignSystem/Converters.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- TOOLTIP BASIC TEMPLATE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <ControlTemplate x:Key="Template.Tooltip.Default" TargetType="ToolTip">
+        <!-- This displays the tooltip's background and border -->
+        <Border
+            x:Name="Tooltip.Base"
+            Background="{TemplateBinding Background}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            Padding="{TemplateBinding Padding}">
+
+            <!-- This part displays the content of the Tooltip -->
+            <ContentPresenter
+                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </Border>
+    </ControlTemplate>
+
+    <!-- TOOLTIP DEFAULT STYLE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <Style x:Key="Style.Tooltip.Default" BasedOn="{StaticResource {x:Type ToolTip}}" TargetType="ToolTip">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Placement" Value="Top"/>
+        <Setter Property="Background" Value="{DynamicResource Color.BackgroundTooltip}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Color.BorderTooltip}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="VerticalOffset" Value="-4"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template" Value="{StaticResource Template.Tooltip.Default}" />
+
+        <Style.Triggers>
+            <!-- This trigger ensures that the tooltip is only shown if there's an item in the slot -->
+            <DataTrigger Binding="{Binding Item.Asset.EntityId}" Value="0">
+                <Setter Property="Visibility" Value="Hidden"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- TOOLTIP BASIC STYLE -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <Style x:Key="Style.Tooltip.Basic" BasedOn="{StaticResource {x:Type ToolTip}}" TargetType="ToolTip">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Placement" Value="Top"/>
+        <Setter Property="Background" Value="{DynamicResource Color.BackgroundTooltip}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Color.BorderTooltip}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="VerticalOffset" Value="-4"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template" Value="{StaticResource Template.Tooltip.Default}"/>
+    </Style>
+
+    <!-- ITEM TOOLTIP CONTENT -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <StackPanel x:Key="Content.Tooltip.Item">
+
+        <TextBlock
+            x:Name="ItemName"
+            Grid.Row="0"
+            Text="{Binding Item.Name}"
+            FontFamily="{DynamicResource Font.CoreSans}"
+            FontSize="{DynamicResource Font.Size.Default}"
+            TextAlignment="Left"
+            Foreground="{DynamicResource Color.Text}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"/>
+
+        <StackPanel Visibility="{Binding Item.HasStatModifiers, Converter={StaticResource BoolToVisConverter}}">
+            <Grid
+                x:Name="RecipeDetails.Divider"
+                Opacity="0.4"
+                Margin="0,0,0,5"
+                Height="7">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="12"/>
+                </Grid.ColumnDefinitions>
+
+                <Rectangle Grid.Column="0" Fill="{DynamicResource Divider01.Left}"/>
+                <Rectangle Grid.Column="1" Fill="{DynamicResource Divider01.Mid}"/>
+                <Rectangle Grid.Column="2" Fill="{DynamicResource Divider01.Right}"/>
+            </Grid>
+
+            <TextBlock
+                x:Name="ItemStatModifiers"
+                Grid.Row="1"
+                Text="{Binding Item.StatModifiers}"
+                FontFamily="{DynamicResource Font.CoreSans}"
+                FontSize="{DynamicResource Font.Size.Default}"
+                TextAlignment="Left"
+                Foreground="{DynamicResource Color.Text}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
+        </StackPanel>
+    </StackPanel>
+
+    <!-- CRAFTING MATERIAL TOOLTIP CONTENT -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <Grid x:Key="Content.Tooltip.Material">
+        <TextBlock
+            x:Name="MaterialName"
+            Text="{Binding Name}"
+            FontFamily="{DynamicResource Font.CoreSans}"
+            FontSize="{DynamicResource Font.Size.Default}"
+            TextAlignment="Left"
+            Foreground="{DynamicResource Color.Text}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"/>
+    </Grid>
+
+    <!-- TAB ITEM TOOLTIP CONTENT -->
+    <!--////////////////////////////////////////////////////////////////////-->
+    <Grid x:Key="Content.Tooltip.TabItem">
+        <TextBlock
+            x:Name="TabItemName"
+            Text="{Binding Name}"
+            FontFamily="{DynamicResource Font.CoreSans}"
+            FontSize="{DynamicResource Font.Size.Default}"
+            TextAlignment="Left"
+            Foreground="{DynamicResource Color.Text}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"/>
+    </Grid>
+</ResourceDictionary>

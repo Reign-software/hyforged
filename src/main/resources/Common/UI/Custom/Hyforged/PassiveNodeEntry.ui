@@ -14,20 +14,20 @@ Button #NodeEntry {
     Label #Status {
         Anchor: (Width: 80);
         Text: "[LOCKED]";
-        Style: (FontSize: 11, Alignment: Left);
+        Style: (FontSize: 11);
     }
     
     // Node type badge
     Label #Type {
         Anchor: (Width: 60, Left: 5);
         Text: "Minor";
-        Style: (FontSize: 11, Alignment: Left);
+        Style: (FontSize: 11);
     }
     
     // Node name
     Label #Name {
         Anchor: (Left: 5);
         Text: "Node Name";
-        Style: (FontSize: 11, Alignment: Left);
+        Style: (FontSize: 11);
     }
 }

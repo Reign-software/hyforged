@@ -10,6 +10,7 @@ This is a Hytale plugin project. Hytale plugins are used to extend the functiona
 - The games JSON that makes up all items, blocks, and other in-game assets can be found in the `lib/Server` directory. you can use this to look up item IDs, block IDs, and other in-game assets. Do not modify these files directly, they are for reference. We have our own data under `src/main/resources/Server/Hyforged`.
 - The `Modding_Doc` folder can be used to store documentation related to modding Hyforged as well as references. Ensure this stays up to date with relevant user-facing documentation about modding Hyforged.
 - Avoid enums, this is data driven from JSON files via resources. Reference `lib/Server` directory for structure and json examples.
+- `lib/UI` contains the Hytale client UI code. Use this to look up how to build custom UIs using .ui files.
 - Review TODOs when implementing a plan as they may be from a previous implementation or design decision awaiting the plan.
 - When working with systems, aim to make things generic and data driven. Leverage tags and JSON data wherever possible.
 - DO NOT hard code values; always use data-driven approaches and JSON configuration.
