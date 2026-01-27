@@ -27,4 +27,10 @@ public class PassiveCommand extends AbstractCommandCollection {
         this.addSubCommand(new PassiveDebugCommand());
         this.addSubCommand(new PassiveUICommand());
     }
+    
+    @Override
+    protected boolean canGeneratePermission() {
+        // Allow all players to access /passive; individual subcommands control their own permissions
+        return false;
+    }
 }

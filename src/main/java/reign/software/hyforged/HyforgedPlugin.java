@@ -80,6 +80,7 @@ import reign.software.hyforged.effect.HyforgedEffectAssetLoader;
 import reign.software.hyforged.passive.asset.PassiveTreeAssetLoader;
 import reign.software.hyforged.passive.system.ClassTreeStartingNodeSystem;
 import reign.software.hyforged.passive.system.PassiveTreeMigrationSystem;
+import reign.software.hyforged.hub.system.WelcomeMessageSystem;
 import reign.software.hyforged.passive.component.PassiveTreeComponent;
 import reign.software.hyforged.passive.component.PlayerSpellsComponent;
 import reign.software.hyforged.passive.component.PlayerUnlocksComponent;
@@ -548,6 +549,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Initialize PassiveTreeMigrationSystem (runs migrations on player connect)
         new PassiveTreeMigrationSystem();
         getLogger().at(Level.FINE).log("Initialized PassiveTreeMigrationSystem");
+        
+        // Initialize WelcomeMessageSystem (sends welcome message with commands on player connect)
+        new WelcomeMessageSystem();
+        getLogger().at(Level.FINE).log("Initialized WelcomeMessageSystem");
         
         // Register LootAffixSystem (rolls affixes on item drops)
         // NOTE: Must be registered before LootQualitySystem (which depends on it)

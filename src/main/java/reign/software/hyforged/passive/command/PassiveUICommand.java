@@ -30,6 +30,12 @@ public class PassiveUICommand extends AbstractAsyncCommand {
     public PassiveUICommand() {
         super("ui", "hyforged.commands.passive.ui.desc");
     }
+    
+    @Override
+    protected boolean canGeneratePermission() {
+        // No permission required - any player can open the passive tree
+        return false;
+    }
 
     @Nonnull
     @Override

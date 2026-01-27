@@ -59,4 +59,10 @@ public class HyforgedCommand extends AbstractCommandCollection {
         this.addSubCommand(new CombatLogCommand());
         this.addSubCommand(new CombatLogHudCommand());
     }
+    
+    @Override
+    protected boolean canGeneratePermission() {
+        // Allow all players to access /hyforged; individual subcommands control their own permissions
+        return false;
+    }
 }

@@ -36,6 +36,12 @@ public class CharacterHubCommand extends AbstractAsyncCommand {
         this.addAliases("menu", "c");
     }
     
+    @Override
+    protected boolean canGeneratePermission() {
+        // No permission required - any player can open the hub
+        return false;
+    }
+    
     @Nonnull
     @Override
     protected CompletableFuture<Void> executeAsync(@Nonnull CommandContext context) {

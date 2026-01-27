@@ -1,6 +1,6 @@
 ---
 name: development
-description: "Implement features according to the approved spec and plan. Update plan step checkboxes, keep the build green at the end of each phase, and record high-level implementation summaries in the memory bank.
+description: Implement features according to the approved spec and plan. Update plan step checkboxes, keep the build green at the end of each phase, and record high-level implementation summaries in the memory bank.
 handoffs:
   - label: "Start validation (new chat)"
     agent: validation
