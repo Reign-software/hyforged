@@ -9,6 +9,7 @@ import reign.software.hyforged.affix.command.RollAffixCommand;
 import reign.software.hyforged.combat.command.CombatLogCommand;
 import reign.software.hyforged.combat.command.CombatLogHudCommand;
 import reign.software.hyforged.concentration.command.ConcentrationPriorityCommand;
+import reign.software.hyforged.currency.command.CurrencyCommand;
 import reign.software.hyforged.hub.command.CharacterHubCommand;
 import reign.software.hyforged.progression.command.ProgressionCommand;
 import reign.software.hyforged.quality.command.QualityCommand;
@@ -32,6 +33,7 @@ import reign.software.hyforged.quality.command.QualityCommand;
  *   <li>{@code quality} - Quality debug commands</li>
  *   <li>{@code combatlog} - View recent combat history</li>
  *   <li>{@code combatloghud} - Toggle combat log HUD visibility</li>
+ *   <li>{@code currency} - Currency (Tradebar) management commands</li>
  * </ul>
  */
 public class HyforgedCommand extends AbstractCommandCollection {
@@ -58,6 +60,9 @@ public class HyforgedCommand extends AbstractCommandCollection {
         // Add combat commands
         this.addSubCommand(new CombatLogCommand());
         this.addSubCommand(new CombatLogHudCommand());
+        
+        // Add currency commands
+        this.addSubCommand(new CurrencyCommand());
     }
     
     @Override

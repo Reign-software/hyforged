@@ -1,0 +1,18 @@
+{
+  "Container": {
+    "Type": "Multiple",
+    "Containers": [
+      {
+        "Type": "Choice",
+        "RollsMin": 1,
+        "RollsMax": 1,
+        "Comment": "Tradebar currency drop - Tier 2 (Zone 2 encounters)",
+        "Containers": [
+          { "Type": "Single", "Weight": 50, "Item": { "ItemId": "hyforged:Tradebar", "QuantityMin": 20, "QuantityMax": 40 } },
+          { "Type": "Single", "Weight": 35, "Item": { "ItemId": "hyforged:Tradebar", "QuantityMin": 41, "QuantityMax": 75 } },
+          { "Type": "Single", "Weight": 15, "Item": { "ItemId": "hyforged:Tradebar", "QuantityMin": 76, "QuantityMax": 120 } }
+        ]
+      }
+    ]
+  }
+}

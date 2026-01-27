@@ -1,0 +1,135 @@
+// Hyforged Market Stall UI
+// Interactive page for selling items for Tradebars
+
+$Common = "../Common.ui";
+
+Group #MarketStallPage {
+    LayoutMode: Top;
+    Anchor: (Width: 400, Height: 380);
+    Background: $Common.@InputBoxBackground;
+    Padding: (Full: 20);
+
+    Group #Header {
+        LayoutMode: Top;
+        Anchor: (Height: 50);
+
+        Label #Title {
+            Text: "Market Stall";
+            Style: (FontSize: 24, Alignment: Center, RenderBold: true);
+        }
+    }
+
+    Group #BalanceSection {
+        LayoutMode: Top;
+        Anchor: (Height: 60);
+        Padding: (Top: 10);
+
+        Group #CurrentBalanceRow {
+            LayoutMode: Left;
+            Anchor: (Height: 25);
+            
+            Label {
+                Text: "Current Balance: ";
+                Style: (FontSize: 14, Alignment: Left);
+                Anchor: (Width: 150);
+            }
+            
+            Label #CurrentBalance {
+                Text: "0";
+                Style: (FontSize: 14, Alignment: Left, Color: #FFD700);
+            }
+        }
+    }
+
+    Group #SellSection {
+        LayoutMode: Top;
+        Anchor: (Height: 120);
+        Padding: (Top: 10);
+
+        Label #SellHeader {
+            Text: "Sell Your Items";
+            Style: (FontSize: 16, Alignment: Center, RenderBold: true);
+            Anchor: (Height: 30);
+        }
+
+        Group #ItemCountRow {
+            LayoutMode: Left;
+            Anchor: (Height: 25);
+            
+            Label {
+                Text: "Items to Sell: ";
+                Style: (FontSize: 14, Alignment: Left);
+                Anchor: (Width: 150);
+            }
+            
+            Label #ItemCount {
+                Text: "0 sellable items";
+                Style: (FontSize: 14, Alignment: Left, Color: #AAAAAA);
+            }
+        }
+
+        Group #TotalValueRow {
+            LayoutMode: Left;
+            Anchor: (Height: 25);
+            Padding: (Top: 5);
+            
+            Label {
+                Text: "Total Value: ";
+                Style: (FontSize: 14, Alignment: Left);
+                Anchor: (Width: 150);
+            }
+            
+            Label #TotalValue {
+                Text: "0 Tradebars";
+                Style: (FontSize: 14, Alignment: Left, Color: #6CD36C);
+            }
+        }
+    }
+
+    Group #ButtonSection {
+        LayoutMode: Left;
+        Anchor: (Height: 50);
+        Padding: (Top: 20);
+
+        Button #SellAllButton {
+            Anchor: (Width: 160, Height: 40);
+            Background: $Common.@InputBoxBackground;
+            Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+            Padding: (Full: 8);
+            Label { Text: "Sell All Items"; Style: (FontSize: 14, Alignment: Center); }
+        }
+
+        Button #RefreshButton {
+            Anchor: (Width: 100, Height: 40, Left: 10);
+            Background: $Common.@InputBoxBackground;
+            Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+            Padding: (Full: 8);
+            Label { Text: "Refresh"; Style: (FontSize: 12, Alignment: Center); }
+        }
+    }
+
+    Group #StatusSection {
+        LayoutMode: Top;
+        Anchor: (Height: 40);
+        Padding: (Top: 15);
+
+        Label #StatusMessage {
+            Text: "";
+            Style: (FontSize: 12, Alignment: Center);
+        }
+    }
+
+    Group #Footer {
+        LayoutMode: Top;
+        Anchor: (Height: 40);
+        Padding: (Top: 10);
+
+        Button #CloseButton {
+            Anchor: (Width: 100, Height: 35);
+            Background: $Common.@InputBoxBackground;
+            Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+            Padding: (Full: 8);
+            Label { Text: "Close"; Style: (FontSize: 12, Alignment: Center); }
+        }
+    }
+}

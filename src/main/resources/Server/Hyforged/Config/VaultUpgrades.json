@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:vault-upgrades",
+  "Tier1Capacity": 50000,
+  "Tier2Capacity": 100000,
+  "Tier2Cost": 5000,
+  "Tier2Item": "hyforged:vault_upgrade_1",
+  "Tier3Capacity": 250000,
+  "Tier3Cost": 15000,
+  "Tier3Item": "hyforged:vault_upgrade_2",
+  "Tier4Capacity": 500000,
+  "Tier4Cost": 50000,
+  "Tier4Item": "hyforged:vault_upgrade_3"
+}

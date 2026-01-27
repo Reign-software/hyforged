@@ -1,0 +1,17 @@
+{
+  "TranslationProperties": {
+    "Name": "Vault Upgrade: Tier 2",
+    "Description": "Upgrades a Tradebar Vault from Tier 1 to Tier 2, increasing capacity to 100,000 Tradebars."
+  },
+  "Categories": [
+    "Items.Consumables",
+    "Items.Hyforged"
+  ],
+  "Icon": "Icons/ItemsGenerated/Scroll_Upgrade.png",
+  "Quality": "Uncommon",
+  "MaxStack": 10,
+  "Tags": {
+    "Type": ["VaultUpgrade", "Hyforged"],
+    "UpgradeTier": 2
+  }
+}

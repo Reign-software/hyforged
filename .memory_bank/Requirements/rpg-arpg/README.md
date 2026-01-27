@@ -78,11 +78,12 @@ The systems are grouped into phases based on dependencies. Complete each phase b
 - [Combat System](combat-system.md)
 - [Passive Trees](passive-trees.md)
 - Passive Tree Stat Diversity — spec: [passive-tree-stat-diversity.spec.md](../../Features/passive-tree-stat-diversity/passive-tree-stat-diversity.spec.md)
-- [Currency: Tradebars](currency-tradebars.md)
+- [Currency: Tradebars](currency-tradebars.md) — spec: [currency-tradebars.spec.md](../../Features/currency-tradebars/currency-tradebars.spec.md)
 - [Enchanting, Runes, Forging](enchanting-runes-forging.md)
 - [Trading & Marketplace](trading-marketplace.md)
 
 ## Change Log
+- 2026-01-27: Added Currency: Tradebars spec linking.
 - 2026-01-24: Added Passive Trees spec linking; updated Phase 6 dependencies.
 - 2026-01-22: Marked Combat System as completed in implementation order.
 - 2026-01-20: Added Items Affix System spec for Phase 4.

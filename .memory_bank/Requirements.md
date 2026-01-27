@@ -28,11 +28,12 @@
   - Combat System — spec: [combat-system.spec.md](.memory_bank/Features/combat-system/combat-system.spec.md)
   - Passive Trees
   - Passive Tree Stat Diversity — spec: [passive-tree-stat-diversity.spec.md](.memory_bank/Features/passive-tree-stat-diversity/passive-tree-stat-diversity.spec.md), plan: [passive-tree-stat-diversity.plan.md](.memory_bank/Features/passive-tree-stat-diversity/passive-tree-stat-diversity.plan.md)
-  - Currency (Tradebars)
+  - Currency (Tradebars) — spec: [currency-tradebars.spec.md](.memory_bank/Features/currency-tradebars/currency-tradebars.spec.md), plan: [currency-tradebars.plan.md](.memory_bank/Features/currency-tradebars/currency-tradebars.plan.md)
   - Enchanting, Runes, and Forging
   - Trading & Marketplace
 
 ## Change Log
+- 2026-01-27: Added Currency (Tradebars) spec and plan to feature index.
 - 2026-01-25: Added Passive Tree Stat Diversity plan to feature index.
 - 2026-01-24: Added Concentration Disruption System spec to feature index.
 - 2026-01-23: Added Random Item Quality plan to feature index.

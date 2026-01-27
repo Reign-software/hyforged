@@ -1,0 +1,88 @@
+{
+  "TranslationProperties": {
+    "Name": "Market Stall",
+    "Description": "A merchant's stall for selling items. Place items to sell and receive Tradebars."
+  },
+  "Categories": [
+    "Furniture.Containers",
+    "Items.Hyforged"
+  ],
+  "Icon": "Icons/ItemsGenerated/Bench_Crafting.png",
+  "Quality": "Common",
+  "BlockType": {
+    "Material": "Solid",
+    "DrawType": "Model",
+    "Opacity": "Transparent",
+    "CustomModel": "Blocks/Decorative_Sets/Kweebec/Table.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Blocks/Decorative_Sets/Kweebec/Table_Texture.png",
+        "Weight": 1
+      }
+    ],
+    "HitboxType": "Chest_Large",
+    "VariantRotation": "NESW",
+    "Flags": {
+      "IsUsable": true
+    },
+    "Gathering": {
+      "Breaking": {
+        "GatherType": "SoftBlocks",
+        "DropList": {
+          "Container": {
+            "Type": "Single",
+            "Item": {
+              "ItemId": "hyforged:Market_Stall",
+              "QuantityMin": 1,
+              "QuantityMax": 1
+            }
+          }
+        }
+      }
+    },
+    "BlockParticleSetId": "Wood",
+    "BlockSoundSetId": "Wood",
+    "Support": {
+      "Down": [
+        {
+          "FaceType": "Full"
+        }
+      ]
+    },
+    "Interactions": {
+      "Primary": "Break_SoftBlock",
+      "Use": {
+        "Interactions": [
+          {
+            "Type": "OpenCustomUI",
+            "Page": {
+              "Id": "MarketStall"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "PlayerAnimationsId": "Block",
+  "Model": "Blocks/Decorative_Sets/Kweebec/Table.blockymodel",
+  "Texture": "Blocks/Decorative_Sets/Kweebec/Table_Texture.png",
+  "IconProperties": {
+    "Scale": 0.5,
+    "Translation": [
+      13,
+      -9
+    ],
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ]
+  },
+  "Tags": {
+    "Type": [
+      "Commerce",
+      "Hyforged",
+      "Market"
+    ]
+  }
+}

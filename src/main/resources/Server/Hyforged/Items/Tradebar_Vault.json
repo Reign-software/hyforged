@@ -1,0 +1,88 @@
+{
+  "TranslationProperties": {
+    "Name": "Tradebar Vault",
+    "Description": "A secure vault for storing Tradebars. Only the owner can access or break this vault."
+  },
+  "Categories": [
+    "Furniture.Containers",
+    "Items.Hyforged"
+  ],
+  "Icon": "Icons/ItemsGenerated/Chest_Wood.png",
+  "Quality": "Common",
+  "BlockType": {
+    "Material": "Solid",
+    "DrawType": "Model",
+    "Opacity": "Transparent",
+    "CustomModel": "Blocks/Decorative_Sets/Lumberjack/Chest.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Blocks/Decorative_Sets/Lumberjack/Chest_Texture.png",
+        "Weight": 1
+      }
+    ],
+    "HitboxType": "Chest_Large",
+    "VariantRotation": "NESW",
+    "Flags": {
+      "IsUsable": true
+    },
+    "Gathering": {
+      "Breaking": {
+        "GatherType": "SoftBlocks",
+        "DropList": {
+          "Container": {
+            "Type": "Single",
+            "Item": {
+              "ItemId": "hyforged:Tradebar_Vault",
+              "QuantityMin": 1,
+              "QuantityMax": 1
+            }
+          }
+        }
+      }
+    },
+    "BlockParticleSetId": "Metal",
+    "BlockSoundSetId": "Metal",
+    "Support": {
+      "Down": [
+        {
+          "FaceType": "Full"
+        }
+      ]
+    },
+    "Interactions": {
+      "Primary": "Break_SoftBlock",
+      "Use": {
+        "Interactions": [
+          {
+            "Type": "OpenCustomUI",
+            "Page": {
+              "Id": "TradebarVault"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "PlayerAnimationsId": "Block",
+  "Model": "Blocks/Decorative_Sets/Lumberjack/Chest.blockymodel",
+  "Texture": "Blocks/Decorative_Sets/Lumberjack/Chest_Texture.png",
+  "IconProperties": {
+    "Scale": 0.5,
+    "Translation": [
+      13,
+      -9
+    ],
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ]
+  },
+  "Tags": {
+    "Type": [
+      "Storage",
+      "Hyforged",
+      "Vault"
+    ]
+  }
+}

@@ -4,6 +4,8 @@ import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import reign.software.hyforged.currency.service.CurrencyService;
+import reign.software.hyforged.currency.service.TransactionResult;
 import reign.software.hyforged.passive.component.PassiveTreeComponent;
 import reign.software.hyforged.passive.component.PlayerSpellsComponent;
 import reign.software.hyforged.passive.component.PlayerUnlocksComponent;
@@ -527,14 +529,26 @@ public final class PassiveTreeService {
         // Calculate total cost
         int totalCost = calculateTotalRefundCost(entityRef, nodesToRefund);
 
-        // TODO: Check Tradebar balance when currency system is implemented
-        // For now, we allow the refund without currency check
-        // if (!hasSufficientTradebars(entityRef, totalCost)) {
-        //     return RefundResult.failure(RefundResult.REASON_INSUFFICIENT_TRADEBARS);
-        // }
+        // Check Tradebar balance
+        if (totalCost > 0) {
+            int balance = CurrencyService.get().getBalance(entityRef);
+            if (balance < totalCost) {
+                LOGGER.fine("Refund failed: insufficient Tradebars (" + balance + " < " + totalCost + ")");
+                return RefundResult.failure(RefundResult.REASON_INSUFFICIENT_TRADEBARS);
+            }
 
-        // TODO: Deduct Tradebars when currency system is implemented
-        // deductTradebars(entityRef, totalCost);
+            // Deduct Tradebars
+            TransactionResult txResult = CurrencyService.get().deduct(
+                entityRef, 
+                totalCost, 
+                "passive_refund:" + treeId + ":" + nodeId
+            );
+            if (!txResult.success()) {
+                LOGGER.warning("Refund failed: Tradebar deduction failed - " + txResult.failureReason());
+                return RefundResult.failure(RefundResult.REASON_INSUFFICIENT_TRADEBARS);
+            }
+            LOGGER.fine("Deducted " + totalCost + " Tradebars for refund (tx: " + txResult.transactionId() + ")");
+        }
 
         // Remove effects and deallocate nodes
         List<String> refundedList = new ArrayList<>(nodesToRefund);
@@ -602,9 +616,26 @@ public final class PassiveTreeService {
         // Calculate total cost
         int totalCost = calculateTotalRefundCost(entityRef, allocated);
 
-        // TODO: Check Tradebar balance when currency system is implemented
+        // Check Tradebar balance
+        if (totalCost > 0) {
+            int balance = CurrencyService.get().getBalance(entityRef);
+            if (balance < totalCost) {
+                LOGGER.fine("Respec failed: insufficient Tradebars (" + balance + " < " + totalCost + ")");
+                return RefundResult.failure(RefundResult.REASON_INSUFFICIENT_TRADEBARS);
+            }
 
-        // TODO: Deduct Tradebars when currency system is implemented
+            // Deduct Tradebars
+            TransactionResult txResult = CurrencyService.get().deduct(
+                entityRef, 
+                totalCost, 
+                "passive_respec:" + treeId
+            );
+            if (!txResult.success()) {
+                LOGGER.warning("Respec failed: Tradebar deduction failed - " + txResult.failureReason());
+                return RefundResult.failure(RefundResult.REASON_INSUFFICIENT_TRADEBARS);
+            }
+            LOGGER.fine("Deducted " + totalCost + " Tradebars for respec (tx: " + txResult.transactionId() + ")");
+        }
 
         // Remove effects and deallocate all nodes
         List<String> refundedList = new ArrayList<>(allocated);

@@ -1,0 +1,16 @@
+{
+  "Id": "hyforged:sell-value-config",
+  "BaseValue": 1,
+  "MinSellValue": 1,
+  "RarityJunk": 0,
+  "RarityCommon": 1,
+  "RarityUncommon": 2,
+  "RarityRare": 5,
+  "RarityEpic": 15,
+  "RarityLegendary": 50,
+  "AffixTier1Value": 100,
+  "AffixTier2Value": 50,
+  "AffixTier3Value": 25,
+  "AffixTier4Value": 10,
+  "AffixTier5Value": 5
+}

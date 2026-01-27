@@ -1,0 +1,169 @@
+// Hyforged Tradebar Vault UI
+// Interactive page for vault storage operations
+
+$Common = "../Common.ui";
+
+Group #VaultPage {
+    LayoutMode: Top;
+    Anchor: (Width: 420, Height: 480);
+    Background: $Common.@InputBoxBackground;
+    Padding: (Full: 20);
+
+    Group #Header {
+        LayoutMode: Top;
+        Anchor: (Height: 60);
+
+        Label #Title {
+            Text: "Tradebar Vault";
+            Style: (FontSize: 24, Alignment: Center, RenderBold: true);
+        }
+
+        Label #TierDisplay {
+            Text: "Tier 1";
+            Style: (FontSize: 14, Alignment: Center, Color: #FFD700);
+        }
+    }
+
+    Group #BalanceSection {
+        LayoutMode: Top;
+        Anchor: (Height: 100);
+        Padding: (Top: 10);
+
+        Group #VaultBalanceRow {
+            LayoutMode: Left;
+            Anchor: (Height: 30);
+            
+            Label {
+                Text: "Vault Balance: ";
+                Style: (FontSize: 14, Alignment: Left);
+                Anchor: (Width: 140);
+            }
+            
+            Label #VaultBalance {
+                Text: "0";
+                Style: (FontSize: 14, Alignment: Left, Color: #FFD700);
+            }
+        }
+
+        Group #CapacityRow {
+            LayoutMode: Left;
+            Anchor: (Height: 30);
+            
+            Label {
+                Text: "Capacity: ";
+                Style: (FontSize: 14, Alignment: Left);
+                Anchor: (Width: 140);
+            }
+            
+            Label #Capacity {
+                Text: "0 / 50,000";
+                Style: (FontSize: 14, Alignment: Left, Color: #AAAAAA);
+            }
+        }
+
+        Group #InventoryRow {
+            LayoutMode: Left;
+            Anchor: (Height: 30);
+            
+            Label {
+                Text: "Inventory: ";
+                Style: (FontSize: 14, Alignment: Left);
+                Anchor: (Width: 140);
+            }
+            
+            Label #InventoryBalance {
+                Text: "0";
+                Style: (FontSize: 14, Alignment: Left, Color: #6CD36C);
+            }
+        }
+    }
+
+    Group #DepositSection {
+        LayoutMode: Left;
+        Anchor: (Height: 50);
+        Padding: (Top: 10);
+
+        Button #DepositButton {
+            Anchor: (Width: 120, Height: 40);
+            Background: $Common.@InputBoxBackground;
+            Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+            Padding: (Full: 8);
+            Label { Text: "Deposit"; Style: (FontSize: 12, Alignment: Center); }
+        }
+
+        Button #DepositAllButton {
+            Anchor: (Width: 120, Height: 40, Left: 10);
+            Background: $Common.@InputBoxBackground;
+            Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+            Padding: (Full: 8);
+            Label { Text: "Deposit All"; Style: (FontSize: 12, Alignment: Center); }
+        }
+    }
+
+    Group #WithdrawSection {
+        LayoutMode: Left;
+        Anchor: (Height: 50);
+        Padding: (Top: 10);
+
+        Button #WithdrawButton {
+            Anchor: (Width: 120, Height: 40);
+            Background: $Common.@InputBoxBackground;
+            Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+            Padding: (Full: 8);
+            Label { Text: "Withdraw"; Style: (FontSize: 12, Alignment: Center); }
+        }
+
+        Button #WithdrawAllButton {
+            Anchor: (Width: 120, Height: 40, Left: 10);
+            Background: $Common.@InputBoxBackground;
+            Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+            Padding: (Full: 8);
+            Label { Text: "Withdraw All"; Style: (FontSize: 12, Alignment: Center); }
+        }
+    }
+
+    Group #UpgradeSection {
+        LayoutMode: Top;
+        Anchor: (Height: 80);
+        Padding: (Top: 20);
+
+        Button #UpgradeButton {
+            Anchor: (Width: 200, Height: 40);
+            Background: $Common.@InputBoxBackground;
+            Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+            Padding: (Full: 8);
+            Label { Text: "Upgrade Vault"; Style: (FontSize: 12, Alignment: Center); }
+        }
+
+        Label #UpgradeCost {
+            Text: "Cost: 5,000 Tradebars";
+            Style: (FontSize: 12, Alignment: Center, Color: #AAAAAA);
+            Padding: (Top: 5);
+        }
+    }
+
+    Group #StatusSection {
+        LayoutMode: Top;
+        Anchor: (Height: 40);
+        Padding: (Top: 10);
+
+        Label #StatusMessage {
+            Text: "";
+            Style: (FontSize: 12, Alignment: Center, Color: #6CD36C);
+        }
+    }
+
+    Group #Footer {
+        LayoutMode: Top;
+        Anchor: (Height: 50);
+        Padding: (Top: 10);
+
+        Button #CloseButton {
+            Anchor: (Width: 100, Height: 40);
+            Background: $Common.@InputBoxBackground;
+            Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+            Padding: (Full: 8);
+            Label { Text: "[Close]"; Style: (FontSize: 12, Alignment: Center); }
+        }
+    }
+}

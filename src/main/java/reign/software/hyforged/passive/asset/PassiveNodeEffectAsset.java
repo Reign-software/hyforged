@@ -7,7 +7,6 @@ import com.hypixel.hytale.codec.codecs.array.ArrayCodec;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

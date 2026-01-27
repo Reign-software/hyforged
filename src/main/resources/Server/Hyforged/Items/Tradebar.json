@@ -1,0 +1,23 @@
+{
+  "TranslationProperties": {
+    "Name": "Tradebar",
+    "Description": "The universal currency of the realm. Used for trading, refunding passives, enchanting, and forging."
+  },
+  "Categories": [
+    "Items.Currency",
+    "Items.Hyforged"
+  ],
+  "Icon": "Icons/ItemsGenerated/Coin.png",
+  "Quality": "Common",
+  "MaxStack": 10000,
+  "Consumable": false,
+  "Tags": {
+    "Type": [
+      "Currency",
+      "Hyforged"
+    ]
+  },
+  "Utility": {
+    "Compatible": false
+  }
+}

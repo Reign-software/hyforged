@@ -2,6 +2,7 @@ package reign.software.hyforged;
 
 import com.hypixel.hytale.component.ComponentRegistryProxy;
 import com.hypixel.hytale.component.ComponentType;
+import com.hypixel.hytale.component.Holder;
 import com.hypixel.hytale.component.ResourceType;
 import com.hypixel.hytale.server.core.modules.entitystats.modifier.Modifier;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
@@ -10,6 +11,7 @@ import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import reign.software.hyforged.passive.interaction.PointBookInteraction;
 import reign.software.hyforged.passive.ui.PassiveTreePage;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
+import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.affix.asset.AffixAssetLoader;
 import reign.software.hyforged.affix.component.HyforgedActiveEffectsComponent;
@@ -90,6 +92,13 @@ import reign.software.hyforged.passive.effect.SpellGrantEffectHandler;
 import reign.software.hyforged.passive.effect.StatModifierEffectHandler;
 import reign.software.hyforged.passive.effect.UnlockFlagEffectHandler;
 import reign.software.hyforged.passive.service.PassiveTreeService;
+import reign.software.hyforged.currency.config.CurrencyConfigAssetLoader;
+import reign.software.hyforged.currency.service.CurrencyService;
+import reign.software.hyforged.currency.component.TradebarVaultComponent;
+import reign.software.hyforged.currency.hud.CurrencyHudSystem;
+import reign.software.hyforged.currency.system.VaultBreakProtectionSystem;
+import reign.software.hyforged.currency.ui.MarketStallPage;
+import reign.software.hyforged.currency.ui.VaultPage;
 
 import javax.annotation.Nonnull;
 import java.util.logging.Level;
@@ -122,6 +131,9 @@ public class HyforgedPlugin extends JavaPlugin {
     private ComponentType<EntityStore, PassiveTreeComponent> passiveTreeComponentType;
     private ComponentType<EntityStore, PlayerUnlocksComponent> playerUnlocksComponentType;
     private ComponentType<EntityStore, PlayerSpellsComponent> playerSpellsComponentType;
+    
+    // ChunkStore Component Types (block data)
+    private ComponentType<ChunkStore, TradebarVaultComponent> tradebarVaultComponentType;
     
     // ECS Resource Types
     private ResourceType<EntityStore, XPNotificationAggregator.AggregationResource> xpNotificationResourceType;
@@ -293,6 +305,13 @@ public class HyforgedPlugin extends JavaPlugin {
         // Includes general tree, class trees, and refund configuration
         PassiveTreeAssetLoader.initialize(this);
         
+        // Initialize asset loader for currency configuration (currency system)
+        // Includes sell value config and vault upgrade tiers
+        CurrencyConfigAssetLoader.initialize(this);
+        
+        // Initialize CurrencyService singleton
+        CurrencyService.get();
+        
         getLogger().at(Level.FINE).log("Stat and tag asset loading initialized, awaiting asset load...");
     }
     
@@ -413,6 +432,25 @@ public class HyforgedPlugin extends JavaPlugin {
         );
         
         getLogger().at(Level.FINE).log("Registered XPNotificationAggregator resource");
+        
+        // Register ChunkStore components (block data)
+        registerChunkStoreComponents();
+    }
+    
+    /**
+     * Register ChunkStore components for block-based data.
+     */
+    private void registerChunkStoreComponents() {
+        ComponentRegistryProxy<ChunkStore> chunkStoreRegistry = this.getChunkStoreRegistry();
+        
+        // Register TradebarVaultComponent for vault block storage
+        tradebarVaultComponentType = chunkStoreRegistry.registerComponent(
+            TradebarVaultComponent.class,
+            "TradebarVault",
+            TradebarVaultComponent.CODEC
+        );
+        
+        getLogger().at(Level.FINE).log("Registered TradebarVaultComponent with ChunkStore");
     }
 
     /**
@@ -502,6 +540,14 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register ResourceStatsHudSystem (custom HUD for resource bars)
         entityStoreRegistry.registerSystem(new ResourceStatsHudSystem());
         getLogger().at(Level.FINE).log("Registered ResourceStatsHudSystem");
+
+        // Register CurrencyHudSystem (custom HUD for Tradebar balance)
+        entityStoreRegistry.registerSystem(new CurrencyHudSystem());
+        getLogger().at(Level.FINE).log("Registered CurrencyHudSystem");
+
+        // Register VaultBreakProtectionSystem (prevents non-owners from breaking vaults)
+        entityStoreRegistry.registerSystem(new VaultBreakProtectionSystem());
+        getLogger().at(Level.FINE).log("Registered VaultBreakProtectionSystem");
         
         // Register Hyforged damage reduction system (replaces Hytale's ArmorDamageReduction)
         entityStoreRegistry.registerSystem(new HyforgedDamageReductionSystem());
@@ -694,6 +740,33 @@ public class HyforgedPlugin extends JavaPlugin {
         );
 
         getLogger().at(Level.FINE).log("Registered PointBookInteraction");
+
+        // Register Tradebar Vault page for block-based vault access
+        // The vault component is created on first interaction if it doesn't exist
+        OpenCustomUIInteraction.registerBlockEntityCustomPage(
+            this,
+            VaultPage.class,
+            "TradebarVault",
+            VaultPage::new,
+            () -> {
+                Holder<ChunkStore> holder = ChunkStore.REGISTRY.newHolder();
+                holder.ensureComponent(tradebarVaultComponentType);
+                return holder;
+            }
+        );
+
+        getLogger().at(Level.FINE).log("Registered TradebarVault custom UI interaction");
+
+        // Register Market Stall page for selling items
+        // Market stalls don't require persistent state - just player ref needed
+        OpenCustomUIInteraction.registerBlockEntityCustomPage(
+            this,
+            MarketStallPage.class,
+            "MarketStall",
+            (playerRef, blockRef) -> new MarketStallPage(playerRef)
+        );
+
+        getLogger().at(Level.FINE).log("Registered MarketStall custom UI interaction");
     }
 
     /**
@@ -826,5 +899,16 @@ public class HyforgedPlugin extends JavaPlugin {
             throw new IllegalStateException("HyforgedPlugin not initialized");
         }
         return playerSpellsComponentType;
+    }
+    
+    /**
+     * Get the TradebarVaultComponent type for ChunkStore operations.
+     */
+    @Nonnull
+    public ComponentType<ChunkStore, TradebarVaultComponent> getTradebarVaultComponentType() {
+        if (tradebarVaultComponentType == null) {
+            throw new IllegalStateException("HyforgedPlugin not initialized");
+        }
+        return tradebarVaultComponentType;
     }
 }
