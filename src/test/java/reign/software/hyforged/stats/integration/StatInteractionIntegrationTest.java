@@ -41,7 +41,6 @@ class StatInteractionIntegrationTest {
     private static final StatId SPELL_POWER = StatId.hyforged("test-spell-power");
     private static final StatId CRIT_CHANCE = StatId.hyforged("test-crit-chance-bps");
     private static final StatId MAX_HEALTH = StatId.hyforged("test-max-health");
-    private static final StatId EVASION = StatId.hyforged("test-evasion-bps");
     
     private StatDefinitionRegistry registry;
     

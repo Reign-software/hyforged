@@ -34,14 +34,7 @@ public class PassiveListCommand extends CommandBase {
 
     private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in world.").color(MessageColors.ERROR);
     private static final Message MESSAGE_NO_COMPONENT = Message.raw("Player has no passive tree data.").color(MessageColors.ERROR);
-    private static final Message MESSAGE_HEADER = Message.raw("=== Passive Tree Allocations for %s ===").color(MessageColors.GOLD);
     private static final Message MESSAGE_GENERAL_TREE = Message.raw("[General Tree]").color(MessageColors.WARNING);
-    private static final Message MESSAGE_STARTING_NODE = Message.raw("  Starting Node: %s").color(MessageColors.GRAY);
-    private static final Message MESSAGE_ALLOCATED = Message.raw("  Allocated Nodes: %d").color(MessageColors.GRAY);
-    private static final Message MESSAGE_AVAILABLE_POINTS = Message.raw("  Available Points: %d").color(MessageColors.GRAY);
-    private static final Message MESSAGE_BOOK_POINTS = Message.raw("  Book Points Used: %d").color(MessageColors.GRAY);
-    private static final Message MESSAGE_CLASS_TREE = Message.raw("[Class Tree: %s]").color(MessageColors.WARNING);
-    private static final Message MESSAGE_NO_ALLOCATIONS = Message.raw("  (No allocations)").color(MessageColors.GRAY);
 
     @Nonnull
     private final RequiredArg<PlayerRef> playerArg = this.withRequiredArg(

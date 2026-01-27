@@ -1,0 +1,10 @@
+{
+  "Id": "hyforged:welcome-tip-shortcut",
+  "Order": 2,
+  "Enabled": true,
+  "Segments": [
+    { "Text": "  Tip: ", "Color": "#AAAAAA" },
+    { "Text": "/hyforged c", "Color": "#55FF55" },
+    { "Text": " is a shortcut for the hub!", "Color": "#AAAAAA" }
+  ]
+}

@@ -27,7 +27,6 @@ public class ClassTreeStartingNodeSystem {
 
     private static final Logger LOGGER = Logger.getLogger(ClassTreeStartingNodeSystem.class.getName());
 
-    @SuppressWarnings("unused")
     private EventRegistration<Void, ClassLevelUpEvent> classLevelRegistration;
 
     public ClassTreeStartingNodeSystem() {

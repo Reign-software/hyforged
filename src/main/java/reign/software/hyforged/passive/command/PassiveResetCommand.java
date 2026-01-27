@@ -35,11 +35,6 @@ public class PassiveResetCommand extends CommandBase {
 
     private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in world.").color(MessageColors.ERROR);
     private static final Message MESSAGE_NO_COMPONENT = Message.raw("Player has no passive tree data.").color(MessageColors.ERROR);
-    private static final Message MESSAGE_TREE_NOT_FOUND = Message.raw("Tree not found: %s").color(MessageColors.ERROR);
-    private static final Message MESSAGE_RESET_GENERAL = Message.raw("Reset general tree for %s (%d nodes refunded, %d points returned)").color(MessageColors.SUCCESS);
-    private static final Message MESSAGE_RESET_CLASS = Message.raw("Reset class tree '%s' for %s (%d nodes refunded, %d points returned)").color(MessageColors.SUCCESS);
-    private static final Message MESSAGE_RESET_ALL = Message.raw("Reset all trees for %s").color(MessageColors.SUCCESS);
-    private static final Message MESSAGE_RESET_FAILED = Message.raw("Reset failed: %s").color(MessageColors.ERROR);
 
     @Nonnull
     private final RequiredArg<PlayerRef> playerArg = this.withRequiredArg(

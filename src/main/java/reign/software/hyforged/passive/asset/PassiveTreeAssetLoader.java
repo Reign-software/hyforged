@@ -698,15 +698,7 @@ public final class PassiveTreeAssetLoader {
 
         LOGGER.fine("Applied connections from layout " + layout.getId() + " to tree " + treeId);
     }
-
-    /**
-     * Apply a layout to its target tree (legacy method, uses two-pass internally).
-     */
-    private static void applyLayout(TreeLayoutAsset layout) {
-        applyLayoutPlacements(layout);
-        applyLayoutConnections(layout);
-    }
-
+    
     /**
      * Build a PassiveNode from a template and placement.
      */

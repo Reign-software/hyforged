@@ -27,7 +27,6 @@ public class PassiveTreeMigrationSystem {
 
     private static final Logger LOGGER = Logger.getLogger(PassiveTreeMigrationSystem.class.getName());
 
-    @SuppressWarnings("unused")
     private EventRegistration<Void, PlayerConnectEvent> connectRegistration;
 
     public PassiveTreeMigrationSystem() {

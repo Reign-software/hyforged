@@ -4,7 +4,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
 
 /**
  * Service for recording and retrieving combat events per player.
@@ -15,8 +14,6 @@ import java.util.logging.Logger;
  * Thread-safe for concurrent access from multiple damage event handlers.
  */
 public final class CombatLogService {
-    
-    private static final Logger LOGGER = Logger.getLogger(CombatLogService.class.getName());
     
     /** Maximum encounters to keep per player */
     public static final int MAX_ENCOUNTERS_PER_PLAYER = 5;

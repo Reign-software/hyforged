@@ -38,7 +38,6 @@ class CombatPipelineIntegrationTest {
             assertTrue(hitChance <= 10000, "Hit chance should not exceed 100%");
 
             // Step 2: Block resolution (if hit)
-            int blockChance = 3000; // 30%
             int blockMitigation = 5000; // 50%
             float baseDamage = 100f;
 

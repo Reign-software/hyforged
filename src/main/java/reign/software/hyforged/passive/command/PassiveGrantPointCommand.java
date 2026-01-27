@@ -31,7 +31,6 @@ public class PassiveGrantPointCommand extends CommandBase {
 
     private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in world.");
     private static final Message MESSAGE_NO_COMPONENT = Message.raw("Player has no passive tree data.");
-    private static final Message MESSAGE_GRANTED_GENERAL = Message.raw("Granted 1 general passive point to %s (new book points: %d)");
     private static final Message MESSAGE_CLASS_NOT_SUPPORTED = Message.raw("Class tree point grants are not yet supported. Use level commands instead.");
 
     @Nonnull

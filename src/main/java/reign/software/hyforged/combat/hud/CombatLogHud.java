@@ -37,8 +37,6 @@ public class CombatLogHud extends CustomUIHud {
     private static final String COLOR_CRIT = "";              // Red (bold in text)
     private static final String COLOR_BLOCK = "";             // Gold
     private static final String COLOR_MISS = "";              // Gray
-    private static final String COLOR_HEAL = "";              // Green
-    private static final String COLOR_DEFAULT = "";           // White
 
     public CombatLogHud(@Nonnull PlayerRef playerRef) {
         super(playerRef);

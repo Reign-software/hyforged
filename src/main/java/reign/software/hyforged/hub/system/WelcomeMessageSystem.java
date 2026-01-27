@@ -5,41 +5,84 @@ import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.event.events.player.PlayerConnectEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
-import reign.software.hyforged.util.MessageColors;
+import reign.software.hyforged.hub.resource.WelcomeMessagesConfigAsset;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * System that sends a welcome message to players when they connect.
+ * System that sends welcome messages to players when they connect.
  * <p>
- * Informs players about available Hyforged commands like the character hub
- * and passive tree.
+ * Messages are loaded from JSON files in:
+ * {@code Server/Hyforged/WelcomeMessages/}
  */
 public class WelcomeMessageSystem {
 
     private static final Logger LOGGER = Logger.getLogger(WelcomeMessageSystem.class.getName());
 
-    private static final Message WELCOME_HEADER = Message.raw("=== Welcome to Hyforged! ===").color(MessageColors.GOLD);
-    private static final Message WELCOME_HUB = Message.raw("  /hyforged hub").color(MessageColors.SUCCESS)
-            .insert(Message.raw(" - Open the Character Hub (stats, passives, resources)").color(MessageColors.GRAY));
-    private static final Message WELCOME_PASSIVE = Message.raw("  /hyforged passive ui").color(MessageColors.SUCCESS)
-            .insert(Message.raw(" - Open the Passive Tree directly").color(MessageColors.GRAY));
-    private static final Message WELCOME_ALIASES = Message.raw("  Tip: ").color(MessageColors.GRAY)
-            .insert(Message.raw("/hyforged c").color(MessageColors.SUCCESS))
-            .insert(Message.raw(" is a shortcut for the hub!").color(MessageColors.GRAY));
-
-    @SuppressWarnings("unused")
+    private static final List<Message> welcomeMessages = new ArrayList<>();
+    private static boolean hasMessages = false;
+    
     private EventRegistration<Void, PlayerConnectEvent> connectRegistration;
 
     public WelcomeMessageSystem() {
-        registerEventHandlers();
+        if (hasMessages) {
+            registerEventHandlers();
+        }
+    }
+
+    /**
+     * Apply configuration from loaded message assets.
+     * Called by WelcomeMessagesConfigAssetLoader when assets are loaded.
+     *
+     * @param assets List of message assets, already sorted by order
+     */
+    public static void applyConfig(@Nonnull List<WelcomeMessagesConfigAsset> assets) {
+        welcomeMessages.clear();
+
+        for (WelcomeMessagesConfigAsset asset : assets) {
+            Message msg = buildMessage(asset);
+            if (msg != null) {
+                welcomeMessages.add(msg);
+            }
+        }
+
+        hasMessages = !welcomeMessages.isEmpty();
+        LOGGER.info("WelcomeMessageSystem: Loaded " + welcomeMessages.size() + " welcome messages");
+    }
+
+    /**
+     * Build a Message from an asset's segments.
+     */
+    private static Message buildMessage(@Nonnull WelcomeMessagesConfigAsset asset) {
+        WelcomeMessagesConfigAsset.MessageSegment[] segments = asset.getSegments();
+        if (segments.length == 0) {
+            return null;
+        }
+
+        Message result = null;
+        for (WelcomeMessagesConfigAsset.MessageSegment segment : segments) {
+            Message part = Message.raw(segment.getText());
+            if (segment.getColor() != null) {
+                part = part.color(segment.getColor());
+            }
+
+            if (result == null) {
+                result = part;
+            } else {
+                result = result.insert(part);
+            }
+        }
+
+        return result;
     }
 
     private void registerEventHandlers() {
         connectRegistration = HytaleServer.get().getEventBus()
                 .register(PlayerConnectEvent.class, this::onPlayerConnect);
-        
+
         LOGGER.info("WelcomeMessageSystem: Registered player connect event handler");
     }
 
@@ -50,16 +93,14 @@ public class WelcomeMessageSystem {
      */
     private void onPlayerConnect(@Nonnull PlayerConnectEvent event) {
         PlayerRef playerRef = event.getPlayerRef();
-        
-        if (playerRef == null) {
+
+        if (playerRef == null || welcomeMessages.isEmpty()) {
             return;
         }
-        
-        // Send welcome messages
-        playerRef.sendMessage(WELCOME_HEADER);
-        playerRef.sendMessage(WELCOME_HUB);
-        playerRef.sendMessage(WELCOME_PASSIVE);
-        playerRef.sendMessage(WELCOME_ALIASES);
+
+        for (Message msg : welcomeMessages) {
+            playerRef.sendMessage(msg);
+        }
     }
 
     /**

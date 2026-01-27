@@ -17,10 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Integration tests for the complete affix system flow.
  * <p>
  * These tests verify end-to-end behavior across multiple components.
- * <p>
- * Note: Uses deprecated AffixNameGenerator for testing name generation which is marked for removal.
  */
-@SuppressWarnings("removal")
 class AffixSystemIntegrationTest {
     
     private AffixDefinitionRegistry affixRegistry;
@@ -285,39 +282,6 @@ class AffixSystemIntegrationTest {
         assertNotNull(tooltip);
         // Tooltip should have lines for affixes (may be in regular or forged sections)
         assertFalse(tooltip.regularAffixes().isEmpty() && tooltip.forgedAffixes().isEmpty());
-    }
-    
-    // =========================================================================
-    // Name Generation Integration Tests
-    // =========================================================================
-    
-    @Test
-    @DisplayName("Name generation from rolled affixes")
-    void nameGeneration_fromRolledAffixes() {
-        AffixRollContext context = AffixRollContext.of(
-                "Items.Armor.ChestPlate",
-                "Rare",
-                10,
-                new String[]{"equipment"},
-                new String[]{}
-        );
-        
-        AffixRollResult result = rollerService.rollAffixes(context, 12345L);
-        assertTrue(result.hasAffixes());
-        
-        String baseName = "Iron Chestplate";
-        String displayName = AffixNameGenerator.generateDisplayName(baseName, result.affixes());
-        
-        assertNotNull(displayName);
-        assertTrue(displayName.contains(baseName));
-        
-        // Name should have prefix before and/or suffix after base name
-        boolean hasPrefix = result.countByType("prefix") > 0;
-        boolean hasSuffix = result.countByType("suffix") > 0;
-        
-        if (hasPrefix || hasSuffix) {
-            assertNotEquals(baseName, displayName, "Name should be modified with affixes");
-        }
     }
     
     // =========================================================================

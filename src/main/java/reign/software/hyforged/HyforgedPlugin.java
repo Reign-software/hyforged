@@ -82,6 +82,7 @@ import reign.software.hyforged.effect.HyforgedEffectAssetLoader;
 import reign.software.hyforged.passive.asset.PassiveTreeAssetLoader;
 import reign.software.hyforged.passive.system.ClassTreeStartingNodeSystem;
 import reign.software.hyforged.passive.system.PassiveTreeMigrationSystem;
+import reign.software.hyforged.hub.resource.WelcomeMessagesConfigAssetLoader;
 import reign.software.hyforged.hub.system.WelcomeMessageSystem;
 import reign.software.hyforged.passive.component.PassiveTreeComponent;
 import reign.software.hyforged.passive.component.PlayerSpellsComponent;
@@ -308,6 +309,9 @@ public class HyforgedPlugin extends JavaPlugin {
         // Initialize asset loader for currency configuration (currency system)
         // Includes sell value config and vault upgrade tiers
         CurrencyConfigAssetLoader.initialize(this);
+        
+        // Initialize asset loader for welcome messages (player connect messages)
+        WelcomeMessagesConfigAssetLoader.initialize(this);
         
         // Initialize CurrencyService singleton
         CurrencyService.get();

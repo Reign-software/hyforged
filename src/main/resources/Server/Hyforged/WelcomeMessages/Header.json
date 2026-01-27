@@ -1,0 +1,8 @@
+{
+  "Id": "hyforged:welcome-header",
+  "Order": 0,
+  "Enabled": true,
+  "Segments": [
+    { "Text": "=== Welcome to Hyforged! ===", "Color": "#FFAA00" }
+  ]
+}

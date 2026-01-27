@@ -23,8 +23,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class HyforgedStatValueTest {
     
-    private static final int BPS_100_PERCENT = 10000;
-    
     // ========== Helper Methods ==========
     
     /**
@@ -77,10 +75,6 @@ class HyforgedStatValueTest {
         private float testMax = 10000f;
         private int testIndex = 0;
         private int testBaseBonus = 0;
-        
-        public TestHyforgedStatValue() {
-            super();
-        }
         
         public TestHyforgedStatValue(float baseValue) {
             super();
@@ -143,10 +137,6 @@ class HyforgedStatValueTest {
                 ", max=" + testMax +
                 ", baseBonus=" + testBaseBonus +
                 "}";
-        }
-        
-        public void setTestIndex(int index) {
-            this.testIndex = index;
         }
         
         public void setTestBounds(float min, float max) {

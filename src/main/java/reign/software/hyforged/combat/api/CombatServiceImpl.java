@@ -53,7 +53,6 @@ public final class CombatServiceImpl implements CombatService {
     private static final StatId BLOCK_MITIGATION = StatId.hyforged("block-mitigation-bps");
     private static final StatId CRIT_CHANCE = StatId.hyforged("crit-chance-bps");
     private static final StatId CRIT_MULTIPLIER = StatId.hyforged("crit-multiplier-bps");
-    private static final StatId EFFECT_DURATION = StatId.hyforged("effect-duration-bps");
 
     // Cached stat indices (lazily initialized)
     private int accuracyIndex = -1;
@@ -62,7 +61,6 @@ public final class CombatServiceImpl implements CombatService {
     private int blockMitigationIndex = -1;
     private int critChanceIndex = -1;
     private int critMultiplierIndex = -1;
-    private int effectDurationIndex = -1;
     private boolean indicesCached = false;
 
     // Resistance/penetration cache per damage type
@@ -109,25 +107,18 @@ public final class CombatServiceImpl implements CombatService {
             @Nullable String sourceDescription
     ) {
         // Environmental damage skips evasion and block by default
-        DamageSpec modifiedSpec = DamageSpec.builder()
+        DamageSpec.Builder builder = DamageSpec.builder()
                 .skipEvasion(true)
                 .skipBlock(true)
-                .noCrit(true) // No crit for environmental
-                .sourceDescription(sourceDescription)
-                .build();
+                .noCrit(true)
+                .sourceDescription(sourceDescription);
         
-        // Copy damage entries
+        // Copy damage entries from original spec
         for (DamageSpec.DamageEntry entry : spec.getDamageEntries()) {
-            modifiedSpec = DamageSpec.builder()
-                    .addDamage(entry.damageCauseId(), entry.amount())
-                    .skipEvasion(true)
-                    .skipBlock(true)
-                    .noCrit(true)
-                    .sourceDescription(sourceDescription)
-                    .build();
+            builder.addDamage(entry.damageCauseId(), entry.amount());
         }
 
-        return applyEnvironmentalDamageInternal(defenderRef, spec, commandBuffer, sourceDescription);
+        return applyEnvironmentalDamageInternal(defenderRef, builder.build(), commandBuffer, sourceDescription);
     }
 
     @Nonnull
@@ -578,7 +569,6 @@ public final class CombatServiceImpl implements CombatService {
         blockMitigationIndex = getStatIndex(registry, BLOCK_MITIGATION.toString());
         critChanceIndex = getStatIndex(registry, CRIT_CHANCE.toString());
         critMultiplierIndex = getStatIndex(registry, CRIT_MULTIPLIER.toString());
-        effectDurationIndex = getStatIndex(registry, EFFECT_DURATION.toString());
 
         indicesCached = true;
     }
