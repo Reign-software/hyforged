@@ -5,6 +5,7 @@
       "Type": "minor",
       "Name": "Wisdom",
       "Description": "+5 to Wisdom",
+      "Icon": "Hyforged/Textures/Wisdom.png",
       "Effects": [
         { "Type": "stat-modifier", "Stat": "hyforged:wisdom", "Value": 5 }
       ]

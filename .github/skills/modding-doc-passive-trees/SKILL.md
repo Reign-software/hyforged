@@ -63,7 +63,7 @@ layouts/general/
 
 ### UI Constraints
 
-- **Vertical-only scrolling**: HyUI's `TopScrolling` layout mode
+- **Vertical-only scrolling**: Native `TopScrolling` layout mode
 - **Fixed viewport**: 800×600px with 120px sidebar
 - **Horizontal centering**: Tree content centered in viewport
 
@@ -194,7 +194,20 @@ For class trees:
     "Connections": [
         { "From": "yourmod:node-a", "To": "yourmod:node-b" }
     ],
-    "StartingNodes": ["yourmod:start-node"]
+    "StartingNodes": ["yourmod:start-node"],
+    "TextLabels": [
+        {
+            "Text": "STRENGTH",
+            "Position": { "X": -200, "Y": 20 },
+            "FontSize": 16,
+            "Color": "#FFCC00",
+            "Anchor": "center",
+            "Region": "strength",
+            "FontWeight": "bold",
+            "Opacity": 1.0,
+            "Rotation": 0.0
+        }
+    ]
 }
 ```
 
@@ -204,6 +217,17 @@ For class trees:
 - `Region` — Visual grouping (`strength`, `dexterity`, `intelligence`, `wisdom`, `bridge`)
 - `InstanceId` — Unique ID when placing same template multiple times
 - `IsStarting` — Mark this placement as a starting node (alternative to `StartingNodes` array)
+
+**TextLabel fields:**
+- `Text` — The text content to display (required)
+- `Position` — `{ "X": number, "Y": number }` in tree coordinates (required)
+- `FontSize` — Font size in pixels (default: 14)
+- `Color` — Hex color string (default: "#FFFFFF")
+- `Anchor` — Text alignment: `left`, `center`, or `right` (default: "left")
+- `Region` — Visual grouping for filtering/highlighting
+- `FontWeight` — `normal` or `bold` (default: "normal")
+- `Opacity` — 0.0 to 1.0 (default: 1.0)
+- `Rotation` — Rotation in degrees (default: 0.0)
 
 **Region values for general tree:**
 - `strength`, `dexterity`, `intelligence`, `wisdom` — Main lanes
@@ -427,3 +451,69 @@ Increment `Version` when changing tree structure. The system refunds invalid all
 | Layout not loading | Ensure JSON is valid and in correct folder path |
 | Node outside viewport | Check X is within -250 to 250 range |
 | Node not reachable | Ensure connection path exists from starting node |
+
+## Visual Templates (Data-Driven)
+
+Visual templates define the appearance of node frames and icons. They are fully data-driven from JSON.
+
+### Frame Templates
+
+Located at `Server/<Mod>/PassiveTrees/templates/frame-templates.json`:
+
+```json
+{
+    "FrameTemplates": [
+        {
+            "Id": "hyforged:frame-minor",
+            "Size": 24,
+            "AllocatedTexture": "Hyforged/Textures/PassiveTree/FrameMinorAllocated.png",
+            "AvailableTexture": "Hyforged/Textures/PassiveTree/FrameMinorAvailable.png",
+            "LockedTexture": "Hyforged/Textures/PassiveTree/FrameMinorLocked.png"
+        }
+    ],
+    "TypeDefaults": {
+        "minor": "hyforged:frame-minor",
+        "notable": "hyforged:frame-notable",
+        "keystone": "hyforged:frame-keystone",
+        "mastery": "hyforged:frame-mastery",
+        "starting": "hyforged:frame-starting"
+    }
+}
+```
+
+### Node Icons
+
+Icons are specified directly in node templates using the `Icon` field with a texture path:
+
+```json
+{
+    "Nodes": [
+        {
+            "Id": "hyforged:travel-strength",
+            "Type": "minor",
+            "Effects": [{ "Stat": "hyforged:strength", "Value": 1 }],
+            "Icon": "Hyforged/Textures/Strength.png"
+        }
+    ]
+}
+```
+
+If no `Icon` is specified, the default icon (`Hyforged/Textures/Passive.png`) is used.
+
+### Default Frame Sizes by Type
+
+| Type | Size | Purpose |
+|------|------|---------|
+| minor | 24px | Small stat bonuses |
+| notable | 32px | Significant bonuses |
+| keystone | 48px | Build-defining |
+| mastery | 36px | Choice nodes |
+| starting | 36px | Entry points |
+
+### Key Classes
+
+| Class | Purpose |
+|-------|---------|
+| `NodeVisualTemplate` | Record defining frame textures and size |
+| `NodeVisualTemplateRegistry` | Singleton registry for frame templates |
+| `NodeVisualTemplateAsset` | Asset loader for frame-templates.json |

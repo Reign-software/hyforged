@@ -90,6 +90,7 @@ class PassiveTreeTest {
                         "keystone", keystone
                 ),
                 connections,
+                List.of(),
                 1
         );
         
@@ -118,6 +119,7 @@ class PassiveTreeTest {
                         "class-node1", classNode1
                 ),
                 List.of(new PassiveConnection("class-start", "class-node1")),
+                List.of(),
                 1
         );
     }

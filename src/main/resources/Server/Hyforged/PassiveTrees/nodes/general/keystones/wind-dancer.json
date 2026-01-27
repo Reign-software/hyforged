@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Wind Dancer",
       "Description": "Take 10% less damage if you haven't been Hit Recently",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:wind-dancer" }
       ]

@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Zealot's Oath",
       "Description": "Life Regeneration applies to Energy Shield instead",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:zealots-oath" }
       ]

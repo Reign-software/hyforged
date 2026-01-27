@@ -18,6 +18,7 @@ public class PassiveTree {
     private final Set<String> startingNodeIds;
     private final Map<String, PassiveNode> nodes;
     private final List<PassiveConnection> connections;
+    private final List<TextLabel> textLabels;
     private final int version;
     
     // Adjacency list for efficient graph traversal
@@ -32,6 +33,7 @@ public class PassiveTree {
      * @param startingNodeIds IDs of starting nodes
      * @param nodes Map of node ID to node
      * @param connections List of connections between nodes
+     * @param textLabels List of text labels to display on the tree
      * @param version Schema version for migration
      */
     public PassiveTree(
@@ -41,6 +43,7 @@ public class PassiveTree {
         @Nonnull Collection<String> startingNodeIds,
         @Nonnull Map<String, PassiveNode> nodes,
         @Nonnull List<PassiveConnection> connections,
+        @Nonnull List<TextLabel> textLabels,
         int version
     ) {
         this.id = Objects.requireNonNull(id, "id cannot be null");
@@ -49,6 +52,7 @@ public class PassiveTree {
         this.startingNodeIds = Set.copyOf(startingNodeIds);
         this.nodes = Map.copyOf(nodes);
         this.connections = List.copyOf(connections);
+        this.textLabels = List.copyOf(textLabels);
         this.version = version;
         
         // Build adjacency list
@@ -126,6 +130,14 @@ public class PassiveTree {
     @Nonnull
     public List<PassiveConnection> getConnections() {
         return connections;
+    }
+    
+    /**
+     * Get all text labels in the tree.
+     */
+    @Nonnull
+    public List<TextLabel> getTextLabels() {
+        return textLabels;
     }
     
     public int getVersion() {
@@ -229,6 +241,7 @@ public class PassiveTree {
         private final Set<String> startingNodeIds = new HashSet<>();
         private final Map<String, PassiveNode> nodes = new HashMap<>();
         private final List<PassiveConnection> connections = new ArrayList<>();
+        private final List<TextLabel> textLabels = new ArrayList<>();
         private int version = 1;
         
         private Builder(@Nonnull String id) {
@@ -282,13 +295,23 @@ public class PassiveTree {
             return this;
         }
         
+        public Builder addTextLabel(@Nonnull TextLabel label) {
+            this.textLabels.add(label);
+            return this;
+        }
+        
+        public Builder addTextLabels(@Nonnull Collection<TextLabel> labels) {
+            this.textLabels.addAll(labels);
+            return this;
+        }
+        
         public Builder version(int version) {
             this.version = version;
             return this;
         }
         
         public PassiveTree build() {
-            return new PassiveTree(id, treeType, classId, startingNodeIds, nodes, connections, version);
+            return new PassiveTree(id, treeType, classId, startingNodeIds, nodes, connections, textLabels, version);
         }
     }
 }

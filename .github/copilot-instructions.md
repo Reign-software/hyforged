@@ -22,7 +22,10 @@ This is a Hytale plugin project. Hytale plugins are used to extend the functiona
 - Evaluate skills when given a task or problem to solve.
 - Multiple skills may be required to complete a task or solve a problem effectively.
 - Skills should be applied in a context-aware manner, considering the specific requirements and constraints of the task.
-- Continuously evaluate and update the skill set as new information and context become available.
+- Continuously evaluate and update the skill set as new information and context become available.\
+- Skills should be updated when you learn new information about that skill.
+	- This includes learning new APIs, libraries, frameworks, or best practices related to that skill.
+	- An example would be learning specific Hytale modding APIs or ECS patterns. Skills are ment to document knowalge about specifc use cases and apis.
 
 ## Hytale ECS notes (follow these patterns)
 - ECS is composition over inheritance. Entities are identifiers only, Components are pure data, Systems contain logic.

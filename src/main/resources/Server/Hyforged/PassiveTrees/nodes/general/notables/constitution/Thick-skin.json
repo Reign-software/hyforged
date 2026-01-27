@@ -5,6 +5,7 @@
       "Type": "notable",
       "Name": "Thick Skin",
       "Description": "+12 Max Health\n+2% Physical Resistance",
+      "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
         { "Type": "stat-modifier", "Stat": "hyforged:max-health-flat", "Value": 12 },
         { "Type": "stat-modifier", "Stat": "hyforged:physical-resistance-bps", "Value": 200 }

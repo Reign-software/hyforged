@@ -245,6 +245,98 @@ Configure stat-to-icon mappings in `Server/Hyforged/Config/stat-icons.json`:
 
 ---
 
+## Visual Templates
+
+Visual templates define the appearance of node frames in the passive tree UI. Templates are fully data-driven and loaded from JSON files.
+
+### Frame Templates
+
+Frame templates define the size and textures for node frames based on node type.
+
+`Server/YourMod/PassiveTrees/templates/frame-templates.json`:
+```json
+{
+    "FrameTemplates": [
+        {
+            "Id": "yourmod:frame-minor",
+            "Size": 24,
+            "AllocatedTexture": "YourMod/Textures/PassiveTree/FrameMinorAllocated.png",
+            "AvailableTexture": "YourMod/Textures/PassiveTree/FrameMinorAvailable.png",
+            "LockedTexture": "YourMod/Textures/PassiveTree/FrameMinorLocked.png"
+        },
+        {
+            "Id": "yourmod:frame-notable",
+            "Size": 32,
+            "AllocatedTexture": "YourMod/Textures/PassiveTree/FrameNotableAllocated.png",
+            "AvailableTexture": "YourMod/Textures/PassiveTree/FrameNotableAvailable.png",
+            "LockedTexture": "YourMod/Textures/PassiveTree/FrameNotableLocked.png"
+        },
+        {
+            "Id": "yourmod:frame-keystone",
+            "Size": 48,
+            "AllocatedTexture": "YourMod/Textures/PassiveTree/FrameKeystoneAllocated.png",
+            "AvailableTexture": "YourMod/Textures/PassiveTree/FrameKeystoneAvailable.png",
+            "LockedTexture": "YourMod/Textures/PassiveTree/FrameKeystoneLocked.png"
+        }
+    ],
+    "TypeDefaults": {
+        "minor": "yourmod:frame-minor",
+        "notable": "yourmod:frame-notable",
+        "keystone": "yourmod:frame-keystone"
+    }
+}
+```
+
+#### Frame Template Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `Id` | string | ✓ | Unique template identifier |
+| `Size` | int | ✓ | Frame size in pixels |
+| `AllocatedTexture` | string | ✓ | Texture when node is allocated |
+| `AvailableTexture` | string | ✓ | Texture when node is available (adjacent to allocated) |
+| `LockedTexture` | string | ✓ | Texture when node is locked (not reachable) |
+
+#### TypeDefaults
+
+The `TypeDefaults` map assigns frame templates to node types. When a node doesn't specify a template, the system uses the default for its type:
+
+| Node Type | Default Size | Usage |
+|-----------|-------------|-------|
+| `minor` | 24px | Small stat bonuses |
+| `notable` | 32px | Significant bonuses |
+| `keystone` | 48px | Build-defining nodes |
+| `mastery` | 36px | Choice nodes |
+| `starting` | 36px | Entry points |
+
+### Node Icons
+
+Icons are specified directly in node templates using the `Icon` field:
+
+```json
+{
+    "Nodes": [
+        {
+            "Id": "yourmod:travel-strength",
+            "Type": "minor",
+            "Effects": [{ "Stat": "hyforged:strength", "Value": 1 }],
+            "Icon": "YourMod/Textures/Strength.png"
+        }
+    ]
+}
+```
+
+If no `Icon` is specified, the default icon (`Hyforged/Textures/Passive.png`) is used.
+
+### Template Loading
+
+Templates are loaded automatically from `Server/<Mod>/PassiveTrees/templates/`:
+- `frame-templates.json` — Frame appearance definitions
+
+Templates are registered globally. Nodes reference frame templates by type, allowing cross-mod template reuse.
+
+---
+
 ## Layout Files (Additive)
 
 Layout files define **where** nodes are placed and how they connect. Each mod provides its own layout files — all are merged together.
@@ -288,6 +380,7 @@ Layout files define **where** nodes are placed and how they connect. Each mod pr
 | `Placements` | Placement[] | Node placements with positions |
 | `Connections` | Connection[] | Connections between nodes (cross-mod allowed) |
 | `StartingNodes` | string[] | Node IDs that can be allocated first (additive) |
+| `TextLabels` | TextLabel[] | Text labels for region headers and annotations |
 
 ### Placement Fields
 
@@ -344,6 +437,45 @@ Place the same node template multiple times using `InstanceId`:
     ]
 }
 ```
+
+### Text Labels
+
+Layout files can include text labels for region headers, decorative text, or annotations. Labels are rendered on the tree canvas at specified positions.
+
+```json
+{
+    "TreeId": "hyforged:passive-tree-general",
+    "Placements": [ ... ],
+    "Connections": [ ... ],
+    "TextLabels": [
+        {
+            "Text": "STRENGTH",
+            "Position": { "X": -200, "Y": 20 },
+            "FontSize": 16,
+            "Color": "#FFCC00",
+            "Anchor": "center",
+            "Region": "strength",
+            "FontWeight": "bold",
+            "Opacity": 1.0,
+            "Rotation": 0.0
+        }
+    ]
+}
+```
+
+### TextLabel Fields
+
+| Field | Type | Required | Default | Description |
+|-------|------|----------|---------|-------------|
+| `Text` | string | ✓ | | The text content to display |
+| `Position` | object | ✓ | | `{ "X": number, "Y": number }` in tree coordinates |
+| `FontSize` | number | | 14 | Font size in pixels |
+| `Color` | string | | "#FFFFFF" | Hex color string |
+| `Anchor` | string | | "left" | Text alignment: `left`, `center`, or `right` |
+| `Region` | string | | | Visual grouping for filtering/highlighting |
+| `FontWeight` | string | | "normal" | Font weight: `normal` or `bold` |
+| `Opacity` | number | | 1.0 | Opacity from 0.0 to 1.0 |
+| `Rotation` | number | | 0.0 | Rotation in degrees |
 
 ---
 

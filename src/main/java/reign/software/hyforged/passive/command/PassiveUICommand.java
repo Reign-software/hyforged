@@ -10,7 +10,7 @@ import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import reign.software.hyforged.passive.ui.PassiveTreePageHyUI;
+import reign.software.hyforged.passive.ui.PassiveTreePage;
 
 import javax.annotation.Nonnull;
 import java.util.concurrent.CompletableFuture;
@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
  * Usage: {@code /hyforged passive ui}
  * <p>
  * Opens the interactive passive tree page where players can view and allocate nodes.
- * Uses the HyUI framework for modern, declarative UI building.
+ * Uses native Hytale UI with .ui files for rendering.
  */
 public class PassiveUICommand extends AbstractAsyncCommand {
 
@@ -44,8 +44,9 @@ public class PassiveUICommand extends AbstractAsyncCommand {
                 return CompletableFuture.runAsync(() -> {
                     PlayerRef playerRefComponent = store.getComponent(ref, PlayerRef.getComponentType());
                     if (playerRefComponent != null) {
-                        // Use HyUI-based page
-                        PassiveTreePageHyUI.open(playerRefComponent, ref, store, null);
+                        // Use native UI page
+                        PassiveTreePage page = new PassiveTreePage(playerRefComponent, null);
+                        player.getPageManager().openCustomPage(ref, store, page);
                     }
                 }, world);
             } else {

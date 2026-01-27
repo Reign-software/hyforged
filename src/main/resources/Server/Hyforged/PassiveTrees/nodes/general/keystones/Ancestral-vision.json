@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Ancestral Vision",
       "Description": "Spells have +1 Chain\n-20% Spell Damage per Chain",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:ancestral-vision" }
       ]

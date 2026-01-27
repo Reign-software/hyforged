@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Magebane",
       "Description": "Spell Suppression Chance is Lucky",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:magebane" }
       ]

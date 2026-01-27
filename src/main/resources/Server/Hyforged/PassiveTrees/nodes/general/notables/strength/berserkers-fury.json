@@ -5,6 +5,7 @@
       "Type": "notable",
       "Name": "Berserker's Fury",
       "Description": "+5 Maximum Rage\n+4% Attack Speed\nRage does not decay",
+      "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
         { "Type": "stat-modifier", "Stat": "hyforged:rage-max", "Value": 5 },
         { "Type": "stat-modifier", "Stat": "hyforged:attack-speed-bps", "Value": 400 },

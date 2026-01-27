@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Iron Will",
       "Description": "Strength's damage bonus applies to Spell Damage",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:iron-will" }
       ]

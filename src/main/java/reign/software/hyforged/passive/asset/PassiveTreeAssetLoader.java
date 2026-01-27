@@ -7,8 +7,9 @@ import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
 import com.hypixel.hytale.server.core.asset.HytaleAssetStore;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import reign.software.hyforged.passive.model.*;
+import reign.software.hyforged.passive.registry.NodeIconTemplateRegistry;
+import reign.software.hyforged.passive.registry.NodeVisualTemplateRegistry;
 import reign.software.hyforged.passive.registry.PassiveTreeRegistry;
-import reign.software.hyforged.passive.registry.StatIconRegistry;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -44,6 +45,9 @@ public final class PassiveTreeAssetLoader {
 
     /** Path for layout files */
     public static final String LAYOUTS_PATH = "Hyforged/PassiveTrees/layouts";
+
+    /** Path for visual/icon templates */
+    public static final String TEMPLATES_PATH = "Hyforged/PassiveTrees/templates";
 
     /** Path for passive refund config */
     public static final String CONFIG_PATH = "Hyforged/Config";
@@ -83,22 +87,29 @@ public final class PassiveTreeAssetLoader {
 
         // Register all asset stores
         registerRefundConfigAssetStore();
-        registerStatIconConfigAssetStore();
+        registerVisualTemplateAssetStore();
+        registerIconTemplateAssetStore();
         registerNodeTemplateAssetStore();
         registerPassiveTreeAssetStore();
         registerLayoutAssetStore();
 
-        // Register event handlers in order
+        // Register event handlers in order (templates load first)
         plugin.getEventRegistry().register(
                 LoadedAssetsEvent.class,
-                PassiveRefundConfigAsset.class,
-                PassiveTreeAssetLoader::onRefundConfigAssetsLoaded
+                NodeVisualTemplateAsset.class,
+                PassiveTreeAssetLoader::onVisualTemplatesLoaded
         );
 
         plugin.getEventRegistry().register(
                 LoadedAssetsEvent.class,
-                StatIconConfigAsset.class,
-                PassiveTreeAssetLoader::onStatIconConfigLoaded
+                NodeIconTemplateAsset.class,
+                PassiveTreeAssetLoader::onIconTemplatesLoaded
+        );
+
+        plugin.getEventRegistry().register(
+                LoadedAssetsEvent.class,
+                PassiveRefundConfigAsset.class,
+                PassiveTreeAssetLoader::onRefundConfigAssetsLoaded
         );
 
         plugin.getEventRegistry().register(
@@ -205,48 +216,97 @@ public final class PassiveTreeAssetLoader {
         LOGGER.fine("Registered PassiveRefundConfigAsset store at path: " + CONFIG_PATH);
     }
 
-    private static void registerStatIconConfigAssetStore() {
-        AssetStore<String, StatIconConfigAsset, IndexedLookupTableAssetMap<String, StatIconConfigAsset>> store =
-                ((HytaleAssetStore.Builder<String, StatIconConfigAsset, IndexedLookupTableAssetMap<String, StatIconConfigAsset>>)
-                        ((HytaleAssetStore.Builder<String, StatIconConfigAsset, IndexedLookupTableAssetMap<String, StatIconConfigAsset>>)
-                                ((HytaleAssetStore.Builder<String, StatIconConfigAsset, IndexedLookupTableAssetMap<String, StatIconConfigAsset>>)
-                                        ((HytaleAssetStore.Builder<String, StatIconConfigAsset, IndexedLookupTableAssetMap<String, StatIconConfigAsset>>)
+    private static void registerVisualTemplateAssetStore() {
+        AssetStore<String, NodeVisualTemplateAsset, IndexedLookupTableAssetMap<String, NodeVisualTemplateAsset>> store =
+                ((HytaleAssetStore.Builder<String, NodeVisualTemplateAsset, IndexedLookupTableAssetMap<String, NodeVisualTemplateAsset>>)
+                        ((HytaleAssetStore.Builder<String, NodeVisualTemplateAsset, IndexedLookupTableAssetMap<String, NodeVisualTemplateAsset>>)
+                                ((HytaleAssetStore.Builder<String, NodeVisualTemplateAsset, IndexedLookupTableAssetMap<String, NodeVisualTemplateAsset>>)
+                                        ((HytaleAssetStore.Builder<String, NodeVisualTemplateAsset, IndexedLookupTableAssetMap<String, NodeVisualTemplateAsset>>)
                                                 HytaleAssetStore.builder(
-                                                        StatIconConfigAsset.class,
-                                                        new IndexedLookupTableAssetMap<>(StatIconConfigAsset[]::new)
+                                                        NodeVisualTemplateAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(NodeVisualTemplateAsset[]::new)
                                                 )
-                                                        .setPath(CONFIG_PATH))
-                                                .setReplaceOnRemove(key -> new StatIconConfigAsset()))
-                                        .setCodec(StatIconConfigAsset.CODEC))
-                                .setKeyFunction(asset -> "stat-icons"))  // Single config file
+                                                        .setPath(TEMPLATES_PATH))
+                                                .setReplaceOnRemove(key -> new NodeVisualTemplateAsset()))
+                                        .setCodec(NodeVisualTemplateAsset.CODEC))
+                                .setKeyFunction(asset -> "frame-templates"))  // Single config file
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered StatIconConfigAsset store at path: " + CONFIG_PATH);
+        LOGGER.fine("Registered NodeVisualTemplateAsset store at path: " + TEMPLATES_PATH);
+    }
+
+    private static void registerIconTemplateAssetStore() {
+        AssetStore<String, NodeIconTemplateAsset, IndexedLookupTableAssetMap<String, NodeIconTemplateAsset>> store =
+                ((HytaleAssetStore.Builder<String, NodeIconTemplateAsset, IndexedLookupTableAssetMap<String, NodeIconTemplateAsset>>)
+                        ((HytaleAssetStore.Builder<String, NodeIconTemplateAsset, IndexedLookupTableAssetMap<String, NodeIconTemplateAsset>>)
+                                ((HytaleAssetStore.Builder<String, NodeIconTemplateAsset, IndexedLookupTableAssetMap<String, NodeIconTemplateAsset>>)
+                                        ((HytaleAssetStore.Builder<String, NodeIconTemplateAsset, IndexedLookupTableAssetMap<String, NodeIconTemplateAsset>>)
+                                                HytaleAssetStore.builder(
+                                                        NodeIconTemplateAsset.class,
+                                                        new IndexedLookupTableAssetMap<>(NodeIconTemplateAsset[]::new)
+                                                )
+                                                        .setPath(TEMPLATES_PATH))
+                                                .setReplaceOnRemove(key -> new NodeIconTemplateAsset()))
+                                        .setCodec(NodeIconTemplateAsset.CODEC))
+                                .setKeyFunction(asset -> "icon-templates"))  // Single config file
+                        .build();
+
+        AssetRegistry.register(store);
+        LOGGER.fine("Registered NodeIconTemplateAsset store at path: " + TEMPLATES_PATH);
     }
 
     // ========== Event Handlers ==========
 
     /**
-     * Handle stat icon config loaded event.
+     * Handle visual template assets loaded event.
      */
-    private static void onStatIconConfigLoaded(
-            LoadedAssetsEvent<String, StatIconConfigAsset, IndexedLookupTableAssetMap<String, StatIconConfigAsset>> event
+    private static void onVisualTemplatesLoaded(
+            LoadedAssetsEvent<String, NodeVisualTemplateAsset, IndexedLookupTableAssetMap<String, NodeVisualTemplateAsset>> event
     ) {
-        LOGGER.info("Loading stat icon configuration...");
+        LOGGER.info("Loading node visual templates...");
+        NodeVisualTemplateRegistry registry = NodeVisualTemplateRegistry.get();
+        int count = 0;
 
-        StatIconConfigAsset selected = null;
-        for (StatIconConfigAsset asset : event.getLoadedAssets().values()) {
-            selected = asset;  // Take the last one (or the only one)
+        for (NodeVisualTemplateAsset asset : event.getLoadedAssets().values()) {
+            // Register frame templates
+            for (NodeVisualTemplateAsset.FrameTemplateEntry entry : asset.getFrameTemplates()) {
+                NodeVisualTemplate template = NodeVisualTemplateAsset.toTemplate(entry);
+                if (template != null) {
+                    registry.register(template);
+                    count++;
+                }
+            }
+            // Register type defaults
+            for (Map.Entry<String, String> typeDefault : asset.getTypeDefaults().entrySet()) {
+                registry.setTypeDefault(typeDefault.getKey(), typeDefault.getValue());
+            }
         }
 
-        if (selected != null) {
-            StatIconRegistry.get().load(selected);
-            LOGGER.info("Loaded stat icon configuration");
-        } else {
-            LOGGER.info("No stat icon config found, using defaults");
-            StatIconRegistry.get().loadDefaults();
+        LOGGER.info("Loaded " + count + " node visual templates");
+    }
+
+    /**
+     * Handle icon template assets loaded event.
+     */
+    private static void onIconTemplatesLoaded(
+            LoadedAssetsEvent<String, NodeIconTemplateAsset, IndexedLookupTableAssetMap<String, NodeIconTemplateAsset>> event
+    ) {
+        LOGGER.info("Loading node icon templates...");
+        NodeIconTemplateRegistry registry = NodeIconTemplateRegistry.get();
+        int count = 0;
+
+        for (NodeIconTemplateAsset asset : event.getLoadedAssets().values()) {
+            for (NodeIconTemplateAsset.IconTemplateEntry entry : asset.getIconTemplates()) {
+                NodeIconTemplate template = NodeIconTemplateAsset.toTemplate(entry);
+                if (template != null) {
+                    registry.register(template);
+                    count++;
+                }
+            }
         }
+
+        LOGGER.info("Loaded " + count + " node icon templates");
     }
 
     /**
@@ -559,6 +619,7 @@ public final class PassiveTreeAssetLoader {
                         .addStartingNode(startingNodeId)
                         .addNodes(tree.getNodes().values())
                         .addConnections(tree.getConnections())
+                        .addTextLabels(tree.getTextLabels())
                         .version(tree.getVersion())
                         .build();
 
@@ -569,6 +630,48 @@ public final class PassiveTreeAssetLoader {
             } catch (Exception e) {
                 LOGGER.log(Level.WARNING, "Failed to add starting node " + startingNodeId, e);
             }
+        }
+
+        // Process text labels
+        List<TextLabelAsset> labelAssets = layout.getTextLabels();
+        if (!labelAssets.isEmpty()) {
+            List<TextLabel> existingLabels = new ArrayList<>(tree.getTextLabels());
+            
+            for (TextLabelAsset labelAsset : labelAssets) {
+                if (labelAsset.getPosition() == null) {
+                    LOGGER.warning("Text label missing position: " + labelAsset.getText());
+                    continue;
+                }
+                
+                TextLabel label = new TextLabel(
+                    labelAsset.getText(),
+                    labelAsset.getPosition().getX(),
+                    labelAsset.getPosition().getY(),
+                    labelAsset.getFontSize(),
+                    labelAsset.getColor(),
+                    labelAsset.getAnchor(),
+                    labelAsset.getRegion(),
+                    labelAsset.getFontWeight(),
+                    labelAsset.getOpacity(),
+                    labelAsset.getRotation()
+                );
+                existingLabels.add(label);
+            }
+            
+            // Rebuild tree with updated labels
+            PassiveTree updatedTree = PassiveTree.builder(treeId)
+                    .treeType(tree.getTreeType())
+                    .classId(tree.getClassId())
+                    .addStartingNodes(tree.getStartingNodeIds())
+                    .addNodes(tree.getNodes().values())
+                    .addConnections(tree.getConnections())
+                    .addTextLabels(existingLabels)
+                    .version(tree.getVersion())
+                    .build();
+            
+            registry.replaceTree(tree, updatedTree);
+            tree = updatedTree;
+            LOGGER.fine("Added " + labelAssets.size() + " text labels to tree " + treeId);
         }
 
         LOGGER.fine("Applied placements from layout " + layout.getId() + " to tree " + treeId);
@@ -630,7 +733,9 @@ public final class PassiveTreeAssetLoader {
                 template.getType(),
                 template.getName(),
                 template.getDescription(),
+                template.getFrameTemplate(),
                 template.getIcon(),
+                template.getLabel(),
                 position,
                 placement.getRegion(),
                 effects,

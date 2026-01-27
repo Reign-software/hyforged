@@ -204,9 +204,9 @@
 
 #### Context
 - Original passive tree design used a radial layout with 7 regions (STR, DEX, INT, WIS, CON, SPI, LUCK) centered around a hub.
-- HyUI framework only supports vertical scrolling (TopScrolling/BottomScrolling modes), not horizontal scrolling.
+- Native Hytale UI only supports vertical scrolling (TopScrolling/BottomScrolling modes), not horizontal scrolling.
 - Radial layout requires both horizontal and vertical scrolling for navigation, which is not supported.
-- A redesign was needed to work within HyUI's scrolling constraints while maintaining player progression depth.
+- A redesign was needed to work within Hytale's scrolling constraints while maintaining player progression depth.
 
 #### Decision
 - Adopt a **top-down vertical layout** with 4 main attribute lanes:
@@ -226,7 +226,7 @@
 
 #### Consequences
 - Pros:
-  - Works natively with HyUI's TopScrolling layout mode.
+  - Works natively with Hytale's TopScrolling layout mode.
   - Clear visual lanes for attribute-focused builds.
   - Bridge zones enable hybrid builds (e.g., STR+DEX via Constitution).
   - Constitution, Spirit, Luck remain meaningful as bridge attributes.
@@ -238,7 +238,7 @@
 
 #### Alternatives Considered
 - Custom scrolling implementation:
-  - Rejected: HyUI's native scrolling is more reliable and performant.
+  - Rejected: Native scrolling is more reliable and performant.
 - Radial with zoom-only (no pan):
   - Rejected: 1000+ node tree cannot fit in viewport at readable zoom.
 - Multiple smaller trees:

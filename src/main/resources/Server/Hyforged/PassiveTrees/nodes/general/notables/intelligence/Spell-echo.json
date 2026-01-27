@@ -5,6 +5,7 @@
       "Type": "notable",
       "Name": "Spell Echo",
       "Description": "Unlocks Spell Echo.",
+      "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:spell-echo" }
       ]

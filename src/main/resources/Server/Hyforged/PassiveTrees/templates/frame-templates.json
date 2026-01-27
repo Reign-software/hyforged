@@ -1,0 +1,47 @@
+{
+  "FrameTemplates": [
+    {
+      "Id": "hyforged:frame-minor",
+      "Size": 24,
+      "AllocatedTexture": "Hyforged/Textures/PassiveSkillScreenAscendancyFrameSmallAllocated.png",
+      "AvailableTexture": "Hyforged/Textures/PassiveSkillScreenAscendancyFrameSmallCanAllocate.png",
+      "LockedTexture": "Hyforged/Textures/PassiveSkillScreenAscendancyFrameSmallNormal.png"
+    },
+    {
+      "Id": "hyforged:frame-notable",
+      "Size": 32,
+      "AllocatedTexture": "Hyforged/Textures/NotableFrameAllocated.png",
+      "AvailableTexture": "Hyforged/Textures/NotableFrameCanAllocate.png",
+      "LockedTexture": "Hyforged/Textures/NotableFrameUnallocated.png"
+    },
+    {
+      "Id": "hyforged:frame-keystone",
+      "Size": 48,
+      "AllocatedTexture": "Hyforged/Textures/KeystoneFrameAllocated.png",
+      "AvailableTexture": "Hyforged/Textures/KeystoneFrameCanAllocate.png",
+      "LockedTexture": "Hyforged/Textures/KeystoneFrameUnallocated.png"
+    },
+    {
+      "Id": "hyforged:frame-mastery",
+      "Size": 36,
+      "AllocatedTexture": "Hyforged/Textures/PassiveSkillScreenAscendancyFrameLargeAllocated.png",
+      "AvailableTexture": "Hyforged/Textures/PassiveSkillScreenAscendancyFrameLargeCanAllocate.png",
+      "LockedTexture": "Hyforged/Textures/PassiveSkillScreenAscendancyFrameLargeNormal.png"
+    },
+    {
+      "Id": "hyforged:frame-starting",
+      "Size": 36,
+      "AllocatedTexture": "Hyforged/Textures/PassiveSkillScreenAscendancyFrameLargeAllocated.png",
+      "AvailableTexture": "Hyforged/Textures/PassiveSkillScreenAscendancyFrameLargeCanAllocate.png",
+      "LockedTexture": "Hyforged/Textures/PassiveSkillScreenAscendancyFrameLargeNormal.png"
+    }
+  ],
+  "TypeDefaults": {
+    "minor": "hyforged:frame-minor",
+    "notable": "hyforged:frame-notable",
+    "keystone": "hyforged:frame-keystone",
+    "mastery": "hyforged:frame-mastery",
+    "unlock": "hyforged:frame-mastery",
+    "starting": "hyforged:frame-starting"
+  }
+}

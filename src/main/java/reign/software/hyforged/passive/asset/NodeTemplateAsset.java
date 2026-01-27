@@ -16,6 +16,7 @@ import java.util.List;
  * <p>
  * Node templates define what a node does (effects, type, name) without position.
  * Position is defined separately in layout files.
+ * Visual appearance (frame, icon) references centralized templates by ID.
  * <p>
  * Loaded from JSON files in Server/&lt;Mod&gt;/PassiveTrees/nodes/.
  */
@@ -50,9 +51,21 @@ public class NodeTemplateAsset {
         )
         .add()
         .append(
+            new KeyedCodec<>("FrameTemplate", Codec.STRING),
+            (asset, value) -> asset.frameTemplate = value,
+            asset -> asset.frameTemplate
+        )
+        .add()
+        .append(
             new KeyedCodec<>("Icon", Codec.STRING),
             (asset, value) -> asset.icon = value,
             asset -> asset.icon
+        )
+        .add()
+        .append(
+            new KeyedCodec<>("Label", Codec.STRING),
+            (asset, value) -> asset.label = value,
+            asset -> asset.label
         )
         .add()
         .append(
@@ -76,7 +89,9 @@ public class NodeTemplateAsset {
     private String type;
     private String name;
     private String description;
+    private String frameTemplate;
     private String icon;
+    private String label;
     private List<PassiveNodeEffectAsset> effects;
     private String keystoneFamily;
     private boolean placeholder;
@@ -106,8 +121,18 @@ public class NodeTemplateAsset {
     }
 
     @Nullable
+    public String getFrameTemplate() {
+        return frameTemplate;
+    }
+
+    @Nullable
     public String getIcon() {
         return icon;
+    }
+
+    @Nullable
+    public String getLabel() {
+        return label;
     }
 
     @Nonnull

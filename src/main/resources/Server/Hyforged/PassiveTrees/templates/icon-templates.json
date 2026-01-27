@@ -1,0 +1,75 @@
+{
+  "IconTemplates": [
+    {
+      "Id": "hyforged:icon-strength",
+      "Texture": "Hyforged/Textures/Strength.png",
+      "Scale": 0.8
+    },
+    {
+      "Id": "hyforged:icon-dexterity",
+      "Texture": "Hyforged/Textures/Dexterity.png",
+      "Scale": 0.8
+    },
+    {
+      "Id": "hyforged:icon-intelligence",
+      "Texture": "Hyforged/Textures/Intelligence.png",
+      "Scale": 0.8
+    },
+    {
+      "Id": "hyforged:icon-wisdom",
+      "Texture": "Hyforged/Textures/Wisdom.png",
+      "Scale": 0.8
+    },
+    {
+      "Id": "hyforged:icon-constitution",
+      "Texture": "Hyforged/Textures/Constitution.png",
+      "Scale": 0.8
+    },
+    {
+      "Id": "hyforged:icon-spirit",
+      "Texture": "Hyforged/Textures/Spirit.png",
+      "Scale": 0.8
+    },
+    {
+      "Id": "hyforged:icon-luck",
+      "Texture": "Hyforged/Textures/Luck.png",
+      "Scale": 0.8
+    },
+    {
+      "Id": "hyforged:icon-health",
+      "Texture": "Hyforged/Textures/Health.png",
+      "Scale": 0.8
+    },
+    {
+      "Id": "hyforged:icon-mana",
+      "Texture": "Hyforged/Textures/Mana.png",
+      "Scale": 0.8
+    },
+    {
+      "Id": "hyforged:icon-physical",
+      "Texture": "Hyforged/Textures/Physical.png",
+      "Scale": 0.8
+    },
+    {
+      "Id": "hyforged:icon-elemental",
+      "Texture": "Hyforged/Textures/Elemental.png",
+      "Scale": 0.8
+    },
+    {
+      "Id": "hyforged:icon-fire",
+      "Texture": "Hyforged/Textures/Fire.png",
+      "Scale": 0.8
+    },
+    {
+      "Id": "hyforged:icon-cold",
+      "Texture": "Hyforged/Textures/Cold.png",
+      "Scale": 0.8
+    },
+    {
+      "Id": "hyforged:icon-lightning",
+      "Texture": "Hyforged/Textures/Lightning.png",
+      "Scale": 0.8
+    }
+  ],
+  "DefaultScale": 0.8
+}

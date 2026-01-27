@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Iron Reflexes",
       "Description": "Evasion Rating is converted to Armour",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:iron-reflexes" }
       ]

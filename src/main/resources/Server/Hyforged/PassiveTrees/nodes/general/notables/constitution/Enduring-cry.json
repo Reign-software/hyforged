@@ -5,6 +5,7 @@
       "Type": "notable",
       "Name": "Enduring Cry",
       "Description": "Unlocks the Enduring Cry skill.",
+      "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
         { "Type": "spell-grant", "SpellId": "hyforged:enduring-cry" }
       ]

@@ -103,6 +103,7 @@ class PassiveTreeGraphTest {
                         KEYSTONE, keystoneNode
                 ),
                 connections,
+                List.of(),
                 1
         );
     }

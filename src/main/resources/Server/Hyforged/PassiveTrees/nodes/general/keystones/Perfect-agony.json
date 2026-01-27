@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Perfect Agony",
       "Description": "Crit Multiplier applies to Ailment Damage at 30% value\n-20% Critical Strike Multiplier",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:perfect-agony" }
       ]

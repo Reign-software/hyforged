@@ -20,7 +20,7 @@ import reign.software.hyforged.affix.ui.CharacterStatsPage;
 import reign.software.hyforged.concentration.ui.ConcentrationPriorityPage;
 import reign.software.hyforged.passive.component.PassiveTreeComponent;
 import reign.software.hyforged.passive.service.PassiveTreeService;
-import reign.software.hyforged.passive.ui.PassiveTreePageHyUI;
+import reign.software.hyforged.passive.ui.PassiveTreePage;
 import reign.software.hyforged.progression.component.ProgressionComponent;
 import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
@@ -171,8 +171,9 @@ public class CharacterHubPage extends InteractiveCustomUIPage<CharacterHubPage.P
                 LOGGER.fine("Opened Character Stats from hub");
             }
             case "openPassiveTree" -> {
-                // Use HyUI-based page
-                PassiveTreePageHyUI.open(this.playerRef, ref, store, null);
+                // Use native UI page
+                PassiveTreePage passivePage = new PassiveTreePage(this.playerRef, null);
+                player.getPageManager().openCustomPage(ref, store, passivePage);
                 LOGGER.fine("Opened Passive Tree from hub");
             }
             case "openConcentration" -> {

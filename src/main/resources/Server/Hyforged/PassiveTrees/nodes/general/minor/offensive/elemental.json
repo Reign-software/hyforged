@@ -5,6 +5,7 @@
       "Type": "minor",
       "Name": "Elemental Focus",
       "Description": "+2% Elemental Damage",
+      "Icon": "Hyforged/Textures/Elemental.png",
       "Effects": [
         { "Type": "stat-modifier", "Stat": "hyforged:elemental-damage-increased-bps", "Value": 200 }
       ]
@@ -14,6 +15,7 @@
       "Type": "minor",
       "Name": "Fire Attunement",
       "Description": "+2% Fire Damage",
+      "Icon": "Hyforged/Textures/Elemental.png",
       "Effects": [
         { "Type": "stat-modifier", "Stat": "hyforged:fire-damage-increased-bps", "Value": 200 }
       ]
@@ -23,6 +25,7 @@
       "Type": "minor",
       "Name": "Cold Attunement",
       "Description": "+2% Cold Damage",
+      "Icon": "Hyforged/Textures/Elemental.png",
       "Effects": [
         { "Type": "stat-modifier", "Stat": "hyforged:cold-damage-increased-bps", "Value": 200 }
       ]
@@ -32,6 +35,7 @@
       "Type": "minor",
       "Name": "Lightning Attunement",
       "Description": "+2% Lightning Damage",
+      "Icon": "Hyforged/Textures/Elemental.png",
       "Effects": [
         { "Type": "stat-modifier", "Stat": "hyforged:lightning-damage-increased-bps", "Value": 200 }
       ]

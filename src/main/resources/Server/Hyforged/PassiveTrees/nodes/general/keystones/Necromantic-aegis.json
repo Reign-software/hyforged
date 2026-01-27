@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Necromantic Aegis",
       "Description": "Shield bonuses apply to Minions instead of you",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:necromantic-aegis" }
       ]

@@ -5,6 +5,7 @@
       "Type": "minor",
       "Name": "Spirit",
       "Description": "+1 to Spirit",
+      "Icon": "Hyforged/Textures/Spirit.png",
       "Effects": [
         { "Type": "stat-modifier", "Stat": "hyforged:spirit", "Value": 1 }
       ]

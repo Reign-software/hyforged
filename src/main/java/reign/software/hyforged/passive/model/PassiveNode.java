@@ -10,12 +10,15 @@ import java.util.Objects;
  * Represents a passive node in a passive tree.
  * <p>
  * Nodes are immutable data structures loaded from JSON.
+ * Visual properties (frame, icon) are defined per-node for consistency.
  *
  * @param id Unique identifier for the node (namespaced, e.g., "hyforged:node-brutal-force")
  * @param type Node type (minor, notable, keystone, mastery, unlock)
  * @param name Display name
  * @param description Description text
- * @param icon Path to icon asset
+ * @param frameTemplate ID of the visual template for the frame (null = use type default)
+ * @param icon Direct texture path for the icon (null = use default icon)
+ * @param label Optional label text displayed above the node
  * @param position Position in the tree UI
  * @param region Region/cluster this node belongs to
  * @param effects List of effects granted by this node
@@ -27,7 +30,9 @@ public record PassiveNode(
     @Nonnull String type,
     @Nonnull String name,
     @Nonnull String description,
+    @Nullable String frameTemplate,
     @Nullable String icon,
+    @Nullable String label,
     @Nonnull PassiveNodePosition position,
     @Nullable String region,
     @Nonnull List<PassiveNodeEffect> effects,
@@ -99,7 +104,9 @@ public record PassiveNode(
         private String type = PassiveNodeType.MINOR;
         private String name = "";
         private String description = "";
+        private String frameTemplate = null;
         private String icon = null;
+        private String label = null;
         private PassiveNodePosition position = PassiveNodePosition.ORIGIN;
         private String region = null;
         private List<PassiveNodeEffect> effects = Collections.emptyList();
@@ -125,8 +132,18 @@ public record PassiveNode(
             return this;
         }
         
+        public Builder frameTemplate(@Nullable String frameTemplate) {
+            this.frameTemplate = frameTemplate;
+            return this;
+        }
+        
         public Builder icon(@Nullable String icon) {
             this.icon = icon;
+            return this;
+        }
+        
+        public Builder label(@Nullable String label) {
+            this.label = label;
             return this;
         }
         
@@ -161,7 +178,8 @@ public record PassiveNode(
         }
         
         public PassiveNode build() {
-            return new PassiveNode(id, type, name, description, icon, position, region, effects, requirements, keystoneFamily);
+            return new PassiveNode(id, type, name, description, frameTemplate, icon,
+                                   label, position, region, effects, requirements, keystoneFamily);
         }
     }
 }

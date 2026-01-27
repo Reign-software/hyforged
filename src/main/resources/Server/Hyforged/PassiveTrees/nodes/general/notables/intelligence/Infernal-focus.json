@@ -5,6 +5,7 @@
       "Type": "notable",
       "Name": "Infernal Focus",
       "Description": "+5% Fire Damage\n+3% Fire Penetration\n+3% Ignite Chance",
+      "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
         { "Type": "stat-modifier", "Stat": "hyforged:fire-damage-increased-bps", "Value": 500 },
         { "Type": "stat-modifier", "Stat": "hyforged:fire-penetration-bps", "Value": 300 },

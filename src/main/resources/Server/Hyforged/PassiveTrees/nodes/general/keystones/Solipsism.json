@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Solipsism",
       "Description": "100% of Damage is taken from Mana before Life\nCannot recover Life",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:solipsism" }
       ]

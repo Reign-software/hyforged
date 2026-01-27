@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Mind Over Matter",
       "Description": "20% of Damage is taken from Mana before Life",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:mind-over-matter" }
       ]

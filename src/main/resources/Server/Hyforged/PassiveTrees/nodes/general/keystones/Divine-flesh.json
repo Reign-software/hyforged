@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Divine Flesh",
       "Description": "50% of Elemental Damage taken as Chaos\n+3% Max Chaos Resistance",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:divine-flesh" }
       ]

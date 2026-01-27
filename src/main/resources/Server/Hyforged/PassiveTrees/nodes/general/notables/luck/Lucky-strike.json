@@ -5,6 +5,7 @@
       "Type": "notable",
       "Name": "Lucky Strike",
       "Description": "Unlocks Lucky Strike.",
+      "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:lucky-strike" }
       ]

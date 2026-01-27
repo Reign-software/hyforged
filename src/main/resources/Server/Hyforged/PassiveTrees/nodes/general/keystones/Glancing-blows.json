@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Glancing Blows",
       "Description": "Double Block Chance\nBlocking prevents 50% of Damage",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:glancing-blows" }
       ]

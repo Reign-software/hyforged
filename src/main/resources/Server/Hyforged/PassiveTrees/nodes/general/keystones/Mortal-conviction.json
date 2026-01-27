@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Mortal Conviction",
       "Description": "Skills Cost Life instead of Mana\n35% reduced Mana Cost of Skills",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:mortal-conviction" }
       ]

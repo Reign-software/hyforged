@@ -157,5 +157,34 @@
     { "From": "hyforged:windfall", "To": "hyforged:wis-p1-t05" },
     { "From": "hyforged:divine-fortune", "To": "hyforged:int-p3-t06" },
     { "From": "hyforged:divine-fortune", "To": "hyforged:wis-p1-t06" }
+  ],
+  "TextLabels": [
+    {
+      "Text": "CONSTITUTION",
+      "Position": { "X": -140, "Y": 70 },
+      "FontSize": 12,
+      "Color": "#E8A87C",
+      "Anchor": "center",
+      "Region": "constitution",
+      "FontWeight": "bold"
+    },
+    {
+      "Text": "SPIRIT",
+      "Position": { "X": 0, "Y": 70 },
+      "FontSize": 12,
+      "Color": "#85DCBA",
+      "Anchor": "center",
+      "Region": "spirit",
+      "FontWeight": "bold"
+    },
+    {
+      "Text": "LUCK",
+      "Position": { "X": 140, "Y": 70 },
+      "FontSize": 12,
+      "Color": "#FFD93D",
+      "Anchor": "center",
+      "Region": "luck",
+      "FontWeight": "bold"
+    }
   ]
 }

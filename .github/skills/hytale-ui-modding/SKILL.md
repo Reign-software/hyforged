@@ -1,648 +1,540 @@
 ---
 name: hytale-ui-modding
-description: Comprehensive guidance for Hytale plugin UI modding using .ui files, HyUI library (PageBuilder, HudBuilder, HYUIML), CustomUIHud, CustomUIPage, and InteractiveCustomUIPage. Use when creating or updating custom HUDs/pages, using HyUI builders, writing HYUIML markup, binding UI events, or troubleshooting UI issues.
+description: Comprehensive guidance for Hytale plugin UI modding using native .ui files, CustomUIHud, CustomUIPage, and InteractiveCustomUIPage. Use when creating or updating custom HUDs/pages, writing .ui markup, binding UI events, or troubleshooting UI issues.
 ---
 
-# Hytale UI Modding Skill
+# Hytale Native UI Modding Skill
 
-Use this skill when working on Hytale plugin UI. This covers both raw `.ui` files and the **HyUI library** which provides a fluent builder API and HYUIML (HTML/CSS-like markup).
+Use this skill when working on Hytale plugin UI using the **native .ui file system** and Java UI classes. This covers `.ui` file syntax, element types, properties, and the server-side Java API.
+
+> **Important**: This project uses native Hytale UI only. Do not use HyUI library.
+
+---
 
 ## Quick Reference
 
-| Approach | When to Use |
-|----------|-------------|
-| **HyUI + HYUIML** | Complex UIs, rapid development, multi-HUD systems, interactive pages |
-| **Raw .ui files** | Simple static UIs, performance-critical scenarios, learning Hytale UI |
-| **HyUI + .ui files** | Load base layout from .ui, add dynamic elements via builders |
+| Concept | Description |
+|---------|-------------|
+| **.ui files** | Hytale's native UI markup language (NOT HTML/CSS) |
+| **CustomUIHud** | Always-visible overlay elements |
+| **CustomUIPage** | Static full-screen modal pages |
+| **InteractiveCustomUIPage<T>** | Interactive pages with event handling |
+| **UICommandBuilder** | Java API for building/modifying UI |
+| **UIEventBuilder** | Java API for binding events |
 
 ---
 
-## HyUI Library (Recommended for Complex UIs)
-
-HyUI is a fluent, builder-based library that simplifies UI creation. It provides:
-- **HYUIML**: HTML/CSS-like markup language
-- **Fluent Builder API**: Clean Java API for UI construction
-- **Multi-HUD System**: Multiple independent HUDs without conflicts
-- **Event Handling**: Lambda-based event listeners with `UIContext`
-- **Template Processor**: Variables, loops, conditionals, reusable components
-
-### Installation (Maven)
-
-```xml
-<repositories>
-    <repository>
-        <id>cursemaven</id>
-        <url>https://www.cursemaven.com</url>
-    </repository>
-</repositories>
-
-<dependencies>
-    <dependency>
-        <groupId>curse.maven</groupId>
-        <artifactId>hyui-1431415</artifactId>
-        <version>7522546</version> <!-- File ID from CurseForge -->
-        <scope>provided</scope>
-    </dependency>
-</dependencies>
-```
-
-### Installation (Gradle)
-
-```gradle
-repositories {
-    maven { url "https://www.cursemaven.com" }
-}
-
-dependencies {
-    implementation "curse.maven:hyui-1431415:<file-id>"
-}
-```
-
----
-
-## PageBuilder - Full-Screen Interactive Pages
-
-Pages block game input and show a modal interface.
-
-### Quick Start: Opening a Page
-
-```java
-String html = """
-    <div class="page-overlay">
-        <div class="container" data-hyui-title="My Page">
-            <div class="container-contents">
-                <p>Hello Hytale!</p>
-                <button id="myBtn">Click Me</button>
-            </div>
-        </div>
-    </div>
-    """;
-
-PageBuilder.pageForPlayer(playerRef)
-    .fromHtml(html)
-    .addEventListener("myBtn", CustomUIEventBindingType.Activating, (data, ctx) -> {
-        playerRef.sendMessage(Message.raw("Button clicked!"));
-    })
-    .open(store);
-```
-
-### Content Sources
-
-#### 1. HYUIML (HTML) - Recommended for Complex UIs
-```java
-PageBuilder.pageForPlayer(playerRef)
-    .fromHtml("""
-        <div class="page-overlay">
-            <div class="decorated-container" data-hyui-title="Settings">
-                <div class="container-contents">
-                    <p>Settings content here</p>
-                </div>
-            </div>
-        </div>
-    """)
-    .open(store);
-```
-
-#### 2. Loading from .ui Files
-```java
-PageBuilder.pageForPlayer(playerRef)
-    .fromFile("Pages/MyPage.ui")
-    .open(store);
-```
-> **Note**: Elements in .ui files cannot use `.addEventListener`. Use `.editElement` for raw commands.
-
-#### 3. Manual Builder API
-```java
-PageBuilder.detachedPage()
-    .withLifetime(CustomPageLifetime.CanDismiss)
-    .addElement(PageOverlayBuilder.pageOverlay()
-        .withId("MyOverlay")
-        .addChild(ContainerBuilder.container()
-            .withTitleText("Manual UI")
-            .addContentChild(LabelBuilder.label().withText("Built with code!"))
-        )
-    )
-    .addElement(ButtonBuilder.backButton())
-    .open(playerRef, store);
-```
-
-### Detached Pages (Pre-configured)
-```java
-// Prepare configuration without a player
-PageBuilder builder = PageBuilder.detachedPage()
-    .fromHtml("<p>Hello World</p>")
-    .withLifetime(CustomPageLifetime.CanDismiss);
-
-// Later, open for a specific player
-builder.open(playerRef, store);
-```
-
-### Event Listeners and UIContext
-
-```java
-.addEventListener("my-button", CustomUIEventBindingType.Activating, (data, ctx) -> {
-    // Access the page
-    ctx.getPage().ifPresent(page -> page.close());
-    
-    // Get values from input elements
-    Optional<String> username = ctx.getValue("username-input", String.class);
-    
-    // Update elements dynamically
-    ctx.getById("label", LabelBuilder.class).ifPresent(lb -> {
-        lb.withText("Updated!");
-        ctx.updatePage(true);
-    });
-});
-```
-
-### Updating Page Elements at Runtime
-
-```java
-PageBuilder.detachedPage()
-    .fromHtml("""
-        <p id="counter">Clicks: 0</p>
-        <button id="btn">Click Me!</button>
-    """)
-    .addEventListener("btn", CustomUIEventBindingType.Activating, (data, ctx) -> {
-        int newClicks = clicks.incrementAndGet();
-        ctx.getById("counter", LabelBuilder.class).ifPresent(lb -> {
-            lb.withText("Clicks: " + newClicks);
-            ctx.updatePage(true);
-        });
-    })
-    .open(playerRef, store);
-```
-
----
-
-## HudBuilder - Persistent On-Screen Elements
-
-HUDs are always-visible overlays. HyUI manages the multi-HUD system automatically.
-
-### Quick Start: Showing a HUD
-
-```java
-HudBuilder.hudForPlayer(playerRef)
-    .fromHtml("<div style='anchor-top: 10; anchor-left: 10;'><p>Health: 100</p></div>")
-    .show(store);
-```
-
-### Content Sources
-
-```java
-// From HYUIML
-HudBuilder.hudForPlayer(playerRef)
-    .fromHtml("<div style='anchor-top: 10;'><p>Hello!</p></div>")
-    .show(store);
-
-// From .ui file
-HudBuilder.hudForPlayer(playerRef)
-    .fromFile("Huds/MyHud.ui")
-    .show(store);
-
-// Manual builders
-HudBuilder.hudForPlayer(playerRef)
-    .addElement(LabelBuilder.label()
-        .withText("Manual HUD")
-        .withAnchor(new HyUIAnchor().setTop(10).setLeft(10)))
-    .show(store);
-```
-
-### Multi-HUD System
-
-HyUI automatically manages multiple HUDs:
-- Multiple independent HUD elements (minimap, quest tracker, notifications) run simultaneously
-- Each HUD has its own refresh rate, elements, and event listeners
-- HUDs don't interfere with each other or other HyUI-based mods
-- Just build your HUD and call `.show()` — HyUI handles composition
-
-### Periodic Refreshing
-
-```java
-HudBuilder.hudForPlayer(playerRef)
-    .withRefreshRate(1000) // Refresh every 1 second
-    .onRefresh(hud -> {
-        hud.getById("timer", LabelBuilder.class).ifPresent(label -> {
-            label.withText("Time: " + System.currentTimeMillis());
-        });
-    })
-    .show(store);
-```
-
-### Visibility Control
-
-```java
-hud.hide();   // Hides the HUD
-hud.unhide(); // Shows it again
-hud.remove(); // Completely removes from multi-HUD manager
-hud.readd();  // Re-adds it later
-```
-
-### Thread Safety (CRITICAL)
-
-**`.show()` MUST be called on the world thread!**
-
-```java
-world.execute(() -> {
-    HudBuilder.hudForPlayer(playerRef)
-        .fromHtml("<div>Welcome!</div>")
-        .show(store);
-});
-```
-
-### Showing HUD on Player Join
-
-```java
-public void onPlayerReady(PlayerReadyEvent event) {
-    var player = event.getPlayer();
-    if (player == null) return;
-    
-    Ref<EntityStore> ref = player.getReference();
-    if (ref == null || !ref.isValid()) return;
-    
-    Store<EntityStore> store = ref.getStore();
-    World world = store.getExternalData().getWorld();
-    
-    world.execute(() -> {
-        PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
-        HudBuilder.detachedHud()
-            .fromHtml("<div style='anchor-top: 10;'><p>Welcome!</p></div>")
-            .show(playerRef, store);
-    });
-}
-```
-
----
-
-## HYUIML - HTML/CSS Markup Language
-
-HYUIML is a lightweight HTML-like syntax that compiles to HyUI builders.
-
-### Supported Tags
-
-| HTML Tag | HyUI Builder | Notes |
-|----------|--------------|-------|
-| `<div>` | `GroupBuilder` | Layout containers |
-| `<div class="page-overlay">` | `PageOverlayBuilder` | Full-screen overlay |
-| `<div class="container">` | `ContainerBuilder` | Hytale window frame |
-| `<div class="decorated-container">` | `ContainerBuilder` | Styled frame variant |
-| `<div class="container-contents">` | - | Content area inside container |
-| `<div class="tab-content">` | `TabContentBuilder` | Tab content linked to tab ID |
-| `<div class="item-grid">` | `ItemGridBuilder` | Scrollable item grid |
-| `<p>`, `<label>` | `LabelBuilder` | Text labels |
-| `<button>` | `ButtonBuilder` | Standard buttons |
-| `<button class="back-button">` | `ButtonBuilder` | Themed back button |
-| `<button class="secondary-button">` | `ButtonBuilder` | Secondary style |
-| `<button class="tertiary-button">` | `ButtonBuilder` | Tertiary style |
-| `<input type="text">` | `TextFieldBuilder` | Text input |
-| `<input type="password">` | `TextFieldBuilder` | Masked input |
-| `<input type="number">` | `NumberFieldBuilder` | Numeric input |
-| `<input type="range">` | `SliderBuilder` | Slider control |
-| `<input type="checkbox">` | `CheckBoxBuilder` | Toggle switch |
-| `<input type="color">` | `ColorPickerBuilder` | Color selector |
-| `<progress>` | `ProgressBarBuilder` | Progress bar |
-| `<progress class="circular-progress">` | `ProgressBarBuilder` | Circular variant |
-| `<img>` | `ImageBuilder` | Static images |
-| `<img class="dynamic-image">` | `DynamicImageBuilder` | Runtime-downloaded PNG |
-| `<hyvatar>` | `HyvatarImageBuilder` | Player avatar renders |
-| `<select>` | `DropdownBoxBuilder` | Dropdown with `<option>` children |
-| `<nav class="tabs">` | `TabNavigationBuilder` | Tab bar |
-| `<sprite>` | `SpriteBuilder` | Animated sprite |
-| `<span class="item-icon">` | `ItemIconBuilder` | Item icon |
-| `<span class="item-slot">` | `ItemSlotBuilder` | Full item slot |
-
-### Supported Attributes
-
-#### Standard Attributes
-- `id` — Element ID for Java access and event listeners
-- `class` — CSS classes
-- `value` — Initial value for inputs
-- `min`, `max`, `step` — Slider range
-- `checked` — Checkbox state (`true`/`false`)
-- `placeholder` — Hint text for inputs
-- `maxlength` — Character limit
-- `readonly` — Read-only state
-- `width`, `height` — Image dimensions
-
-#### HyUI-Specific Attributes (`data-hyui-*`)
-- `data-hyui-title` — Container/overlay header title
-- `data-hyui-tooltiptext` — Tooltip text
-- `data-hyui-item-id` — Item ID for icons
-- `data-hyui-tab-id` — Link content to tab ID
-- `data-hyui-tab-nav` — Target specific tab navigation
-- `data-hyui-bar-texture-path` — Progress bar fill texture
-- `data-hyui-color` — Progress bar color (hex)
-- `data-hyui-direction` — Progress bar direction (`start`/`end`)
-- `data-hyui-alignment` — Progress orientation (`horizontal`/`vertical`)
-- `data-hyui-style` — Arbitrary style keys (e.g., `SlotSpacing: 6`)
-
-#### Sprite Attributes
-- `data-hyui-frame-width`, `data-hyui-frame-height` — Frame dimensions
-- `data-hyui-frame-per-row`, `data-hyui-frame-count` — Animation layout
-- `data-hyui-fps` — Animation speed
-
-#### Item Grid Attributes
-- `data-hyui-slots-per-row` — Slots per row
-- `data-hyui-are-items-draggable` — Drag behavior
-- `data-hyui-show-scrollbar` — Scrollbar visibility
-
-### CSS Styling
-
-Include a `<style>` block in your HYUIML:
-
-```html
-<style>
-    .header {
-        color: #ff0000;
-        font-weight: bold;
-        font-size: 24;
-    }
-    #my-button {
-        flex-weight: 1;
-        anchor-width: 200;
-    }
-</style>
-<div class="header">Title</div>
-<button id="my-button">Click Me</button>
-```
-
-#### Supported CSS Properties
-
-| Property | Values/Notes |
-|----------|--------------|
-| `color` | Hex colors (`#FFFFFF`) |
-| `font-size` | Numeric value |
-| `font-weight` | `bold`, `normal` |
-| `text-transform` | `uppercase`, `none` |
-| `text-align` | `top`, `bottom`, `left`, `right`, `center`, `middle` |
-| `vertical-align` | `top`, `bottom`, `center` |
-| `horizontal-align` | `left`, `right`, `center` |
-| `visibility` | `hidden`, `shown` |
-| `display` | `none`, `block` |
-| `flex-weight` | Numeric weight for layout |
-| `layout-mode` | `Top`, `Left`, `Center`, etc. |
-| `anchor-*` | `anchor-left`, `anchor-top`, `anchor-width`, `anchor-height`, etc. |
-| `padding`, `padding-*` | Padding values |
-| `background-image` | `url('path.png')` with optional border values |
-| `background-color` | Hex color with optional border values |
-| `hyui-style-reference` | Reference styles from .ui files |
-
-### Image Assets
-
-Images are relative to `Common/UI/Custom/`. Hytale requires `@2x.png` suffix:
-- Use: `<img src="lizard.png"/>`
-- File: `src/main/resources/Common/UI/Custom/lizard@2x.png`
-
-### Dynamic Images
-
-Download PNGs at runtime (limited to 10 per page):
-```html
-<img class="dynamic-image" src="https://example.com/image.png" />
-```
-
-### Hyvatar Integration
-
-Render player avatars via Hyvatar.io:
-```html
-<hyvatar username="PlayerName" render="head" size="256" rotate="45"></hyvatar>
-```
-- `render`: `head`, `full`, or `cape`
-- `size`: 64-2048
-- `rotate`: 0-360 degrees
-
-### Tab Navigation
-
-```html
-<nav id="main-tabs" class="tabs"
-     data-tabs="tab1:Tab One,tab2:Tab Two"
-     data-selected="tab1">
-</nav>
-
-<div class="tab-content" data-hyui-tab-id="tab1">
-    <p>Content for Tab One</p>
-</div>
-
-<div class="tab-content" data-hyui-tab-id="tab2">
-    <p>Content for Tab Two</p>
-</div>
-```
-
----
-
-## Template Processor
-
-For complex, data-driven UIs, use the Template Processor.
-
-### Variable Interpolation
-
-```java
-TemplateProcessor template = new TemplateProcessor()
-    .setVariable("playerName", playerRef.getUsername())
-    .setVariable("playerLevel", 42);
-```
-
-```html
-<p>Player: {{$playerName}}</p>
-<p>Level: {{$playerLevel}}</p>
-<p>Missing: {{$missing|Default Value}}</p>
-<p>Uppercase: {{$playerName|upper}}</p>
-```
-
-### Each Loops
-
-```java
-template.setVariable("items", itemList);
-```
-
-```html
-{{#each items}}
-    <p>{{$name}} - {{$quantity}}</p>
-{{/each}}
-```
-
-### Conditionals
-
-```html
-{{#if isAdmin}}
-    <p>Admin mode</p>
-{{else}}
-    <p>Standard mode</p>
-{{/if}}
-
-{{#if power >= 10 && rarity != Common}}
-    <p>Strong item</p>
-{{/if}}
-
-{{#if tags contains "rare" || rarity == Epic}}
-    <p>Highlight</p>
-{{/if}}
-```
-
-Operators: `==`, `!=`, `>`, `<`, `>=`, `<=`, `&&`, `||`, `!`, `contains`
-
-### Reusable Components
-
-```java
-template.registerComponent("statCard", """
-    <div style="background-color: #2a2a3e; padding: 10;">
-        <p style="color: #888;">{{$label}}</p>
-        <p style="font-weight: bold;">{{$value}}</p>
-    </div>
-""");
-```
-
-```html
-{{@statCard:label=Health,value=100}}
-{{@statCard:label=Mana,value=50}}
-```
-
-### Using with PageBuilder
-
-```java
-TemplateProcessor template = new TemplateProcessor()
-    .setVariable("playerName", playerRef.getUsername())
-    .registerComponent("header", "<p style='font-size: 24;'>{{$title}}</p>");
-
-String html = template.process("""
-    <div class="page-overlay">
-        {{@header:title=Welcome {{$playerName}}}}
-        <p>Your adventure awaits!</p>
-    </div>
-""");
-
-PageBuilder.pageForPlayer(playerRef)
-    .fromHtml(html)
-    .open(store);
-```
-
----
-
-## HyUI Builder Reference
-
-### Core Builders
-
-| Builder | Purpose |
-|---------|---------|
-| `PageBuilder` | Full-screen interactive pages |
-| `HudBuilder` | Persistent HUD elements |
-| `GroupBuilder` | Layout containers |
-| `ContainerBuilder` | Hytale window frames |
-| `PageOverlayBuilder` | Full-screen overlays |
-| `TabNavigationBuilder` | Tab bars |
-| `TabContentBuilder` | Tab content sections |
-
-### Input Builders
-
-| Builder | Purpose |
-|---------|---------|
-| `TextFieldBuilder` | Text input |
-| `NumberFieldBuilder` | Numeric input |
-| `SliderBuilder` | Range slider |
-| `CheckBoxBuilder` | Toggle switch |
-| `ColorPickerBuilder` | Color picker |
-| `DropdownBoxBuilder` | Dropdown selection |
-
-### Display Builders
-
-| Builder | Purpose |
-|---------|---------|
-| `LabelBuilder` | Text labels |
-| `ButtonBuilder` | Buttons (text, back, secondary, tertiary) |
-| `ImageBuilder` | Static images |
-| `DynamicImageBuilder` | Runtime-downloaded images |
-| `HyvatarImageBuilder` | Player avatar renders |
-| `ProgressBarBuilder` | Progress bars (linear/circular) |
-| `SpriteBuilder` | Animated sprites |
-| `ItemIconBuilder` | Item icons |
-| `ItemSlotBuilder` | Item slots |
-| `ItemGridBuilder` | Scrollable item grids |
-| `TimerLabelBuilder` | Timer display |
-
-### Common Builder Methods
-
-```java
-.withId("element-id")           // Set ID for event listeners
-.withAnchor(new HyUIAnchor())   // Position and size
-.withStyle(new HyUIStyle())     // Styling
-.withVisible(true/false)        // Visibility
-.addChild(builder)              // Add child element
-.addEventListener(type, handler) // Event listener
-```
-
----
-
-## Raw .ui Files (Low-Level)
-
-For simple UIs or when HyUI is unavailable.
+## .ui File Syntax
 
 ### File Location
 ```
 src/main/resources/Common/UI/Custom/
 ```
 
-### Basic Syntax
+### Basic Structure
 
 ```ui
-// Comment
-$Common = "../Common.ui";
+// Comments use double slashes
+$Common = "../Common.ui";  // Import another .ui file
+
+@MyVariable = "some value";  // Local variable
+@MyStyle = (FontSize: 18, RenderBold: true);  // Style tuple
 
 Group #Root {
     Anchor: (Full: 0);
     LayoutMode: Top;
-    Background: PatchStyle(Color: #1a1a1e);
+    Background: PatchStyle(Color: #1a1a1eE0);
     
     Label #Title {
         Text: "Hello World";
-        Style: (FontSize: 24, RenderBold: true);
+        Style: (FontSize: 24, RenderBold: true, Alignment: Center);
     }
     
     Button #MyButton {
-        Content: "Click Me";
+        Text: "Click Me";
+        Anchor: (Width: 200, Height: 40);
     }
 }
 ```
 
-### Valid Element Types
+### Syntax Rules
 
-- `Group` — Container (like div)
-- `Label` — Text display
-- `Button` — Clickable button
-- `TextField` — Text input
-- `Timer` — Timer display
-- `ColorPicker` — Color selector
+- **Elements**: `ElementType [#Id] { properties... }`
+- **IDs**: Prefix with `#` for Java/event access
+- **Variables**: `@Name = value;` (local) or `$Name = "path.ui";` (import)
+- **Properties**: `PropertyName: value;`
+- **Tuples**: `(Key1: value1, Key2: value2)`
+- **References**: `$Common.@StyleName` references a style from imported file
+- **Localization**: `%localization.key` for translatable strings
+- **Comments**: `// single line comment`
 
-### Style Properties
+---
 
-```ui
-Style: (FontSize: 14, RenderBold: true, Alignment: Center);
-```
+## Element Types
+
+### Primitive Elements
+
+| Element | Purpose | Key Properties |
+|---------|---------|----------------|
+| `Group` | Container/layout | `LayoutMode`, `Background`, `Padding`, `ScrollbarStyle` |
+| `Label` | Text display | `Text`, `TextSpans`, `Style`, `TextColor` |
+| `Button` | Clickable button | `Text`, `Disabled`, `Style`, `Background` |
+| `TextField` | Text input | `Value`, `PlaceholderText`, `MaxLength`, `ReadOnly`, `Password`, `PasswordChar`, `AutoGrow`, `MaxVisibleLines` |
+| `Slider` | Range input | `Value`, `Min`, `Max`, `Step`, `Style` |
+| `CheckBox` | Toggle input | `Value` (boolean) |
+| `ColorPicker` | Color selector | `Value` |
+| `DropdownBox` | Dropdown selection | `Value`, `Entries` (DropdownEntryInfo[]) |
+| `ProgressBar` | Progress display | `Value` (0.0-1.0), `BarTexturePath`, `EffectTexturePath`, `Direction`, `Alignment`, `Color` |
+| `CircularProgressBar` | Circular progress | `Value`, `MaskTexturePath` |
+| `Sprite` | Animated image | `TexturePath`, `Frame`, `FramesPerSecond` |
+| `ItemIcon` | Item display | `ItemId`, `Quantity` |
+| `ItemSlot` | Full item slot | `ItemStack`, `Background`, `Overlay`, `Icon` |
+| `ItemGrid` | Scrollable item grid | `Slots`, `SlotsPerRow`, `AreItemsDraggable`, `ShowScrollbar`, `KeepScrollPosition`, `RenderItemQualityBackground` |
+| `TabNavigation` | Tab bar | (use with tab content groups) |
+| `TimerLabel` | Timer display | (specialized label) |
+
+### Macro Elements (from Common.ui)
+
+These are pre-styled components defined in Common.ui:
+
+| Macro | Purpose |
+|-------|---------|
+| `PageOverlay` | Full-screen overlay background |
+| `Container` | Styled window frame with title |
+| `TextButton` | Primary styled button |
+| `SecondaryTextButton` | Secondary styled button |
+| `TertiaryTextButton` | Tertiary styled button |
+| `CancelTextButton` | Cancel/destructive button |
+| `BackButton` | Back navigation button |
+| `NumberField` | Numeric input field |
+| `AssetImage` | Asset image display |
+| `CheckBoxWithLabel` | Checkbox with text label |
+
+---
+
+## Property Reference
 
 ### Anchor Properties
 
+Controls element positioning and sizing:
+
 ```ui
 Anchor: (Left: 10, Top: 10, Width: 200, Height: 50);
-Anchor: (Full: 0);  // Fill parent
-Anchor: (HCenter: 0, VCenter: 0, Width: 300);  // Centered
+Anchor: (Full: 0);           // Fill parent with 0px margin
+Anchor: (Horizontal: 10);    // Left and Right = 10
+Anchor: (Vertical: 5);       // Top and Bottom = 5
 ```
 
-### PatchStyle for Backgrounds
+| Property | Type | Description |
+|----------|------|-------------|
+| `Left` | int | Distance from left edge |
+| `Right` | int | Distance from right edge |
+| `Top` | int | Distance from top edge |
+| `Bottom` | int | Distance from bottom edge |
+| `Width` | int | Fixed width |
+| `Height` | int | Fixed height |
+| `MinWidth` | int | Minimum width |
+| `MaxWidth` | int | Maximum width |
+| `Full` | int | Shorthand for all sides (margin) |
+| `Horizontal` | int | Shorthand for Left + Right |
+| `Vertical` | int | Shorthand for Top + Bottom |
+
+### LayoutMode Values
+
+Controls how child elements are arranged:
+
+| Value | Description |
+|-------|-------------|
+| `Top` | Stack children from top |
+| `TopScrolling` | Stack from top with vertical scrolling |
+| `Bottom` | Stack children from bottom |
+| `BottomScrolling` | Stack from bottom with vertical scrolling |
+| `Left` | Stack children from left |
+| `Right` | Stack children from right |
+| `Center` | Center children horizontally |
+| `Middle` | Center children vertically |
+| `CenterMiddle` / `MiddleCenter` | Center both axes |
+| `Full` | Fill available space |
+| `LeftCenterWrap` | Left-aligned with center wrapping |
+| `RightCenterWrap` | Right-aligned with center wrapping |
+
+### Style Properties
+
+Style tuples control text and visual appearance:
+
+```ui
+Style: (FontSize: 18, RenderBold: true, Alignment: Center);
+```
+
+| Property | Values/Type | Description |
+|----------|-------------|-------------|
+| `FontSize` | int | Text size (e.g., 14, 18, 24) |
+| `FontName` | string | Font family |
+| `RenderBold` | bool | Bold text |
+| `RenderItalics` | bool | Italic text |
+| `RenderUppercase` | bool | Uppercase transform |
+| `TextColor` | hex | Text color (#RRGGBB or #RRGGBBAA) |
+| `Alignment` | enum | Text alignment: `Left`, `Right`, `Center`, `Top`, `Bottom`, `Middle` |
+| `HorizontalAlignment` | enum | `Left`, `Right`, `Center` |
+| `VerticalAlignment` | enum | `Top`, `Bottom`, `Center`, `Middle` |
+| `Wrap` | bool | Text wrapping |
+| `LetterSpacing` | int | Character spacing |
+| `OutlineColor` | hex | Text outline color |
+
+### PatchStyle (Backgrounds)
+
+Nine-slice scalable backgrounds:
 
 ```ui
 Background: PatchStyle(Color: #1a1a1eE0);
-Background: PatchStyle(TexturePath: "MyTexture.png");
-Background: PatchStyle(TexturePath: "MyTexture.png", Border: 4);
+Background: PatchStyle(TexturePath: "UI/Textures/Panel.png", Border: 6);
+Background: PatchStyle(TexturePath: "MyTexture.png", HorizonzalBorder: 4, VerticalBorder: 8);
+```
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `TexturePath` | string | Path to texture file |
+| `Border` | int | Border slice size (all sides) |
+| `HorizonzalBorder` | int | Horizontal border (note: typo in Hytale API) |
+| `VerticalBorder` | int | Vertical border |
+| `Color` | hex | Background color |
+| `Area` | Area | Texture source area |
+
+### Area Object
+
+```ui
+Area: (X: 0, Y: 0, Width: 64, Height: 64);
+```
+
+### Padding
+
+```ui
+Padding: (Full: 20);
+Padding: (Left: 10, Top: 20, Right: 10, Bottom: 20);
 ```
 
 ---
 
-## Thread Safety (CRITICAL)
+## Value References
+
+Reference values from other documents:
+
+```ui
+// In your .ui file
+$Common = "../Common.ui";
+Style: $Common.@DefaultLabelStyle;
+ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+```
+
+In Java:
+```java
+import com.hypixel.hytale.server.core.ui.Value;
+
+// Reference a style from Common.ui
+commands.set("#Element.Style", Value.ref("Common.ui", "DefaultButtonStyle"));
+```
+
+---
+
+## Java UI Classes
+
+### CustomUIHud - Persistent Overlays
+
+```java
+import com.hypixel.hytale.server.core.entity.entities.player.hud.CustomUIHud;
+import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
+
+public class MyHud extends CustomUIHud {
+    public MyHud(PlayerRef playerRef) {
+        super(playerRef);
+    }
+
+    @Override
+    protected void build(UICommandBuilder commandBuilder) {
+        commandBuilder.append("MyHud.ui");
+        // Or inline:
+        commandBuilder.appendInline(null, "Label #Status { Text: \"Hello\"; }");
+    }
+}
+
+// Usage
+MyHud hud = new MyHud(playerRef);
+hud.show();
+```
+
+### CustomUIPage - Static Pages
+
+```java
+import com.hypixel.hytale.server.core.entity.entities.player.pages.CustomUIPage;
+import com.hypixel.hytale.protocol.packets.interface_.CustomPageLifetime;
+
+public class MyPage extends CustomUIPage {
+    public MyPage(PlayerRef playerRef) {
+        super(playerRef, CustomPageLifetime.CanDismiss);
+    }
+
+    @Override
+    public void build(Ref<EntityStore> ref, UICommandBuilder commandBuilder, 
+                      UIEventBuilder eventBuilder, Store<EntityStore> store) {
+        commandBuilder.append("Pages/MyPage.ui");
+    }
+}
+```
+
+### InteractiveCustomUIPage<T> - Interactive Pages
+
+```java
+import com.hypixel.hytale.server.core.entity.entities.player.pages.InteractiveCustomUIPage;
+import com.hypixel.hytale.codec.builder.BuilderCodec;
+import com.hypixel.hytale.codec.KeyedCodec;
+import com.hypixel.hytale.codec.Codec;
+
+public class MyInteractivePage extends InteractiveCustomUIPage<MyInteractivePage.EventData> {
+
+    public MyInteractivePage(PlayerRef playerRef) {
+        super(playerRef, CustomPageLifetime.CanDismiss, EventData.CODEC);
+    }
+
+    @Override
+    public void build(Ref<EntityStore> ref, UICommandBuilder commandBuilder,
+                      UIEventBuilder eventBuilder, Store<EntityStore> store) {
+        commandBuilder.append("Pages/MyPage.ui");
+        
+        // Bind button click event
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.Activating,
+            "#MyButton",
+            EventData.of("Action", "buttonClicked"),
+            false  // locksInterface
+        );
+        
+        // Bind text input value change
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.ValueChanged,
+            "#SearchInput",
+            EventData.of("@SearchValue", "#SearchInput.Value"),
+            false
+        );
+    }
+
+    @Override
+    public void handleDataEvent(Ref<EntityStore> ref, Store<EntityStore> store, EventData data) {
+        if ("buttonClicked".equals(data.action)) {
+            // Handle button click
+        }
+        if (data.searchValue != null) {
+            // Handle search input change
+            updateSearchResults(data.searchValue);
+        }
+        // IMPORTANT: Always call sendUpdate after handling events
+        sendUpdate(null, false);
+    }
+    
+    private void updateSearchResults(String query) {
+        UICommandBuilder commands = new UICommandBuilder();
+        UIEventBuilder events = new UIEventBuilder();
+        // Build updated content...
+        sendUpdate(commands, events, false);
+    }
+
+    // Event data class with codec
+    public static class EventData {
+        public static final BuilderCodec<EventData> CODEC = BuilderCodec.builder(EventData.class, EventData::new)
+            .append(new KeyedCodec<>("Action", Codec.STRING), (e, s) -> e.action = s, e -> e.action)
+            .add()
+            .append(new KeyedCodec<>("@SearchValue", Codec.STRING), (e, s) -> e.searchValue = s, e -> e.searchValue)
+            .add()
+            .build();
+
+        String action;
+        String searchValue;
+    }
+}
+```
+
+---
+
+## UICommandBuilder Methods
+
+```java
+UICommandBuilder commands = new UICommandBuilder();
+
+// Append .ui file content
+commands.append("Pages/MyPage.ui");              // Append to root
+commands.append("#Container", "Pages/Item.ui"); // Append to selector
+
+// Append inline UI content
+// IMPORTANT: Text values MUST be quoted in inline .ui syntax
+commands.appendInline("#List", "Label { Text: \"Item\"; }");
+
+// Insert before element
+commands.insertBefore("#Target", "Pages/Header.ui");
+commands.insertBeforeInline("#Target", "Label { Text: \"Before\"; }");
+
+// Set properties
+commands.set("#Label.Text", "Hello World");
+commands.set("#Label.Visible", true);
+commands.set("#Slider.Value", 50);
+commands.set("#Progress.Value", 0.75f);
+
+// Set complex objects
+commands.setObject("#Element.Anchor", new Anchor().setWidth(Value.of(200)));
+commands.setObject("#Grid.Slots", new ItemGridSlot[]{ new ItemGridSlot(itemStack) });
+
+// Set with value reference
+commands.set("#Button.Style", Value.ref("Common.ui", "DefaultButtonStyle"));
+
+// Remove/clear
+commands.remove("#Element");     // Remove element
+commands.clear("#Container");    // Clear children
+commands.setNull("#Label.Text"); // Set to null
+```
+
+---
+
+## UIEventBuilder & Event Types
+
+```java
+UIEventBuilder events = new UIEventBuilder();
+
+// Basic event binding
+events.addEventBinding(CustomUIEventBindingType.Activating, "#Button");
+
+// With data payload
+events.addEventBinding(
+    CustomUIEventBindingType.Activating,
+    "#Button",
+    EventData.of("Action", "save").append("ItemId", itemId),
+    false  // locksInterface - if true, locks UI during processing
+);
+
+// Value reference (gets value from UI element)
+events.addEventBinding(
+    CustomUIEventBindingType.ValueChanged,
+    "#TextField",
+    EventData.of("@Value", "#TextField.Value"),  // @ prefix = UI value reference
+    false
+);
+```
+
+### Event Types (CustomUIEventBindingType)
+
+| Event | Trigger |
+|-------|---------|
+| `Activating` | Button click, element activation |
+| `RightClicking` | Right mouse click |
+| `DoubleClicking` | Double click |
+| `MouseEntered` | Mouse enters element |
+| `MouseExited` | Mouse leaves element |
+| `ValueChanged` | Input value changes (TextField, Slider, etc.) |
+| `FocusGained` | Element gains focus |
+| `FocusLost` | Element loses focus |
+| `KeyDown` | Key pressed while focused |
+| `Validating` | Input validation |
+| `Dismissing` | Page dismiss attempt |
+| `SelectedTabChanged` | Tab selection changes |
+| `SlotClicking` | ItemGrid slot clicked |
+| `SlotDoubleClicking` | ItemGrid slot double-clicked |
+| `SlotMouseEntered` | Mouse enters slot |
+| `SlotMouseExited` | Mouse leaves slot |
+| `DragCancelled` | Drag operation cancelled |
+| `Dropped` | Item dropped |
+| `SlotMouseDragCompleted` | Drag completed over slot |
+| `SlotMouseDragExited` | Drag exited slot |
+| `SlotClickReleaseWhileDragging` | Click released while dragging |
+| `SlotClickPressWhileDragging` | Click pressed while dragging |
+| `ElementReordered` | Element order changed |
+| `MouseButtonReleased` | Mouse button released |
+
+---
+
+## Page Lifetime Options
+
+```java
+import com.hypixel.hytale.protocol.packets.interface_.CustomPageLifetime;
+
+CustomPageLifetime.CanDismiss   // Player can close with ESC
+CustomPageLifetime.Dismiss      // Closes immediately (not typically used)
+```
+
+---
+
+## Value Objects Reference
+
+### ItemGridSlot
+
+```java
+new ItemGridSlot()
+    .setItemStack(new ItemStack(itemId, quantity))
+    .setBackground(Value.of(patchStyle))
+    .setOverlay(Value.of(overlayStyle))
+    .setIcon(Value.of(iconStyle))
+    .setName("Custom Name")
+    .setDescription("Custom description")
+    .setItemIncompatible(false)
+    .setActivatable(true)
+    .setItemUncraftable(false);
+```
+
+### DropdownEntryInfo
+
+```java
+new DropdownEntryInfo(LocalizableString.fromString("Option 1"), "value1")
+```
+
+### LocalizableString
+
+```java
+// Plain string
+LocalizableString.fromString("Hello World")
+
+// Localization key
+LocalizableString.fromMessageId("server.ui.myKey")
+
+// With parameters
+LocalizableString.fromMessageId("server.ui.greeting", Map.of("name", playerName))
+```
+
+---
+
+## Scrolling Groups
+
+For scrollable content, use `LayoutMode: TopScrolling` (or `BottomScrolling`):
+
+```ui
+Group #ScrollContainer {
+    Anchor: (Full: 10);
+    LayoutMode: TopScrolling;
+    ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+    
+    // Children will scroll
+    Group #Item1 { ... }
+    Group #Item2 { ... }
+    Group #Item3 { ... }
+}
+```
+
+---
+
+## Image Assets
+
+Images must use `@2x.png` suffix and be in `Common/UI/Custom/`:
+- Reference: `TexturePath: "MyImage.png"`
+- File: `src/main/resources/Common/UI/Custom/MyImage@2x.png`
+
+Ensure `"IncludesAssetPack": true` in `manifest.json`.
+
+---
+
+## Threading (CRITICAL)
 
 **UI operations MUST run on the world thread** or the game will crash.
 
-### For Commands Opening UI
+### For Commands
 
 ```java
-public class MyUICommand extends AbstractAsyncCommand {
+public class MyCommand extends AbstractAsyncCommand {
     @Override
     protected CompletableFuture<Void> executeAsync(CommandContext context) {
         if (context.sender() instanceof Player player) {
@@ -652,9 +544,8 @@ public class MyUICommand extends AbstractAsyncCommand {
             
             return CompletableFuture.runAsync(() -> {
                 PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
-                PageBuilder.pageForPlayer(playerRef)
-                    .fromHtml("<p>Hello!</p>")
-                    .open(store);
+                // Open page on world thread
+                playerComponent.getPageManager().setPage(ref, store, new MyPage(playerRef));
             }, world);
         }
         return CompletableFuture.completedFuture(null);
@@ -666,45 +557,161 @@ public class MyUICommand extends AbstractAsyncCommand {
 
 ```java
 world.execute(() -> {
-    HudBuilder.hudForPlayer(playerRef).fromHtml("...").show(store);
+    MyHud hud = new MyHud(playerRef);
+    hud.show();
 });
 ```
 
-> **Note**: Event handlers inside HyUI pages/HUDs already run on the correct thread.
+---
+
+## Example: Complete Interactive Page
+
+### Pages/MyPage.ui
+
+```ui
+$Common = "../Common.ui";
+
+Group #Root {
+    Anchor: (Full: 0);
+    Background: PatchStyle(Color: #000000A0);
+    LayoutMode: CenterMiddle;
+    
+    Group #Container {
+        Anchor: (Width: 400, Height: 300);
+        Background: PatchStyle(Color: #1a1a2eE0, Border: 4);
+        LayoutMode: Top;
+        Padding: (Full: 20);
+        
+        Label #Title {
+            Text: "My Page";
+            Style: (FontSize: 24, RenderBold: true, Alignment: Center);
+            Anchor: (Height: 40);
+        }
+        
+        TextField #SearchInput {
+            Anchor: (Height: 30);
+            PlaceholderText: "Search...";
+        }
+        
+        Group #Results {
+            Anchor: (Full: 0);
+            LayoutMode: TopScrolling;
+            ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+        }
+        
+        Group #ButtonRow {
+            LayoutMode: Right;
+            Anchor: (Height: 40);
+            
+            Button #CancelBtn {
+                Text: "Cancel";
+                Anchor: (Width: 100);
+            }
+            
+            Button #SaveBtn {
+                Text: "Save";
+                Anchor: (Width: 100);
+            }
+        }
+    }
+}
+```
+
+### Java Implementation
+
+```java
+public class MyPage extends InteractiveCustomUIPage<MyPage.EventData> {
+    
+    public MyPage(PlayerRef playerRef) {
+        super(playerRef, CustomPageLifetime.CanDismiss, EventData.CODEC);
+    }
+    
+    @Override
+    public void build(Ref<EntityStore> ref, UICommandBuilder cmd, 
+                      UIEventBuilder events, Store<EntityStore> store) {
+        cmd.append("Pages/MyPage.ui");
+        
+        events.addEventBinding(CustomUIEventBindingType.ValueChanged, "#SearchInput",
+            EventData.of("@Query", "#SearchInput.Value"), false);
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#SaveBtn",
+            EventData.of("Action", "save"), false);
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#CancelBtn",
+            EventData.of("Action", "cancel"), false);
+    }
+    
+    @Override
+    public void handleDataEvent(Ref<EntityStore> ref, Store<EntityStore> store, EventData data) {
+        if ("cancel".equals(data.action)) {
+            close(ref, store);
+            return;
+        }
+        if ("save".equals(data.action)) {
+            // Save logic...
+            close(ref, store);
+            return;
+        }
+        if (data.query != null) {
+            updateResults(data.query);
+        }
+        sendUpdate(null, false);
+    }
+    
+    private void close(Ref<EntityStore> ref, Store<EntityStore> store) {
+        Player player = store.getComponent(ref, Player.getComponentType());
+        player.getPageManager().setPage(ref, store, Page.None);
+    }
+    
+    private void updateResults(String query) {
+        UICommandBuilder cmd = new UICommandBuilder();
+        cmd.clear("#Results");
+        // Add filtered results...
+        for (String result : getFilteredResults(query)) {
+            cmd.appendInline("#Results", 
+                String.format("Label { Text: \"%s\"; Anchor: (Height: 24); }", result));
+        }
+        sendUpdate(cmd, false);
+    }
+    
+    public static class EventData {
+        public static final BuilderCodec<EventData> CODEC = BuilderCodec.builder(EventData.class, EventData::new)
+            .append(new KeyedCodec<>("Action", Codec.STRING), (e, s) -> e.action = s, e -> e.action).add()
+            .append(new KeyedCodec<>("@Query", Codec.STRING), (e, s) -> e.query = s, e -> e.query).add()
+            .build();
+        String action;
+        String query;
+    }
+}
+```
 
 ---
 
-## Common Issues
+## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
-| `Failed to apply Custom UI HUD commands` | Syntax error in .ui file; check Diagnostic Mode |
+| `Failed to apply Custom UI HUD commands` | Syntax error in .ui file; enable Diagnostic Mode in Hytale settings |
 | `Could not find document for Custom UI Append` | Wrong path or file not in `Common/UI/Custom/` |
-| `Unknown node type: X` | Element type not supported (e.g., `ScrollViewer`) |
-| `Expected end of file` | XML wrapper or invalid syntax in .ui file |
+| `Unknown node type: X` | Element type not supported or misspelled |
+| Page stuck on "Loading…" | Forgot `sendUpdate()` after handling events |
 | Client disconnect on UI open | Not running on world thread |
-| Dynamic images not loading | URL issues or hit 10-image limit |
-| Events not firing | ID mismatch or element from .ui file (use `.editElement`) |
+| Texture not showing | Missing `@2x.png` suffix or wrong path |
+| Events not firing | Selector doesn't match element ID |
 
 ---
 
-## Recommended Checklist
+## Checklist
 
-1. ✅ Put .ui and texture assets in `resources/Common/UI/Custom/`
+1. ✅ Place .ui files in `resources/Common/UI/Custom/`
 2. ✅ Add `"IncludesAssetPack": true` to `manifest.json`
 3. ✅ Image files must end with `@2x.png`
 4. ✅ Run UI operations on world thread
-5. ✅ Use HyUI for complex, interactive UIs
-6. ✅ Use `.addEventListener` only for HYUIML/builder elements, not .ui file elements
-7. ✅ Call `ctx.updatePage(true)` after modifying elements
-8. ✅ Enable Diagnostic Mode for debugging
+5. ✅ Call `sendUpdate()` after handling events in InteractiveCustomUIPage
+6. ✅ Use proper selectors with `#` prefix
+7. ✅ Enable Diagnostic Mode for debugging
 
 ---
 
 ## References
 
-- HyUI GitHub: https://github.com/Elliesaur/HyUI
-- HyUI CurseForge: https://www.curseforge.com/hytale/mods/hyui
-- Hytale UI Builder: https://hytale.ellie.au/
 - Hytale Modding Docs: https://hytalemodding.dev/en/docs/guides/plugin/ui
-- Full Living Reference: `.doc/references/ui-modding.md`
+- Hytale UI Builder (visual editor): https://hytale.ellie.au/

@@ -5,6 +5,7 @@
       "Type": "notable",
       "Name": "Warcry Master",
       "Description": "Unlocks the Rallying Cry skill.",
+      "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
         { "Type": "spell-grant", "SpellId": "hyforged:rallying-cry" }
       ]

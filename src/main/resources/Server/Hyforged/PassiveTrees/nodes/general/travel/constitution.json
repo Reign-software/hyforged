@@ -5,6 +5,7 @@
       "Type": "minor",
       "Name": "Constitution",
       "Description": "+1 to Constitution",
+      "Icon": "Hyforged/Textures/Constitution.png",
       "Effects": [
         { "Type": "stat-modifier", "Stat": "hyforged:constitution", "Value": 1 }
       ]

@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Eldritch Battery",
       "Description": "Mana Recovery applies to Energy Shield",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:eldritch-battery" }
       ]

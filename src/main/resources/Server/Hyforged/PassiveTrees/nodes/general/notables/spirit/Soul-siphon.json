@@ -5,6 +5,7 @@
       "Type": "notable",
       "Name": "Soul Siphon",
       "Description": "+0.1% Mana Leech\n+3% Mana on Kill",
+      "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
         { "Type": "stat-modifier", "Stat": "hyforged:mana-leech-bps", "Value": 10 },
         { "Type": "stat-modifier", "Stat": "hyforged:mana-on-kill-bps", "Value": 300 }

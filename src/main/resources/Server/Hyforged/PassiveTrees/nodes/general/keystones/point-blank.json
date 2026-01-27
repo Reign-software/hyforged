@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Point Blank",
       "Description": "Projectiles deal up to 30% more damage to close targets\nProjectiles deal 30% less damage to distant targets",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:point-blank" }
       ]

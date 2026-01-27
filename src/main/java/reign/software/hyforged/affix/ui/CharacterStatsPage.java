@@ -25,7 +25,7 @@ import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
-import reign.software.hyforged.passive.ui.PassiveTreePageHyUI;
+import reign.software.hyforged.passive.ui.PassiveTreePage;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -368,8 +368,12 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
             // Rebuild the page with updated data
             rebuild();
         } else if ("openPassiveTree".equals(action)) {
-            // Open the passive tree page using HyUI
-            PassiveTreePageHyUI.open(this.playerRef, ref, store, null);
+            // Open the passive tree page using native UI
+            Player playerComponent = store.getComponent(ref, Player.getComponentType());
+            if (playerComponent != null) {
+                PassiveTreePage passivePage = new PassiveTreePage(this.playerRef, null);
+                playerComponent.getPageManager().openCustomPage(ref, store, passivePage);
+            }
         }
     }
     

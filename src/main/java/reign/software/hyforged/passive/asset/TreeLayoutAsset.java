@@ -34,7 +34,10 @@ import java.util.List;
  *     { "From": "hyforged:start-strength", "To": "yourmod:strength-5" },
  *     { "From": "yourmod:strength-5", "To": "yourmod:str-b" }
  *   ],
- *   "StartingNodes": ["yourmod:custom-start"]
+ *   "StartingNodes": ["yourmod:custom-start"],
+ *   "TextLabels": [
+ *     { "Text": "STRENGTH", "Position": { "X": -200, "Y": 20 }, "FontSize": 16, "Color": "#FFCC00" }
+ *   ]
  * }
  * </pre>
  */
@@ -77,6 +80,12 @@ public class TreeLayoutAsset implements JsonAssetWithMap<String, IndexedLookupTa
             asset -> asset.startingNodes != null ? asset.startingNodes.toArray(new String[0]) : null
         )
         .add()
+        .append(
+            new KeyedCodec<>("TextLabels", TextLabelAsset.ARRAY_CODEC),
+            (asset, value) -> asset.textLabels = value != null ? Arrays.asList(value) : null,
+            asset -> asset.textLabels != null ? asset.textLabels.toArray(new TextLabelAsset[0]) : null
+        )
+        .add()
         .build();
 
     private static AssetStore<String, TreeLayoutAsset, IndexedLookupTableAssetMap<String, TreeLayoutAsset>> ASSET_STORE;
@@ -86,6 +95,7 @@ public class TreeLayoutAsset implements JsonAssetWithMap<String, IndexedLookupTa
     private List<NodePlacementAsset> placements;
     private List<PassiveConnectionAsset> connections;
     private List<String> startingNodes;
+    private List<TextLabelAsset> textLabels;
     private AssetExtraInfo.Data data;
 
     public TreeLayoutAsset() {
@@ -142,5 +152,13 @@ public class TreeLayoutAsset implements JsonAssetWithMap<String, IndexedLookupTa
     @Nonnull
     public List<String> getStartingNodes() {
         return startingNodes != null ? startingNodes : List.of();
+    }
+
+    /**
+     * Get the text labels defined in this layout.
+     */
+    @Nonnull
+    public List<TextLabelAsset> getTextLabels() {
+        return textLabels != null ? textLabels : List.of();
     }
 }

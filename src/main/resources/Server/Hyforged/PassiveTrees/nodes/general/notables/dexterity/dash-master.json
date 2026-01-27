@@ -5,6 +5,7 @@
       "Type": "notable",
       "Name": "Dash Master",
       "Description": "Unlocks the Dash ability.",
+      "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:dash-unlocked" }
       ]

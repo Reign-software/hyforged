@@ -5,6 +5,7 @@
       "Type": "keystone",
       "Name": "Eternal Youth",
       "Description": "Life Regeneration is doubled\nCannot Leech Life",
+      "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
         { "Type": "unlock-flag", "FlagId": "hyforged:eternal-youth" }
       ]

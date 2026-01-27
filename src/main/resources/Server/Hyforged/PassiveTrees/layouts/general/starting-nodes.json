@@ -49,5 +49,43 @@
     "hyforged:start-dexterity",
     "hyforged:start-intelligence",
     "hyforged:start-wisdom"
+  ],
+  "TextLabels": [
+    {
+      "Text": "STRENGTH",
+      "Position": { "X": -210, "Y": -30 },
+      "FontSize": 14,
+      "Color": "#FF6B6B",
+      "Anchor": "center",
+      "Region": "strength",
+      "FontWeight": "bold"
+    },
+    {
+      "Text": "DEXTERITY",
+      "Position": { "X": -70, "Y": -30 },
+      "FontSize": 14,
+      "Color": "#6BCB77",
+      "Anchor": "center",
+      "Region": "dexterity",
+      "FontWeight": "bold"
+    },
+    {
+      "Text": "INTELLIGENCE",
+      "Position": { "X": 70, "Y": -30 },
+      "FontSize": 14,
+      "Color": "#4D96FF",
+      "Anchor": "center",
+      "Region": "intelligence",
+      "FontWeight": "bold"
+    },
+    {
+      "Text": "WISDOM",
+      "Position": { "X": 210, "Y": -30 },
+      "FontSize": 14,
+      "Color": "#9D65C9",
+      "Anchor": "center",
+      "Region": "wisdom",
+      "FontWeight": "bold"
+    }
   ]
 }

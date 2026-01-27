@@ -54,6 +54,7 @@ class PassiveTreeRegistryTest {
                         id + "-node1", node1
                 ),
                 List.of(new PassiveConnection(startNodeId, id + "-node1")),
+                List.of(),
                 1
         );
     }

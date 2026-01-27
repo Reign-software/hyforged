@@ -1,0 +1,300 @@
+// Hyforged Passive Tree Page UI
+// Populated by PassiveTreePage.java
+// Uses native TopScrolling for scrollbar navigation
+
+$Common = "../Common.ui";
+
+Group #PassiveTreePage {
+    LayoutMode: Full;
+    Background: PatchStyle(Color: #0a0a0f);
+
+    // ========== LEFT SIDEBAR ==========
+    Group #Sidebar {
+        Anchor: (Left: 0, Top: 0, Bottom: 0, Width: 140);
+        Background: PatchStyle(Color: #121215);
+        LayoutMode: Top;
+        Padding: (Full: 6);
+
+        // Tree Type Tabs
+        Group #TreeTabs {
+            LayoutMode: Top;
+            Anchor: (Height: 50);
+            Padding: (Bottom: 4);
+
+            Button #GeneralTreeTab {
+                Anchor: (Height: 20);
+                Background: $Common.@InputBoxBackground;
+                Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+                Label { Text: "General"; Style: (FontSize: 9, Alignment: Center); }
+            }
+
+            Button #ClassTreeTab {
+                Anchor: (Height: 20, Top: 4);
+                Background: $Common.@InputBoxBackground;
+                Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+                Label { Text: "Class"; Style: (FontSize: 9, Alignment: Center); }
+            }
+        }
+
+        // Separator
+        Group #Sep1 {
+            Anchor: (Height: 1);
+            Background: PatchStyle(Color: #404050);
+        }
+
+        // Points Display Section
+        Group #PointsSection {
+            LayoutMode: Top;
+            Anchor: (Height: 60);
+            Padding: (Top: 4, Bottom: 4);
+
+            Label #PointsLabel {
+                Text: "Passive Points";
+                Style: (FontSize: 9, TextColor: #888888);
+            }
+
+            Label #PointsDisplay {
+                Text: "0 / 0";
+                Style: (FontSize: 12, RenderBold: true);
+            }
+
+            Label #AscendancyPointsLabel {
+                Text: "Available: 0";
+                Style: (FontSize: 9, TextColor: #aaaaaa);
+            }
+        }
+
+        // Separator
+        Group #Sep2 {
+            Anchor: (Height: 1);
+            Background: PatchStyle(Color: #404050);
+        }
+
+        // Search Section
+        Group #SearchSection {
+            LayoutMode: Top;
+            Anchor: (Height: 50);
+            Padding: (Top: 4, Bottom: 4);
+
+            TextField #SearchInput {
+                Anchor: (Height: 20);
+                Background: PatchStyle(Color: #1a1a1e);
+                Padding: (Full: 2);
+                Style: (FontSize: 9);
+            }
+
+            Button #SearchBtn {
+                Anchor: (Height: 20, Top: 4);
+                Background: $Common.@InputBoxBackground;
+                Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+                Label { Text: "Search"; Style: (FontSize: 9, Alignment: Center); }
+            }
+        }
+
+        // Separator
+        Group #Sep3 {
+            Anchor: (Height: 1);
+            Background: PatchStyle(Color: #404050);
+        }
+
+        // Stats Summary Section
+        Group #StatsSection {
+            LayoutMode: Top;
+            Padding: (Top: 4, Bottom: 4);
+
+            Label #StatsLabel {
+                Text: "Allocated Stats";
+                Style: (FontSize: 9, TextColor: #888888);
+            }
+
+            Group #StatsList {
+                LayoutMode: Top;
+                Padding: (Top: 4);
+
+                Label #StatsPlaceholder {
+                    Text: "No nodes allocated";
+                    Style: (FontSize: 6, TextColor: #666666);
+                }
+            }
+        }
+
+        // Separator
+        Group #Sep4 {
+            Anchor: (Height: 1);
+            Background: PatchStyle(Color: #404050);
+        }
+
+        // Action Buttons
+        Group #ActionSection {
+            LayoutMode: Top;
+            Anchor: (Height: 60);
+            Padding: (Top: 4);
+
+            Button #ResetTreeBtn {
+                Anchor: (Height: 24);
+                Background: PatchStyle(Color: #4a2020);
+                Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+                Label { Text: "Reset"; Style: (FontSize: 10, Alignment: Center); }
+            }
+
+            Button #CloseBtn {
+                Anchor: (Height: 24, Top: 4);
+                Background: $Common.@InputBoxBackground;
+                Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+                Label { Text: "Close"; Style: (FontSize: 10, Alignment: Center); }
+            }
+        }
+    }
+
+    // ========== MAIN TREE AREA (with native scrolling) ==========
+    Group #TreeArea {
+        Anchor: (Left: 140, Top: 0, Right: 0, Bottom: 0);
+        Background: PatchStyle(Color: #0a0a0f);
+        LayoutMode: TopScrolling;
+        ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+
+        // Canvas container - large fixed height for scrolling
+        Group #TreeCanvas {
+            Anchor: (Width: 900, Height: 3000);
+            
+            // Connection lines layer (rendered behind nodes)
+            Group #ConnectionsCanvas {
+                Anchor: (Full: 0);
+            }
+
+            // Node buttons layer (rendered on top of connections)
+            Group #NodesCanvas {
+                Anchor: (Full: 0);
+            }
+        }
+    }
+
+    // ========== REGION SELECTION OVERLAY ==========
+    Group #RegionSelectionOverlay {
+        Visible: false;
+        LayoutMode: Full;
+        Background: PatchStyle(Color: #000000aa);
+
+        Group #RegionSelectionPanel {
+            Anchor: (Width: 500, Height: 300);
+            LayoutMode: CenterMiddle;
+            Background: $Common.@InputBoxBackground;
+            Padding: (Full: 20);
+
+            Group #RegionSelectionContent {
+                LayoutMode: Top;
+
+                Label #RegionSelectionTitle {
+                    Text: "Choose Your Starting Region";
+                    Style: (FontSize: 18, Alignment: Center, RenderBold: true);
+                }
+
+                Label #RegionSelectionDesc {
+                    Text: "Select the attribute that best matches your playstyle";
+                    Style: (FontSize: 11, Alignment: Center, TextColor: #aaaaaa);
+                    Padding: (Top: 10, Bottom: 20);
+                }
+
+                // Container for dynamically added region buttons
+                Group #RegionOptions {
+                    LayoutMode: Left;
+                    Padding: (Top: 10);
+                }
+            }
+        }
+    }
+
+    // ========== TOOLTIP OVERLAY ==========
+    Group #TooltipOverlay {
+        Visible: false;
+        Anchor: (Right: 20, Top: 80, Width: 260);
+        Background: PatchStyle(Color: #1a1a1e, Border: 1);
+        LayoutMode: Top;
+        Padding: (Full: 10);
+
+        Label #TooltipName {
+            Text: "Node Name";
+            Style: (FontSize: 14, RenderBold: true);
+        }
+
+        Label #TooltipType {
+            Text: "Notable";
+            Style: (FontSize: 10, TextColor: #c0a040);
+            Padding: (Top: 2);
+        }
+
+        Label #TooltipStatus {
+            Text: "AVAILABLE";
+            Style: (FontSize: 9, TextColor: #4CAF50);
+            Padding: (Top: 4);
+        }
+
+        Label #TooltipDescription {
+            Text: "";
+            Style: (FontSize: 10, TextColor: #aaaaaa);
+            Padding: (Top: 6);
+        }
+
+        Label #TooltipEffects {
+            Text: "";
+            Style: (FontSize: 10);
+            Padding: (Top: 6);
+        }
+
+        Label #TooltipActionHint {
+            Text: "Click to allocate";
+            Style: (FontSize: 9, TextColor: #666666);
+            Padding: (Top: 8);
+        }
+    }
+
+    // ========== CONFIRMATION OVERLAY ==========
+    Group #ConfirmationOverlay {
+        Visible: false;
+        LayoutMode: Full;
+        Background: PatchStyle(Color: #000000cc);
+
+        Group #ConfirmationPanel {
+            Anchor: (Width: 350, Height: 200);
+            LayoutMode: CenterMiddle;
+            Background: $Common.@InputBoxBackground;
+            Padding: (Full: 20);
+
+            Group #ConfirmationContent {
+                LayoutMode: Top;
+
+                Label #ConfirmTitle {
+                    Text: "Confirm Action";
+                    Style: (FontSize: 16, Alignment: Center, RenderBold: true);
+                }
+
+                Label #ConfirmMessage {
+                    Text: "Are you sure?";
+                    Style: (FontSize: 11, Alignment: Center);
+                    Padding: (Top: 15);
+                }
+
+                // Confirmation Buttons
+                Group #ConfirmButtons {
+                    LayoutMode: Left;
+                    Anchor: (Height: 40);
+                    Padding: (Top: 20);
+
+                    Button #ConfirmCancel {
+                        Anchor: (Width: 80, Height: 32);
+                        Background: $Common.@InputBoxBackground;
+                        Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+                        Label { Text: "Cancel"; Style: (FontSize: 11, Alignment: Center); }
+                    }
+
+                    Button #ConfirmAccept {
+                        Anchor: (Width: 80, Height: 32, Left: 20);
+                        Background: PatchStyle(Color: #2a4a2a);
+                        Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+                        Label { Text: "Confirm"; Style: (FontSize: 11, Alignment: Center); }
+                    }
+                }
+            }
+        }
+    }
+}

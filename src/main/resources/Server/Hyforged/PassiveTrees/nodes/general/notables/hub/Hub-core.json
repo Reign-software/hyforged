@@ -21,6 +21,7 @@
       "Type": "notable",
       "Name": "Versatility",
       "Description": "+1 to All Attributes\n+5% increased Damage",
+      "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
         { "Type": "stat-modifier", "Stat": "hyforged:attribute-all", "Value": 1 },
         { "Type": "stat-modifier", "Stat": "hyforged:damage-percent", "Value": 500 }

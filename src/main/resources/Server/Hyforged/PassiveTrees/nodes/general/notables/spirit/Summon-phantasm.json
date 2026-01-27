@@ -5,6 +5,7 @@
       "Type": "notable",
       "Name": "Summon Phantasm",
       "Description": "Unlocks the Summon Phantasm skill.",
+      "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
         { "Type": "spell-grant", "SpellId": "hyforged:summon-phantasm" }
       ]
