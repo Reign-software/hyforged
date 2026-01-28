@@ -17,6 +17,7 @@ This is a Hytale plugin project. Hytale plugins are used to extend the functiona
 - Prefer single-file JSON definitions for features that extend Hytale (e.g., buffs/debuffs, effects, interactions). Avoid multi-file JSON solutions unless there is a clear, logical design need.
 - There is a build and deploy task that will build the plugin and copy it to the local Hytale server plugins directory for testing. Use this to speed up your development workflow.
 - There should be no warnings or errors when compiling the plugin. (ignoring pom.xml warnings)
+- Any user-facing text must be localized via translation keys (e.g., `Message.translation(...)`) and added to language resources under `src/main/resources/Server/Languages/<locale>/*.lang` (filename becomes the key prefix). `src/main/resources/Server/Languages/fallback.lang` is only for locale fallback mappings (e.g., `en-GB = en-US`).
 
 ## .github/skills
 - Evaluate skills when given a task or problem to solve.

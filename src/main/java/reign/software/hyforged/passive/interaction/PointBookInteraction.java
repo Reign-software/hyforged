@@ -6,6 +6,7 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.protocol.InteractionState;
 import com.hypixel.hytale.protocol.InteractionType;
 import com.hypixel.hytale.protocol.WaitForDataFrom;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.entity.InteractionContext;
 import com.hypixel.hytale.server.core.entity.entities.Player;
@@ -18,6 +19,7 @@ import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.passive.component.PassiveTreeComponent;
 import reign.software.hyforged.passive.event.PointBookConsumedEvent;
 import reign.software.hyforged.passive.registry.PassiveTreeRegistry;
+import reign.software.hyforged.util.MessageColors;
 
 import javax.annotation.Nonnull;
 import java.util.logging.Level;
@@ -106,7 +108,11 @@ public class PointBookInteraction extends SimpleInstantInteraction {
             // At cap - fail the interaction (preserves the item)
             LOGGER.log(Level.FINE, "Player tried to use Point Book but is at max ({0})", maxBookPoints);
             context.getState().state = InteractionState.Failed;
-            // TODO: Send notification to player that they're at max
+            player.sendMessage(
+                    Message.translation("hyforged.passive.pointBook.maxReached")
+                            .param("max", maxBookPoints)
+                            .color(MessageColors.WARNING)
+            );
             return;
         }
 
