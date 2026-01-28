@@ -1,6 +1,7 @@
 package reign.software.hyforged.passive.migration;
 
 import com.hypixel.hytale.component.Ref;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.passive.component.PassiveTreeComponent;
 import reign.software.hyforged.passive.model.PassiveTree;
@@ -50,7 +51,7 @@ public class PassiveTreeMigrationService {
             boolean migrationsPerformed,
             @Nonnull List<String> treesMigrated,
             int totalNodesRefunded,
-            @Nonnull List<String> messages
+            @Nonnull List<Message> messages
     ) {
         public static MigrationResult noMigration() {
             return new MigrationResult(false, List.of(), 0, List.of());
@@ -71,7 +72,7 @@ public class PassiveTreeMigrationService {
             @Nonnull PassiveTreeComponent passiveComponent
     ) {
         List<String> treesMigrated = new ArrayList<>();
-        List<String> messages = new ArrayList<>();
+        List<Message> messages = new ArrayList<>();
         int totalNodesRefunded = 0;
 
         // Check general tree
@@ -162,11 +163,28 @@ public class PassiveTreeMigrationService {
         // Update version
         passiveComponent.setTreeVersion(treeId, currentVersion);
 
-        List<String> messages = new ArrayList<>();
+        List<Message> messages = new ArrayList<>();
         if (refundResult.success()) {
-            String treeName = tree.isGeneralTree() ? "General Tree" : tree.getClassId() + " Class Tree";
-            messages.add("The " + treeName + " has been updated. " + 
-                    refundResult.pointsReturned() + " passive points have been refunded.");
+            if (tree.isGeneralTree()) {
+                messages.add(
+                        Message.translation("hyforged.passive.treeMigration.refund.general")
+                                .param("points", refundResult.pointsReturned())
+                );
+            } else {
+                String classId = tree.getClassId();
+                if (classId == null || classId.isBlank()) {
+                    messages.add(
+                            Message.translation("hyforged.passive.treeMigration.refund.classUnknown")
+                                    .param("points", refundResult.pointsReturned())
+                    );
+                } else {
+                    messages.add(
+                            Message.translation("hyforged.passive.treeMigration.refund.class")
+                                    .param("classId", classId)
+                                    .param("points", refundResult.pointsReturned())
+                    );
+                }
+            }
         }
 
         return new MigrationResult(

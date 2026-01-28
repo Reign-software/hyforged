@@ -42,6 +42,10 @@ public class NPCQualityRuleAsset implements JsonAssetWithMap<String, IndexedLook
             )
             .append(new KeyedCodec<>("Description", Codec.STRING), (asset, value) -> asset.description = value != null ? value : "", asset -> asset.description)
             .add()
+            .append(new KeyedCodec<>("ModifierPool", Codec.STRING), (asset, value) -> asset.modifierPool = value != null ? value : "", asset -> asset.modifierPool)
+            .add()
+            .append(new KeyedCodec<>("ModifierCount", Codec.INTEGER), (asset, value) -> asset.modifierCount = value != null ? value : 0, asset -> asset.modifierCount)
+            .add()
             .append(new KeyedCodec<>("AppliesTo", Codec.STRING_ARRAY), (asset, value) -> asset.appliesTo = value != null ? value : new String[0], asset -> asset.appliesTo)
             .add()
             .append(new KeyedCodec<>("Weights", INT_MAP_CODEC), (asset, value) -> asset.weights = value != null ? value : new HashMap<>(), asset -> asset.weights)
@@ -59,6 +63,8 @@ public class NPCQualityRuleAsset implements JsonAssetWithMap<String, IndexedLook
     private String id;
     private AssetExtraInfo.Data data;
     private String description = "";
+    private String modifierPool = "";
+    private int modifierCount = 0;
     private String[] appliesTo = new String[0];
     private Map<String, Integer> weights = new HashMap<>();
     private Map<String, Double> statMultipliers = new HashMap<>();
@@ -86,6 +92,8 @@ public class NPCQualityRuleAsset implements JsonAssetWithMap<String, IndexedLook
         return new NPCQualityRule(
                 id,
                 description,
+                modifierPool,
+                modifierCount,
                 appliesTo != null ? Arrays.asList(appliesTo) : java.util.List.of(),
                 weights,
                 statMultipliers,

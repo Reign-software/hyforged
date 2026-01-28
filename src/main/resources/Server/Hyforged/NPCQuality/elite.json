@@ -1,5 +1,7 @@
 {
   "Description": "Quality distribution for elite/champion NPCs (praetorians, knights, ogres)",
+  "ModifierPool": "elite",
+  "ModifierCount": 1,
   "AppliesTo": [
     "Skeleton_Praetorian",
     "Risen_Knight",

@@ -12,23 +12,30 @@ import java.util.Objects;
 public record NPCQualityRule(
         @Nonnull String id,
         @Nonnull String description,
-    @Nonnull java.util.List<String> appliesTo,
+        @Nonnull String modifierPool,
+        int modifierCount,
+        @Nonnull java.util.List<String> appliesTo,
         @Nonnull Map<String, Integer> weights,
         @Nonnull Map<String, Double> statMultipliers,
-    @Nonnull Map<String, Integer> lootQualityBonus,
-    @Nonnull Map<String, Map<String, Integer>> affixSlots
+        @Nonnull Map<String, Integer> lootQualityBonus,
+        @Nonnull Map<String, Map<String, Integer>> affixSlots
 ) {
     public NPCQualityRule {
         Objects.requireNonNull(id, "id cannot be null");
         Objects.requireNonNull(description, "description cannot be null");
-    Objects.requireNonNull(appliesTo, "appliesTo cannot be null");
+        Objects.requireNonNull(modifierPool, "modifierPool cannot be null");
+        Objects.requireNonNull(appliesTo, "appliesTo cannot be null");
         Objects.requireNonNull(weights, "weights cannot be null");
         Objects.requireNonNull(statMultipliers, "statMultipliers cannot be null");
         Objects.requireNonNull(lootQualityBonus, "lootQualityBonus cannot be null");
-    Objects.requireNonNull(affixSlots, "affixSlots cannot be null");
+        Objects.requireNonNull(affixSlots, "affixSlots cannot be null");
 
         if (id.isBlank()) {
             throw new IllegalArgumentException("id cannot be blank");
+        }
+
+        if (modifierCount < 0) {
+            modifierCount = 0;
         }
 
         appliesTo = appliesTo != null ? java.util.List.copyOf(appliesTo) : Collections.emptyList();

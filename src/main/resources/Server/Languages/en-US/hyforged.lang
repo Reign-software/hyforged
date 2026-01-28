@@ -1,2 +1,5 @@
 # Hyforged
 passive.pointBook.maxReached = You have already used the maximum number of Point Books ({max}).
+passive.treeMigration.refund.general = Your General Tree was updated. {points} passive points have been refunded.
+passive.treeMigration.refund.class = Your {classId} Class Tree was updated. {points} passive points have been refunded.
+passive.treeMigration.refund.classUnknown = Your class tree was updated. {points} passive points have been refunded.

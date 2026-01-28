@@ -3,17 +3,19 @@ package reign.software.hyforged.passive.system;
 import com.hypixel.hytale.component.Holder;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.event.EventRegistration;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.event.events.player.PlayerConnectEvent;
+import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.passive.component.PassiveTreeComponent;
 import reign.software.hyforged.passive.migration.PassiveTreeMigrationService;
+import reign.software.hyforged.util.MessageColors;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -83,8 +85,8 @@ public class PassiveTreeMigrationSystem {
                     result.totalNodesRefunded()));
             
             // Send migration messages to player
-            for (String message : result.messages()) {
-                sendPlayerMessage(playerRef, message);
+            for (Message message : result.messages()) {
+                sendPlayerMessage(entityRef, message);
             }
         }
     }
@@ -92,10 +94,17 @@ public class PassiveTreeMigrationSystem {
     /**
      * Send a message to the player about migration results.
      */
-    private void sendPlayerMessage(@Nonnull PlayerRef playerRef, @Nonnull String message) {
-        // TODO: Use chat/notification system when available
-        LOGGER.log(Level.FINE, "Migration message for {0}: {1}", 
-                new Object[]{playerRef.getUsername(), message});
+    private void sendPlayerMessage(@Nonnull Ref<EntityStore> entityRef, @Nonnull Message message) {
+        if (!entityRef.isValid()) {
+            return;
+        }
+
+        Player player = entityRef.getStore().getComponent(entityRef, Player.getComponentType());
+        if (player == null) {
+            return;
+        }
+
+        player.sendMessage(message.color(MessageColors.AQUA));
     }
 
     /**

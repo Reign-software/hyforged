@@ -8,8 +8,10 @@ import com.hypixel.hytale.protocol.InteractionType;
 import com.hypixel.hytale.protocol.WaitForDataFrom;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.HytaleServer;
+import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.entity.InteractionContext;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.transaction.ItemStackSlotTransaction;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.CooldownHandler;
@@ -51,6 +53,8 @@ public class PointBookInteraction extends SimpleInstantInteraction {
      * Interaction type ID for codec registration.
      */
     public static final String TYPE_ID = "hyforged:point-book-consume";
+
+    private static final String CONSUME_EFFECT_ID = "hyforged:point-book-consumed";
 
     /**
      * Codec for JSON deserialization.
@@ -131,9 +135,8 @@ public class PointBookInteraction extends SimpleInstantInteraction {
 
         // Success
         context.getState().state = InteractionState.Finished;
-        
-        // TODO: Play sound effect
-        // TODO: Show visual effect
+
+        applyConsumeEffects(entityRef, commandBuffer);
     }
 
     /**
@@ -181,6 +184,21 @@ public class PointBookInteraction extends SimpleInstantInteraction {
                 context.setHeldItem(transaction.getSlotAfter());
             }
         }
+    }
+
+    private void applyConsumeEffects(@Nonnull Ref<EntityStore> entityRef, @Nonnull CommandBuffer<EntityStore> commandBuffer) {
+        EntityEffect effect = EntityEffect.getAssetMap().getAsset(CONSUME_EFFECT_ID);
+        if (effect == null) {
+            LOGGER.log(Level.FINE, "Point Book consume effect not found: {0}", CONSUME_EFFECT_ID);
+            return;
+        }
+
+        EffectControllerComponent effectController = commandBuffer.getComponent(entityRef, EffectControllerComponent.getComponentType());
+        if (effectController == null) {
+            return;
+        }
+
+        effectController.addEffect(entityRef, effect, commandBuffer);
     }
 
     @Override

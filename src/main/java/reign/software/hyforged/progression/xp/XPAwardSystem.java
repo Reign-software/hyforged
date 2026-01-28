@@ -32,7 +32,7 @@ import java.util.logging.Logger;
  * Handles:
  * - Adding character XP to ProgressionComponent
  * - Adding class XP if entity has an active class
- * - Detecting level-up thresholds (TODO: Phase 6 will emit level-up events)
+ * - Detecting level-up thresholds
  * - Audit logging of all XP awards
  * <p>
  * XP is server-authoritative - only systems can dispatch XPAwardEvents.

@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:point-book-consumed",
+  "EntityEffect": {
+    "Duration": 0.2,
+    "Debuff": false,
+    "OverlapBehavior": "Overwrite",
+    "ApplicationEffects": {
+      "LocalSoundEventId": "SFX_Drop_Items_Paper",
+      "ModelVFXId": "Trinket"
+    }
+  },
+  "HyforgedModifiers": []
+}

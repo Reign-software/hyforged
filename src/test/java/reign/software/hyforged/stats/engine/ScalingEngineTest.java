@@ -439,14 +439,6 @@ class ScalingEngineTest {
         @DisplayName("Missing source stat returns 0 contribution")
         void missingSourceStat_returnsZero() {
             StatDefinitionRegistry.reset();
-            StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-            
-            // Only register Attack Power, not Strength
-            StatDefinition attackPower = new StatDefinition.Builder(ATTACK_POWER)
-                    .defaultValue(0)
-                    .bounds(0, Integer.MAX_VALUE)
-                    .addScaling(new LinearScaling(STRENGTH, 2.0))
-                    .build();
             
             // Note: We can't freeze with invalid dependencies in real code,
             // but for this test we'll test the computeContribution directly

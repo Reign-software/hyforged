@@ -1,18 +1,33 @@
 package reign.software.hyforged.progression.xp;
 
+import com.hypixel.hytale.assetstore.AssetExtraInfo;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
+import com.hypixel.hytale.server.core.asset.type.model.config.Model;
+import com.hypixel.hytale.server.core.asset.type.model.config.ModelAsset;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.modules.entity.component.ModelComponent;
+import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathSystems;
+import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import reign.software.hyforged.progression.component.ProgressionComponent;
+import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.combat.scaling.MonsterLevelComponent;
+import reign.software.hyforged.combat.scaling.MonsterScalingService;
+import reign.software.hyforged.progression.component.ProgressionComponent;
+import reign.software.hyforged.quality.component.HyforgedNPCQualityComponent;
+import reign.software.hyforged.quality.model.NPCQualityRule;
+import reign.software.hyforged.quality.registry.NPCQualityRegistry;
+import reign.software.hyforged.stats.bridge.ProgressionStatBridge;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -93,8 +108,8 @@ public class XPAwardOnKillSystem extends DeathSystems.OnDeathSystem {
     /**
      * Calculate XP to award for killing an entity.
      * <p>
-     * Uses XPConfig for base values and scaling.
-     * TODO: Future enhancement - read level/difficulty from NPC stat template
+        * Uses XPConfig for base values and scaling, sourcing level and difficulty
+        * from monster scaling, quality rules, or model tags when available.
      * 
      * @param victimRef the killed entity
      * @param store the entity store
@@ -102,10 +117,96 @@ public class XPAwardOnKillSystem extends DeathSystems.OnDeathSystem {
      */
     private long calculateXpForKill(Ref<EntityStore> victimRef, Store<EntityStore> store) {
         // Get base XP from config with level/difficulty scaling
-        // TODO: Look up victim's level and difficulty from NPC template or tags
-        int enemyLevel = 1;  // Default level
-        String difficulty = "normal";  // Default difficulty
-        
+        int enemyLevel = resolveEnemyLevel(victimRef, store);
+        String difficulty = resolveEnemyDifficulty(victimRef, store);
+
         return XPConfig.get().calculateCombatXp(enemyLevel, difficulty);
+    }
+
+    private int resolveEnemyLevel(@Nonnull Ref<EntityStore> victimRef, @Nonnull Store<EntityStore> store) {
+        HyforgedPlugin plugin = HyforgedPlugin.getInstance();
+        MonsterLevelComponent monsterLevel = store.getComponent(victimRef, plugin.getMonsterLevelComponentType());
+        if (monsterLevel != null && monsterLevel.getLevel() > 0) {
+            return monsterLevel.getLevel();
+        }
+
+        TransformComponent transform = store.getComponent(victimRef, TransformComponent.getComponentType());
+        World world = store.getExternalData().getWorld();
+        if (transform != null && world != null) {
+            return MonsterScalingService.get().calculateMonsterLevel(world, transform.getPosition());
+        }
+
+        return ProgressionStatBridge.getCharacterLevel(victimRef, store);
+    }
+
+    @Nullable
+    private String resolveEnemyDifficulty(@Nonnull Ref<EntityStore> victimRef, @Nonnull Store<EntityStore> store) {
+        NPCEntity npcEntity = store.getComponent(victimRef, NPCEntity.getComponentType());
+        if (npcEntity != null) {
+            NPCQualityRule rule = NPCQualityRegistry.get().resolveRuleForRole(npcEntity.getRoleName());
+            if (rule != null && !rule.id().isBlank()) {
+                return rule.id();
+            }
+        }
+
+        HyforgedNPCQualityComponent quality = store.getComponent(victimRef, HyforgedPlugin.getInstance().getNpcQualityComponentType());
+        if (quality != null && !quality.getQualityId().isBlank()) {
+            return quality.getQualityId();
+        }
+
+        return resolveDifficultyFromModelTags(victimRef, store);
+    }
+
+    @Nullable
+    private String resolveDifficultyFromModelTags(@Nonnull Ref<EntityStore> victimRef, @Nonnull Store<EntityStore> store) {
+        ModelComponent modelComponent = store.getComponent(victimRef, ModelComponent.getComponentType());
+        if (modelComponent == null) {
+            return null;
+        }
+
+        Model model = modelComponent.getModel();
+        if (model == null) {
+            return null;
+        }
+
+        String modelAssetId = model.getModelAssetId();
+        if (modelAssetId == null || modelAssetId.isBlank()) {
+            return null;
+        }
+
+        ModelAsset modelAsset = ModelAsset.getAssetMap().getAsset(modelAssetId);
+        if (modelAsset == null) {
+            return null;
+        }
+
+        AssetExtraInfo.Data data = ModelAsset.getAssetStore().getCodec().getData(modelAsset);
+        if (data == null) {
+            return null;
+        }
+
+        Map<String, String[]> rawTags = data.getRawTags();
+        if (rawTags == null || rawTags.isEmpty()) {
+            return null;
+        }
+
+        for (Map.Entry<String, String[]> entry : rawTags.entrySet()) {
+            String key = entry.getKey();
+            if (key == null || !"Difficulty".equalsIgnoreCase(key)) {
+                continue;
+            }
+
+            String[] values = entry.getValue();
+            if (values == null || values.length == 0) {
+                return null;
+            }
+
+            for (String value : values) {
+                if (value != null && !value.isBlank()) {
+                    return value;
+                }
+            }
+        }
+
+        return null;
     }
 }

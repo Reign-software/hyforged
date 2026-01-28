@@ -1,5 +1,7 @@
 {
   "Description": "Quality distribution for boss NPCs (always high quality)",
+  "ModifierPool": "boss",
+  "ModifierCount": 3,
   "AppliesTo": [
     "Goblin_Duke",
     "Goblin_Duke_Phase_2",
