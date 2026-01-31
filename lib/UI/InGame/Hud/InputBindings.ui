@@ -1,0 +1,50 @@
+$Common = "../../Common.ui";
+
+Group #Container {
+  Anchor: (Right: 50, Bottom: 50);
+  LayoutMode: Right;
+
+  Group {
+    LayoutMode: Bottom;
+
+    ActionButton #BindingCycleBlockSet {
+      Disabled: true;
+      LayoutMode: Right;
+      Alignment: Right;
+      ActionName: %client.hud.inputBindings.selectBlockVariant;
+      Anchor: (Top: 15);
+    }
+
+    ActionButton #BindingRotateBlock {
+        Disabled: true;
+        LayoutMode: Right;
+        Alignment: Right;
+        ActionName: %client.hud.inputBindings.rotateBlock;
+        Anchor: (Top: 15);
+      }
+
+    ActionButton #BindingCreationTools {
+      Disabled: true;
+      LayoutMode: Right;
+      Alignment: Right;
+      ActionName: %client.hud.inputBindings.creationTools;
+      Anchor: (Top: 15);
+    }
+
+    ActionButton #BindingInventory {
+      Disabled: true;
+      LayoutMode: Right;
+      Alignment: Right;
+      ActionName: %client.hud.inputBindings.inventory;
+      Anchor: (Top: 15);
+    }
+
+    ActionButton #BindingMap {
+      Disabled: true;
+      LayoutMode: Right;
+      Alignment: Right;
+      ActionName: %client.hud.inputBindings.map;
+      Anchor: (Top: 15);
+    }
+  }
+}

@@ -1,0 +1,41 @@
+@Overlay = #000000(0.45);
+@Background = "ItemSlotSelectorBackground.png";
+@Anchor = (Width: 717, Height: 764);
+
+@HoveredBackground = "ItemSlotSelectorHovered.png";
+@HoveredBackgroundAnchor = (Width: 336, Height: 188, Top: 108);
+@SelectedBackground = "ItemSlotSelectorSelected.png";
+@SelectedBackgroundAnchor = (Width: 336, Height: 188, Top: 109);
+@PointerBackground = "ItemSlotSelectorPointer.png";
+@PointerBackgroundAnchor = (Width: 238, Height: 150, Top: 0);
+@ItemIconSize = 100;
+@ItemIconOffset = 210;
+@SliceAngle = 72;
+@HoverSound = (
+  SoundPath: "../../Sounds/Item_Wheel_Hover.ogg",
+  Volume: -24,
+  MinPitch: -4,
+  MaxPitch: 4
+);
+
+Group {
+  LayoutMode: Middle;
+
+  Group #Icon {
+    Anchor: (Width: 72, Height: 69, Top: 30);
+  }
+
+  Label #ItemName {
+    Style: (TextColor: #dbe4e7, FontSize: 18, RenderBold: true, HorizontalAlignment: Center, Wrap: true);
+    Anchor: (Width: 190, Top: 12, Height: 50);
+  }
+}
+
+Group #EmptyIcon {
+  LayoutMode: Middle;
+
+  Group {
+    Background: "ItemSlotSelectorEmptyIcon.png";
+    Anchor: (Width: 45, Height: 45, Top: 420);
+  }
+}

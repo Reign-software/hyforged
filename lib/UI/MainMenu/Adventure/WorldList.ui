@@ -1,0 +1,62 @@
+$Common = "../../Common.ui";
+$Buttons = "../../Common/Buttons.ui";
+$WorldTile = "WorldTile.ui";
+$MainMenuCommon = "../Common.ui";
+
+@MainWidth = ($WorldTile.@TileWidth + $WorldTile.@TileSpacing) * $WorldTile.@WorldsPerRow + $Common.@DefaultScrollbarStyle.Size;
+
+Group #WorldList {
+  $MainMenuCommon.@TitleLabel #SelectWorldLabel {
+    @Text = %client.mainMenu.worlds.selectWorld + " ";
+    Anchor: (Width: @MainWidth, Top: 135, Height: 43);
+    Padding: (Bottom: 4);
+  }
+
+  Label #SelectWorldAppendixLabel {
+    Style: $MainMenuCommon.@SubTitleLabelStyle;
+    Text: %client.mainMenu.worlds.selectWorldAppendix;
+    Anchor: (Width: @MainWidth, Top: 186, Height: 30);
+  }
+
+  Group {
+    Anchor: (Height: 2, Width: @MainWidth, Top: 228);
+    Background: #a9bed8(0.12);
+  }
+
+  Group #WorldsContainer {
+    ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+    Anchor: (Top: 254 , Width: @MainWidth, Height: $WorldTile.@TileHeight * 2 + $WorldTile.@TileSpacing + 60);
+  }
+
+  Group {
+    LayoutMode: Right;
+    Anchor: (Bottom: 50, Right: 50, Height: 36);
+
+    Group {
+      Anchor: (Width: 32, Height: 32);
+      Background: "../../Common/InputIconMouseRightClick.png";
+    }
+
+    Label {
+      Text: %client.mainMenu.worlds.editWorld;
+      Anchor: (Left: 5);
+      Style: (
+        FontSize: 16,
+        RenderBold: true,
+        RenderUppercase: true,
+        TextColor: #a6afba,
+        VerticalAlignment: Center
+      );
+    }
+
+    Group {
+      Anchor: (Width: 4, Horizontal: 16);
+      Background: #a6afba(0.10);
+    }
+
+    $Common.@PrimaryTextButton #NewWorldButton {
+      @Text = %client.mainMenu.worlds.createWorld;
+      @Anchor = Anchor(MinWidth: 220);
+    }
+  }
+}

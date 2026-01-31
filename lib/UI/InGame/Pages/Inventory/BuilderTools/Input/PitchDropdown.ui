@@ -1,0 +1,33 @@
+$Common = "../../../../../Common.ui";
+$Label = "../Label.ui";
+
+Group {
+  LayoutMode: Left;
+
+  Group {
+    FlexWeight: 1;
+
+    Group {
+      LayoutMode: Left;
+      Anchor: (Height: 18);
+
+      $Label.@Label #Label {
+        Text: "Pitch";
+      }
+    }
+  }
+
+  DropdownBox #PitchDropdown {
+    Anchor: (Left: 30, Right: 15, Top: 0, Height: 32, Width: 160);
+    Style: DropdownBoxStyle(
+      ...$Common.@DefaultDropdownBoxStyle,
+      LabelStyle: (
+        ...$Common.@DefaultDropdownBoxLabelStyle,
+        FontSize: 15,
+        RenderBold: true
+      ),
+      PanelAlign: Bottom,
+      PanelWidth: 200
+    );
+  }
+}

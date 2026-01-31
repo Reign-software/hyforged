@@ -1,0 +1,115 @@
+$InventoryPage = "InventoryPage.ui";
+$Common = "../../../Common.ui";
+$InGame = "../../Common.ui";
+$Container = "../../../Common/Container.ui";
+
+@FuelSlotSize = 64;
+@FuelSlotIconSize = 58;
+@FuelSlotActiveOverlay = "ProcessingFuelSlotActiveOverlay.png";
+@InputSlotActiveOverlay = "ProcessingInputSlotActiveOverlay.png";
+
+@OffButtonStyle = (...$Common.@SecondaryTextButtonStyle);
+
+@OnButtonStyle = TextButtonStyle(
+  Default: (Background: PatchStyle(TexturePath: "ProcessingOnButton.png", Border: $Common.@ButtonBorderSize), LabelStyle: $Common.@SecondaryButtonLabelStyle),
+  Hovered: (Background: PatchStyle(TexturePath: "ProcessingOnButtonHovered.png", Border: $Common.@ButtonBorderSize), LabelStyle: $Common.@SecondaryButtonLabelStyle),
+  Pressed: (Background: PatchStyle(TexturePath: "ProcessingOnButtonPressed.png", Border: $Common.@ButtonBorderSize), LabelStyle: $Common.@SecondaryButtonLabelStyle)
+);
+
+$Container.@Container #Panel {
+
+  #Title {
+    $Container.@Title #TitleLabel {
+      @Alignment = Start;
+    }
+  }
+
+  #Content {
+    Group {
+      LayoutMode: Left;
+      Anchor: (Height: 350);
+
+      Group #FuelContainer {
+        FlexWeight: 1;
+        Background: (TexturePath: "../../../Common/ContainerPanelPatch.png", Border: 4);
+        Anchor: (Right: $Container.@InnerPaddingValue);
+
+        $Container.@PanelTitle {
+            @Text = %client.inventory.processing.panel.fuel.title;
+        }
+
+        Group #FuelInputContainer {
+          LayoutMode: MiddleCenter;
+
+          Group {
+            ItemGrid #FuelItemGrid {
+              Anchor: (Height: @FuelSlotSize, Top: 0);
+              SlotsPerRow: 3;
+              Style: (
+                ...$InGame.@DefaultItemGridStyle,
+                SlotSize: @FuelSlotSize,
+                SlotSpacing: 0,
+                SlotIconSize: @FuelSlotIconSize,
+                SlotBackground: "ProcessingFuelSlot.png"
+              );
+              RenderItemQualityBackground: false;
+            }
+
+            TextButton #OnOffButton {
+              Anchor: (Height: 32, Width: 128, Top: @FuelSlotSize + 15);
+            }
+          }
+        }
+      }
+
+      Group {
+        FlexWeight: 1;
+        Background: (TexturePath: "../../../Common/ContainerPanelPatch.png", Border: 4);
+        Anchor: (Right: $Container.@InnerPaddingValue);
+
+        $Container.@PanelTitle {
+            @Text = %client.inventory.panel.input.title;
+        }
+
+        Group #InputGridContainer {
+          LayoutMode: MiddleCenter;
+
+          ItemGrid #InputItemGrid {
+            SlotsPerRow: 2;
+            Style: $InGame.@DefaultItemGridStyle;
+            Background: $InGame.@DefaultItemGridBackground;
+          }
+
+          Group #InputProcessingBar {
+              Anchor: (Top: 8);
+          }
+        }
+      }
+
+      Group {
+        Anchor: (Width: 200);
+        Background: (TexturePath: "../../../Common/ContainerPanelPatch.png", Border: 4);
+
+        $Container.@PanelTitle {
+          @Text = %client.inventory.processing.panel.output.title;
+        }
+
+        Group {
+          FlexWeight: 1;
+
+          Group {
+            Background: "ProcessingOutputBackground.png";
+            Anchor: (Height: 59, Width: 28, Left: 0);
+          }
+
+          ItemGrid #OutputItemGrid {
+            SlotsPerRow: 1;
+            Style: $InGame.@DefaultItemGridStyle;
+            Background: $InGame.@DefaultItemGridBackground;
+            Padding: $InGame.@DefaultItemGridPadding;
+          }
+        }
+      }
+    }
+  }
+}

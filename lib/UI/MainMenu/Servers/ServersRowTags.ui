@@ -1,0 +1,6 @@
+$ServersPage = "ServersPage.ui";
+
+$ServersPage.@TagTextButton #ServerTag {
+  Anchor: (Right: 5, Height: 16, Width: 70);
+  Text: "";
+}

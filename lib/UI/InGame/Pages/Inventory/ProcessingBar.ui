@@ -1,0 +1,17 @@
+ Group #ProcessingBarContainer {
+  Anchor: (Height: 20, Width: 152, Right: 0);
+  Background: "ProcessingBar.png";
+  Padding: (Full: 1);
+
+  ProgressBar #ProcessingBar {
+    Anchor: (Height: 15);
+    BarTexturePath: "ProcessingBarFill.png";
+    Value: 0.4;
+    Direction: End;
+    EffectTexturePath: "ProcessingBarEffect.png";
+    EffectWidth: 37;
+    EffectHeight: 22;
+    EffectOffset: 11;
+    Alignment: Horizontal;
+  }
+}

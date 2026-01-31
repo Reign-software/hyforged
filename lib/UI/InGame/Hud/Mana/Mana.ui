@@ -1,0 +1,23 @@
+$HudResources = "../HudResources.ui";
+
+Group {
+  LayoutMode: Bottom;
+  Anchor: (Left: 48 - $HudResources.@BarStructureImagePadding + 20, Bottom: 148, Width: 358, Height: $HudResources.@ManaBarHeight);
+
+  Group {
+    Group {
+      Anchor: (Left: 0, Width: 310, Height: 26);
+      Background: "ManaBackground.png";
+
+      ProgressBar #ProgressBar {
+        Anchor: (Width: 302, Height: 20);
+        BarTexturePath: "ManaBarFill.png";
+      }
+    }
+
+    Group {
+      Anchor: (Left: 0, Width: 34, Height: 34);
+      Background: "ManaIcon.png";
+    }
+  }
+}

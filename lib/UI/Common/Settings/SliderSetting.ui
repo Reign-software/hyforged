@@ -1,0 +1,22 @@
+$Common = "../../Common.ui";
+
+Group {
+  Anchor: (Height: 44, Bottom: 8);
+  Background: (TexturePath: "../../Common/OptionBackgroundPatch.png", Border: 16);
+  LayoutMode: Left;
+
+  Label #Name {
+    Anchor: (Left: 16);
+    Style: (VerticalAlignment: Center, TextColor: #96a9be, RenderUppercase: false, FontSize: 18);
+  }
+
+  Group {
+    FlexWeight: 1;
+  }
+
+  SliderNumberField #Slider {
+    Anchor: (Width: 270, Height: 5, Right: 10);
+    SliderStyle: $Common.@DefaultSliderStyle;
+    NumberFieldStyle: $Common.@DefaultInputFieldStyle;
+  }
+}

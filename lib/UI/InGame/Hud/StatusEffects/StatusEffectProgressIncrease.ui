@@ -1,0 +1,64 @@
+@BarHeight = 2;
+@BarLength = 42;
+
+Group #StatusEffectProgressBars {
+  Padding: (Full: 2);
+  LayoutMode: Full;
+
+  Group #BarTop {
+    LayoutMode: Full;
+    Anchor: (Top: 0, Left: 0, Height: @BarHeight);
+
+    ProgressBar #Bar1 {
+      Anchor: (Width: (@BarLength / 2) + 1, Height: @BarHeight, Left: 1);
+      BarTexturePath: "Assets/BuffBarFill.png";
+      Value: 0;
+      Direction: End;
+    }
+
+    ProgressBar #Bar5 {
+      Anchor: (Width: (@BarLength / 2) + 1, Height: @BarHeight, Right: 1);
+      BarTexturePath: "Assets/BuffBarFill.png";
+      Value: 0;
+      Direction: End;
+    }
+  }
+
+  Group {
+    LayoutMode: Center;
+    Anchor: (Top: 0, Left: 0, Width: @BarHeight);
+
+    ProgressBar #Bar2 {
+      Anchor: (Width: @BarHeight, Height: @BarLength);
+      BarTexturePath: "Assets/BuffBarFill.png";
+      Value: 0;
+      Direction: Start;
+      Alignment: Vertical;
+    }
+  }
+
+  Group {
+    LayoutMode: Center;
+    Anchor: (Bottom: 0, Left: 0, Height: @BarHeight);
+
+    ProgressBar #Bar3 {
+      Anchor: (Width: @BarLength, Height: @BarHeight);
+      BarTexturePath: "Assets/BuffBarFill.png";
+      Value: 0;
+      Direction: Start;
+    }
+  }
+
+  Group {
+    LayoutMode: Center;
+    Anchor: (Top: 0, Right: 0, Width: @BarHeight);
+
+    ProgressBar #Bar4 {
+      Anchor: (Width: @BarHeight, Height: @BarLength);
+      BarTexturePath: "Assets/BuffBarFill.png";
+      Value: 0;
+      Direction: End;
+      Alignment: Vertical;
+    }
+  }
+}

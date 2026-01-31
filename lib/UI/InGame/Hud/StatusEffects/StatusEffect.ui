@@ -1,0 +1,70 @@
+$Sounds = "../../../Sounds.ui";
+
+@StatusEffectBarFillGreen = "Assets/StatusEffectBarFillGreen.png";
+@StatusEffectBarFillOrange = "Assets/StatusEffectBarFillOrange.png";
+@StatusEffectBarFillRed = "Assets/StatusEffectBarFillRed.png";
+@StatusEffectBarFillGrey = "Assets/StatusEffectBarFillGrey.png";
+
+@BuffBackground = PatchStyle(TexturePath: "Assets/BuffBackground.png");
+@DebuffBackground = PatchStyle(TexturePath: "Assets/DebuffBackground.png");
+@DisabledBackground = PatchStyle(TexturePath: "Assets/DisabledBackground.png");
+
+@BuffStartSound = $Sounds.@BuffStartSound;
+@DebuffStartSound = $Sounds.@DebuffStartSound;
+@BuffCooldownCompleted = $Sounds.@BuffCooldownCompleted;
+@BuffEffectElapsed = $Sounds.@BuffEffectElapsed;
+
+@CooldownSize = 34;
+
+Group #StatusEffect {
+  Anchor: (Width: 48, Height: 48, Left: 4);
+  Background: @BuffBackground;
+  TextTooltipStyle: (
+    LabelStyle: (
+      FontSize: 14
+    ),
+  );
+
+  Group #StatusEffectArrows {
+    Anchor: (Left: 3);
+    Group #ArrowBuff {
+      Anchor: (Width: 14, Height: 9, Top: -7);
+      Visible: false;
+      Background: "Assets/ArrowBuff.png";
+    }
+    Group #ArrowBuffDisabled {
+      Anchor: (Width: 14, Height: 9, Top: -7);
+      Visible: false;
+      Background: "Assets/ArrowBuffDisabled.png";
+    }
+    Group #ArrowDebuff {
+      Anchor: (Width: 14, Height: 9, Bottom: -7);
+      Visible: false;
+      Background: "Assets/ArrowDebuff.png";
+    }
+  }
+
+  Group #StatusEffectProgressBarsContainer {}
+
+  Group #StatusEffectIcon {
+    Anchor: (Width: 34, Height: 34);
+    LayoutMode: Center;
+    Background: "Assets/Icons/Trinket_Last_Stand_Skull.png";
+  }
+
+  Group #CooldownContainer {
+    Anchor: (Width: @CooldownSize, Height: @CooldownSize);
+    LayoutMode: Bottom;
+
+    ProgressBar #Cooldown {
+      Anchor: (Width: @CooldownSize, Height: @CooldownSize);
+      BarTexturePath: "Assets/BackgroundCooldownDisabled.png";
+      EffectTexturePath: "Assets/LineCooldownDisabled.png";
+      EffectWidth: @CooldownSize;
+      EffectHeight: 2;
+      Value: 0;
+      Direction: Start;
+      Alignment: Vertical;
+    }
+  }
+}

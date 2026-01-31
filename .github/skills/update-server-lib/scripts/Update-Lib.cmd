@@ -275,43 +275,27 @@ if defined ASSETS_PATH (
         xcopy /s /e /i /q "%ASSETS_PATH%\Server" "%LIB_DIR%\Server" >nul
         echo   Server assets copied to: %LIB_DIR%\Server
     )
+)
+
+REM Copy UI assets from Hytale launcher installation (has the actual .ui files)
+REM Uses the 'latest' symlink which points to current build
+set "UI_SOURCE=%APPDATA%\Hytale\install\release\package\game\latest\Client\Data\Game\Interface"
+
+if exist "%UI_SOURCE%" (
+    echo.
+    echo Copying UI assets from Hytale installation...
+    echo   Source: %UI_SOURCE%
     
-    REM Copy UI assets from Hytale launcher installation (has the actual .ui files)
-    REM Path: %APPDATA%\Hytale\install\release\package\game\build-X\Client\Data\Game\Interface
-    set "HYTALE_INSTALL=%APPDATA%\Hytale\install\release\package\game"
-    set "UI_SOURCE="
-    
-    if exist "%HYTALE_INSTALL%" (
-        REM Find the latest build folder
-        for /f "tokens=*" %%d in ('dir /b /ad /o-n "%HYTALE_INSTALL%" 2^>nul') do (
-            set "LATEST_BUILD=%%d"
-            goto :found_build
-        )
-        :found_build
-        if defined LATEST_BUILD (
-            set "UI_SOURCE=%HYTALE_INSTALL%\!LATEST_BUILD!\Client\Data\Game\Interface"
-        )
+    if exist "%LIB_DIR%\UI" (
+        echo   Removing existing UI assets...
+        rmdir /s /q "%LIB_DIR%\UI"
     )
     
-    if defined UI_SOURCE (
-        if exist "!UI_SOURCE!" (
-            echo.
-            echo Copying UI assets from Hytale installation...
-            echo   Build: !LATEST_BUILD!
-            
-            if exist "%LIB_DIR%\UI" (
-                echo   Removing existing UI assets...
-                rmdir /s /q "%LIB_DIR%\UI"
-            )
-            
-            xcopy /s /e /i /q "!UI_SOURCE!" "%LIB_DIR%\UI" >nul
-            echo   UI assets copied to: %LIB_DIR%\UI
-        ) else (
-            echo Warning: UI folder not found at: !UI_SOURCE!
-        )
-    ) else (
-        echo Warning: Hytale installation not found at: %HYTALE_INSTALL%
-    )
+    xcopy /s /e /i /q "%UI_SOURCE%" "%LIB_DIR%\UI" >nul
+    echo   UI assets copied to: %LIB_DIR%\UI
+) else (
+    echo Warning: UI folder not found at: %UI_SOURCE%
+    echo   Make sure Hytale is installed via the launcher.
 )
 
 REM Save version info

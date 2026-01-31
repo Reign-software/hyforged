@@ -1,0 +1,60 @@
+$MinigamesPage = "MinigamesPage.ui";
+$Common = "../../Common.ui";
+$Buttons = "../../Common/Buttons.ui";
+
+@NameLabelHoverOffset = 55;
+
+Group #LowerGlow {
+  Anchor: (Width: 194, Height: 74, Bottom: -74);
+  Background: "LowerGlow.png";
+  Visible: false;
+}
+
+Group #UpperGlow {
+  Anchor: (Width: 194, Height: 74, Top: -74);
+  Background: "UpperGlow.png";
+  Visible: false;
+}
+
+Group {
+  Anchor: (Width: $MinigamesPage.@FrameWidth, Height: $MinigamesPage.@FrameHeight, Top: 0);
+  Background: (TexturePath: "../../Common/ContainerFullPatch.png", Border: 46);
+}
+
+Group #Image {
+  Anchor: (Width: $MinigamesPage.@FrameWidth - 10, Height: $MinigamesPage.@FrameHeight - 10, Top: 5, Left: 5);
+  MaskTexturePath: "Mask.png";
+  Background: "../../Common/NoPreview.png";
+}
+
+Group {
+  Anchor: (Width: $MinigamesPage.@FrameWidth - 10, Height: $MinigamesPage.@FrameHeight - 10, Top: 5, Left: 5);
+  MaskTexturePath: "Mask.png";
+  Background: "Overlay.png";
+}
+
+Button #Button {
+  Anchor: (Width: $MinigamesPage.@FrameWidth, Height: $MinigamesPage.@FrameHeight, Top: 0, Left: 0);
+  Style: (
+    Default: (Background: #ffffff(0)),
+    Hovered: (Background: (TexturePath: "GoldenBorder_Hover.png", Border: 7))
+  );
+
+  Label #Name {
+    Anchor: (Left: 18, Right: 18, Bottom: 25, Height: 24);
+    Style: (
+      FontSize: 20,
+      RenderUppercase: true,
+      RenderBold: true,
+      TextColor: #c2d3de,
+      HorizontalAlignment: Center
+    );
+  }
+
+  $Common.@PrimaryTextButton #PlayButton {
+    @Text = "Play";
+    @Anchor = Anchor(Left: 20, Right: 20, Bottom: 20);
+
+    Visible: false;
+  }
+}

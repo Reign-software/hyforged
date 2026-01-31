@@ -33,7 +33,7 @@ C:\hytale-downloader\
             └── Server\
 
 %APPDATA%\Hytale\install\release\package\game\
-└── build-X\                                # Build number changes with releases
+└── latest\                                 # Symlink to current build
     └── Client\Data\Game\Interface\         # UI source (.ui files)
 ```
 

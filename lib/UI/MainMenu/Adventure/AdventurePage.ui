@@ -1,0 +1,10 @@
+$MainMenuCommon = "../Common.ui";
+
+Group {
+  Background: $MainMenuCommon.@OverlayBackground;
+}
+
+Group #BackButtonContainer {
+  LayoutMode: Left;
+  Anchor: (Left: 50, Bottom: 50, Width: 110, Height: 27);
+}

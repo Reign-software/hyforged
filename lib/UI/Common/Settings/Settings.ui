@@ -1,0 +1,115 @@
+$Common = "../../Common.ui";
+$Sounds = "../../Sounds.ui";
+
+@Width = 920;
+
+@NavigationItemStyle = LabelStyle(TextColor: #4d5865, FontSize: 21, HorizontalAlignment: Center, VerticalAlignment: Center, RenderUppercase: true, RenderBold: true);
+@NavigationItemSelectedStyle = LabelStyle(...@NavigationItemStyle, TextColor: #ffffff, RenderBold: true);
+
+@NavigationButtonStyle = TextButtonStyle(
+  Default: (LabelStyle: @NavigationItemStyle),
+  Hovered: (LabelStyle: (...@NavigationItemStyle, TextColor: #7b8998)),
+  Pressed: (LabelStyle: (...@NavigationItemStyle, TextColor: #a5b4c4)),
+  Sounds: $Sounds.@ButtonsLight
+);
+
+@NavigationButtonSelectedStyle = TextButtonStyle(
+  Default: (LabelStyle: @NavigationItemSelectedStyle, LabelMaskTexturePath: "../../Common/TextGradient.png")
+);
+
+Group #Main {
+  LayoutMode: Top;
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Width: @Width, Bottom: 34);
+
+    Group {
+      LayoutMode: Top;
+      FlexWeight: 1;
+
+      Group #Navigation {
+        Anchor: (Height: 44);
+        LayoutMode: Center;
+      }
+
+      Group {
+        Anchor: (Height: 2);
+        Background: #a9bed8(0.15);
+      }
+    }
+  }
+
+  Group {
+    FlexWeight: 1;
+    Anchor: (Width: @Width, Bottom: 30);
+
+    Group #TabContainer {
+      LayoutMode: Top;
+      ScrollbarStyle: $Common.@DefaultExtraSpacingScrollbarStyle;
+    }
+  }
+
+  Group #Actions {
+    LayoutMode: Right;
+    Anchor: (MaxWidth: 600, Right: 50);
+
+    $Common.@SecondaryTextButton #ResetSettings {
+      @Sounds = $Sounds.@ButtonsDestructive;
+      @Text = %client.general.button.resetDefaults;
+      @Anchor = Anchor(Right: 10, MinWidth: $Common.@DefaultButtonMinWidth);
+    }
+
+    $Common.@PrimaryTextButton #SaveChanges {
+      @Sounds = $Sounds.@SaveSettings;
+      @Text = %client.general.button.saveChanges;
+      @Anchor = Anchor(MinWidth: 220);
+    }
+  }
+}
+
+Group #SettingInfo {
+  Anchor: (Width: 450);
+  LayoutMode: Top;
+  Visible: false;
+
+  Group {
+    Padding: (Left: 25, Top: 35, Right: 25, Bottom: 35);
+    Background: $Common.@DefaultTooltipBackground;
+    Anchor: (Left: 20, Top: -25);
+    LayoutMode: Left;
+
+    Group {
+      Background: "InfoArrow.png";
+      Anchor: (Width: 9, Height: 12, Top: 6, Left: 0);
+    }
+
+    Group {
+      LayoutMode: Top;
+      Anchor: (Left: 10);
+
+      Label #SettingInfoLabel {
+        Style: (HorizontalAlignment: Start, FontSize: 16, TextColor: #96a9be, Wrap: true);
+      }
+
+      Group #SettingInfoPerformance {
+        LayoutMode: Left;
+        Anchor: (Top: 10);
+        Visible: false;
+
+        Group {
+          Background: "IconWarning.png";
+          Anchor: (Width: 22, Height: 22, Right: 10, Top: 0);
+        }
+
+        Label #SettingInfoPerformanceLabel {
+          Style: (HorizontalAlignment: Start, FontSize: 16, TextColor: #c2354c, Wrap: true);
+        }
+      }
+    }
+  }
+  Group{
+    LayoutMode: Top;
+    FlexWeight: 1;
+  }
+}

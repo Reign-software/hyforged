@@ -1,0 +1,24 @@
+$InGame = "../../Common.ui";
+$Common = "../../../Common.ui";
+$Container = "../../../Common/Container.ui";
+
+$Container.@DecoratedContainer #Panel {
+  Anchor: (Width: $InGame.@SidePanelWidth, Height: 500, Top: 180);
+
+  #Title {
+    $Container.@Title #NameLabel {}
+  }
+
+  #Content {
+    ItemPreviewComponent #ItemPreview {
+      Anchor: (Height: 310);
+      Padding: (Full: 10);
+
+      Button #InfoButton {
+        Anchor: (Width: 24, Height: 24, Top: 0, Right: 0);
+        Background: "InfoIcon.png";
+        TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+      }
+    }
+  }
+}

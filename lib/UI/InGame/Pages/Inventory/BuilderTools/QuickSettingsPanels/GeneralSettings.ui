@@ -1,0 +1,17 @@
+$CommonStyles = "QuickSettingsPanelsCommon.ui";
+$Label = "../Label.ui";
+$Common = "../../../../../Common.ui";
+
+Group #GeneralSettingsPanel {
+  LayoutMode: TopScrolling;
+  FlexWeight: 1;
+  ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+
+  Group #QuickSettingsContainer {
+    LayoutMode: Top;
+    
+    // This container will be populated by GeneralSettingsContent.cs
+    // with all the settings fields (sliders, checkboxes, text inputs, dropdowns)
+  }
+}
+

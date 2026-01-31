@@ -1,0 +1,80 @@
+$MainMenuCommon = "../Common.ui";
+
+@FramesPerRow = 4;
+@FrameWidth = 260;
+@FrameHeight = 282;
+@FrameSpacing = 18;
+
+@MainWidth = (@FrameWidth + @FrameSpacing) * @FramesPerRow;
+
+Group {
+  Background: $MainMenuCommon.@OverlayBackground;
+  LayoutMode: Top;
+
+  $MainMenuCommon.@CenteredTitleLabel {
+    @Text = " " + %client.mainMenu.minigames.title + " ";
+    Anchor: (Width: @MainWidth, Top: 135, Height: 40);
+  }
+
+  Group {
+    Anchor: (Top: 20, Width: 1239, Height: 24);
+    Background: (TexturePath: "../Shop/Divider.png");
+  }
+
+  Label {
+    Style: (...$MainMenuCommon.@SubTitleLabelStyle, HorizontalAlignment: Center);
+    Text: %client.mainMenu.minigames.title.appendix;
+    Anchor: (Top: 30, Height: 30);
+  }
+
+  Group #MinigamesContainer {
+    Anchor: (Top: -80, Width: @MainWidth, Height: 700);
+
+    Group #CreativeTile {
+      Anchor: (Width: 431, Height: 485);
+      Background: "../Adventure/GameModeTileDisabled.png";
+
+      Group {
+        Background: "../Adventure/GameModeTileCreativeRunes.png";
+        Anchor: (Width: 415, Height: 69, Top: 7);
+      }
+
+      Group {
+        Background: "MinigamesTileBackground.png";
+        Anchor: (Width: 427, Height: 310, Top: 39);
+      }
+
+      Label {
+        Text: "Minigames";
+        Anchor: (Top: 290, Height: 45);
+        Style: (Alignment: Center, FontSize: 24, RenderBold: true, RenderUppercase: true, TextColor: #96a9be);
+      }
+
+      Group {
+        Background: "../Adventure/GameModeTileTextSeparator.png";
+        Anchor: (Height: 1, Top: 290 + 45, Width: 405);
+      }
+
+      Group {
+        LayoutMode: Center;
+        Anchor: (Top: 290 + 45 + 5 + 10, Width: 385, Height: 64);
+
+        Group {
+          Anchor: (Width: 64, Height: 64, Top: -5);
+          Background: (TexturePath: "../Adventure/WIPIcon.png");
+        }
+      }
+
+      Group {
+        LayoutMode: Bottom;
+        Anchor: (Bottom: 23);
+        Padding: (Horizontal: 32);
+
+        Label {
+          Text: %client.mainMenu.minigames.wip.text;
+          Style: (Alignment: Center, FontSize: 18, RenderItalics: false, TextColor: #4f5f72(0.8), Wrap: true);
+        }
+      }
+    }
+  }
+}

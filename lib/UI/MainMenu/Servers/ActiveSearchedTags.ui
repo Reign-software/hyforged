@@ -1,0 +1,16 @@
+$ServersPage = "ServersPage.ui";
+
+Group {
+  LayoutMode: Left;
+  Anchor: (Top: 5, Right: 10);
+
+  $ServersPage.@TagTextButton #ActiveTag {
+    Anchor: (Left: -5, Height: 16, Width: 75);
+    Text: "";
+  }
+
+  Group #ActiveTag {
+    Background: "CloseIcon.png";
+    Anchor: (Left: -10, Width: 8, Height: 8);
+  }
+}

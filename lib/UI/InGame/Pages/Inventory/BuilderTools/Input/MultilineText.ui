@@ -1,0 +1,25 @@
+$Common = "../../../../../Common.ui";
+$Label = "../Label.ui";
+$SectionContainer = "../SectionContainer.ui";
+
+$SectionContainer.@SectionContainer {
+  LayoutMode: Top;
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Top: -4, Height: 24);
+    FlexWeight: 1;
+
+    $Label.@LabelAffix #LabelPrefix {}
+    $Label.@Label #Label {}
+    $Label.@LabelAffix #LabelSuffix {}
+  }
+
+  MultilineTextField #MultilineTextField {
+    Style: $Common.@DefaultInputFieldStyle;
+    PlaceholderStyle: $Common.@DefaultInputFieldPlaceholderStyle;
+    Background: $Common.@InputBoxBackground;
+    AutoGrow: false;
+    Padding: (Horizontal: 10, Vertical: 8);
+  }
+}

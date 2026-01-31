@@ -1,0 +1,20 @@
+$Label = "Label.ui";
+
+Group {
+  LayoutMode: Top;
+  Anchor: (Top: 10);
+
+  Group {
+    LayoutMode: Center;
+
+    $Label.@Label {
+      Text: "Clears all blocks in the current selection.";
+      Style: (
+        FontSize: 12,
+        TextColor: #8899aa,
+        HorizontalAlignment: Center
+      );
+    }
+  }
+}
+

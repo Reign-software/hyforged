@@ -1,0 +1,21 @@
+Group #Popup {
+  Anchor: (Width: 1431, Height: 305);
+  Background: (TexturePath: "BindingPopup.png", HorizontalBorder: 140, VerticalBorder: 0);
+
+  Group {
+    Anchor: (Top: 88, Bottom: 88, Left: 140, Right: 140);
+    Background: (TexturePath: "BindingPopupGradient.png");
+    Visible: true;
+  }
+
+  Label #BindingName {
+    Anchor: (Top: -42);
+    Style: (VerticalAlignment: Center, HorizontalAlignment: Center, TextColor: #96a9be, RenderUppercase: true, FontSize: 31);
+  }
+
+  Label {
+    Anchor: (Top: 42);
+    Text: %client.settings.bindingPopup.pressKey;
+    Style: (VerticalAlignment: Center, HorizontalAlignment: Center, TextColor: #96a9be, RenderUppercase: true, FontSize: 21, RenderBold: true);
+  }
+}

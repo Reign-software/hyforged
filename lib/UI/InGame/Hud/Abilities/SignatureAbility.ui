@@ -1,0 +1,76 @@
+@BackgroundSignatureNotReady = PatchStyle(TexturePath: "Assets/BackgroundSignatureAbilityNotReady.png");
+@BackgroundSignatureReady = PatchStyle(TexturePath: "Assets/BackgroundSignatureAbilityReady.png");
+@BackgroundSignatureSize = 128;
+@BackgroundSignatureScaleSize = 256;
+$InputBinding = "InputBinding.ui";
+
+@SignatureReadySound = (
+  SoundPath: "../../../Sounds/Signature_Charged_Stereo.ogg",
+  Volume: 1
+);
+
+Group {
+  Group #BackgroundSignature {
+    Anchor: (Width: @BackgroundSignatureSize, Height: @BackgroundSignatureSize);
+
+    Group #BackgroundSignatureReady {
+      Anchor: (Width: @BackgroundSignatureSize, Height: @BackgroundSignatureSize);
+      Background: "Assets/BackgroundSignatureAbilityReady.png";
+    }
+
+    Group #BackgroundSignatureNotReady {
+      Anchor: (Width: 128, Height: 128);
+      Background: "Assets/BackgroundSignatureAbilityNotReady.png";
+    }
+
+    Group #SignatureProgressBarContainer {
+      Anchor: (Width: 45, Height: 52);
+      LayoutMode: Full;
+
+      Group #SignatureIcon {
+        Anchor: (Width: 45, Height: 52, Left: 0);
+        LayoutMode: Full;
+        Background: (TexturePath: "Assets/Icons/SignatureAbility.png", Color: #ffffff);
+      }
+
+      CircularProgressBar #SignatureProgressBar {
+        Anchor: (Width: 98, Height: 98, Top: -23, Left: -27);
+        Value: 0;
+        MaskTexturePath: "Assets/SignatureEnergyGaugeMask.png";
+        Color: #ffffff;
+      }
+
+      CircularProgressBar #ShadowSignatureProgressBar {
+        Anchor: (Width: 98, Height: 98, Top: -23, Left: -27);
+        Value: 0;
+        MaskTexturePath: "Assets/SignatureEnergyGaugeMask.png";
+        Color: #5fd4e5;
+      }
+
+      Group #SignatureReadyProgressBar {
+        Anchor: (Width: 84, Height: 84);
+        Visible: false;
+        Background: "Assets/ChargeMeterSignatureEnergyGain.png";
+      }
+    }
+
+    Group {
+      Group #OverlaySignatureError {
+        Anchor: (Width: @BackgroundSignatureSize, Height: @BackgroundSignatureSize);
+        Background: "Assets/OverlaySignatureAbilityErrorState.png";
+      }
+    }
+
+    Group {
+      LayoutMode: Center;
+      Anchor: (
+        Bottom: -8,
+        Height: 27
+      );
+
+      ActionButton #InputBinding {
+        Disabled: true;
+      }
+    }
+  }
+}

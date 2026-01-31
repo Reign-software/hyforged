@@ -1,0 +1,210 @@
+$InventoryPage = "InventoryPage.ui";
+$InGame = "../../Common.ui";
+$Common = "../../../Common.ui";
+$Container = "../../../Common/Container.ui";
+$Buttons = "../../../Common/Buttons.ui";
+
+@SlotBackground = PatchStyle(TexturePath: "StructuralCraftingSlot.png");
+@SlotSelectedBackground = PatchStyle(TexturePath: "StructuralCraftingSlotSelected.png");
+@SlotSelectedOverlay = PatchStyle(TexturePath: "ItemListSlotSelectedOverlay.png");
+@InputSlotIcon = PatchStyle(TexturePath: "SlotDropItemIconAlt.png");
+
+@ActionButtonWidth = 36;
+@ActionButtonHeight = 36;
+
+Group {
+  LayoutMode: Top;
+
+  $Container.@Container #Panel {
+    #Title {
+      Group {
+        LayoutMode: Left;
+
+        $Container.@Title #TitleLabel {}
+      }
+    }
+
+    #Content {
+      LayoutMode: Left;
+      FlexWeight: 1;
+
+      Group #Items {
+        FlexWeight: 1;
+        Background: (TexturePath: "../../../Common/ContainerPanelPatch.png", Border: 4);
+        Anchor: (Right: $Container.@InnerPaddingValue);
+        LayoutMode: Center;
+
+        Group {
+          $Container.@PanelTitle {
+            @Text = %client.inventory.panel.input.title;
+            @Alignment = Center;
+          }
+
+          Group {
+            FlexWeight: 1;
+            LayoutMode: MiddleCenter;
+            Anchor: (Height: 280, Width: 100);
+
+            Button #BlockChangeButtonUpOuter {
+              Anchor: (Width: 38, Height: 38, Bottom: 7);
+              LayoutMode: Middle;
+
+              Group #BlockPreviewUpOuterBackground {
+                Background: @SlotBackground;
+                Anchor: (Width: 38, Height: 38);
+                LayoutMode: Middle;
+
+                Group #BlockPreviewUpOuterIcon {
+                  Anchor: (Width: 35, Height: 35);
+                }
+              }
+            }
+
+            Button #BlockChangeButtonUp {
+              Anchor: (Width: 48, Height: 48, Bottom: 7);
+              LayoutMode: Middle;
+
+              Group #BlockPreviewUpBackground {
+                Background: @SlotBackground;
+                Anchor: (Width: 48, Height: 48);
+                LayoutMode: Middle;
+
+                Group #BlockPreviewUpIcon {
+                  Anchor: (Width: 45, Height: 45);
+                }
+              }
+            }
+
+            Group #InputContainer {
+              Background: "StructuralCraftingInputSlot.png";
+              Anchor: (Height: $InGame.@DefaultItemSlotSize, Width: $InGame.@DefaultItemSlotSize);
+            }
+
+            Button #BlockChangeButtonDown {
+              Anchor: (Width: 48, Height: 48, Top: 7);
+              LayoutMode: Middle;
+
+              Group #BlockPreviewDownBackground {
+                Background: @SlotBackground;
+                Anchor: (Width: 48, Height: 48);
+                LayoutMode: Middle;
+
+                Group #BlockPreviewDownIcon {
+                  Anchor: (Width: 45, Height: 45);
+                }
+              }
+            }
+
+            Button #BlockChangeButtonDownOuter {
+              Anchor: (Width: 38, Height: 38, Top: 7);
+              LayoutMode: Middle;
+
+              Group #BlockPreviewDownOuterBackground {
+                Background: @SlotBackground;
+                Anchor: (Width: 38, Height: 38);
+                LayoutMode: Middle;
+
+                Group #BlockPreviewDownOuterIcon {
+                  Anchor: (Width: 35, Height: 35);
+                }
+              }
+            }
+          }
+        }
+
+        Group #Options {
+          Anchor: (
+            Left: 15
+          );
+          LayoutMode: TopScrolling;
+          ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+
+          Group #OptionsContainer {
+
+          }
+
+          Group #ExtraOptionsContainer {
+            Anchor: (
+              Top: 25
+            );
+          }
+        }
+      }
+
+      Group #ItemInfo {
+        LayoutMode: Top;
+        Background: (TexturePath: "../../../Common/ContainerPanelPatch.png", Border: 4);
+        Anchor: (Width: 211);
+
+        $Container.@PanelTitle #ItemName { @Alignment = Center; }
+
+        Group {
+          LayoutMode: Center;
+          Padding: Padding(Full: $Container.@InnerPaddingValue);
+
+          Group {
+            LayoutMode: Top;
+            FlexWeight: 1;
+
+            Group {
+              Anchor: (Height: 196, Bottom: 20, Top: 5);
+
+              Group {
+                Background: "StructuralCraftingItemPreviewBackground.png";
+                Anchor: (Width: 155, Height: 155);
+              }
+
+              Group #CategoryPreview {
+                Anchor: (Width: 64, Height: 64);
+              }
+
+              ItemPreviewComponent #ItemPreview {
+                Anchor: (Width: 150);
+              }
+
+              Group #ProgressBarContainer {
+                Anchor: (Height: 4, Bottom: -11);
+                Background: "ProgressBar.png";
+
+                ProgressBar #ProgressBar {
+                  BarTexturePath: "ProgressBarFill.png";
+                  EffectTexturePath: "ProgressBarEffect.png";
+                  EffectWidth: 53;
+                  EffectHeight: 30;
+                  EffectOffset: 38;
+                }
+              }
+            }
+
+            $Common.@PrimaryTextButton #Craft1Button {
+              @Text = %client.inventory.crafting.button.craft1;
+            }
+
+            Group {
+              LayoutMode: Left;
+              Anchor: (Top: 8);
+
+              $Common.@SmallSecondaryTextButton #Craft10Button {
+                @Text = %client.inventory.crafting.button.craft10;
+                TooltipText: %client.inventory.crafting.button.craft10.tooltip;
+                TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+                FlexWeight: 1;
+              }
+
+              Group {
+                Anchor: (Width: 5);
+              }
+
+              $Common.@SmallSecondaryTextButton #CraftAllButton {
+                @Text = %client.inventory.crafting.button.craftAll;
+                TooltipText: %client.inventory.crafting.button.craftAll.tooltip;
+                TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+                FlexWeight: 1;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

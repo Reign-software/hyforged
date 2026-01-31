@@ -1,0 +1,456 @@
+ $InventoryPage = "InventoryPage.ui";
+$InGame = "../../Common.ui";
+$Common = "../../../Common.ui";
+$Container = "../../../Common/Container.ui";
+
+@StatLabel = Label {
+  Anchor: (Height: 18, Width: 87, Top: 51 + (88 * @Row), Left: -6 + (87 * @Column) + @Column);
+  Style: (VerticalAlignment: Center, HorizontalAlignment: Center, FontSize: 13, RenderBold: true, TextColor: #878e9c);
+  Text: "0";
+};
+
+@SpecialItemGridStyle = (
+  ...$InGame.@DefaultItemGridStyle,
+  SlotBackground: "SpecialSlot.png"
+);
+
+@SpecialSlotBackground = "SpecialSlot.png";
+@SpecialSlotCompatibleBackground = "SpecialSlotCompatible.png";
+
+@RightSideButtonSize = 70;
+
+// Active and default state are dynamically set in CharacterPanel.cs
+@RightSideButtonDefaultStyle = ButtonStyle(
+  Default: (Background: "CharacterPanelButton.png"),
+  Sounds: $Common.@ButtonSounds
+);
+
+@RightSideButtonActiveStyle = ButtonStyle(
+  Default: (Background: "CharacterPanelButtonActive.png"),
+  Sounds: $Common.@ButtonSounds
+);
+
+@RightSideButtonInBetweenSpace = 54;
+
+$Container.@DecoratedContainer #Panel {
+  Anchor: (Width: $InGame.@SidePanelWidth, Height: 720, Top: 180);
+
+  #Title {
+    $Container.@Title #NameLabel {}
+  }
+
+  #Content {
+    Group {
+      @ItemGridY = 50;
+      @ItemGridHeight = $InGame.@DefaultItemSlotSize * 4 + $InGame.@DefaultItemSlotSpacing * 3 + (3 * $InGame.@DefaultItemGridPadding);
+      @DecorationOffset = 5;
+      @ItemGridSpecialSlotHeight = $InGame.@DefaultItemSlotSize + $InGame.@DefaultItemSlotSpacing + ($InGame.@DefaultItemGridPadding);
+      @ItemGridSpecialSlotWidth = $InGame.@DefaultItemSlotSize + $InGame.@DefaultItemGridPadding;
+      @ItemGridSpecialSlotLeftPos = 152;
+
+      Anchor: (Height: 490, Top: 0 - $Container.@InnerPaddingValue);
+
+      Group {
+        Anchor: (Width: 420, Height: 396, Bottom: 0 - @ItemGridY);
+        Background: "CharacterBackground.png";
+      }
+
+      CharacterPreviewComponent #PreviewContainer {
+        Anchor: (Height: 365, Top: 0, Left: -8, Right: -8);
+        Padding: (Left: $InGame.@DefaultItemSlotSize + 4, Right: $InGame.@DefaultItemSlotSize + 4);
+      }
+
+      Group {
+        Group #SpecialSlotBackdrop {
+          Visible: false;
+          Background: #000000(0.5);
+          Anchor: (
+            Width: $InGame.@DefaultItemSlotSize + 60,
+            Height: $InGame.@DefaultItemSlotSize + 60,
+          );
+        }
+
+        // Helmet, Chest, Gloves, Boots
+        ItemGrid #ItemGridLeft {
+          Anchor: (Width: $InGame.@DefaultItemSlotSize + 4, Height: @ItemGridHeight, Left: 0, Top: @ItemGridY);
+          SlotsPerRow: 1;
+          Style: $InGame.@DefaultItemGridStyle;
+          Background: $InGame.@DefaultItemGridBackground;
+          Padding: $InGame.@DefaultItemGridPadding;
+        }
+
+        Group #UtilitySlotCompatibleHighlight {
+          Anchor: (Width: 79, Height: 136, Bottom: -1, Left: @ItemGridSpecialSlotLeftPos - 1);
+          Background: "../../Hud/SpecialSlotPointer.png";
+          Visible: true;
+        }
+
+        Group {
+          Anchor: (
+            Width: $InGame.@DefaultItemSlotSize,
+            Height: $InGame.@DefaultItemSlotSize,
+            Bottom: 2,
+            Left: @ItemGridSpecialSlotLeftPos - $InGame.@DefaultItemSlotSize - 5
+          );
+          Background: "SpecialSlotTemporary.png";
+        }
+
+        Group {
+          Anchor: (
+            Width: $InGame.@DefaultItemSlotSize,
+            Height: $InGame.@DefaultItemSlotSize,
+            Bottom: 2,
+            Left: @ItemGridSpecialSlotLeftPos + $InGame.@DefaultItemSlotSize + 9
+          );
+          Background: "SpecialSlotTemporary.png";
+        }
+
+        Button #ToggleHelmVisibilityButton {
+          Anchor: (Width: 32, Height: 32, Top: @ItemGridY - 4, Left: $InGame.@DefaultItemSlotSize - 20);
+          TooltipText: %client.inventory.character.tooltip.toggleHelmVisibility;
+          TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+
+          Group #VisibleHelm {
+            Background: "ArmorVisibilityOn.png";
+          }
+
+          Group #HiddenHelm {
+            Background: "ArmorVisibilityOff.png";
+            Visible: false;
+          }
+        }
+
+        Button #ToggleCuirassVisibilityButton {
+          Anchor: (Width: 32, Height: 32, Top: @ItemGridY - 4 + $InGame.@DefaultItemSlotSize, Left: $InGame.@DefaultItemSlotSize - 20);
+          TooltipText: %client.inventory.character.tooltip.toggleCuirassVisibility;
+          TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+
+          Group #VisibleCuirass {
+            Background: "ArmorVisibilityOn.png";
+          }
+
+          Group #HiddenCuirass {
+            Background: "ArmorVisibilityOff.png";
+            Visible: false;
+          }
+        }
+
+        Button #ToggleGauntletsVisibilityButton {
+          Anchor: (Width: 32, Height: 32, Top: @ItemGridY - 4 + $InGame.@DefaultItemSlotSize * 2, Left: $InGame.@DefaultItemSlotSize - 20);
+          TooltipText: %client.inventory.character.tooltip.toggleGauntletsVisibility;
+          TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+
+          Group #VisibleGauntlets {
+            Background: "ArmorVisibilityOn.png";
+          }
+
+          Group #HiddenGauntlets {
+            Background: "ArmorVisibilityOff.png";
+            Visible: false;
+          }
+        }
+
+        Button #TogglePantsVisibilityButton {
+          Anchor: (Width: 32, Height: 32, Top: @ItemGridY - 4 + $InGame.@DefaultItemSlotSize * 3, Left: $InGame.@DefaultItemSlotSize - 20);
+          TooltipText: %client.inventory.character.tooltip.togglePantsVisibility;
+          TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+
+          Group #VisiblePants {
+            Background: "ArmorVisibilityOn.png";
+          }
+
+          Group #HiddenPants {
+            Background: "ArmorVisibilityOff.png";
+            Visible: false;
+          }
+        }
+
+        // Utility
+        ItemGrid #ItemGridSpecialSlot {
+          Anchor: (Width: @ItemGridSpecialSlotWidth, Height: @ItemGridSpecialSlotHeight, Left: @ItemGridSpecialSlotLeftPos, Bottom: 0 );
+          SlotsPerRow: 1;
+          Style: $InGame.@DefaultItemGridStyle;
+          Background: #000000(0);
+          Padding: $InGame.@DefaultItemGridPadding;
+        }
+
+        Label #UtilitySlotInputBinding {
+          Background: (TexturePath: "SlotInputBindingBackground.png", Border: 4);
+          Anchor: (Width: 32, Height: 24, Bottom: -14, Left: @ItemGridSpecialSlotLeftPos + 22);
+          Padding: (Top: 1);
+          Style: (RenderBold: true, Alignment: Center, TextColor: #ffffe6, FontName: "Secondary", FontSize: 12);
+        }
+
+        // Right side buttons (pocket crafting, backpack, memories)
+        Group {
+          Anchor: (Top: 98, Right: -302);
+
+          Group #SubMenuBackground {
+            Anchor: (Top: 0, Width: 72, Height: 212);
+            Background: "SubMenuBackground.png";
+          }
+
+          Group #PocketCraftingButtons {
+            Anchor: (Width: @RightSideButtonSize, Height: @RightSideButtonSize, Top: 4);
+
+            Button #PocketCraftingButton {
+              Style: @RightSideButtonDefaultStyle;
+              TooltipText: %client.inventory.character.tooltip.togglePocketCrafting;
+              TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+
+              Group #PocketCraftingInactive {
+                Background: "PocketCraftingIcon.png";
+                Anchor: (Width: 48, Height: 48);
+                Visible: false;
+              }
+
+              Group #PocketCraftingActive {
+                Background: "PocketCraftingActiveIcon.png";
+                Anchor: (Width: 48, Height: 48);
+
+                Group {
+                  Anchor: (Width: 24, Height: 24, Top: 12, Right: -35);
+                  Background: "RightMenuSelectedArrow.png";
+                }
+              }
+            }
+
+            Button #PocketCraftingDisabledButton {
+              Style: @RightSideButtonDefaultStyle;
+              TooltipText: %client.inventory.character.tooltip.pocketCraftingDisabled;
+              TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+
+              Group {
+                Background: "PocketCraftingDisabledIcon.png";
+                Anchor: (Width: 48, Height: 48, Top: 10);
+              }
+            }
+          }
+
+          Group #MemoriesButtons
+          {
+            Anchor: (Width: @RightSideButtonSize, Height: @RightSideButtonSize, Top: 71);
+
+            Group #DisabledMemoriesButton {
+              Visible: false;
+              TooltipText: %client.inventory.character.tooltip.disabledMemories;
+              TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+              Background: "CharacterPanelButton.png";
+
+              Group {
+                Background: "MemoriesLockedIcon.png";
+                Anchor: (Width: 48, Height: 48, Top: 12);
+              }
+            }
+
+            Button #MemoriesButton {
+              Style: @RightSideButtonDefaultStyle;
+              TooltipText: %client.inventory.character.tooltip.toggleMemories;
+              TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+              Visible: false;
+
+              Group #MemoriesInactive {
+                Background: "MemoriesIcon.png";
+                Anchor: (Width: 48, Height: 48, Top: 12);
+              }
+
+              Group #MemoriesActive {
+                Background: "MemoriesActiveIcon.png";
+                Anchor: (Width: 48, Height: 48, Top: 12);
+                Visible: false;
+
+                Group {
+                  Anchor: (Width: 24, Height: 24, Top: 12, Right: -35);
+                  Background: "RightMenuSelectedArrow.png";
+                }
+              }
+            }
+
+            Button #LockedMemoriesButton {
+              Style: @RightSideButtonDefaultStyle;
+              TooltipText: %client.inventory.character.tooltip.lockedMemories;
+              TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+
+              Group {
+                Background: "MemoriesLockedIcon.png";
+                Anchor: (Width: 48, Height: 48, Top: 12);
+              }
+
+              Group {
+                Background: "IconLock.png";
+                Anchor: (Width: 16, Height: 16);
+              }
+
+              Group {
+                Anchor: (Width: 26, Height: 26, Top: 4, Right: 4);
+                Background: "QuestMarker.png";
+              }
+            }
+          }
+
+          Group #BackpackButtons
+          {
+            Anchor: (Width: @RightSideButtonSize, Height: @RightSideButtonSize, Top: 138);
+
+            Group #DisabledBackpackButton {
+              Visible: false;
+              TooltipText: %client.inventory.character.tooltip.disabledBackpack;
+              TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+              Background: "CharacterPanelButton.png";
+
+              Group {
+                Background: "BackpackLockedIcon.png";
+                Anchor: (Width: 48, Height: 48, Top: 12);
+              }
+            }
+
+            Button #BackpackButton {
+              Style: @RightSideButtonDefaultStyle;
+              TooltipText: %client.inventory.character.tooltip.toggleBackpack;
+              TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+
+              Group #BackpackInactive {
+                Background: "BackpackIcon.png";
+                Anchor: (Width: 50, Height: 50);
+              }
+
+              Group #BackpackActive {
+                Background: "BackpackActiveIcon.png";
+                Anchor: (Width: 50, Height: 50);
+                Visible: false;
+
+                Group {
+                  Anchor: (Width: 24, Height: 24, Top: 12, Right: -35);
+                  Background: "RightMenuSelectedArrow.png";
+                }
+              }
+            }
+
+            Button #LockedBackpackButton {
+              Style: @RightSideButtonDefaultStyle;
+              TooltipText: %client.inventory.character.tooltip.lockedBackpack;
+              TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+              Visible: false;
+
+              Group {
+                Background: "BackpackLockedIcon.png";
+                Anchor: (Width: 50, Height: 50);
+              }
+
+              Group {
+                Background: "IconLock.png";
+                Anchor: (Width: 16, Height: 16);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    Group #Stats {
+      @Sep = Group { Anchor: (Height: 2); Background: #c1c9d3(0.07); };
+
+      @Icon = Group {
+        Anchor: (Width: 35, Height: 35);
+        Background: "CharacterPanelStatIconBackground.png";
+        TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+
+        Group {
+          Background: @IconPatch;
+        }
+      };
+
+      @IconLabelSeparator = Group {
+        Anchor: (Width: 6, Height: 6, Right: 6, Left: 6);
+        Background: "CharacterPanelDecoration2.png";
+      };
+
+      @StatNameLabel = Label {
+        Anchor: (Top: 1);
+        Style: (TextColor: #878e9c, FontSize: 11, RenderBold: false);
+      };
+
+      @StatNameValueLabel = Label {
+        Anchor: (Top: -1);
+        Style: (TextColor:  #b4c8c9, FontSize: 14, RenderBold: true);
+      };
+
+      Background: (TexturePath: "../../../Common/ContainerPanelPatch.png", Border: 4);
+      Anchor: (Height: 135, Top: 35);
+      Padding: (Horizontal: 10);
+      LayoutMode: Top;
+
+      Label {
+        Text: %client.inventory.character.stats.stats;
+        Anchor: (Top: 8);
+        Style: (TextColor:  #878e9c, FontSize: 14, RenderBold: true, RenderUppercase: true);
+      }
+
+      Group {
+        LayoutMode: Top;
+        FlexWeight: 1;
+        Anchor: (Top: -5);
+
+
+        Group {
+          LayoutMode: Left;
+          Anchor: (Height: 50, Top: 5);
+
+          @Icon {
+            @IconPatch = "CharacterPanelStatIconHealth.png"; TooltipText: %client.inventory.character.stats.health;
+          }
+          Group {
+            Anchor: (Left: 10);
+            LayoutMode: Middle;
+            FlexWeight: 1;
+            @StatNameLabel {
+              Text: %client.inventory.character.stats.health;
+            }
+            @StatNameValueLabel #StatsHealth {}
+          }
+
+          @Icon { @IconPatch = "CharacterPanelStatIconStamina.png"; TooltipText: %client.inventory.character.stats.stamina; }
+
+          Group {
+            Anchor: (Left: 10);
+            LayoutMode: Middle;
+            FlexWeight: 1;
+            @StatNameLabel {
+              Text: %client.inventory.character.stats.stamina;
+            }
+            @StatNameValueLabel #StatsStamina {}
+          }
+        }
+
+        @Sep {}
+
+        Group {
+          LayoutMode: Left;
+          Anchor: (Height: 50);
+
+          @Icon { @IconPatch = "CharacterPanelStatIconMana.png"; TooltipText: %client.inventory.character.stats.mana; }
+          Group {
+            Anchor: (Left: 10);
+            LayoutMode: Middle;
+            FlexWeight: 1;
+            @StatNameLabel {
+              Text: %client.inventory.character.stats.mana;
+            }
+            @StatNameValueLabel #StatsMana {}
+          }
+
+          @Icon { @IconPatch = "CharacterPanelStatIconArmor.png"; TooltipText: %client.inventory.character.stats.defense; }
+          Group {
+            Anchor: (Left: 10);
+            LayoutMode: Middle;
+            FlexWeight: 1;
+            @StatNameLabel {
+              Text: %client.inventory.character.stats.defense;
+            }
+            @StatNameValueLabel #StatsDefense {}
+          }
+        }
+      }
+    }
+  }
+}

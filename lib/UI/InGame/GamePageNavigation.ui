@@ -1,0 +1,52 @@
+$InGame = "Common.ui";
+$Common = "../Common.ui";
+
+Group #Root {
+  Anchor: (Height: 110, Top: 0, Left: -74, Right: -74);
+  Background: (TexturePath: "../MainMenu/TopBar/Background.png", HorizontalBorder: 74, Color: #ffffff(0.95));
+  Padding: (Bottom: 15);
+  HitTestVisible: true;
+
+  Group {
+    Padding: (Horizontal: 74);
+
+    Group #SelectedMarker {
+      Background: "../MainMenu/TopBar/NavigationItemSelected.png";
+      Anchor: (Width: 212, Height: 66, Top: 12, Left: 0);
+    }
+
+    Group #Buttons {
+      LayoutMode: Left;
+      Anchor: (Width: $InGame.@TotalPageContentWidth);
+    }
+
+    Group {
+      LayoutMode: Right;
+
+      Group {
+        LayoutMode: Left;
+        Anchor: (Height: 85, Top: 0, Right: 40);
+
+        Group {
+          LayoutMode: Middle;
+          Anchor: (Right: 16);
+
+          Label {
+            Style: (RenderBold: true, FontSize: 18, TextColor: #ffffff(0.8), RenderUppercase: true, HorizontalAlignment: End);
+            Text: %client.gamePageNavigation.earlyAccess;
+          }
+
+          Label #VersionLabel {
+            Style: (FontSize: 15, TextColor: #7c8b99, HorizontalAlignment: End);
+            Text: "v0.0.0";
+          }
+        }
+
+        Group {
+          Background: "../Common/EarlyAccessSign.png";
+          Anchor: (Width: 31, Height: 50);
+        }
+      }
+    }
+  }
+}

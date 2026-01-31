@@ -1,0 +1,38 @@
+@FontSize = 15;
+@LetterSpacing = 1;
+
+@Gray = #b7b8b9;
+@Gold = #ca9f37;
+@DarkGray = #6b6b6b;
+@DarkBlue = #131d29;
+
+@TaskIconInProgress = PatchStyle(
+  TexturePath: "ObjectiveTaskIconDefault.png"
+);
+
+@TaskIconComplete = PatchStyle(
+  TexturePath: "ObjectiveTaskIconComplete.png"
+);
+
+@TaskLabelStyle = LabelStyle(
+  FontSize: @FontSize,
+  RenderBold: true,
+  LetterSpacing: @LetterSpacing,
+  VerticalAlignment: Center,
+  Wrap: true
+);
+
+@TaskDescInProgress = LabelStyle(
+  ...@TaskLabelStyle,
+  TextColor: @Gold
+);
+
+@TaskCompletionInProgress = LabelStyle(
+  ...@TaskLabelStyle,
+  TextColor: @Gray
+);
+
+@TaskLabelComplete = LabelStyle(
+  ...@TaskLabelStyle,
+  TextColor: @DarkGray
+);

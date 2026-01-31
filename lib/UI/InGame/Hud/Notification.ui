@@ -1,0 +1,49 @@
+@Height = 48;
+@Spacing = 4;
+
+@MessageColorDefault = #a7afa7;
+@SecondaryMessageColorDefault = #909090;
+
+@MessageColorSuccess = #70c970;
+@SecondaryMessageColorSuccess = #76a076;
+
+@MessageColorWarning = #e66431;
+@SecondaryMessageColorWarning = #97785f;
+
+@MessageColorDanger = #eb3e3e;
+@SecondaryMessageColorDanger = #8a6c6c;
+
+Group #Notification {
+  LayoutMode: Right;
+  Anchor: (Top: @Spacing);
+
+  Group #Background {
+    LayoutMode: Left;
+    Padding: (Left: 3, Right: 16);
+    Background: (TexturePath: "NotificationPatch.png", Border: 4);
+
+    Group #Icon {
+      LayoutMode: CenterMiddle;
+      Anchor: (Width: 48, Height: 48, Right: -4);
+
+      Group #IconTexture {
+        Anchor: (Width: 48, Height: 48);
+      }
+    }
+
+    Group {
+      LayoutMode: Middle;
+      FlexWeight: 1;
+      Padding: (Vertical: 10);
+      Anchor:  (Left: 8);
+
+      Label #Message {
+        Style: (FontSize: 15, RenderBold: true, Wrap: true);
+      }
+
+      Label #SecondaryMessage {
+        Style: (FontSize: 12);
+      }
+    }
+  }
+}

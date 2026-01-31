@@ -1,0 +1,68 @@
+$InventoryPage = "../InventoryPage.ui";
+$Common = "../../Common.ui";
+$InGame = "../Common.ui";
+$Buttons = "../../Common/Buttons.ui";
+$DropdownInput = "DropdownInput.ui";
+
+@ShadowAndBorderSize = 29;
+
+Group #SelectionCommandsPanelContainer
+{
+  LayoutMode: Right;
+  Anchor: (Top: 190, Right: 50);
+}
+
+Group #ToolPanel
+{
+
+}
+
+Group #ShapeToolSelector
+{
+  Background: (TexturePath: "../../Common/TitledDropdownBox.png", VerticalBorder: 57, HorizontalBorder: 32);
+  Anchor: (Width: 408 + (@ShadowAndBorderSize * 2), Height: 100 + (@ShadowAndBorderSize * 2), Top: 140, Right: 23);
+  LayoutMode: Top;
+  Padding: @ShadowAndBorderSize;
+
+  Group #Header
+  {
+    LayoutMode: Center;
+    Label
+    {
+      Text: "Shape Tool";
+      Style: (TextColor: #9097a5, RenderBold: true, FontSize: 12, VerticalAlignment: Center, RenderUppercase: true);
+      Padding: (Left: 5, Top: 1);
+    }
+  }
+  Group
+  {
+    LayoutMode: Left;
+
+    Label
+    {
+      Anchor: (Height: 10, Left: 50, Top: 37);
+      Text: "Tool: ";
+      Style: (TextColor: #9097a5, RenderBold: true, FontSize: 14, VerticalAlignment: Center, RenderUppercase: false);
+    }
+
+    DropdownBox #Dropdown
+    {
+      Anchor: (Right: 0, Left: 10, Top: 22, Height: 40, Width: 256);
+      Style: DropdownBoxStyle(
+        ...$Common.@DefaultDropdownBoxStyle,
+        SelectedEntryLabelStyle: (RenderUppercase: false, RenderBold: true, FontSize: 16),
+        EntryLabelStyle: (RenderUppercase: false),
+        LabelStyle: (
+          ...$Common.@DefaultDropdownBoxLabelStyle,
+          FontSize: 16,
+          RenderBold: true,
+          RenderUppercase: false
+        ),
+        PanelAlign: Bottom,
+        PanelWidth: 256,
+        );
+    }
+  }
+}
+
+$Common.@BackButton {}

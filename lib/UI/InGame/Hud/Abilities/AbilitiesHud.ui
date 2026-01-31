@@ -1,0 +1,22 @@
+@StructureImagePadding = 2;
+
+Group #AbilitiesHudContainer {
+  LayoutMode: Right;
+  Anchor: (Width: 329, Height: 107, Right: 52 - @StructureImagePadding, Bottom: 40);
+  Background: "Assets/StructureRight.png";
+
+  Group #SignatureAbility {
+    LayoutMode: Bottom;
+    Anchor: (Right: 2, Bottom: 14);
+  }
+
+  Group #MainAbility {
+    LayoutMode: Bottom;
+    Anchor: (Right: 28, Bottom: 28);
+  }
+
+  Group #SecondaryAbility {
+    LayoutMode: Bottom;
+    Anchor: (Right: 28, Bottom: 28);
+  }
+}

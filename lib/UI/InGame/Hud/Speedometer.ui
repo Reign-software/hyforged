@@ -1,0 +1,117 @@
+@MaxLabelStyle = (
+  RenderBold: true,
+  TextColor: #f8a13d
+);
+
+@ValueWidth = 50;
+
+Group {
+  LayoutMode: Top;
+  Anchor: (Bottom: 150, Width: 440, Height: 60);
+  Background: #191d22(0.5);
+
+  Group {
+    LayoutMode: Center;
+    Anchor: (Vertical: 4, Horizontal: 8);
+
+    Group {
+      LayoutMode: Left;
+      FlexWeight: 1;
+
+      Label {
+        Text: "X: ";
+        Style: (
+          RenderBold: true,
+          TextColor: #f85330
+        );
+      }
+
+      Label #X {}
+
+      Label #XMax {
+        Style: @MaxLabelStyle;
+      }
+    }
+
+    Group {
+      LayoutMode: Left;
+      FlexWeight: 1;
+
+      Label {
+        Text: "Z: ";
+        Style: (
+          RenderBold: true,
+          TextColor: #3864d7
+        );
+      }
+
+      Label #Z {}
+
+      Label #ZMax {
+        Style: @MaxLabelStyle;
+      }
+    }
+
+    Group {
+      LayoutMode: Left;
+      FlexWeight: 1;
+
+      Label {
+        Text: "Y: ";
+        Style: (
+          RenderBold: true,
+          TextColor: #57be2b
+        );
+      }
+
+      Label #Y {}
+
+      Label #YMax {
+        Style: @MaxLabelStyle;
+      }
+    }
+  }
+
+  Group {
+    LayoutMode: Center;
+    Anchor: (Vertical: 4, Horizontal: 8);
+
+    Group {
+      LayoutMode: Left;
+      FlexWeight: 1;
+
+      Label {
+        Text: "Mag (lat): ";
+        Style: (
+          RenderBold: true,
+          TextColor: #8f99b4
+        );
+      }
+
+      Label #MagnitudeLat {}
+
+      Label #MagnitudeLatMax {
+        Style: @MaxLabelStyle;
+      }
+    }
+
+    Group {
+      LayoutMode: Left;
+      FlexWeight: 1;
+
+      Label {
+        Text: "Mag (all): ";
+        Style: (
+          RenderBold: true,
+          TextColor: #8f99b4
+        );
+      }
+
+      Label #Magnitude {}
+
+      Label #MagnitudeMax {
+        Style: @MaxLabelStyle;
+      }
+    }
+  }
+}
