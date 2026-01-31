@@ -3,7 +3,7 @@
     "Name": "server.items.Armor_Steel_Ancient_Legs.name"
   },
   "Parent": "Armor_Iron_Legs",
-  "ItemLevel": 45,
+  "ItemLevel": 30,
   "Icon": "Icons/ItemsGenerated/Armor_Steel_Ancient_Legs.png",
   "IconProperties": {
     "Rotation": [

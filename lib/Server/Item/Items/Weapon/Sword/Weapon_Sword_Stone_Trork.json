@@ -16,7 +16,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 8
+              "Physical": 11
             }
           },
           "DamageEffects": {
@@ -32,7 +32,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 10
+              "Physical": 11
             }
           },
           "DamageEffects": {
@@ -48,7 +48,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 16
+              "Physical": 20
             }
           },
           "DamageEffects": {
@@ -64,7 +64,7 @@
           "Parent": "Weapon_Sword_Primary_Thrust_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 29
+              "Physical": 30
             }
           },
           "EntityStatsOnHit": [
@@ -110,6 +110,17 @@
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Sword_T2_Impact",
             "LocalSoundEventId": "SFX_Sword_T2_Impact"
+          }
+        }
+      ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Sword_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 11.11,
+            "CostType": "Damage"
           }
         }
       ]

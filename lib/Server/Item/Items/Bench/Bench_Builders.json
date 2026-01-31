@@ -3,7 +3,7 @@
     "Name": "server.items.Bench_Builders.name",
     "Description": "server.items.Bench_Builders.description"
   },
-  "ItemLevel": 7,
+  "ItemLevel": 2,
   "MaxStack": 1,
   "Icon": "Icons/ItemsGenerated/Bench_Architects.png",
   "Categories": [

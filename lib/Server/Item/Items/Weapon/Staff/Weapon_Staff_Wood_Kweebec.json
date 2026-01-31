@@ -6,7 +6,7 @@
     "Items.Weapons"
   ],
   "Quality": "Common",
-  "ItemLevel": 40,
+  "ItemLevel": 20,
   "PlayerAnimationsId": "Staff",
   "Interactions": {
     "Primary": "Staff_Primary",

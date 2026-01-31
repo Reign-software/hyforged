@@ -23,6 +23,7 @@ import com.hypixel.hytale.server.core.io.adapter.PacketAdapters;
 import com.hypixel.hytale.server.core.io.handlers.login.AuthenticationPacketHandler;
 import com.hypixel.hytale.server.core.io.handlers.login.PasswordPacketHandler;
 import com.hypixel.hytale.server.core.io.netty.NettyUtil;
+import com.hypixel.hytale.server.core.io.transport.QUICTransport;
 import com.hypixel.hytale.server.core.modules.time.WorldTimeResource;
 import com.hypixel.hytale.server.core.receiver.IPacketReceiver;
 import io.netty.channel.Channel;
@@ -219,7 +220,8 @@ public abstract class PacketHandler implements IPacketReceiver {
 
    public void disconnect(@Nonnull String message) {
       this.disconnectReason.setServerDisconnectReason(message);
-      HytaleLogger.getLogger().at(Level.INFO).log("Disconnecting %s with the message: %s", NettyUtil.formatRemoteAddress(this.channel), message);
+      String sni = this.getSniHostname();
+      HytaleLogger.getLogger().at(Level.INFO).log("Disconnecting %s (SNI: %s) with the message: %s", NettyUtil.formatRemoteAddress(this.channel), sni, message);
       this.disconnect0(message);
    }
 
@@ -386,6 +388,11 @@ public abstract class PacketHandler implements IPacketReceiver {
       }
    }
 
+   @Nullable
+   public String getSniHostname() {
+      return this.channel instanceof QuicStreamChannel quicStreamChannel ? quicStreamChannel.parent().attr(QUICTransport.SNI_HOSTNAME_ATTR).get() : null;
+   }
+
    @Nonnull
    public PacketHandler.DisconnectReason getDisconnectReason() {
       return this.disconnectReason;
@@ -410,10 +417,12 @@ public abstract class PacketHandler implements IPacketReceiver {
       Attribute<Long> loginStartAttribute = channel.attr(LOGIN_START_ATTRIBUTE_KEY);
       long now = System.nanoTime();
       Long before = loginStartAttribute.getAndSet(now);
+      NettyUtil.TimeoutContext context = channel.attr(NettyUtil.TimeoutContext.KEY).get();
+      String identifier = context != null ? context.playerIdentifier() : NettyUtil.formatRemoteAddress(channel);
       if (before == null) {
-         LOGIN_TIMING_LOGGER.at(level).log(message);
+         LOGIN_TIMING_LOGGER.at(level).log("[%s] %s", identifier, message);
       } else {
-         LOGIN_TIMING_LOGGER.at(level).log("%s took %s", message, LazyArgs.lazy(() -> FormatUtil.nanosToString(now - before)));
+         LOGIN_TIMING_LOGGER.at(level).log("[%s] %s took %s", identifier, message, LazyArgs.lazy(() -> FormatUtil.nanosToString(now - before)));
       }
    }
 

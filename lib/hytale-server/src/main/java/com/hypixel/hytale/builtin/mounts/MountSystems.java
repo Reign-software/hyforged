@@ -63,6 +63,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
 public class MountSystems {
    public MountSystems() {
@@ -165,11 +166,15 @@ public class MountSystems {
                if (q instanceof PlayerInput.RelativeMovement relative) {
                   relative.apply(commandBuffer, archetypeChunk, index);
                   TransformComponent transform = commandBuffer.getComponent(targetRef, TransformComponent.getComponentType());
-                  transform.getPosition().add(relative.getX(), relative.getY(), relative.getZ());
+                  if (transform != null) {
+                     transform.getPosition().add(relative.getX(), relative.getY(), relative.getZ());
+                  }
                } else if (q instanceof PlayerInput.AbsoluteMovement absolute) {
                   absolute.apply(commandBuffer, archetypeChunk, index);
                   TransformComponent transform = commandBuffer.getComponent(targetRef, TransformComponent.getComponentType());
-                  transform.getPosition().assign(absolute.getX(), absolute.getY(), absolute.getZ());
+                  if (transform != null) {
+                     transform.getPosition().assign(absolute.getX(), absolute.getY(), absolute.getZ());
+                  }
                } else if (q instanceof PlayerInput.SetMovementStates sx) {
                   MovementStates states = sx.movementStates();
                   MovementStatesComponent movementStatesComponent = commandBuffer.getComponent(targetRef, MovementStatesComponent.getComponentType());
@@ -179,7 +184,9 @@ public class MountSystems {
                } else if (q instanceof PlayerInput.SetBody body) {
                   body.apply(commandBuffer, archetypeChunk, index);
                   TransformComponent transform = commandBuffer.getComponent(targetRef, TransformComponent.getComponentType());
-                  transform.getRotation().assign(body.direction().pitch, body.direction().yaw, body.direction().roll);
+                  if (transform != null) {
+                     transform.getRotation().assign(body.direction().pitch, body.direction().yaw, body.direction().roll);
+                  }
                } else if (q instanceof PlayerInput.SetHead head) {
                   head.apply(commandBuffer, archetypeChunk, index);
                }
@@ -344,9 +351,12 @@ public class MountSystems {
 
          Ref<EntityStore> mountRef = mounted.getMountedToEntity();
          if (mountRef != null && mountRef.isValid()) {
-            int mountNetworkId = commandBuffer.getComponent(mountRef, NetworkId.getComponentType()).getId();
-            input.setMountId(mountNetworkId);
-            input.getMovementUpdateQueue().clear();
+            NetworkId mountNetworkIdComponent = commandBuffer.getComponent(mountRef, NetworkId.getComponentType());
+            if (mountNetworkIdComponent != null) {
+               int mountNetworkId = mountNetworkIdComponent.getId();
+               input.setMountId(mountNetworkId);
+               input.getMovementUpdateQueue().clear();
+            }
          }
       }
 
@@ -425,7 +435,6 @@ public class MountSystems {
          @Nonnull Ref<EntityStore> ref, @Nonnull RemoveReason reason, @Nonnull Store<EntityStore> store, @Nonnull CommandBuffer<EntityStore> commandBuffer
       ) {
          MountedComponent mounted = commandBuffer.getComponent(ref, MountedComponent.getComponentType());
-         commandBuffer.removeComponent(ref, MountedComponent.getComponentType());
          MountSystems.handleMountedRemoval(ref, commandBuffer, mounted);
       }
 
@@ -467,6 +476,25 @@ public class MountSystems {
       @Override
       public Query<EntityStore> getQuery() {
          return MountedByComponent.getComponentType();
+      }
+   }
+
+   public static class RemoveMountedHolder extends HolderSystem<EntityStore> {
+      public RemoveMountedHolder() {
+      }
+
+      @Override
+      public Query<EntityStore> getQuery() {
+         return MountedComponent.getComponentType();
+      }
+
+      @Override
+      public void onEntityAdd(@NonNullDecl Holder<EntityStore> holder, @NonNullDecl AddReason reason, @NonNullDecl Store<EntityStore> store) {
+      }
+
+      @Override
+      public void onEntityRemoved(@NonNullDecl Holder<EntityStore> holder, @NonNullDecl RemoveReason reason, @NonNullDecl Store<EntityStore> store) {
+         holder.removeComponent(MountedComponent.getComponentType());
       }
    }
 
@@ -670,7 +698,12 @@ public class MountSystems {
          com.hypixel.hytale.protocol.Vector3f netOffset = new com.hypixel.hytale.protocol.Vector3f(offset.x, offset.y, offset.z);
          MountedUpdate mountedUpdate;
          if (mountedToEntity != null) {
-            int mountedToNetworkId = ref.getStore().getComponent(mountedToEntity, NetworkId.getComponentType()).getId();
+            NetworkId mountedToNetworkIdComponent = ref.getStore().getComponent(mountedToEntity, NetworkId.getComponentType());
+            if (mountedToNetworkIdComponent == null) {
+               return;
+            }
+
+            int mountedToNetworkId = mountedToNetworkIdComponent.getId();
             mountedUpdate = new MountedUpdate(mountedToNetworkId, netOffset, component.getControllerType(), null);
          } else {
             if (mountedToBlock == null) {

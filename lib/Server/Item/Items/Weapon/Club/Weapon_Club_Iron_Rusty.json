@@ -6,7 +6,7 @@
     "Items.Weapons"
   ],
   "Quality": "Common",
-  "ItemLevel": 30,
+  "ItemLevel": 15,
   "Model": "Items/Weapons/Club/Iron.blockymodel",
   "PlayerAnimationsId": "Club",
   "Utility": {

@@ -6,7 +6,7 @@
     "Items.Weapons"
   ],
   "Quality": "Uncommon",
-  "ItemLevel": 5,
+  "ItemLevel": 25,
   "Model": "NPC/Intelligent/Trork/Models/Weapons/Club/Stone.blockymodel",
   "Texture": "NPC/Intelligent/Trork/Models/Weapons/Club/Stone_Texture.png",
   "PlayerAnimationsId": "Club",

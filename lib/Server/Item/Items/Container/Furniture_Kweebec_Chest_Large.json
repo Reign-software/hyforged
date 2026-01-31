@@ -52,6 +52,13 @@
     },
     "BlockParticleSetId": "Wood",
     "BlockSoundSetId": "Wood",
+    "Supporting": {
+      "Up": [
+        {
+          "FaceType": "Full"
+        }
+      ]
+    },
     "Support": {
       "Down": [
         {

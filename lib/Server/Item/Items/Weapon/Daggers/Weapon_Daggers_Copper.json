@@ -75,7 +75,7 @@
           "Parent": "Weapon_Daggers_Primary_Stab_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 7
+              "Physical": 6
             }
           },
           "DamageEffects": {

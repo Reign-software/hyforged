@@ -7,7 +7,7 @@
     "Textures": [
       {
         "Weight": 1,
-        "All": "BlockTextures/Soil_Mud_Dry.png"
+        "All": "BlockTextures/Soil_Mud_Dry_Thorium_Cracks03.png"
       }
     ],
     "Gathering": {
@@ -19,11 +19,15 @@
             "Containers": [
               {
                 "Type": "Single",
-                "Item": { "ItemId": "Ore_Thorium" }
+                "Item": {
+                  "ItemId": "Ore_Thorium"
+                }
               },
               {
                 "Type": "Single",
-                "Item": { "ItemId": "Soil_Dirt" }
+                "Item": {
+                  "ItemId": "Soil_Dirt"
+                }
               }
             ]
           }

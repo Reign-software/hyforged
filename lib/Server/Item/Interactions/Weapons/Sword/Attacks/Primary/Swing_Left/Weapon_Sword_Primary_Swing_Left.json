@@ -3,7 +3,7 @@
   "RunTime": 0.117,
   "Effects": {
     "ItemAnimationId": "SwingLeft",
-    "WorldSoundEventId": "SFX_Light_Melee_T2_Swing",
+    "WorldSoundEventId": "SFX_Sword_T2_Swing",
     "LocalSoundEventId": "SFX_Sword_T2_Swing_RL_Local"
   },
   "Next": {

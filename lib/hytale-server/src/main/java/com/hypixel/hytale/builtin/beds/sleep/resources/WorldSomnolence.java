@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class WorldSomnolence implements Resource<EntityStore> {
+   @Nonnull
    private WorldSleep state = WorldSleep.Awake.INSTANCE;
 
    public WorldSomnolence() {
@@ -17,6 +18,7 @@ public class WorldSomnolence implements Resource<EntityStore> {
       return BedsPlugin.getInstance().getWorldSomnolenceResourceType();
    }
 
+   @Nonnull
    public WorldSleep getState() {
       return this.state;
    }

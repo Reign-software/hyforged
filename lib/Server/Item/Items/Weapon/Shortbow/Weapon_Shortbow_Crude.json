@@ -7,7 +7,7 @@
   "Model": "Items/Weapons/Bow/Crude.blockymodel",
   "Texture": "Items/Weapons/Bow/Crude_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Bow_Crude.png",
-  "ItemLevel": 13,
+  "ItemLevel": 9,
   "Recipe": {
     "TimeSeconds": 1.5,
     "Input": [

@@ -8,5 +8,18 @@
   "Icon": "Icons/ItemsGenerated/Weapon_Shield_Scrap.png",
   "Quality": "Uncommon",
   "ItemLevel": 15,
-  "Scale": 1.2
+  "Scale": 1.2,
+  "InteractionVars": {
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Shield_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 13.22,
+            "CostType": "Damage"
+          }
+        }
+      ]
+    }
+  }
 }

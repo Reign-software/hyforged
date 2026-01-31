@@ -3,7 +3,7 @@
     "Name": "server.items.Armor_Steel_Ancient_Chest.name"
   },
   "Parent": "Armor_Iron_Chest",
-  "ItemLevel": 45,
+  "ItemLevel": 30,
   "Icon": "Icons/ItemsGenerated/Armor_Steel_Ancient_Chest.png",
   "IconProperties": {
     "Rotation": [

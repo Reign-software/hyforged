@@ -6,10 +6,10 @@
     "Items.Weapons"
   ],
   "Quality": "Uncommon",
-  "ItemLevel": 30,
+  "ItemLevel": 25,
   "Model": "Items/Weapons/Spear/Bronze.blockymodel",
   "Texture": "Items/Weapons/Spear/Bronze_Texture.png",
-  "MaxStack": 30,
+  "MaxStack": 5,
   "IconProperties": {
     "Scale": 0.255,
     "Translation": [
@@ -74,8 +74,6 @@
       "Spear"
     ]
   },
-  "MaxDurability": 27,
-  "DurabilityLossOnHit": 0.56,
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Wood"
 }

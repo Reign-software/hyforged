@@ -45,8 +45,7 @@ public class Positions3DDensityAsset extends DensityAsset {
       if (this.isSkipped()) {
          return new ConstantValueDensity(0.0);
       } else {
-         PositionProvider positionsField = this.positionProviderAsset
-            .build(new PositionProviderAsset.Argument(argument.parentSeed, argument.referenceBundle, argument.workerIndexer));
+         PositionProvider positionsField = this.positionProviderAsset.build(new PositionProviderAsset.Argument(argument.parentSeed, argument.referenceBundle));
          Double2DoubleFunction curve = this.curveAsset.build();
          CurveReturnType returnType = new CurveReturnType(curve);
          return new PositionsDensity(positionsField, returnType, new EuclideanDistanceFunction(), this.maxDistance);

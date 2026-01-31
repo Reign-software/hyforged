@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class HarvestCropInteraction extends SimpleBlockInteraction {
+   @Nonnull
    public static final BuilderCodec<HarvestCropInteraction> CODEC = BuilderCodec.builder(
          HarvestCropInteraction.class, HarvestCropInteraction::new, SimpleBlockInteraction.CODEC
       )
@@ -50,15 +51,15 @@ public class HarvestCropInteraction extends SimpleBlockInteraction {
 
          assert blockChunkComponent != null;
 
-         BlockSection section = blockChunkComponent.getSectionAtBlockY(targetBlock.y);
-         if (section != null) {
+         BlockSection blockSection = blockChunkComponent.getSectionAtBlockY(targetBlock.y);
+         if (blockSection != null) {
             WorldChunk worldChunkComponent = chunkStore.getStore().getComponent(chunkRef, WorldChunk.getComponentType());
 
             assert worldChunkComponent != null;
 
             BlockType blockType = worldChunkComponent.getBlockType(targetBlock);
             if (blockType != null) {
-               int rotationIndex = section.getRotationIndex(targetBlock.x, targetBlock.y, targetBlock.z);
+               int rotationIndex = blockSection.getRotationIndex(targetBlock.x, targetBlock.y, targetBlock.z);
                FarmingUtil.harvest(world, commandBuffer, ref, blockType, rotationIndex, targetBlock);
             }
          }

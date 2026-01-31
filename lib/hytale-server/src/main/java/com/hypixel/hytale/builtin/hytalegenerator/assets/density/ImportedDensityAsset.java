@@ -26,18 +26,21 @@ public class ImportedDensityAsset extends DensityAsset {
       if (this.isSkipped()) {
          return new ConstantValueDensity(0.0);
       } else {
-         DensityAsset.Exported asset = getExportedAsset(this.importedNodeName);
-         if (asset == null) {
+         DensityAsset.Exported exported = getExportedAsset(this.importedNodeName);
+         if (exported == null) {
             LoggerUtil.getLogger().warning("Couldn't find Density asset exported with name: '" + this.importedNodeName + "'. Using empty Node instead.");
             return new ConstantValueDensity(0.0);
-         } else if (asset.singleInstance) {
-            if (asset.builtInstance == null) {
-               asset.builtInstance = asset.asset.build(argument);
+         } else if (exported.isSingleInstance) {
+            Thread thread = Thread.currentThread();
+            Density builtInstance = exported.threadInstances.get(thread);
+            if (builtInstance == null) {
+               builtInstance = exported.asset.build(argument);
+               exported.threadInstances.put(thread, builtInstance);
             }
 
-            return asset.builtInstance;
+            return builtInstance;
          } else {
-            return asset.asset.build(argument);
+            return exported.asset.build(argument);
          }
       }
    }
@@ -58,7 +61,7 @@ public class ImportedDensityAsset extends DensityAsset {
       this.cleanUpInputs();
       DensityAsset.Exported exported = getExportedAsset(this.importedNodeName);
       if (exported != null) {
-         exported.builtInstance = null;
+         exported.threadInstances.clear();
 
          for (DensityAsset input : this.inputs()) {
             input.cleanUp();

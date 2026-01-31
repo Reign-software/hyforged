@@ -6,9 +6,9 @@
     "Items.Weapons"
   ],
   "Quality": "Common",
-  "ItemLevel": 30,
+  "ItemLevel": 25,
   "Texture": "NPC/Intelligent/Tuluk/Models/Weapons/Spear/Fishbone_Texture.png",
-  "MaxStack": 30,
+  "MaxStack": 5,
   "IconProperties": {
     "Scale": 0.2,
     "Translation": [
@@ -43,7 +43,7 @@
           "Parent": "Spear_Stab_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 9
+              "Physical": 8
             },
             "Type": "Absolute"
           },
@@ -73,8 +73,6 @@
       "Spear"
     ]
   },
-  "MaxDurability": 27,
-  "DurabilityLossOnHit": 0.56,
   "Weapon": {},
   "Model": "NPC/Intelligent/Tuluk/Models/Weapons/Spear/Fishbone.blockymodel",
   "ItemSoundSetId": "ISS_Weapons_Wood"

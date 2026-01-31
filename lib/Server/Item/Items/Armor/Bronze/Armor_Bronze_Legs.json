@@ -3,7 +3,7 @@
     "Name": "server.items.Armor_Bronze_Legs.name"
   },
   "Parent": "Armor_Iron_Legs",
-  "ItemLevel": 22,
+  "ItemLevel": 25,
   "Icon": "Icons/ItemsGenerated/Armor_Bronze_Legs.png",
   "IconProperties": {
     "Scale": 0.5,

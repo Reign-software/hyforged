@@ -28,8 +28,6 @@ set "SERVER_VERSION=%~1"
 if "%SERVER_VERSION%"=="" (
     if exist "%DOWNLOAD_DIR%\LATEST_VERSION.txt" (
         set /p SERVER_VERSION=<"%DOWNLOAD_DIR%\LATEST_VERSION.txt"
-        REM Trim whitespace
-        for /f "tokens=* delims= " %%a in ("!SERVER_VERSION!") do set "SERVER_VERSION=%%a"
     )
 )
 
@@ -71,8 +69,10 @@ echo Found HytaleServer.jar: %HYTALE_JAR%
 
 REM Find Assets folder
 set "ASSETS_PATH="
-for /r "%SERVER_EXTRACT_PATH%" /d %%d in (Assets) do (
-    if exist "%%d\Server" set "ASSETS_PATH=%%d"
+for /d /r "%SERVER_EXTRACT_PATH%" %%d in (*) do (
+    if /i "%%~nxd"=="Assets" (
+        if exist "%%d\Server" set "ASSETS_PATH=%%d"
+    )
 )
 
 if defined ASSETS_PATH (
@@ -85,11 +85,14 @@ echo   Checking Prerequisites
 echo ============================================
 echo.
 
+set "PREREQ_FAIL="
+set "PYTHON_CMD=py -3"
+
 REM Check Python
 where py >nul 2>nul
-if %ERRORLEVEL% neq 0 (
+if errorlevel 1 (
     where python >nul 2>nul
-    if %ERRORLEVEL% neq 0 (
+    if errorlevel 1 (
         echo [FAIL] Python not found
         set "PREREQ_FAIL=1"
     ) else (
@@ -98,12 +101,11 @@ if %ERRORLEVEL% neq 0 (
     )
 ) else (
     echo [OK] Python found
-    set "PYTHON_CMD=py -3"
 )
 
 REM Check Java
-java --version >nul 2>nul
-if %ERRORLEVEL% neq 0 (
+where java >nul 2>nul
+if errorlevel 1 (
     echo [FAIL] Java not found
     set "PREREQ_FAIL=1"
 ) else (
@@ -111,8 +113,8 @@ if %ERRORLEVEL% neq 0 (
 )
 
 REM Check Maven
-mvn --version >nul 2>nul
-if %ERRORLEVEL% neq 0 (
+where mvn >nul 2>nul
+if errorlevel 1 (
     echo [FAIL] Maven not found
     set "PREREQ_FAIL=1"
 ) else (
@@ -120,8 +122,8 @@ if %ERRORLEVEL% neq 0 (
 )
 
 REM Check Git
-git --version >nul 2>nul
-if %ERRORLEVEL% neq 0 (
+where git >nul 2>nul
+if errorlevel 1 (
     echo [FAIL] Git not found
     set "PREREQ_FAIL=1"
 ) else (
@@ -129,8 +131,8 @@ if %ERRORLEVEL% neq 0 (
 )
 
 REM Check jar command
-jar --version >nul 2>nul
-if %ERRORLEVEL% neq 0 (
+where jar >nul 2>nul
+if errorlevel 1 (
     echo [FAIL] jar command not found
     set "PREREQ_FAIL=1"
 ) else (
@@ -158,6 +160,10 @@ if exist "%PATCHER_DIR%" (
 ) else (
     echo Cloning patcher repository...
     git clone "https://github.com/HytaleModding/patcher.git" "%PATCHER_DIR%"
+    if errorlevel 1 (
+        echo ERROR: Failed to clone patcher repository
+        exit /b 1
+    )
 )
 
 REM Setup Python venv
@@ -196,12 +202,12 @@ echo.
 pushd "%PATCHER_DIR%"
 set "HYTALESERVER_JAR_PATH=%PATCHER_DIR%\HytaleServer.jar"
 "%VENV_PYTHON%" run.py setup
-set "DECOMPILE_RESULT=%ERRORLEVEL%"
+set "DECOMPILE_RESULT=!ERRORLEVEL!"
 popd
 
-if %DECOMPILE_RESULT% neq 0 (
+if !DECOMPILE_RESULT! neq 0 (
     echo.
-    echo ERROR: Decompilation failed with exit code: %DECOMPILE_RESULT%
+    echo ERROR: Decompilation failed with exit code: !DECOMPILE_RESULT!
     exit /b 1
 )
 
@@ -244,8 +250,7 @@ echo   JAR copied to: %LIB_DIR%\HytaleServer.jar
 
 REM Copy Server assets
 if defined ASSETS_PATH (
-    set "SOURCE_SERVER=%ASSETS_PATH%\Server"
-    if exist "!SOURCE_SERVER!" (
+    if exist "%ASSETS_PATH%\Server" (
         echo.
         echo Copying Server assets...
         
@@ -254,27 +259,22 @@ if defined ASSETS_PATH (
             rmdir /s /q "%LIB_DIR%\Server"
         )
         
-        xcopy /s /e /i /q "!SOURCE_SERVER!" "%LIB_DIR%\Server" >nul
+        xcopy /s /e /i /q "%ASSETS_PATH%\Server" "%LIB_DIR%\Server" >nul
         echo   Server assets copied to: %LIB_DIR%\Server
     )
     
-    REM Copy UI assets
-    set "SOURCE_COMMON=%ASSETS_PATH%\Common"
-    if exist "!SOURCE_COMMON!" (
-        for /d %%u in ("!SOURCE_COMMON!\UI") do (
-            if exist "%%u" (
-                echo.
-                echo Copying UI assets...
-                
-                if exist "%LIB_DIR%\UI" (
-                    echo   Removing existing UI assets...
-                    rmdir /s /q "%LIB_DIR%\UI"
-                )
-                
-                xcopy /s /e /i /q "%%u" "%LIB_DIR%\UI" >nul
-                echo   UI assets copied to: %LIB_DIR%\UI
-            )
+    REM Copy UI assets from Common
+    if exist "%ASSETS_PATH%\Common\UI" (
+        echo.
+        echo Copying UI assets...
+        
+        if exist "%LIB_DIR%\UI" (
+            echo   Removing existing UI assets...
+            rmdir /s /q "%LIB_DIR%\UI"
         )
+        
+        xcopy /s /e /i /q "%ASSETS_PATH%\Common\UI" "%LIB_DIR%\UI" >nul
+        echo   UI assets copied to: %LIB_DIR%\UI
     )
 )
 
@@ -302,4 +302,4 @@ echo   1. Review changes with: git diff lib/
 echo   2. Test your plugin with: Build and Deploy Plugin task
 echo.
 
-endlocal
+exit /b 0

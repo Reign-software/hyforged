@@ -8,7 +8,7 @@
   "Model": "Items/Weapons/Sword/Crude.blockymodel",
   "Texture": "Items/Weapons/Sword/Crude_Texture.png",
   "Quality": "Common",
-  "ItemLevel": 8,
+  "ItemLevel": 3,
   "Recipe": {
     "TimeSeconds": 1.5,
     "KnowledgeRequired": false,
@@ -50,7 +50,7 @@
           "$Comment": "FX for the start of the attack go here",
           "Parent": "Weapon_Sword_Primary_Swing_Left",
           "Effects": {
-            "WorldSoundEventId": "SFX_Light_Melee_T1_Swing",
+            "WorldSoundEventId": "SFX_Sword_T1_Swing",
             "LocalSoundEventId": "SFX_Sword_T1_Swing_RL_Local"
           }
         }
@@ -62,7 +62,7 @@
           "$Comment": "FX for the start of the attack go here",
           "Parent": "Weapon_Sword_Primary_Swing_Right",
           "Effects": {
-            "WorldSoundEventId": "SFX_Light_Melee_T1_Swing",
+            "WorldSoundEventId": "SFX_Sword_T1_Swing",
             "LocalSoundEventId": "SFX_Sword_T1_Swing_LR_Local"
           }
         }
@@ -74,7 +74,7 @@
           "$Comment": "FX for the start of the attack go here",
           "Parent": "Weapon_Sword_Primary_Swing_Down",
           "Effects": {
-            "WorldSoundEventId": "SFX_Light_Melee_T1_Swing",
+            "WorldSoundEventId": "SFX_Sword_T1_Swing_Down",
             "LocalSoundEventId": "SFX_Sword_T1_Swing_Down_Local"
           }
         }
@@ -90,7 +90,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 5
+              "Physical": 6
             }
           }
         }

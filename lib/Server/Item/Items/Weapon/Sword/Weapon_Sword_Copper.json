@@ -58,7 +58,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 9
+              "Physical": 8
             }
           },
           "DamageEffects": {

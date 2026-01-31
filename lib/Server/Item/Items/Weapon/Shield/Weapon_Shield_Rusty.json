@@ -14,7 +14,7 @@
         {
           "Parent": "Weapon_Shield_Secondary_Guard_Wield",
           "StaminaCost": {
-            "Value": 12.44,
+            "Value": 13.22,
             "CostType": "Damage"
           }
         }

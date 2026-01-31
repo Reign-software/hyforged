@@ -1,6 +1,6 @@
 {
   "Name": "fillsignature",
-  "Description": "Fills your signature energy",
+  "Description": "server.commands.fillSignature.desc",
   "Commands": [
     "player stat settomax SignatureEnergy"
   ]

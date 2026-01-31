@@ -6,8 +6,8 @@
     "Items.Weapons"
   ],
   "Quality": "Uncommon",
-  "ItemLevel": 40,
-  "MaxStack": 30,
+  "ItemLevel": 25,
+  "MaxStack": 5,
   "Interactions": {
     "Primary": "Spear_Attack",
     "Secondary": "Spear_Block"
@@ -74,8 +74,6 @@
       "Weapon"
     ]
   },
-  "MaxDurability": 45,
-  "DurabilityLossOnHit": 0.56,
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Stone_Small"
 }

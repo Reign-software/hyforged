@@ -34,7 +34,7 @@ public class CacheVectorProviderAsset extends VectorProviderAsset {
          return new ConstantVectorProvider(new Vector3d());
       } else {
          VectorProvider vectorProvider = this.vectorProviderAsset.build(argument);
-         return new CacheVectorProvider(vectorProvider, argument.workerIndexer.getWorkerCount());
+         return new CacheVectorProvider(vectorProvider);
       }
    }
 }

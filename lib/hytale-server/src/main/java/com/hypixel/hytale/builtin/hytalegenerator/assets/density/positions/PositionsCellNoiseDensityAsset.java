@@ -53,9 +53,8 @@ public class PositionsCellNoiseDensityAsset extends DensityAsset {
       if (this.isSkipped()) {
          return new ConstantValueDensity(0.0);
       } else {
-         PositionProvider positionsField = this.positionProviderAsset
-            .build(new PositionProviderAsset.Argument(argument.parentSeed, argument.referenceBundle, argument.workerIndexer));
-         ReturnType returnType = this.returnTypeAsset.build(argument.parentSeed, argument.referenceBundle, argument.workerIndexer);
+         PositionProvider positionsField = this.positionProviderAsset.build(new PositionProviderAsset.Argument(argument.parentSeed, argument.referenceBundle));
+         ReturnType returnType = this.returnTypeAsset.build(argument.parentSeed, argument.referenceBundle);
          returnType.setMaxDistance(this.maxDistance);
          DistanceFunction distanceFunction = this.distanceFunctionAsset.build(argument.parentSeed, this.maxDistance);
          return new PositionsDensity(positionsField, returnType, distanceFunction, this.maxDistance);

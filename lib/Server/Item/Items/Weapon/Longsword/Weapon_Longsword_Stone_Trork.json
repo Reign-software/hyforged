@@ -6,7 +6,7 @@
     "Items.Weapons"
   ],
   "Quality": "Uncommon",
-  "ItemLevel": 30,
+  "ItemLevel": 25,
   "PlayerAnimationsId": "Longsword",
   "Interactions": {
     "Primary": "Longsword_Attack"

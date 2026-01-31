@@ -29,7 +29,11 @@
     ],
     "ParticleColor": "#0d0a0a",
     "BlockSoundSetId": "Stone",
-    "RandomRotation": "YawStep90"
+    "RandomRotation": "YawStep90",
+    "TransitionTexture": "BlockTextures/Transition_Rock_Magma_Cooled.png",
+    "TransitionToGroups": [
+      "Stone"
+    ]
   },
   "ResourceTypes": [
     {
@@ -42,5 +46,17 @@
     ]
   },
   "Icon": "Icons/ItemsGenerated/Rock_Magma_Cooled.png",
-  "ItemSoundSetId": "ISS_Blocks_Stone"
+  "ItemSoundSetId": "ISS_Blocks_Stone",
+  "IconProperties": {
+    "Scale": 0.58823,
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Translation": [
+      0,
+      -13.5
+    ]
+  }
 }

@@ -11,7 +11,7 @@
   "Model": "Items/Tools/Hatchet/Crude.blockymodel",
   "Texture": "Items/Tools/Hatchet/Crude_Texture.png",
   "Quality": "Common",
-  "ItemLevel": 9,
+  "ItemLevel": 4,
   "Recipe": {
     "TimeSeconds": 1,
     "KnowledgeRequired": false,

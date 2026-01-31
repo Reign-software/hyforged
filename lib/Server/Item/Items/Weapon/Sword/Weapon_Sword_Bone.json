@@ -7,7 +7,7 @@
   "Texture": "NPC/Intelligent/Feran/Models/Weapons/Sword/Bone_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Sword_Bone.png",
   "Quality": "Rare",
-  "ItemLevel": 35,
+  "ItemLevel": 25,
   "MaxDurability": 75,
   "InteractionVars": {
     "Swing_Left_Damage": {
@@ -16,7 +16,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 10
+              "Physical": 12
             }
           },
           "DamageEffects": {
@@ -48,7 +48,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 20
+              "Physical": 22
             }
           },
           "DamageEffects": {
@@ -64,7 +64,7 @@
           "Parent": "Weapon_Sword_Primary_Thrust_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 36
+              "Physical": 32
             }
           },
           "EntityStatsOnHit": [
@@ -86,7 +86,7 @@
           "Parent": "Weapon_Sword_Signature_Vortexstrike_Spin_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 26
+              "Physical": 23
             }
           },
           "EntityStatsOnHit": [],
@@ -103,13 +103,24 @@
           "Parent": "Weapon_Sword_Signature_Vortexstrike_Stab_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 79
+              "Physical": 70
             }
           },
           "EntityStatsOnHit": [],
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Sword_T2_Impact",
             "LocalSoundEventId": "SFX_Sword_T2_Impact"
+          }
+        }
+      ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Sword_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 13.89,
+            "CostType": "Damage"
           }
         }
       ]

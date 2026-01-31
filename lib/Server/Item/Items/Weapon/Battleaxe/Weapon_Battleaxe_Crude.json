@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Battleaxe/Crude_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Battleaxe_Crude.png",
   "Quality": "Common",
-  "ItemLevel": 11,
+  "ItemLevel": 7,
   "Recipe": {
     "TimeSeconds": 1.5,
     "KnowledgeRequired": false,

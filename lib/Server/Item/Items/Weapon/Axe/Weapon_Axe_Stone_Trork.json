@@ -6,7 +6,7 @@
     "Items.Weapons"
   ],
   "Icon": "Icons/ItemsGenerated/Weapon_Axe_Stone_Trork.png",
-  "ItemLevel": 20,
+  "ItemLevel": 25,
   "Recipe": {
     "KnowledgeRequired": false,
     "Input": [

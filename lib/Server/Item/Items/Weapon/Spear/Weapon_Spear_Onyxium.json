@@ -6,10 +6,10 @@
     "Items.Weapons"
   ],
   "Quality": "Epic",
-  "ItemLevel": 30,
+  "ItemLevel": 50,
   "Model": "Items/Weapons/Spear/Onyxium.blockymodel",
   "Texture": "Items/Weapons/Spear/Onyxium_Texture.png",
-  "MaxStack": 30,
+  "MaxStack": 5,
   "Interactions": {
     "Primary": "Spear_Attack",
     "Secondary": "Spear_Block"
@@ -74,8 +74,6 @@
       "Spear"
     ]
   },
-  "MaxDurability": 55,
-  "DurabilityLossOnHit": 0.56,
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Wood"
 }

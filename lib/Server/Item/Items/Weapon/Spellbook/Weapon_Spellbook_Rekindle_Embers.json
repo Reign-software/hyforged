@@ -68,7 +68,16 @@
                     "Interactions": [
                       {
                         "Type": "SpawnNPC",
-                        "EntityId": "Risen_Knight"
+                        "WeightedEntityIds": [
+                          {
+                            "Id": "Risen_Knight",
+                            "Weight": 50
+                          },
+                          {
+                            "Id": "Risen_Gunner",
+                            "Weight": 50
+                          }
+                        ]
                       },
                       {
                         "Type": "DestroyBlock"
@@ -135,7 +144,16 @@
                     "Interactions": [
                       {
                         "Type": "SpawnNPC",
-                        "EntityId": "Risen_Knight"
+                        "WeightedEntityIds": [
+                          {
+                            "Id": "Risen_Knight",
+                            "Weight": 50
+                          },
+                          {
+                            "Id": "Risen_Gunner",
+                            "Weight": 50
+                          }
+                        ]
                       },
                       {
                         "Type": "DestroyBlock"

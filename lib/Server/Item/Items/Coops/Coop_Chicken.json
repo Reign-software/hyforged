@@ -30,7 +30,7 @@
           "Farming"
         ],
         "Id": "Farmingbench",
-        "RequiredTierLevel": 5
+        "RequiredTierLevel": 3
       }
     ],
     "TimeSeconds": 4

@@ -16,7 +16,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 26
+              "Physical": 33
             }
           },
           "DamageEffects": {
@@ -32,7 +32,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 26
+              "Physical": 33
             }
           },
           "DamageEffects": {
@@ -48,7 +48,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Up_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 26
+              "Physical": 33
             }
           },
           "DamageEffects": {
@@ -137,6 +137,17 @@
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Mace_T2_Impact",
             "LocalSoundEventId": "SFX_Mace_T2_Impact"
+          }
+        }
+      ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Mace_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 11.11,
+            "CostType": "Damage"
           }
         }
       ]

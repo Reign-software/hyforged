@@ -17,6 +17,7 @@ public class WakeUpOnDismountSystem extends RefChangeSystem<EntityStore, Mounted
    public WakeUpOnDismountSystem() {
    }
 
+   @Nonnull
    @Override
    public ComponentType<EntityStore, MountedComponent> componentType() {
       return MountedComponent.getComponentType();

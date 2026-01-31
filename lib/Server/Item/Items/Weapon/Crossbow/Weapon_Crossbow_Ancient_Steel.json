@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Crossbow/Iron_Rusty_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Crossbow_Iron_Rusty.png",
   "Quality": "Rare",
-  "ItemLevel": 40,
+  "ItemLevel": 30,
   "Recipe": {
     "TimeSeconds": 4,
     "Input": [],

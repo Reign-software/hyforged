@@ -58,7 +58,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 15
+              "Physical": 14
             }
           },
           "DamageEffects": {

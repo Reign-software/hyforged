@@ -18,6 +18,8 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import com.hypixel.hytale.server.npc.systems.RoleChangeSystem;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
 public class NPCMountSystems {
    public NPCMountSystems() {
@@ -41,7 +43,10 @@ public class NPCMountSystems {
 
          PlayerRef playerRef = mountComponent.getOwnerPlayerRef();
          if (playerRef != null) {
-            MountPlugin.resetOriginalPlayerMovementSettings(playerRef, store);
+            Ref<EntityStore> playerEntityRef = playerRef.getReference();
+            if (playerEntityRef != null && playerEntityRef.isValid()) {
+               MountPlugin.resetOriginalPlayerMovementSettings(playerEntityRef, store);
+            }
          }
       }
    }
@@ -63,7 +68,7 @@ public class NPCMountSystems {
 
          assert playerComponent != null;
 
-         MountPlugin.checkDismountNpc(commandBuffer, playerComponent);
+         MountPlugin.checkDismountNpc(commandBuffer, ref, playerComponent);
       }
    }
 
@@ -93,21 +98,18 @@ public class NPCMountSystems {
             resetOriginalRoleMount(ref, store, commandBuffer, mountComponent);
          } else {
             NPCEntity npcComponent = store.getComponent(ref, NPCEntity.getComponentType());
-
-            assert npcComponent != null;
-
-            NetworkId networkIdComponent = store.getComponent(ref, NetworkId.getComponentType());
-
-            assert networkIdComponent != null;
-
-            int networkId = networkIdComponent.getId();
-            MountNPC packet = new MountNPC(mountComponent.getAnchorX(), mountComponent.getAnchorY(), mountComponent.getAnchorZ(), networkId);
-            Player playerComponent = playerRef.getComponent(Player.getComponentType());
-
-            assert playerComponent != null;
-
-            playerComponent.setMountEntityId(networkId);
-            playerRef.getPacketHandler().write(packet);
+            if (npcComponent != null) {
+               NetworkId networkIdComponent = store.getComponent(ref, NetworkId.getComponentType());
+               if (networkIdComponent != null) {
+                  int networkId = networkIdComponent.getId();
+                  MountNPC packet = new MountNPC(mountComponent.getAnchorX(), mountComponent.getAnchorY(), mountComponent.getAnchorZ(), networkId);
+                  Player playerComponent = playerRef.getComponent(Player.getComponentType());
+                  if (playerComponent != null) {
+                     playerComponent.setMountEntityId(networkId);
+                     playerRef.getPacketHandler().write(packet);
+                  }
+               }
+            }
          }
       }
 
@@ -118,17 +120,50 @@ public class NPCMountSystems {
          @Nonnull NPCMountComponent mountComponent
       ) {
          NPCEntity npcComponent = store.getComponent(ref, NPCEntity.getComponentType());
-
-         assert npcComponent != null;
-
-         RoleChangeSystem.requestRoleChange(ref, npcComponent.getRole(), mountComponent.getOriginalRoleIndex(), false, "Idle", null, store);
-         commandBuffer.removeComponent(ref, NPCMountComponent.getComponentType());
+         if (npcComponent != null) {
+            RoleChangeSystem.requestRoleChange(ref, npcComponent.getRole(), mountComponent.getOriginalRoleIndex(), false, "Idle", null, store);
+            commandBuffer.removeComponent(ref, NPCMountComponent.getComponentType());
+         }
       }
 
       @Override
       public void onEntityRemove(
          @Nonnull Ref<EntityStore> ref, @Nonnull RemoveReason reason, @Nonnull Store<EntityStore> store, @Nonnull CommandBuffer<EntityStore> commandBuffer
       ) {
+      }
+   }
+
+   public static class OnPlayerRemove extends RefSystem<EntityStore> {
+      public OnPlayerRemove() {
+      }
+
+      @Override
+      public void onEntityAdded(
+         @NonNullDecl Ref<EntityStore> ref,
+         @NonNullDecl AddReason reason,
+         @NonNullDecl Store<EntityStore> store,
+         @NonNullDecl CommandBuffer<EntityStore> commandBuffer
+      ) {
+      }
+
+      @Override
+      public void onEntityRemove(
+         @NonNullDecl Ref<EntityStore> ref,
+         @NonNullDecl RemoveReason reason,
+         @NonNullDecl Store<EntityStore> store,
+         @NonNullDecl CommandBuffer<EntityStore> commandBuffer
+      ) {
+         Player player = commandBuffer.getComponent(ref, Player.getComponentType());
+
+         assert player != null;
+
+         MountPlugin.checkDismountNpc(commandBuffer, ref, player);
+      }
+
+      @Nullable
+      @Override
+      public Query<EntityStore> getQuery() {
+         return Player.getComponentType();
       }
    }
 }

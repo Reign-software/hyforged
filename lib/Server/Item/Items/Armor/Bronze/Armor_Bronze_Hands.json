@@ -3,7 +3,7 @@
     "Name": "server.items.Armor_Bronze_Hands.name"
   },
   "Parent": "Armor_Iron_Hands",
-  "ItemLevel": 22,
+  "ItemLevel": 25,
   "Icon": "Icons/ItemsGenerated/Armor_Bronze_Hands.png",
   "Model": "Items/Armors/Bronze/Hands.blockymodel",
   "Texture": "Items/Armors/Bronze/Hands_Texture.png",

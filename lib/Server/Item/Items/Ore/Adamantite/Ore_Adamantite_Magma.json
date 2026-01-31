@@ -21,8 +21,8 @@
     "Textures": [
       {
         "Weight": 1,
-        "Sides": "BlockTextures/Rock_Magma_Cooled_Side.png",
-        "UpDown": "BlockTextures/Rock_Magma_Cooled.png"
+        "Sides": "BlockTextures/Rock_Magma_Cooled_Adamantite_Cracks_Side02.png",
+        "UpDown": "BlockTextures/Rock_Magma_Cooled_Adamantite_Cracks02.png"
       }
     ],
     "Gathering": {
@@ -35,11 +35,15 @@
             "Containers": [
               {
                 "Type": "Single",
-                "Item": { "ItemId": "Ore_Adamantite" }
+                "Item": {
+                  "ItemId": "Ore_Adamantite"
+                }
               },
               {
                 "Type": "Single",
-                "Item": { "ItemId": "Rock_Magma_Cooled" }
+                "Item": {
+                  "ItemId": "Rock_Magma_Cooled"
+                }
               }
             ]
           }
@@ -61,5 +65,17 @@
     ]
   },
   "MaxStack": 25,
-  "ItemSoundSetId": "ISS_Blocks_Stone"
+  "ItemSoundSetId": "ISS_Blocks_Stone",
+  "IconProperties": {
+    "Scale": 0.58823,
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Translation": [
+      0,
+      -13.5
+    ]
+  }
 }

@@ -7,7 +7,7 @@
   "Model": "Items/Weapons/Bow/Bronze.blockymodel",
   "Texture": "Items/Weapons/Bow/Bronze_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Bow_Bronze.png",
-  "ItemLevel": 20,
+  "ItemLevel": 25,
   "ItemAppearanceConditions": {
     "SignatureCharges": [
       {
@@ -205,6 +205,38 @@
               "Projectile": 17
             }
           },
+          "TargetedDamage": {
+            "Head": {
+              "DamageCalculator": {
+                "BaseDamage": {
+                  "Projectile": 22
+                }
+              },
+              "DamageEffects": {
+                "Knockback": {
+                  "Type": "Force",
+                  "VelocityConfig": {
+                    "AirResistance": 0.99,
+                    "AirResistanceMax": 0.98,
+                    "GroundResistance": 0.94,
+                    "GroundResistanceMax": 0.3,
+                    "Threshold": 3.0,
+                    "Style": "Linear"
+                  },
+                  "Direction": { "X": 0.0, "Y": 0.5, "Z": -1 },
+                  "Force": 8,
+                  "VelocityType": "Add"
+                },
+                "WorldParticles": [
+                  {
+                    "SystemId": "Impact_Critical",
+                    "Scale": 1,
+                    "RotationOffset": { "Yaw": 180, "Pitch": 0, "Roll": 0 }
+                  }
+                ]
+              }
+            }
+          },
           "DamageEffects": {
             "Knockback": {
               "Type": "Force",
@@ -242,6 +274,17 @@
             "BaseDamage": {
               "Projectile": 12
             }
+          }
+        }
+      ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Shortbow_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 9.44,
+            "CostType": "Damage"
           }
         }
       ]

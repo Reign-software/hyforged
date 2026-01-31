@@ -5,23 +5,23 @@
         {
           "Type": "Gather",
           "BlockTagOrItemId": {
-            "BlockTag": "Tree"
+            "ItemId": "Ingredient_Stick"
           },
-          "Count": 6
+          "Count": 2
         },
         {
           "Type": "Gather",
           "BlockTagOrItemId": {
-            "BlockTag": "Stone"
+            "BlockTag": "Rubble"
           },
-          "Count": 4
+          "Count": 2
         },
         {
           "Type": "Gather",
           "BlockTagOrItemId": {
             "ItemId": "Ingredient_Fibre"
           },
-          "Count": 3
+          "Count": 2
         },
         {
           "Type": "Craft",

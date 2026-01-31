@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Chest",
   "Quality": "Epic",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Icon": "Icons/ItemsGenerated/Armor_Mithril_Chest.png",
   "IconProperties": {
     "Rotation": [

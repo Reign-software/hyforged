@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Dagger/Onyxium_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Daggers_Onyxium.png",
   "Quality": "Epic",
-  "ItemLevel": 30,
+  "ItemLevel": 50,
   "InteractionVars": {
     "Swing_Left_Damage": {
       "Interactions": [
@@ -15,7 +15,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 2
+              "Physical": 8
             }
           },
           "DamageEffects": {
@@ -31,7 +31,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 3
+              "Physical": 8
             }
           },
           "DamageEffects": {
@@ -47,7 +47,7 @@
           "Parent": "Weapon_Daggers_Primary_Stab_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 6
+              "Physical": 15
             }
           },
           "DamageEffects": {
@@ -63,7 +63,7 @@
           "Parent": "Weapon_Daggers_Primary_Stab_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 7
+              "Physical": 25
             }
           },
           "DamageEffects": {
@@ -79,7 +79,7 @@
           "Parent": "Weapon_Daggers_Primary_Pounce_Sweep_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 25
+              "Physical": 61
             }
           },
           "EntityStatsOnHit": [
@@ -101,7 +101,7 @@
           "Parent": "Weapon_Daggers_Primary_Pounce_Stab_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 31
+              "Physical": 76
             }
           },
           "EntityStatsOnHit": [
@@ -123,7 +123,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Slash_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 25
+              "Physical": 49
             }
           },
           "EntityStatsOnHit": [],
@@ -140,7 +140,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Sweep_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 31
+              "Physical": 61
             }
           },
           "EntityStatsOnHit": [],
@@ -157,7 +157,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Lunge_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 37
+              "Physical": 73
             }
           },
           "EntityStatsOnHit": [],
@@ -167,6 +167,19 @@
           }
         }
       ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Daggers_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 20,
+            "CostType": "Damage"
+          }
+        }
+      ]
     }
-  }
+  },
+  "MaxDurability": 220,
+  "DurabilityLossOnHit": 0.1
 }

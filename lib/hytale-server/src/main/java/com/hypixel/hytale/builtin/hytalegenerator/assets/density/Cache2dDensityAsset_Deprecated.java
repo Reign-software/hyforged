@@ -30,7 +30,7 @@ public class Cache2dDensityAsset_Deprecated extends DensityAsset {
          if (input == null) {
             return new ConstantValueDensity(0.0);
          } else {
-            Density cacheDensity = new MultiCacheDensity(input, argument.workerIndexer.getWorkerCount(), CacheDensityAsset.DEFAULT_CAPACITY);
+            Density cacheDensity = new MultiCacheDensity(input, CacheDensityAsset.DEFAULT_CAPACITY);
             return new YOverrideDensity(cacheDensity, this.y);
          }
       } else {

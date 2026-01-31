@@ -6,9 +6,8 @@
   "BlockType": {
     "Textures": [
       {
-        "Sides": "BlockTextures/Rock_Slate_Cracked.png",
-        "UpDown": "BlockTextures/Rock_Slate_Cracked.png",
-        "Weight": 1
+        "Weight": 1,
+        "All": "BlockTextures/Rock_Slate_Cobalt_Cracks03.png"
       }
     ],
     "Gathering": {

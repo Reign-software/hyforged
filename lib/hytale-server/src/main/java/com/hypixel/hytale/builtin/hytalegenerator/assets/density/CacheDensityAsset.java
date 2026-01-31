@@ -30,8 +30,8 @@ public class CacheDensityAsset extends DensityAsset {
          return this.build(argument);
       } else {
          return (Density)(this.capacity == 1
-            ? new CacheDensity(this.buildFirstInput(argument), argument.workerIndexer.getWorkerCount())
-            : new MultiCacheDensity(this.buildFirstInput(argument), argument.workerIndexer.getWorkerCount(), this.capacity));
+            ? new CacheDensity(this.buildFirstInput(argument))
+            : new MultiCacheDensity(this.buildFirstInput(argument), this.capacity));
       }
    }
 

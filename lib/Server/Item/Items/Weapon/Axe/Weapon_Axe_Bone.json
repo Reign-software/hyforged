@@ -6,7 +6,7 @@
     "Items.Weapons"
   ],
   "Quality": "Rare",
-  "ItemLevel": 35,
+  "ItemLevel": 25,
   "Model": "NPC/Intelligent/Feran/Models/Weapons/Axe/Bone.blockymodel",
   "Texture": "NPC/Intelligent/Feran/Models/Weapons/Axe/Bone_Texture.png",
   "PlayerAnimationsId": "Axe",

@@ -7,7 +7,7 @@
   "Icon": "Icons/ItemsGenerated/Weapon_Bow_Doomed.png",
   "Model": "NPC/Intelligent/Outlander/Models/Weapons/Bow/Doomed.blockymodel",
   "Texture": "NPC/Intelligent/Outlander/Models/Weapons/Bow/Doomed_Texture.png",
-  "ItemLevel": 35,
+  "ItemLevel": 30,
   "MaxDurability": 75,
   "ItemAppearanceConditions": {
     "SignatureCharges": [
@@ -206,6 +206,38 @@
               "Projectile": 23
             }
           },
+          "TargetedDamage": {
+            "Head": {
+              "DamageCalculator": {
+                "BaseDamage": {
+                  "Projectile": 30
+                }
+              },
+              "DamageEffects": {
+                "Knockback": {
+                  "Type": "Force",
+                  "VelocityConfig": {
+                    "AirResistance": 0.99,
+                    "AirResistanceMax": 0.98,
+                    "GroundResistance": 0.94,
+                    "GroundResistanceMax": 0.3,
+                    "Threshold": 3.0,
+                    "Style": "Linear"
+                  },
+                  "Direction": { "X": 0.0, "Y": 0.5, "Z": -1 },
+                  "Force": 8,
+                  "VelocityType": "Add"
+                },
+                "WorldParticles": [
+                  {
+                    "SystemId": "Impact_Critical",
+                    "Scale": 1,
+                    "RotationOffset": { "Yaw": 180, "Pitch": 0, "Roll": 0 }
+                  }
+                ]
+              }
+            }
+          },
           "DamageEffects": {
             "Knockback": {
               "Type": "Force",
@@ -243,6 +275,17 @@
             "BaseDamage": {
               "Projectile": 17
             }
+          }
+        }
+      ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Shortbow_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 12.22,
+            "CostType": "Damage"
           }
         }
       ]

@@ -6,7 +6,7 @@
     "Items.Weapons"
   ],
   "Quality": "Common",
-  "ItemLevel": 14,
+  "ItemLevel": 9,
   "PlayerAnimationsId": "Dagger",
   "Recipe": {
     "TimeSeconds": 0.5,

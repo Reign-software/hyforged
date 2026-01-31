@@ -33,6 +33,7 @@ public final class CloseWorldWhenBreakingDeviceSystems {
       public ComponentRemoved() {
       }
 
+      @Nonnull
       @Override
       public ComponentType<ChunkStore, PortalDevice> componentType() {
          return PortalDevice.getComponentType();

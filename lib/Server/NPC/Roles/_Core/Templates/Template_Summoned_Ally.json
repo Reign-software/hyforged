@@ -34,6 +34,14 @@
       "Value": 10,
       "Description": "Maximum walking speed"
     },
+    "MaxClimbHeight": {
+      "Value": 3,
+      "Description": "Max climb height"
+    },
+    "MaxDropHeight": {
+      "Value": 5,
+      "Description": "Max drop height"
+    },
     "RunThreshold": {
       "Value": 0.3,
       "Description": "Relative speed at which run animation should be used. A value of 1 disables run animations"
@@ -140,7 +148,7 @@
       "Description": "An optional macro element for supplying more bespoke combat movement behavior. Weight for the behavior must be internally defined in the macro element."
     },
     "TargetSwitchTimer": {
-      "Value": [ 5, 5 ],
+      "Value": [ 2, 2 ],
       "Description": "Minimum time the NPC will be locked onto a single target before switching"
     },
     "TargetRange": {
@@ -159,13 +167,21 @@
       "Value": 0.3,
       "Description": "Relative speed to use during combat when backing away from target."
     },
+    "AimingHitProbability": {
+      "Value": 0.9,
+      "Description": "Hit probability when aiming. Mostly affects ranged attacks."
+    },
+    "AimingSpread": {
+      "Value": 0,
+      "Description": "Spread when aiming. Mostly affects ranged attacks."
+    },
     "FlockArray": {
       "Value": [ ],
       "TypeHint": "String",
       "Description": "Array containing NPCs for this flock type."
     },
     "DisableDamageGroups": {
-      "Value": [ "Self", "Player" ],
+      "Value": [ "Self" ],
       "Description": "Groups not to take damage from."
     },
     "MaxHealth": {
@@ -183,12 +199,17 @@
     "DespawnTimer": {
       "Value": 300,
       "Description": "How long the NPC will remain before it despawns in seconds."
+    },
+    "SummonerLeashRange": {
+      "Value": 30,
+      "Description": "How far away from the summoner the NPC is allowed to be while in combat before trying to return to the summoner's position."
     }
   },
   "IsMemory": false,
   "BreathesInWater": { "Compute": "BreathesInWater" },
   "Appearance": { "Compute": "Appearance" },
   "DisableDamageGroups": { "Compute": "DisableDamageGroups" },
+  "DisableDamageFlock": true,
   "HotbarItems": { "Compute": "Weapons" },
   "HotbarSize": 3,
   "OffHandItems": { "Compute": "OffHand" },
@@ -214,7 +235,9 @@
       "RunThreshold": { "Compute": "RunThreshold" },
       "MaxFallSpeed": 15,
       "MaxRotationSpeed": 360,
-      "Acceleration": 10
+      "Acceleration": 10,
+      "MaxClimbHeight": { "Compute": "MaxClimbHeight" },
+      "MaxDropHeight": { "Compute": "MaxDropHeight" }
     }
   ],
   "StateTransitions": [
@@ -343,13 +366,58 @@
           ]
         },
         {
+          "Continue": true,
           "Sensor": {
-            "Type": "InflictedDamage",
-            "Target": "FlockLeader"
+            "Type": "Or",
+            "Sensors": [
+              {
+                "Type": "InflictedDamage",
+                "Target": "FlockLeader"
+              },
+              {
+                "Type": "FlockCombatDamage",
+                "LeaderOnly": true
+              }
+            ]
           },
           "Actions": [
             {
-              "Type": "FlockTarget"
+              "Type": "OverrideAttitude",
+              "Attitude": "Hostile",
+              "Duration": 360
+            }
+          ]
+        },
+        {
+          "$Comment": "Respond to damage taken by or dealt by the summoner as long as not already engaged with a target.",
+          "Sensor": {
+            "Type": "And",
+            "Sensors": [
+              {
+                "Type": "Not",
+                "Sensor": {
+                  "Type": "Target",
+                  "Range": { "Compute": "CombatBehaviorDistance" }
+                }
+              },
+              {
+                "Type": "Or",
+                "Sensors": [
+                  {
+                    "Type": "InflictedDamage",
+                    "Target": "FlockLeader"
+                  },
+                  {
+                    "Type": "FlockCombatDamage",
+                    "LeaderOnly": true
+                  }
+                ]
+              }
+            ]
+          },
+          "Actions": [
+            {
+              "Type": "SetMarkedTarget"
             },
             {
               "Type": "State",
@@ -368,25 +436,9 @@
           },
           "Instructions": [
             {
-              "$Comment": "Switch to combat state if any flock member engages a target.",
-              "Enabled": { "Compute": "!isEmptyStringArray(FlockArray)" },
-              "Sensor": {
-                "Type": "Beacon",
-                "Message": "Flock_Attack",
-                "TargetSlot": "LockedTarget",
-                "Range": { "Compute": "HearingRange * 2" }
-              },
-              "Actions": [
-                {
-                  "Type": "State",
-                  "State": "Combat"
-                }
-              ]
-            },
-            {
               "Reference": "Component_Instruction_Damage_Check",
               "Modify": {
-                "_ExportStates": [ "Combat", "Idle" ],
+                "_ExportStates": [ "Combat.Override", "Idle" ],
                 "AlertedRange": { "Compute": "AlertedRange" }
               }
             },
@@ -429,6 +481,70 @@
             "State": "Combat"
           },
           "Instructions": [
+            {
+              "TreeMode": true,
+              "Instructions": [
+                {
+                  "Continue": true,
+                  "Sensor": {
+                    "Type": "FlockLeader"
+                  },
+                  "Actions": [
+                    {
+                      "Type": "SetMarkedTarget",
+                      "TargetSlot": "LeaderSlot"
+                    }
+                  ]
+                },
+                {
+                  "Sensor": {
+                    "Type": "Not",
+                    "Sensor": {
+                      "Type": "Target",
+                      "TargetSlot": "LeaderSlot",
+                      "Range": { "Compute": "SummonerLeashRange" }
+                    }
+                  },
+                  "Actions": [
+                    {
+                      "Type": "State",
+                      "State": "Idle"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Continue": true,
+              "Sensor": {
+                "Type": "State",
+                "State": ".Override"
+              },
+              "Instructions": [
+                {
+                  "Continue": true,
+                  "Sensor": {
+                    "Type": "Target",
+                    "Range": { "Compute": "AlertedRange" }
+                  },
+                  "Actions": [
+                    {
+                      "Type": "OverrideAttitude",
+                      "Attitude": "Hostile",
+                      "Duration": 360
+                    }
+                  ]
+                },
+                {
+                  "Actions": [
+                    {
+                      "Type": "State",
+                      "State": "Combat"
+                    }
+                  ]
+                }
+              ]
+            },
             {
               "Sensor": {
                 "Type": "Or",
@@ -511,7 +627,10 @@
                         "TargetInRange": true
                       },
                       "HeadMotion": {
-                        "Type": "Aim"
+                        "Type": "Aim",
+                        "HitProbability": { "Compute": "AimingHitProbability" },
+                        "Deflection": true,
+                        "Spread": { "Compute": "AimingSpread" }
                       },
                       "BodyMotion": {
                         "Type": "MaintainDistance",
@@ -542,7 +661,10 @@
                         "TargetInRange": true
                       },
                       "HeadMotion": {
-                        "Type": "Aim"
+                        "Type": "Aim",
+                        "HitProbability": { "Compute": "AimingHitProbability" },
+                        "Deflection": true,
+                        "Spread": { "Compute": "AimingSpread" }
                       },
                       "BodyMotion": {
                         "Type": "MaintainDistance",
@@ -589,6 +711,70 @@
             "State": "Combat"
           },
           "Instructions": [
+            {
+              "TreeMode": true,
+              "Instructions": [
+                {
+                  "Continue": true,
+                  "Sensor": {
+                    "Type": "FlockLeader"
+                  },
+                  "Actions": [
+                    {
+                      "Type": "SetMarkedTarget",
+                      "TargetSlot": "LeaderSlot"
+                    }
+                  ]
+                },
+                {
+                  "Sensor": {
+                    "Type": "Not",
+                    "Sensor": {
+                      "Type": "Target",
+                      "TargetSlot": "LeaderSlot",
+                      "Range": { "Compute": "SummonerLeashRange" }
+                    }
+                  },
+                  "Actions": [
+                    {
+                      "Type": "State",
+                      "State": "Idle"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Continue": true,
+              "Sensor": {
+                "Type": "State",
+                "State": ".Override"
+              },
+              "Instructions": [
+                {
+                  "Continue": true,
+                  "Sensor": {
+                    "Type": "Target",
+                    "Range": { "Compute": "AlertedRange" }
+                  },
+                  "Actions": [
+                    {
+                      "Type": "OverrideAttitude",
+                      "Attitude": "Hostile",
+                      "Duration": 360
+                    }
+                  ]
+                },
+                {
+                  "Actions": [
+                    {
+                      "Type": "State",
+                      "State": "Combat"
+                    }
+                  ]
+                }
+              ]
+            },
             {
               "Sensor": {
                 "Type": "State",
@@ -678,7 +864,10 @@
               ],
               "HeadMotion": {
                 "Type": "Aim",
-                "RelativeTurnSpeed": { "Compute": "CombatRelativeTurnSpeed" }
+                "RelativeTurnSpeed": { "Compute": "CombatRelativeTurnSpeed" },
+                "HitProbability": { "Compute": "AimingHitProbability" },
+                "Deflection": true,
+                "Spread": { "Compute": "AimingSpread" }
               }
             },
             {
@@ -832,7 +1021,10 @@
                   },
                   "HeadMotion": {
                     "Type": "Aim",
-                    "RelativeTurnSpeed": { "Compute": "CombatRelativeTurnSpeed" }
+                    "RelativeTurnSpeed": { "Compute": "CombatRelativeTurnSpeed" },
+                    "HitProbability": { "Compute": "AimingHitProbability" },
+                    "Deflection": true,
+                    "Spread": { "Compute": "AimingSpread" }
                   },
                   "BodyMotion": {
                     "Type": "Seek",

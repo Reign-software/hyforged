@@ -17,7 +17,7 @@
           "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_0",
           "DamageCalculator": {
             "BaseDamage": {
-              "Projectile": 5
+              "Projectile": 6
             }
           },
           "DamageEffects": {
@@ -35,7 +35,7 @@
           "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_1",
           "DamageCalculator": {
             "BaseDamage": {
-              "Projectile": 9
+              "Projectile": 8
             }
           },
           "DamageEffects": {
@@ -53,7 +53,7 @@
           "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_2",
           "DamageCalculator": {
             "BaseDamage": {
-              "Projectile": 12
+              "Projectile": 11
             }
           },
           "DamageEffects": {
@@ -71,7 +71,7 @@
           "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_3",
           "DamageCalculator": {
             "BaseDamage": {
-              "Projectile": 14
+              "Projectile": 15
             }
           },
           "DamageEffects": {

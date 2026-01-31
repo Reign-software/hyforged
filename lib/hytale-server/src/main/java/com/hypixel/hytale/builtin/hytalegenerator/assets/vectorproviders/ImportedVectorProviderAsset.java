@@ -30,12 +30,15 @@ public class ImportedVectorProviderAsset extends VectorProviderAsset {
          if (exported == null) {
             LoggerUtil.getLogger().warning("Couldn't find VectorProvider asset exported with name: '" + this.importedNodeName + "'. Using empty Node instead.");
             return new ConstantVectorProvider(new Vector3d());
-         } else if (exported.singleInstance) {
-            if (exported.builtInstance == null) {
-               exported.builtInstance = exported.asset.build(argument);
+         } else if (exported.isSingleInstance) {
+            Thread thread = Thread.currentThread();
+            VectorProvider builtInstance = exported.threadInstances.get(thread);
+            if (builtInstance == null) {
+               builtInstance = exported.asset.build(argument);
+               exported.threadInstances.put(thread, builtInstance);
             }
 
-            return exported.builtInstance;
+            return builtInstance;
          } else {
             return exported.asset.build(argument);
          }
@@ -46,7 +49,7 @@ public class ImportedVectorProviderAsset extends VectorProviderAsset {
    public void cleanUp() {
       VectorProviderAsset.Exported exported = getExportedAsset(this.importedNodeName);
       if (exported != null) {
-         exported.builtInstance = null;
+         exported.threadInstances.clear();
       }
    }
 }

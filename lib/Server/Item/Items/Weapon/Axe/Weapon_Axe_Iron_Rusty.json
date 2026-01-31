@@ -6,7 +6,7 @@
     "Items.Weapons"
   ],
   "Quality": "Common",
-  "ItemLevel": 40,
+  "ItemLevel": 15,
   "Recipe": {
     "KnowledgeRequired": false,
     "Input": []

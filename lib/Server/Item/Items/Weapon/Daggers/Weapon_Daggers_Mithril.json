@@ -43,7 +43,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 5
+              "Physical": 8
             }
           },
           "DamageEffects": {
@@ -60,7 +60,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 6
+              "Physical": 8
             }
           },
           "DamageEffects": {
@@ -77,7 +77,7 @@
           "Parent": "Weapon_Daggers_Primary_Stab_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 19
+              "Physical": 15
             }
           },
           "DamageEffects": {
@@ -94,7 +94,7 @@
           "Parent": "Weapon_Daggers_Primary_Stab_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 23
+              "Physical": 25
             }
           },
           "DamageEffects": {

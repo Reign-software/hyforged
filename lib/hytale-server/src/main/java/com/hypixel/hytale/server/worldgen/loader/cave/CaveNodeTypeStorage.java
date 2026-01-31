@@ -1,14 +1,13 @@
 package com.hypixel.hytale.server.worldgen.loader.cave;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
+import com.hypixel.hytale.procedurallib.file.FileIO;
+import com.hypixel.hytale.procedurallib.json.JsonLoader;
 import com.hypixel.hytale.procedurallib.json.SeedString;
 import com.hypixel.hytale.server.worldgen.SeedStringResource;
 import com.hypixel.hytale.server.worldgen.cave.CaveNodeType;
 import com.hypixel.hytale.server.worldgen.loader.context.ZoneFileContext;
 import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
@@ -61,15 +60,10 @@ public class CaveNodeTypeStorage {
       Path file = this.caveFolder.resolve(String.format("%s.node.json", name.replace(".", File.separator)));
 
       try {
-         CaveNodeType var5;
-         try (JsonReader reader = new JsonReader(Files.newBufferedReader(file))) {
-            JsonObject caveNodeJson = JsonParser.parseReader(reader).getAsJsonObject();
-            var5 = this.loadCaveNodeType(name, caveNodeJson);
-         }
-
-         return var5;
-      } catch (Throwable var8) {
-         throw new Error(String.format("Error while loading CaveNodeType %s for world generator from %s", name, file.toString()), var8);
+         JsonObject caveNodeJson = FileIO.load(file, JsonLoader.JSON_OBJ_LOADER);
+         return this.loadCaveNodeType(name, caveNodeJson);
+      } catch (Throwable var4) {
+         throw new Error(String.format("Error while loading CaveNodeType %s for world generator from %s", name, file.toString()), var4);
       }
    }
 

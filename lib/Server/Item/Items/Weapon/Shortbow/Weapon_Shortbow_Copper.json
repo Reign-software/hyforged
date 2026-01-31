@@ -7,7 +7,7 @@
   "Model": "Items/Weapons/Bow/Copper.blockymodel",
   "Texture": "Items/Weapons/Bow/Copper_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Bow_Copper.png",
-  "ItemLevel": 15,
+  "ItemLevel": 10,
   "Recipe": {
     "TimeSeconds": 3,
     "KnowledgeRequired": false,
@@ -61,7 +61,7 @@
           "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_1",
           "DamageCalculator": {
             "BaseDamage": {
-              "Projectile": 8
+              "Projectile": 7
             }
           }
         }
@@ -73,7 +73,7 @@
           "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_2",
           "DamageCalculator": {
             "BaseDamage": {
-              "Projectile": 11
+              "Projectile": 10
             }
           }
         }

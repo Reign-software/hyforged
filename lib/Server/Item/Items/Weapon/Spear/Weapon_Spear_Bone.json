@@ -6,7 +6,7 @@
     "Items.Weapons"
   ],
   "Quality": "Rare",
-  "ItemLevel": 35,
+  "ItemLevel": 25,
   "Model": "NPC/Intelligent/Feran/Models/Weapons/Spear/Bone.blockymodel",
   "Texture": "NPC/Intelligent/Feran/Models/Weapons/Spear/Bone_Texture.png",
   "MaxStack": 5,
@@ -44,7 +44,7 @@
           "Parent": "Spear_Stab_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 9
+              "Physical": 8
             },
             "Type": "Absolute"
           },
@@ -74,8 +74,6 @@
       "Spear"
     ]
   },
-  "MaxDurability": 75,
-  "DurabilityLossOnHit": 0.56,
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Wood"
 }

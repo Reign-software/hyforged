@@ -2,19 +2,17 @@
   "Layers": [
     {
       "Files": [
-        "Sounds/Weapons/Sword/T1/Sword_Swing_T1_RL_Stereo_01.ogg",
-        "Sounds/Weapons/Sword/T1/Sword_Swing_T1_RL_Stereo_02.ogg",
-        "Sounds/Weapons/Sword/T1/Sword_Swing_T1_RL_Stereo_03.ogg",
-        "Sounds/Weapons/Sword/T1/Sword_Swing_T1_RL_Stereo_04.ogg",
-        "Sounds/Weapons/Sword/T1/Sword_Swing_T1_RL_Stereo_05.ogg"
+        "Sounds/Weapons/Sword/T1/Sword_T1_Swing_RL_Stereo_01.ogg",
+        "Sounds/Weapons/Sword/T1/Sword_T1_Swing_RL_Stereo_02.ogg",
+        "Sounds/Weapons/Sword/T1/Sword_T1_Swing_RL_Stereo_03.ogg"
       ],
       "RandomSettings": {
-        "MinPitch": -2,
-        "MaxPitch": 0.1,
-        "MinVolume": -3
+        "MinVolume": -1,
+        "MinPitch": -0.45,
+        "MaxPitch": 0.45
       },
-      "StartDelay": 0.1,
-      "Volume": 1.0
+      "RoundRobinHistorySize": 1,
+      "StartDelay": 0.1
     },
     {
       "Files": [
@@ -29,10 +27,10 @@
         "MaxPitch": 5
       },
       "Volume": -14.0,
-      "StartDelay": 0.1
+      "StartDelay": 0.35
     }
   ],
-  "Volume": 0,
+  "Volume": 2,
   "PreventSoundInterruption": true,
   "AudioCategory": "AudioCat_Sword"
 }

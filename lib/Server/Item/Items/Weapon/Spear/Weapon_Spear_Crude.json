@@ -7,10 +7,10 @@
     "Items.Weapons"
   ],
   "Quality": "Common",
-  "ItemLevel": 15,
+  "ItemLevel": 5,
   "Model": "Items/Weapons/Spear/Crude.blockymodel",
   "Texture": "Items/Weapons/Spear/Crude_Texture.png",
-  "MaxStack": 6,
+  "MaxStack": 5,
   "IconProperties": {
     "Scale": 0.26,
     "Translation": [
@@ -93,7 +93,5 @@
       }
     ]
   },
-  "MaxDurability": 45,
-  "DurabilityLossOnHit": 0,
   "ItemSoundSetId": "ISS_Weapons_Wood"
 }

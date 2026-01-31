@@ -91,6 +91,7 @@ import com.hypixel.hytale.server.core.universe.world.worldgen.provider.DummyWorl
 import com.hypixel.hytale.server.core.universe.world.worldgen.provider.FlatWorldGenProvider;
 import com.hypixel.hytale.server.core.universe.world.worldgen.provider.IWorldGenProvider;
 import com.hypixel.hytale.server.core.universe.world.worldgen.provider.VoidWorldGenProvider;
+import com.hypixel.hytale.server.core.universe.world.worldmap.markers.worldstore.WorldMarkersResource;
 import com.hypixel.hytale.server.core.universe.world.worldmap.provider.DisabledWorldMapProvider;
 import com.hypixel.hytale.server.core.universe.world.worldmap.provider.IWorldMapProvider;
 import com.hypixel.hytale.server.core.universe.world.worldmap.provider.chunk.WorldGenWorldMapProvider;
@@ -119,6 +120,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiPredicate;
 import java.util.logging.Level;
 import javax.annotation.CheckReturnValue;
@@ -152,7 +154,9 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
    private PlayerStorage playerStorage;
    private WorldConfigProvider worldConfigProvider;
    private ResourceType<ChunkStore, IndexedStorageChunkStorageProvider.IndexedStorageCache> indexedStorageCacheResourceType;
+   private ResourceType<ChunkStore, WorldMarkersResource> worldMarkersResourceType;
    private CompletableFuture<Void> universeReady;
+   private final AtomicBoolean isBackingUp = new AtomicBoolean(false);
 
    public static Universe get() {
       return instance;
@@ -173,11 +177,23 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
          int frequencyMinutes = Math.max(Options.getOptionSet().valueOf(Options.BACKUP_FREQUENCY_MINUTES), 1);
          this.getLogger().at(Level.INFO).log("Scheduled backup to run every %d minute(s)", frequencyMinutes);
          HytaleServer.SCHEDULED_EXECUTOR.scheduleWithFixedDelay(() -> {
-            try {
-               this.getLogger().at(Level.INFO).log("Backing up universe...");
-               this.runBackup().thenAccept(aVoid -> this.getLogger().at(Level.INFO).log("Completed scheduled backup."));
-            } catch (Exception var2x) {
-               this.getLogger().at(Level.SEVERE).withCause(var2x).log("Error backing up universe");
+            if (!this.isBackingUp.compareAndSet(false, true)) {
+               this.getLogger().at(Level.WARNING).log("Skipping scheduled backup: previous backup still in progress");
+            } else {
+               try {
+                  this.getLogger().at(Level.INFO).log("Backing up universe...");
+                  this.runBackup().whenComplete((aVoid, throwable) -> {
+                     this.isBackingUp.set(false);
+                     if (throwable != null) {
+                        this.getLogger().at(Level.SEVERE).withCause(throwable).log("Scheduled backup failed");
+                     } else {
+                        this.getLogger().at(Level.INFO).log("Completed scheduled backup.");
+                     }
+                  });
+               } catch (Exception var2x) {
+                  this.isBackingUp.set(false);
+                  this.getLogger().at(Level.SEVERE).withCause(var2x).log("Error backing up universe");
+               }
             }
          }, frequencyMinutes, frequencyMinutes, TimeUnit.MINUTES);
       }
@@ -225,6 +241,7 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
       this.indexedStorageCacheResourceType = chunkStoreRegistry.registerResource(
          IndexedStorageChunkStorageProvider.IndexedStorageCache.class, IndexedStorageChunkStorageProvider.IndexedStorageCache::new
       );
+      this.worldMarkersResourceType = chunkStoreRegistry.registerResource(WorldMarkersResource.class, "SharedUserMapMarkers", WorldMarkersResource.CODEC);
       chunkStoreRegistry.registerSystem(new IndexedStorageChunkStorageProvider.IndexedStorageCacheSetupSystem());
       chunkStoreRegistry.registerSystem(new WorldPregenerateSystem());
       entityStoreRegistry.registerSystem(new WorldConfigSaveSystem());
@@ -362,6 +379,10 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
 
    public ResourceType<ChunkStore, IndexedStorageChunkStorageProvider.IndexedStorageCache> getIndexedStorageCacheResourceType() {
       return this.indexedStorageCacheResourceType;
+   }
+
+   public ResourceType<ChunkStore, WorldMarkersResource> getWorldMarkersResourceType() {
+      return this.worldMarkersResourceType;
    }
 
    public boolean isWorldLoadable(@Nonnull String name) {
@@ -688,42 +709,60 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
                      .getEventBus()
                      .<Void, PlayerConnectEvent>dispatchFor(PlayerConnectEvent.class)
                      .dispatch(new PlayerConnectEvent((Holder<EntityStore>)holder, playerRefComponent, lastWorld != null ? lastWorld : this.getDefaultWorld()));
-                  World world = event.getWorld() != null ? event.getWorld() : this.getDefaultWorld();
-                  if (world == null) {
+                  if (!channel.isActive()) {
                      this.players.remove(uuid, playerRefComponent);
-                     playerConnection.disconnect("No world available to join");
-                     this.getLogger().at(Level.SEVERE).log("Player '%s' (%s) could not join - no default world configured", username, uuid);
+                     this.getLogger().at(Level.INFO).log("Player '%s' (%s) disconnected during PlayerConnectEvent, cleaned up", username, uuid);
                      return CompletableFuture.completedFuture(null);
                   } else {
-                     if (lastWorldName != null && lastWorld == null) {
-                        playerComponent.sendMessage(
-                           Message.translation("server.universe.failedToFindWorld").param("lastWorldName", lastWorldName).param("name", world.getName())
-                        );
-                     }
-
-                     PacketHandler.logConnectionTimings(channel, "Processed Referral", Level.FINEST);
-                     playerRefComponent.getPacketHandler().write(new ServerTags(AssetRegistry.getClientTags()));
-                     return world.addPlayer(playerRefComponent, null, false, false).thenApply(p -> {
-                        PacketHandler.logConnectionTimings(channel, "Add to World", Level.FINEST);
-                        if (!channel.isActive()) {
-                           if (p != null) {
-                              playerComponent.remove();
-                           }
-
-                           this.players.remove(uuid, playerRefComponent);
-                           this.getLogger().at(Level.WARNING).log("Player '%s' (%s) disconnected during world join, cleaned up from universe", username, uuid);
-                           return null;
-                        } else if (playerComponent.wasRemoved()) {
-                           this.players.remove(uuid, playerRefComponent);
-                           return null;
-                        } else {
-                           return (PlayerRef)p;
-                        }
-                     }).exceptionally(throwable -> {
+                     World world = event.getWorld() != null ? event.getWorld() : this.getDefaultWorld();
+                     if (world == null) {
                         this.players.remove(uuid, playerRefComponent);
-                        playerComponent.remove();
-                        throw new RuntimeException("Exception when adding player to universe:", throwable);
-                     });
+                        playerConnection.disconnect("No world available to join");
+                        this.getLogger().at(Level.SEVERE).log("Player '%s' (%s) could not join - no default world configured", username, uuid);
+                        return CompletableFuture.completedFuture(null);
+                     } else {
+                        if (lastWorldName != null && lastWorld == null) {
+                           playerComponent.sendMessage(
+                              Message.translation("server.universe.failedToFindWorld").param("lastWorldName", lastWorldName).param("name", world.getName())
+                           );
+                        }
+
+                        PacketHandler.logConnectionTimings(channel, "Processed Referral", Level.FINEST);
+                        playerRefComponent.getPacketHandler().write(new ServerTags(AssetRegistry.getClientTags()));
+                        CompletableFuture<PlayerRef> addPlayerFuture = world.addPlayer(playerRefComponent, null, false, false);
+                        if (addPlayerFuture == null) {
+                           this.players.remove(uuid, playerRefComponent);
+                           this.getLogger().at(Level.INFO).log("Player '%s' (%s) disconnected before world addition, cleaned up", username, uuid);
+                           return CompletableFuture.completedFuture(null);
+                        } else {
+                           return addPlayerFuture.<PlayerRef>thenApply(
+                                 p -> {
+                                    PacketHandler.logConnectionTimings(channel, "Add to World", Level.FINEST);
+                                    if (!channel.isActive()) {
+                                       if (p != null) {
+                                          playerComponent.remove();
+                                       }
+
+                                       this.players.remove(uuid, playerRefComponent);
+                                       this.getLogger()
+                                          .at(Level.WARNING)
+                                          .log("Player '%s' (%s) disconnected during world join, cleaned up from universe", username, uuid);
+                                       return null;
+                                    } else if (playerComponent.wasRemoved()) {
+                                       this.players.remove(uuid, playerRefComponent);
+                                       return null;
+                                    } else {
+                                       return (PlayerRef)p;
+                                    }
+                                 }
+                              )
+                              .exceptionally(throwable -> {
+                                 this.players.remove(uuid, playerRefComponent);
+                                 playerComponent.remove();
+                                 throw new RuntimeException("Exception when adding player to universe:", throwable);
+                              });
+                        }
+                     }
                   }
                }
             }

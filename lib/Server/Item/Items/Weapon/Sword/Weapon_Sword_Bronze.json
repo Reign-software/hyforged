@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Sword/Bronze_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Sword_Bronze.png",
   "Quality": "Uncommon",
-  "ItemLevel": 30,
+  "ItemLevel": 25,
   "InteractionVars": {
     "Swing_Left_Damage": {
       "Interactions": [
@@ -15,7 +15,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 6
+              "Physical": 9
             }
           },
           "DamageEffects": {
@@ -31,7 +31,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 8
+              "Physical": 9
             }
           },
           "DamageEffects": {
@@ -47,7 +47,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 12
+              "Physical": 16
             }
           },
           "DamageEffects": {
@@ -63,7 +63,7 @@
           "Parent": "Weapon_Sword_Primary_Thrust_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 23
+              "Physical": 24
             }
           },
           "EntityStatsOnHit": [
@@ -109,6 +109,17 @@
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Sword_T2_Impact",
             "LocalSoundEventId": "SFX_Sword_T2_Impact"
+          }
+        }
+      ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Sword_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 9.44,
+            "CostType": "Damage"
           }
         }
       ]

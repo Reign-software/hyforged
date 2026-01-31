@@ -3,7 +3,7 @@
   "RunTime": 0.433,
   "Effects": {
     "ItemAnimationId": "SwingDownStrong",
-    "WorldSoundEventId": "SFX_Light_Melee_T2_Swing",
+    "WorldSoundEventId": "SFX_Sword_T2_Swing_Down",
     "LocalSoundEventId": "SFX_Sword_T2_Swing_Down_Local"
   },
   "Next": {

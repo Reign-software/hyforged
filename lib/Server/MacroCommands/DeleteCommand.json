@@ -1,6 +1,6 @@
 {
   "Name": "delete",
-  "Description": "Sets the current selection to empty / deletes things.",
+  "Description": "server.commands.delete.desc",
   "Commands": [
     "set Empty"
   ],

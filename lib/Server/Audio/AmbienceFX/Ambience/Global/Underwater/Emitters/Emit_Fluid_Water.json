@@ -4,7 +4,7 @@
       "SoundEventId": "SFX_Env_Emit_Fluid_Water",
       "Radius": {
         "Min": 0,
-        "Max": 1
+        "Max": 15
       },
       "Play3D": "LocationName",
       "BlockSoundSetId": "Water",

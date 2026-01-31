@@ -9,8 +9,8 @@
         "Sounds/Weapons/Shared/Light_Melee_T1_Swing_05.ogg"
       ],
       "RandomSettings": {
-        "MinPitch": -2,
-        "MaxPitch": 0.1,
+        "MinPitch": -0.45,
+        "MaxPitch": 0.45,
         "MinVolume": -3
       },
       "StartDelay": 0,
@@ -23,8 +23,8 @@
         "Sounds/Weapons/Shared/Light_Melee_Swing_Common_Layer_Alt_04.ogg"
       ],
       "RandomSettings": {
-        "MinPitch": -4,
-        "MaxPitch": 0,
+        "MinPitch": -0.45,
+        "MaxPitch": 0.45,
         "MinVolume": -2
       },
       "StartDelay": 0,

@@ -113,7 +113,7 @@
           "Parent": "Weapon_Battleaxe_Signature_Whirlwind_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 27
+              "Physical": 29
             }
           },
           "EntityStatsOnHit": [],

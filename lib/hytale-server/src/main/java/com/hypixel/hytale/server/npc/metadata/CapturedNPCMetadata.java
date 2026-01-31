@@ -12,13 +12,6 @@ public class CapturedNPCMetadata {
       )
       .add()
       .appendInherited(
-         new KeyedCodec<>("RoleIndex", Codec.INTEGER),
-         (meta, s) -> meta.roleIndex = s,
-         meta -> meta.roleIndex,
-         (meta, parent) -> meta.roleIndex = parent.roleIndex
-      )
-      .add()
-      .appendInherited(
          new KeyedCodec<>("NpcNameKey", Codec.STRING),
          (meta, s) -> meta.npcNameKey = s,
          meta -> meta.npcNameKey,
@@ -35,15 +28,10 @@ public class CapturedNPCMetadata {
       .build();
    public static final KeyedCodec<CapturedNPCMetadata> KEYED_CODEC = new KeyedCodec<>("CapturedEntity", CODEC);
    private String iconPath;
-   private int roleIndex;
    private String npcNameKey;
    private String fullItemIcon;
 
    public CapturedNPCMetadata() {
-   }
-
-   public int getRoleIndex() {
-      return this.roleIndex;
    }
 
    public String getIconPath() {
@@ -60,10 +48,6 @@ public class CapturedNPCMetadata {
 
    public void setIconPath(String iconPath) {
       this.iconPath = iconPath;
-   }
-
-   public void setRoleIndex(int roleIndex) {
-      this.roleIndex = roleIndex;
    }
 
    public void setNpcNameKey(String npcNameKey) {

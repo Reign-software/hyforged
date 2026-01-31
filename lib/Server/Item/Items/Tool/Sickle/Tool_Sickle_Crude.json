@@ -11,7 +11,7 @@
   "Texture": "Items/Tools/Sickle/Crude_Texture.png",
   "Icon": "Icons/ItemsGenerated/Tool_Sickle_Crude.png",
   "Quality": "Common",
-  "ItemLevel": 20,
+  "ItemLevel": 5,
   "Recipe": {
     "TimeSeconds": 3,
     "KnowledgeRequired": false,

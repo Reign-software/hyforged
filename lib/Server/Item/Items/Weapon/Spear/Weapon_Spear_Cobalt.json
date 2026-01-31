@@ -9,7 +9,7 @@
   "ItemLevel": 35,
   "Model": "Items/Weapons/Spear/Cobalt.blockymodel",
   "Texture": "Items/Weapons/Spear/Cobalt_Texture.png",
-  "MaxStack": 30,
+  "MaxStack": 5,
   "Interactions": {
     "Primary": "Spear_Attack",
     "Secondary": "Spear_Block"
@@ -74,8 +74,6 @@
       "Spear"
     ]
   },
-  "MaxDurability": 40,
-  "DurabilityLossOnHit": 0.56,
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Wood"
 }

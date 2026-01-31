@@ -17,7 +17,7 @@ echo ^>^>^> Step 1/2: Downloading server...
 echo.
 
 call "%SCRIPT_DIR%Download-Server.cmd"
-if %ERRORLEVEL% neq 0 (
+if errorlevel 1 (
     echo.
     echo ERROR: Download step failed
     exit /b 1
@@ -28,7 +28,7 @@ echo ^>^>^> Step 2/2: Updating lib folder...
 echo.
 
 call "%SCRIPT_DIR%Update-Lib.cmd"
-if %ERRORLEVEL% neq 0 (
+if errorlevel 1 (
     echo.
     echo ERROR: Update step failed
     exit /b 1

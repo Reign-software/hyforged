@@ -29,12 +29,15 @@ public class ExportedDensityAsset extends DensityAsset {
             LoggerUtil.getLogger()
                .severe("Couldn't find Density asset exported with name: '" + this.exportName + "'. This could indicate a defect in the HytaleGenerator assets.");
             return this.firstInput().build(argument);
-         } else if (exported.singleInstance) {
-            if (exported.builtInstance == null) {
-               exported.builtInstance = this.firstInput().build(argument);
+         } else if (exported.isSingleInstance) {
+            Thread thread = Thread.currentThread();
+            Density builtInstance = exported.threadInstances.get(thread);
+            if (builtInstance == null) {
+               builtInstance = this.firstInput().build(argument);
+               exported.threadInstances.put(thread, builtInstance);
             }
 
-            return exported.builtInstance;
+            return builtInstance;
          } else {
             return this.firstInput().build(argument);
          }
@@ -48,7 +51,7 @@ public class ExportedDensityAsset extends DensityAsset {
       this.cleanUpInputs();
       DensityAsset.Exported exported = getExportedAsset(this.exportName);
       if (exported != null) {
-         exported.builtInstance = null;
+         exported.threadInstances.clear();
 
          for (DensityAsset input : this.inputs()) {
             input.cleanUp();

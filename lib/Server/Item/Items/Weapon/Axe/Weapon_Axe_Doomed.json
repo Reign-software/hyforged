@@ -6,7 +6,7 @@
     "Items.Weapons"
   ],
   "Quality": "Rare",
-  "ItemLevel": 60,
+  "ItemLevel": 30,
   "Model": "NPC/Intelligent/Outlander/Models/Weapons/Axe/Doomed.blockymodel",
   "Texture": "NPC/Intelligent/Outlander/Models/Weapons/Axe/Doomed_Texture.png",
   "PlayerAnimationsId": "Axe",

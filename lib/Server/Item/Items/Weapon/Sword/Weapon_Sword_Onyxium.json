@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Sword/Onyxium_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Sword_Onyxium.png",
   "Quality": "Epic",
-  "ItemLevel": 30,
+  "ItemLevel": 50,
   "InteractionVars": {
     "Swing_Left_Damage": {
       "Interactions": [
@@ -15,7 +15,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 7
+              "Physical": 18
             }
           },
           "DamageEffects": {
@@ -31,7 +31,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 8
+              "Physical": 18
             }
           },
           "DamageEffects": {
@@ -47,7 +47,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 14
+              "Physical": 34
             }
           },
           "DamageEffects": {
@@ -63,7 +63,7 @@
           "Parent": "Weapon_Sword_Primary_Thrust_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 26
+              "Physical": 51
             }
           },
           "EntityStatsOnHit": [
@@ -85,7 +85,7 @@
           "Parent": "Weapon_Sword_Signature_Vortexstrike_Spin_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 19
+              "Physical": 37
             }
           },
           "EntityStatsOnHit": [],
@@ -102,7 +102,7 @@
           "Parent": "Weapon_Sword_Signature_Vortexstrike_Stab_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 56
+              "Physical": 110
             }
           },
           "EntityStatsOnHit": [],
@@ -112,6 +112,19 @@
           }
         }
       ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Sword_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 20,
+            "CostType": "Damage"
+          }
+        }
+      ]
     }
-  }
+  },
+  "MaxDurability": 220,
+  "DurabilityLossOnHit": 0.21
 }

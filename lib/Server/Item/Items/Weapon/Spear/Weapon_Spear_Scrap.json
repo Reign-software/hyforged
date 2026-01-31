@@ -6,8 +6,8 @@
     "Items.Weapons"
   ],
   "Quality": "Uncommon",
-  "ItemLevel": 30,
-  "MaxStack": 30,
+  "ItemLevel": 15,
+  "MaxStack": 5,
   "IconProperties": {
     "Scale": 0.24,
     "Translation": [
@@ -74,8 +74,6 @@
       "Spear"
     ]
   },
-  "MaxDurability": 15,
-  "DurabilityLossOnHit": 0.56,
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Wood"
 }

@@ -3,7 +3,7 @@
     "Name": "server.items.Armor_Steel_Ancient_Head.name"
   },
   "Parent": "Armor_Iron_Head",
-  "ItemLevel": 45,
+  "ItemLevel": 30,
   "Icon": "Icons/ItemsGenerated/Armor_Steel_Ancient_Head.png",
   "IconProperties": {
     "Rotation": [

@@ -1,6 +1,6 @@
 {
   "Name": "noon",
-  "Description": "Sets the time to noon and pauses",
+  "Description": "server.commands.noon.desc",
   "Commands": [
     "time set noon",
     "time pause"

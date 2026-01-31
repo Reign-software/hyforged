@@ -61,10 +61,13 @@ public class NVoxelBufferView<T> implements VoxelSpace<T> {
    public boolean set(T content, @Nonnull Vector3i position_voxelGrid) {
       assert this.bounds_voxelGrid.contains(position_voxelGrid);
 
+      int initialX = position_voxelGrid.x;
+      int initialY = position_voxelGrid.y;
+      int initialZ = position_voxelGrid.z;
       NVoxelBuffer<T> buffer = this.getBuffer_fromVoxelGrid(position_voxelGrid);
-      Vector3i positionInBuffer_voxelGrid = position_voxelGrid.clone();
-      GridUtils.toVoxelGridInsideBuffer_fromWorldGrid(positionInBuffer_voxelGrid);
-      buffer.setVoxelContent(positionInBuffer_voxelGrid, content);
+      GridUtils.toVoxelGridInsideBuffer_fromWorldGrid(position_voxelGrid);
+      buffer.setVoxelContent(position_voxelGrid, content);
+      position_voxelGrid.assign(initialX, initialY, initialZ);
       return true;
    }
 
@@ -89,10 +92,14 @@ public class NVoxelBufferView<T> implements VoxelSpace<T> {
    public T getContent(@Nonnull Vector3i position_voxelGrid) {
       assert this.bounds_voxelGrid.contains(position_voxelGrid);
 
+      int initialX = position_voxelGrid.x;
+      int initialY = position_voxelGrid.y;
+      int initialZ = position_voxelGrid.z;
       NVoxelBuffer<T> buffer = this.getBuffer_fromVoxelGrid(position_voxelGrid);
-      Vector3i positionInBuffer_voxelGrid = position_voxelGrid.clone();
-      GridUtils.toVoxelGridInsideBuffer_fromWorldGrid(positionInBuffer_voxelGrid);
-      return buffer.getVoxelContent(positionInBuffer_voxelGrid);
+      GridUtils.toVoxelGridInsideBuffer_fromWorldGrid(position_voxelGrid);
+      T content = buffer.getVoxelContent(position_voxelGrid);
+      position_voxelGrid.assign(initialX, initialY, initialZ);
+      return content;
    }
 
    @Override

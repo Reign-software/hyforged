@@ -2,7 +2,7 @@ package com.hypixel.hytale.builtin.crafting.interaction;
 
 import com.hypixel.hytale.builtin.crafting.component.CraftingManager;
 import com.hypixel.hytale.builtin.crafting.state.BenchState;
-import com.hypixel.hytale.builtin.crafting.window.BenchWindow;
+import com.hypixel.hytale.builtin.crafting.window.CraftingWindow;
 import com.hypixel.hytale.builtin.crafting.window.DiagramCraftingWindow;
 import com.hypixel.hytale.builtin.crafting.window.SimpleCraftingWindow;
 import com.hypixel.hytale.builtin.crafting.window.StructuralCraftingWindow;
@@ -82,19 +82,17 @@ public class OpenBenchPageInteraction extends SimpleBlockInteraction {
       Player playerComponent = commandBuffer.getComponent(ref, Player.getComponentType());
       if (playerComponent != null) {
          CraftingManager craftingManagerComponent = commandBuffer.getComponent(ref, CraftingManager.getComponentType());
-
-         assert craftingManagerComponent != null;
-
-         if (!craftingManagerComponent.hasBenchSet()) {
+         if (craftingManagerComponent != null && !craftingManagerComponent.hasBenchSet()) {
             if (world.getState(targetBlock.x, targetBlock.y, targetBlock.z, true) instanceof BenchState benchState) {
-               BenchWindow benchWindow = (BenchWindow)(switch (this.pageType) {
+               CraftingWindow benchWindow = (CraftingWindow)(switch (this.pageType) {
                   case SIMPLE_CRAFTING -> new SimpleCraftingWindow(benchState);
                   case DIAGRAM_CRAFTING -> new DiagramCraftingWindow(ref, commandBuffer, benchState);
                   case STRUCTURAL_CRAFTING -> new StructuralCraftingWindow(benchState);
                });
                UUIDComponent uuidComponent = commandBuffer.getComponent(ref, UUIDComponent.getComponentType());
-
-               assert uuidComponent != null;
+               if (uuidComponent == null) {
+                  return;
+               }
 
                UUID uuid = uuidComponent.getUuid();
                if (benchState.getWindows().putIfAbsent(uuid, benchWindow) == null) {
@@ -113,7 +111,7 @@ public class OpenBenchPageInteraction extends SimpleBlockInteraction {
    ) {
    }
 
-   private static enum PageType {
+   public static enum PageType {
       SIMPLE_CRAFTING,
       DIAGRAM_CRAFTING,
       STRUCTURAL_CRAFTING;

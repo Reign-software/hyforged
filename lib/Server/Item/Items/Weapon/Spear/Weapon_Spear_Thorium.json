@@ -9,7 +9,7 @@
   "ItemLevel": 30,
   "Model": "Items/Weapons/Spear/Thorium.blockymodel",
   "Texture": "Items/Weapons/Spear/Thorium_Texture.png",
-  "MaxStack": 30,
+  "MaxStack": 5,
   "IconProperties": {
     "Scale": 0.22,
     "Translation": [
@@ -74,8 +74,6 @@
       "Spear"
     ]
   },
-  "MaxDurability": 35,
-  "DurabilityLossOnHit": 0.56,
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Wood"
 }

@@ -7,6 +7,19 @@
   "Texture": "NPC/Intelligent/Outlander/Models/Weapons/Shield/Doomed_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Shield_Doomed.png",
   "Quality": "Rare",
-  "ItemLevel": 35,
-  "Scale": 1.2
+  "ItemLevel": 30,
+  "Scale": 1.2,
+  "InteractionVars": {
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Shield_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 17.11,
+            "CostType": "Damage"
+          }
+        }
+      ]
+    }
+  }
 }

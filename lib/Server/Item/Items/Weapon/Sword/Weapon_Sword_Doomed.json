@@ -7,7 +7,7 @@
   "Texture": "NPC/Intelligent/Outlander/Models/Weapons/Sword/Doomed_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Sword_Doomed.png",
   "Quality": "Rare",
-  "ItemLevel": 35,
+  "ItemLevel": 30,
   "MaxDurability": 75,
   "InteractionVars": {
     "Swing_Left_Damage": {
@@ -16,7 +16,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 9
+              "Physical": 12
             }
           },
           "DamageEffects": {
@@ -32,7 +32,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 11
+              "Physical": 12
             }
           },
           "DamageEffects": {
@@ -48,7 +48,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 17
+              "Physical": 22
             }
           },
           "DamageEffects": {
@@ -110,6 +110,17 @@
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Sword_T2_Impact",
             "LocalSoundEventId": "SFX_Sword_T2_Impact"
+          }
+        }
+      ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Sword_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 12.22,
+            "CostType": "Damage"
           }
         }
       ]

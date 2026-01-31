@@ -6,7 +6,7 @@
     "Items.Weapons"
   ],
   "Quality": "Common",
-  "ItemLevel": 35,
+  "ItemLevel": 25,
   "MaxDurability": 75,
   "Model": "NPC/Intelligent/Feran/Models/Weapons/Staff/Bone.blockymodel",
   "Texture": "NPC/Intelligent/Feran/Models/Weapons/Staff/Bone_Texture.png",

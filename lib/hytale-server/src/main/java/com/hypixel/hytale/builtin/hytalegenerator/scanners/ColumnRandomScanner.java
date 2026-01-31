@@ -80,7 +80,7 @@ public class ColumnRandomScanner extends Scanner {
          int numberOfPossiblePositions = Math.max(0, scanMaxY - scanMinY);
          ArrayList<Vector3i> validPositions = new ArrayList<>(numberOfPossiblePositions);
          Vector3i patternPosition = context.position.clone();
-         Pattern.Context patternContext = new Pattern.Context(patternPosition, context.materialSpace, context.workerId);
+         Pattern.Context patternContext = new Pattern.Context(patternPosition, context.materialSpace);
 
          for (int y = scanMinY; y < scanMaxY; y++) {
             patternPosition.y = y;
@@ -134,7 +134,7 @@ public class ColumnRandomScanner extends Scanner {
             FastRandom random = new FastRandom(this.seedGenerator.seedAt((long)context.position.x, (long)context.position.y, (long)context.position.z));
             ArrayList<Integer> usedYs = new ArrayList<>(this.resultsCap);
             Vector3i patternPosition = context.position.clone();
-            Pattern.Context patternContext = new Pattern.Context(patternPosition, context.materialSpace, context.workerId);
+            Pattern.Context patternContext = new Pattern.Context(patternPosition, context.materialSpace);
 
             for (int i = 0; i < numberOfTries; i++) {
                patternPosition.y = random.nextInt(range) + scanMinY;

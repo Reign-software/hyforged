@@ -7,7 +7,7 @@
   ],
   "Icon": "Icons/ItemsGenerated/Weapon_Staff_Bronze.png",
   "Quality": "Common",
-  "ItemLevel": 40,
+  "ItemLevel": 25,
   "Model": "Items/Weapons/Staff/Bronze.blockymodel",
   "Texture": "Items/Weapons/Staff/Bronze_Texture.png",
   "PlayerAnimationsId": "Staff",

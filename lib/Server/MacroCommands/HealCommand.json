@@ -1,6 +1,6 @@
 {
   "Name": "heal",
-  "Description": "Heals up to your max stamina and health",
+  "Description": "server.commands.heal.desc",
   "Commands": [
     "player stat settomax Stamina",
     "player stat settomax Health"

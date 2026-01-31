@@ -8,7 +8,7 @@
     "BenchRequirement": []
   },
   "Quality": "Epic",
-  "ItemLevel": 65,
+  "ItemLevel": 50,
   "Icon": "Icons/ItemsGenerated/Armor_Onyxium_Head.png",
   "Model": "Items/Armors/Onyxium/Head.blockymodel",
   "Texture": "Items/Armors/Onyxium/Head_Texture.png",

@@ -165,10 +165,10 @@ public class WorldSpawnJobSystems {
             spawnJobData.incrementSpansTried();
             spansTested++;
             if (!spawnJobData.getSpawnConfig().withinLightRange(spawningContext)) {
-               rejectSpan(spawnJobData.getRejectionMap(), SpawnRejection.OUTSIDE_LIGHT_RANGE);
+               rejectSpawn(spawnJobData.getRejectionMap(), SpawnRejection.OUTSIDE_LIGHT_RANGE);
             } else if (!canSpawnOnBlock(spawnBlockSet, spawnFluidTag, spawningContext)) {
                spansBlocked++;
-               rejectSpan(spawnJobData.getRejectionMap(), SpawnRejection.INVALID_SPAWN_BLOCK);
+               rejectSpawn(spawnJobData.getRejectionMap(), SpawnRejection.INVALID_SPAWN_BLOCK);
             } else {
                SpawnTestResult spawnTestResult = spawningContext.canSpawn();
                if (spawnTestResult == SpawnTestResult.TEST_OK) {
@@ -176,16 +176,16 @@ public class WorldSpawnJobSystems {
                }
 
                if (spawnTestResult == SpawnTestResult.FAIL_INVALID_POSITION) {
-                  rejectSpan(spawnJobData.getRejectionMap(), SpawnRejection.INVALID_POSITION);
+                  rejectSpawn(spawnJobData.getRejectionMap(), SpawnRejection.INVALID_POSITION);
                   spansBlocked++;
                } else if (spawnTestResult == SpawnTestResult.FAIL_NO_POSITION) {
-                  rejectSpan(spawnJobData.getRejectionMap(), SpawnRejection.NO_POSITION);
+                  rejectSpawn(spawnJobData.getRejectionMap(), SpawnRejection.NO_POSITION);
                   spansBlocked++;
                } else if (spawnTestResult == SpawnTestResult.FAIL_NOT_BREATHABLE) {
-                  rejectSpan(spawnJobData.getRejectionMap(), SpawnRejection.NOT_BREATHABLE);
+                  rejectSpawn(spawnJobData.getRejectionMap(), SpawnRejection.NOT_BREATHABLE);
                   spansBlocked++;
                } else {
-                  rejectSpan(spawnJobData.getRejectionMap(), SpawnRejection.OTHER);
+                  rejectSpawn(spawnJobData.getRejectionMap(), SpawnRejection.OTHER);
                }
             }
          }
@@ -257,6 +257,15 @@ public class WorldSpawnJobSystems {
             (_npc, _holder, _store) -> preAddToWorld(_npc, _holder, roleIndex, spawnJobData),
             null
          );
+         if (npcPair == null) {
+            LOGGER.at(Level.SEVERE)
+               .log(
+                  "Spawn job %s: Failed to create %s: The spawned entity returned null", Integer.valueOf(spawnJobData.getJobId()), npcModule.getName(roleIndex)
+               );
+            rejectSpawn(spawnJobData.getRejectionMap(), SpawnRejection.OTHER);
+            return endProbing(WorldSpawnJobSystems.Result.FAILED, spawnJobData, worldChunk, worldSpawnData);
+         }
+
          NPCEntity npcComponent = npcPair.right();
          Ref<EntityStore> npcRef = npcPair.left();
          FlockPlugin.trySpawnFlock(
@@ -275,7 +284,7 @@ public class WorldSpawnJobSystems {
          LOGGER.at(Level.SEVERE)
             .withCause(var12)
             .log("Spawn job %s: Failed to create %s: %s", spawnJobData.getJobId(), npcModule.getName(roleIndex), var12.getMessage());
-         rejectSpan(spawnJobData.getRejectionMap(), SpawnRejection.OTHER);
+         rejectSpawn(spawnJobData.getRejectionMap(), SpawnRejection.OTHER);
          return endProbing(WorldSpawnJobSystems.Result.FAILED, spawnJobData, worldChunk, worldSpawnData);
       }
 
@@ -317,7 +326,7 @@ public class WorldSpawnJobSystems {
       }
    }
 
-   private static void rejectSpan(@Nonnull Object2IntMap<SpawnRejection> rejectionMap, SpawnRejection rejection) {
+   private static void rejectSpawn(@Nonnull Object2IntMap<SpawnRejection> rejectionMap, @Nonnull SpawnRejection rejection) {
       rejectionMap.mergeInt(rejection, 1, Integer::sum);
    }
 

@@ -12,11 +12,10 @@ Updates the `lib/` folder with the latest Hytale pre-release server files includ
 Before running these scripts, ensure the following are installed and on PATH:
 
 - **Hytale Downloader**: Located at `C:\hytale-downloader\hytale-downloader-windows-amd64.exe` (already authenticated)
-- **Python 3.13+**: For running the patcher tool
+- **Python 3+**: For running the patcher tool (`py --version` or `python --version`)
 - **Java 25+**: `java --version` should show 25.x
 - **Maven**: `mvn --version` should work
 - **Git**: `git --version` should work
-- **7-Zip** (optional): For faster zip extraction, falls back to Expand-Archive
 
 ## Directory Structure
 

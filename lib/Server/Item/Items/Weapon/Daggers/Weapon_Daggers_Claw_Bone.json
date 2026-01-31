@@ -7,7 +7,7 @@
   "Texture": "NPC/Intelligent/Feran/Models/Weapons/Dagger/Claw_Bone_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Daggers_Claw_Bone.png",
   "Quality": "Rare",
-  "ItemLevel": 35,
+  "ItemLevel": 25,
   "MaxDurability": 75,
   "InteractionVars": {
     "Swing_Left_Damage": {
@@ -165,6 +165,17 @@
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Daggers_T2_Slash_Impact",
             "LocalSoundEventId": "SFX_Daggers_T2_Slash_Impact"
+          }
+        }
+      ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Daggers_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 13.89,
+            "CostType": "Damage"
           }
         }
       ]

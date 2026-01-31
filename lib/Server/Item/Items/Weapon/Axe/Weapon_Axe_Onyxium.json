@@ -6,7 +6,7 @@
     "Items.Weapons"
   ],
   "Quality": "Epic",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Model": "Items/Weapons/Axe/Onyxium.blockymodel",
   "Texture": "Items/Weapons/Axe/Onyxium_texture.png",
   "PlayerAnimationsId": "Axe",

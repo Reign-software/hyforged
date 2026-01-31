@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Mace/Onyxium_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Mace_Onyxium.png",
   "Quality": "Epic",
-  "ItemLevel": 20,
+  "ItemLevel": 50,
   "Recipe": {
     "KnowledgeRequired": false,
     "Input": [
@@ -32,7 +32,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 23
+              "Physical": 56
             }
           },
           "DamageEffects": {
@@ -48,7 +48,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 23
+              "Physical": 56
             }
           },
           "DamageEffects": {
@@ -64,7 +64,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Up_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 23
+              "Physical": 56
             }
           },
           "DamageEffects": {
@@ -80,7 +80,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 41
+              "Physical": 81
             }
           },
           "EntityStatsOnHit": [
@@ -102,7 +102,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Right_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 41
+              "Physical": 81
             }
           },
           "EntityStatsOnHit": [
@@ -124,7 +124,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Up_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 41
+              "Physical": 81
             }
           },
           "EntityStatsOnHit": [
@@ -146,7 +146,7 @@
           "Parent": "Weapon_Mace_Signature_Groundslam_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 93
+              "Physical": 183
             }
           },
           "EntityStatsOnHit": [],
@@ -156,6 +156,19 @@
           }
         }
       ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Mace_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 20,
+            "CostType": "Damage"
+          }
+        }
+      ]
     }
-  }
+  },
+  "MaxDurability": 220,
+  "DurabilityLossOnHit": 0.5
 }

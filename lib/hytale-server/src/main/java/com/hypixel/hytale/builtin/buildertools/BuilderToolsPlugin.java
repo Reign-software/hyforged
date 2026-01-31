@@ -3719,10 +3719,8 @@ public class BuilderToolsPlugin extends JavaPlugin implements SelectionProvider,
          }
 
          if (reason != null) {
-            Message reasonMessage = Message.translation(reason);
             this.sendFeedback(
-               Message.translation("server.builderTools.selectedWithReason")
-                  .param("reason", reasonMessage)
+               Message.translation(reason)
                   .param("x1", pos1.getX())
                   .param("y1", pos1.getY())
                   .param("z1", pos1.getZ())
@@ -4115,6 +4113,17 @@ public class BuilderToolsPlugin extends JavaPlugin implements SelectionProvider,
       public void save(
          @Nonnull Ref<EntityStore> ref, @Nonnull String name, boolean relativize, boolean overwrite, ComponentAccessor<EntityStore> componentAccessor
       ) {
+         this.save(ref, name, relativize, overwrite, false, componentAccessor);
+      }
+
+      public void save(
+         @Nonnull Ref<EntityStore> ref,
+         @Nonnull String name,
+         boolean relativize,
+         boolean overwrite,
+         boolean clearSupport,
+         ComponentAccessor<EntityStore> componentAccessor
+      ) {
          if (this.selection == null) {
             this.sendErrorFeedback(ref, Message.translation("server.builderTools.noSelection"), componentAccessor);
          } else {
@@ -4130,15 +4139,19 @@ public class BuilderToolsPlugin extends JavaPlugin implements SelectionProvider,
             } else {
                try {
                   BlockSelection postClone = relativize ? this.selection.relativize() : this.selection.cloneSelection();
+                  if (clearSupport) {
+                     postClone.clearAllSupportValues();
+                  }
+
                   prefabStore.saveServerPrefab(name, postClone, overwrite);
                   this.sendUpdate();
                   this.sendFeedback(Message.translation("server.builderTools.savedSelectionToPrefab").param("name", name), componentAccessor);
-               } catch (PrefabSaveException var14) {
-                  switch (var14.getType()) {
+               } catch (PrefabSaveException var15) {
+                  switch (var15.getType()) {
                      case ERROR:
-                        BuilderToolsPlugin.get().getLogger().at(Level.WARNING).withCause(var14).log("Exception saving prefab %s", name);
+                        BuilderToolsPlugin.get().getLogger().at(Level.WARNING).withCause(var15).log("Exception saving prefab %s", name);
                         this.sendFeedback(
-                           Message.translation("server.builderTools.errorSavingPrefab").param("name", name).param("message", var14.getCause().getMessage()),
+                           Message.translation("server.builderTools.errorSavingPrefab").param("name", name).param("message", var15.getCause().getMessage()),
                            componentAccessor
                         );
                         break;
@@ -4167,7 +4180,7 @@ public class BuilderToolsPlugin extends JavaPlugin implements SelectionProvider,
          boolean includeEmpty,
          @Nonnull ComponentAccessor<EntityStore> componentAccessor
       ) {
-         this.saveFromSelection(ref, name, relativize, overwrite, includeEntities, includeEmpty, null, componentAccessor);
+         this.saveFromSelection(ref, name, relativize, overwrite, includeEntities, includeEmpty, null, false, componentAccessor);
       }
 
       public void saveFromSelection(
@@ -4178,6 +4191,7 @@ public class BuilderToolsPlugin extends JavaPlugin implements SelectionProvider,
          boolean includeEntities,
          boolean includeEmpty,
          @Nullable Vector3i playerAnchor,
+         boolean clearSupport,
          @Nonnull ComponentAccessor<EntityStore> componentAccessor
       ) {
          if (this.selection != null && (!this.selection.getSelectionMin().equals(Vector3i.ZERO) || !this.selection.getSelectionMax().equals(Vector3i.ZERO))) {
@@ -4275,14 +4289,18 @@ public class BuilderToolsPlugin extends JavaPlugin implements SelectionProvider,
 
                try {
                   BlockSelection postClone = relativize ? tempSelection.relativize() : tempSelection.cloneSelection();
+                  if (clearSupport) {
+                     postClone.clearAllSupportValues();
+                  }
+
                   prefabStore.saveServerPrefab(name, postClone, overwrite);
                   this.sendFeedback(Message.translation("server.builderTools.savedSelectionToPrefab").param("name", name), componentAccessor);
-               } catch (PrefabSaveException var47) {
-                  switch (var47.getType()) {
+               } catch (PrefabSaveException var48) {
+                  switch (var48.getType()) {
                      case ERROR:
-                        BuilderToolsPlugin.get().getLogger().at(Level.WARNING).withCause(var47).log("Exception saving prefab %s", name);
+                        BuilderToolsPlugin.get().getLogger().at(Level.WARNING).withCause(var48).log("Exception saving prefab %s", name);
                         this.sendFeedback(
-                           Message.translation("server.builderTools.errorSavingPrefab").param("name", name).param("message", var47.getCause().getMessage()),
+                           Message.translation("server.builderTools.errorSavingPrefab").param("name", name).param("message", var48.getCause().getMessage()),
                            componentAccessor
                         );
                         break;

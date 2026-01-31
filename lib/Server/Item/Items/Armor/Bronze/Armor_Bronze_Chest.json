@@ -3,7 +3,7 @@
     "Name": "server.items.Armor_Bronze_Chest.name"
   },
   "Parent": "Armor_Iron_Chest",
-  "ItemLevel": 22,
+  "ItemLevel": 25,
   "Icon": "Icons/ItemsGenerated/Armor_Bronze_Chest.png",
   "Model": "Items/Armors/Bronze/Chest.blockymodel",
   "Texture": "Items/Armors/Bronze/Chest_Texture.png",

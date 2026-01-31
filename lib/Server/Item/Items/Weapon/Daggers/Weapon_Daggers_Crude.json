@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Dagger/Crude_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Daggers_Crude.png",
   "Quality": "Common",
-  "ItemLevel": 10,
+  "ItemLevel": 6,
   "Recipe": {
     "TimeSeconds": 1.5,
     "Input": [
@@ -85,7 +85,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 1
+              "Physical": 2
             }
           },
           "DamageEffects": {
@@ -102,7 +102,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 3
+              "Physical": 2
             }
           },
           "DamageEffects": {

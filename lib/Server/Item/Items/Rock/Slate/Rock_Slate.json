@@ -34,7 +34,11 @@
         "Weight": 1
       }
     ],
-    "ParticleColor": "#373737"
+    "ParticleColor": "#373737",
+    "TransitionTexture": "BlockTextures/Transition_Rock_Slate.png",
+    "TransitionToGroups": [
+      "Stone"
+    ]
   },
   "ResourceTypes": [
     {
