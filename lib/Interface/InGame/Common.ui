@@ -1,0 +1,58 @@
+$Sounds = "../Sounds.ui";
+
+@DefaultItemSlotsPerRow = 9;
+@DefaultItemSlotSpacing = 2;
+@DefaultItemSlotSize = 74;
+@DefaultItemGridBackground = #202c3b(0);
+@DefaultItemGridPadding = 2;
+@DefaultItemSlotsSelector = 4;
+
+@DefaultItemGridStyle = ItemGridStyle(
+  SlotSpacing: @DefaultItemSlotSpacing,
+  SlotSize: @DefaultItemSlotSize,
+  SlotIconSize: 64,
+  SlotBackground: "Pages/Inventory/Slot.png",
+  QuantityPopupSlotOverlay: "Pages/Inventory/QuantityPopupSlotOverlay.png",
+  BrokenSlotBackgroundOverlay: "Pages/Inventory/SlotItemBrokenCracksOverlay.png",
+  BrokenSlotIconOverlay: "Pages/Inventory/SlotItemBrokenIconOverlay.png",
+  DefaultItemIcon: "Pages/Inventory/UnknownItemIcon.png",
+  DurabilityBar: "Pages/Inventory/DurabilityBar.png",
+  DurabilityBarBackground: "Pages/Inventory/DurabilityBarBackground.png",
+  DurabilityBarAnchor: (
+    Bottom: 10,
+    Left: 13,
+    Width: 48,
+    Height: 2
+  ),
+  DurabilityBarColorStart: #a63232,
+  DurabilityBarColorEnd: #63b649,
+  CursedIconPatch: "Pages/Inventory/CursedSpiral.png",
+  CursedIconAnchor: (
+    Bottom: 67,
+    Left: 46,
+    Width: 21,
+    Height: 21
+  ),
+  ItemStackHoveredSound: (
+    SoundPath: $Sounds.@ButtonsLightHover,
+    Volume: 6
+  )
+);
+
+@DefaultBlockSelectorStyle = BlockSelectorStyle(
+  ItemGridStyle: @DefaultItemGridStyle,
+  SlotDropIcon: "Pages/Inventory/SlotDropItem.png",
+  SlotDeleteIcon: "Pages/Inventory/SlotDeleteItem.png",
+  SlotHoverOverlay: "Pages/Inventory/SlotHighlight.png"
+);
+
+@CenterPanelWidth = 715;
+@SidePanelWidth = 410;
+
+@VerticalPanelSpacing = 8;
+@HorizontalPanelSpacing = 38;
+
+@PanelPadding = 14;
+@PanelTitleHeight = 24;
+
+@TotalPageContentWidth = @CenterPanelWidth + (@SidePanelWidth * 2) + (@HorizontalPanelSpacing * 2);

@@ -1,0 +1,48 @@
+$Common = "../../Common.ui";
+
+@Margin = 48;
+@Padding = 8;
+@Width = 500;
+@InputHeight = 50;
+@LogHeight = 164;
+@BoxSpacing = 4;
+@MessageSpacing = 3;
+@ContainerBottom = 256;
+
+@TextColor = #f7f7f7;
+@FontSize = 15;
+
+Group #FloatingContainer {
+  Anchor: (Left: @Margin, Bottom: @InputHeight + @BoxSpacing + @ContainerBottom, Width: @Width, Height: @LogHeight);
+  Background: (TexturePath: "ChatFloatingPatch.png", Border: 10);
+
+  Group #FloatingChatLog {
+    Anchor: (Full: @Padding);
+    LayoutMode: BottomScrolling;
+    ScrollbarStyle: $Common.@DefaultPlaceholderScrollbarStyle;
+    AutoScrollDown: true;
+  }
+}
+
+Group #FullContainer {
+  Anchor: (Left: @Margin, Bottom: @ContainerBottom, Width: @Width, Height: 450 + @InputHeight + @BoxSpacing);
+
+  Group {
+    Background: (TexturePath: "ChatFullPatch.png", Border: 10);
+    Anchor: (Bottom: @InputHeight + @BoxSpacing);
+
+    Group #FullChatLog {
+      Anchor: (Full: @Padding);
+      LayoutMode: BottomScrolling;
+      ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+      AutoScrollDown: true;
+    }
+  }
+
+  TextField #ChatInput {
+    Anchor: (Height: @InputHeight, Bottom: 0);
+    Background: (TexturePath: "ChatInputPatch.png", Border: 10);
+    Style: $Common.@DefaultInputFieldStyle;
+    Padding: (Full: 10);
+  }
+}

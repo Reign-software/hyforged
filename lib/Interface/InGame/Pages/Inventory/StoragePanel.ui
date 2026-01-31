@@ -1,0 +1,118 @@
+$InventoryPage = "InventoryPage.ui";
+$Container = "../../../Common/Container.ui";
+$InGame = "../../Common.ui";
+$Common = "../../../Common.ui";
+$Sounds = "../../../Sounds.ui";
+
+@Offset = 0;
+
+@FilterSeparator = Group {
+  Anchor: (Width: 1);
+  Background: #142137;
+};
+
+@FilterSeparatorBorder = Group {
+  Anchor: (Width: 2);
+  Background: #303c4f;
+};
+
+@FilterTabStyle = (
+  Anchor: (Width: 41, Height: 30),
+  IconAnchor: (Width: 41, Height: 30)
+);
+
+Group #Container {
+  LayoutMode: Bottom;
+  Anchor: (Bottom: @Offset, Top: $InGame.@VerticalPanelSpacing);
+
+  $Container.@Container #Panel {
+    @ContentPadding = 15;
+
+    #Title {
+      LayoutMode: Left;
+
+      $Container.@Title #TitleLabel {
+        @Text = %client.inventory.inventory.title;
+        @Alignment = Start;
+
+        FlexWeight: 1;
+      }
+
+      TabNavigation #Filter {
+        Visible: false;
+        Style: (
+          TabStyle: (
+            Default: @FilterTabStyle,
+            Hovered: (...@FilterTabStyle, IconOpacity: 0.8),
+            Pressed: (...@FilterTabStyle, IconOpacity: 0.9)
+          ),
+          SelectedTabStyle: (
+            Default: (
+              Background: "../../../Common/HeaderTabSelectedBackground.png",
+              Anchor: (Width: 41, Height: 30),
+              IconAnchor: (Width: 41, Height: 30)
+            )
+          ),
+          TabSounds: (
+            Activate: (SoundPath: $Sounds.@FilterTab, Volume: 6)
+          ),
+        );
+        AllowUnselection: true;
+
+        TabButton {
+          Id: "Weapon";
+          Icon: "ItemFilterIcons/Weapon.png";
+          IconSelected: "ItemFilterIcons/WeaponSelected.png";
+          TooltipText: %client.inventory.storage.filterTooltips.weapons;
+          TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+        }
+
+        TabButton {
+          Id: "Armor";
+          Icon: "ItemFilterIcons/Armor.png";
+          IconSelected: "ItemFilterIcons/ArmorSelected.png";
+          TooltipText: %client.inventory.storage.filterTooltips.armor;
+          TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+        }
+
+        TabButton {
+          Id: "Material";
+          Icon: "ItemFilterIcons/Material.png";
+          IconSelected: "ItemFilterIcons/MaterialSelected.png";
+          TooltipText: %client.inventory.storage.filterTooltips.blocks;
+          TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+        }
+      }
+
+      Button #AutosortButton {
+        Anchor: (Width: 48, Right: 4);
+        TooltipText: %client.inventory.button.autoSort.tooltip;
+        TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+        Style: (Sounds: $Sounds.@ButtonsSmall);
+
+        Group {
+          Anchor: (Width: 24, Height: 24);
+          Background: (TexturePath: "AutoSortIcon.png");
+        }
+      }
+
+      Group #AutosortTypeDropdownContainer {
+        Visible: false;
+      }
+    }
+
+    #Content {
+      ItemGrid #ItemGrid {
+        Anchor: (Width: ($InGame.@DefaultItemSlotSize * 9) + ($InGame.@DefaultItemSlotSpacing * 8) + ($InGame.@DefaultItemGridPadding));
+        SlotsPerRow: $InGame.@DefaultItemSlotsPerRow;
+        Style: $InGame.@DefaultItemGridStyle;
+        Background: $InGame.@DefaultItemGridBackground;
+        Padding: (Left: $InGame.@DefaultItemGridPadding, Top: $InGame.@DefaultItemGridPadding, Right: 0, Bottom: $InGame.@DefaultItemGridPadding);
+      }
+
+      Group {
+        Anchor: (Height: 7 + $InGame.@DefaultItemSlotSize + ($InGame.@DefaultItemSlotSpacing * 2) - $Container.@FullPaddingValue + 10);
+      }
+    }
+  }
+}

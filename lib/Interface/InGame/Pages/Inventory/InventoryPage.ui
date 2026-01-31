@@ -1,0 +1,103 @@
+$InGame = "../../Common.ui";
+$Common = "../../../Common.ui";
+$Buttons = "../../../Common/Buttons.ui";
+
+@HotbarHeight = $InGame.@DefaultItemSlotSize + $InGame.@DefaultItemSlotSpacing;
+
+@PanelBackground = PatchStyle(TexturePath: "../../../Common/ContainerPatch.png", Border: 46);
+@PanelSpacing = $InGame.@VerticalPanelSpacing;
+
+@OpenSound = (
+  SoundPath: "../../../Sounds/InventoryOpen.ogg",
+  Volume: -3
+);
+@CloseSound = (
+  SoundPath: "../../../Sounds/InventoryClose.ogg",
+  Volume: 2
+);
+
+SceneBlur {}
+
+Group {
+  Background: #000000(0.55);
+}
+
+Group #Root {
+  Anchor: (Width: $InGame.@TotalPageContentWidth, Top: 0, Bottom: 20);
+  LayoutMode: Left;
+
+  // Character Panel will be injected here
+
+  Group #CenterPanel {
+    Anchor: (Horizontal: $InGame.@HorizontalPanelSpacing, Width: $InGame.@CenterPanelWidth);
+    LayoutMode: Bottom;
+  }
+
+  // Block/Item Info panel will be injected here
+}
+
+$Common.@BackButton {}
+
+Group #KeyBindings {
+  Anchor: (Right: 50, Bottom: 50, Height: 27);
+  LayoutMode: Right;
+
+  Group #InactiveKeybinds {
+    LayoutMode: Bottom;
+
+    ActionButton #PickHalf {
+      Alignment: Right;
+      ActionName: %client.inventory.action.pickHalf;
+      Disabled: true;
+      LayoutMode: Right;
+    }
+
+    $Common.@VerticalActionButtonSeparator {}
+
+    ActionButton #PickOne {
+      Alignment: Right;
+      ActionName: %client.inventory.action.pickOne;
+      Disabled: true;
+      LayoutMode: Right;
+    }
+
+    $Common.@VerticalActionButtonSeparator {}
+
+    ActionButton #SmartMove {
+      Alignment: Right;
+      ActionName: %client.inventory.action.smartMove;
+      Disabled: true;
+      LayoutMode: Right;
+    }
+  }
+
+  Group #ActiveKeybinds {
+    LayoutMode: Bottom;
+    Visible: false;
+
+    ActionButton #PlaceOne {
+      Disabled: true;
+      LayoutMode: Right;
+      Alignment: Right;
+      ActionName: %client.inventory.action.placeOne;
+    }
+
+    $Common.@VerticalActionButtonSeparator {}
+
+    ActionButton #Resize {
+      Disabled: true;
+      LayoutMode: Right;
+      Alignment: Right;
+      ActionName: %client.inventory.action.resize;
+    }
+
+    $Common.@VerticalActionButtonSeparator {}
+
+    ActionButton #ResizeMod {
+      Disabled: true;
+      LayoutMode: Right;
+      Alignment: Right;
+      ActionName: %client.inventory.action.resizeMod;
+    }
+  }
+}

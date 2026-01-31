@@ -1,0 +1,12 @@
+Group #AbilityChargeContainer {
+  Padding: (Horizontal: 1);
+  Group #ChargeFull {
+    Anchor: (Width: 10, Height: 10);
+    Background: "Assets/ChargeFull.png";
+  }
+
+  Group #ChargeEmpty {
+    Anchor: (Width: 10, Height: 10);
+    Background: "Assets/ChargeEmpty.png";
+  }
+}

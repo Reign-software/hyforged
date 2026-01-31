@@ -1,0 +1,26 @@
+$ObjectiveCommon = "ObjectiveCommon.ui";
+
+@PanelTaskCompletionInProgress = LabelStyle(
+  ...$ObjectiveCommon.@TaskCompletionInProgress,
+  HorizontalAlignment: End
+);
+
+@PanelTaskCompletionComplete = LabelStyle(
+  ...$ObjectiveCommon.@TaskLabelComplete,
+  HorizontalAlignment: End
+);
+
+Group {
+  Anchor: (Top: 12);
+
+  Group #TaskIcon {
+    Anchor: (Width: 14, Height: 14, Top: 4, Left: 0);
+  }
+
+  Label #TaskKey {
+    Anchor: (Left: 20, Width: 240);
+  }
+
+  Label #TaskCompletion {
+  }
+}

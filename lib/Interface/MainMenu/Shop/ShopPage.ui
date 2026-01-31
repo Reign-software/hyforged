@@ -1,0 +1,93 @@
+$MainMenuCommon = "../Common.ui";
+$Common = "../../Common.ui";
+$Sounds = "../../Sounds.ui";
+
+@EditionWidth = 500;
+@EditionHeight = 600;
+@EditionSpacing = -70;
+@ButtonWidth = 275;
+
+@TotalWidth = (@EditionWidth * 3) + (@EditionSpacing * 2);
+
+@EditionCard = Group {
+  Anchor: (Width: @EditionWidth, Height: @EditionHeight + 60);
+  LayoutMode: Top;
+
+  Group {
+    Anchor: (Width: @EditionWidth, Height: @EditionHeight);
+    Background: (TexturePath: @ImagePath);
+  }
+
+  Group {
+    Anchor: (Top: -15, Height: $Common.@PrimaryButtonHeight);
+    LayoutMode: Center;
+
+    Button #Button {
+      Anchor: (Width: @ButtonWidth, Height: $Common.@PrimaryButtonHeight);
+      Style: @ButtonStyle;
+      Padding: (Left: 24, Right: 24);
+
+      Group {
+        LayoutMode: Center;
+
+        Label #ButtonLabel {
+          Text: @ButtonText;
+          Style: @LabelStyle;
+        }
+
+        Group #IconContainer {
+          Anchor: (Width: 20, Height: 20, Left: 5);
+          Background: (TexturePath: "IconRedirect.png");
+          Visible: @ShowIcon;
+        }
+      }
+    }
+  }
+};
+
+Group {
+  Background: $MainMenuCommon.@OverlayBackground;
+  LayoutMode: Top;
+
+  $MainMenuCommon.@CenteredTitleLabel {
+    @Text = %client.mainMenu.shop.title;
+    Anchor: (Width: @TotalWidth, Top: 135, Height: 40);
+  }
+
+  Group {
+    Anchor: (Top: 20, Width: 1239, Height: 24);
+    Background: (TexturePath: "Divider.png");
+  }
+
+  Group #ShopContainer {
+    Anchor: (Top: 40, Width: @TotalWidth, Height: @EditionHeight + 80);
+    LayoutMode: Center;
+
+    @EditionCard #StandardEdition {
+      @ImagePath = "EditionStandard.png";
+      @ButtonText = %client.mainMenu.shop.owned;
+      @ButtonStyle = $Common.@PrimaryButtonStyle;
+      @LabelStyle = $Common.@PrimaryButtonLabelStyle;
+      @ShowIcon = false;
+      Anchor: (Right: @EditionSpacing / 2);
+    }
+
+    @EditionCard #SupporterEdition {
+      @ImagePath = "EditionSupporter.png";
+      @ButtonText = %client.mainMenu.shop.upgrade;
+      @ButtonStyle = $Common.@PrimaryButtonStyle;
+      @LabelStyle = $Common.@PrimaryButtonLabelStyle;
+      @ShowIcon = true;
+      Anchor: (Left: @EditionSpacing / 2, Right: @EditionSpacing / 2);
+    }
+
+    @EditionCard #CursebreakerEdition {
+      @ImagePath = "EditionCursebreaker.png";
+      @ButtonText = %client.mainMenu.shop.upgrade;
+      @ButtonStyle = $Common.@PrimaryButtonStyle;
+      @LabelStyle = $Common.@PrimaryButtonLabelStyle;
+      @ShowIcon = true;
+      Anchor: (Left: @EditionSpacing / 2);
+    }
+  }
+}

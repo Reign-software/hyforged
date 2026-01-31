@@ -263,18 +263,41 @@ if defined ASSETS_PATH (
         echo   Server assets copied to: %LIB_DIR%\Server
     )
     
-    REM Copy UI assets from Common
-    if exist "%ASSETS_PATH%\Common\UI" (
-        echo.
-        echo Copying UI assets...
-        
-        if exist "%LIB_DIR%\UI" (
-            echo   Removing existing UI assets...
-            rmdir /s /q "%LIB_DIR%\UI"
+    REM Copy UI assets from Hytale launcher installation (has the actual .ui files)
+    REM Path: %APPDATA%\Hytale\install\release\package\game\build-X\Client\Data\Game\Interface
+    set "HYTALE_INSTALL=%APPDATA%\Hytale\install\release\package\game"
+    set "UI_SOURCE="
+    
+    if exist "%HYTALE_INSTALL%" (
+        REM Find the latest build folder
+        for /f "tokens=*" %%d in ('dir /b /ad /o-n "%HYTALE_INSTALL%" 2^>nul') do (
+            set "LATEST_BUILD=%%d"
+            goto :found_build
         )
-        
-        xcopy /s /e /i /q "%ASSETS_PATH%\Common\UI" "%LIB_DIR%\UI" >nul
-        echo   UI assets copied to: %LIB_DIR%\UI
+        :found_build
+        if defined LATEST_BUILD (
+            set "UI_SOURCE=%HYTALE_INSTALL%\!LATEST_BUILD!\Client\Data\Game\Interface"
+        )
+    )
+    
+    if defined UI_SOURCE (
+        if exist "!UI_SOURCE!" (
+            echo.
+            echo Copying UI assets from Hytale installation...
+            echo   Build: !LATEST_BUILD!
+            
+            if exist "%LIB_DIR%\UI" (
+                echo   Removing existing UI assets...
+                rmdir /s /q "%LIB_DIR%\UI"
+            )
+            
+            xcopy /s /e /i /q "!UI_SOURCE!" "%LIB_DIR%\UI" >nul
+            echo   UI assets copied to: %LIB_DIR%\UI
+        ) else (
+            echo Warning: UI folder not found at: !UI_SOURCE!
+        )
+    ) else (
+        echo Warning: Hytale installation not found at: %HYTALE_INSTALL%
     )
 )
 

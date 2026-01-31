@@ -1,0 +1,34 @@
+$InGame = "../../Common.ui";
+$Sounds = "../../../Sounds.ui";
+
+@ButtonHeight = 80;
+@ItemSlotSize = $InGame.@DefaultItemSlotSize;
+@ButtonSpacing = 5;
+
+@RecipeItemGridStyle = (
+  ...$InGame.@DefaultItemGridStyle,
+  SlotBackground: "RecipeCatalogueItemSlot.png"
+);
+
+@Style = (
+  Default: (
+    Background: (TexturePath: "RecipeCatalogueItemPatch.png", Border: 22)
+  ),
+  Sounds: $Sounds.@ButtonsLight
+);
+
+@StyleSelected = (
+  Default: (
+    Background: (TexturePath: "RecipeCatalogueItemActivePatch.png", Border: 22)
+  )
+);
+
+Button #Button {
+  Anchor: (Height: @ButtonHeight, Bottom: @ButtonSpacing);
+  Style: @Style;
+
+  Label #Name {
+    Anchor: (Left: 7 + @ItemSlotSize, Right: 12);
+    Style: (VerticalAlignment: Center, RenderBold: true, FontSize: 15, Wrap: true);
+  }
+}

@@ -1,0 +1,19 @@
+$Sounds = "../../../Sounds.ui";
+
+@LabelStyle = (VerticalAlignment: Center, FontSize: 15, TextColor: #94979d);
+
+TextButton #Button {
+  Anchor: (Height: 33);
+  Style: (
+    Default: (
+      LabelStyle: @LabelStyle
+    ),
+    Hovered: (
+      LabelStyle: (...@LabelStyle, TextColor: #babec6)
+    ),
+    Sounds: (
+      Activate: (SoundPath: $Sounds.@Tick, Volume: 6),
+      MouseHover: (SoundPath: $Sounds.@ButtonsLightHover, Volume: 6)
+    )
+  );
+}

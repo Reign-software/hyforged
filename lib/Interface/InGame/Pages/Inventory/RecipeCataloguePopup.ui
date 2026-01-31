@@ -1,0 +1,132 @@
+$Common = "../../../Common.ui";
+$Container = "../../../Common/Container.ui";
+$InGame = "../../Common.ui";
+$Sounds = "../../../Sounds.ui";
+
+@NavigationButtonLabelStyle = (VerticalAlignment: Center, FontSize: 15, TextColor: #94979d, RenderUppercase: true, Sounds: $Sounds.@List);
+
+@NavigationButtonPadding = (Left: 4);
+
+@NavigationButtonStyle = (
+  Default: (
+    LabelStyle: @NavigationButtonLabelStyle
+  ),
+  Hovered: (
+    LabelStyle: @NavigationButtonLabelStyle,
+    Background: #212d3e
+  ),
+  Sounds: $Sounds.@List
+);
+
+@NavigationButtonSelectedStyle = (
+  Default: (
+    LabelStyle: (...@NavigationButtonLabelStyle, TextColor: #ffe682, RenderBold: true)
+  ),
+  Hovered: (
+    LabelStyle: (...@NavigationButtonLabelStyle, TextColor: #ffe682, RenderBold: true),
+    Background: #212d3e
+  ),
+  Sounds: $Sounds.@List
+);
+
+$Common.@Overlay {
+  $Container.@DecoratedContainer {
+    @CloseButton = true;
+
+    Anchor: (Height: 640, Width: 1100);
+
+    #Title {
+      $Container.@Title {
+        @Text = %client.inventory.recipeCataloguePopup.title;
+      }
+    }
+
+    #Content {
+      LayoutMode: Left;
+
+      Group #Benches {
+        FlexWeight: 1;
+        LayoutMode: TopScrolling;
+        ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+      }
+
+      Group {
+        Anchor: (Width: 1, Horizontal: $Container.@InnerPaddingValue);
+        Background: #242c34;
+      }
+
+      Group {
+        FlexWeight: 1;
+        LayoutMode: Top;
+
+        Group #BenchCategories {
+          LayoutMode: TopScrolling;
+          ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+        }
+
+        Group #CategoriesSeparator {
+          Anchor: (Height: 1, Vertical: 5);
+          Background: #242c34;
+
+          Group {
+            Background: "RecipeCatalogueSeparatorArrow.png";
+            Anchor: (Width: 18, Height: 9, Top: -3);
+          }
+        }
+
+        Group #ItemCategories {
+          LayoutMode: TopScrolling;
+          ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+        }
+      }
+
+      Group {
+        Anchor: (Width: 1, Horizontal: $Container.@InnerPaddingValue);
+        Background: #242c34;
+      }
+
+      Group #Recipes {
+        Anchor: (Width: 370);
+        LayoutMode: TopScrolling;
+        ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+      }
+
+      Group {
+        Anchor: (Width: 275, Left: $Container.@InnerPaddingValue);
+        Background: (TexturePath: "../../../Common/ContainerPanelPatch.png", Border: 4);
+        LayoutMode: Top;
+
+        ItemPreviewComponent #ItemPreview {
+          Anchor: (Width: 240, Height: 200);
+
+          Group {
+            Anchor: (Width: 222, Height: 223, Top: -15);
+            Background: "EnergeticFlowEffectGold.png";
+          }
+
+          Group {
+            Background: "RecipeCatalogueItemBackground.png";
+            Anchor: (Width: 148, Height: 148);
+          }
+        }
+
+        Label #ItemName {
+          Padding: (Horizontal: 15, Bottom: 10);
+          Style: (TextColor: #94969a, RenderBold: true, HorizontalAlignment: Center, Wrap: true);
+        }
+
+        $Container.@PanelSeparatorFancy {}
+
+        Label #ItemDescription {
+          Padding: (Horizontal: 15, Top: 10);
+          Style: (TextColor: #696969, HorizontalAlignment: Center, Wrap: true, FontSize: 12);
+        }
+
+        Group #Ingredients {
+          LayoutMode: Top;
+          Anchor: (Top: 5);
+        }
+      }
+    }
+  }
+}

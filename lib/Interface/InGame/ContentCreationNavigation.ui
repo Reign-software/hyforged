@@ -1,0 +1,69 @@
+$InGame = "Common.ui";
+$Common = "../Common.ui";
+
+@ToolButton = MenuItem {
+  Padding: (Horizontal: 30);
+  TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+  PopupStyle: (
+    Background: #121a26,
+    ButtonPadding: (Left: 30, Top: 7, Bottom: 7, Right: 20),
+    Padding: (Bottom: 10),
+    TooltipStyle: $Common.@ButtonTextTooltipStyle,
+    ButtonStyle: (
+      Default: (
+        LabelStyle: (FontSize: 13, TextColor: #7c8b99),
+        BindingLabelStyle: (FontSize: 13, TextColor: #ffffff(0.2))
+      ),
+      Hovered: (
+        Background: #000000(0.2),
+        LabelStyle: (FontSize: 13, TextColor: #7c8b99),
+        BindingLabelStyle: (FontSize: 13, TextColor: #ffffff(0.2))
+      )
+    ),
+    SelectedButtonStyle: (
+      Default: (
+        LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true),
+        BindingLabelStyle: (FontSize: 13, TextColor: #ffffff(0.2))
+      ),
+      Hovered: (
+        Background: #000000(0.2),
+        LabelStyle: (FontSize: 13, TextColor: #ffffff, RenderBold: true),
+        BindingLabelStyle: (FontSize: 13, TextColor: #ffffff(0.2))
+      )
+    )
+  );
+  Style: (
+    Default: (
+      LabelStyle: (FontSize: 15, TextColor: #7c8b99, VerticalAlignment: Center, RenderUppercase: true, RenderBold: true)
+    ),
+    Hovered: (
+      Background: #121a26,
+      LabelStyle: (FontSize: 15, TextColor: #7c8b99, VerticalAlignment: Center, RenderUppercase: true, RenderBold: true)
+    )
+  );
+  SelectedStyle: (
+    Default: (
+      LabelStyle: (FontSize: 15, TextColor: #ffffff, VerticalAlignment: Center, RenderUppercase: true, RenderBold: true)
+    ),
+    Hovered: (
+      Background: #121a26,
+      LabelStyle: (FontSize: 15, TextColor: #ffffff, VerticalAlignment: Center, RenderUppercase: true, RenderBold: true)
+    )
+  );
+};
+
+Group #ContentCreationNavigationRoot {
+   Anchor: (Height: 50, Top: 80);
+   Background: #16212f;
+
+   Group #Buttons {
+     LayoutMode: Left;
+     Anchor: (Width: $InGame.@TotalPageContentWidth);
+
+     @ToolButton #ButtonAssets { Text: %client.contentCreation.navigation.assets; Icon: (TexturePath: "../Common/AltDropdownCaretDown.png", Color: #ffffff(0.6)); IconAnchor: (Width: 12, Height: 7, Left: 4); }
+     @ToolButton #ButtonWorldTools { Text: %client.contentCreation.navigation.worldtools; Icon: (TexturePath: "../Common/AltDropdownCaretDown.png", Color: #ffffff(0.6)); IconAnchor: (Width: 12, Height: 7, Left: 4); }
+     @ToolButton #ButtonBuilderTools { Text: %client.contentCreation.navigation.buildertools; }
+     @ToolButton #ButtonMachinima { Text: %client.contentCreation.navigation.machinima; }
+     @ToolButton #ButtonHelp { Text: %client.contentCreation.navigation.help; Icon: (TexturePath: "../Common/AltDropdownCaretDown.png", Color: #ffffff(0.6)); IconAnchor: (Width: 12, Height: 7, Left: 4); }
+   }
+}

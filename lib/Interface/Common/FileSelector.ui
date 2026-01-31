@@ -1,0 +1,231 @@
+$Common = "../Common.ui";
+$Container = "Container.ui";
+
+@FileButtonAnchor = Anchor(Height: 25, Bottom: 1);
+@FileButtonPadding = Padding(Left: 10);
+
+@FileButtonStyle = TextButtonStyle(
+  Default: (
+    Background: #ffffff(0.05),
+    LabelStyle: (
+      VerticalAlignment: Center
+    )
+  ),
+  Disabled: (
+    Background: #ffffff(0.05),
+    LabelStyle: (
+      VerticalAlignment: Center,
+      TextColor: #ffffff(0.3)
+    )
+  )
+);
+
+@FileButtonStyleSelected = TextButtonStyle(
+  Default: (
+    Background: #ffffff(0.3),
+    LabelStyle: (
+      VerticalAlignment: Center
+    )
+  )
+);
+
+@NavigationButtonLabelStyle = (
+  Alignment: Center,
+  FontSize: 18,
+  RenderBold: true
+);
+
+@NavigationButtonStyle = TextButtonStyle(
+  Default: (
+    LabelStyle: @NavigationButtonLabelStyle
+  ),
+  Hovered: (
+    LabelStyle: @NavigationButtonLabelStyle,
+    Background: #ffffff(0.15)
+  ),
+  Pressed: (
+    LabelStyle: @NavigationButtonLabelStyle,
+    Background: #ffffff(0.1)
+  ),
+  Disabled: (
+    LabelStyle: (
+      ...@NavigationButtonLabelStyle,
+      TextColor: #ffffff(0.2)
+    )
+  )
+);
+
+@ClearButtonStyle = (
+  Texture: (TexturePath: "../AssetEditor/ClearInputIcon.png", Color: #ffffff(0.3)),
+  HoveredTexture: (TexturePath: "../AssetEditor/ClearInputIcon.png", Color: #ffffff(0.5)),
+  PressedTexture: (TexturePath: "../AssetEditor/ClearInputIcon.png", Color: #ffffff(0.4)),
+  Width: 16,
+  Height: 16,
+  Side: Right,
+  Offset: 10
+);
+
+@ScrollbarStyle = $Common.@DefaultScrollbarStyle;
+
+@BreadcrumbButtonStyle = (
+  Default: (
+    LabelStyle: (
+      FontSize: 13,
+      TextColor: #ffffff(0.58)
+    )
+  ),
+  Hovered: (
+    Background: #ffffff(0.2),
+    LabelStyle: (
+      FontSize: 13,
+      TextColor: #ffffff(0.78)
+    )
+  ),
+  Pressed: (
+    Background: #ffffff(0.35),
+    LabelStyle: (
+      FontSize: 13,
+      TextColor: #ffffff(0.66)
+    )
+  )
+);
+
+@BreadcrumbArrowLabelStyle = (
+  FontSize: 13,
+  TextColor: #ffffff(0.27)
+);
+
+@BreadcrumbCurrentLabelStyle = (
+  FontSize: 13,
+  RenderBold: true,
+  TextColor: #ffffff
+);
+
+$Container.@Container #Container {
+  Anchor: (Width: 900, Height: 400);
+
+  #Title {
+    LayoutMode: Left;
+    Padding: (Horizontal: 12, Top: 4);
+
+    TextButton #BackButton {
+      Text: "<";
+      Anchor: (Width: 20);
+      Style: @NavigationButtonStyle;
+    }
+
+    TextButton #ForwardButton {
+      Text: ">";
+      Anchor: (Width: 20);
+      Style: @NavigationButtonStyle;
+    }
+
+    Group #CurrentDirectory {
+      LayoutMode: Center;
+      FlexWeight: 1;
+      Anchor: (Height: 20);
+    }
+
+    TextField #SearchInput {
+      Anchor: (Width: 170);
+      PlaceholderText: %client.assetEditor.fileSelector.findFile;
+      PlaceholderStyle: (
+        RenderItalics: true,
+        TextColor: #ffffff(0.5),
+        FontSize: 14
+      );
+      Style: (FontSize: 14);
+      Decoration: (
+        Default: (
+          Icon: (Texture: (TexturePath: "SearchIcon.png", Color: #ffffff(0.25)), Width: 16, Height: 16, Offset: 5),
+          ClearButtonStyle: @ClearButtonStyle
+        )
+      );
+      Padding: (Horizontal: 27);
+    }
+  }
+
+  #Content {
+    LayoutMode: Top;
+
+    Group {
+      LayoutMode: Left;
+      Anchor: (Top: 1, Bottom: 3);
+      FlexWeight: 1;
+
+      Group #FileList {
+        Anchor: (Top: 1);
+        FlexWeight: 1;
+        Padding: (Full: 5);
+      }
+
+      Group {
+        Anchor: (Width: 250);
+        LayoutMode: Top;
+        Background: (TexturePath: "ContainerPanelLightPatch.png", Border: 4);
+
+        Label #SelectedFileLabel {
+          Style: (
+            Alignment: Center,
+            FontSize: 12,
+            Wrap: true
+          );
+          Padding: (Horizontal: 15, Top: 5, Bottom: 0);
+          Anchor: (Height: 70);
+        }
+
+        Group {
+          FlexWeight: 1;
+          Padding: (Full: 20);
+
+          Group #PreviewContainer {
+            Anchor: (Width: 200, Height: 200);
+          }
+        }
+      }
+    }
+
+    $Container.@PanelSeparatorFancy { }
+
+    Group {
+      LayoutMode: Left;
+      Anchor: (Top: 5);
+
+      TextField #CreateDirectoryField {
+        Anchor: (Width: 230, Right: 5);
+        Background: #ffffff(0.1);
+        PlaceholderText: %client.assetEditor.fileSelector.newDirectoryNamePlaceholder;
+        PlaceholderStyle: (TextColor: #969494, RenderItalics: true, FontSize: 12);
+        Style: (FontSize: 12);
+        Padding: (Horizontal: 8);
+      }
+
+      $Common.@SecondaryTextButton #CreateDirectoryButton {
+        @Anchor = (MinWidth: 90, Right: 5);
+
+        Text: %client.assetEditor.fileSelector.createDirectory;
+      }
+
+      Group {
+        FlexWeight: 1;
+
+        Label #ErrorLabel {
+          Style: (FontSize: 13, TextColor: #ff6666, Wrap: true, VerticalAlignment: Center);
+          Padding: (Horizontal: 7);
+        }
+      }
+
+      $Common.@PrimaryTextButton #SelectButton {
+        @Anchor = (MinWidth: 120, Right: 7);
+
+        Text: %client.general.button.select;
+      }
+
+      $Common.@SecondaryTextButton #CancelButton {
+        @Anchor = (MinWidth: 120);
+
+        Text: %client.general.button.cancel;
+      }
+    }
+  }
+}

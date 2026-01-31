@@ -1,0 +1,34 @@
+$Common = "../Common.ui";
+
+Group {
+  Anchor: (Bottom: 10, Right: 10, Height: 90, Width: 400);
+  LayoutMode: Left;
+  Background: (TexturePath: "../Common/ContainerFullPatch.png", Border: 46, Color: #ffffff(0.9));
+  Padding: (Full: 14, Horizontal: 20);
+
+  Group #Spinner {
+    Anchor: (Width: 38, Height: 38, Right: 10);
+    Background: (Color: #666666);
+
+  }
+
+  Group {
+    LayoutMode: Middle;
+    FlexWeight: 1;
+
+    Label #QueueName {
+      Style: (RenderBold: true, FontSize: 18);
+    }
+
+    Label #StatusText {}
+  }
+
+  TextButton #LeaveButton {
+    Anchor: (Width: 32, Height: 32, Left: 30);
+    Background: (Color: #666666(0.4));
+    Text: "x";
+    Style: (
+      Default: (LabelStyle: (HorizontalAlignment: Center, VerticalAlignment: Center, RenderBold: true, FontSize: 18))
+    );
+  }
+}

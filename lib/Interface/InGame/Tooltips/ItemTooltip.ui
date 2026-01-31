@@ -1,0 +1,205 @@
+@MinWidth = 320;
+@MaxWidth = 480;
+@TextureBorder = 24;
+
+@PrimaryTextColor = #bca57a;
+@PrimaryCursedColor = #a020f0;
+
+@CursedTooltipBackground = (TexturePath: "ItemTooltipCursed.png", Border: @TextureBorder);
+@CursedTooltipArrow = (TexturePath: "ItemTooltipCursedArrow.png");
+
+@Separator = Group {
+  Anchor: (Top: 0, Height: 1);
+  Background: (Color: #25262c);
+};
+
+Group #Wrapper {
+  LayoutMode: Left;
+  Anchor: (Width: @MaxWidth, Left: 0);
+
+  Group #Group {
+    Anchor: (MinWidth: @MinWidth);
+    Background: (TexturePath: "ItemTooltipDefault.png", Border: @TextureBorder);
+
+    Group #Arrow {
+      Anchor: (Width: 33, Height: 24, Bottom: -8);
+      Background: (TexturePath: "ItemTooltipDefaultArrow.png");
+    }
+
+    Group {
+      Padding: (Full: 24, Top: 21);
+      LayoutMode: Top;
+
+      Group #Header {
+        LayoutMode: Left;
+
+        Label #Name {
+          FlexWeight: 2;
+          Style: (RenderBold: true, FontSize: 18);
+        }
+
+        Label #Quality {
+          Padding: (Left: 5, Top: 3);
+          Style: (HorizontalAlignment: End, FontSize: 14);
+          Text: "Default";
+        }
+      }
+
+      Label #Id {
+        Anchor: (Top: 0);
+        Style: (TextColor: #838383, FontSize: 14, RenderItalics: true);
+      }
+
+      Label #Type {
+        Anchor: (Top: 0);
+        Style: (TextColor: #838383, FontSize: 14);
+      }
+
+      Group #Description {
+        Padding: (Top: 5);
+
+        @Separator {}
+
+        Label #Label {
+          Anchor: (Top: 6);
+          Style: (TextColor: #696969, FontSize: 14, Wrap: true);
+        }
+      }
+
+      Group #Stats {
+        Padding: (Top: 10);
+        Visible: false;
+        LayoutMode: Top;
+
+        @Separator {
+          Padding: (Bottom: 10);
+        }
+        Group #StatsContainer {
+          Padding: (Top: 10);
+          LayoutMode: Top;
+          Group #StatHealth {
+            LayoutMode: Left;
+            Visible: false;
+
+            Group {
+              Anchor: (Width: 24, Height: 24);
+              Background: (TexturePath: "../Pages/Inventory/CharacterPanelStatIconHealth.png");
+            }
+
+            Label #StatHealthValue {
+              Padding: (Left: 4);
+              Style: (TextColor: @PrimaryTextColor, FontSize: 14);
+            }
+          }
+
+          Group #StatDefense {
+            LayoutMode: Left;
+            Visible: false;
+
+            Group {
+              Anchor: (Width: 24, Height: 24);
+              Background: (TexturePath: "../Pages/Inventory/CharacterPanelStatIconArmor.png");
+            }
+
+            Label #StatDefenseValue {
+              Padding: (Left: 4);
+              Style: (TextColor: @PrimaryTextColor, FontSize: 14);
+            }
+          }
+
+          Group #StatStamina {
+            LayoutMode: Left;
+            Visible: false;
+
+            Group {
+              Anchor: (Width: 20, Height: 20);
+              Background: (TexturePath: "../Hud/Stamina/StaminaIcon.png");
+            }
+
+            Label #StatStaminaValue {
+              Padding: (Left: 4);
+              Style: (TextColor: @PrimaryTextColor, FontSize: 14);
+            }
+          }
+
+          Group #StatMana {
+            LayoutMode: Left;
+            Visible: false;
+
+            Group {
+              Anchor: (Width: 24, Height: 24);
+              Background: (TexturePath: "../Pages/Inventory/CharacterPanelStatIconMana.png");
+            }
+
+            Label #StatManaValue {
+              Padding: (Left: 4);
+              Style: (TextColor: @PrimaryTextColor, FontSize: 14);
+            }
+          }
+
+          Group #StatAttack {
+            LayoutMode: Left;
+            Visible: false;
+
+            Group {
+              Anchor: (Width: 24, Height: 24);
+              Background: (TexturePath: "../Pages/Inventory/CharacterPanelStatIconMelee.png");
+            }
+
+            Label #StatAttackValue {
+              Padding: (Left: 4);
+              Style: (TextColor: @PrimaryTextColor, FontSize: 14);
+            }
+          }
+
+          Group #StatsContent {
+            Anchor: (Top: 6);
+            LayoutMode: Top;
+          }
+        }
+
+      }
+
+      Group #Footer {
+        Padding: (Top: 5);
+
+        @Separator {}
+
+        Group #FooterContent {
+          Anchor: (Top: 6);
+          LayoutMode: Top;
+
+          Label #Durability {
+            Style: (HorizontalAlignment: End, TextColor: @PrimaryTextColor, FontSize: 14);
+          }
+
+          Group #Cursed {
+            Visible: false;
+            LayoutMode: Top;
+
+            Group {
+              LayoutMode: Right;
+
+              Label {
+                Padding: (Right: 3);
+                Text: %client.itemTooltip.cursed.label;
+                Style: (HorizontalAlignment: End, TextColor: @PrimaryCursedColor, OutlineColor: #b051ef22, FontSize: 14);
+              }
+
+              Group {
+                Anchor: (Height: 12, Width: 12);
+                Background: (TexturePath: "../Pages/Inventory/CursedSpiral.png");
+              }
+            }
+
+            Label {
+              Padding: (Top: -3, Bottom: 1);
+              Text: %client.itemTooltip.cursed.help;
+              Style: (HorizontalAlignment: End, TextColor: #595959, FontSize: 13);
+            }
+          }
+        }
+      }
+    }
+  }
+}

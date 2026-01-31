@@ -1,0 +1,18 @@
+$Common = "../../Common.ui";
+$KillFeedEntry = "KillFeedEntry.ui";
+
+@MarginLeft = 20;
+@MarginTop = 90;
+@Width = 500;
+@VisibleEntries = 5;
+@Height = ($KillFeedEntry.@Height + $KillFeedEntry.@Spacing) * @VisibleEntries;
+
+Group #Container {
+  Anchor: (Left: @MarginLeft, Top: @MarginTop, Width: @Width, Height: @Height);
+
+  Group #KillFeed {
+    LayoutMode: TopScrolling;
+    ScrollbarStyle: (Spacing: 0, Size: 0);
+    AutoScrollDown: true;
+  }
+}

@@ -1,0 +1,76 @@
+$Common = "../../Common.ui";
+$Buttons = "../../Common/Buttons.ui";
+$Sounds = "../../Sounds.ui";
+$Tags = "ServersRowTags.ui";
+
+@NameColumnWidth = 200;
+@TagsColumnWidth = 300;
+@RatingColumnWidth = 100;
+@OnlineColumnWidth = 100;
+@PingColumnWidth = 100;
+
+Button #Row {
+  Anchor: (Top: 8, Height: 64);
+  LayoutMode: Left;
+  Style: (
+    Default: (Background: (TexturePath: "ServerRowBackgroundDefault.png", Border: 8)),
+    Hovered: (Background: (TexturePath: "ServerRowBackgroundHovered.png", Border: 8)),
+    Pressed: (Background: (TexturePath: "ServerRowBackgroundDefault.png", Border: 8)),
+    Disabled: (Background: (TexturePath: "ServerRowBackgroundDefault.png", Border: 8)),
+    Sounds: $Sounds.@ServerList
+  );
+
+  Group #ImageCell {
+    Anchor: (Width: 97, Height: 55, Left: 5, Top: 5);
+    Background: "ServerThumbnail.png";
+  }
+
+  Group #NameCell {
+    Anchor: (Left: 10, Right: 10);
+    FlexWeight: 5;
+
+    Label #NameCellLabel {
+      Anchor: (Left: 10, Right: 10);
+      Style: (HorizontalAlignment: Start, VerticalAlignment: Center, FontSize: 20, TextColor: #f0f4f9);
+      Text: "Name";
+    }
+  }
+
+  // Tags table body - tags are dynamically loaded in here
+  Group #TagsTableBody {
+     Anchor: (Height: 56, Width: 410);
+     LayoutMode: Left;
+     Visible: false;
+  }
+
+  Group #RatingCell {
+    FlexWeight: 1;
+    Visible: false;
+
+    Label #RatingCellLabel {
+      Anchor: (Left: 10, Right: 10);
+      Style: (HorizontalAlignment: Start, VerticalAlignment: Center, TextColor: #6c7886);
+      Text: "Rating";
+    }
+  }
+
+   Group #OnlineCell {
+     FlexWeight: 1;
+
+     Label #OnlineCellLabel {
+       Style: (HorizontalAlignment: Center, VerticalAlignment: Center, TextColor: #6c7886);
+       Text: "? / ?";
+       Visible: false;
+     }
+   }
+
+   Group #PingCell {
+     FlexWeight: 1;
+     Anchor: (Height: 18, Width: 18);
+
+     Group #PingIcon {
+      Background: "PingIcon.png";
+      Visible: false;
+     }
+   }
+}

@@ -1,0 +1,21 @@
+$Common = "../../../../../Common.ui";
+$Label = "../Label.ui";
+$SectionContainer = "../SectionContainer.ui";
+
+$SectionContainer.@SectionContainer {
+  Group {
+    LayoutMode: Left;
+    FlexWeight: 1;
+
+    $Label.@LabelAffix #LabelPrefix {}
+    $Label.@Label #Label {}
+    $Label.@LabelAffix #LabelSuffix {}
+  }
+
+  CheckBox #Checkbox {
+    Anchor: (Right: 0, Width: 18, Height: 18);
+    Background: "../../../../../Common/CheckBoxFrame.png";
+    Padding: (Full: 4);
+    Style: $Common.@DefaultCheckBoxStyle;
+  }
+}

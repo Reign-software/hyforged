@@ -1,0 +1,4 @@
+Label #Name {
+  Anchor: (Bottom: 16);
+  Style: (FontSize: 18, TextColor: #96a9be, RenderUppercase: true, RenderBold: true);
+}

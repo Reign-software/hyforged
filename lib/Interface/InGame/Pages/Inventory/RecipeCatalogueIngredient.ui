@@ -1,0 +1,19 @@
+$InGame = "../../Common.ui";
+
+@NameHeight = 20;
+@QuantityHeight = 20;
+
+Group #Container {
+  Anchor: (Width: $InGame.@DefaultItemSlotSize + 20, Height: @NameHeight + $InGame.@DefaultItemSlotSize + @QuantityHeight + 2, Left: 8, Right: 8);
+
+  Label #Name {
+    Anchor: (Top: 2 + $InGame.@DefaultItemSlotSize);
+    Style: (HorizontalAlignment: Center, TextColor: #7e9092, FontSize: 13);
+  }
+
+  Label #Quantity {
+    Background: "RecipeCatalogueQuantityBackground.png";
+    Anchor: (Top: @NameHeight + $InGame.@DefaultItemSlotSize + 2, Width: 44, Height: @QuantityHeight);
+    Style: (Alignment: Center, TextColor: #7e9092, FontSize: 12);
+  }
+}

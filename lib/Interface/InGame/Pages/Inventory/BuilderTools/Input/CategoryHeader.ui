@@ -1,0 +1,103 @@
+$Label = "../Label.ui";
+$Common = "../../../../../Common.ui";
+$Sounds = "../../../../../Sounds.ui";
+
+// This is a reorderable category header with expand/collapse and drag grip
+Group #CategoryWrapper {
+  LayoutMode: Top;
+
+  // Main category container
+  Group {
+    LayoutMode: Top;
+    Anchor: (Top: 4, Bottom: 2);
+
+    // Divider line above the category
+    Group #Divider {
+      Anchor: (Height: 1, Bottom: 4);
+      Background: #282b2a;
+    }
+
+    // Header row
+    Group #HeaderRow {
+      LayoutMode: Left;
+      Anchor: (Height: 28);
+
+      // Clickable header button area (left side - expand/collapse)
+      Button #HeaderButton {
+        LayoutMode: Left;
+        FlexWeight: 1;
+        Anchor: (Height: 28);
+        Style: ButtonStyle(
+          Default: (Background: (Color: #00000000)),
+          Hovered: (Background: (Color: #ffffff10)),
+          Pressed: (Background: (Color: #ffffff08)),
+          Sounds: (Activate: (SoundPath: $Sounds.@Tick, Volume: 6))
+        );
+
+        // Arrow indicator
+        Group #ArrowContainer {
+          Anchor: (Width: 20, Height: 28);
+          LayoutMode: Middle;
+
+          Group #Arrow {
+            Anchor: (Width: 12, Height: 7);
+            Background: "../../../../../Common/AltDropdownCaretDown.png";
+          }
+        }
+
+        // Category label
+        Label #CategoryLabel {
+          Anchor: (Left: 2);
+          Style: (
+            ...$Label.@DefaultLabelStyle,
+            FontSize: 14,
+            TextColor: #ffffff,
+            RenderBold: true,
+            RenderUppercase: true,
+            LetterSpacing: 1
+          );
+        }
+      }
+
+      // Drag grip indicator (hamburger style - 3 horizontal lines) - on far right
+      // This is a ReorderableListGrip so it enables dragging
+      ReorderableListGrip #GripIcon {
+        Anchor: (Width: 28, Height: 28);
+        TooltipText: %client.settings.dragToReorder;
+        TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+        Group {
+          LayoutMode: Middle;
+          Anchor: (Full: 0);
+
+          // Hamburger lines container
+          Group {
+            LayoutMode: Top;
+            Anchor: (Width: 14, Height: 10);
+
+            // Top line
+            Group {
+              Anchor: (Height: 2, Bottom: 2);
+              Background: #7a8599;
+            }
+            // Middle line
+            Group {
+              Anchor: (Height: 2, Bottom: 2);
+              Background: #7a8599;
+            }
+            // Bottom line
+            Group {
+              Anchor: (Height: 2);
+              Background: #7a8599;
+            }
+          }
+        }
+      }
+    }
+
+    // Content container for category settings
+    Group #ContentContainer {
+      LayoutMode: Top;
+      Anchor: (Left: 8, Right: 8);
+    }
+  }
+}

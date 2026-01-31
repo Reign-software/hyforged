@@ -1,0 +1,73 @@
+$LegendCommon = "ToolsLegendsCommon.ui";
+
+$LegendCommon.@Legend {
+  #Pages {
+    $LegendCommon.@Page #Page1Basics {
+      @Title = %client.builderTools.legend.SelectPrefabTool.Page1.Title;
+
+      $LegendCommon.@RowLabel {
+        Text: %client.builderTools.legend.SelectPrefabTool.Page1.Description;
+      }
+
+      $LegendCommon.@Separator {}
+
+      $LegendCommon.@RowLabel {
+        Text: %client.builderTools.legend.SelectPrefabTool.Page1.SelectingPrefabs;
+      }
+
+      $LegendCommon.@HotkeyRow {
+        @InputBindingKey = "PrimaryItemAction";
+        @Description = %client.builderTools.legend.SelectPrefabTool.Page1.SelectPrefab;
+      }
+
+      $LegendCommon.@HotkeyRow {
+        @InputBindingKey = "DEL";
+        @Description = %client.builderTools.legend.SelectPrefabTool.Page1.UnselectPrefab;
+      }
+
+      $LegendCommon.@Separator {}
+
+      $LegendCommon.@RowLabel {
+        Text: %client.builderTools.legend.SelectPrefabTool.Page1.EditingPrefabs;
+      }
+
+      $LegendCommon.@HotkeyRow {
+        @InputBindingKey = "E";
+        @Description = %client.builderTools.legend.SelectPrefabTool.Page1.OpenSaveUI;
+      }
+
+      $LegendCommon.@HotkeyRow {
+        @InputBindingKey = "R";
+        @Description = %client.builderTools.legend.SelectPrefabTool.Page1.UpdateBoundingBox;
+      }
+
+      $LegendCommon.@HotkeyRow {
+        @InputBindingKey = "T";
+        @Description = %client.builderTools.legend.SelectPrefabTool.Page1.TeleportToPrefab;
+      }
+
+      $LegendCommon.@Separator {}
+
+      $LegendCommon.@RowLabel {
+        Text: %client.builderTools.legend.SelectPrefabTool.Page1.SetAnchorTitle;
+      }
+
+      $LegendCommon.@RowLabel {
+        Text: %client.builderTools.legend.SelectPrefabTool.Page1.SetAnchorDescription;
+      }
+
+      $LegendCommon.@Separator {}
+
+      $LegendCommon.@RowLabel {
+        Text: %client.builderTools.legend.SelectPrefabTool.Page1.UsefulCommands;
+      }
+
+      $LegendCommon.@RowLabel {
+        Text: %client.builderTools.legend.SelectPrefabTool.Page1.KillCommand;
+      }
+
+    }
+
+  }
+}
+

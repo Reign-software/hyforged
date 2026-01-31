@@ -1,0 +1,8 @@
+Group {
+  Anchor: (Bottom: 400, Width: 306, Height: 8);
+  Background: "OxygenBarContainer.png";
+
+  ProgressBar #ProgressBar {
+    BarTexturePath: "OxygenBarFill.png";
+  }
+}

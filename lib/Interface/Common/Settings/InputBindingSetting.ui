@@ -1,0 +1,46 @@
+$Common = "../../Common.ui";
+$Sounds = "../../Sounds.ui";
+
+Group {
+  Anchor: (Height: 44, Bottom: 8);
+  LayoutMode: Left;
+
+  Group {
+    FlexWeight: 1;
+    LayoutMode: Left;
+    Background: (TexturePath: "../OptionBackgroundPatch.png", Border: 16);
+
+    Label #Name {
+      Anchor: (Left: 16);
+      Style: (VerticalAlignment: Center, TextColor: #96a9be, RenderUppercase: false, FontSize: 18);
+    }
+  }
+
+  TextButton #Button {
+    Anchor: (Width: 275, Left: 8);
+    Padding: (Full: 16);
+    Style: (
+      Default: (Background: (TexturePath: "../Dropdown.png", Border: $Common.@ButtonBorderSize), LabelStyle: $Common.@PrimaryButtonLabelStyle),
+      Hovered: (Background: (TexturePath: "../DropdownHovered.png", Border: $Common.@ButtonBorderSize), LabelStyle: $Common.@PrimaryButtonLabelStyle),
+      Pressed: (Background: (TexturePath: "../DropdownPressed.png", Border: $Common.@ButtonBorderSize), LabelStyle: $Common.@PrimaryButtonLabelStyle),
+      Sounds: $Sounds.@ButtonsLight
+    );
+  }
+
+  Button #ClearButton {
+    Anchor: (Width: 45, Left: 8);
+    TooltipText: %client.settings.bindings.clear;
+    TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+    Style: (
+      Default: (Background: (TexturePath: "../Dropdown.png", Border: $Common.@ButtonBorderSize)),
+      Hovered: (Background: (TexturePath: "../DropdownHovered.png", Border: $Common.@ButtonBorderSize)),
+      Pressed: (Background: (TexturePath: "../DropdownPressed.png", Border: $Common.@ButtonBorderSize)),
+      Sounds: $Sounds.@ButtonsLight
+    );
+
+    Group #ClearIcon {
+      Anchor: (Width: 16, Height: 16);
+      Background: "../../InGame/Hud/ItemSlotSelectorEmptyIcon.png";
+    }
+  }
+}

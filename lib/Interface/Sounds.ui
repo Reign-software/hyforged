@@ -1,0 +1,249 @@
+@AutoSort = (
+  Activate: (
+    SoundPath: "Sounds/AutoSort.ogg",
+    Volume: -5,
+    MinPitch: -1,
+    MaxPitch: 1
+  ),
+  MouseHover: @ButtonsLightHover
+);
+
+@ButtonsMainActivate = "Sounds/ButtonsMainActivate.ogg";
+@ButtonsMainHover = "Sounds/ButtonsMainHover.ogg";
+
+// Revisit this because it might be redundant now and was used previously for ducking volume when leaving main menu
+@ButtonsMainLight = "Sounds/ButtonsLightActivate.ogg";
+
+@ButtonsMain = (
+  Activate: (
+    SoundPath: @ButtonsMainActivate,
+    Volume: 6
+  ),
+  MouseHover: (
+    SoundPath: @ButtonsMainHover,
+    MinPitch: -0.1,
+    MaxPitch: 0.1,
+    Volume: 2
+  )
+);
+
+@ButtonsLightActivate = "Sounds/ButtonsLightActivate.ogg";
+@ButtonsLightHover = "Sounds/ButtonsLightHover.ogg";
+
+@ButtonsLight = (
+  Activate: (
+    SoundPath: @ButtonsLightActivate,
+    MinPitch: -0.2,
+    MaxPitch: 0.2,
+    Volume: 2
+  ),
+  MouseHover: (
+    SoundPath: @ButtonsLightHover,
+    Volume: 6
+  )
+);
+
+@ButtonsSmall = (
+  Activate: (
+    SoundPath: @Tick,
+    Volume: 6
+  ),
+  MouseHover: (
+    SoundPath: @ButtonsLightHover,
+    Volume: 6
+  )
+);
+
+@ButtonsDestructiveActivate = "Sounds/ButtonsCancelActivate.ogg";
+
+@ButtonsDestructive = (
+  Activate: (
+    SoundPath: @ButtonsDestructiveActivate,
+    MinPitch: -0.4,
+    MaxPitch: 0.4,
+    Volume: 6
+  ),
+  MouseHover: (
+    SoundPath: @ButtonsLightHover,
+    Volume: 6
+  )
+);
+
+@ButtonsConnectionError = "Sounds/ConnectionError.ogg";
+
+@CreativeTab = "Sounds/TickActivate.ogg";
+
+@FilterTab = "Sounds/HoverMagic.ogg";
+
+@DefaultTabNavigation = (
+  Activate: (
+    SoundPath: "Sounds/DefaultTabActivate.ogg",
+    Volume: -2,
+    MinPitch: -0.2,
+    MaxPitch: 0.2
+  ),
+  MouseHover: (
+    SoundPath: @ButtonsLightHover,
+    Volume: 6
+  )
+);
+
+@DropdownBox = DropdownBoxSounds(
+  Activate: (
+    SoundPath: @Tick,
+    Volume: 6
+  ),
+  MouseHover: (
+    SoundPath: @ButtonsLightHover,
+    Volume: 6
+  ),
+  Close: (
+    SoundPath: @Untick,
+    Volume: 6
+  )
+);
+
+@EnterWorldActivate = "Sounds/EnterWorldActivate.ogg";
+
+@EnterWorld = (
+  Activate: (
+    SoundPath: @EnterWorldActivate,
+    Volume: 6
+  ),
+  MouseHover: (
+    SoundPath: @ButtonsLightHover,
+    Volume: 6
+  ),
+  Context: (
+    SoundPath: @ButtonsLightActivate,
+    Volume: 6
+  )
+);
+
+@FriendsList = ();
+
+@HButtonHover = "Sounds/HButtonHover.ogg";
+
+@Lock = (
+  Activate: (SoundPath: "Sounds/LockActivate.ogg", Volume: 6)
+);
+
+@Unlock = (
+  Activate: (SoundPath: "Sounds/UnlockActivate.ogg", Volume: 6)
+);
+
+@SaveActivate = "Sounds/SaveActivate.ogg";
+
+@SaveSettings = (
+  Activate: (
+    SoundPath: @SaveActivate,
+    Volume: 6
+  ),
+  MouseHover: (
+    SoundPath: @ButtonsLightHover,
+    Volume: 6
+  )
+);
+
+@ServerList = (
+  Activate: (
+    SoundPath: "Sounds/ButtonsLightActivate.ogg",
+    Volume: 6
+  ),
+  MouseHover: (
+    SoundPath: @ButtonsLightHover,
+    Volume: 6
+  )
+);
+
+@ShuffleActivate = "Sounds/ShuffleActivate.ogg";
+
+@SliderActivate = (
+  SoundPath: "Sounds/TickActivate.ogg",
+  Volume: 10
+);
+
+@SliderRelease = (
+  SoundPath: "Sounds/UntickActivate.ogg",
+  Volume: 9
+);
+
+@Shuffle = (
+  Activate: (
+    SoundPath: @ShuffleActivate,
+    MinPitch: -0.4,
+    MaxPitch: 0.4,
+    Volume: 1
+  )
+);
+
+@Tick = "Sounds/TickActivate.ogg";
+
+@Untick = "Sounds/UntickActivate.ogg";
+
+@TilesActivate = "Sounds/TilesActivate.ogg";
+
+@Tiles = (
+  Activate: (
+    SoundPath: @TilesActivate,
+    MinPitch: -0.4,
+    MaxPitch: 0.4,
+    Volume: 6
+  ),
+  MouseHover: (
+    SoundPath: @ButtonsLightHover,
+    Volume: 6
+  )
+);
+
+@TopBarActivate = "Sounds/TopBarActivate.ogg";
+
+@TopBar = (
+  Activate: (
+    SoundPath: @TopBarActivate,
+    Volume: 6
+  ),
+  MouseHover: (
+    SoundPath: @ButtonsMainHover,
+    Volume: 2
+  )
+);
+
+@WorldCreateTiles = (
+  SoundPath: "Sounds/ButtonWorldTile.ogg",
+  Volume: 10
+);
+
+@BuffStartSound = (
+  SoundPath: "Sounds/TrinketBuff.ogg",
+  Volume: -14
+);
+@BuffEffectElapsed = (
+  SoundPath: "Sounds/TrinketElapsed.ogg",
+  Volume: -14
+);
+@BuffCooldownCompleted = (
+  SoundPath: "Sounds/TrinketReactivate.ogg",
+  Volume: -14
+);
+@DebuffStartSound = (
+  SoundPath: "Sounds/TrinketDebuff.ogg",
+  Volume: -14
+);
+
+@UIClear = "Sounds/SearchFieldCollapse.ogg";
+@CreateEyedropUnselect = (
+  SoundPath: "Sounds/Hotbar01.ogg",
+  Volume: -14
+);
+@CreateEyedropSelect = (
+  SoundPath: "Sounds/EyedropperSelect.ogg",
+  Volume: -10
+);
+
+@MainMenuMusic = [
+  (SoundPath: "MainMenuMusic/Menu-AdventureAndChill.ogg", Volume: -12),
+  (SoundPath: "MainMenuMusic/Menu-ANewAdventure.ogg", Volume: -12),
+  (SoundPath: "MainMenuMusic/Menu-GaiaandVaryn.ogg", Volume: -12),
+  (SoundPath: "MainMenuMusic/Menu-HeroesofOrbis.ogg", Volume: -12)
+];

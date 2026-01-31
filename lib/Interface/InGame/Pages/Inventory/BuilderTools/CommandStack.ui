@@ -1,0 +1,112 @@
+$Common = "../../../../Common.ui";
+$SectionContainer = "SectionContainer.ui";
+$Label = "Label.ui";
+
+Group {
+  LayoutMode: Top;
+
+  // Count Section
+  $SectionContainer.@SectionContainer {
+    Group {
+      LayoutMode: Left;
+      Anchor: (Top: -4);
+      FlexWeight: 1;
+
+      $Label.@Label {
+        Text: "Count";
+      }
+    }
+
+    SliderNumberField #CountSlider {
+      Anchor: (Width: 180, Height: 5, Right: 0);
+      Padding: (Left: 15);
+      SliderStyle: $Common.@DefaultSliderStyle;
+      NumberFieldContainerAnchor: (Left: 15, Width: 30, Height: 15);
+      NumberFieldStyle: (
+        ...$Common.@DefaultInputFieldStyle,
+        RenderBold: true,
+        FontSize: 14,
+        TextColor: #a5b4c4
+      );
+      Min: 1;
+      Max: 50;
+      Value: 1;
+    }
+  }
+
+  // Spacing Section
+  $SectionContainer.@SectionContainer {
+    Group {
+      LayoutMode: Left;
+      Anchor: (Top: -4);
+      FlexWeight: 1;
+
+      $Label.@Label {
+        Text: "Spacing";
+      }
+    }
+
+    SliderNumberField #SpacingSlider {
+      Anchor: (Width: 180, Height: 5, Right: 0);
+      Padding: (Left: 15);
+      SliderStyle: $Common.@DefaultSliderStyle;
+      NumberFieldContainerAnchor: (Left: 15, Width: 30, Height: 15);
+      NumberFieldStyle: (
+        ...$Common.@DefaultInputFieldStyle,
+        RenderBold: true,
+        FontSize: 14,
+        TextColor: #a5b4c4
+      );
+      Min: 0;
+      Max: 50;
+      Value: 0;
+    }
+  }
+
+  // Axis Section
+  $SectionContainer.@SectionContainer {
+    Group {
+      LayoutMode: Left;
+      Anchor: (Top: -2, Height: 24);
+      FlexWeight: 1;
+
+      $Label.@Label {
+        Text: "Direction";
+      }
+    }
+
+    DropdownBox #DirectionDropdown {
+      Anchor: (Right: 0, Width: 100, Height: 28);
+      Style: DropdownBoxStyle(
+        ...$Common.@DefaultDropdownBoxStyle,
+        LabelStyle: (
+          ...$Common.@DefaultDropdownBoxLabelStyle,
+          FontSize: 12,
+          RenderBold: true
+        ),
+        PanelWidth: 100
+      );
+    }
+  }
+
+  // Include Empty Section
+  $SectionContainer.@SectionContainer {
+    Group {
+      LayoutMode: Left;
+      Anchor: (Top: -2, Height: 24);
+      FlexWeight: 1;
+
+      $Label.@Label {
+        Text: "Include Empty";
+      }
+    }
+
+    CheckBox #EmptyCheckbox {
+      Anchor: (Right: 0, Width: 18, Height: 18);
+      Background: "../../../../Common/CheckBoxFrame.png";
+      Padding: (Full: 4);
+      Style: $Common.@DefaultCheckBoxStyle;
+    }
+  }
+}
+

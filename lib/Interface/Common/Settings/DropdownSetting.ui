@@ -1,0 +1,30 @@
+$Common = "../../Common.ui";
+
+Group {
+  Anchor: (Height: 44, Bottom: 8);
+  LayoutMode: Left;
+
+  Group {
+    FlexWeight: 1;
+    LayoutMode: Left;
+    Background: (TexturePath: "../OptionBackgroundPatch.png", Border: 16);
+
+    Label #Name {
+      Anchor: (Left: 16);
+      Style: (VerticalAlignment: Center, TextColor: #96a9be, RenderUppercase: false, FontSize: 18);
+    }
+  }
+
+  DropdownBox #Dropdown {
+    Anchor: (Width: 330, Left: 8);
+    Style: (
+      ...$Common.@DefaultDropdownBoxStyle,
+      HorizontalPadding: 12,
+      LabelStyle: (
+        ...$Common.@DefaultDropdownBoxLabelStyle,
+        FontSize: 16,
+        RenderBold: true,
+      )
+    );
+  }
+}

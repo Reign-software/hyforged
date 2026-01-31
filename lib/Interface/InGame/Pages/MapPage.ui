@@ -1,0 +1,125 @@
+$InGame = "../Common.ui";
+$Common = "../../Common.ui";
+$Container = "../../Common/Container.ui";
+$Buttons = "../../Common/Buttons.ui";
+$Sounds = "../../Sounds.ui";
+
+@TeleportSound = (SoundPath: "../../Sounds/AutoSort.ogg", Volume: 6);
+
+@SelectLocationSound = (
+  SoundPath:"../../Sounds/MapDestination.ogg",
+  Volume: 3
+);
+
+@DeselectLocationSound = (SoundPath: "../../Sounds/ButtonsCancelActivate.ogg", Volume: 6);
+
+@PlaceMarkerSound = (
+  SoundPath:"../../Sounds/MapMarker.ogg",
+  Volume: -4
+);
+
+@OpenSound = (
+  SoundPath: "../../Sounds/MapOpen.ogg",
+  Volume: -6
+);
+
+@CloseSound = (
+  SoundPath: "../../Sounds/MapClose.ogg",
+  Volume: -1
+);
+
+SceneBlur {}
+
+Group {
+  Background: #000000(0.45);
+}
+
+Group #MapContainer {
+  Background: #000000(0.0);
+  LayoutMode: Full;
+  MaskTexturePath: "MapMask.png";
+}
+
+Group #PlayerList {
+  LayoutMode: Top;
+  Anchor: (Bottom: 110, Left: 50, Top: 130, Width: 400);
+
+  Group {
+    Background: (TexturePath: "../Hud/ObjectivePanelContainer.png", Border: 15);
+    LayoutMode: Top;
+    Padding: (Horizontal: 20, Top: 15, Bottom: 15);
+
+    Group {
+      LayoutMode: Left;
+
+      Label #PlayerListTitle {
+        Style: (FontSize: 14, RenderBold: true, TextColor: #96a9be);
+        Text: %client.map.playerList.titleServer;
+      }
+
+      Group {
+        FlexWeight: 1;
+      }
+
+      Label #PlayerListCount {
+        Style: (FontSize: 13, TextColor: #96a9be(0.5));
+        Text: "1/10";
+      }
+
+      Group {
+        Anchor: (Width: 25, Left: 4, Top: -3);
+
+        ToggleButton #WorldOnlyToggle {
+          Anchor: (Width: 24, Height: 24);
+          TooltipText: %client.map.playerList.worldOnly;
+          TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+          Style: (
+            Default: (Background: "MapIcons/WorldOnly.png")
+          );
+          CheckedStyle: (
+            Default: (Background: "MapIcons/WorldOnlySelected.png")
+          );
+        }
+      }
+    }
+
+    Group {
+      Background: #2b3542;
+      Anchor: (Height: 2, Top: 4, Bottom: 8);
+    }
+
+    Group #PlayerListEntries {
+      FlexWeight: 1;
+      LayoutMode: TopScrolling;
+      ScrollbarStyle: (...$Common.@DefaultScrollbarStyle, OnlyVisibleWhenHovered: true);
+    }
+  }
+}
+
+Label #MapNotAvailable {
+  Text: %client.map.disabled;
+  Style: (FontSize: 20, VerticalAlignment: Center, HorizontalAlignment: Center, FontName: "Secondary");
+}
+
+$Common.@BackButton {}
+
+$Common.@ActionButtonContainer {
+  ActionButton #PlaceMarkerButton {
+    ActionName: %client.map.actions.placeMarker;
+    Disabled: true;
+  }
+
+  $Common.@ActionButtonSeparator {}
+
+  ActionButton #ZoomButton {
+    ActionName: %client.map.actions.zoom;
+    Disabled: true;
+  }
+
+  $Common.@ActionButtonSeparator {}
+
+  ActionButton #PlayerListButton {
+    ActionName: %client.map.actions.playerList;
+    KeyBindingLabel: "P";
+  }
+}

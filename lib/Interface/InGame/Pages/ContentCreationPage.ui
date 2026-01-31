@@ -1,0 +1,65 @@
+$InGame = "../Common.ui";
+$Common = "../../Common.ui";
+$Container = "../../Common/Container.ui";
+$Sounds = "../../Sounds.ui";
+
+Group {
+  Background: #000000(0.45);
+}
+
+@Button = Button {
+  Padding: (Left: 20, Right: 20, Top: 17, Bottom: 20);
+  Anchor: (Bottom: 10);
+  LayoutMode: Left;
+  Visible: false;
+  Style: (
+    Default: (Background: (TexturePath: "Inventory/RecipeCatalogueItemPatch.png", Border: 8)),
+    Hovered: (Background: (TexturePath: "Inventory/RecipeCatalogueItemPatch.png", Border: 8, Color: #ffffff(0.5)))
+  );
+
+  Group {
+    LayoutMode: Top;
+    FlexWeight: 1;
+
+    Label {
+      Text: @Title;
+      Style: ( RenderBold: true);
+    }
+
+    Label {
+      Style: (Wrap: true, TextColor: #ffffff(0.4));
+      Text: @Description;
+    }
+  }
+
+  Group {
+    Anchor: (Left: 50);
+
+    ActionButton #BindingLabel {}
+  }
+};
+
+Group {
+  LayoutMode: Middle;
+  Anchor: (Width: 450, Top: 70);
+
+  $Container.@DecoratedContainer #Panel {
+    #Title {
+      $Container.@Title {
+         Text: %client.contentCreation.pageTitle;
+      }
+    }
+
+    #Content {
+      LayoutMode: Top;
+
+      Label {
+        Style: (Wrap: true);
+        Padding: 30;
+        Text: %client.contentCreation.introText;
+      }
+    }
+  }
+}
+
+$Common.@BackButton {}

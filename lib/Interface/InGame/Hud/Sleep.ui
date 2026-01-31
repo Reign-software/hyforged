@@ -1,0 +1,21 @@
+﻿$Common = "../../Common.ui";
+
+Group {
+  Anchor: (Bottom: 80);
+  LayoutMode: CenterMiddle;
+
+  Label #Zzz {
+    Text: "Zzz...";
+    Style: (FontSize: 48, TextColor: #ffffffff, RenderItalics: true, HorizontalAlignment: Center);
+  }
+}
+
+Group {
+  Anchor: (Top: 50);
+  LayoutMode: CenterMiddle;
+
+  Label #Awaiting {
+    Text: "";
+    Style: (HorizontalAlignment: Center);
+  }
+}

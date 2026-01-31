@@ -1,0 +1,421 @@
+$Common = "../../Common.ui";
+$Buttons = "../../Common/Buttons.ui";
+$MainMenuCommon = "../Common.ui";
+$Row = "ServersTableRow.ui";
+$Tags = "ServersRowTags.ui";
+$Sounds = "../../Sounds.ui";
+
+@JoinServerSound = (SoundPath: $Sounds.@EnterWorldActivate, Volume: 6);
+@ConnectionErrorSound = (SoundPath: $Sounds.@ButtonsConnectionError, Volume: 6);
+
+@PrimaryButtonLabelStyle = LabelStyle(
+  FontSize: 13,
+  TextColor: #bfcdd5,
+  RenderBold: true,
+  RenderUppercase: true,
+  HorizontalAlignment: Center,
+  VerticalAlignment: Center
+);
+
+@PrimaryButtonDisabledLabelStyle = LabelStyle(
+  ...@PrimaryButtonLabelStyle,
+  TextColor: #797b7c
+);
+
+@ServerBrowserTopTextButton = TextButton {
+  @Anchor = Anchor();
+  @Sounds = ();
+  Style: (
+    ...@ServerBrowserTopTextButtonStyle,
+    Sounds: (
+      ...$Sounds.@ButtonsLight,
+      ...@Sounds
+    )
+  );
+  Anchor: (...@Anchor, Height: $Common.@PrimaryButtonHeight);
+  Padding: (Horizontal: $Common.@ButtonPadding);
+  Text: @Text;
+};
+
+@TagTextButton = TextButton {
+  @Anchor = Anchor();
+  @Sounds = ();
+  Style: (
+    ...@TagTextButtonStyle,
+    Sounds: (
+      ...$Sounds.@ButtonsLight,
+      ...@Sounds
+    )
+  );
+  Anchor: (...@Anchor, Height: $Common.@PrimaryButtonHeight);
+};
+
+
+@TagTextButtonStyle = TextButtonStyle(
+  Default: (Background: PatchStyle(Color: #222222(0.3)), LabelStyle: @TagTextButtonLabelStyle),
+  Hovered: (Background: PatchStyle(Color: #222222(0.5)), LabelStyle: @TagTextButtonLabelStyle),
+  Pressed: (Background: PatchStyle(Color: #222222(0.5)), LabelStyle: @TagTextButtonLabelStyle),
+  Disabled: (Background: PatchStyle(Color: #222222(0.5)), LabelStyle: @TagTextButtonLabelStyle)
+);
+
+@TagTextButtonLabelStyle = LabelStyle(
+  TextColor: #bdcbd3,
+  FontSize: 10,
+  RenderBold: false,
+  RenderUppercase: false,
+  LetterSpacing: 0,
+  HorizontalAlignment: Center,
+  VerticalAlignment: Center
+);
+
+@ServerBrowserTopTextButtonStyle = TextButtonStyle(
+  Default: (Background: @ServerBrowserButtonDefaultBackground, LabelStyle: @PrimaryButtonLabelStyle),
+  Hovered: (Background: @ServerBrowserButtonHoveredBackground, LabelStyle: @PrimaryButtonLabelStyle),
+  Pressed: (Background: @ServerBrowserButtonPressedBackground, LabelStyle: @PrimaryButtonLabelStyle),
+  Disabled: (Background: @ServerBrowserButtonDisabledBackground, LabelStyle: @PrimaryButtonDisabledLabelStyle),
+  Sounds: $Common.@ButtonSounds,
+);
+
+@ServerBrowserTopTextButtonSelectedStyle = TextButtonStyle(
+  Default: (Background: @ServerBrowserButtonPressedBackground, LabelStyle: @PrimaryButtonLabelStyle),
+  Hovered: (Background: @ServerBrowserButtonPressedBackground, LabelStyle: @PrimaryButtonLabelStyle),
+  Pressed: (Background: @ServerBrowserButtonPressedBackground, LabelStyle: @PrimaryButtonLabelStyle),
+  Disabled: (Background: @ServerBrowserButtonPressedBackground, LabelStyle: @PrimaryButtonDisabledLabelStyle),
+  Sounds: $Common.@ButtonSounds,
+);
+
+@ServerBrowserButtonDefaultBackground = PatchStyle(TexturePath: "../../Common/InputBox.png", Border: 8);
+@ServerBrowserButtonHoveredBackground = PatchStyle(TexturePath: "../../Common/InputBoxHovered.png", Border: 8);
+@ServerBrowserButtonPressedBackground = PatchStyle(TexturePath: "../../Common/InputBoxSelected.png", Border: 8);
+@ServerBrowserButtonDisabledBackground = PatchStyle(TexturePath: "../../Common/ButtonDisabled.png", Border: 8);
+
+@ServerBrowserRowButtonStyle = ButtonStyle(
+  Default: (Background: (TexturePath: "ServerRowBackgroundDefault.png", Border: 8)),
+  Hovered: (Background: (TexturePath: "ServerRowBackgroundHovered.png", Border: 8)),
+  Pressed: (Background: (TexturePath: "ServerRowBackgroundDefault.png", Border: 8)),
+  Disabled: (Background: (TexturePath: "ServerRowBackgroundDefault.png", Border: 8))
+);
+
+@ServerBrowserRowButtonSelectedStyle = ButtonStyle(
+  Default: (Background: (TexturePath: "ServerRowBackgroundDefault.png", Border: 8)),
+  Hovered: (Background: (TexturePath: "ServerRowBackgroundHovered.png", Border: 8)),
+  Pressed: (Background: (TexturePath: "ServerRowBackgroundDefault.png", Border: 8)),
+  Disabled: (Background: (TexturePath: "ServerRowBackgroundDefault.png", Border: 8))
+);
+
+@ColumnButton = Button {
+  LayoutMode: Center;
+  Padding: (Horizontal: 9);
+  Anchor: (Left: 10, Right: 10);
+
+  Label {
+    Style: (HorizontalAlignment: Center, VerticalAlignment: Center, TextColor: #6c7886);
+    Text: @Text;
+  }
+
+  Group #SortCaret {
+    Visible: false;
+    Anchor: (Width: 18, Height: 9, Left: 6);
+    Background: "SortCaret.png";
+  }
+
+  Group #ReverseSortCaret {
+    Visible: false;
+    Anchor: (Width: 18, Height: 9, Left: 6);
+    Background: "ReverseSortCaret.png";
+  }
+};
+
+@NavigationItemStyle = LabelStyle(TextColor: #4d5865, FontSize: 19, HorizontalAlignment: Center, VerticalAlignment: Center, RenderUppercase: true, RenderBold: true);
+@NavigationItemSelectedStyle = LabelStyle(...@NavigationItemStyle, TextColor: #ffffff, RenderBold: true);
+
+@NavigationButtonStyle = TextButtonStyle(
+  Default: (LabelStyle: @NavigationItemStyle),
+  Hovered: (LabelStyle: (...@NavigationItemStyle, TextColor: #7b8998)),
+  Pressed: (LabelStyle: (...@NavigationItemStyle, TextColor: #a5b4c4)),
+  Sounds: $Sounds.@ButtonsLight
+);
+
+@NavigationButtonSelectedStyle = TextButtonStyle(
+  Default: (LabelStyle: @NavigationItemSelectedStyle, LabelMaskTexturePath: "../../Common/TextGradient.png", Background: (TexturePath: "SecondaryTabHighlight.png"))
+);
+
+Group {
+  Background: $MainMenuCommon.@OverlayBackground;
+}
+
+Group {
+  LayoutMode: Top;
+  Anchor: (Top: 100, Width: 1200);
+
+  Group #Header {
+    LayoutMode: Left;
+    Anchor: (Width: 1170);
+
+    Group {
+      Anchor: (Top: 20, Height: 50);
+      FlexWeight: 4;
+      LayoutMode: Left;
+
+      TextButton #ShowFavoriteServersButton {
+        Text: " " + %client.mainMenu.servers.groups.favorite + " ";  // the space fixes an artifact with label masks
+        Style: @NavigationButtonStyle;
+        Padding: (Horizontal: 17, Right: 15);
+      }
+
+      TextButton #ShowLanServersButton {
+        Text: " " + %client.mainMenu.servers.groups.lan + " ";  // the space fixes an artifact with label masks
+        Style: @NavigationButtonStyle;
+        Padding: (Horizontal: 17, Right: 15);
+      }
+    }
+
+    Group #SearchContainer {
+      LayoutMode: Left;
+      Anchor: (Top: 20, Height: 46);
+      FlexWeight: 1;
+      Visible: false;
+
+      TextField #ServerSearchField {
+        Anchor: (Height: 36);
+        FlexWeight: 1;
+        PlaceholderText: %client.general.searchField.placeholder;
+        Style: (FontSize: 15);
+        PlaceholderStyle: (TextColor: #4b576c, FontSize: 15);
+        Padding: (Horizontal: 12, Left: 28);
+          Decoration: (
+            Default: (
+              Background: (TexturePath: "SearchFieldPatch.png", Border: 8, Color: #ffffff(0.8)),
+              Icon: (Texture: "SearchFieldIcon.png", Width: 15, Height: 15, Offset: 8)
+            )
+          );
+      }
+    }
+  }
+
+  Group {
+    Anchor: (Top: 0, Height: 7);
+    Background: (TexturePath: "ServerDivider.png");
+  }
+
+  Label {
+    Text: %client.mainMenu.servers.title;
+    Anchor: (Bottom: 6, Top: 15, Width: 1170);
+    Padding: (Left: 16);
+    Style: (
+      FontSize: 19,
+      TextColor: #6a7482,
+      RenderUppercase: true
+    );
+  }
+
+  Group #ServersTable {
+    LayoutMode: Top;
+    Anchor: (Height: 900, Width: 1170);
+
+    Group #ServersTableHeader {
+      Background: "ServerListHeaderBackground.png";
+      Anchor: (Top: 0, Height: 40, Bottom: 5);
+      LayoutMode: Left;
+      Visible: false;
+
+      Group {
+        Anchor: (Width: 85);
+      }
+
+      Group #NameColumnHeader {
+        Anchor: (Left: 10, Right: 10, Width: 450);
+        FlexWeight: 5;
+
+        @ColumnButton #NameColumnHeaderButton {
+          @Text = %client.mainMenu.servers.name;
+        }
+      }
+
+      Group #TagsColumnHeader {
+        Anchor: (Left: 0, Height: 56, Width: 450);
+        LayoutMode: Left;
+        Visible: false;
+
+        @ColumnButton #NameColumnHeaderButton {
+          @Text = %client.mainMenu.servers.tags;
+        }
+
+        Group #ActiveTags {
+          Anchor: (Left: 0);
+          LayoutMode: Left;
+        }
+      }
+
+      Group #RatingColumnHeader {
+        FlexWeight: 1;
+        Visible: false;
+        @ColumnButton #RatingColumnHeaderButton {
+          @Text = %client.mainMenu.servers.rating;
+        }
+      }
+
+      Group #OnlineColumnHeader {
+        FlexWeight: 1;
+        @ColumnButton #OnlineColumnHeaderButton {
+          @Text = %client.mainMenu.servers.online;
+        }
+      }
+
+      Group #PingColumnHeader {
+
+        FlexWeight: 1;
+        @ColumnButton #PingColumnHeaderButton {
+          @Text = %client.mainMenu.servers.ping;
+        }
+      }
+    }
+
+    Group #ServersTableBody {
+      ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+      LayoutMode: TopScrolling;
+      Anchor: (Right: -12); // This brings the scrollbar outside to the right
+    }
+
+    Group #NoServersFound {
+      LayoutMode: Middle;
+      Anchor: (Height: 550);
+
+      Group {
+        Background: (TexturePath: "NoServersIcon.png");
+        Anchor: (Width: 64, Height: 64, Bottom: 30);
+
+      }
+
+      Label #NoServersFoundTitle {
+        TextSpans: %client.mainMenu.servers.noFavoriteServers.title;
+        Style: (
+          FontSize: 16,
+          RenderBold: true,
+          RenderUppercase: true,
+          TextColor: #a6afba,
+          VerticalAlignment: Center,
+          HorizontalAlignment: Center
+        );
+      }
+
+      Label #NoServersFoundText {
+        TextSpans: %client.mainMenu.servers.noFavoriteServers.text;
+        Anchor: (Top: 10);
+        Style: (
+          FontSize: 14,
+          RenderBold: false,
+          TextColor: #a6afba,
+          VerticalAlignment: Center,
+          HorizontalAlignment: Center
+        );
+      }
+    }
+
+    Group #ServersTableStatus {
+      Anchor: (Top: 50);
+
+      $Common.@DefaultSpinner #ServersTableLoading {}
+
+      Label #ServersTableStatusText {
+        Anchor: (Top: 120);
+        Style: (HorizontalAlignment: Center);
+      }
+    }
+  }
+}
+
+Group {
+  LayoutMode: Right;
+  Anchor: (Bottom: 50, Right: 50, Height: 36);
+
+  Group #JoinServerHint {
+    LayoutMode: Left;
+
+    Label {
+      Text: "2x";
+      Anchor: (Left: 10, Right: 2);
+      Style: (
+        FontSize: 12,
+        RenderBold: true,
+        RenderUppercase: true,
+        TextColor: #a6afba,
+        VerticalAlignment: Start
+      );
+    }
+
+    Group {
+      Anchor: (Width: 32, Height: 32);
+      Background: "../../Common/InputIconMouseLeftClick.png";
+    }
+
+    Label {
+      Text: %client.mainMenu.servers.button.joinServer;
+      Anchor: (Left: 5);
+      Style: (
+        FontSize: 16,
+        RenderBold: true,
+        RenderUppercase: true,
+        TextColor: #a6afba,
+        VerticalAlignment: Center
+      );
+    }
+  }
+
+  Group #EditServerHint {
+    LayoutMode: Left;
+
+    Group #EditServerHintSeparator {
+      Anchor: (Width: 3, Horizontal: 16);
+      Background: #a6afba(0.10);
+    }
+
+    Group {
+      Anchor: (Width: 32, Height: 32);
+      Background: "../../Common/InputIconMouseRightClick.png";
+    }
+
+    Label #EditServerHintLabel {
+      Text: %client.mainMenu.servers.button.editServer;
+      Anchor: (Left: 5);
+      Style: (
+        FontSize: 16,
+        RenderBold: true,
+        RenderUppercase: true,
+        TextColor: #a6afba,
+        VerticalAlignment: Center
+      );
+    }
+  }
+
+  Group {
+    Anchor: (Width: 3, Horizontal: 10, Left: 16);
+    Background: #a6afba(0.10);
+  }
+
+  $Common.@SecondaryTextButton #DirectConnectButton {
+    @Text = %client.mainMenu.servers.connectDirectly;
+    @Anchor = Anchor(Left: 0);
+  }
+
+  $Common.@SecondaryTextButton #JoinViaCodeButton {
+    @Text = %client.mainMenu.servers.joinViaCode;
+    @Anchor = Anchor(Left: 10);
+  }
+
+  Group #AddFavoriteButtonSeparator {
+    Anchor: (Width: 3, Horizontal: 10, Left: 10);
+    Background: #a6afba(0.10);
+  }
+
+  $Common.@PrimaryTextButton #AddFavoriteButton {
+    @Text = %client.mainMenu.servers.button.addServer;
+    @Anchor = Anchor(MinWidth: 220);
+  }
+}
+
+$MainMenuCommon.@OfflineOverlay #OfflineOverlay {
+  @Width = 900;
+  @Title = %client.mainMenu.servers.offline.title;
+  @Description = %client.mainMenu.servers.offline.description.offline;
+}

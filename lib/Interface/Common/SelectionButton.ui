@@ -1,0 +1,32 @@
+$Common = "../Common.ui";
+
+@ButtonStyle = ButtonStyle(
+  Default: (Background: $Common.@InputBoxBackground)
+);
+
+@ButtonSelectedStyle = ButtonStyle(
+  Default: (Background: $Common.@InputBoxSelectedBackground)
+);
+
+@Button = Button {
+  Anchor: (Height: 44);
+  FlexWeight: 1;
+  LayoutMode: Left;
+  Style: @ButtonStyle;
+
+  Label {
+    Padding: (Left: 14);
+    Text: @Text;
+    Style: (VerticalAlignment: Center, FontSize: 18, TextColor: #96a9be);
+  }
+
+  Group {
+    Anchor: (Width: 19, Height: 16, Left: 8);
+    Background: (TexturePath: "Checkmark.png");
+    Visible: true;
+  }
+
+  Group {
+    FlexWeight: 1;
+  }
+};

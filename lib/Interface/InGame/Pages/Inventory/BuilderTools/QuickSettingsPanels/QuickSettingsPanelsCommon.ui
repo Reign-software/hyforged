@@ -1,0 +1,114 @@
+$InventoryPage = "../../InventoryPage.ui";
+$InGame = "../../../../Common.ui";
+$Common = "../../../../../Common.ui";
+$Container = "../../../../../Common/Container.ui";
+$Sounds = "../../../../../Sounds.ui";
+
+// Sound definitions
+@UIClear = (SoundPath: $Sounds.@UIClear, Volume: 6);
+@CreateEyedropUnselect = $Sounds.@CreateEyedropUnselect;
+@CreateEyedropSelect = $Sounds.@CreateEyedropSelect;
+@CreateMaskAdd = (SoundPath: "../../Sounds/MenuTileSelect.ogg", Volume: 6);
+
+// Item grid style for block selectors
+@ItemGridStyle = ItemGridStyle(
+  ...$InGame.@DefaultItemGridStyle,
+  SlotSpacing: 4,
+  SlotSize: 46,
+  SlotBackground: "../BlockSelectorSlotBackground.png"
+);
+
+// CheckBox style
+@CheckBox = CheckBox {
+  Anchor: (Width: 22, Height: 22);
+  Background: (TexturePath: "../../../../../Common/CheckBoxFrame.png", Border: 7);
+  Padding: (Full: 4);
+  Style: $Common.@DefaultCheckBoxStyle;
+};
+
+// Tab styles
+@Tab = Button {
+  Anchor: (Width: 24, Height: 24);
+};
+
+@TabSeparator = Group {
+  Anchor: (Width: 1, Height: 12, Horizontal: 5);
+  Background: #434c5e;
+};
+
+// Action button styles
+@ActionButtonClear = Button {
+  Anchor: (Width: 24, Height: 24);
+  Style: (
+    Default: (
+      Background: "../IconMaskClear.png"
+    ),
+    Hovered: (
+      Background: "../IconMaskClearHovered.png"
+    )
+  );
+};
+
+// Brush settings tab styles
+@BrushSettingsTabStyle = ButtonStyle(
+  Default: (
+    Background: "../IconGeneralSettings.png"
+  ),
+  Hovered: (
+    Background: "../IconGeneralSettingsHovered.png"
+  ),
+  Sounds: (
+    Activate: (SoundPath: $Sounds.@Tick, Volume: 6)
+  )
+);
+
+@BrushSettingsTabActivatedStyle = ButtonStyle(
+  Default: (
+    Background: "../IconGeneralSettingsActivated.png"
+  ),
+  Hovered: (
+    Background: "../IconGeneralSettingsActivated.png"
+  )
+);
+
+// Mask settings tab styles
+@MaskSettingsTabStyle = ButtonStyle(
+  Default: (
+    Background: "../IconMaskSettings.png"
+  ),
+  Hovered: (
+    Background: "../IconMaskSettingsHovered.png"
+  ),
+  Sounds: (
+    Activate: (SoundPath: $Sounds.@Tick, Volume: 6)
+  )
+);
+
+@MaskSettingsTabActivatedStyle = ButtonStyle(
+  Default: (
+    Background: "../IconMaskSettingsActivated.png"
+  ),
+  Hovered: (
+    Background: "../IconMaskSettingsActivated.png"
+  )
+);
+
+// Label styles
+@DefaultLabelStyle = LabelStyle(
+  FontSize: 14,
+  TextColor: #96a9be,
+  VerticalAlignment: Center,
+  Wrap: true
+);
+
+@BoldLabelStyle = LabelStyle(
+  FontSize: 14,
+  TextColor: #96a9be,
+  RenderBold: true
+);
+
+// Divider
+@Divider = Group {
+  Anchor: (Height: 2, Vertical: 5);
+  Background: #282b2a;
+};

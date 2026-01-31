@@ -1,0 +1,43 @@
+$Common = "../../Common.ui";
+$Sounds = "../../Sounds.ui";
+
+Group {
+  Anchor: (Height: 44, Bottom: 8);
+  Background: (TexturePath: "../OptionBackgroundPatch.png", Border: 16);
+  LayoutMode: Left;
+
+  Label #Name {
+    Anchor: (Left: 16);
+    Style: (VerticalAlignment: Center, TextColor: #96a9be, RenderUppercase: false, FontSize: 18);
+  }
+
+  Group {
+    FlexWeight: 1;
+  }
+
+  LabeledCheckBox #CheckBox {
+    Anchor: (Left: 0, Width: 330);
+    Style: (
+      Checked: (
+        DefaultBackground: "../CheckBox.png",
+        HoveredBackground: "../CheckBoxHovered.png",
+        PressedBackground: "../CheckBoxHovered.png",
+        Text: %client.general.checkbox.on,
+        DefaultLabelStyle: (VerticalAlignment: Center, HorizontalAlignment: Center, TextColor: #96a9be, RenderUppercase: true, FontSize: 18, RenderBold: true),
+        HoveredLabelStyle: (VerticalAlignment: Center, HorizontalAlignment: Center, TextColor: #96a9be, RenderUppercase: true, FontSize: 18, RenderBold: true),
+        PressedLabelStyle: (VerticalAlignment: Center, HorizontalAlignment: Center, TextColor: #96a9be, RenderUppercase: true, FontSize: 18, RenderBold: true),
+        ChangedSound: (SoundPath: $Sounds.@Tick, Volume: 6)
+      ),
+      Unchecked: (
+        DefaultBackground: "../CheckBox.png",
+        HoveredBackground: "../CheckBoxHovered.png",
+        PressedBackground: "../CheckBoxHovered.png",
+        Text: %client.general.checkbox.off,
+        DefaultLabelStyle: (VerticalAlignment: Center, HorizontalAlignment: Center, TextColor: #495972, RenderUppercase: true, FontSize: 18, RenderBold: false),
+        HoveredLabelStyle: (VerticalAlignment: Center, HorizontalAlignment: Center, TextColor: #495972, RenderUppercase: true, FontSize: 18, RenderBold: false),
+        PressedLabelStyle: (VerticalAlignment: Center, HorizontalAlignment: Center, TextColor: #495972, RenderUppercase: true, FontSize: 18, RenderBold: false),
+        ChangedSound: (SoundPath: $Sounds.@Untick, Volume: 6)
+      )
+    );
+  }
+}

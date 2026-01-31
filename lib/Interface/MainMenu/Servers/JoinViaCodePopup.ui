@@ -1,0 +1,63 @@
+$Common = "../../Common.ui";
+$Container = "../../Common/Container.ui";
+$Buttons = "../../Common/Buttons.ui";
+$Sounds = "../../Sounds.ui";
+
+$Common.@Overlay #Popup {
+  $Container.@DecoratedContainer {
+    Anchor: (Width: 560);
+
+    #Title {
+      $Container.@Title {
+        @Text = %client.mainMenu.servers.joinViaCode;
+      }
+    }
+
+    #Content {
+      Padding: (Full: 24);
+
+      Label {
+        Style: $Container.@SubtitleStyle;
+        Text: %client.mainMenu.servers.inviteCode;
+        Anchor: (Bottom: 10);
+      }
+
+      TextField #InviteCodeInput {
+        Style: $Common.@DefaultInputFieldStyle;
+        PlaceholderStyle: $Common.@DefaultInputFieldPlaceholderStyle;
+        Background: $Common.@InputBoxBackground;
+        Anchor: (Height: 38);
+        Padding: (Horizontal: 10);
+        PlaceholderText: %client.mainMenu.servers.inviteCodePlaceholder;
+        PasswordChar: "*";
+        MaxLength: 0;
+      }
+
+      Label #StatusLabel {
+        Anchor: (Top: 10);
+        Style: (...$Common.@DefaultLabelStyle, Wrap: true);
+      }
+
+      Group {
+        Anchor: (Height: 2, Vertical: 16);
+        Background: (Color: #2b3542);
+      }
+
+      Group {
+        LayoutMode: Center;
+
+        $Common.@PrimaryTextButton #JoinButton {
+          @Text = %client.mainMenu.servers.join;
+          @Anchor = Anchor(Right: 5, MinWidth: $Common.@DefaultButtonMinWidth);
+          FlexWeight: 1;
+        }
+
+        $Common.@SecondaryTextButton #CancelButton {
+          @Text = %client.general.button.close;
+          @Anchor = Anchor(Left: 5, MinWidth: $Common.@DefaultButtonMinWidth);
+          FlexWeight: 1;
+        }
+      }
+    }
+  }
+}

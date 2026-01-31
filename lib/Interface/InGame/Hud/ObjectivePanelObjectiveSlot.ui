@@ -1,0 +1,15 @@
+$ObjectiveCommon = "ObjectiveCommon.ui";
+
+Group {
+  LayoutMode: Top;
+  Padding: (Bottom: 20);
+
+  Label #ObjectiveTitle {
+    Style: (FontSize: $ObjectiveCommon.@FontSize, RenderBold: true, RenderUppercase: true, TextColor: $ObjectiveCommon.@Gray, LetterSpacing: $ObjectiveCommon.@LetterSpacing);
+  }
+
+  Group #Tasks {
+    Anchor: (Top: 0, Left: 0);
+    LayoutMode: Top;
+  }
+}
