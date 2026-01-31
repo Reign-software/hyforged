@@ -3,9 +3,6 @@ $InGame = "../../Common.ui";
 $Sounds = "../../../Sounds.ui";
 $Common = "../../../Common.ui";
 
-@ActionButtonWidth = 40;
-@ActionButtonIconSize = 24;
-
 $Container.@Container #Panel {
   @ContentPadding = Padding(Full: 15);
 
@@ -22,19 +19,19 @@ $Container.@Container #Panel {
       }
 
       Button #TakeAllButton {
-        Anchor: (Width: @ActionButtonWidth, Right: 4);
+        Anchor: (Width: $Container.@ActionButtonWidth, Right: 4);
         TooltipText: %client.inventory.chest.tooltip.takeAll;
         TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
         Style: (Sounds: $Sounds.@ButtonsSmall);
 
         Group {
-          Anchor: (Width: @ActionButtonIconSize, Height: @ActionButtonIconSize);
+          Anchor: (Width: $Container.@ActionButtonIconSize, Height: $Container.@ActionButtonIconSize);
           Background: (TexturePath: "TakeAll.png");
         }
       }
 
       Button #PutAllButton {
-        Anchor: (Width: @ActionButtonWidth);
+        Anchor: (Width: $Container.@ActionButtonWidth);
         TooltipText: %client.inventory.chest.tooltip.putAll;
         TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
         Style: (
@@ -44,31 +41,31 @@ $Container.@Container #Panel {
         );
 
         Group {
-          Anchor: (Width: @ActionButtonIconSize, Height: @ActionButtonIconSize);
+          Anchor: (Width: $Container.@ActionButtonIconSize, Height: $Container.@ActionButtonIconSize);
           Background: (TexturePath: "PutAll.png");
         }
       }
 
       Button #QuickStackButton {
-        Anchor: (Width: @ActionButtonWidth, Right: 4);
+        Anchor: (Width: $Container.@ActionButtonWidth, Right: 4);
         TooltipText: %client.inventory.chest.tooltip.quickStack;
         TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
         Style: (Sounds: $Sounds.@ButtonsSmall);
 
         Group {
-          Anchor: (Width: @ActionButtonIconSize, Height: @ActionButtonIconSize);
+          Anchor: (Width: $Container.@ActionButtonIconSize, Height: $Container.@ActionButtonIconSize);
           Background: (TexturePath: "QuickStack.png");
         }
       }
 
       Button #AutosortButton {
-        Anchor: (Width: @ActionButtonWidth, Right: 7);
+        Anchor: (Width: $Container.@ActionButtonWidth, Right: 7);
         TooltipText: %client.inventory.button.autoSort.tooltip;
         TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
         Style: (Sounds: $Sounds.@ButtonsSmall);
 
         Group {
-          Anchor: (Width: @ActionButtonIconSize, Height: @ActionButtonIconSize);
+          Anchor: (Width: $Container.@ActionButtonIconSize, Height: $Container.@ActionButtonIconSize);
           Background: (TexturePath: "AutoSortIcon.png");
         }
       }

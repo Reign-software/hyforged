@@ -2,6 +2,8 @@ $Common = "../Common.ui";
 $Sounds = "../Sounds.ui";
 
 @SubtitleStyle = LabelStyle(FontSize: 15, RenderUppercase: true, TextColor: #96a9be);
+@ActionButtonWidth = 40;
+@ActionButtonIconSize = 24;
 
 @Subtitle = Label {
   Style: @SubtitleStyle;

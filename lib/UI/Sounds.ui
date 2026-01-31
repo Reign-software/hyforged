@@ -181,6 +181,8 @@
 
 @Untick = "Sounds/UntickActivate.ogg";
 
+@MapMarker = "Sounds/MapMarker.ogg";
+
 @TilesActivate = "Sounds/TilesActivate.ogg";
 
 @Tiles = (

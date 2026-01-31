@@ -2,6 +2,7 @@ $InventoryPage = "InventoryPage.ui";
 $Common = "../../../Common.ui";
 $InGame = "../../Common.ui";
 $Container = "../../../Common/Container.ui";
+$Sounds = "../../../Sounds.ui";
 
 @FuelSlotSize = 64;
 @FuelSlotIconSize = 58;
@@ -21,6 +22,18 @@ $Container.@Container #Panel {
   #Title {
     $Container.@Title #TitleLabel {
       @Alignment = Start;
+    }
+
+    Button #TakeAllButton {
+      Anchor: (Width: $Container.@ActionButtonWidth, Right: 4);
+      TooltipText: %client.inventory.chest.tooltip.takeAll;
+      TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+      Style: (Sounds: $Sounds.@ButtonsSmall);
+
+      Group {
+        Anchor: (Width: $Container.@ActionButtonIconSize, Height: $Container.@ActionButtonIconSize);
+        Background: (TexturePath: "TakeAll.png");
+      }
     }
   }
 

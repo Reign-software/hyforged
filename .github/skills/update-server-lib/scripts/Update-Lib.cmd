@@ -279,7 +279,7 @@ if defined ASSETS_PATH (
 
 REM Copy UI assets from Hytale launcher installation (has the actual .ui files)
 REM Uses the 'latest' symlink which points to current build
-set "UI_SOURCE=%APPDATA%\Hytale\install\release\package\game\latest\Client\Data\Game\Interface"
+set "UI_SOURCE=%APPDATA%\Hytale\install\pre-release\package\game\latest\Client\Data\Game\Interface"
 
 if exist "%UI_SOURCE%" (
     echo.

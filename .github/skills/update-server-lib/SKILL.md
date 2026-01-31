@@ -32,7 +32,7 @@ C:\hytale-downloader\
         └── Assets\
             └── Server\
 
-%APPDATA%\Hytale\install\release\package\game\
+%APPDATA%\Hytale\install\pre-release\package\game\
 └── latest\                                 # Symlink to current build
     └── Client\Data\Game\Interface\         # UI source (.ui files)
 ```

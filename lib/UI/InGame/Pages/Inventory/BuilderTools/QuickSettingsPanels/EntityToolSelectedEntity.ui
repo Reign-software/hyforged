@@ -98,13 +98,28 @@ Group #EntityToolSelectedEntityPanel {
     Group #PickupContainer {
       LayoutMode: Top;
 
+      Group #AllowPickupRow {
+        LayoutMode: Top;
+        $SectionContainer.@SectionContainer {
+          Group {
+            LayoutMode: Left;
+            FlexWeight: 1;
+            Label { Text: %client.builderTools.panel.entityAllowPickup; Style: $Label.@DefaultLabelStyle; }
+          }
+          $CommonStyles.@CheckBox #AllowPickupCheckbox {}
+        }
+      }
+
       $SectionContainer.@SectionContainer {
         Group {
           LayoutMode: Left;
           FlexWeight: 1;
-          Label { Text: %client.builderTools.panel.entityAllowPickup; Style: $Label.@DefaultLabelStyle; }
+          Label { Text: %client.builderTools.panel.entityCollision; Style: $Label.@DefaultLabelStyle; }
         }
-        $CommonStyles.@CheckBox #AllowPickupCheckbox {}
+        DropdownBox #CollisionTypeDropdown {
+          Anchor: (Width: 100, Height: 28);
+          Style: $Common.@DefaultDropdownBoxStyle;
+        }
       }
     }
 

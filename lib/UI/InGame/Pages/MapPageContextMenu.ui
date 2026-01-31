@@ -1,0 +1,17 @@
+$InGame = "../Common.ui";
+$Common = "../../Common.ui";
+
+@TeleportSound = (SoundPath: "../../Sounds/AutoSort.ogg", Volume: 6);
+
+@SelectLocationSound = (
+  SoundPath:"../../Sounds/MapDestination.ogg",
+  Volume: 3
+);
+
+@DeselectLocationSound = (SoundPath: "../../Sounds/ButtonsCancelActivate.ogg", Volume: 6);
+@OpenCreateMapMarkerSound = (SoundPath: "../../Sounds/ButtonsLightActivate.ogg", Volume: 2);
+
+@PlaceMarkerSound = (
+  SoundPath:"../../Sounds/MapMarker.ogg",
+  Volume: -4
+);
