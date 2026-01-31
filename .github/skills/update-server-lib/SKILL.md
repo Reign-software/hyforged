@@ -38,30 +38,38 @@ C:\hytale-downloader\
 
 ## Usage
 
-Run the scripts in order from the workspace root (`c:\Users\JBurl\source\repos\Reign-software\hyforged`):
+Run the CMD scripts from anywhere (they use absolute paths):
+
+### Full Update (Recommended)
+
+```cmd
+.\.github\skills\update-server-lib\scripts\Full-Update.cmd
+```
+
+This runs both steps in sequence.
 
 ### Step 1: Download and Extract Latest Pre-Release
 
-```powershell
-.\.github\skills\update-server-lib\scripts\Download-Server.ps1
+```cmd
+.\.github\skills\update-server-lib\scripts\Download-Server.cmd
 ```
 
 This script:
 - Downloads the latest pre-release server using the Hytale downloader
 - Extracts the server zip file
 - Extracts the Assets.zip within it
-- Outputs the version and paths for the next step
+- Saves the version for the next step
 
 ### Step 2: Decompile and Update Lib
 
-```powershell
-.\.github\skills\update-server-lib\scripts\Update-Lib.ps1 -ServerVersion "<version>"
+```cmd
+.\.github\skills\update-server-lib\scripts\Update-Lib.cmd
 ```
 
-Or let it auto-detect the latest downloaded version:
+Or specify a version:
 
-```powershell
-.\.github\skills\update-server-lib\scripts\Update-Lib.ps1
+```cmd
+.\.github\skills\update-server-lib\scripts\Update-Lib.cmd 2026.01.29-301e13929
 ```
 
 This script:
@@ -73,32 +81,17 @@ This script:
 - Copies UI assets to `lib/UI`
 - Updates HytaleServer.jar in lib root
 
-### Full Update (Both Steps)
+## Script Configuration
 
-```powershell
-.\.github\skills\update-server-lib\scripts\Full-Update.ps1
-```
+The CMD scripts use the following default paths (edit the scripts to change):
 
-## Script Details
-
-### Download-Server.ps1 Parameters
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `-DownloaderPath` | `C:\hytale-downloader` | Path to hytale-downloader folder |
-| `-DownloadDir` | `<DownloaderPath>\downloads` | Where to save downloaded zips |
-| `-ExtractDir` | `<DownloaderPath>\extracted` | Where to extract server files |
-| `-Patchline` | `pre-release` | Patchline to download from |
-
-### Update-Lib.ps1 Parameters
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `-ServerVersion` | (auto-detect) | Version folder name in extracted dir |
-| `-ExtractDir` | `C:\hytale-downloader\extracted` | Where extracted server files are |
-| `-PatcherDir` | `C:\hytale-downloader\patcher` | Where to clone/use patcher tool |
-| `-LibDir` | `<WorkspaceRoot>\lib` | Target lib directory |
-| `-SkipDecompile` | `$false` | Skip decompilation, only copy assets |
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `DOWNLOADER_PATH` | `C:\hytale-downloader` | Path to hytale-downloader folder |
+| `DOWNLOAD_DIR` | `<DOWNLOADER_PATH>\downloads` | Where to save downloaded zips |
+| `EXTRACT_DIR` | `<DOWNLOADER_PATH>\extracted` | Where to extract server files |
+| `PATCHER_DIR` | `<DOWNLOADER_PATH>\patcher` | Where to clone/use patcher tool |
+| `PATCHLINE` | `pre-release` | Patchline to download from |
 
 ## Troubleshooting
 
