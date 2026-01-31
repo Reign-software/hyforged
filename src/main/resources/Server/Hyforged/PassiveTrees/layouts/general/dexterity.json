@@ -316,13 +316,10 @@
 
     { "From": "hyforged:deadly-aim", "To": "hyforged:windrunner" },
     { "From": "hyforged:dex-p1-t01", "To": "hyforged:dex-p2-t01" },
-    { "From": "hyforged:acrobatics", "To": "hyforged:vital-void" },
     { "From": "hyforged:dex-p2-t02", "To": "hyforged:dex-p3-t02" },
     { "From": "hyforged:point-blank", "To": "hyforged:wind-dancer" },
     { "From": "hyforged:dex-p1-t03", "To": "hyforged:dex-p2-t03" },
-    { "From": "hyforged:sniper", "To": "hyforged:endless-pursuit" },
     { "From": "hyforged:dex-p2-t04", "To": "hyforged:dex-p3-t04" },
-    { "From": "hyforged:avatar-of-venom", "To": "hyforged:chain-reaction" },
     { "From": "hyforged:dex-p1-t05", "To": "hyforged:dex-p2-t05" },
     { "From": "hyforged:perfect-agony", "To": "hyforged:ricochet" },
     { "From": "hyforged:ricochet", "To": "hyforged:lightning-reflexes" },

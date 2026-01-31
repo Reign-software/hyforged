@@ -446,4 +446,59 @@ public class PassiveTreeComponent implements Component<EntityStore> {
     public void setSchemaVersion(int version) {
         this.schemaVersion = version;
     }
+
+    // ========== TEMP LOAD HELPERS (for codec deserialization) ==========
+
+    private transient String[] tempLoadClassIds;
+    private transient int[] tempLoadClassNodeCounts;
+    private transient String[] tempLoadMasteryNodeIds;
+    private transient String[] tempLoadTreeIds;
+
+    public void setTempLoadClassIds(String[] classIds) {
+        this.tempLoadClassIds = classIds;
+    }
+
+    public String[] getTempLoadClassIds() {
+        return tempLoadClassIds;
+    }
+
+    public void clearTempLoadClassIds() {
+        this.tempLoadClassIds = null;
+    }
+
+    public void setTempLoadClassNodeCounts(int[] counts) {
+        this.tempLoadClassNodeCounts = counts;
+    }
+
+    public int[] getTempLoadClassNodeCounts() {
+        return tempLoadClassNodeCounts;
+    }
+
+    public void clearTempLoadClassNodeCounts() {
+        this.tempLoadClassNodeCounts = null;
+    }
+
+    public void setTempLoadMasteryNodeIds(String[] nodeIds) {
+        this.tempLoadMasteryNodeIds = nodeIds;
+    }
+
+    public String[] getTempLoadMasteryNodeIds() {
+        return tempLoadMasteryNodeIds;
+    }
+
+    public void clearTempLoadMasteryNodeIds() {
+        this.tempLoadMasteryNodeIds = null;
+    }
+
+    public void setTempLoadTreeIds(String[] treeIds) {
+        this.tempLoadTreeIds = treeIds;
+    }
+
+    public String[] getTempLoadTreeIds() {
+        return tempLoadTreeIds;
+    }
+
+    public void clearTempLoadTreeIds() {
+        this.tempLoadTreeIds = null;
+    }
 }

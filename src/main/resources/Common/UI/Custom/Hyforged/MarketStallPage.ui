@@ -30,13 +30,13 @@ Group #MarketStallPage {
             
             Label {
                 Text: "Current Balance: ";
-                Style: (FontSize: 14, Alignment: Left);
+                Style: (FontSize: 14);
                 Anchor: (Width: 150);
             }
             
             Label #CurrentBalance {
                 Text: "0";
-                Style: (FontSize: 14, Alignment: Left, Color: #FFD700);
+                Style: (FontSize: 14, TextColor: #FFD700);
             }
         }
     }
@@ -58,13 +58,13 @@ Group #MarketStallPage {
             
             Label {
                 Text: "Items to Sell: ";
-                Style: (FontSize: 14, Alignment: Left);
+                Style: (FontSize: 14);
                 Anchor: (Width: 150);
             }
             
             Label #ItemCount {
                 Text: "0 sellable items";
-                Style: (FontSize: 14, Alignment: Left, Color: #AAAAAA);
+                Style: (FontSize: 14, TextColor: #AAAAAA);
             }
         }
 
@@ -75,13 +75,13 @@ Group #MarketStallPage {
             
             Label {
                 Text: "Total Value: ";
-                Style: (FontSize: 14, Alignment: Left);
+                Style: (FontSize: 14);
                 Anchor: (Width: 150);
             }
             
             Label #TotalValue {
                 Text: "0 Tradebars";
-                Style: (FontSize: 14, Alignment: Left, Color: #6CD36C);
+                Style: (FontSize: 14, TextColor: #6CD36C);
             }
         }
     }

@@ -316,13 +316,10 @@
 
     { "From": "hyforged:arcane-focus", "To": "hyforged:mana-flows" },
     { "From": "hyforged:int-p1-t01", "To": "hyforged:int-p2-t01" },
-    { "From": "hyforged:spell-echo", "To": "hyforged:frost-nova" },
     { "From": "hyforged:int-p2-t02", "To": "hyforged:int-p3-t02" },
-    { "From": "hyforged:pain-attunement", "To": "hyforged:deep-thoughts" },
     { "From": "hyforged:int-p1-t03", "To": "hyforged:int-p2-t03" },
     { "From": "hyforged:elemental-equilibrium", "To": "hyforged:mind-over-matter" },
     { "From": "hyforged:int-p2-t04", "To": "hyforged:int-p3-t04" },
-    { "From": "hyforged:arcane-surge", "To": "hyforged:tempest" },
     { "From": "hyforged:int-p1-t05", "To": "hyforged:int-p2-t05" },
     { "From": "hyforged:eldritch-battery", "To": "hyforged:mana-shield" },
     { "From": "hyforged:mana-shield", "To": "hyforged:avatar-of-fire" },

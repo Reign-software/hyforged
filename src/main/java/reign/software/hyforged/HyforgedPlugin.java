@@ -82,6 +82,7 @@ import reign.software.hyforged.effect.HyforgedEffectAssetLoader;
 import reign.software.hyforged.passive.asset.PassiveTreeAssetLoader;
 import reign.software.hyforged.passive.system.ClassTreeStartingNodeSystem;
 import reign.software.hyforged.passive.system.PassiveTreeMigrationSystem;
+import reign.software.hyforged.progression.system.ProgressionNotificationSystem;
 import reign.software.hyforged.hub.resource.WelcomeMessagesConfigAssetLoader;
 import reign.software.hyforged.hub.system.WelcomeMessageSystem;
 import reign.software.hyforged.passive.component.PassiveTreeComponent;
@@ -92,6 +93,7 @@ import reign.software.hyforged.passive.effect.PassiveEffectRegistry;
 import reign.software.hyforged.passive.effect.SpellGrantEffectHandler;
 import reign.software.hyforged.passive.effect.StatModifierEffectHandler;
 import reign.software.hyforged.passive.effect.UnlockFlagEffectHandler;
+import reign.software.hyforged.passive.persistence.PassiveTreeCodec;
 import reign.software.hyforged.passive.service.PassiveTreeService;
 import reign.software.hyforged.currency.config.CurrencyConfigAssetLoader;
 import reign.software.hyforged.currency.service.CurrencyService;
@@ -392,13 +394,14 @@ public class HyforgedPlugin extends JavaPlugin {
 
         getLogger().at(Level.FINE).log("Registered ConcentrationPriorityComponent with persistence codec");
 
-        // Register PassiveTreeComponent (no persistence codec yet - will add in Phase 5)
+        // Register PassiveTreeComponent with persistence codec
         passiveTreeComponentType = entityStoreRegistry.registerComponent(
             PassiveTreeComponent.class,
-            PassiveTreeComponent::new
+            PassiveTreeCodec.COMPONENT_ID,
+            PassiveTreeCodec.CODEC
         );
 
-        getLogger().at(Level.FINE).log("Registered PassiveTreeComponent");
+        getLogger().at(Level.FINE).log("Registered PassiveTreeComponent with persistence codec");
 
         // Register PlayerUnlocksComponent (no persistence codec yet)
         playerUnlocksComponentType = entityStoreRegistry.registerComponent(
@@ -507,6 +510,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register HyforgedStatValueInstaller (swaps EntityStatValue → HyforgedStatValue for ARPG stacking)
         entityStoreRegistry.registerSystem(new HyforgedStatValueInstaller());
         getLogger().at(Level.FINE).log("Registered HyforgedStatValueInstaller");
+
+        // Register monster scaling system (assigns levels to NPCs based on spawn distance)
+        entityStoreRegistry.registerSystem(new HyforgedMonsterScalingSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedMonsterScalingSystem");
         
         // Register NPCStatInitSystem (handles NPC entity stat initialization)
         entityStoreRegistry.registerSystem(new NPCStatInitSystem());
@@ -603,6 +610,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Initialize WelcomeMessageSystem (sends welcome message with commands on player connect)
         new WelcomeMessageSystem();
         getLogger().at(Level.FINE).log("Initialized WelcomeMessageSystem");
+
+        // Initialize ProgressionNotificationSystem (sends level-up and passive allocation notifications)
+        new ProgressionNotificationSystem();
+        getLogger().at(Level.FINE).log("Initialized ProgressionNotificationSystem");
         
         // Register LootAffixSystem (rolls affixes on item drops)
         // NOTE: Must be registered before LootQualitySystem (which depends on it)
@@ -674,9 +685,6 @@ public class HyforgedPlugin extends JavaPlugin {
         entityStoreRegistry.registerSystem(new HyforgedConcentrationDisruptionSystem(concentrationPriorityComponentType));
         getLogger().at(Level.FINE).log("Registered HyforgedConcentrationDisruptionSystem");
         
-        // Register monster scaling system (assigns levels to NPCs based on spawn distance)
-        entityStoreRegistry.registerSystem(new HyforgedMonsterScalingSystem());
-        getLogger().at(Level.FINE).log("Registered HyforgedMonsterScalingSystem");
     }
     
     /**

@@ -13,19 +13,19 @@ Group #HyforgedCurrencyHud {
         
         Label #InventoryIcon {
             Text: "💰";
-            Style: (FontSize: 14, Alignment: Left);
+            Style: (FontSize: 14);
             Anchor: (Width: 25);
         }
         
         Label #InventoryLabel {
             Text: "Inv: ";
-            Style: (FontSize: 12, Alignment: Left, Color: #AAAAAA);
+            Style: (FontSize: 12, TextColor: #AAAAAA);
             Anchor: (Width: 35);
         }
         
         Label #InventoryBalance {
             Text: "0";
-            Style: (FontSize: 12, Alignment: Left, Color: #FFD700);
+            Style: (FontSize: 12, TextColor: #FFD700);
         }
     }
 
@@ -36,19 +36,19 @@ Group #HyforgedCurrencyHud {
         
         Label #VaultIcon {
             Text: "🏦";
-            Style: (FontSize: 14, Alignment: Left);
+            Style: (FontSize: 14);
             Anchor: (Width: 25);
         }
         
         Label #VaultLabel {
             Text: "Vault: ";
-            Style: (FontSize: 12, Alignment: Left, Color: #AAAAAA);
+            Style: (FontSize: 12, TextColor: #AAAAAA);
             Anchor: (Width: 35);
         }
         
         Label #VaultBalance {
             Text: "0";
-            Style: (FontSize: 12, Alignment: Left, Color: #6CD36C);
+            Style: (FontSize: 12, TextColor: #6CD36C);
         }
     }
 
@@ -60,19 +60,19 @@ Group #HyforgedCurrencyHud {
         
         Label #TotalIcon {
             Text: "∑";
-            Style: (FontSize: 14, Alignment: Left, Color: #FFD700);
+            Style: (FontSize: 14, TextColor: #FFD700);
             Anchor: (Width: 25);
         }
         
         Label #TotalLabel {
             Text: "Total: ";
-            Style: (FontSize: 12, Alignment: Left, RenderBold: true, Color: #AAAAAA);
+            Style: (FontSize: 12, RenderBold: true, TextColor: #AAAAAA);
             Anchor: (Width: 35);
         }
         
         Label #TotalBalance {
             Text: "0";
-            Style: (FontSize: 12, Alignment: Left, RenderBold: true, Color: #FFD700);
+            Style: (FontSize: 12, RenderBold: true, TextColor: #FFD700);
         }
     }
 }

@@ -1,6 +1,6 @@
 ---
 name: hytale-ui-modding
-description: Comprehensive guidance for Hytale plugin UI modding using native .ui files, CustomUIHud, CustomUIPage, and InteractiveCustomUIPage. Use when creating or updating custom HUDs/pages, writing .ui markup, binding UI events, or troubleshooting UI issues.
+description: Comprehensive guidance for Hytale plugin UI modding using native .ui files, CustomUIHud, MHUD (multiple HUDs), CustomUIPage, and InteractiveCustomUIPage. Use when creating or updating custom HUDs/pages, writing .ui markup, binding UI events, using MultipleHUD library, or troubleshooting UI issues.
 ---
 
 # Hytale Native UI Modding Skill
@@ -16,7 +16,8 @@ Use this skill when working on Hytale plugin UI using the **native .ui file syst
 | Concept | Description |
 |---------|-------------|
 | **.ui files** | Hytale's native UI markup language (NOT HTML/CSS) |
-| **CustomUIHud** | Always-visible overlay elements |
+| **CustomUIHud** | Always-visible overlay elements (Never use single hud, instead use MultipleHUD) |
+| **MHUD / MultipleHUD** | Library enabling multiple simultaneous HUDs per player |
 | **CustomUIPage** | Static full-screen modal pages |
 | **InteractiveCustomUIPage<T>** | Interactive pages with event handling |
 | **UICommandBuilder** | Java API for building/modifying UI |
@@ -174,7 +175,7 @@ Style: (FontSize: 18, RenderBold: true, Alignment: Center);
 | `RenderItalics` | bool | Italic text |
 | `RenderUppercase` | bool | Uppercase transform |
 | `TextColor` | hex | Text color (#RRGGBB or #RRGGBBAA) |
-| `Alignment` | enum | Text alignment: `Left`, `Right`, `Center`, `Top`, `Bottom`, `Middle` |
+| `Alignment` | enum | Label alignment: `Center` only. Do NOT use `Left` or `Right` - text is left-aligned by default. Use container `LayoutMode` for positioning. |
 | `HorizontalAlignment` | enum | `Left`, `Right`, `Center` |
 | `VerticalAlignment` | enum | `Top`, `Bottom`, `Center`, `Middle` |
 | `Wrap` | bool | Text wrapping |
@@ -262,6 +263,127 @@ public class MyHud extends CustomUIHud {
 MyHud hud = new MyHud(playerRef);
 hud.show();
 ```
+
+### Multiple HUDs with MHUD Library
+
+By default, Hytale only allows **one** `CustomUIHud` per player. The **MHUD** library (by Buuz135) provides a wrapper that allows multiple HUD elements simultaneously.
+
+**Dependency**: Already included in project via CurseForge Maven (`com.buuz135:MultipleHUD:1.0.2`)
+
+```java
+import com.buuz135.mhud.MultipleHUD;
+import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.entity.entities.player.hud.CustomUIHud;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
+
+// Add/replace a HUD with a unique identifier
+MultipleHUD.getInstance().setCustomHud(player, playerRef, "MyHudId", new MyCustomHud(playerRef));
+
+// Add multiple HUDs
+MultipleHUD.getInstance().setCustomHud(player, playerRef, "HealthBar", new HealthBarHud(playerRef));
+MultipleHUD.getInstance().setCustomHud(player, playerRef, "Buffs", new BuffDisplayHud(playerRef));
+MultipleHUD.getInstance().setCustomHud(player, playerRef, "Minimap", new MinimapHud(playerRef));
+
+// Remove a specific HUD by identifier
+MultipleHUD.getInstance().hideCustomHud(player, playerRef, "MyHudId");
+
+// Replace a HUD (same identifier replaces existing)
+MultipleHUD.getInstance().setCustomHud(player, playerRef, "HealthBar", new NewHealthBarHud(playerRef));
+```
+
+#### MHUD API Reference
+
+| Method | Description |
+|--------|-------------|
+| `MultipleHUD.getInstance()` | Get the singleton instance |
+| `setCustomHud(player, playerRef, id, hud)` | Add or replace a HUD by identifier |
+| `hideCustomHud(player, playerRef, id)` | Remove a HUD by identifier |
+
+#### How It Works
+
+MHUD creates a wrapper `MultipleCustomUIHud` that contains a root group `#MultipleHUD`. Each individual HUD is added as a child group with ID `#<normalizedId>`. The library automatically:
+- Converts HUD identifiers to valid element IDs (strips non-alphanumeric chars)
+- Prefixes all selectors in your HUD with the container path
+- Handles build/update lifecycle for each HUD independently
+
+#### Empty HUD Placeholder
+
+Use `EmptyHUD` as a placeholder when you need a HUD slot but no content:
+
+```java
+import com.buuz135.mhud.EmptyHUD;
+
+// Create an empty placeholder
+MultipleHUD.getInstance().setCustomHud(player, playerRef, "Placeholder", new EmptyHUD(playerRef));
+```
+
+#### Recommended ECS Pattern for HUD Systems
+
+When creating HUD systems for Hyforged, follow this pattern (used by `CurrencyHudSystem`, `ResourceStatsHudSystem`, `CombatLogHudSystem`):
+
+```java
+public class MyHudSystem extends DelayedEntitySystem<EntityStore> {
+    
+    /** Check for MHUD availability at class load */
+    private static final boolean MULTIPLE_HUD_AVAILABLE;
+    static {
+        boolean available = false;
+        try {
+            Class.forName("com.buuz135.mhud.MultipleHUD");
+            available = true;
+        } catch (ClassNotFoundException e) {
+            LOGGER.warning("MultipleHUD not available - HUD disabled");
+        }
+        MULTIPLE_HUD_AVAILABLE = available;
+    }
+    
+    /** Unique namespaced ID for this HUD */
+    public static final String HUD_ID = "hyforged:my_hud";
+    
+    /** Track HUD instances per player */
+    private static final Map<UUID, MyHud> playerHuds = new ConcurrentHashMap<>();
+    
+    @Override
+    public void tick(...) {
+        if (!MULTIPLE_HUD_AVAILABLE) return;
+        
+        UUID playerUuid = uuidComponent.getUuid();
+        boolean shouldShowHud = /* your logic */;
+        
+        com.buuz135.mhud.MultipleHUD multipleHUD = com.buuz135.mhud.MultipleHUD.getInstance();
+        MyHud existingHud = playerHuds.get(playerUuid);
+        
+        if (!shouldShowHud) {
+            if (existingHud != null) {
+                multipleHUD.hideCustomHud(player, playerRef, HUD_ID);
+                playerHuds.remove(playerUuid);
+            }
+            return;
+        }
+        
+        // Create HUD if not exists
+        if (existingHud == null) {
+            MyHud hud = new MyHud(playerRef);
+            multipleHUD.setCustomHud(player, playerRef, HUD_ID, hud);
+            playerHuds.put(playerUuid, hud);
+            existingHud = hud;
+        }
+        
+        // Update HUD with new values
+        existingHud.updateValues(...);
+    }
+}
+```
+
+**Key points:**
+- Use `DelayedEntitySystem` to avoid updating every tick
+- Check `MULTIPLE_HUD_AVAILABLE` before any MHUD calls
+- Use namespaced HUD IDs like `"hyforged:my_hud"`
+- Track HUD instances per player UUID
+- Hide HUD before removing from tracking map
+- Only create new HUD if one doesn't exist for the player
+
+---
 
 ### CustomUIPage - Static Pages
 
