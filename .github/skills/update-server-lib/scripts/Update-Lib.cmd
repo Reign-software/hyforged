@@ -195,6 +195,19 @@ echo ============================================
 echo   Running Decompilation
 echo ============================================
 echo.
+
+REM Check if patcher already has decompiled output - if so, clean it for fresh decompile
+set "PATCHER_OUTPUT=%PATCHER_DIR%\hytale-server"
+if exist "%PATCHER_OUTPUT%" (
+    echo Cleaning previous decompilation output...
+    rmdir /s /q "%PATCHER_OUTPUT%"
+)
+
+REM Also clean work directory for fresh decompile
+if exist "%PATCHER_DIR%\work" (
+    rmdir /s /q "%PATCHER_DIR%\work"
+)
+
 echo This may take several minutes...
 echo Decompiling com.hypixel package using Vineflower...
 echo.

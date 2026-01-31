@@ -30,9 +30,11 @@ C:\hytale-downloader\
         ├── Server\
         │   └── HytaleServer.jar
         └── Assets\
-            ├── Common\
-            ├── Cosmetics\
             └── Server\
+
+%APPDATA%\Hytale\install\release\package\game\
+└── build-X\                                # Build number changes with releases
+    └── Client\Data\Game\Interface\         # UI source (.ui files)
 ```
 
 ## Usage
