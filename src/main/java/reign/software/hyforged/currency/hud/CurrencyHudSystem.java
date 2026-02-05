@@ -172,8 +172,8 @@ public class CurrencyHudSystem extends DelayedEntitySystem<EntityStore> {
                 || cache.vaultBalance != vaultBalance
                 || cache.hasVault != hasVault;
 
-        // Only show HUD if player has any tradebars
-        boolean shouldShowHud = inventoryBalance > 0 || hasVault;
+        // Only show HUD if player has any tradebars (DEBUG: Always true)
+        boolean shouldShowHud = true; // inventoryBalance > 0 || hasVault;
 
         com.buuz135.mhud.MultipleHUD multipleHUD = com.buuz135.mhud.MultipleHUD.getInstance();
         CurrencyHud existingHud = playerHuds.get(playerUuid);

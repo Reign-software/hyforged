@@ -115,7 +115,7 @@ public class ResourceStatsHudSystem extends DelayedEntitySystem<EntityStore> {
 
         boolean showConcentration = concentrationValue != null && concentrationValue.getMax() > 0.0f;
         boolean showRage = rageValue != null && rageValue.getMax() > 0.0f;
-        boolean shouldShowHud = showConcentration || showRage;
+        boolean shouldShowHud = true; // showConcentration || showRage;
 
         // Skip if MultipleHUD is not available
         if (!MULTIPLE_HUD_AVAILABLE) {
