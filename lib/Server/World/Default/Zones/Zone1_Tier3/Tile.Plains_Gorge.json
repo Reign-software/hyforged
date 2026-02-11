@@ -965,10 +965,9 @@
           "Type": "MIN",
           "Noise": [
             {
-              "File": "Zones.Noise.Shared.Grids.Monuments_Encounter"
+              "File": "Zones.Noise.Zone1.NoiseMasks.Faction_Undead_Environments"
             }
           ],
-          "Density": [0.4, 0.625],
           "Threshold": [0.6, 1]
         }
       }

@@ -26,5 +26,6 @@
   "Infinite": false,
   "Debuff": true,
   "StatusEffectIcon": "UI/StatusEffects/Poison.png",
-  "Duration": 16
+  "Duration": 16,
+  "DeathMessageKey": "server.general.deathCause.poison"
 }

@@ -48,19 +48,20 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "Q";
+        @InputBindingKey = "RulerDeletePoint";
         @Description = %client.builderTools.legend.RulerTool.Page2.DeletePoint;
       }
 
       $LegendCommon.@Separator {}
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "R";
+        @InputBindingKey = "RulerClearLine";
         @Description = %client.builderTools.legend.RulerTool.Page2.ClearCurrentLine;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "SHIFT + R";
+        @InputBindingKey = "RulerClearLine";
+        @InputBindingKeyPrefix = "SHIFT + ";
         @Description = %client.builderTools.legend.RulerTool.Page2.ClearAllLines;
       }
 
@@ -75,12 +76,12 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "Page Up";
+        @InputBindingKey = "RulerNextLine";
         @Description = %client.builderTools.legend.RulerTool.Page3.NextLine;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "Page Down";
+        @InputBindingKey = "RulerPreviousLine";
         @LayoutMode = Top;
         @Description = %client.builderTools.legend.RulerTool.Page3.PreviousLine;
       }

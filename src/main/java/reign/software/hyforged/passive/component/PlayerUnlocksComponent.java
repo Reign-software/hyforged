@@ -4,6 +4,7 @@ import com.hypixel.hytale.component.Component;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 
 /**
@@ -36,6 +37,10 @@ public class PlayerUnlocksComponent implements Component<EntityStore> {
 
     private int schemaVersion = SCHEMA_VERSION;
     private boolean dirty = false;
+
+    // Temporary fields used during codec deserialization
+    private String[] tempLoadFlagIds;
+    private int[] tempLoadFlagSourceCounts;
 
     public PlayerUnlocksComponent() {
         // Required for codec
@@ -153,6 +158,46 @@ public class PlayerUnlocksComponent implements Component<EntityStore> {
             flagSources.clear();
             dirty = true;
         }
+    }
+
+    // ========== TEMP LOAD HELPERS ==========
+
+    /**
+     * Set temporary flag IDs during codec deserialization.
+     */
+    public void setTempLoadFlagIds(@Nonnull String[] flagIds) {
+        this.tempLoadFlagIds = flagIds;
+    }
+
+    /**
+     * Get temporary flag IDs set during deserialization.
+     */
+    @Nullable
+    public String[] getTempLoadFlagIds() {
+        return tempLoadFlagIds;
+    }
+
+    /**
+     * Set temporary flag source counts during codec deserialization.
+     */
+    public void setTempLoadFlagSourceCounts(@Nonnull int[] counts) {
+        this.tempLoadFlagSourceCounts = counts;
+    }
+
+    /**
+     * Get temporary flag source counts set during deserialization.
+     */
+    @Nullable
+    public int[] getTempLoadFlagSourceCounts() {
+        return tempLoadFlagSourceCounts;
+    }
+
+    /**
+     * Clear temporary load data after deserialization is complete.
+     */
+    public void clearTempLoadData() {
+        this.tempLoadFlagIds = null;
+        this.tempLoadFlagSourceCounts = null;
     }
 
     // ========== DIRTY FLAG ==========

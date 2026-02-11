@@ -2,7 +2,7 @@
   "Model": "NPC_Spawn_Marker",
   "NPCs": [
     {
-      "Name": "Temple_Klops_Merchant",
+      "Name": "Temple_Klops",
       "Weight": 100,
       "SpawnAfterGameTime": "P1D"
     }

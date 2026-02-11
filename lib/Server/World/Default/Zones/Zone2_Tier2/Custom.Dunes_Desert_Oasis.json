@@ -393,6 +393,31 @@
         "Env_Zone2_Oasis"
       ]
     },
-    "Entries": []
+    "Entries": [
+      {
+        "Names": ["Env_Zone2_Encounters"],
+        "NoiseMask": {
+          "Type": "MIN",
+          "Noise": [
+            {
+              "File": "Zones.Noise.Zone1.NoiseMasks.Faction_Undead_Environments"
+            }
+          ],
+          "Threshold": [0.6, 1]
+        }
+      },
+      {
+        "Names": ["Env_Zone2_Feran"],
+        "NoiseMask": {
+          "Type": "MIN",
+          "Noise": [
+            {
+              "File": "Zones.Noise.Zone2.NoiseMasks.Faction_Feran_Environments"
+            }
+          ],
+          "Threshold": [0.6, 1]
+        }
+      }
+    ]
   }
 }

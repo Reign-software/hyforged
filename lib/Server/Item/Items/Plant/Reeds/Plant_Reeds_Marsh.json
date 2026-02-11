@@ -25,6 +25,9 @@
     "Effect": [
       "WindFractal"
     ],
+    "PlacementSettings": {
+      "AllowBreakReplace": true
+    },
     "Gathering": {
       "Tools": [
         {

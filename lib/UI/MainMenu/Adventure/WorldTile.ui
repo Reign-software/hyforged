@@ -46,3 +46,9 @@ Label #LastWriteTime {
 Group #GameModeIcon {
   Anchor: (Width: 69, Height: 60, Bottom: 9, Right: 7);
 }
+
+Group #CorruptedOverlay {
+  Visible: false;
+  Anchor: (Width: 40, Height: 40, Right: 10, Top: 10);
+  Background: "../../Common/Settings/AlertIconBackground.png";
+}

@@ -74,7 +74,7 @@
               "DropList": "Drops_Plant_Crop_Cotton_Stage3"
             }
           },
-          "HitboxType": "Plant_Tall_Full",
+          "HitboxType": "Plant_Tall_Medium",
           "BlockParticleSetId": "Flower",
           "BlockSoundSetId": "Plant",
           "ParticleColor": "#9aa53b"
@@ -101,7 +101,7 @@
               "DropList": "Drops_Plant_Crop_Cotton_StageFinal_Harvest"
             }
           },
-          "HitboxType": "Plant_Tall_Full",
+          "HitboxType": "Plant_Tall_Medium",
           "BlockParticleSetId": "Flower",
           "BlockSoundSetId": "Plant",
           "ParticleColor": "#e2e3dc"

@@ -50,5 +50,10 @@
     },
     "FlipType": "Orthogonal",
     "ParticleColor": "#572f1e"
+  },
+  "Tags": {
+    "BranchType": [
+      "Corner"
+    ]
   }
 }

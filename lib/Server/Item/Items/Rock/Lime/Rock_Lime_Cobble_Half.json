@@ -3,7 +3,7 @@
     "Name": "server.items.Rock_Limestone_Cobble_Half.name"
   },
   "Icon": "Icons/ItemsGenerated/Rock_Limestone_Cobble_Half.png",
-  "Set": "Rock_Limestone_Cobble",
+  "Set": "Rock_Lime_Cobble",
   "Parent": "Rock_Stone_Cobble_Half",
   "Recipe": {
     "Input": [

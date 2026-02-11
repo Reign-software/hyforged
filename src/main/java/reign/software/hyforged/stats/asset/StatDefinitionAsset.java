@@ -125,6 +125,13 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
             )
             .add()
             .appendInherited(
+                new KeyedCodec<>("RatingK", Codec.INTEGER),
+                (asset, value) -> asset.ratingK = value != null ? value : StatDefinition.DEFAULT_RATING_K,
+                asset -> asset.ratingK,
+                (asset, parent) -> asset.ratingK = parent.ratingK
+            )
+            .add()
+            .appendInherited(
                 new KeyedCodec<>("Scaling", ScalingRuleAssetCodec.ARRAY_CODEC),
                 (asset, value) -> asset.scalingAssets = value,
                 asset -> asset.scalingAssets,
@@ -175,6 +182,7 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
     private int minValue = 0;
     private int maxValue = Integer.MAX_VALUE;
     private boolean isRating = false;
+    private int ratingK = StatDefinition.DEFAULT_RATING_K;
     private ScalingRuleAsset[] scalingAssets = new ScalingRuleAsset[0];
     private AffixTierTemplateAsset affixTierTemplateAsset = null;
     private int softCapBps = StatDefinition.NO_CAP;
@@ -327,6 +335,7 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
                 .defaultValue(defaultValue)
                 .bounds(minValue, maxValue)
                 .rating(isRating)
+                .ratingK(ratingK)
                 .tags(getExpandedTags())
                 .scaling(scalingRules)
                 .softCapBps(softCapBps)

@@ -951,7 +951,32 @@
         "Scale": 0.08
       }
     },
-    "Entries": []
+    "Entries": [
+      {
+        "Names": ["Env_Zone3_Encounters"],
+        "NoiseMask": {
+          "Type": "MIN",
+          "Noise": [
+            {
+              "File": "Zones.Noise.Zone3.NoiseMasks.Faction_Undead_Environments"
+            }
+          ],
+          "Threshold": [0.6, 1]
+        }
+      },
+      {
+        "Names": ["Env_Zone3_Outlander_Village"],
+        "NoiseMask": {
+          "Type": "MIN",
+          "Noise": [
+            {
+              "File": "Zones.Noise.Zone3.NoiseMasks.Faction_Outlanders_Environments"
+            }
+          ],
+          "Threshold": [0.6, 1]
+        }
+      }
+    ]
   },
   "Water": {
     "Entries": [

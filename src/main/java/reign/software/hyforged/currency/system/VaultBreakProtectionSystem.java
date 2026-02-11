@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.ecs.BreakBlockEvent;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
@@ -109,7 +110,7 @@ public class VaultBreakProtectionSystem extends EntityEventSystem<EntityStore, B
             
             // Send message to player
             player.sendMessage(
-                MessageColors.error("You cannot break this vault - it belongs to another player.")
+                Message.translation("hyforged.vault.breakDenied").color(MessageColors.ERROR)
             );
             
             LOGGER.fine("Blocked non-owner " + breakerUUID + " from breaking vault owned by " + ownerUUID);

@@ -26,6 +26,7 @@ import reign.software.hyforged.passive.registry.PassiveTreeRegistry;
 import reign.software.hyforged.passive.service.PassiveTreeService;
 import reign.software.hyforged.passive.model.NodeVisualTemplate;
 import reign.software.hyforged.passive.model.TextLabel;
+import com.hypixel.hytale.server.core.Message;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -676,8 +677,8 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
         // Show confirmation dialog
         UICommandBuilder builder = new UICommandBuilder();
         builder.set("#ConfirmationOverlay.Visible", true);
-        builder.set("#ConfirmTitle.Text", "Full Respec");
-        builder.set("#ConfirmMessage.Text", "Refund all allocated nodes?");
+        builder.set("#ConfirmTitle.Text", Message.translation("hyforged.passive.respec.confirmTitle"));
+        builder.set("#ConfirmMessage.Text", Message.translation("hyforged.passive.respec.confirmMessage"));
         sendUpdate(builder, new UIEventBuilder(), false);
     }
     

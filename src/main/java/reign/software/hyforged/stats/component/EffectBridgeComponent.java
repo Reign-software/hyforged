@@ -4,6 +4,7 @@ import com.hypixel.hytale.component.Component;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
+import it.unimi.dsi.fastutil.ints.IntSets;
 
 import javax.annotation.Nonnull;
 
@@ -47,13 +48,13 @@ public class EffectBridgeComponent implements Component<EntityStore> {
     /**
      * Get the set of effect indices that have been bridged.
      * <p>
-     * Do not modify the returned set directly; use the add/remove methods.
+     * The returned set is unmodifiable; use the add/remove methods to modify.
      *
-     * @return Read-only view of bridged effect indices
+     * @return Unmodifiable view of bridged effect indices
      */
     @Nonnull
     public IntSet getBridgedEffectIndices() {
-        return bridgedEffectIndices;
+        return IntSets.unmodifiable(bridgedEffectIndices);
     }
 
     /**

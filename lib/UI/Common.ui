@@ -99,6 +99,12 @@ $Sounds = "Sounds.ui";
 @PrimarySquareButtonPressedBackground = PatchStyle(TexturePath: "Common/Buttons/Primary_Square_Pressed.png", Border: @ButtonBorderSize);
 @PrimarySquareButtonDisabledBackground = PatchStyle(TexturePath: "Common/Buttons/Disabled.png", Border: @ButtonBorderSize);
 
+@TertiaryDefaultButtonBackground = PatchStyle(TexturePath: "Common/Buttons/Tertiary.png", Border: @ButtonBorderSize);
+@TertiaryHoveredButtonBackground = PatchStyle(TexturePath: "Common/Buttons/Tertiary_Hovered.png", Border: @ButtonBorderSize);
+@TertiaryPressedButtonBackground = PatchStyle(TexturePath: "Common/Buttons/Tertiary_Pressed.png", Border: @ButtonBorderSize);
+@TertiaryDisabledButtonBackground = PatchStyle(TexturePath: "Common/Buttons/Disabled.png", Border: @ButtonBorderSize);
+@TertiaryActiveButtonBackground = PatchStyle(TexturePath: "Common/Buttons/Tertiary_Active.png", Border: @ButtonBorderSize);
+
 @ButtonPadding = 24;
 
 @PrimaryButtonStyle = ButtonStyle(
@@ -164,10 +170,10 @@ $Sounds = "Sounds.ui";
 );
 
 @TertiaryButtonStyle = ButtonStyle(
-  Default: (Background: PatchStyle(TexturePath: "Common/Buttons/Tertiary.png", Border: @ButtonBorderSize)),
-  Hovered: (Background: PatchStyle(TexturePath: "Common/Buttons/Tertiary_Hovered.png", Border: @ButtonBorderSize)),
-  Pressed: (Background: PatchStyle(TexturePath: "Common/Buttons/Tertiary_Pressed.png", Border: @ButtonBorderSize)),
-  Disabled: (Background: PatchStyle(TexturePath: "Common/Buttons/Disabled.png", Border: @ButtonBorderSize)),
+  Default: (Background: @TertiaryDefaultButtonBackground),
+  Hovered: (Background: @TertiaryHoveredButtonBackground),
+  Pressed: (Background: @TertiaryPressedButtonBackground),
+  Disabled: (Background: @TertiaryDisabledButtonBackground),
   Sounds: @ButtonSounds,
 );
 

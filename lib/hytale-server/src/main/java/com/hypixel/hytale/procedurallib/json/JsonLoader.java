@@ -71,11 +71,14 @@ public abstract class JsonLoader<K extends SeedResource, T> extends Loader<K, T>
 
    protected JsonElement loadFile(@Nonnull String filePath) {
       Path file = this.dataFolder.resolve(filePath.replace('.', File.separatorChar) + ".json");
-
-      try {
-         return FileIO.load(file, JSON_LOADER);
-      } catch (Throwable var4) {
-         throw new Error("Error while loading file reference." + file.toString(), var4);
+      if (!file.normalize().startsWith(this.dataFolder.normalize())) {
+         throw new IllegalArgumentException("Invalid file reference: " + filePath);
+      } else {
+         try {
+            return FileIO.load(file, JSON_LOADER);
+         } catch (Throwable var4) {
+            throw new Error("Error while loading file reference." + file.toString(), var4);
+         }
       }
    }
 

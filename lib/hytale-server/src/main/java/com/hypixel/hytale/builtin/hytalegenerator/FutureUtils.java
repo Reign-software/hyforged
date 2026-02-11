@@ -8,6 +8,7 @@ public class FutureUtils {
    public FutureUtils() {
    }
 
+   @Nonnull
    public static <T> CompletableFuture<Void> allOf(@Nonnull List<CompletableFuture<T>> tasks) {
       return CompletableFuture.allOf(tasks.toArray(new CompletableFuture[tasks.size()]));
    }

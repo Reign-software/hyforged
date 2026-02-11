@@ -9,7 +9,7 @@
         "MinPitch": 0,
         "MaxPitch": 0,
         "MinVolume": -4,
-        "MaxStartOffset": 1.5
+        "MaxStartOffset": 8
       },
       "Looping": true
     }

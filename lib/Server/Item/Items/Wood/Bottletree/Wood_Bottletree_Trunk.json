@@ -15,7 +15,7 @@
     ],
     "Gathering": {
       "Breaking": {
-        "ItemId": "Wood_Birch_Trunk",
+        "ItemId": "Wood_Bottletree_Trunk",
         "GatherType": "Woods"
       }
     },

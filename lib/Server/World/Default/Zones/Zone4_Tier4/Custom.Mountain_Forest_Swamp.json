@@ -523,7 +523,21 @@
       "Names": [
         "Env_Zone4_Crucible"
       ]
-    }
+    },
+    "Entries": [
+      {
+        "Names": ["Env_Zone4_Villages_Swamp"],
+        "NoiseMask": {
+          "Type": "MIN",
+          "Noise": [
+            {
+              "File": "Zones.Noise.Zone4.NoiseMasks.Faction_Undead_Environments_Villages"
+            }
+          ],
+          "Threshold": [0.6, 1]
+        }
+      }
+    ]
   },
   "Water": {
     "Entries": [

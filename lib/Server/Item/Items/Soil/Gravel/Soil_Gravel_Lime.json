@@ -1,0 +1,55 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Soil_Gravel_Lime.name"
+  },
+  "Parent": "Soil_Gravel",
+  "Icon": "Icons/ItemsGenerated/Soil_Gravel_Lime.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ResourceTypeId": "Rubble",
+        "Quantity": 3
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Id": "Farmingbench",
+        "Categories": [
+          "Decorative"
+        ]
+      }
+    ],
+    "OutputQuantity": 1
+  },
+  "BlockType": {
+    "Textures": [
+      {
+        "All": "BlockTextures/Soil_Gravel_Limestone.png",
+        "Weight": 1
+      }
+    ],
+    "Gathering": {
+      "Breaking": {
+        "GatherType": "Soils",
+        "DropList": "Rubble_Lime"
+      },
+      "UseDefaultDropWhenPlaced": true
+    },
+    "ParticleColor": "#dccd97",
+    "TransitionTexture": "BlockTextures/Transition_Rock_Limestone_Gravel.png"
+  },
+  "IconProperties": {
+    "Scale": 0.58823,
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Translation": [
+      0,
+      -13.5
+    ]
+  }
+}

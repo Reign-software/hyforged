@@ -673,7 +673,8 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
             if (specStatId.contains(":")) {
                 try {
                     statId = StatId.parse(specStatId);
-                } catch (IllegalArgumentException ignored) {
+                } catch (IllegalArgumentException e) {
+                    LOGGER.log(Level.FINER, "Skipping unparseable stat ID in effect spec: {0}", specStatId);
                     ordinal++;
                     continue;
                 }
@@ -735,7 +736,8 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
             if (specStatId.contains(":")) {
                 try {
                     statId = StatId.parse(specStatId);
-                } catch (IllegalArgumentException ignored) {
+                } catch (IllegalArgumentException e) {
+                    LOGGER.log(Level.FINER, "Skipping unparseable stat ID in effect removal: {0}", specStatId);
                     ordinal++;
                     continue;
                 }
@@ -821,7 +823,8 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
                 if (registry.getIndex(direct) >= 0) {
                     return direct;
                 }
-            } catch (IllegalArgumentException ignored) {
+            } catch (IllegalArgumentException e) {
+                LOGGER.log(Level.FINER, "Skipping unparseable Hytale stat ID for mapping: {0}", hytaleStatId);
                 // Fall through to hyforged namespace mapping
             }
         }

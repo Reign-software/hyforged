@@ -37,6 +37,7 @@ public class WelcomeMessagesConfigAsset implements JsonAssetWithMap<String, Inde
     public static class MessageSegment {
         private String text = "";
         private String color = null;
+        private String translationKey = null;
 
         public MessageSegment() {
         }
@@ -54,6 +55,15 @@ public class WelcomeMessagesConfigAsset implements JsonAssetWithMap<String, Inde
         public String getColor() {
             return color;
         }
+
+        /**
+         * If set, the segment uses {@code Message.translation(key)} instead of
+         * {@code Message.raw(text)}.  The {@code Text} field is ignored when a
+         * translation key is present.
+         */
+        public String getTranslationKey() {
+            return translationKey;
+        }
     }
 
     /** Codec for a single segment */
@@ -69,6 +79,12 @@ public class WelcomeMessagesConfigAsset implements JsonAssetWithMap<String, Inde
                     new KeyedCodec<>("Color", Codec.STRING),
                     (seg, value) -> seg.color = value,
                     seg -> seg.color
+            )
+            .add()
+            .append(
+                    new KeyedCodec<>("TranslationKey", Codec.STRING),
+                    (seg, value) -> seg.translationKey = value,
+                    seg -> seg.translationKey
             )
             .add()
             .build();

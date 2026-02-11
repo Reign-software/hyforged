@@ -19,6 +19,7 @@
       0
     ]
   },
+  "ResourceTypes": [],
   "Texture": "Resources/Ingredients/Cotton_Texture.png",
   "Model": "Resources/Ingredients/Cotton.blockymodel",
   "Scale": 1.1,

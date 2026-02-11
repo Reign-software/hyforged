@@ -477,18 +477,6 @@ Group {
     FlexWeight: 1;
     Anchor: (Left: 30, Top: 10);
 
-    Group {
-      Anchor: (Top: 0, Height: 36);
-      LayoutMode: Right;
-
-      // Only visible in non production builds
-      $Common.@TertiaryTextButton #DevMenu {
-        @Text = "Dev";
-        @Anchor = Anchor();
-        Visible: false;
-      }
-    }
-
     PlayerPreviewComponent #AvatarPreview {
       Anchor: (Top: 0, Bottom: 110);
       Scale: 0.88;
@@ -632,6 +620,43 @@ Group {
         @Text = %client.general.button.save;
         @Anchor = Anchor(MinWidth: $Common.@DefaultButtonMinWidth);
       }
+    }
+  }
+}
+
+Group {
+  Anchor: (Top: 120, Right: 50);
+  LayoutMode: Right;
+
+  // Only visible in non production builds
+  $Common.@TertiaryTextButton #DevMenu {
+    @Text = "Dev";
+    @Anchor = Anchor(Top: 0, Height: 44, Right: 15);
+    Visible: false;
+  }
+
+  $Common.@TertiaryButton #AvatarPresetButton {
+    Anchor: (Width: 300, Height: 44, Top: 0);
+    LayoutMode: Left;
+
+    Label #PresetDropdownLabel {
+      Anchor: (Height: 32);
+      Padding: (Left: 14);
+      Style: (VerticalAlignment: Center, FontSize: 18, TextColor: #96a9be, RenderBold: true, Wrap: false);
+      FlexWeight: 1;
+      Text: "Avatar Preset";
+    }
+
+    Group #AvatarPresetArrowDown {
+      Anchor: (Width: 20, Height: 10, Right: 15);
+      Visible: true;
+      Background: "AvatarPreset/IconArrowDown.png";
+    }
+
+    Group #AvatarPresetArrowUp {
+      Anchor: (Width: 20, Height: 10, Right: 15);
+      Visible: false;
+      Background: "AvatarPreset/IconArrowUp.png";
     }
   }
 }

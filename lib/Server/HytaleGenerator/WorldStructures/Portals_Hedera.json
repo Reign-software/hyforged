@@ -24,21 +24,46 @@
     "Type" : "Imported",
     "Name" : "Biome-Map-Portals"
   },
-  "ContentFields" : [
+  "SpawnPositions" : {
+    "Type" : "Imported",
+    "Name" : "Portals-Hedera-Spawns"
+  },
+  "Framework" : [
     {
-      "Type" : "BaseHeight",
-      "Name" : "Base",
-      "Y" : 100
+      "Type" : "Positions",
+      "Entries" : [
+        {
+          "Name" : "Spawns",
+          "Positions" : {
+            "Type" : "List",
+            "ExportAs" : "Portals-Hedera-Spawns",
+            "Positions": [
+              {
+                "X": 0,
+                "Y": 110,
+                "Z": 0
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "Type" : "BaseHeight",
-      "Name" : "Water",
-      "Y" : 100
-    },
-    {
-      "Type" : "BaseHeight",
-      "Name" : "Bedrock",
-      "Y" : 0
+      "Type" : "DecimalConstants",
+      "Entries" : [
+        {
+          "Name" : "Base",
+          "Value" : 100
+        },
+        {
+          "Name" : "Water",
+          "Value" : 100
+        },
+        {
+          "Name" : "Bedrock",
+          "Value" : 0
+        }
+      ]
     }
   ]
 }

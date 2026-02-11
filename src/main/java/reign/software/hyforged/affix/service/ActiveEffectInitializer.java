@@ -95,11 +95,14 @@ public final class ActiveEffectInitializer {
 
         if (nextStates.isEmpty()) {
             if (previous != null) {
+                // Direct store mutation is acceptable here: this runs in RefChangeSystem
+                // callbacks (not inside a ticking system iteration), consistent with Hytale conventions.
                 store.removeComponent(ref, componentType);
             }
             return;
         }
 
+        // Direct store mutation is acceptable here: same RefChangeSystem callback context.
         store.putComponent(ref, componentType, new HyforgedActiveEffectsComponent(nextStates));
     }
 

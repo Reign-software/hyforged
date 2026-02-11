@@ -12,6 +12,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.passive.service.PassiveTreeService;
 import reign.software.hyforged.progression.CharacterProgression;
 import reign.software.hyforged.progression.component.ProgressionComponent;
 
@@ -72,7 +73,7 @@ public class ProgressionInfoCommand extends CommandBase {
             PlayerRef playerRefComponent = store.getComponent(ref, PlayerRef.getComponentType());
             String playerName = playerRefComponent != null ? playerRefComponent.getUsername() : "Unknown";
 
-            showProgressionInfo(context, playerName, progression);
+            showProgressionInfo(context, playerName, progression, ref);
         });
     }
 
@@ -82,7 +83,8 @@ public class ProgressionInfoCommand extends CommandBase {
     private void showProgressionInfo(
             @Nonnull CommandContext context,
             @Nonnull String playerName,
-            @Nonnull ProgressionComponent progression
+            @Nonnull ProgressionComponent progression,
+            @Nonnull Ref<EntityStore> entityRef
     ) {
         StringBuilder sb = new StringBuilder();
         sb.append("═══════ Progression for ").append(playerName).append(" ═══════\n");
@@ -94,7 +96,7 @@ public class ProgressionInfoCommand extends CommandBase {
         sb.append("  XP: ").append(progression.getCharacterXp())
           .append("/").append(progression.getCharacterXpToNext()).append("\n");
         sb.append("  General Passive Points: ")
-          .append(progression.getAvailableGeneralPassivePoints())
+          .append(PassiveTreeService.get().getAvailableGeneralPoints(entityRef))
           .append(" (").append(progression.getGeneralPassivePointsAllocated())
           .append(" allocated)\n");
 

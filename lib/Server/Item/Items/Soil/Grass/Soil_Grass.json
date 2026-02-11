@@ -72,7 +72,8 @@
       "Sand",
       "Sand_White",
       "Gravel",
-      "Wood"
+      "Wood",
+      "Cobble"
     ],
     "ParticleColor": "#eae8e8",
     "TransitionToTag": "Fluid=Water"

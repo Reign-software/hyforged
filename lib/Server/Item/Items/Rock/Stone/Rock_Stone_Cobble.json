@@ -13,7 +13,7 @@
   "BlockType": {
     "Material": "Solid",
     "DrawType": "Cube",
-    "Group": "Stone",
+    "Group": "Cobble",
     "Flags": {},
     "Gathering": {
       "Breaking": {
@@ -39,7 +39,10 @@
       }
     ],
     "ParticleColor": "#615d44",
-    "BlockSoundSetId": "Stone"
+    "BlockSoundSetId": "Stone",
+    "TransitionToGroups": [
+      "Stone"
+    ]
   },
   "ResourceTypes": [
     {

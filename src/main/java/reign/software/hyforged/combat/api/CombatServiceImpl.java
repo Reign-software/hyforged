@@ -27,7 +27,6 @@ import reign.software.hyforged.stats.damage.DamageTypeExtensionRegistry;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -61,11 +60,11 @@ public final class CombatServiceImpl implements CombatService {
     private int blockMitigationIndex = -1;
     private int critChanceIndex = -1;
     private int critMultiplierIndex = -1;
-    private boolean indicesCached = false;
+    private volatile boolean indicesCached = false;
 
     // Resistance/penetration cache per damage type
-    private final Map<String, Integer> resistanceStatIndices = new HashMap<>();
-    private final Map<String, Integer> penetrationStatIndices = new HashMap<>();
+    private final Map<String, Integer> resistanceStatIndices = new java.util.concurrent.ConcurrentHashMap<>();
+    private final Map<String, Integer> penetrationStatIndices = new java.util.concurrent.ConcurrentHashMap<>();
 
     private CombatServiceImpl() {
         // Singleton
@@ -250,7 +249,8 @@ public final class CombatServiceImpl implements CombatService {
                 ProgressionStatBridge.getCharacterLevel(defenderRef, accessor) : 1;
 
         // Step 1: Hit Resolution (evasion check)
-        if (!spec.isSkipEvasion() && attackerStatMap != null && defenderStatMap != null) {
+        if (!spec.isSkipEvasion() && attackerStatMap != null && defenderStatMap != null
+                && accuracyIndex >= 0 && evasionIndex >= 0) {
             int accuracy = StatAccessor.getStatValueInt(attackerRef.getStore(), attackerRef, accuracyIndex);
             int evasion = StatAccessor.getStatValueInt(defenderRef.getStore(), defenderRef, evasionIndex);
             int hitChance = CombatMath.calculateHitChance(accuracy, evasion, attackerLevel, defenderLevel);
@@ -265,12 +265,14 @@ public final class CombatServiceImpl implements CombatService {
         boolean autoBlocked = false;
         int blockMitigation = 0;
 
-        if (!spec.isSkipBlock() && defenderStatMap != null) {
+        if (!spec.isSkipBlock() && defenderStatMap != null
+                && blockChanceIndex >= 0) {
             int blockChance = StatAccessor.getStatValueInt(defenderRef.getStore(), defenderRef, blockChanceIndex);
             if (CombatMath.rollChance(blockChance)) {
                 blocked = true;
                 autoBlocked = true;
-                blockMitigation = StatAccessor.getStatValueInt(defenderRef.getStore(), defenderRef, blockMitigationIndex);
+                blockMitigation = blockMitigationIndex >= 0
+                        ? StatAccessor.getStatValueInt(defenderRef.getStore(), defenderRef, blockMitigationIndex) : 0;
                 if (blockMitigation <= 0) {
                     blockMitigation = 5000; // Default 50%
                 }
@@ -285,9 +287,13 @@ public final class CombatServiceImpl implements CombatService {
 
         if (spec.isForceCrit()) {
             criticalHit = true;
-            critMultiplier = attackerStatMap != null
-                    ? StatAccessor.getStatValueInt(attackerRef.getStore(), attackerRef, critMultiplierIndex) : 1500;
-        } else if (!spec.isNoCrit() && attackerStatMap != null) {
+            critMultiplier = (attackerStatMap != null && critMultiplierIndex >= 0)
+                    ? StatAccessor.getStatValueInt(attackerRef.getStore(), attackerRef, critMultiplierIndex) : 0;
+            if (critMultiplier <= 0) {
+                critMultiplier = 1500; // Default 15% bonus
+            }
+        } else if (!spec.isNoCrit() && attackerStatMap != null
+                && critChanceIndex >= 0 && critMultiplierIndex >= 0) {
             int critChance = StatAccessor.getStatValueInt(attackerRef.getStore(), attackerRef, critChanceIndex);
             int effectiveCritChance = CombatMath.calculateCritChance(critChance, attackerLevel, defenderLevel);
             

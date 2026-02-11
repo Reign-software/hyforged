@@ -25,7 +25,6 @@ Group #Wrapper {
     Label #Description {
       Anchor: (Top: 10);
       Padding: (Horizontal: 4);
-      Text: %client.gamePageNavigation.buttons.ContentCreation.disabledTooltip.description;
       Style: (FontSize: 14, TextColor: #96a9be, Wrap: true, HorizontalAlignment: Center);
     }
   }

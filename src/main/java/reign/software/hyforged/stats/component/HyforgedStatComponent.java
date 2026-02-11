@@ -157,7 +157,8 @@ public class HyforgedStatComponent implements Component<EntityStore> {
      * @param statIndex The stat index
      */
     public void removeBaseValue(int statIndex) {
-        if (baseValues.remove(statIndex) != baseValues.defaultReturnValue()) {
+        if (baseValues.containsKey(statIndex)) {
+            baseValues.remove(statIndex);
             markStatDirty(statIndex);
             StatDefinitionRegistry registry = StatDefinitionRegistry.get();
             for (int dependent : registry.getDependentStats(statIndex)) {
@@ -740,9 +741,13 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         HyforgedStatComponent copy = new HyforgedStatComponent();
         copy.baseValues.putAll(this.baseValues);
         copy.modifiers.addAll(this.modifiers);
+        copy.conditionalModifiers.addAll(this.conditionalModifiers);
         copy.cachedValues = this.cachedValues.clone();
         copy.dirtyFlags.or(this.dirtyFlags);
         copy.allDirty = this.allDirty;
+        // isBufferingChanges and changeBuffer are intentionally NOT copied.
+        // Cloning mid-buffer would produce an inconsistent state; the clone
+        // starts with a clean (non-buffering) state and an empty buffer.
         copy.lastBridgedMaxHealth = this.lastBridgedMaxHealth;
         copy.lastBridgedMaxMana = this.lastBridgedMaxMana;
         copy.lastBridgedMaxStamina = this.lastBridgedMaxStamina;

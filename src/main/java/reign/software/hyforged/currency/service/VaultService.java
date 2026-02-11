@@ -14,7 +14,7 @@ public class VaultService {
 
     private static VaultService instance;
 
-    public static VaultService getInstance() {
+    public static synchronized VaultService getInstance() {
         if (instance == null) {
             instance = new VaultService();
         }

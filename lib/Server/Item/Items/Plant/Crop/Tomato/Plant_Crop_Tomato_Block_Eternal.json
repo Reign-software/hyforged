@@ -23,7 +23,7 @@
         "Stage2": {
           "CustomModel": "Resources/Ingredients/Tomato_02.blockymodel",
           "CustomModelScale": 0.9,
-          "HitboxType": "Plant_Tall_Large",
+          "HitboxType": "Plant_Tall_Medium",
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
@@ -37,7 +37,7 @@
         "Stage3": {
           "CustomModel": "Resources/Ingredients/Tomato_03.blockymodel",
           "CustomModelScale": 0.9,
-          "HitboxType": "Plant_Tall_Large",
+          "HitboxType": "Plant_Tall_Medium",
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
@@ -51,7 +51,7 @@
         "Stage4": {
           "CustomModel": "Resources/Ingredients/Tomato_04.blockymodel",
           "CustomModelScale": 0.9,
-          "HitboxType": "Plant_Tall_Full",
+          "HitboxType": "Plant_Tall_Large",
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
@@ -65,7 +65,7 @@
         "Stage5": {
           "CustomModel": "Resources/Ingredients/Tomato_05.blockymodel",
           "CustomModelScale": 0.9,
-          "HitboxType": "Plant_Tall_Full",
+          "HitboxType": "Plant_Tall_Large",
           "Gathering": {
             "Soft": {
               "IsWeaponBreakable": false,
@@ -79,7 +79,7 @@
         "StageFinal": {
           "CustomModel": "Resources/Ingredients/Tomato_06.blockymodel",
           "CustomModelScale": 0.9,
-          "HitboxType": "Plant_Tall_Full",
+          "HitboxType": "Plant_Tall_Large",
           "InteractionHint": "server.interactionHints.harvest",
           "Interactions": {
             "Use": {

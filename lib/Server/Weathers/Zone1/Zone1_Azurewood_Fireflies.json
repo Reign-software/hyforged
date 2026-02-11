@@ -1,8 +1,7 @@
 {
   "Stars": "Sky/Stars.png",
   "Tags": {
-    "Zone1": [
-    ]
+    "Zone1": []
   },
   "Moons": [
     {
@@ -465,9 +464,9 @@
     1024
   ],
   "Particle": {
-    "SystemId": "Fireflies_GS",
+    "SystemId": "Azurewood_Weather",
     "OvergroundOnly": true,
-    "Color": "#61bfff"
+    "Color": "#2c9bff"
   },
   "FogHeightFalloffs": [
     {

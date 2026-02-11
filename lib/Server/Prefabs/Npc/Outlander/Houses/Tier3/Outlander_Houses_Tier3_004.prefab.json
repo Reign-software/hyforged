@@ -1,8 +1,8 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
-  "anchorY": 0,
+  "anchorY": 7,
   "anchorZ": 0,
   "blocks": [
     {
@@ -11997,11 +11997,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -4,
-              "Y": 12,
-              "Z": -9
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -12785,11 +12780,6 @@
       "y": 18,
       "z": -1,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 992,
       "rotation": 1
     },
@@ -12798,11 +12788,6 @@
       "y": 19,
       "z": -1,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 2016,
       "rotation": 1
     },
@@ -15120,11 +15105,6 @@
       "y": 18,
       "z": 0,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1,
       "rotation": 1
     },
@@ -15133,11 +15113,6 @@
       "y": 19,
       "z": 0,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1025,
       "rotation": 1
     },
@@ -17253,11 +17228,6 @@
       "y": 18,
       "z": -1,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 994,
       "rotation": 1
     },
@@ -17266,11 +17236,6 @@
       "y": 19,
       "z": -1,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 2018,
       "rotation": 1
     },
@@ -23426,19 +23391,6 @@
       "y": 12,
       "z": -6,
       "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 1,
-              "Y": 12,
-              "Z": 26
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
       "filler": 31
     },
     {
@@ -23446,19 +23398,6 @@
       "y": 13,
       "z": -6,
       "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 1,
-              "Y": 13,
-              "Z": 26
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
       "filler": 1055
     },
     {
@@ -25590,11 +25529,6 @@
       "components": {
         "Components": {
           "crafting": {
-            "Position": {
-              "X": 2,
-              "Y": 12,
-              "Z": -6
-            },
             "TierLevel": 1,
             "UpgradeItems": []
           }
@@ -25609,11 +25543,6 @@
       "components": {
         "Components": {
           "crafting": {
-            "Position": {
-              "X": 2,
-              "Y": 13,
-              "Z": 26
-            },
             "TierLevel": 1,
             "UpgradeItems": []
           }

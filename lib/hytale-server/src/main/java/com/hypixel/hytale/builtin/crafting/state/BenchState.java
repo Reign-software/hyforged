@@ -28,6 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.Nonnull;
 
 public class BenchState extends BlockState implements DestroyableBlockState {
+   @Nonnull
    public static BuilderCodec<BenchState> CODEC = BuilderCodec.builder(BenchState.class, BenchState::new, BlockState.BASE_CODEC)
       .appendInherited(
          new KeyedCodec<>("TierLevel", Codec.INTEGER),
@@ -47,6 +48,7 @@ public class BenchState extends BlockState implements DestroyableBlockState {
    private int tierLevel = 1;
    protected ItemStack[] upgradeItems = ItemStack.EMPTY_ARRAY;
    protected Bench bench;
+   @Nonnull
    protected final Map<UUID, BenchWindow> windows = new ConcurrentHashMap<>();
 
    public BenchState() {
@@ -74,7 +76,7 @@ public class BenchState extends BlockState implements DestroyableBlockState {
       }
    }
 
-   public void addUpgradeItems(List<ItemStack> consumed) {
+   public void addUpgradeItems(@Nonnull List<ItemStack> consumed) {
       consumed.addAll(Arrays.asList(this.upgradeItems));
       this.upgradeItems = consumed.toArray(ItemStack[]::new);
       this.markNeedsSave();
@@ -114,6 +116,7 @@ public class BenchState extends BlockState implements DestroyableBlockState {
       this.getChunk().setBlockInteractionState(this.getBlockPosition(), this.getBaseBlockType(), this.getTierStateName());
    }
 
+   @Nonnull
    public BlockType getBaseBlockType() {
       BlockType currentBlockType = this.getBlockType();
       String baseBlockKey = currentBlockType.getDefaultStateKey();
@@ -125,6 +128,7 @@ public class BenchState extends BlockState implements DestroyableBlockState {
       return baseBlockType;
    }
 
+   @Nonnull
    public String getTierStateName() {
       return this.tierLevel > 1 ? "Tier" + this.tierLevel : "default";
    }

@@ -49,7 +49,7 @@ public final class HealingServiceImpl implements HealingService {
     private int healingEffectivenessIndex = -1;
     private int healingReceivedIndex = -1;
     private int lifeRecoveryRateIndex = -1;
-    private boolean indicesCached = false;
+    private volatile boolean indicesCached = false;
 
     private HealingServiceImpl() {
         // Singleton

@@ -12,10 +12,12 @@ import com.hypixel.hytale.builtin.hytalegenerator.material.MaterialCache;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.codecs.array.ArrayCodec;
-import java.util.ArrayList;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import java.util.List;
 import javax.annotation.Nonnull;
 
 public class MaterialSetAsset implements JsonAssetWithMap<String, DefaultAssetMap<String, MaterialSetAsset>>, Cleanable {
+   @Nonnull
    public static final AssetBuilderCodec<String, MaterialSetAsset> CODEC = AssetBuilderCodec.builder(
          MaterialSetAsset.class,
          MaterialSetAsset::new,
@@ -42,8 +44,9 @@ public class MaterialSetAsset implements JsonAssetWithMap<String, DefaultAssetMa
    public MaterialSetAsset() {
    }
 
+   @Nonnull
    public MaterialSet build(@Nonnull MaterialCache materialCache) {
-      ArrayList<Material> materials = new ArrayList<>(this.materialAssets.length);
+      List<Material> materials = new ObjectArrayList<>(this.materialAssets.length);
 
       for (MaterialAsset materialAsset : this.materialAssets) {
          if (materialAsset != null) {

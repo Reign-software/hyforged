@@ -52,6 +52,9 @@
     ],
     "Group": "Stone",
     "Flags": {},
+    "PlacementSettings": {
+      "AllowBreakReplace": true
+    },
     "Gathering": {
       "Tools": [
         {

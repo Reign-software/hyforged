@@ -98,11 +98,23 @@ public final class CombatLogService {
     
     /**
      * Clear combat log for a player.
+     * <p>
+     * Should be called when a player disconnects to prevent unbounded memory growth.
      * 
      * @param playerUuid The player's UUID
      */
     public void clearLog(@Nonnull UUID playerUuid) {
         playerLogs.remove(playerUuid);
+    }
+    
+    /**
+     * Called when a player disconnects to free memory.
+     * Alias for {@link #clearLog(UUID)}.
+     * 
+     * @param playerUuid The disconnecting player's UUID
+     */
+    public void onPlayerDisconnect(@Nonnull UUID playerUuid) {
+        clearLog(playerUuid);
     }
     
     /**

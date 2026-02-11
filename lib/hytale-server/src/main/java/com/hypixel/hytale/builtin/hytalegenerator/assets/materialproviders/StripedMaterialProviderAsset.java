@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import javax.annotation.Nonnull;
 
 public class StripedMaterialProviderAsset extends MaterialProviderAsset {
+   @Nonnull
    public static final BuilderCodec<StripedMaterialProviderAsset> CODEC = BuilderCodec.builder(
          StripedMaterialProviderAsset.class, StripedMaterialProviderAsset::new, MaterialProviderAsset.ABSTRACT_CODEC
       )
@@ -62,6 +63,7 @@ public class StripedMaterialProviderAsset extends MaterialProviderAsset {
    }
 
    public static class StripeAsset implements JsonAssetWithMap<String, DefaultAssetMap<String, StripedMaterialProviderAsset.StripeAsset>> {
+      @Nonnull
       public static final AssetBuilderCodec<String, StripedMaterialProviderAsset.StripeAsset> CODEC = AssetBuilderCodec.builder(
             StripedMaterialProviderAsset.StripeAsset.class,
             StripedMaterialProviderAsset.StripeAsset::new,

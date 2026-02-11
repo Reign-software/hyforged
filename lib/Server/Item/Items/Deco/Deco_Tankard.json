@@ -1,6 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.Deco_Tankard.name"
+    "Name": "server.items.Deco_Tankard.name",
+    "Description": "server.items.Deco_Tankard.description"
   },
   "Icon": "Icons/ItemsGenerated/Deco_Tankard.png",
   "Categories": [
@@ -19,10 +20,10 @@
     ],
     "BenchRequirement": [
       {
+        "Id": "Farmingbench",
         "Type": "Crafting",
-        "Id": "Furniture_Bench",
         "Categories": [
-          "Furniture_Misc"
+          "Farming"
         ]
       }
     ]
@@ -39,7 +40,8 @@
     "Filled_Water": {
       "Variant":  true,
       "TranslationProperties": {
-        "Name": "server.items.Deco_Tankard_Water.name"
+        "Name": "server.items.Deco_Tankard_Water.name",
+        "Description": "server.items.Deco_Tankard_Water.description"
       },
       "Recipe": null,
       "Consumable": true,

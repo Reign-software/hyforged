@@ -30,6 +30,9 @@
       "IsStackable": false
     },
     "RandomRotation": "YawStep1",
+    "PlacementSettings": {
+      "AllowBreakReplace": true
+    },
     "Gathering": {
       "Soft": {
         "DropList": "Plant_Leaves"

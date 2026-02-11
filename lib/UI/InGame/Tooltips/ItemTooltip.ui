@@ -35,7 +35,7 @@ Group #Wrapper {
 
         Label #Name {
           FlexWeight: 2;
-          Style: (RenderBold: true, FontSize: 18);
+          Style: (RenderBold: true, FontSize: 18, Wrap: true);
         }
 
         Label #Quality {

@@ -9,6 +9,7 @@ import com.hypixel.hytale.common.plugin.PluginIdentifier;
 import com.hypixel.hytale.common.plugin.PluginManifest;
 import com.hypixel.hytale.common.semver.SemverRange;
 import com.hypixel.hytale.common.util.CompletableFutureUtil;
+import com.hypixel.hytale.common.util.PathUtil;
 import com.hypixel.hytale.component.ComponentRegistryProxy;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Holder;
@@ -143,6 +144,8 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
    private ComponentType<EntityStore, PlayerRef> playerRefComponentType;
    @Nonnull
    private final Path path = Constants.UNIVERSE_PATH;
+   private final Path worldsPath = this.path.resolve("worlds");
+   private final Path worldsDeletedPath = this.worldsPath.resolveSibling("worlds-deleted");
    @Nonnull
    private final Map<UUID, PlayerRef> players = new ConcurrentHashMap<>();
    @Nonnull
@@ -294,8 +297,8 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
 
                LEGACY_BLOCK_ID_MAP = Collections.unmodifiableMap(map);
             }
-         } catch (IOException var14) {
-            this.getLogger().at(Level.SEVERE).withCause(var14).log("Failed to delete blockIdMap.json");
+         } catch (IOException var15) {
+            this.getLogger().at(Level.SEVERE).withCause(var15).log("Failed to delete blockIdMap.json");
          }
 
          if (Options.getOptionSet().has(Options.BARE)) {
@@ -305,16 +308,23 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
             ObjectArrayList<CompletableFuture<?>> loadingWorlds = new ObjectArrayList<>();
 
             try {
-               Path worldsPath = this.path.resolve("worlds");
-               Files.createDirectories(worldsPath);
+               if (Files.exists(this.worldsDeletedPath)) {
+                  FileUtil.deleteDirectory(this.worldsDeletedPath);
+               }
+            } catch (Throwable var14) {
+               throw new RuntimeException("Failed to complete deletion of " + this.worldsDeletedPath.toAbsolutePath(), var14);
+            }
 
-               try (DirectoryStream<Path> stream = Files.newDirectoryStream(worldsPath)) {
+            try {
+               Files.createDirectories(this.worldsPath);
+
+               try (DirectoryStream<Path> stream = Files.newDirectoryStream(this.worldsPath)) {
                   for (Path file : stream) {
                      if (HytaleServer.get().isShuttingDown()) {
                         return;
                      }
 
-                     if (!file.equals(worldsPath) && Files.isDirectory(file)) {
+                     if (!file.equals(this.worldsPath) && Files.isDirectory(file)) {
                         String name = file.getFileName().toString();
                         if (this.getWorld(name) == null) {
                            loadingWorlds.add(this.loadWorldFromStart(file, name).exceptionally(throwable -> {
@@ -386,7 +396,7 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
    }
 
    public boolean isWorldLoadable(@Nonnull String name) {
-      Path savePath = this.path.resolve("worlds").resolve(name);
+      Path savePath = this.validateWorldPath(name);
       return Files.isDirectory(savePath) && (Files.exists(savePath.resolve("config.bson")) || Files.exists(savePath.resolve("config.json")));
    }
 
@@ -405,7 +415,7 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
       } else if (this.isWorldLoadable(name)) {
          throw new IllegalArgumentException("World " + name + " already exists on disk!");
       } else {
-         Path savePath = this.path.resolve("worlds").resolve(name);
+         Path savePath = this.validateWorldPath(name);
          return this.worldConfigProvider.load(savePath, name).thenCompose(worldConfig -> {
             if (generatorType != null && !"default".equals(generatorType)) {
                BuilderCodec<? extends IWorldGenProvider> providerCodec = IWorldGenProvider.CODEC.getCodecFor(generatorType);
@@ -434,6 +444,15 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
       }
    }
 
+   public Path validateWorldPath(@Nonnull String name) {
+      Path savePath = PathUtil.resolvePathWithinDir(this.worldsPath, name);
+      if (savePath == null) {
+         throw new IllegalArgumentException("World " + name + " contains invalid characters!");
+      } else {
+         return savePath;
+      }
+   }
+
    @Nonnull
    @CheckReturnValue
    public CompletableFuture<World> makeWorld(@Nonnull String name, @Nonnull Path savePath, @Nonnull WorldConfig worldConfig) {
@@ -443,66 +462,70 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
    @Nonnull
    @CheckReturnValue
    public CompletableFuture<World> makeWorld(@Nonnull String name, @Nonnull Path savePath, @Nonnull WorldConfig worldConfig, boolean start) {
-      Map<PluginIdentifier, SemverRange> map = worldConfig.getRequiredPlugins();
-      if (map != null) {
-         PluginManager pluginManager = PluginManager.get();
+      if (!PathUtil.isChildOf(this.worldsPath, savePath) && !PathUtil.isInTrustedRoot(savePath)) {
+         throw new IllegalArgumentException("Invalid path");
+      } else {
+         Map<PluginIdentifier, SemverRange> map = worldConfig.getRequiredPlugins();
+         if (map != null) {
+            PluginManager pluginManager = PluginManager.get();
 
-         for (Entry<PluginIdentifier, SemverRange> entry : map.entrySet()) {
-            if (!pluginManager.hasPlugin(entry.getKey(), entry.getValue())) {
-               this.getLogger().at(Level.SEVERE).log("Failed to load world! Missing plugin: %s, Version: %s", entry.getKey(), entry.getValue());
-               throw new IllegalStateException("Missing plugin");
+            for (Entry<PluginIdentifier, SemverRange> entry : map.entrySet()) {
+               if (!pluginManager.hasPlugin(entry.getKey(), entry.getValue())) {
+                  this.getLogger().at(Level.SEVERE).log("Failed to load world! Missing plugin: %s, Version: %s", entry.getKey(), entry.getValue());
+                  throw new IllegalStateException("Missing plugin");
+               }
             }
          }
-      }
 
-      if (this.worlds.containsKey(name)) {
-         throw new IllegalArgumentException("World " + name + " already exists!");
-      } else {
-         return CompletableFuture.supplyAsync(
-               SneakyThrow.sneakySupplier(
-                  () -> {
-                     World world = new World(name, savePath, worldConfig);
-                     AddWorldEvent event = HytaleServer.get().getEventBus().dispatchFor(AddWorldEvent.class, name).dispatch(new AddWorldEvent(world));
-                     if (!event.isCancelled() && !HytaleServer.get().isShuttingDown()) {
-                        World oldWorldByName = this.worlds.putIfAbsent(name.toLowerCase(), world);
-                        if (oldWorldByName != null) {
-                           throw new ConcurrentModificationException(
-                              "World with name " + name + " already exists but didn't before! Looks like you have a race condition."
-                           );
-                        } else {
-                           World oldWorldByUuid = this.worldsByUuid.putIfAbsent(worldConfig.getUuid(), world);
-                           if (oldWorldByUuid != null) {
+         if (this.worlds.containsKey(name)) {
+            throw new IllegalArgumentException("World " + name + " already exists!");
+         } else {
+            return CompletableFuture.supplyAsync(
+                  SneakyThrow.sneakySupplier(
+                     () -> {
+                        World world = new World(name, savePath, worldConfig);
+                        AddWorldEvent event = HytaleServer.get().getEventBus().dispatchFor(AddWorldEvent.class, name).dispatch(new AddWorldEvent(world));
+                        if (!event.isCancelled() && !HytaleServer.get().isShuttingDown()) {
+                           World oldWorldByName = this.worlds.putIfAbsent(name.toLowerCase(), world);
+                           if (oldWorldByName != null) {
                               throw new ConcurrentModificationException(
-                                 "World with UUID " + worldConfig.getUuid() + " already exists but didn't before! Looks like you have a race condition."
+                                 "World with name " + name + " already exists but didn't before! Looks like you have a race condition."
                               );
                            } else {
-                              return world;
+                              World oldWorldByUuid = this.worldsByUuid.putIfAbsent(worldConfig.getUuid(), world);
+                              if (oldWorldByUuid != null) {
+                                 throw new ConcurrentModificationException(
+                                    "World with UUID " + worldConfig.getUuid() + " already exists but didn't before! Looks like you have a race condition."
+                                 );
+                              } else {
+                                 return world;
+                              }
                            }
+                        } else {
+                           throw new WorldLoadCancelledException();
                         }
-                     } else {
-                        throw new WorldLoadCancelledException();
                      }
-                  }
+                  )
                )
-            )
-            .thenCompose(World::init)
-            .thenCompose(
-               world -> !Options.getOptionSet().has(Options.MIGRATIONS) && start
-                  ? world.start().thenApply(v -> world)
-                  : CompletableFuture.completedFuture(world)
-            )
-            .whenComplete((world, throwable) -> {
-               if (throwable != null) {
-                  String nameLower = name.toLowerCase();
-                  if (this.worlds.containsKey(nameLower)) {
-                     try {
-                        this.removeWorldExceptionally(name);
-                     } catch (Exception var6x) {
-                        this.getLogger().at(Level.WARNING).withCause(var6x).log("Failed to clean up world '%s' after init failure", name);
+               .thenCompose(World::init)
+               .thenCompose(
+                  world -> !Options.getOptionSet().has(Options.MIGRATIONS) && start
+                     ? world.start().thenApply(v -> world)
+                     : CompletableFuture.completedFuture(world)
+               )
+               .whenComplete((world, throwable) -> {
+                  if (throwable != null) {
+                     String nameLower = name.toLowerCase();
+                     if (this.worlds.containsKey(nameLower)) {
+                        try {
+                           this.removeWorldExceptionally(name, Map.of());
+                        } catch (Exception var6x) {
+                           this.getLogger().at(Level.WARNING).withCause(var6x).log("Failed to clean up world '%s' after init failure", name);
+                        }
                      }
                   }
-               }
-            });
+               });
+         }
       }
    }
 
@@ -525,7 +548,7 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
       if (this.worlds.containsKey(name)) {
          throw new IllegalArgumentException("World " + name + " already loaded!");
       } else {
-         Path savePath = this.path.resolve("worlds").resolve(name);
+         Path savePath = this.validateWorldPath(name);
          if (!Files.isDirectory(savePath)) {
             throw new IllegalArgumentException("World " + name + " does not exist!");
          } else {
@@ -572,7 +595,11 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
             this.worlds.remove(nameLower);
             this.worldsByUuid.remove(world.getWorldConfig().getUuid());
             if (world.isAlive()) {
-               world.stopIndividualWorld();
+               if (world.isInThread()) {
+                  world.stopIndividualWorld();
+               } else {
+                  CompletableFuture.runAsync(world::stopIndividualWorld).join();
+               }
             }
 
             world.validateDeleteOnRemove();
@@ -581,7 +608,7 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
       }
    }
 
-   public void removeWorldExceptionally(@Nonnull String name) {
+   public void removeWorldExceptionally(@Nonnull String name, Map<UUID, PlayerRef> players) {
       Objects.requireNonNull(name, "Name can't be null!");
       this.getLogger().at(Level.INFO).log("Removing world exceptionally: %s", name);
       String nameLower = name.toLowerCase();
@@ -596,7 +623,11 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
          this.worlds.remove(nameLower);
          this.worldsByUuid.remove(world.getWorldConfig().getUuid());
          if (world.isAlive()) {
-            world.stopIndividualWorld();
+            if (world.isInThread()) {
+               world.stopIndividualWorld(players);
+            } else {
+               CompletableFuture.runAsync(() -> world.stopIndividualWorld(players)).join();
+            }
          }
 
          world.validateDeleteOnRemove();
@@ -606,6 +637,14 @@ public class Universe extends JavaPlugin implements IMessageReceiver, MetricProv
    @Nonnull
    public Path getPath() {
       return this.path;
+   }
+
+   public Path getWorldsPath() {
+      return this.worldsPath;
+   }
+
+   public Path getWorldsDeletedPath() {
+      return this.worldsDeletedPath;
    }
 
    @Nonnull

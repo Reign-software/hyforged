@@ -24,5 +24,10 @@
         }
       ]
     }
+  },
+  "Tags": {
+    "BranchType": [
+      "Short"
+    ]
   }
 }

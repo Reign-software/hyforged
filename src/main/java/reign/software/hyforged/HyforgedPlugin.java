@@ -94,6 +94,8 @@ import reign.software.hyforged.passive.effect.SpellGrantEffectHandler;
 import reign.software.hyforged.passive.effect.StatModifierEffectHandler;
 import reign.software.hyforged.passive.effect.UnlockFlagEffectHandler;
 import reign.software.hyforged.passive.persistence.PassiveTreeCodec;
+import reign.software.hyforged.passive.persistence.PlayerUnlocksCodec;
+import reign.software.hyforged.passive.persistence.PlayerSpellsCodec;
 import reign.software.hyforged.passive.service.PassiveTreeService;
 import reign.software.hyforged.currency.config.CurrencyConfigAssetLoader;
 import reign.software.hyforged.currency.service.CurrencyService;
@@ -403,21 +405,23 @@ public class HyforgedPlugin extends JavaPlugin {
 
         getLogger().at(Level.FINE).log("Registered PassiveTreeComponent with persistence codec");
 
-        // Register PlayerUnlocksComponent (no persistence codec yet)
+        // Register PlayerUnlocksComponent with persistence codec
         playerUnlocksComponentType = entityStoreRegistry.registerComponent(
             PlayerUnlocksComponent.class,
-            PlayerUnlocksComponent::new
+            PlayerUnlocksCodec.COMPONENT_ID,
+            PlayerUnlocksCodec.CODEC
         );
 
-        getLogger().at(Level.FINE).log("Registered PlayerUnlocksComponent");
+        getLogger().at(Level.FINE).log("Registered PlayerUnlocksComponent with persistence codec");
 
-        // Register PlayerSpellsComponent (no persistence codec yet)
+        // Register PlayerSpellsComponent with persistence codec
         playerSpellsComponentType = entityStoreRegistry.registerComponent(
             PlayerSpellsComponent.class,
-            PlayerSpellsComponent::new
+            PlayerSpellsCodec.COMPONENT_ID,
+            PlayerSpellsCodec.CODEC
         );
 
-        getLogger().at(Level.FINE).log("Registered PlayerSpellsComponent");
+        getLogger().at(Level.FINE).log("Registered PlayerSpellsComponent with persistence codec");
 
         // Initialize PassiveTreeService with component types
         PassiveTreeService.get().initialize(
@@ -663,6 +667,20 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register combat log system (runs in inspect group to record final damage)
         entityStoreRegistry.registerSystem(new HyforgedCombatLogSystem());
         getLogger().at(Level.FINE).log("Registered HyforgedCombatLogSystem");
+
+        // Clean up combat logs when players disconnect to prevent unbounded memory growth
+        getEventRegistry().register(
+                com.hypixel.hytale.server.core.event.events.player.PlayerDisconnectEvent.class,
+                event -> {
+                    com.hypixel.hytale.server.core.universe.PlayerRef playerRef = event.getPlayerRef();
+                    if (playerRef != null) {
+                        reign.software.hyforged.combat.log.CombatLogService.get()
+                                .onPlayerDisconnect(playerRef.getUuid());
+                    }
+                }
+        );
+        getLogger().at(Level.FINE).log("Registered CombatLogService disconnect cleanup");
+
 
         // Register effect affix triggers on damage events
         entityStoreRegistry.registerSystem(new EffectAffixDamageTriggerSystem());

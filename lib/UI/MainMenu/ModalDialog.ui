@@ -7,9 +7,10 @@ Group {
   Background: #131417(0.9);
 
   Group {
-    LayoutMode: Top;
+    LayoutMode: TopScrolling;
     Background: (TexturePath: "ModalBackground.png", VerticalBorder: 4);
     Padding: (Vertical: 2);
+    ScrollbarStyle: $Common.@DefaultScrollbarStyle;
 
     Group {
       Background: #1f2734;
@@ -26,7 +27,7 @@ Group {
 
       Group #IconContainer {
         LayoutMode: Center;
-        Anchor: (Height: 64);
+        Anchor: (Height: 64, Bottom: 12);
         Visible: false;
 
         Group #Icon {

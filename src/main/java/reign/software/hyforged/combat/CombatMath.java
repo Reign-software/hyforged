@@ -8,19 +8,19 @@ package reign.software.hyforged.combat;
 public class CombatMath {
     
     /** Basis points representing 100% */
-    public static int BPS_100 = 10000;
+    public static final int BPS_100 = 10000;
     
     /** Base hit chance in basis points (100% base - reduced by evasion) */
-    public static int BASE_HIT_CHANCE_BPS = 10000;
+    public static final int BASE_HIT_CHANCE_BPS = 10000;
     
     /** Minimum hit chance in basis points (0%) */
-    public static int MIN_HIT_CHANCE_BPS = 0;
+    public static final int MIN_HIT_CHANCE_BPS = 0;
     
     /** Maximum hit chance in basis points (100%) */
-    public static int MAX_HIT_CHANCE_BPS = 10000;
+    public static final int MAX_HIT_CHANCE_BPS = 10000;
     
     /** Level difference penalty per level in basis points (5% per level) */
-    public static int LEVEL_PENALTY_PER_LEVEL_BPS = 500;
+    public static final int LEVEL_PENALTY_PER_LEVEL_BPS = 500;
     
     private CombatMath() {}
     
@@ -146,19 +146,6 @@ public class CombatMath {
     }
     
     /**
-     * Calculate block chance without level consideration.
-     * <p>
-     * @deprecated Use {@link #calculateBlockChance(int, int, int)} for level-aware calculation.
-     * 
-     * @param baseBlockChanceBps Base block chance in basis points
-     * @return Effective block chance in basis points
-     */
-    @Deprecated
-    public static int calculateBlockChance(int baseBlockChanceBps) {
-        return Math.max(0, baseBlockChanceBps);
-    }
-    
-    /**
      * Calculate evasion chance with level difference consideration.
      * <p>
      * When defender is lower level than attacker, evasion becomes less effective.
@@ -210,9 +197,12 @@ public class CombatMath {
      * 
      * @param baseDamage The base damage value
      * @param reductionBps The reduction in basis points (5000 = 50% reduction)
-     * @return The reduced damage
+     * @return The reduced damage (never negative)
      */
     public static float applyReduction(float baseDamage, int reductionBps) {
+        if (baseDamage <= 0) return 0;
+        if (reductionBps <= 0) return baseDamage;
+        if (reductionBps >= BPS_100) return 0;
         int effectiveMultiplier = BPS_100 - reductionBps;
         return baseDamage * effectiveMultiplier / BPS_100;
     }

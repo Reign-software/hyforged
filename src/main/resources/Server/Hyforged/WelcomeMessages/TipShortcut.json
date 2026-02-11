@@ -3,8 +3,8 @@
   "Order": 2,
   "Enabled": true,
   "Segments": [
-    { "Text": "  Tip: ", "Color": "#AAAAAA" },
+    { "TranslationKey": "hyforged.welcome.tipPrefix", "Color": "#AAAAAA" },
     { "Text": "/hyforged c", "Color": "#55FF55" },
-    { "Text": " is a shortcut for the hub!", "Color": "#AAAAAA" }
+    { "TranslationKey": "hyforged.welcome.tipSuffix", "Color": "#AAAAAA" }
   ]
 }

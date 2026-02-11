@@ -22,7 +22,7 @@ $LegendCommon.@Legend {
 
       $LegendCommon.@HotkeyRow {
         @InputBindingKey = "SecondaryItemAction";
-        @InputBindingKeyPrefix = "Shift + ";
+        @InputBindingKeyPrefixBinding = "AlternatePlaySculptBrushModeModifier";
         @Description = %client.builderTools.legend.SculptBrush.Page1.Smooth;
       }
 
@@ -55,15 +55,15 @@ $LegendCommon.@Legend {
         Text: %client.builderTools.legend.shiftFasterChange;
       }
 
-      $LegendCommon.@DoubleArrowKeyHotkeyRow {
-        @IconOne = $LegendCommon.@RowHintIconKeyUp;
-        @IconTwo = $LegendCommon.@RowHintIconKeyDown;
+      $LegendCommon.@DoubleHotkeyRow {
+        @InputBindingKeyOne = "BrushIncreaseHeight";
+        @InputBindingKeyTwo = "BrushDecreaseHeight";
         @Text = %client.builderTools.legend.changeHeight;
       }
 
-      $LegendCommon.@DoubleArrowKeyHotkeyRow {
-        @IconOne = $LegendCommon.@RowHintIconKeyLeft;
-        @IconTwo = $LegendCommon.@RowHintIconKeyRight;
+      $LegendCommon.@DoubleHotkeyRow {
+        @InputBindingKeyOne = "BrushIncreaseWidth";
+        @InputBindingKeyTwo = "BrushDecreaseWidth";
         @Text = %client.builderTools.legend.changeWidth;
       }
 

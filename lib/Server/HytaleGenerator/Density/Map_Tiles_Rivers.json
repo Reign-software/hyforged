@@ -44,47 +44,10 @@
 													"ToMin":	-1,
 													"ToMax":	-0.5,
 													"Inputs":	[{
-															"$NodeId":	"YOverride.Density-e7840aa8-3c79-4cef-8c50-d58e870a246c",
-															"Type":	"YOverride",
+															"$NodeId":	"ImportedDensityNode-cc12dd2a-64a6-4901-ad96-ee9dba02f672",
+															"Type":	"Imported",
 															"Skip":	false,
-															"Value":	0,
-															"Inputs":	[{
-																	"$NodeId":	"Cache.Density-9b8af778-3b72-4181-81ed-2b95dec2b50a",
-																	"Type":	"Cache",
-																	"Skip":	false,
-																	"Capacity":	3,
-																	"Inputs":	[{
-																			"$NodeId":	"PositionsCellNoiseDensityNode-be712630-97a9-415e-bbe8-68715e6382db",
-																			"Type":	"PositionsCellNoise",
-																			"Skip":	false,
-																			"MaxDistance":	460,
-																			"Positions":	{
-																				"$NodeId":	"ImportedPositions-00d03cba-bfc1-4730-9592-fab98204af65",
-																				"Type":	"Imported",
-																				"Name":	"World-Biome-Cells",
-																				"Skip":	false
-																			},
-																			"ReturnType":	{
-																				"$NodeId":	"CellValuePCNReturnType-6415fcc1-210a-4ed8-98fa-fb67aafd7d35",
-																				"Type":	"CellValue",
-																				"Density":	{
-																					"$NodeId":	"SimplexNoise2DDensityNode-4c37a00b-922c-46d4-955f-c8999ce4ea3e",
-																					"Type":	"SimplexNoise2D",
-																					"Skip":	false,
-																					"Lacunarity":	2,
-																					"Persistence":	0.5,
-																					"Octaves":	1,
-																					"Scale":	50,
-																					"Seed":	"World-Biome-Cells_Random"
-																				},
-																				"DefaultValue":	0
-																			},
-																			"DistanceFunction":	{
-																				"$NodeId":	"PCNDistanceFunction-eb9e3426-fab3-47c7-9c57-0cabf0c094a3",
-																				"Type":	"Euclidean"
-																			}
-																		}]
-																}]
+															"Name":	"Biome-Map-Tiles"
 														}]
 												}]
 										}, {
@@ -107,95 +70,10 @@
 													"ToMin":	0,
 													"ToMax":	1,
 													"Inputs":	[{
-															"$NodeId":	"YOverride.Density-85a88980-af51-44b3-b8fd-b7a7fd67e20c",
-															"Type":	"YOverride",
+															"$NodeId":	"ImportedDensityNode-df2f067a-5fbb-47b7-865b-9712c1634cdf",
+															"Type":	"Imported",
 															"Skip":	false,
-															"Value":	0,
-															"Inputs":	[{
-																	"$NodeId":	"Cache.Density-1b31d604-0b63-481e-8639-f6d6da9279ba",
-																	"Type":	"Cache",
-																	"Skip":	false,
-																	"Capacity":	1,
-																	"Inputs":	[{
-																			"$NodeId":	"InverterDensityNode-a2eaf0b8-07dc-4136-9fea-1facfae8d90a",
-																			"Type":	"Inverter",
-																			"Skip":	false,
-																			"Inputs":	[{
-																					"$NodeId":	"NormalizerDensityNode-eca8f74a-df29-4684-8713-989a976f99a5",
-																					"Type":	"Normalizer",
-																					"Skip":	false,
-																					"FromMin":	0,
-																					"FromMax":	1,
-																					"ToMin":	-1,
-																					"ToMax":	1,
-																					"Inputs":	[{
-																							"$NodeId":	"AbsDensityNode-6801c60b-540d-4f84-981c-a8cbedbdc6fc",
-																							"Type":	"Abs",
-																							"Skip":	false,
-																							"Inputs":	[{
-																									"$NodeId":	"SumDensityNode-adb14691-1c50-4c2c-8560-9f3ffde449a8",
-																									"Type":	"Sum",
-																									"Skip":	false,
-																									"Inputs":	[{
-																											"$NodeId":	"NormalizerDensityNode-2e79c521-f9a0-48e0-b11f-02d1db8b8f3e",
-																											"Type":	"Normalizer",
-																											"Skip":	false,
-																											"FromMin":	-1,
-																											"FromMax":	1,
-																											"ToMin":	-0.85,
-																											"ToMax":	0.85,
-																											"Inputs":	[{
-																													"$NodeId":	"SimplexNoise2DDensityNode-f7cc474d-dd35-43af-980e-81ce87f02bcb",
-																													"Type":	"SimplexNoise2D",
-																													"Skip":	false,
-																													"Lacunarity":	8,
-																													"Persistence":	0.1,
-																													"Octaves":	1,
-																													"Scale":	1500,
-																													"Seed":	"A"
-																												}]
-																										}, {
-																											"$NodeId":	"NormalizerDensityNode-f6c7ed83-5b02-4bfc-98f3-9988924a305e",
-																											"Type":	"Normalizer",
-																											"Skip":	false,
-																											"FromMin":	-1,
-																											"FromMax":	1,
-																											"ToMin":	-0.1,
-																											"ToMax":	0.1,
-																											"Inputs":	[{
-																													"$NodeId":	"SimplexNoise2DDensityNode-a3bf0abc-69a1-4e5a-8d67-6dc9f8df64dd",
-																													"Type":	"SimplexNoise2D",
-																													"Skip":	false,
-																													"Lacunarity":	8,
-																													"Persistence":	0.1,
-																													"Octaves":	1,
-																													"Scale":	150,
-																													"Seed":	"B"
-																												}]
-																										}, {
-																											"$NodeId":	"NormalizerDensityNode-79b12574-2f22-469a-84d5-fd7eace31197",
-																											"Type":	"Normalizer",
-																											"Skip":	false,
-																											"FromMin":	-1,
-																											"FromMax":	1,
-																											"ToMin":	-0.05,
-																											"ToMax":	0.05,
-																											"Inputs":	[{
-																													"$NodeId":	"SimplexNoise2DDensityNode-86a46a89-6672-4cae-9a59-0a1e2c2d4e52",
-																													"Type":	"SimplexNoise2D",
-																													"Skip":	false,
-																													"Lacunarity":	8,
-																													"Persistence":	0.1,
-																													"Octaves":	1,
-																													"Scale":	100,
-																													"Seed":	"C"
-																												}]
-																										}]
-																								}]
-																						}]
-																				}]
-																		}]
-																}]
+															"Name":	"World-River-Map"
 														}]
 												}]
 										}]
@@ -248,46 +126,10 @@
 					"$y":	-7668
 				}
 			},
-			"YOverride.Density-e7840aa8-3c79-4cef-8c50-d58e870a246c":	{
+			"ImportedDensityNode-cc12dd2a-64a6-4901-ad96-ee9dba02f672":	{
 				"$Position":	{
-					"$x":	992,
-					"$y":	-7671
-				}
-			},
-			"Cache.Density-9b8af778-3b72-4181-81ed-2b95dec2b50a":	{
-				"$Position":	{
-					"$x":	1595,
-					"$y":	-7671
-				}
-			},
-			"PositionsCellNoiseDensityNode-be712630-97a9-415e-bbe8-68715e6382db":	{
-				"$Position":	{
-					"$x":	2204,
-					"$y":	-7674
-				}
-			},
-			"ImportedPositions-00d03cba-bfc1-4730-9592-fab98204af65":	{
-				"$Position":	{
-					"$x":	2911,
-					"$y":	-7665
-				}
-			},
-			"CellValuePCNReturnType-6415fcc1-210a-4ed8-98fa-fb67aafd7d35":	{
-				"$Position":	{
-					"$x":	2918,
-					"$y":	-7313
-				}
-			},
-			"SimplexNoise2DDensityNode-4c37a00b-922c-46d4-955f-c8999ce4ea3e":	{
-				"$Position":	{
-					"$x":	3383,
-					"$y":	-7312
-				}
-			},
-			"PCNDistanceFunction-eb9e3426-fab3-47c7-9c57-0cabf0c094a3":	{
-				"$Position":	{
-					"$x":	2917,
-					"$y":	-7489
+					"$x":	993,
+					"$y":	-7664
 				}
 			},
 			"ConstantDensityNode-4901ee83-7af3-47a6-a2ad-daebe8318270":	{
@@ -308,76 +150,10 @@
 					"$y":	-6361
 				}
 			},
-			"YOverride.Density-85a88980-af51-44b3-b8fd-b7a7fd67e20c":	{
+			"ImportedDensityNode-df2f067a-5fbb-47b7-865b-9712c1634cdf":	{
 				"$Position":	{
-					"$x":	1036,
-					"$y":	-6355
-				}
-			},
-			"Cache.Density-1b31d604-0b63-481e-8639-f6d6da9279ba":	{
-				"$Position":	{
-					"$x":	1648,
-					"$y":	-6358
-				}
-			},
-			"InverterDensityNode-a2eaf0b8-07dc-4136-9fea-1facfae8d90a":	{
-				"$Position":	{
-					"$x":	2277,
-					"$y":	-6360
-				}
-			},
-			"NormalizerDensityNode-eca8f74a-df29-4684-8713-989a976f99a5":	{
-				"$Position":	{
-					"$x":	2927,
-					"$y":	-6366
-				}
-			},
-			"AbsDensityNode-6801c60b-540d-4f84-981c-a8cbedbdc6fc":	{
-				"$Position":	{
-					"$x":	3551,
-					"$y":	-6372
-				}
-			},
-			"SumDensityNode-adb14691-1c50-4c2c-8560-9f3ffde449a8":	{
-				"$Position":	{
-					"$x":	4160,
-					"$y":	-6370
-				}
-			},
-			"NormalizerDensityNode-2e79c521-f9a0-48e0-b11f-02d1db8b8f3e":	{
-				"$Position":	{
-					"$x":	4761,
-					"$y":	-6367
-				}
-			},
-			"SimplexNoise2DDensityNode-f7cc474d-dd35-43af-980e-81ce87f02bcb":	{
-				"$Position":	{
-					"$x":	5387,
-					"$y":	-6367
-				}
-			},
-			"NormalizerDensityNode-f6c7ed83-5b02-4bfc-98f3-9988924a305e":	{
-				"$Position":	{
-					"$x":	4763,
-					"$y":	-6025
-				}
-			},
-			"SimplexNoise2DDensityNode-a3bf0abc-69a1-4e5a-8d67-6dc9f8df64dd":	{
-				"$Position":	{
-					"$x":	5387,
-					"$y":	-6027
-				}
-			},
-			"NormalizerDensityNode-79b12574-2f22-469a-84d5-fd7eace31197":	{
-				"$Position":	{
-					"$x":	4768,
-					"$y":	-5689
-				}
-			},
-			"SimplexNoise2DDensityNode-86a46a89-6672-4cae-9a59-0a1e2c2d4e52":	{
-				"$Position":	{
-					"$x":	5392,
-					"$y":	-5691
+					"$x":	1020,
+					"$y":	-6359
 				}
 			}
 		},
@@ -397,19 +173,19 @@
 					"$x":	-275.6875,
 					"$y":	-6454.9375
 				},
-				"$width":	6295.3125,
-				"$height":	1172.3125,
+				"$width":	1909.125,
+				"$height":	500.375,
 				"$name":	"Rivers"
 			}],
 		"$Comments":	[{
 				"$Position":	{
-					"$x":	1046.6875,
-					"$y":	-6157.4375
+					"$x":	751046.75,
+					"$y":	743842.5
 				},
 				"$width":	790.5,
 				"$height":	280.8125,
 				"$name":	"Comment",
-				"$text":	"Importing from another density asset caused a defect for a few select individuals. Copy pasted river setup for now",
+				"$text":	"Importing from another density asset caused a defect for a few select indivi. Copy pasted river setup for now",
 				"$fontSize":	25
 			}],
 		"$WorkspaceID":	"HytaleGenerator - Density"

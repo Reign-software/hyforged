@@ -62,7 +62,8 @@
       "Sand",
       "Sand_White",
       "Gravel",
-      "Grass"
+      "Grass",
+      "Cobble"
     ],
     "TransitionToTag": "Fluid=Water"
   },

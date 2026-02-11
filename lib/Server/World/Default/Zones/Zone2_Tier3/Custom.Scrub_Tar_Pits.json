@@ -570,7 +570,33 @@
   "Environment": {
     "Default": {
       "Names": ["Env_Zone2_Scrub"]
-    }
+    },
+    "Entries": [
+      {
+        "Names": ["Env_Zone2_Encounters"],
+        "NoiseMask": {
+          "Type": "MIN",
+          "Noise": [
+            {
+              "File": "Zones.Noise.Zone1.NoiseMasks.Faction_Undead_Environments"
+            }
+          ],
+          "Threshold": [0.6, 1]
+        }
+      },
+      {
+        "Names": ["Env_Zone2_Feran"],
+        "NoiseMask": {
+          "Type": "MIN",
+          "Noise": [
+            {
+              "File": "Zones.Noise.Zone2.NoiseMasks.Faction_Feran_Environments_Tier3"
+            }
+          ],
+          "Threshold": [0.6, 1]
+        }
+      }
+    ]
   },
   "Water": {
     "Fluid": "Tar_Source",

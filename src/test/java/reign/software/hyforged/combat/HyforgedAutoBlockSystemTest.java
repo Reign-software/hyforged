@@ -12,10 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests the mathematical formulas used by HyforgedAutoBlockSystem.
  * Full integration tests would require mocking the ECS, so these focus
  * on the CombatMath utilities used by the system.
- * <p>
- * Note: Uses deprecated CombatMath.calculateBlockChance(int) for backwards compatibility testing.
  */
-@SuppressWarnings("deprecation")
 class HyforgedAutoBlockSystemTest {
     
     @Nested
@@ -23,25 +20,25 @@ class HyforgedAutoBlockSystemTest {
     class BlockChanceTests {
         
         @Test
-        @DisplayName("block chance is preserved as-is (no level penalty for defensive)")
+        @DisplayName("block chance is preserved when levels are equal")
         void blockChanceNotPenalized() {
-            // Block chance should just be returned as-is since it's defensive
-            assertEquals(5000, CombatMath.calculateBlockChance(5000));
-            assertEquals(7500, CombatMath.calculateBlockChance(7500));
-            assertEquals(10000, CombatMath.calculateBlockChance(10000));
+            // Block chance should just be returned as-is when levels are equal
+            assertEquals(5000, CombatMath.calculateBlockChance(5000, 10, 10));
+            assertEquals(7500, CombatMath.calculateBlockChance(7500, 10, 10));
+            assertEquals(10000, CombatMath.calculateBlockChance(10000, 10, 10));
         }
         
         @Test
         @DisplayName("negative block chance is clamped to zero")
         void negativeBlockChanceClamped() {
-            assertEquals(0, CombatMath.calculateBlockChance(-100));
-            assertEquals(0, CombatMath.calculateBlockChance(-5000));
+            assertEquals(0, CombatMath.calculateBlockChance(-100, 10, 10));
+            assertEquals(0, CombatMath.calculateBlockChance(-5000, 10, 10));
         }
         
         @Test
         @DisplayName("zero block chance returns zero")
         void zeroBlockChance() {
-            assertEquals(0, CombatMath.calculateBlockChance(0));
+            assertEquals(0, CombatMath.calculateBlockChance(0, 10, 10));
         }
     }
     

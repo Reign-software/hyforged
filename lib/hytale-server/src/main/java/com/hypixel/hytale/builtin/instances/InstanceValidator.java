@@ -7,7 +7,10 @@ import com.hypixel.hytale.codec.validation.Validator;
 import javax.annotation.Nonnull;
 
 public class InstanceValidator implements Validator<String> {
+   @Nonnull
    public static final InstanceValidator INSTANCE = new InstanceValidator();
+   @Nonnull
+   public static final String CUSTOM_ASSET_NAME = "Instance";
 
    public InstanceValidator() {
    }

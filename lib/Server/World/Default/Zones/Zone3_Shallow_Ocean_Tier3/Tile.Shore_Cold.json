@@ -401,7 +401,20 @@
         "Env_Zone3_Shores"
       ]
     },
-    "Entries": []
+    "Entries": [
+      {
+        "Names": ["Env_Zone3_Trork"],
+        "NoiseMask": {
+          "Type": "MIN",
+          "Noise": [
+            {
+              "File": "Zones.Noise.Zone3.NoiseMasks.Faction_Trork_Environments"
+            }
+          ],
+          "Threshold": [0.6, 1]
+        }
+      }
+    ]
   },
   "Water": {
     "Entries": [

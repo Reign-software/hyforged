@@ -1,8 +1,8 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
-  "anchorY": 0,
+  "anchorY": 7,
   "anchorZ": 0,
   "blocks": [
     {
@@ -13390,11 +13390,6 @@
       "components": {
         "Components": {
           "crafting": {
-            "Position": {
-              "X": -3,
-              "Y": 11,
-              "Z": -2
-            },
             "TierLevel": 1,
             "UpgradeItems": []
           }
@@ -13410,11 +13405,6 @@
       "components": {
         "Components": {
           "crafting": {
-            "Position": {
-              "X": 29,
-              "Y": 12,
-              "Z": 30
-            },
             "TierLevel": 1,
             "UpgradeItems": []
           }
@@ -13541,11 +13531,6 @@
       "components": {
         "Components": {
           "crafting": {
-            "Position": {
-              "X": 29,
-              "Y": 11,
-              "Z": 31
-            },
             "TierLevel": 1,
             "UpgradeItems": []
           }
@@ -13562,11 +13547,6 @@
       "components": {
         "Components": {
           "crafting": {
-            "Position": {
-              "X": 29,
-              "Y": 12,
-              "Z": 31
-            },
             "TierLevel": 1,
             "UpgradeItems": []
           }
@@ -20229,11 +20209,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 0,
-              "Y": 8,
-              "Z": 10
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -21262,11 +21237,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 1,
-              "Y": 16,
-              "Z": -1
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -24087,11 +24057,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 2,
-              "Y": 8,
-              "Z": 10
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -26821,11 +26786,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 4,
-              "Y": 11,
-              "Z": -3
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -35322,11 +35282,6 @@
       "y": 16,
       "z": -5,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 960,
       "rotation": 2
     },
@@ -35335,11 +35290,6 @@
       "y": 17,
       "z": -5,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1984,
       "rotation": 2
     },
@@ -35439,11 +35389,6 @@
       "y": 16,
       "z": -4,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 992,
       "rotation": 2
     },
@@ -35452,11 +35397,6 @@
       "y": 17,
       "z": -4,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 2016,
       "rotation": 2
     },

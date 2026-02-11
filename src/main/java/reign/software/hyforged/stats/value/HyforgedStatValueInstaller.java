@@ -55,7 +55,12 @@ public class HyforgedStatValueInstaller extends RefSystem<EntityStore> {
             valuesField = EntityStatMap.class.getDeclaredField("values");
             valuesField.setAccessible(true);
         } catch (NoSuchFieldException e) {
-            LOGGER.log(Level.SEVERE, "Failed to find EntityStatMap.values field", e);
+            LOGGER.log(Level.SEVERE, "Failed to find EntityStatMap.values field. "
+                    + "This is CRITICAL — the ARPG stat pipeline will not function. "
+                    + "This likely means a Hytale server update changed EntityStatMap internals.", e);
+            throw new ExceptionInInitializerError(
+                    "Hyforged requires access to EntityStatMap.values field but it was not found. "
+                    + "The Hytale server version may be incompatible.");
         }
     }
     
@@ -123,11 +128,6 @@ public class HyforgedStatValueInstaller extends RefSystem<EntityStore> {
             @Nonnull EntityStatMap statMap,
             @Nonnull HyforgedStatComponent statComponent
     ) {
-        if (valuesField == null) {
-            LOGGER.warning("Cannot install HyforgedStatValues: reflection field not available");
-            return;
-        }
-        
         try {
             EntityStatValue[] values = (EntityStatValue[]) valuesField.get(statMap);
             if (values == null || values.length == 0) {

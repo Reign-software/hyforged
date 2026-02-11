@@ -123,115 +123,180 @@ Group {
             }
           }
 
-          // Summary Field
+          // Category Field
           Group {
             LayoutMode: Top;
             Anchor: (Top: 15);
 
             Label {
-              Text: %client.feedback.field.summary;
+              Text: %client.feedback.field.category;
               Style: (TextColor: #96a9be, FontSize: 14, RenderBold: true, RenderUppercase: true);
             }
 
-            TextField #SummaryField {
+            DropdownBox #CategoryDropdown {
               Anchor: (Top: 5, Height: 35);
-              Background: $Common.@InputBoxBackground;
-              MaxLength: 100;
-              Padding: (Horizontal: 10, Vertical: 8);
-              Style: $Common.@DefaultInputFieldStyle;
-              PlaceholderStyle: $Common.@DefaultInputFieldPlaceholderStyle;
-              PlaceholderText: %client.feedback.field.summary.placeholder;
+              Style: (
+                ...$Common.@DefaultDropdownBoxStyle,
+                HorizontalPadding: 10,
+                PanelAlign: Bottom,
+                PanelOffset: 0,
+                LabelStyle: (
+                  ...$Common.@DefaultDropdownBoxLabelStyle,
+                  FontSize: 14,
+                  RenderBold: true
+                )
+              );
             }
           }
 
-          // Description Field
-          Group {
+          // Support Redirect (accounts/billing only)
+          Group #SupportRedirectView {
             LayoutMode: Top;
-            Anchor: (Top: 15);
-
-            Label {
-              Text: %client.feedback.field.description;
-              Style: (TextColor: #96a9be, FontSize: 14, RenderBold: true, RenderUppercase: true);
-            }
-
-            MultilineTextField #DescriptionField {
-              Anchor: (Top: 5, Height: 150);
-              Background: $Common.@InputBoxBackground;
-              MaxVisibleLines: 8;
-              AutoGrow: false;
-              MaxLength: 1000;
-              ContentPadding: (Horizontal: 10, Vertical: 8);
-              Style: $Common.@DefaultInputFieldStyle;
-              PlaceholderStyle: $Common.@DefaultInputFieldPlaceholderStyle;
-              PlaceholderText: %client.feedback.field.description.placeholder;
-            }
-          }
-
-          // Include Log File Section (Bug Reports Only)
-          Group #IncludeLogFileSection {
-            LayoutMode: Left;
             Anchor: (Top: 15);
             Visible: false;
 
-            CheckBox #IncludeLogFileCheckbox {
-              Anchor: (Width: 22, Height: 22);
-              Background: (TexturePath: "Common/CheckBoxFrame.png", Border: 7);
-              Padding: (Full: 4);
-              Style: $Common.@DefaultCheckBoxStyle;
+            Label {
+              Text: %client.feedback.redirect.support;
+              Style: (TextColor: #96a9be, FontSize: 14, Wrap: true);
             }
 
-            Label {
-              Text: %client.feedback.bugreport.includeLogFile;
-              Style: (TextColor: #96a9be, FontSize: 14, VerticalAlignment: Center);
-              Anchor: (Left: 10);
+            $Common.@PrimaryTextButton #SupportRedirectButton {
+              @Text = %client.feedback.redirect.button;
+              @Anchor = Anchor(Top: 10, MinWidth: 200);
             }
           }
 
-          // Attachments Section
-          Group {
+          Group #FormFieldsView {
             LayoutMode: Top;
-            Anchor: (Top: 15);
 
-            Label {
-              Text: %client.feedback.field.attachments;
-              Style: (TextColor: #96a9be, FontSize: 14, RenderBold: true, RenderUppercase: true);
-            }
-
+            // Summary Field
             Group {
-              LayoutMode: Left;
+              LayoutMode: Top;
+              Anchor: (Top: 15);
 
-              $Common.@SecondaryTextButton #AddScreenshotButton {
-                @Text = %client.feedback.attachments.addScreenshot;
-                @Anchor = Anchor(Top: 5);
+              Label {
+                Text: %client.feedback.field.summary;
+                Style: (TextColor: #96a9be, FontSize: 14, RenderBold: true, RenderUppercase: true);
               }
 
-              $Common.@SecondaryTextButton #AddLogFileButton {
-                @Text = %client.feedback.attachments.addLogFile;
-                @Anchor = Anchor(Top: 5, Left: 10);
+              TextField #SummaryField {
+                Anchor: (Top: 5, Height: 35);
+                Background: $Common.@InputBoxBackground;
+                MaxLength: 100;
+                Padding: (Horizontal: 10, Vertical: 8);
+                Style: $Common.@DefaultInputFieldStyle;
+                PlaceholderStyle: $Common.@DefaultInputFieldPlaceholderStyle;
+                PlaceholderText: %client.feedback.field.summary.placeholder;
               }
             }
 
-            Group #AttachmentsList {
+            // Description Field
+            Group {
               LayoutMode: Top;
-              Anchor: (Top: 10);
-              Padding: 10;
-              Background: $Common.@InputBoxBackground;
+              Anchor: (Top: 15);
+
+              Label {
+                Text: %client.feedback.field.description;
+                Style: (TextColor: #96a9be, FontSize: 14, RenderBold: true, RenderUppercase: true);
+              }
+
+              MultilineTextField #DescriptionField {
+                Anchor: (Top: 5, Height: 150);
+                Background: $Common.@InputBoxBackground;
+                MaxVisibleLines: 8;
+                AutoGrow: false;
+                MaxLength: 1000;
+                ContentPadding: (Horizontal: 10, Vertical: 8);
+                Style: $Common.@DefaultInputFieldStyle;
+                PlaceholderStyle: $Common.@DefaultInputFieldPlaceholderStyle;
+                PlaceholderText: %client.feedback.field.description.placeholder;
+              }
+            }
+
+            // Include Log File Section (Bug Reports Only)
+            Group #IncludeLogFileSection {
+              LayoutMode: Left;
+              Anchor: (Top: 15);
               Visible: false;
+
+              CheckBox #IncludeLogFileCheckbox {
+                Anchor: (Width: 22, Height: 22);
+                Background: (TexturePath: "Common/CheckBoxFrame.png", Border: 7);
+                Padding: (Full: 4);
+                Style: $Common.@DefaultCheckBoxStyle;
+              }
+
+              Label {
+                Text: %client.feedback.bugreport.includeLogFile;
+                Style: (TextColor: #96a9be, FontSize: 14, VerticalAlignment: Center);
+                Anchor: (Left: 10);
+              }
+            }
+
+            // Attachments Section
+            Group {
+              LayoutMode: Top;
+              Anchor: (Top: 15);
+
+              Label {
+                Text: %client.feedback.field.attachments;
+                Style: (TextColor: #96a9be, FontSize: 14, RenderBold: true, RenderUppercase: true);
+              }
+
+              Group {
+                LayoutMode: Left;
+
+                $Common.@SecondaryTextButton #AddScreenshotButton {
+                  @Text = %client.feedback.attachments.addScreenshot;
+                  @Anchor = Anchor(Top: 5);
+                }
+
+                $Common.@SecondaryTextButton #AddLogFileButton {
+                  @Text = %client.feedback.attachments.addLogFile;
+                  @Anchor = Anchor(Top: 5, Left: 10);
+                }
+              }
+
+              Group #AttachmentsList {
+                LayoutMode: Top;
+                Anchor: (Top: 10);
+                Padding: 10;
+                Background: $Common.@InputBoxBackground;
+                Visible: false;
+              }
+            }
+
+            // Error Box
+            Group #ErrorBox {
+              LayoutMode: Top;
+              Anchor: (Top: 15);
+              Background: (Color: #4a1f1f);
+              Padding: (Horizontal: 15, Vertical: 10);
+              Visible: false;
+
+              Label #ErrorLabel {
+                Text: "";
+                Style: (TextColor: #ff6b6b, FontSize: 14, Wrap: true);
+              }
             }
           }
+        }
 
-          // Error Box
-          Group #ErrorBox {
-            LayoutMode: Top;
-            Anchor: (Top: 15);
-            Background: (Color: #4a1f1f);
-            Padding: (Horizontal: 15, Vertical: 10);
-            Visible: false;
+        // Success View (hidden initially)
+        Group #SuccessView {
+          LayoutMode: Top;
+          Anchor: (Top: 30);
+          Visible: false;
 
-            Label #ErrorLabel {
-              Text: "";
-              Style: (TextColor: #ff6b6b, FontSize: 14, Wrap: true);
-            }
+          Label #SuccessMessageLabel {
+            Text: "";
+            Style: (TextColor: #d3dee3, FontSize: 16, Wrap: true, HorizontalAlignment: Center);
+          }
+
+          Label #SuccessReportIdLabel {
+            Text: "";
+            Anchor: (Top: 8);
+            Style: (TextColor: #9aa3ab, FontSize: 13, Wrap: true, HorizontalAlignment: Center);
           }
         }
       }

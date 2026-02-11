@@ -50,21 +50,31 @@
 															"Skip":	false,
 															"Capacity":	3,
 															"Inputs":	[{
-																	"$NodeId":	"PositionsCellNoiseDensityNode-be712630-97a9-415e-bbe8-68715e6382db",
+																	"$NodeId":	"PositionsCellNoiseDensityNode-3a3fcb77-b266-47ad-a670-e4957a96b43a",
 																	"Type":	"PositionsCellNoise",
 																	"Skip":	false,
 																	"MaxDistance":	460,
 																	"Positions":	{
-																		"$NodeId":	"ImportedPositions-069dc3f8-b415-4f15-9121-4383ccd0decf",
-																		"Type":	"Imported",
-																		"Name":	"World-Biome-Cells",
-																		"Skip":	false
+																		"$NodeId":	"Mesh2DPositions-46c7153b-ff12-4079-b53c-1b3779f1d12a",
+																		"Type":	"Mesh2D",
+																		"ExportAs":	"World-Biome-Cells",
+																		"Skip":	false,
+																		"PointsY":	0,
+																		"PointGenerator":	{
+																			"$NodeId":	"MeshPointGenerator-c5bb1e83-023c-4c7e-a152-5d6407dded97",
+																			"Type":	"Mesh",
+																			"Jitter":	0.2,
+																			"ScaleX":	350,
+																			"ScaleY":	350,
+																			"ScaleZ":	350,
+																			"Seed":	"World-Biome-Cells"
+																		}
 																	},
 																	"ReturnType":	{
-																		"$NodeId":	"CellValuePCNReturnType-6415fcc1-210a-4ed8-98fa-fb67aafd7d35",
+																		"$NodeId":	"CellValuePCNReturnType-0eba14e6-4651-4aa7-8b4d-8c313354c51d",
 																		"Type":	"CellValue",
 																		"Density":	{
-																			"$NodeId":	"SimplexNoise2DDensityNode-4c37a00b-922c-46d4-955f-c8999ce4ea3e",
+																			"$NodeId":	"SimplexNoise2DDensityNode-fa419fcb-3696-42e4-9ee1-2d3173e401e7",
 																			"Type":	"SimplexNoise2D",
 																			"Skip":	false,
 																			"Lacunarity":	2,
@@ -76,7 +86,7 @@
 																		"DefaultValue":	0
 																	},
 																	"DistanceFunction":	{
-																		"$NodeId":	"PCNDistanceFunction-eb9e3426-fab3-47c7-9c57-0cabf0c094a3",
+																		"$NodeId":	"PCNDistanceFunction-1e52b96d-600e-407b-97cc-6b2d0b70e6c7",
 																		"Type":	"Euclidean"
 																	}
 																}]
@@ -138,34 +148,40 @@
 					"$y":	-5997
 				}
 			},
-			"PositionsCellNoiseDensityNode-be712630-97a9-415e-bbe8-68715e6382db":	{
+			"PositionsCellNoiseDensityNode-3a3fcb77-b266-47ad-a670-e4957a96b43a":	{
 				"$Position":	{
-					"$x":	789,
+					"$x":	800,
+					"$y":	-5997
+				}
+			},
+			"Mesh2DPositions-46c7153b-ff12-4079-b53c-1b3779f1d12a":	{
+				"$Position":	{
+					"$x":	1512,
 					"$y":	-6000
 				}
 			},
-			"CellValuePCNReturnType-6415fcc1-210a-4ed8-98fa-fb67aafd7d35":	{
+			"MeshPointGenerator-c5bb1e83-023c-4c7e-a152-5d6407dded97":	{
 				"$Position":	{
-					"$x":	1503,
-					"$y":	-5639
+					"$x":	2170,
+					"$y":	-5998
 				}
 			},
-			"SimplexNoise2DDensityNode-4c37a00b-922c-46d4-955f-c8999ce4ea3e":	{
+			"CellValuePCNReturnType-0eba14e6-4651-4aa7-8b4d-8c313354c51d":	{
 				"$Position":	{
-					"$x":	1968,
-					"$y":	-5638
+					"$x":	1514,
+					"$y":	-5636
 				}
 			},
-			"PCNDistanceFunction-eb9e3426-fab3-47c7-9c57-0cabf0c094a3":	{
+			"SimplexNoise2DDensityNode-fa419fcb-3696-42e4-9ee1-2d3173e401e7":	{
 				"$Position":	{
-					"$x":	1502,
-					"$y":	-5815
+					"$x":	1979,
+					"$y":	-5635
 				}
 			},
-			"ImportedPositions-069dc3f8-b415-4f15-9121-4383ccd0decf":	{
+			"PCNDistanceFunction-1e52b96d-600e-407b-97cc-6b2d0b70e6c7":	{
 				"$Position":	{
-					"$x":	1493,
-					"$y":	-5995
+					"$x":	1513,
+					"$y":	-5812
 				}
 			}
 		},

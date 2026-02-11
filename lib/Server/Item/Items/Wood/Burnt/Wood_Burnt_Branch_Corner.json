@@ -12,5 +12,18 @@
       }
     ],
     "ParticleColor": "#353535"
+  },
+  "Tags": {
+    "Type": [
+      "Wood",
+      "Tree",
+      "Branch"
+    ],
+    "SubType": [
+      "Branch"
+    ],
+    "Family": [
+      "Burnt"
+    ]
   }
 }

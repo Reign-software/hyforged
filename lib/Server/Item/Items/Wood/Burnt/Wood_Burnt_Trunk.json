@@ -46,5 +46,15 @@
     {
       "Id": "Charcoal"
     }
-  ]
+  ],
+  "Tags": {
+    "Type": [
+      "Wood",
+      "Sap_Source",
+      "Trunk"
+    ],
+    "Family": [
+      "Burnt"
+    ]
+  }
 }

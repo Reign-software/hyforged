@@ -4,6 +4,7 @@ import com.hypixel.hytale.component.Component;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 
 /**
@@ -33,6 +34,10 @@ public class PlayerSpellsComponent implements Component<EntityStore> {
 
     private int schemaVersion = SCHEMA_VERSION;
     private boolean dirty = false;
+
+    // Temporary fields used during codec deserialization
+    private String[] tempLoadSpellIds;
+    private int[] tempLoadSpellSourceCounts;
 
     public PlayerSpellsComponent() {
         // Required for codec
@@ -146,6 +151,46 @@ public class PlayerSpellsComponent implements Component<EntityStore> {
             grantedSpells.clear();
             dirty = true;
         }
+    }
+
+    // ========== TEMP LOAD HELPERS ==========
+
+    /**
+     * Set temporary spell IDs during codec deserialization.
+     */
+    public void setTempLoadSpellIds(@Nonnull String[] spellIds) {
+        this.tempLoadSpellIds = spellIds;
+    }
+
+    /**
+     * Get temporary spell IDs set during deserialization.
+     */
+    @Nullable
+    public String[] getTempLoadSpellIds() {
+        return tempLoadSpellIds;
+    }
+
+    /**
+     * Set temporary spell source counts during codec deserialization.
+     */
+    public void setTempLoadSpellSourceCounts(@Nonnull int[] counts) {
+        this.tempLoadSpellSourceCounts = counts;
+    }
+
+    /**
+     * Get temporary spell source counts set during deserialization.
+     */
+    @Nullable
+    public int[] getTempLoadSpellSourceCounts() {
+        return tempLoadSpellSourceCounts;
+    }
+
+    /**
+     * Clear temporary load data after deserialization is complete.
+     */
+    public void clearTempLoadData() {
+        this.tempLoadSpellIds = null;
+        this.tempLoadSpellSourceCounts = null;
     }
 
     // ========== DIRTY FLAG ==========

@@ -51,7 +51,7 @@
         "Quantity": 2
       },
       {
-        "ItemId": "*Container_Bucket_State_Filled_Water"
+        "ItemId": "*Deco_Tankard_State_Filled_Water"
       }
     ],
     "BenchRequirement": [
@@ -69,7 +69,7 @@
         "ItemId": "Ingredient_Dough"
       },
       {
-        "ItemId": "Container_Bucket",
+        "ItemId": "Deco_Tankard",
         "Quantity": 1
       }
     ]

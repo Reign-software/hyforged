@@ -163,11 +163,17 @@ public class ProgressionComponent implements Component<EntityStore> {
     
     /**
      * Get general passive points available (total - allocated).
+     * <p>
+     * <b>Note:</b> This does NOT account for book points. Use
+     * {@code PassiveTreeService.getAvailableGeneralPoints()} for the
+     * authoritative value that includes book points.
      *
-     * @return Available general passive points
+     * @return Available general passive points (without book bonus)
+     * @deprecated Use {@code PassiveTreeService.getAvailableGeneralPoints()} instead.
      */
+    @Deprecated
     public int getAvailableGeneralPassivePoints() {
-        int total = characterLevel - 1; // Level 1 = 0 points
+        int total = characterLevel; // 1 point at level 1
         return Math.max(0, total - generalPassivePointsAllocated);
     }
     

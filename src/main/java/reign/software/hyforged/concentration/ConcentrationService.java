@@ -37,7 +37,7 @@ public final class ConcentrationService {
 
     private int maxConcentrationStatIndex = -1;
     private int concentrationEntityStatIndex = -1;
-    private boolean indicesInitialized = false;
+    private volatile boolean indicesInitialized = false;
 
     private ConcentrationService() {
         HyforgedPlugin plugin = HyforgedPlugin.getInstance();
@@ -356,6 +356,8 @@ public final class ConcentrationService {
             current = maxConcentration;
         }
         created.setCurrentConcentration(current);
+        // Direct store mutation is acceptable here: this runs in event handler / service
+        // context (not inside a ticking system iteration), consistent with Hytale conventions.
         store.addComponent(entityRef, concentrationPriorityComponentType, created);
         syncCurrentToStatMap(store, entityRef, current);
         return created;

@@ -120,137 +120,24 @@ Group #WorldSettings {
           MaxLength: 32;
         }
 
-        Group #CreativeModeOptions {
+        Group #WorldConfigOptions {
           LayoutMode: TopScrolling;
           Anchor: (Top: 20);
           FlexWeight: 1;
           ScrollbarStyle: $Common.@DefaultScrollbarStyle;
 
-          Group #CreativeModeDropdownRow {
-            LayoutMode: Left;
-            Anchor: (Height: 32, Bottom: 15);
+          Group #CreativeModeOptions {
+            LayoutMode: TopScrolling;
+            Anchor: (Top: 20);
+            FlexWeight: 1;
+            ScrollbarStyle: $Common.@DefaultScrollbarStyle;
 
-            Label {
-              Text: %client.mainMenu.worlds.creativeMode;
-              Anchor: (Right: 15);
-              Style: (
-                FontSize: 18,
-                TextColor: #96a9be,
-                VerticalAlignment: Center
-              );
-            }
-
-            DropdownBox #CreativeModeDropdown {
-              Anchor: (Width: 180, Height: 32);
-              Style: $Common.@DefaultDropdownBoxStyle;
-            }
-          }
-
-          Group {
-            LayoutMode: Left;
-            Anchor: (Top: 15);
-
-            CheckBox #NpcsSettingCheckBox {
-              Anchor: (Width: 22, Height: 22);
-              Background: (TexturePath: "../../Common/CheckBoxFrame.png", Border: 7);
-              Padding: (Full: 4);
-              Style: $Common.@DefaultCheckBoxStyle;
-            }
-
-            Label {
-              Text: %client.mainMenu.worlds.npcSpawning;
-              Anchor: (Right: 30, Left: 11);
-              Style: (
-                FontSize: 18,
-                TextColor: #96a9be
-              );
-            }
-
-          }
-
-          Group #GameTimePausedSettingsGroup {
-            LayoutMode: Left;
-            Anchor: (Top: 15);
-
-            CheckBox #GameTimePausedSettingCheckBox {
-              Anchor: (Width: 22, Height: 22);
-              Background: (TexturePath: "../../Common/CheckBoxFrame.png", Border: 7);
-              Padding: (Full: 4);
-              Style: $Common.@DefaultCheckBoxStyle;
-            }
-
-            Label {
-              Text: %client.mainMenu.worlds.settings.pauseTime;
-              Anchor: (Left: 11);
-              Style: (
-                FontSize: 18,
-                TextColor: #96a9be,
-                VerticalAlignment: Center
-              );
-            }
-          }
-        }
-
-        Group #ExplorationModeOptions {
-          LayoutMode: TopScrolling;
-          Anchor: (Top: 20);
-          FlexWeight: 1;
-          ScrollbarStyle: $Common.@DefaultScrollbarStyle;
-
-          Group #PvpSettingsGroup {
-            LayoutMode: Left;
-            Anchor: (Top: 15);
-
-            CheckBox #PvpSettingCheckBox {
-              Anchor: (Width: 22, Height: 22);
-              Background: (TexturePath: "../../Common/CheckBoxFrame.png", Border: 7);
-              Padding: (Full: 4);
-              Style: $Common.@DefaultCheckBoxStyle;
-            }
-
-            Label {
-              Text: %client.mainMenu.worlds.settings.pvp;
-              Anchor: (Left: 11);
-              Style: (
-                FontSize: 18,
-                TextColor: #96a9be,
-                VerticalAlignment: Center
-              );
-            }
-          }
-
-          Group #FallDamageSettingsGroup {
-            LayoutMode: Left;
-            Anchor: (Top: 15);
-
-            CheckBox #FallDamageSettingCheckBox {
-              Anchor: (Width: 22, Height: 22);
-              Background: (TexturePath: "../../Common/CheckBoxFrame.png", Border: 7);
-              Padding: (Full: 4);
-              Style: $Common.@DefaultCheckBoxStyle;
-            }
-
-            Label {
-              Text: %client.mainMenu.worlds.settings.fallDamage;
-              Anchor: (Left: 11);
-              Style: (
-                FontSize: 18,
-                TextColor: #96a9be,
-                VerticalAlignment: Center
-              );
-            }
-          }
-
-          Group #DayNightCycleSettingsGroup {
-            LayoutMode: Top;
-            Anchor: (Top: 15);
-
-            Group {
+            Group #CreativeModeDropdownRow {
               LayoutMode: Left;
-              Anchor: (Height: 32, Bottom: 10);
+              Anchor: (Height: 32, Bottom: 15);
 
               Label {
-                Text: %client.mainMenu.worlds.settings.dayNightCycle;
+                Text: %client.mainMenu.worlds.creativeMode;
                 Anchor: (Right: 15);
                 Style: (
                   FontSize: 18,
@@ -259,120 +146,117 @@ Group #WorldSettings {
                 );
               }
 
-              Group {
-                FlexWeight: 1;
-              }
-
-              DropdownBox #DayNightCycleDropdown {
+              DropdownBox #CreativeModeDropdown {
                 Anchor: (Width: 180, Height: 32);
                 Style: $Common.@DefaultDropdownBoxStyle;
               }
             }
 
-            Group #DayNightCycleCustomInputs {
-              LayoutMode: Top;
-              Anchor: (Top: 5);
-              Visible: false;
-
-              Group {
-                LayoutMode: Left;
-                Anchor: (Top: 5, Height: 32, Bottom: 10);
-
-                Label {
-                  Text: %client.mainMenu.worlds.settings.dayDuration;
-                  Anchor: (Right: 15);
-                  Style: (
-                    FontSize: 18,
-                    TextColor: #96a9be,
-                    VerticalAlignment: Center
-                  );
-                }
-
-                NumberField #DaytimeDurationInput {
-                  Format: (
-                    MaxDecimalPlaces: 0,
-                    Step: 1,
-                    MinValue: 0,
-                    MaxValue: 10000,
-                  );
-                  Style: $Common.@DefaultInputFieldStyle;
-                  PlaceholderStyle: $Common.@DefaultInputFieldPlaceholderStyle;
-                  Background: $Common.@InputBoxBackground;
-                  Anchor: (Width: 120, Height: 32);
-                  Padding: (Horizontal: 10);
-                }
-              }
-
-              Group {
-                LayoutMode: Left;
-                Anchor: (Top: 10, Height: 32);
-
-                Label {
-                  Text: %client.mainMenu.worlds.settings.nightDuration;
-                  Anchor: (Right: 15);
-                  Style: (
-                    FontSize: 18,
-                    TextColor: #96a9be,
-                    VerticalAlignment: Center
-                  );
-                }
-
-                NumberField #NighttimeDurationInput {
-                  Format: (
-                    MaxDecimalPlaces: 0,
-                    Step: 1,
-                    MinValue: 0,
-                    MaxValue: 10000,
-                  );
-                  Style: $Common.@DefaultInputFieldStyle;
-                  PlaceholderStyle: $Common.@DefaultInputFieldPlaceholderStyle;
-                  Background: $Common.@InputBoxBackground;
-                  Anchor: (Width: 120, Height: 32);
-                }
-              }
-            }
-          }
-
-          Group #DeathPenaltySettingsGroup {
-            LayoutMode: Top;
-            Anchor: (Top: 15);
-
             Group {
               LayoutMode: Left;
-              Anchor: (Height: 32, Bottom: 10);
+              Anchor: (Top: 15);
+
+              CheckBox #NpcsSettingCheckBox {
+                Anchor: (Width: 22, Height: 22);
+                Background: (TexturePath: "../../Common/CheckBoxFrame.png", Border: 7);
+                Padding: (Full: 4);
+                Style: $Common.@DefaultCheckBoxStyle;
+              }
 
               Label {
-                Text: %client.mainMenu.worlds.settings.deathPenalty;
+                Text: %client.mainMenu.worlds.npcSpawning;
+                Anchor: (Right: 30, Left: 11);
+                Style: (
+                  FontSize: 18,
+                  TextColor: #96a9be
+                );
+              }
+
+            }
+
+            Group #GameTimePausedSettingsGroup {
+              LayoutMode: Left;
+              Anchor: (Top: 15);
+
+              CheckBox #GameTimePausedSettingCheckBox {
+                Anchor: (Width: 22, Height: 22);
+                Background: (TexturePath: "../../Common/CheckBoxFrame.png", Border: 7);
+                Padding: (Full: 4);
+                Style: $Common.@DefaultCheckBoxStyle;
+              }
+
+              Label {
+                Text: %client.mainMenu.worlds.settings.pauseTime;
+                Anchor: (Left: 11);
                 Style: (
                   FontSize: 18,
                   TextColor: #96a9be,
                   VerticalAlignment: Center
                 );
-                TooltipTextSpans: %client.mainMenu.worlds.settings.deathPenalty.tooltip;
-                TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+              }
+            }
+          }
+
+          Group #ExplorationModeOptions {
+            LayoutMode: TopScrolling;
+            Anchor: (Top: 20);
+            FlexWeight: 1;
+            ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+
+            Group #PvpSettingsGroup {
+              LayoutMode: Left;
+              Anchor: (Top: 15);
+
+              CheckBox #PvpSettingCheckBox {
+                Anchor: (Width: 22, Height: 22);
+                Background: (TexturePath: "../../Common/CheckBoxFrame.png", Border: 7);
+                Padding: (Full: 4);
+                Style: $Common.@DefaultCheckBoxStyle;
               }
 
-              Group {
-                FlexWeight: 1;
-              }
-
-              DropdownBox #DeathPenaltyDropdown {
-                Anchor: (Width: 180, Height: 32);
-                Style: $Common.@DefaultDropdownBoxStyle;
+              Label {
+                Text: %client.mainMenu.worlds.settings.pvp;
+                Anchor: (Left: 11);
+                Style: (
+                  FontSize: 18,
+                  TextColor: #96a9be,
+                  VerticalAlignment: Center
+                );
               }
             }
 
-            Group #DeathPenaltyPartialInputs {
+            Group #FallDamageSettingsGroup {
+              LayoutMode: Left;
+              Anchor: (Top: 15);
+
+              CheckBox #FallDamageSettingCheckBox {
+                Anchor: (Width: 22, Height: 22);
+                Background: (TexturePath: "../../Common/CheckBoxFrame.png", Border: 7);
+                Padding: (Full: 4);
+                Style: $Common.@DefaultCheckBoxStyle;
+              }
+
+              Label {
+                Text: %client.mainMenu.worlds.settings.fallDamage;
+                Anchor: (Left: 11);
+                Style: (
+                  FontSize: 18,
+                  TextColor: #96a9be,
+                  VerticalAlignment: Center
+                );
+              }
+            }
+
+            Group #DayNightCycleSettingsGroup {
               LayoutMode: Top;
-              Anchor: (Top: 5);
-              Visible: false;
+              Anchor: (Top: 15);
 
               Group {
                 LayoutMode: Left;
-                Anchor: (Top: 5, Height: 32, Bottom: 10);
+                Anchor: (Height: 32, Bottom: 10);
 
                 Label {
-                  Text: %client.mainMenu.worlds.settings.resourceLoss;
+                  Text: %client.mainMenu.worlds.settings.dayNightCycle;
                   Anchor: (Right: 15);
                   Style: (
                     FontSize: 18,
@@ -385,54 +269,227 @@ Group #WorldSettings {
                   FlexWeight: 1;
                 }
 
-                SliderNumberField #ResourceLossSlider {
-                  Anchor: (Width: 180, Height: 5, Right: 0);
-                  SliderStyle: $Common.@DefaultSliderStyle;
-                  NumberFieldContainerAnchor: (Left: 15, Width: 30, Height: 15);
-                  NumberFieldStyle: (
-                    ...$Common.@DefaultInputFieldStyle,
-                    RenderBold: true,
-                    FontSize: 14,
-                    TextColor: #a5b4c4
-                  );
-                  Min: 0;
-                  Max: 100;
-                  Step: 1;
+                DropdownBox #DayNightCycleDropdown {
+                  Anchor: (Width: 180, Height: 32);
+                  Style: $Common.@DefaultDropdownBoxStyle;
                 }
               }
 
+              Group #DayNightCycleCustomInputs {
+                LayoutMode: Top;
+                Anchor: (Top: 5);
+                Visible: false;
+
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Top: 5, Height: 32, Bottom: 10);
+
+                  Label {
+                    Text: %client.mainMenu.worlds.settings.dayDuration;
+                    Anchor: (Right: 15);
+                    Style: (
+                      FontSize: 18,
+                      TextColor: #96a9be,
+                      VerticalAlignment: Center
+                    );
+                  }
+
+                  NumberField #DaytimeDurationInput {
+                    Format: (
+                      MaxDecimalPlaces: 0,
+                      Step: 1,
+                      MinValue: 0,
+                      MaxValue: 10000,
+                    );
+                    Style: $Common.@DefaultInputFieldStyle;
+                    PlaceholderStyle: $Common.@DefaultInputFieldPlaceholderStyle;
+                    Background: $Common.@InputBoxBackground;
+                    Anchor: (Width: 120, Height: 32);
+                    Padding: (Horizontal: 10);
+                  }
+                }
+
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Top: 10, Height: 32);
+
+                  Label {
+                    Text: %client.mainMenu.worlds.settings.nightDuration;
+                    Anchor: (Right: 15);
+                    Style: (
+                      FontSize: 18,
+                      TextColor: #96a9be,
+                      VerticalAlignment: Center
+                    );
+                  }
+
+                  NumberField #NighttimeDurationInput {
+                    Format: (
+                      MaxDecimalPlaces: 0,
+                      Step: 1,
+                      MinValue: 0,
+                      MaxValue: 10000,
+                    );
+                    Style: $Common.@DefaultInputFieldStyle;
+                    PlaceholderStyle: $Common.@DefaultInputFieldPlaceholderStyle;
+                    Background: $Common.@InputBoxBackground;
+                    Anchor: (Width: 120, Height: 32);
+                  }
+                }
+              }
+            }
+
+            Group #DeathPenaltySettingsGroup {
+              LayoutMode: Top;
+              Anchor: (Top: 15);
+
               Group {
                 LayoutMode: Left;
-                Anchor: (Top: 10, Height: 32);
+                Anchor: (Height: 32, Bottom: 10);
 
                 Label {
-                  Text: %client.mainMenu.worlds.settings.durabilityLoss;
-                  Anchor: (Right: 15);
+                  Text: %client.mainMenu.worlds.settings.deathPenalty;
                   Style: (
                     FontSize: 18,
                     TextColor: #96a9be,
                     VerticalAlignment: Center
                   );
+                  TooltipTextSpans: %client.mainMenu.worlds.settings.deathPenalty.tooltip;
+                  TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
                 }
 
                 Group {
                   FlexWeight: 1;
                 }
 
-                SliderNumberField #DurabilityLossSlider {
-                  Anchor: (Width: 180, Height: 5, Right: 0);
-                  SliderStyle: $Common.@DefaultSliderStyle;
-                  NumberFieldContainerAnchor: (Left: 15, Width: 30, Height: 15);
-                  NumberFieldStyle: (
-                    ...$Common.@DefaultInputFieldStyle,
-                    RenderBold: true,
-                    FontSize: 14,
-                    TextColor: #a5b4c4
-                  );
-                  Min: 0;
-                  Max: 100;
-                  Step: 1;
+                DropdownBox #DeathPenaltyDropdown {
+                  Anchor: (Width: 180, Height: 32);
+                  Style: $Common.@DefaultDropdownBoxStyle;
                 }
+              }
+
+              Group #DeathPenaltyPartialInputs {
+                LayoutMode: Top;
+                Anchor: (Top: 5);
+                Visible: false;
+
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Top: 5, Height: 32, Bottom: 10);
+
+                  Label {
+                    Text: %client.mainMenu.worlds.settings.resourceLoss;
+                    Anchor: (Right: 15);
+                    Style: (
+                      FontSize: 18,
+                      TextColor: #96a9be,
+                      VerticalAlignment: Center
+                    );
+                  }
+
+                  Group {
+                    FlexWeight: 1;
+                  }
+
+                  SliderNumberField #ResourceLossSlider {
+                    Anchor: (Width: 180, Height: 5, Right: 0);
+                    SliderStyle: $Common.@DefaultSliderStyle;
+                    NumberFieldContainerAnchor: (Left: 15, Width: 30, Height: 15);
+                    NumberFieldStyle: (
+                      ...$Common.@DefaultInputFieldStyle,
+                      RenderBold: true,
+                      FontSize: 14,
+                      TextColor: #a5b4c4
+                    );
+                    Min: 0;
+                    Max: 100;
+                    Step: 1;
+                  }
+                }
+
+                Group {
+                  LayoutMode: Left;
+                  Anchor: (Top: 10, Height: 32);
+
+                  Label {
+                    Text: %client.mainMenu.worlds.settings.durabilityLoss;
+                    Anchor: (Right: 15);
+                    Style: (
+                      FontSize: 18,
+                      TextColor: #96a9be,
+                      VerticalAlignment: Center
+                    );
+                  }
+
+                  Group {
+                    FlexWeight: 1;
+                  }
+
+                  SliderNumberField #DurabilityLossSlider {
+                    Anchor: (Width: 180, Height: 5, Right: 0);
+                    SliderStyle: $Common.@DefaultSliderStyle;
+                    NumberFieldContainerAnchor: (Left: 15, Width: 30, Height: 15);
+                    NumberFieldStyle: (
+                      ...$Common.@DefaultInputFieldStyle,
+                      RenderBold: true,
+                      FontSize: 14,
+                      TextColor: #a5b4c4
+                    );
+                    Min: 0;
+                    Max: 100;
+                    Step: 1;
+                  }
+                }
+              }
+            }
+          }
+
+          Group #GenericWorldOptions {
+            LayoutMode: TopScrolling;
+            Anchor: (Top: 20);
+            FlexWeight: 1;
+            ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+
+            Group #Panel {
+              Anchor: (Height: 2, Top: 4, Right: 4, Left: 4);
+              Background: (TexturePath: "../../Common/Divider.png", HorizontalBorder: 4);
+            }
+
+            Group {
+              LayoutMode: Top;
+              Anchor: (Top: 15);
+              Label {
+                Text: %client.mainMenu.worlds.advancedSettings;
+                Style: (
+                  TextColor: #96a9be,
+                  FontSize: 16,
+                  RenderBold: true,
+                  RenderUppercase: true
+                );
+              }
+            }
+
+            Group #SkipModValidation {
+              LayoutMode: Left;
+              Anchor: (Top: 15);
+
+              CheckBox #SkipModValidationCheckBox {
+                Anchor: (Width: 22, Height: 22);
+                Background: (TexturePath: "../../Common/CheckBoxFrame.png", Border: 7);
+                Padding: (Full: 4);
+                Style: $Common.@DefaultCheckBoxStyle;
+              }
+
+              Label {
+                Text: %client.mainMenu.worlds.settings.skipModValidation;
+                Anchor: (Left: 11);
+                Style: (
+                  FontSize: 18,
+                  TextColor: #96a9be,
+                  VerticalAlignment: Center
+                );
+                TooltipTextSpans: %client.mainMenu.worlds.settings.skipModValidation.tooltip;
+                TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
               }
             }
           }

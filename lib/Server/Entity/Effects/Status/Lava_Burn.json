@@ -26,5 +26,6 @@
   "Infinite": false,
   "Debuff": true,
   "StatusEffectIcon": "UI/StatusEffects/Burn.png",
-  "Duration": 5
+  "Duration": 5,
+  "DeathMessageKey": "server.general.deathCause.lavaBurn"
 }

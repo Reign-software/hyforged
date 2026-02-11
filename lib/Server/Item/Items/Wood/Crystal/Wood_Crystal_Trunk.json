@@ -15,7 +15,7 @@
     ],
     "Gathering": {
       "Breaking": {
-        "ItemId": "Wood_Camphor_Trunk",
+        "ItemId": "Wood_Crystal_Trunk",
         "GatherType": "Woods"
       }
     },

@@ -4,6 +4,6 @@
   "Enabled": true,
   "Segments": [
     { "Text": "  /hyforged hub", "Color": "#55FF55" },
-    { "Text": " - Open the Character Hub (stats, passives, resources)", "Color": "#AAAAAA" }
+    { "TranslationKey": "hyforged.welcome.hubCommand", "Color": "#AAAAAA" }
   ]
 }

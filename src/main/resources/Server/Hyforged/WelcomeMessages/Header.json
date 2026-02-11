@@ -3,6 +3,6 @@
   "Order": 0,
   "Enabled": true,
   "Segments": [
-    { "Text": "=== Welcome to Hyforged! ===", "Color": "#FFAA00" }
+    { "TranslationKey": "hyforged.welcome.header", "Color": "#FFAA00" }
   ]
 }

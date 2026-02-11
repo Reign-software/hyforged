@@ -43,6 +43,7 @@ public class CreativeHubPlugin extends JavaPlugin {
    @Nonnull
    private static final Message MESSAGE_HUB_RETURN_HINT = Message.translation("server.creativehub.portal.returnHint");
    private static CreativeHubPlugin instance;
+   @Nonnull
    private final Map<UUID, World> activeHubInstances = new ConcurrentHashMap<>();
    private ComponentType<EntityStore, CreativeHubEntityConfig> creativeHubEntityConfigComponentType;
 
@@ -92,7 +93,7 @@ public class CreativeHubPlugin extends JavaPlugin {
          return universe.loadWorld(permanentWorldName);
       } else {
          Path assetPath = InstancesPlugin.getInstanceAssetPath(instanceAssetName);
-         Path worldPath = universe.getPath().resolve("worlds").resolve(permanentWorldName);
+         Path worldPath = universe.validateWorldPath(permanentWorldName);
          return WorldConfig.load(assetPath.resolve("instance.bson"))
             .thenApplyAsync(
                SneakyThrow.sneakyFunction(
@@ -211,7 +212,7 @@ public class CreativeHubPlugin extends JavaPlugin {
          World parentWorld = Universe.get().getWorld(hubEntityConfig.getParentHubWorldUuid());
          if (parentWorld != null) {
             World hubInstance = get().getActiveHubInstance(parentWorld);
-            if (hubInstance == null || !world.equals(hubInstance)) {
+            if (!world.equals(hubInstance)) {
                PlayerRef playerRef = holder.getComponent(PlayerRef.getComponentType());
                if (playerRef != null) {
                   world.execute(() -> playerRef.sendMessage(MESSAGE_HUB_RETURN_HINT));

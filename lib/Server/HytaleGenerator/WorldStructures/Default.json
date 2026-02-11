@@ -7,5 +7,25 @@
     "Type": "Imported",
     "Name": "Biome-Map"
   },
-  "ContentFields": []
+  "Framework": [
+    {
+      "Type" : "Positions",
+      "Entries" : [
+        {
+          "Name" : "Spawns",
+          "Positions" : {
+            "Type" : "List",
+            "ExportAs" : "Spawns",
+            "Positions": [
+              {
+                "X": 0,
+                "Y": 140,
+                "Z": 0
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
 }

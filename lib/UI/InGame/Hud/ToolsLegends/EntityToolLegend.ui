@@ -16,7 +16,7 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "E";
+        @InputBindingKey = "EntityOpenSpawnUI";
         @Description = %client.builderTools.legend.EntityTool.Page3.OpenSpawnUI;
       }
 
@@ -48,23 +48,23 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "E";
+        @InputBindingKey = "EntityTranslateMode";
         @Description = %client.builderTools.legend.EntityTool.Page2.TranslateMode;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "R";
+        @InputBindingKey = "EntityRotateMode";
         @Description = %client.builderTools.legend.EntityTool.Page2.RotateMode;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "R";
+        @InputBindingKey = "EntityRotateMode";
         @InputBindingKeyPrefix = "ALT + ";
         @Description = %client.builderTools.legend.EntityTool.Page2.RotateHeadMode;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "T";
+        @InputBindingKey = "EntityFreeMoveMode";
         @Description = %client.builderTools.legend.EntityTool.Page2.FreeMoveMode;
       }
 
@@ -75,7 +75,7 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "HOME";
+        @InputBindingKey = "EntityToggleSurface";
         @Description = %client.builderTools.legend.EntityTool.Page3.SurfaceLock;
       }
 
@@ -93,18 +93,18 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "C";
+        @InputBindingKey = "EntityClone";
         @InputBindingKeyPrefix = "SHIFT + ";
         @Description = %client.builderTools.legend.EntityTool.Page3.Clone;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "DELETE";
+        @InputBindingKey = "EntityRemove";
         @Description = %client.builderTools.legend.EntityTool.Page3.Remove;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "F";
+        @InputBindingKey = "EntityToggleFreeze";
         @Description = %client.builderTools.legend.EntityTool.Page3.Freeze;
       }
 

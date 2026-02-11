@@ -36,13 +36,63 @@
     {
       "Instructions": [
         {
+          "Continue": true,
           "Sensor": {
-            "Type": "Player",
-            "Range": 20,
+            "Type": "Mob",
+            "GetNPCs": true,
+            "GetPlayers": true,
+            "Range": 5,
             "Filters": [
               {
                 "Type": "ItemInHand",
-                "Items": [ "Item.*Sword*" ]
+                "Items": [ "*Sword*" ]
+              }
+            ]
+          },
+          "Actions": [
+            {
+              "Type": "Appearance",
+              "Appearance": "PlayerTestModel_G"
+            }
+          ]
+        },
+        {
+          "Continue": true,
+          "Sensor": {
+            "Type": "Mob",
+            "GetNPCs": true,
+            "GetPlayers": true,
+            "Range": 10,
+            "MinRange": 6,
+            "Filters": [
+              {
+                "Type": "ItemInHand",
+                "Items": [ "*Sword*" ]
+              }
+            ]
+          },
+          "Actions": [
+            {
+              "Type": "Appearance",
+              "Appearance": "PlayerTestModel_G"
+            }
+          ]
+        },
+        {
+          "Sensor": {
+            "Type": "Mob",
+            "GetNPCs": true,
+            "GetPlayers": true,
+            "Range": 15,
+            "MinRange": 6,
+            "Filters": [
+              {
+                "Type": "ItemInHand",
+                "Items": [ "*Sword*" ]
+              },
+              {
+                "Type": "ViewSector",
+                "ViewSector": 50
               }
             ]
           },

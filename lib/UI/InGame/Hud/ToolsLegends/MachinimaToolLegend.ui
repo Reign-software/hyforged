@@ -99,18 +99,18 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "P";
+        @InputBindingKey = "MachinimaTogglePause";
         @Description = %client.builderTools.legend.MachinimaTool.Page3.TogglePause;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "P";
+        @InputBindingKey = "MachinimaTogglePause";
         @InputBindingKeyPrefix = "SHIFT + ";
         @Description = %client.builderTools.legend.MachinimaTool.Page3.ContinuousPlayback;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "P";
+        @InputBindingKey = "MachinimaTogglePause";
         @InputBindingKeyPrefix = "ALT + ";
         @Description = %client.builderTools.legend.MachinimaTool.Page3.AutoRestart;
       }
@@ -118,12 +118,12 @@ $LegendCommon.@Legend {
       $LegendCommon.@Separator {}
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "R";
+        @InputBindingKey = "MachinimaRestartScene";
         @Description = %client.builderTools.legend.MachinimaTool.Page3.RestartScene;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "R";
+        @InputBindingKey = "MachinimaRestartScene";
         @InputBindingKeyPrefix = "SHIFT + ";
         @Description = %client.builderTools.legend.MachinimaTool.Page3.EndScene;
       }
@@ -160,7 +160,7 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "X";
+        @InputBindingKey = "MachinimaAddKeyframe";
         @LayoutMode = Top;
         @Description = %client.builderTools.legend.MachinimaTool.Page4.AddKeyframe;
       }
@@ -170,7 +170,7 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "X";
+        @InputBindingKey = "MachinimaAddKeyframe";
         @InputBindingKeyPrefix = "SHIFT + ";
         @LayoutMode = Top;
         @Description = %client.builderTools.legend.MachinimaTool.Page4.AddAtCurrentFrame;
@@ -181,7 +181,7 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "X";
+        @InputBindingKey = "MachinimaAddKeyframe";
         @InputBindingKeyPrefix = "ALT + ";
         @LayoutMode = Top;
         @Description = %client.builderTools.legend.MachinimaTool.Page4.CopyKeyframe;
@@ -192,25 +192,25 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "DEL";
+        @InputBindingKey = "MachinimaRemoveKeyframe";
         @Description = %client.builderTools.legend.MachinimaTool.Page4.DeleteKeyframe;
       }
 
       $LegendCommon.@Separator {}
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "T";
+        @InputBindingKey = "MachinimaEditKeyframe";
         @Description = %client.builderTools.legend.MachinimaTool.Page4.EditKeyframe;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "T";
+        @InputBindingKey = "MachinimaEditKeyframe";
         @InputBindingKeyPrefix = "SHIFT + ";
         @Description = %client.builderTools.legend.MachinimaTool.Page4.MoveActor;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "T";
+        @InputBindingKey = "MachinimaEditKeyframe";
         @InputBindingKeyPrefix = "ALT + ";
         @LayoutMode = Top;
         @Description = %client.builderTools.legend.MachinimaTool.Page4.EditFrameTime;
@@ -287,7 +287,7 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "Y";
+        @InputBindingKey = "MachinimaCycleSelectionMode";
         @Description = %client.builderTools.legend.MachinimaTool.Page6.CycleMode;
       }
 
@@ -324,23 +324,23 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "I";
+        @InputBindingKey = "MachinimaToggleDisplay";
         @Description = %client.builderTools.legend.MachinimaTool.Page7.ToggleDisplay;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "I";
+        @InputBindingKey = "MachinimaToggleDisplay";
         @InputBindingKeyPrefix = "SHIFT + ";
         @Description = %client.builderTools.legend.MachinimaTool.Page7.TogglePathNodes;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "C";
+        @InputBindingKey = "MachinimaToggleCamera";
         @Description = %client.builderTools.legend.MachinimaTool.Page7.ToggleCamera;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "C";
+        @InputBindingKey = "MachinimaToggleCamera";
         @InputBindingKeyPrefix = "SHIFT + ";
         @Description = %client.builderTools.legend.MachinimaTool.Page7.ToggleFrustum;
       }
@@ -352,18 +352,18 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "HOME";
+        @InputBindingKey = "MachinimaOriginAction";
         @Description = %client.builderTools.legend.MachinimaTool.Page7.GoToOrigin;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "HOME";
+        @InputBindingKey = "MachinimaOriginAction";
         @InputBindingKeyPrefix = "SHIFT + ";
         @Description = %client.builderTools.legend.MachinimaTool.Page7.SetOrigin;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "HOME";
+        @InputBindingKey = "MachinimaOriginAction";
         @InputBindingKeyPrefix = "ALT + ";
         @Description = %client.builderTools.legend.MachinimaTool.Page7.OffsetToOrigin;
       }

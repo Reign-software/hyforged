@@ -12,7 +12,7 @@
 - ADR-0008: Use Hytale AssetRegistry Tag System (2026-01-20) — Accepted
 - ADR-0009: Use Hytale Quality and ItemStack Metadata for Affixes (2026-01-20) — Accepted
 - ADR-0010: Unified Stat Integration via EntityStatValue Extension (2026-01-21) — Accepted
-- ADR-0011: Runtime Quality Replacement for Items and NPCs (2026-01-23) — Proposed
+- ADR-0011: Runtime Quality Replacement for Items and NPCs (2026-01-23) — Accepted
 - ADR-0012: Concentration Priority UI Reordering Controls (2026-02-01) — Accepted
 - ADR-0013: Top-Down Vertical Passive Tree Layout (2026-01-26) — Accepted
 
@@ -682,7 +682,7 @@ Standard categories established for stat definitions:
 
 ### ADR-0011: Runtime Quality Replacement for Items and NPCs
 - Date: 2026-01-23
-- Status: Proposed
+- Status: Accepted
 - Deciders: JBurl
 
 #### Context

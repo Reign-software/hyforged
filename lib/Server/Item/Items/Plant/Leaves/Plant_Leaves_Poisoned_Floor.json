@@ -30,6 +30,9 @@
       },
       "UseDefaultDropWhenPlaced": true
     },
+    "PlacementSettings": {
+      "AllowBreakReplace": true
+    },
     "BlockParticleSetId": "Leaves_Branches",
     "BlockSoundSetId": "Plant",
     "ParticleColor": "#504657",

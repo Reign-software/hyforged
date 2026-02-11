@@ -12,6 +12,7 @@ import com.hypixel.hytale.codec.lookup.Priority;
 import com.hypixel.hytale.codec.util.RawJsonReader;
 import com.hypixel.hytale.common.plugin.PluginIdentifier;
 import com.hypixel.hytale.common.semver.SemverRange;
+import com.hypixel.hytale.common.util.java.ManifestUtil;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.protocol.GameMode;
 import com.hypixel.hytale.server.core.auth.AuthCredentialStoreProvider;
@@ -107,6 +108,8 @@ public class HytaleServerConfig {
       .add()
       .append(new KeyedCodec<>("Update", HytaleServerConfig.UpdateConfig.CODEC), (o, value) -> o.updateConfig = value, o -> o.updateConfig)
       .add()
+      .append(new KeyedCodec<>("SkipModValidationForVersion", Codec.STRING), (o, v) -> o.skipModValidationForVersion = v, o -> o.skipModValidationForVersion)
+      .add()
       .afterDecode((config, extraInfo) -> {
          config.defaults.hytaleServerConfig = config;
          config.connectionTimeouts.setHytaleServerConfig(config);
@@ -124,6 +127,9 @@ public class HytaleServerConfig {
 
          if (config.defaultModsEnabled == null && extraInfo.getVersion() < 4) {
             config.defaultModsEnabled = true;
+         }
+
+         if (extraInfo.getVersion() != 4) {
             config.markChanged();
          }
       })
@@ -164,6 +170,8 @@ public class HytaleServerConfig {
    private boolean displayTmpTagsInStrings;
    @Nonnull
    private HytaleServerConfig.UpdateConfig updateConfig = new HytaleServerConfig.UpdateConfig(this);
+   @Nullable
+   private String skipModValidationForVersion;
 
    public HytaleServerConfig() {
    }
@@ -329,6 +337,10 @@ public class HytaleServerConfig {
    public void setUpdateConfig(@Nonnull HytaleServerConfig.UpdateConfig updateConfig) {
       this.updateConfig = updateConfig;
       this.markChanged();
+   }
+
+   public boolean shouldSkipModValidation() {
+      return this.skipModValidationForVersion != null && this.skipModValidationForVersion.equals(ManifestUtil.getImplementationRevisionId());
    }
 
    public void removeModule(@Nonnull String module) {

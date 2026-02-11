@@ -24,21 +24,83 @@
     "Type" : "Imported",
     "Name" : "Biome-Map-Portals"
   },
-  "ContentFields" : [
+  "SpawnPositions" : {
+    "Type":	"Offset",
+    "OffsetY":	200,
+    "Positions": {
+      "Type" : "Imported",
+      "Name" : "Portals-Oasis-Spawns"
+    }
+  },
+  "Framework" : [
     {
-      "Type" : "BaseHeight",
-      "Name" : "Base",
-      "Y" : 100
+      "Type" : "Positions",
+      "Entries" : [
+        {
+          "Name" : "Portals-Henges-Spawns",
+          "Positions" : {
+            "Type":	"Bound",
+            "ExportAs": "Portals-Oasis-Spawns",
+            "Bounds":	{
+              "PointA":	{
+                "X":	1000,
+                "Y":	100,
+                "Z":	1000
+              },
+              "PointB":	{
+                "X":	-1000,
+                "Z":	-1000
+              }
+            },
+            "Positions":	{
+              "Type":	"FieldFunction",
+              "FieldFunction":	{
+                "Type":	"Distance",
+                "Curve":	{
+                  "Type":	"Manual",
+                  "Points":	[{
+                      "In":	250,
+                      "Out":	-1
+                    }, {
+                      "In":	350,
+                      "Out":	1
+                    }, {
+                      "In":	450,
+                      "Out":	-1
+                    }]
+                }
+              },
+              "Delimiters":	[{
+                  "Min":	0,
+                  "Max":	2
+                }],
+              "Positions":	{
+                "Type":	"Mesh2D",
+                "PointGenerator":	{
+                  "Type":	"Mesh"
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     {
-      "Type" : "BaseHeight",
-      "Name" : "Water",
-      "Y" : 100
-    },
-    {
-      "Type" : "BaseHeight",
-      "Name" : "Bedrock",
-      "Y" : 0
+      "Type" : "DecimalConstants",
+      "Entries" : [
+        {
+          "Name" : "Base",
+          "Value" : 100
+        },
+        {
+          "Name" : "Water",
+          "Value" : 100
+        },
+        {
+          "Name" : "Bedrock",
+          "Value" : 0
+        }
+      ]
     }
   ]
 }

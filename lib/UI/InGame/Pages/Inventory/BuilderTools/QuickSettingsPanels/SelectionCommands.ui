@@ -39,7 +39,7 @@ Group #SelectionCommandsPanel {
 
   Group {
     Anchor: (Height: 2, Vertical: 5);
-    Background: #282b2a;
+    Background: #282b2a(0.0);
   }
 
   Group {
@@ -76,7 +76,7 @@ Group #SelectionCommandsPanel {
 
     Group {
       Anchor: (Height: 2, Vertical: 5);
-      Background: #282b2a;
+      Background: #282b2a(0.0);
     }
 
     Group {

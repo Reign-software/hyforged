@@ -450,28 +450,26 @@
     },
     "Entries": [
       {
-        "Names": ["Env_Zone2_Feran"],
+        "Names": ["Env_Zone2_Encounters"],
         "NoiseMask": {
-          "Seed": "Drylands-Pattern-Monuments-Tier-2",
-          "Density": [0.8125, 1],
-          "NoiseType": "CELL",
-          "Formula": "INVERTED_SQRT",
-          "CellMode": "DISTANCE",
-          "Scale": 0.005,
-          "Jitter": 0.6,
+          "Type": "MIN",
+          "Noise": [
+            {
+              "File": "Zones.Noise.Zone1.NoiseMasks.Faction_Undead_Environments"
+            }
+          ],
           "Threshold": [0.6, 1]
         }
       },
       {
-        "Names": ["Env_Zone2_Encounters"],
+        "Names": ["Env_Zone2_Feran"],
         "NoiseMask": {
-          "Seed": "Drylands-Pattern-Monuments-Tier-2",
-          "Density": [0.25, 0.625],
-          "NoiseType": "CELL",
-          "Formula": "INVERTED_SQRT",
-          "CellMode": "DISTANCE",
-          "Scale": 0.005,
-          "Jitter": 0.6,
+          "Type": "MIN",
+          "Noise": [
+            {
+              "File": "Zones.Noise.Zone2.NoiseMasks.Faction_Feran_Environments"
+            }
+          ],
           "Threshold": [0.6, 1]
         }
       }

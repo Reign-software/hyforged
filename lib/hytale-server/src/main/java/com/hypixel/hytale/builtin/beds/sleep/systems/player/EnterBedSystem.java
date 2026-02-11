@@ -9,9 +9,11 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.RefChangeSystem;
 import com.hypixel.hytale.protocol.BlockMountType;
+import com.hypixel.hytale.protocol.SoundCategory;
 import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.asset.type.gameplay.SleepConfig;
+import com.hypixel.hytale.server.core.asset.type.gameplay.sleep.SleepConfig;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.world.SoundUtil;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import java.time.Duration;
@@ -28,26 +30,36 @@ public class EnterBedSystem extends RefChangeSystem<EntityStore, MountedComponen
    @Nonnull
    private static final Message MESSAGE_SERVER_INTERACTIONS_SLEEP_DISABLED = Message.translation("server.interactions.sleep.disabled");
    @Nonnull
-   private static final Query<EntityStore> QUERY = Query.and(MountedComponent.getComponentType(), PlayerRef.getComponentType());
+   private final ComponentType<EntityStore, MountedComponent> mountedComponentType;
+   @Nonnull
+   private final ComponentType<EntityStore, PlayerRef> playerRefComponentType;
+   @Nonnull
+   private final Query<EntityStore> query;
 
-   public EnterBedSystem() {
+   public EnterBedSystem(
+      @Nonnull ComponentType<EntityStore, MountedComponent> mountedComponentType, @Nonnull ComponentType<EntityStore, PlayerRef> playerRefComponentType
+   ) {
+      this.mountedComponentType = mountedComponentType;
+      this.playerRefComponentType = playerRefComponentType;
+      this.query = Query.and(mountedComponentType, playerRefComponentType);
    }
 
    @Nonnull
    @Override
    public ComponentType<EntityStore, MountedComponent> componentType() {
-      return MountedComponent.getComponentType();
+      return this.mountedComponentType;
    }
 
+   @Nonnull
    @Override
    public Query<EntityStore> getQuery() {
-      return QUERY;
+      return this.query;
    }
 
    public void onComponentAdded(
       @Nonnull Ref<EntityStore> ref, @Nonnull MountedComponent component, @Nonnull Store<EntityStore> store, @Nonnull CommandBuffer<EntityStore> commandBuffer
    ) {
-      check(ref, component, store);
+      check(ref, component, store, this.playerRefComponentType);
    }
 
    public void onComponentSet(
@@ -57,7 +69,7 @@ public class EnterBedSystem extends RefChangeSystem<EntityStore, MountedComponen
       @Nonnull Store<EntityStore> store,
       @Nonnull CommandBuffer<EntityStore> commandBuffer
    ) {
-      check(ref, newComponent, store);
+      check(ref, newComponent, store, this.playerRefComponentType);
    }
 
    public void onComponentRemoved(
@@ -65,30 +77,38 @@ public class EnterBedSystem extends RefChangeSystem<EntityStore, MountedComponen
    ) {
    }
 
-   public static void check(@Nonnull Ref<EntityStore> ref, @Nonnull MountedComponent component, @Nonnull Store<EntityStore> store) {
+   private static void check(
+      @Nonnull Ref<EntityStore> ref,
+      @Nonnull MountedComponent component,
+      @Nonnull Store<EntityStore> store,
+      @Nonnull ComponentType<EntityStore, PlayerRef> playerRefComponentType
+   ) {
       if (component.getBlockMountType() == BlockMountType.Bed) {
-         onEnterBed(ref, store);
+         onEnterBed(ref, store, playerRefComponentType);
       }
    }
 
-   public static void onEnterBed(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
+   private static void onEnterBed(
+      @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull ComponentType<EntityStore, PlayerRef> playerRefComponentType
+   ) {
       World world = store.getExternalData().getWorld();
       CanSleepInWorld.Result canSleepResult = CanSleepInWorld.check(world);
       if (canSleepResult.isNegative()) {
-         PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+         PlayerRef playerRefComponent = store.getComponent(ref, playerRefComponentType);
 
-         assert playerRef != null;
+         assert playerRefComponent != null;
 
-         if (canSleepResult instanceof CanSleepInWorld.NotDuringSleepHoursRange(LocalDateTime msg, SleepConfig var13)) {
-            LocalTime startTime = var13.getSleepStartTime();
-            Duration untilSleep = var13.computeDurationUntilSleep(msg);
+         if (canSleepResult instanceof CanSleepInWorld.NotDuringSleepHoursRange(LocalDateTime msg, SleepConfig var14)) {
+            LocalTime startTime = var14.getSleepStartTime();
+            Duration untilSleep = var14.computeDurationUntilSleep(msg);
             Message msgx = Message.translation("server.interactions.sleep.sleepAtTheseHours")
                .param("timeValue", startTime.toString())
                .param("until", formatDuration(untilSleep));
-            playerRef.sendMessage(msgx.color("#F2D729"));
+            playerRefComponent.sendMessage(msgx.color("#F2D729"));
+            SoundUtil.playSoundEvent2dToPlayer(playerRefComponent, var14.getSounds().getFailIndex(), SoundCategory.UI);
          } else {
             Message msg = getMessage(canSleepResult);
-            playerRef.sendMessage(msg);
+            playerRefComponent.sendMessage(msg);
          }
       }
    }

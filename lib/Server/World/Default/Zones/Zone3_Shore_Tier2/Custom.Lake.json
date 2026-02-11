@@ -292,7 +292,20 @@
     "Default": {
       "Names": ["Env_Zone3_Shores"]
     },
-    "Entries": []
+    "Entries": [
+      {
+        "Names": ["Env_Zone3_Outlander_Village"],
+        "NoiseMask": {
+          "Type": "MIN",
+          "Noise": [
+            {
+              "File": "Zones.Noise.Zone3.NoiseMasks.Faction_Outlanders_Environments_Lake"
+            }
+          ],
+          "Threshold": [0.6, 1]
+        }
+      }
+    ]
   },
   "Water": {
     "Entries": [

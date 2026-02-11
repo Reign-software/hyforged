@@ -26,5 +26,6 @@
   "Infinite": false,
   "Debuff": true,
   "StatusEffectIcon": "UI/StatusEffects/Burn.png",
-  "Duration": 3
+  "Duration": 3,
+  "DeathMessageKey": "server.general.deathCause.burn"
 }

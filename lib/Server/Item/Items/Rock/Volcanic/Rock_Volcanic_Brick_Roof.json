@@ -61,7 +61,7 @@
           }
         },
         "Inverted_Corner_Right": {
-          "CustomModel": "Blocks/Structures/Roofs/Corner_Inverted_Right.blockymodel",
+          "CustomModel": "Blocks/Structures/Roofs/Corner_Rock_Inverted_Right.blockymodel",
           "HitboxType": "Stairs_Inverted_Corner_Right",
           "FlipType": "Orthogonal",
           "Supporting": {
@@ -71,7 +71,7 @@
           }
         },
         "Inverted_Corner_Left": {
-          "CustomModel": "Blocks/Structures/Roofs/Corner_Inverted_Left.blockymodel",
+          "CustomModel": "Blocks/Structures/Roofs/Corner_Rock_Inverted_Left.blockymodel",
           "HitboxType": "Stairs_Inverted_Corner_Left",
           "FlipType": "Orthogonal",
           "Supporting": {

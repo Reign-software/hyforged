@@ -14,7 +14,7 @@ Group #CategoryWrapper {
     // Divider line above the category
     Group #Divider {
       Anchor: (Height: 1, Bottom: 4);
-      Background: #282b2a;
+      Background: #282b2a(0.0);
     }
 
     // Header row

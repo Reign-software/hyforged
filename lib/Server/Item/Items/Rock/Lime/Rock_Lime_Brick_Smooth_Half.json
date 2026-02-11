@@ -3,7 +3,7 @@
     "Name": "server.items.Rock_Limestone_Brick_Smooth_Half.name"
   },
   "Icon": "Icons/ItemsGenerated/Rock_Limestone_Brick_Smooth_Half.png",
-  "Set": "Rock_Limestone_Brick",
+  "Set": "Rock_Lime_Brick",
   "Parent": "Rock_Stone_Brick_Smooth_Half",
   "Recipe": {
     "Input": [

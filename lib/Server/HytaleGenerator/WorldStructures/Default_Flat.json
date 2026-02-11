@@ -9,21 +9,23 @@
     "Type" : "Constant",
     "Value" : 0
   },
-  "ContentFields" : [
+  "Framework" : [
     {
-      "Type" : "BaseHeight",
-      "Name" : "Base",
-      "Y" : 80
-    },
-    {
-      "Type" : "BaseHeight",
-      "Name" : "Water",
-      "Y" : 80
-    },
-    {
-      "Type" : "BaseHeight",
-      "Name" : "Bedrock",
-      "Y" : 0
+      "Type" : "DecimalConstants",
+      "Entries" : [
+        {
+          "Name" : "Base",
+          "Value" : 80
+        },
+        {
+          "Name" : "Water",
+          "Value" : 80
+        },
+        {
+          "Name" : "Bedrock",
+          "Value" : 0
+        }
+      ]
     }
   ]
 }

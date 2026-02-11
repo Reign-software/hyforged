@@ -10,7 +10,7 @@
     "ItemAnimationId": "Tongue"
   },
   "$Comment": "Prepare Delay",
-  "RunTime": 0.333,
+  "RunTime": 0.5,
   "Next": {
     "Type": "Selector",
     "Effects": {

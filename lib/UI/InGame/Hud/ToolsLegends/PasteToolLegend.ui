@@ -36,7 +36,7 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "E";
+        @InputBindingKey = "PasteOpenPrefabList";
         @Description = %client.builderTools.legend.PasteTool.Page1.OpensPrefabList;
       }
 
@@ -61,31 +61,33 @@ $LegendCommon.@Legend {
       $LegendCommon.@Separator {}
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "R";
+        @InputBindingKey = "PasteRotate";
         @Description = %client.builderTools.legend.PasteTool.Page1.RotatePrefabY;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "SHIFT + R";
+        @InputBindingKey = "PasteRotate";
+        @InputBindingKeyPrefix = "SHIFT + ";
         @Description = %client.builderTools.legend.PasteTool.Page1.RotatePrefabX;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "ALT + R";
+        @InputBindingKey = "PasteRotate";
+        @InputBindingKeyPrefix = "ALT + ";
         @Description = %client.builderTools.legend.PasteTool.Page1.RotatePrefabZ;
       }
 
       $LegendCommon.@Separator {}
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "T";
+        @InputBindingKey = "PastePreview";
         @Description = %client.builderTools.legend.PasteTool.Page1.ShowTexture;
       }
 
       $LegendCommon.@Separator {}
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "Q";
+        @InputBindingKey = "PasteCycleOrigin";
         @Description = %client.builderTools.legend.PasteTool.Page1.CycleOrigin;
       }
 
@@ -107,12 +109,12 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "Pg. UP";
+        @InputBindingKey = "PasteShiftUp";
         @Description = %client.builderTools.legend.PasteTool.Page2.ShiftPrefabUp;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "Pg. Down";
+        @InputBindingKey = "PasteShiftDown";
         @Description = %client.builderTools.legend.PasteTool.Page2.ShiftPrefabDown;
       }
 
@@ -144,7 +146,7 @@ $LegendCommon.@Legend {
       $LegendCommon.@Separator {}
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "Home";
+        @InputBindingKey = "PasteShiftReset";
         @Description = %client.builderTools.legend.PasteTool.Page2.ResetShifting;
       }
 

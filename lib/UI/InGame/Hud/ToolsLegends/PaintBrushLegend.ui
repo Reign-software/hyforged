@@ -50,15 +50,15 @@ $LegendCommon.@Legend {
         Text: %client.builderTools.legend.shiftFasterChange;
       }
 
-      $LegendCommon.@DoubleArrowKeyHotkeyRow {
-        @IconOne = $LegendCommon.@RowHintIconKeyUp;
-        @IconTwo = $LegendCommon.@RowHintIconKeyDown;
+      $LegendCommon.@DoubleHotkeyRow {
+        @InputBindingKeyOne = "BrushIncreaseHeight";
+        @InputBindingKeyTwo = "BrushDecreaseHeight";
         @Text = %client.builderTools.legend.changeHeight;
       }
 
-      $LegendCommon.@DoubleArrowKeyHotkeyRow {
-        @IconOne = $LegendCommon.@RowHintIconKeyLeft;
-        @IconTwo = $LegendCommon.@RowHintIconKeyRight;
+      $LegendCommon.@DoubleHotkeyRow {
+        @InputBindingKeyOne = "BrushIncreaseWidth";
+        @InputBindingKeyTwo = "BrushDecreaseWidth";
         @Text = %client.builderTools.legend.changeWidth;
       }
 
@@ -82,12 +82,14 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "SHIFT + E";
+        @InputBindingKey = "BrushAxisLockTranslate";
+        @InputBindingKeyPrefix = "SHIFT + ";
         @Description = %client.builderTools.legend.PaintBrush.Page2.ShowSurfaceMoveTool;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "SHIFT + R";
+        @InputBindingKey = "BrushAxisLockRotate";
+        @InputBindingKeyPrefix = "SHIFT + ";
         @Description = %client.builderTools.legend.PaintBrush.Page2.ShowSurfaceRotationTool;
       }
 
@@ -97,7 +99,7 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "X";
+        @InputBindingKey = "BrushAxisLockExit";
         @Description = %client.builderTools.legend.PaintBrush.Page2.ExitAxisLockMode;
       }
 

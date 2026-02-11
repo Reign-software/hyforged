@@ -16,7 +16,7 @@ Group {
     Visible: false;
 
     Label #KeybindText1 {
-      Style: (OutlineColor: #000000(0.1));
+      Style: (OutlineColor: #000000(0.1), Wrap: true);
     }
 
     ActionButton #InputBinding {
@@ -24,7 +24,7 @@ Group {
     }
 
     Label #KeybindText2 {
-      Style: (OutlineColor: #000000(0.1));
+      Style: (OutlineColor: #000000(0.1), Wrap: true);
     }
   }
 

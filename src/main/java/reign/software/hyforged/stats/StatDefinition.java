@@ -40,6 +40,7 @@ public record StatDefinition(
     @Nonnull String description,
     boolean isAbilityScore,
     boolean isRating,
+    int ratingK,
     @Nonnull List<ScalingRule> scaling,
     int softCapBps,
     int hardCapBps,
@@ -48,6 +49,9 @@ public record StatDefinition(
     
     /** Sentinel value indicating no cap is defined */
     public static final int NO_CAP = -1;
+    
+    /** Default k constant for rating diminishing returns */
+    public static final int DEFAULT_RATING_K = 10;
     
     public StatDefinition {
         Objects.requireNonNull(id, "id cannot be null");
@@ -124,6 +128,7 @@ public record StatDefinition(
         private String description = "";
         private boolean isAbilityScore = false;
         private boolean isRating = false;
+        private int ratingK = DEFAULT_RATING_K;
         private List<ScalingRule> scaling = Collections.emptyList();
         private int softCapBps = NO_CAP;
         private int hardCapBps = NO_CAP;
@@ -183,6 +188,20 @@ public record StatDefinition(
             if (isRating) {
                 this.displayFormat = DisplayFormat.RATING;
             }
+            return this;
+        }
+        
+        /**
+         * Set the diminishing-returns k constant for this rating stat.
+         * <p>
+         * Higher values mean more diminishing returns against higher-level targets.
+         * Only relevant when {@link #rating(boolean)} is true.
+         * 
+         * @param k The k constant (default: {@link StatDefinition#DEFAULT_RATING_K})
+         * @return this builder
+         */
+        public Builder ratingK(int k) {
+            this.ratingK = k;
             return this;
         }
         
@@ -280,7 +299,7 @@ public record StatDefinition(
             return new StatDefinition(
                 id, category, displayFormat, defaultValue,
                 minValue, maxValue, tags, displayName, description,
-                isAbilityScore, isRating, scaling,
+                isAbilityScore, isRating, ratingK, scaling,
                 softCapBps, hardCapBps, softCapBonusStat
             );
         }

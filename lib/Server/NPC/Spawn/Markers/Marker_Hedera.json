@@ -7,5 +7,6 @@
       "SpawnAfterGameTime": "PT1H"
     }
   ],
-  "MaxDropHeight": 8
+  "MaxDropHeight": 8,
+  "DeactivationDistance": 150
 }

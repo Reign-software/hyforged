@@ -17,6 +17,7 @@ import java.util.Map.Entry;
 import javax.annotation.Nonnull;
 
 public class NBufferBundle implements MemInstrument {
+   @Nonnull
    private final Map<NBufferType, NBufferBundle.Grid> grids = new HashMap<>();
 
    public NBufferBundle() {
@@ -93,8 +94,11 @@ public class NBufferBundle implements MemInstrument {
    }
 
    public static class Access implements MemInstrument {
+      @Nonnull
       private final NBufferBundle.Grid grid;
+      @Nonnull
       private final Bounds3i bounds_bufferGrid;
+      @Nonnull
       private final NBufferBundle.Grid.TrackedBuffer[] buffers;
       private boolean isClosed;
 
@@ -177,7 +181,9 @@ public class NBufferBundle implements MemInstrument {
       }
 
       public static class View {
+         @Nonnull
          private final NBufferBundle.Access access;
+         @Nonnull
          private final Bounds3i bounds_bufferGrid;
 
          private View(@Nonnull NBufferBundle.Access access, @Nonnull Bounds3i bounds_bufferGrid) {
@@ -204,10 +210,14 @@ public class NBufferBundle implements MemInstrument {
    }
 
    public static class Grid implements MemInstrument {
+      @Nonnull
       private final NBufferType bufferType;
+      @Nonnull
       private final Map<Vector3i, NBufferBundle.Grid.TrackedBuffer> buffers;
+      @Nonnull
       private final Deque<Vector3i> oldestColumnEntryDeque_bufferGrid;
       private final int capacity;
+      @Nonnull
       private final List<NBufferBundle.Access> accessors;
 
       private Grid(@Nonnull NBufferType bufferType, int capacity) {
@@ -364,6 +374,7 @@ public class NBufferBundle implements MemInstrument {
    }
 
    public static class MemoryReport {
+      @Nonnull
       public final List<NBufferBundle.MemoryReport.GridEntry> gridEntries = new ArrayList<>();
 
       public MemoryReport() {

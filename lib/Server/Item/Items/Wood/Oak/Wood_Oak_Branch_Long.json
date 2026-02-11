@@ -86,6 +86,9 @@
     "SubType": [
       "Branch"
     ],
+    "BranchType": [
+      "Long"
+    ],
     "Family": [
       "Oak"
     ]

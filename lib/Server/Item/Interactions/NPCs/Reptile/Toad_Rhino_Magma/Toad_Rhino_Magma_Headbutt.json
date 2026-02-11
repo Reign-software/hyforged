@@ -13,7 +13,8 @@
           "Type": "Simple",
           "Effects": {
             "ItemPlayerAnimationsId": "Toad_Rhino_Magma_Default",
-            "ItemAnimationId": "Headbutt"
+            "ItemAnimationId": "Headbutt",
+            "WorldSoundEventId": "SFX_Toad_Rhino_Magma_Run"
           },
           "RunTime": 0.417
         },

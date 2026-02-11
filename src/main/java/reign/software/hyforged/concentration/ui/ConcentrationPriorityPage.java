@@ -216,8 +216,8 @@ public class ConcentrationPriorityPage extends InteractiveCustomUIPage<Concentra
     @Nonnull
     private static Message buildStatusMessage(boolean enabled) {
         return enabled
-                ? Message.raw("Enabled").color("#60d394")
-                : Message.raw("Disabled").color("#d36c6c");
+                ? Message.translation("hyforged.concentration.priority.enabled").color("#60d394")
+                : Message.translation("hyforged.concentration.priority.disabled").color("#d36c6c");
     }
 
     @Nonnull

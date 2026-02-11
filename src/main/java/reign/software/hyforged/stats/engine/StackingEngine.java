@@ -371,8 +371,6 @@ public final class StackingEngine {
     private static int clamp(long value, int min, int max) {
         if (value < min) return min;
         if (value > max) return max;
-        if (value < Integer.MIN_VALUE) return Integer.MIN_VALUE;
-        if (value > Integer.MAX_VALUE) return Integer.MAX_VALUE;
         return (int) value;
     }
     

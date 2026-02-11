@@ -49,7 +49,7 @@
 
 @Separator = Group {
   Anchor: (Height: 2, Vertical: 10);
-  Background: #a27e39(0.27);
+  Background: #ffffff(0.15);
 };
 
 @SectionHeader = Label {
@@ -78,7 +78,7 @@
 
       @RowHintContainer {
         HotkeyLabel #ToggleLegendKey {
-          InputBindingKey: "L";
+          InputBindingKey: "ToggleBuilderToolsLegend";
         }
       }
     }
@@ -149,6 +149,7 @@
 @HotkeyRow = Group {
   @InputBindingKey = "";
   @InputBindingKeyPrefix = "";
+  @InputBindingKeyPrefixBinding = "";
   @Description = "";
   @LayoutMode = Middle; // or Top
 
@@ -157,6 +158,7 @@
       HotkeyLabel {
         InputBindingKey: @InputBindingKey;
         InputBindingKeyPrefix: @InputBindingKeyPrefix;
+        InputBindingKeyPrefixBinding: @InputBindingKeyPrefixBinding;
       }
     }
 
@@ -190,6 +192,33 @@
       Group {
         Anchor: (Width: @RowHintIconSize, Height: @RowHintIconSize);
         Background: @IconTwo;
+      }
+    }
+
+    @RowLabelContainer {
+      LayoutMode: @LayoutMode;
+      @RowLabel {
+        Text: @Text;
+      }
+    }
+  }
+};
+
+@DoubleHotkeyRow = Group {
+  @InputBindingKeyOne = "";
+  @InputBindingKeyTwo = "";
+  @Text = "";
+  @LayoutMode = Middle; // or Top
+
+  @Row {
+    @RowHintContainer {
+      LayoutMode: CenterMiddle;
+
+      HotkeyLabel {
+        InputBindingKey: @InputBindingKeyOne;
+      }
+      HotkeyLabel {
+        InputBindingKey: @InputBindingKeyTwo;
       }
     }
 

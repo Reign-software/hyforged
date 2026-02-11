@@ -180,21 +180,8 @@ public final class RatingConverter {
             return rating;
         }
         
-        // Determine k constant based on stat name
-        String name = statId.name().toLowerCase();
-        int k;
-        if (name.contains("armor")) {
-            k = K_ARMOR;
-        } else if (name.contains("evasion")) {
-            k = K_EVASION;
-        } else if (name.contains("resist")) {
-            k = K_RESISTANCE;
-        } else if (name.contains("accuracy")) {
-            k = K_ACCURACY;
-        } else {
-            // Default k constant for unknown rating stats
-            k = 10;
-        }
+        // Use the data-driven k constant from the stat definition
+        int k = statDef.ratingK();
         
         return toEffectiveness(rating, targetLevel, k);
     }

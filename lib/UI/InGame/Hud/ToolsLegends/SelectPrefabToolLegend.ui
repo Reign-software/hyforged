@@ -21,7 +21,7 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "DEL";
+        @InputBindingKey = "SelectPrefabRemove";
         @Description = %client.builderTools.legend.SelectPrefabTool.Page1.UnselectPrefab;
       }
 
@@ -32,17 +32,17 @@ $LegendCommon.@Legend {
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "E";
+        @InputBindingKey = "SelectPrefabOpenSaveUI";
         @Description = %client.builderTools.legend.SelectPrefabTool.Page1.OpenSaveUI;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "R";
+        @InputBindingKey = "SelectPrefabUpdateBounds";
         @Description = %client.builderTools.legend.SelectPrefabTool.Page1.UpdateBoundingBox;
       }
 
       $LegendCommon.@HotkeyRow {
-        @InputBindingKey = "T";
+        @InputBindingKey = "SelectPrefabTeleport";
         @Description = %client.builderTools.legend.SelectPrefabTool.Page1.TeleportToPrefab;
       }
 

@@ -21,6 +21,7 @@
       0
     ]
   },
+  "ResourceTypes": [],
   "Texture": "Resources/Ingredients/Wheat_Texture.png",
   "Model": "Resources/Ingredients/Wheat.blockymodel",
   "DroppedItemAnimation": "Items/Animations/Dropped/Dropped_Diagonal_Left.blockyanim",

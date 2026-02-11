@@ -9,6 +9,7 @@ import com.hypixel.hytale.codec.builder.BuilderCodec;
 import javax.annotation.Nonnull;
 
 public class ImportedDensityAsset extends DensityAsset {
+   @Nonnull
    public static final BuilderCodec<ImportedDensityAsset> CODEC = BuilderCodec.builder(
          ImportedDensityAsset.class, ImportedDensityAsset::new, DensityAsset.ABSTRACT_CODEC
       )
@@ -31,11 +32,10 @@ public class ImportedDensityAsset extends DensityAsset {
             LoggerUtil.getLogger().warning("Couldn't find Density asset exported with name: '" + this.importedNodeName + "'. Using empty Node instead.");
             return new ConstantValueDensity(0.0);
          } else if (exported.isSingleInstance) {
-            Thread thread = Thread.currentThread();
-            Density builtInstance = exported.threadInstances.get(thread);
+            Density builtInstance = exported.threadInstances.get(argument.workerId);
             if (builtInstance == null) {
                builtInstance = exported.asset.build(argument);
-               exported.threadInstances.put(thread, builtInstance);
+               exported.threadInstances.put(argument.workerId, builtInstance);
             }
 
             return builtInstance;

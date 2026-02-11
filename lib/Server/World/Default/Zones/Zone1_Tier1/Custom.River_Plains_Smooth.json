@@ -872,7 +872,18 @@
       "Names": ["Env_Zone1_Plains"]
     },
     "Entries": [
-
+      {
+        "Names": ["Env_Zone1_Encounters"],
+        "NoiseMask": {
+          "Type": "MIN",
+          "Noise": [
+            {
+              "File": "Zones.Noise.Zone1.NoiseMasks.Faction_Undead_Environments"
+            }
+          ],
+          "Threshold": [0.6, 1]
+        }
+      }
     ]
   },
   "Water": {

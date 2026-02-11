@@ -22,6 +22,9 @@
       },
       "UseDefaultDropWhenPlaced": true
     },
+    "PlacementSettings": {
+      "AllowBreakReplace": true
+    },
     "DrawType": "Model",
     "CustomModelTexture": [
       {

@@ -77,7 +77,7 @@
   ],
   "MinScale": 1.395,
   "MaxScale": 1.405,
-  "Parent": "Toad_Rhino",
+  "Parent": "Goblin",
   "Particles": [
     {
       "SystemId": "Flies_Scattered"

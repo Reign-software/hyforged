@@ -11,3 +11,20 @@ notification.levelUp.character.withPoints = Level {level} - +{points} Passive Po
 notification.levelUp.class.title = {classId} Level Up!
 notification.levelUp.class.simple = {classId} is now level {level}
 notification.levelUp.class.withPoints = Level {level} - +{points} Class Passive Point(s)
+
+# Passive Tree - Respec
+passive.respec.confirmTitle = Full Respec
+passive.respec.confirmMessage = Refund all allocated nodes?
+
+# Concentration Priority UI
+concentration.priority.enabled = Enabled
+concentration.priority.disabled = Disabled
+
+# Vault
+vault.breakDenied = You cannot break this vault - it belongs to another player.
+
+# Welcome Messages
+welcome.header = === Welcome to Hyforged! ===
+welcome.hubCommand =  - Open the Character Hub (stats, passives, resources)
+welcome.tipPrefix =   Tip: 
+welcome.tipSuffix =  is a shortcut for the hub!

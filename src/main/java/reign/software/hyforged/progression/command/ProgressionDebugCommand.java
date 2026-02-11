@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.passive.service.PassiveTreeService;
 import reign.software.hyforged.progression.CharacterProgression;
 import reign.software.hyforged.progression.ClassProgression;
 import reign.software.hyforged.progression.asset.XPCurveRegistry;
@@ -77,7 +78,7 @@ public class ProgressionDebugCommand extends CommandBase {
             PlayerRef playerRefComponent = store.getComponent(ref, PlayerRef.getComponentType());
             String playerName = playerRefComponent != null ? playerRefComponent.getUsername() : "Unknown";
 
-            showDebugInfo(context, playerName, progression);
+            showDebugInfo(context, playerName, progression, ref);
         });
     }
 
@@ -87,7 +88,8 @@ public class ProgressionDebugCommand extends CommandBase {
     private void showDebugInfo(
             @Nonnull CommandContext context,
             @Nonnull String playerName,
-            @Nonnull ProgressionComponent progression
+            @Nonnull ProgressionComponent progression,
+            @Nonnull Ref<EntityStore> entityRef
     ) {
         StringBuilder sb = new StringBuilder();
         sb.append("=== Progression Debug: ").append(playerName).append(" ===\n");
@@ -98,7 +100,8 @@ public class ProgressionDebugCommand extends CommandBase {
         sb.append("/").append(CharacterProgression.MAX_LEVEL).append("\n");
         sb.append("  XP: ").append(String.format("%,d", progression.getCharacterXp())).append("\n");
         sb.append("  XP to Next: ").append(String.format("%,d", progression.getCharacterXpToNext())).append("\n");
-        sb.append("  General Passive Points: ").append(progression.getAvailableGeneralPassivePoints()).append("\n");
+        int availablePoints = PassiveTreeService.get().getAvailableGeneralPoints(entityRef);
+        sb.append("  General Passive Points: ").append(availablePoints).append("\n");
         sb.append("  Allocated Points: ").append(progression.getGeneralPassivePointsAllocated()).append("\n");
         sb.append("  Dirty Flag: ").append(progression.isDirty()).append("\n");
         

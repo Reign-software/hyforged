@@ -23,14 +23,14 @@ public class WelcomeMessageSystem {
     private static final Logger LOGGER = Logger.getLogger(WelcomeMessageSystem.class.getName());
 
     private static final List<Message> welcomeMessages = new ArrayList<>();
-    private static boolean hasMessages = false;
     
     private EventRegistration<Void, PlayerConnectEvent> connectRegistration;
 
     public WelcomeMessageSystem() {
-        if (hasMessages) {
-            registerEventHandlers();
-        }
+        // Always register — assets load asynchronously after construction,
+        // so hasMessages is typically false here. onPlayerConnect already
+        // guards against an empty message list.
+        registerEventHandlers();
     }
 
     /**
@@ -49,12 +49,15 @@ public class WelcomeMessageSystem {
             }
         }
 
-        hasMessages = !welcomeMessages.isEmpty();
         LOGGER.info("WelcomeMessageSystem: Loaded " + welcomeMessages.size() + " welcome messages");
     }
 
     /**
      * Build a Message from an asset's segments.
+     * <p>
+     * Each segment may specify either a {@code TranslationKey} (resolved via
+     * {@link Message#translation(String)}) or a raw {@code Text} value.
+     * When a translation key is present, the {@code Text} field is ignored.
      */
     private static Message buildMessage(@Nonnull WelcomeMessagesConfigAsset asset) {
         WelcomeMessagesConfigAsset.MessageSegment[] segments = asset.getSegments();
@@ -64,7 +67,13 @@ public class WelcomeMessageSystem {
 
         Message result = null;
         for (WelcomeMessagesConfigAsset.MessageSegment segment : segments) {
-            Message part = Message.raw(segment.getText());
+            Message part;
+            if (segment.getTranslationKey() != null && !segment.getTranslationKey().isEmpty()) {
+                part = Message.translation(segment.getTranslationKey());
+            } else {
+                part = Message.raw(segment.getText());
+            }
+
             if (segment.getColor() != null) {
                 part = part.color(segment.getColor());
             }
