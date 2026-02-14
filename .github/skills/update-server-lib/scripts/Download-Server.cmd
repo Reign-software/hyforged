@@ -6,7 +6,9 @@ REM Hytale Server Downloader
 REM Downloads and extracts the latest pre-release server
 REM ============================================
 
-set "DOWNLOADER_PATH=C:\hytale-downloader"
+REM Use HYTALE_DOWNLOADER_PATH env var if set, otherwise default
+if not defined HYTALE_DOWNLOADER_PATH set "HYTALE_DOWNLOADER_PATH=C:\hytale-downloader"
+set "DOWNLOADER_PATH=%HYTALE_DOWNLOADER_PATH%"
 set "DOWNLOAD_DIR=%DOWNLOADER_PATH%\downloads"
 set "EXTRACT_DIR=%DOWNLOADER_PATH%\extracted"
 set "PATCHLINE=pre-release"

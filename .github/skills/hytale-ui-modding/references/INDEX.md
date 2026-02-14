@@ -10,6 +10,7 @@ A comprehensive library of UI modding documentation for Hytale plugins.
 
 | File | Description |
 |------|-------------|
+| [overview.md](overview.md) | **Architecture overview** - What Custom UI is, how it fits into Hytale (Client UI vs Server UI), command-based architecture diagram, key principles (Declarative, Asset-Driven, Event-Driven, Selector-Based). |
 | [layout.md](layout.md) | **Layout system** - Anchor positioning/sizing, Padding, LayoutMode (vertical/horizontal stacking, centering, scrolling, wrapping), FlexWeight distribution, Visibility. Includes visual diagrams. |
 | [markup.md](markup.md) | **Markup syntax** - Element declarations, named expressions (@), templates, document references ($), property types (strings, colors, objects, arrays), translation keys (%). |
 | [common-styling.md](common-styling.md) | **Common.ui integration** - Import patterns, referencing styles and components, available templates (@TextButton, @Container, etc.), Value.ref() in Java. |
@@ -38,6 +39,7 @@ A comprehensive library of UI modding documentation for Hytale plugins.
 
 | I want to... | Read |
 |--------------|------|
+| Understand the UI architecture | [overview.md](overview.md) |
 | Position an element | [layout.md](layout.md) - Anchor section |
 | Stack elements vertically/horizontally | [layout.md](layout.md) - LayoutMode section |
 | Create reusable UI components | [markup.md](markup.md) - Templates section |

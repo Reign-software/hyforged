@@ -6,9 +6,11 @@ REM Hytale Server Lib Updater
 REM Decompiles and updates lib folder
 REM ============================================
 
-set "EXTRACT_DIR=C:\hytale-downloader\extracted"
-set "PATCHER_DIR=C:\hytale-downloader\patcher"
-set "DOWNLOAD_DIR=C:\hytale-downloader\downloads"
+REM Use HYTALE_DOWNLOADER_PATH env var if set, otherwise default
+if not defined HYTALE_DOWNLOADER_PATH set "HYTALE_DOWNLOADER_PATH=C:\hytale-downloader"
+set "EXTRACT_DIR=%HYTALE_DOWNLOADER_PATH%\extracted"
+set "PATCHER_DIR=%HYTALE_DOWNLOADER_PATH%\patcher"
+set "DOWNLOAD_DIR=%HYTALE_DOWNLOADER_PATH%\downloads"
 
 REM Get workspace root (4 levels up from script location)
 set "SCRIPT_DIR=%~dp0"

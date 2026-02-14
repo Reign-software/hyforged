@@ -11,17 +11,19 @@ Important: use native UI only. Do not use HyUI.
 
 ## Quick start
 
-1. Put .ui files under src/main/resources/Common/UI/Custom/.
-2. Import Common.ui when you want shared styles and components. See references/common-styling.md.
-3. Build layout with Anchor, Padding, and LayoutMode. See references/layout.md.
-4. Use markup patterns like named expressions, templates, and translations. See references/markup.md.
-5. Bind UI events with UIEventBuilder and always sendUpdate after handling events. See references/java-api.md and references/events.md.
-6. For assets, use @2x.png and set IncludesAssetPack in manifest. See references/assets-and-packaging.md.
-7. If something fails at runtime, check references/troubleshooting.md.
+1. Read the architecture overview first. See references/overview.md.
+2. Put .ui files under src/main/resources/Common/UI/Custom/.
+3. Import Common.ui when you want shared styles and components. See references/common-styling.md.
+4. Build layout with Anchor, Padding, and LayoutMode. See references/layout.md.
+5. Use markup patterns like named expressions, templates, and translations. See references/markup.md.
+6. Bind UI events with UIEventBuilder and always sendUpdate after handling events. See references/java-api.md and references/events.md.
+7. For assets, use @2x.png and set IncludesAssetPack in manifest. See references/assets-and-packaging.md.
+8. If something fails at runtime, check references/troubleshooting.md.
 
 ## Reference library
 
 - references/INDEX.md
+- references/overview.md
 - references/common-styling.md
 - references/layout.md
 - references/markup.md

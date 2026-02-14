@@ -387,9 +387,13 @@ commands.setNull("#Label.Text"); // Set to null
 
 Selectors target elements by their ID and optionally their properties:
 
-- `#ElementId` - Target element by ID
-- `#ElementId.Property` - Target element's property
-- `#Parent #Child` - Nested element selection
+| Selector | Meaning |
+|----------|----------|
+| `#ElementId` | Target element by ID |
+| `#ElementId.Property` | Target element's property |
+| `#Parent #Child` | Nested element selection |
+| `#List[0]` | First child of element "List" (indexed access) |
+| `#List[0] #Title` | Element "Title" within the first child of "List" |
 
 ---
 

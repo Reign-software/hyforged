@@ -11,7 +11,7 @@ Updates the `lib/` folder with the latest Hytale pre-release server files includ
 
 Before running these scripts, ensure the following are installed and on PATH:
 
-- **Hytale Downloader**: Located at `C:\hytale-downloader\hytale-downloader-windows-amd64.exe` (already authenticated)
+- **Hytale Downloader**: The `hytale-downloader-windows-amd64.exe` binary (already authenticated). Default location: `C:\hytale-downloader\` (configurable via `HYTALE_DOWNLOADER_PATH` env var)
 - **Python 3+**: For running the patcher tool (`py --version` or `python --version`)
 - **Java 25+**: `java --version` should show 25.x
 - **Maven**: `mvn --version` should work
@@ -20,7 +20,7 @@ Before running these scripts, ensure the following are installed and on PATH:
 ## Directory Structure
 
 ```
-C:\hytale-downloader\
+<HYTALE_DOWNLOADER_PATH>\              # Default: C:\hytale-downloader\
 ├── hytale-downloader-windows-amd64.exe
 ├── .hytale-downloader-credentials.json
 ├── downloads\                              # Created by script
@@ -84,20 +84,25 @@ This script:
 
 ## Script Configuration
 
-The CMD scripts use the following default paths (edit the scripts to change):
+Set the `HYTALE_DOWNLOADER_PATH` environment variable to override the default downloader location. All sub-paths are derived from it automatically.
+
+```cmd
+REM Example: set before running scripts, or add to your system environment variables
+set HYTALE_DOWNLOADER_PATH=D:\my-hytale-tools
+```
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| `DOWNLOADER_PATH` | `C:\hytale-downloader` | Path to hytale-downloader folder |
-| `DOWNLOAD_DIR` | `<DOWNLOADER_PATH>\downloads` | Where to save downloaded zips |
-| `EXTRACT_DIR` | `<DOWNLOADER_PATH>\extracted` | Where to extract server files |
-| `PATCHER_DIR` | `<DOWNLOADER_PATH>\patcher` | Where to clone/use patcher tool |
+| `HYTALE_DOWNLOADER_PATH` | `C:\hytale-downloader` | Path to hytale-downloader folder (env var) |
+| `DOWNLOAD_DIR` | `<HYTALE_DOWNLOADER_PATH>\downloads` | Where to save downloaded zips |
+| `EXTRACT_DIR` | `<HYTALE_DOWNLOADER_PATH>\extracted` | Where to extract server files |
+| `PATCHER_DIR` | `<HYTALE_DOWNLOADER_PATH>\patcher` | Where to clone/use patcher tool |
 | `PATCHLINE` | `pre-release` | Patchline to download from |
 
 ## Troubleshooting
 
 ### Authentication Errors
-If you get 401 or authentication errors, delete `C:\hytale-downloader\.hytale-downloader-credentials.json` and run the downloader manually to re-authenticate.
+If you get 401 or authentication errors, delete `.hytale-downloader-credentials.json` in your downloader directory (default: `C:\hytale-downloader\`) and run the downloader manually to re-authenticate.
 
 ### Decompilation Fails
 - Ensure Python 3.13+ is installed: `py -3.13 --version`
