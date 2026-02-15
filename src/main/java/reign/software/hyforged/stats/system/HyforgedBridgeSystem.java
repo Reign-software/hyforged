@@ -171,6 +171,8 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
 
     /**
      * Bridge max health from Hyforged to Hytale's EntityStatMap.
+     * On first bridge after login (lastBridged == 0), maximize the stat
+     * so the player spawns at full health.
      */
     private void bridgeMaxHealth(
             @Nonnull HyforgedStatComponent hyforgedStats,
@@ -180,19 +182,26 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
             return;
         }
         
-        int currentValue = StatAccessor.getStatValueInt(entityStatMap, maxHealthIndex);
+        int currentValue = hyforgedStats.getCachedValue(maxHealthIndex);
         int lastBridged = hyforgedStats.getLastBridgedMaxHealth();
         
         int delta = currentValue - lastBridged;
         if (Math.abs(delta) >= UPDATE_THRESHOLD) {
+            boolean firstBridge = lastBridged == 0;
             applyModifier(entityStatMap, DefaultEntityStatTypes.getHealth(), MODIFIER_KEY_MAX_HEALTH, currentValue);
             hyforgedStats.setLastBridgedMaxHealth(currentValue);
             logBridge("Health", currentValue, lastBridged);
+
+            // On first bridge after login, maximize health so the player starts at full HP
+            if (firstBridge) {
+                entityStatMap.maximizeStatValue(DefaultEntityStatTypes.getHealth());
+            }
         }
     }
 
     /**
      * Bridge max mana from Hyforged to Hytale's EntityStatMap.
+     * On first bridge after login, maximize the stat.
      */
     private void bridgeMaxMana(
             @Nonnull HyforgedStatComponent hyforgedStats,
@@ -202,19 +211,25 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
             return;
         }
         
-        int currentValue = StatAccessor.getStatValueInt(entityStatMap, maxManaIndex);
+        int currentValue = hyforgedStats.getCachedValue(maxManaIndex);
         int lastBridged = hyforgedStats.getLastBridgedMaxMana();
         
         int delta = currentValue - lastBridged;
         if (Math.abs(delta) >= UPDATE_THRESHOLD) {
+            boolean firstBridge = lastBridged == 0;
             applyModifier(entityStatMap, DefaultEntityStatTypes.getMana(), MODIFIER_KEY_MAX_MANA, currentValue);
             hyforgedStats.setLastBridgedMaxMana(currentValue);
             logBridge("Mana", currentValue, lastBridged);
+
+            if (firstBridge) {
+                entityStatMap.maximizeStatValue(DefaultEntityStatTypes.getMana());
+            }
         }
     }
 
     /**
      * Bridge max stamina from Hyforged to Hytale's EntityStatMap.
+     * On first bridge after login, maximize the stat.
      */
     private void bridgeMaxStamina(
             @Nonnull HyforgedStatComponent hyforgedStats,
@@ -224,14 +239,19 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
             return;
         }
         
-        int currentValue = StatAccessor.getStatValueInt(entityStatMap, maxStaminaIndex);
+        int currentValue = hyforgedStats.getCachedValue(maxStaminaIndex);
         int lastBridged = hyforgedStats.getLastBridgedMaxStamina();
         
         int delta = currentValue - lastBridged;
         if (Math.abs(delta) >= UPDATE_THRESHOLD) {
+            boolean firstBridge = lastBridged == 0;
             applyModifier(entityStatMap, DefaultEntityStatTypes.getStamina(), MODIFIER_KEY_MAX_STAMINA, currentValue);
             hyforgedStats.setLastBridgedMaxStamina(currentValue);
             logBridge("Stamina", currentValue, lastBridged);
+
+            if (firstBridge) {
+                entityStatMap.maximizeStatValue(DefaultEntityStatTypes.getStamina());
+            }
         }
     }
 
@@ -246,7 +266,7 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
             return;
         }
 
-        int currentValue = StatAccessor.getStatValueInt(entityStatMap, maxConcentrationIndex);
+        int currentValue = hyforgedStats.getCachedValue(maxConcentrationIndex);
         int lastBridged = hyforgedStats.getLastBridgedMaxConcentration();
 
         int delta = currentValue - lastBridged;
@@ -268,7 +288,7 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
             return;
         }
 
-        int currentValue = StatAccessor.getStatValueInt(entityStatMap, maxRageIndex);
+        int currentValue = hyforgedStats.getCachedValue(maxRageIndex);
         int lastBridged = hyforgedStats.getLastBridgedMaxRage();
 
         int delta = currentValue - lastBridged;

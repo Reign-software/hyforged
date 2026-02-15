@@ -151,12 +151,22 @@ public class HyforgedStatValue extends EntityStatValue {
     }
     
     /**
-     * Link to a StatDefinition by stat index.
-     * Called during initialization.
+     * Link to a StatDefinition by stat ID.
+     * <p>
+     * Uses the EntityStatType string ID at the given index to look up the
+     * corresponding Hyforged stat definition. This avoids index-space collisions
+     * between Hytale's EntityStatType indices and Hyforged's StatDefinitionRegistry
+     * indices. For Hytale native stats (Health, Mana, etc.) that have no Hyforged
+     * definition, statDefinition remains null.
      */
     private void linkStatDefinition(int statIndex) {
+        EntityStatType asset = EntityStatType.getAssetMap().getAsset(statIndex);
+        if (asset == null || asset.isUnknown()) {
+            this.statDefinition = null;
+            return;
+        }
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-        this.statDefinition = registry.getStat(statIndex);
+        this.statDefinition = registry.getStat(asset.getId());
     }
     
     // ========== CHANGE LISTENERS ==========

@@ -13,7 +13,6 @@ import com.hypixel.hytale.component.system.tick.EntityTickingSystem;
 import com.hypixel.hytale.event.IEventDispatcher;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
-import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import reign.software.hyforged.HyforgedPlugin;
@@ -22,7 +21,6 @@ import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
-import reign.software.hyforged.stats.value.HyforgedStatValue;
 import reign.software.hyforged.stats.engine.ScalingEngine;
 import reign.software.hyforged.stats.engine.StackingEngine;
 import reign.software.hyforged.stats.event.StatBatchChangedEvent;
@@ -202,9 +200,8 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
             // Record old value before recomputation
             int oldValue = component.getCachedValue(statIdx);
             
-            // Compute base and update EntityStatMap base bonus when available
+            // Compute base value from scaling rules or stored base
             int baseValue = computeBaseValue(statIdx, statDef, component, registry);
-            updateStatMapBaseBonus(statMap, statIdx, baseValue);
 
             // Compute the new value
             int newValue = computeStatValue(statIdx, statDef, baseValue, allModifiers, component, registry);
@@ -312,29 +309,6 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
             int bonusIdx = registry.getIndex(statId);
             return bonusIdx >= 0 ? component.getCachedValue(bonusIdx) : 0;
         });
-    }
-
-    private void updateStatMapBaseBonus(
-            @Nullable EntityStatMap statMap,
-            int statIdx,
-            int baseValue
-    ) {
-        if (statMap == null) {
-            return;
-        }
-
-        var value = statMap.get(statIdx);
-        if (!(value instanceof HyforgedStatValue hyforgedValue)) {
-            return;
-        }
-
-        int baseBonus = baseValue;
-        EntityStatType asset = EntityStatType.getAssetMap().getAsset(statIdx);
-        if (asset != null) {
-            baseBonus = baseValue - Math.round(asset.getInitialValue());
-        }
-
-        hyforgedValue.setHyforgedBaseBonus(baseBonus);
     }
 
     /**
