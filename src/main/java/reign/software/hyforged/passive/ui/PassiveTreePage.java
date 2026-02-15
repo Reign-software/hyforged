@@ -199,9 +199,8 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
             commandBuilder.appendInline("#RegionOptions", buttonUI);
             
             // Add event for this region button
-            // Use MouseButtonReleased instead of Activating for appendInline Buttons
             eventBuilder.addEventBinding(
-                CustomUIEventBindingType.MouseButtonReleased,
+                CustomUIEventBindingType.Activating,
                 "#" + buttonId,
                 EventData.of("Action", "selectRegion").append("NodeId", startingNodeId),
                 false
@@ -588,11 +587,9 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
             boolean isAllocated = allocatedNodes.contains(nodeId);
             
             // Click to allocate or refund
-            // Use MouseButtonReleased instead of Activating because nodes are created
-            // via appendInline, and Activating only fires on .ui-template Buttons.
             String action = isAllocated ? "refund" : "allocate";
             eventBuilder.addEventBinding(
-                CustomUIEventBindingType.MouseButtonReleased,
+                CustomUIEventBindingType.Activating,
                 "#" + nodeElementId,
                 EventData.of("Action", action).append("NodeId", nodeId),
                 false
