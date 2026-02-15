@@ -21,54 +21,46 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import reign.software.hyforged.affix.ui.CharacterStatsPage;
-import reign.software.hyforged.concentration.ui.ConcentrationPriorityPage;
-import reign.software.hyforged.passive.ui.PassiveTreePage;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Injects quick-access character buttons into the Reticle HUD's {@code #ServerEvent}
- * anchor point using the {@code UpdateAnchorUI} system (accessed via reflection
- * because the class is not yet exposed in the plugin API JAR).
+ * Injects a Hyforged Menu button into the Map page via an
+ * {@code UpdateAnchorUI} packet targeting the built-in
+ * {@code #ServerContent} anchor element in {@code MapPage.ui}.
  * <p>
- * Inbound events are intercepted via a {@link PacketFilter} on
- * {@link CustomPageEvent} packets — no dependency on {@code AnchorActionModule}.
+ * Clicking the button opens the {@link HyforgedHubPage}, which
+ * provides navigation to all Hyforged systems.
  * <p>
- * Buttons:
- * <ul>
- *   <li><b>S</b> — Character Stats page</li>
- *   <li><b>P</b> — Passive Tree page</li>
- *   <li><b>C</b> — Concentration Priority page</li>
- * </ul>
- * <p>
- * Replaces the old CharacterHubPage with always-visible HUD buttons.
+ * Events are intercepted via a {@link PacketFilter} on
+ * {@link CustomPageEvent} packets since {@code AnchorActionModule}
+ * is not exposed in the plugin API.
  */
 public final class HyforgedReticleUI {
 
     private static final Logger LOGGER = Logger.getLogger(HyforgedReticleUI.class.getName());
 
-    /** Anchor ID matching the Reticle.ui {@code #ServerEvent} element. */
-    public static final String ANCHOR_ID = "ReticleServerEvent";
+    /** Anchor ID for the Map page's built-in server content anchor. */
+    public static final String ANCHOR_ID = "MapServerContent";
 
-    /** UI file path (relative to Custom/ in our asset pack). */
-    private static final String UI_FILE = "Hyforged/HyforgedReticleButtons.ui";
+    /** UI file path for the menu button (relative to Custom/). */
+    private static final String UI_FILE = "Hyforged/HyforgedQuickActions.ui";
 
-    // Action names — sent as the "action" field in event bindings
-    private static final String ACTION_OPEN_STATS = "hyforgedOpenStats";
-    private static final String ACTION_OPEN_PASSIVE_TREE = "hyforgedOpenPassiveTree";
-    private static final String ACTION_OPEN_CONCENTRATION = "hyforgedOpenConcentration";
+    /** Action name for opening the hub page. */
+    private static final String ACTION_OPEN_HUB = "hyforgedOpenHub";
 
     /** All action names we handle, for fast lookup. */
-    private static final Set<String> HANDLED_ACTIONS = Set.of(
-            ACTION_OPEN_STATS, ACTION_OPEN_PASSIVE_TREE, ACTION_OPEN_CONCENTRATION
-    );
+    private static final Set<String> HANDLED_ACTIONS = Set.of(ACTION_OPEN_HUB);
 
     // ── Reflection handles (cached at class load) ───────────────────
+    //
+    // UpdateAnchorUI and ToClientPacket are internal server classes
+    // not exposed in the plugin API JAR. We must use reflection.
 
     private static final Constructor<?> UPDATE_ANCHOR_CTOR;
     private static final Method WRITE_NO_CACHE;
@@ -106,7 +98,7 @@ public final class HyforgedReticleUI {
     public static void install() {
         inboundFilter = HyforgedReticleUI::filterInbound;
         PacketAdapters.registerInbound(inboundFilter);
-        LOGGER.info("Installed HyforgedReticleUI inbound event filter");
+        LOGGER.info("[Hyforged] Installed Map anchor inbound event filter");
     }
 
     /**
@@ -122,36 +114,30 @@ public final class HyforgedReticleUI {
     // ── Sending UI to client ────────────────────────────────────────
 
     /**
-     * Send the button strip to a player's Reticle HUD.
+     * Send the Hyforged menu button to the Map page's server content anchor.
      * Should be called after the player is ready (post-{@code PlayerReadyEvent}).
      *
-     * @param playerRef The player to inject the buttons for
+     * @param playerRef The player to inject the button for
      */
     public static void send(@Nonnull PlayerRef playerRef) {
+        LOGGER.log(Level.FINE, "[Hyforged] Building Map anchor button for {0}", playerRef.getUsername());
+
         UICommandBuilder commandBuilder = new UICommandBuilder();
         commandBuilder.append(UI_FILE);
 
         UIEventBuilder eventBuilder = new UIEventBuilder();
         eventBuilder.addEventBinding(
-                CustomUIEventBindingType.Activating, "#StatsButton",
-                EventData.of("action", ACTION_OPEN_STATS), false);
-        eventBuilder.addEventBinding(
-                CustomUIEventBindingType.Activating, "#PassiveTreeButton",
-                EventData.of("action", ACTION_OPEN_PASSIVE_TREE), false);
-        eventBuilder.addEventBinding(
-                CustomUIEventBindingType.Activating, "#ConcentrationButton",
-                EventData.of("action", ACTION_OPEN_CONCENTRATION), false);
+                CustomUIEventBindingType.Activating, "#HyforgedMenuButton",
+                EventData.of("action", ACTION_OPEN_HUB), false);
 
         sendAnchorPacket(playerRef.getPacketHandler(),
                 ANCHOR_ID, true, commandBuilder.getCommands(), eventBuilder.getEvents());
-
-        LOGGER.fine("Sent reticle buttons to " + playerRef.getUsername());
     }
 
     /**
-     * Clear the button strip from a player's Reticle HUD.
+     * Clear the Hyforged button from the Map page anchor.
      *
-     * @param playerRef The player to clear buttons for
+     * @param playerRef The player to clear the button for
      */
     public static void clear(@Nonnull PlayerRef playerRef) {
         sendAnchorPacket(playerRef.getPacketHandler(), ANCHOR_ID, true, null, null);
@@ -175,6 +161,8 @@ public final class HyforgedReticleUI {
         if (action == null || !HANDLED_ACTIONS.contains(action)) {
             return false; // Not our event — let it pass through
         }
+
+        LOGGER.log(Level.FINE, "[Hyforged] Received reticle button event: {0}", action);
 
         // Resolve player from the packet handler
         var auth = packetHandler.getAuth();
@@ -206,7 +194,7 @@ public final class HyforgedReticleUI {
     }
 
     /**
-     * Handle a reticle button action on the world thread.
+     * Handle an anchor button action on the world thread.
      */
     private static void handleAction(@Nonnull String action,
                                      @Nonnull PlayerRef playerRef,
@@ -217,20 +205,11 @@ public final class HyforgedReticleUI {
             return;
         }
 
-        switch (action) {
-            case ACTION_OPEN_STATS -> {
-                player.getPageManager().openCustomPage(ref, store, new CharacterStatsPage(playerRef));
-                LOGGER.fine("Opened Character Stats from reticle button");
-            }
-            case ACTION_OPEN_PASSIVE_TREE -> {
-                player.getPageManager().openCustomPage(ref, store, new PassiveTreePage(playerRef, null));
-                LOGGER.fine("Opened Passive Tree from reticle button");
-            }
-            case ACTION_OPEN_CONCENTRATION -> {
-                player.getPageManager().openCustomPage(ref, store, new ConcentrationPriorityPage(playerRef));
-                LOGGER.fine("Opened Concentration Priority from reticle button");
-            }
-            default -> LOGGER.warning("Unknown reticle action: " + action);
+        if (ACTION_OPEN_HUB.equals(action)) {
+            player.getPageManager().openCustomPage(ref, store, new HyforgedHubPage(playerRef));
+            LOGGER.log(Level.FINE, "[Hyforged] Opened Hyforged Hub from Map anchor");
+        } else {
+            LOGGER.warning("[Hyforged] Unknown anchor action: " + action);
         }
     }
 
@@ -258,9 +237,19 @@ public final class HyforgedReticleUI {
                                          CustomUIEventBinding[] eventBindings) {
         try {
             Object packet = UPDATE_ANCHOR_CTOR.newInstance(anchorId, clear, commands, eventBindings);
+            LOGGER.log(Level.FINE, "[Hyforged] Sending UpdateAnchorUI: anchor={0}, clear={1}, commands={2}, events={3}",
+                    new Object[]{anchorId, clear,
+                            commands != null ? commands.length : 0,
+                            eventBindings != null ? eventBindings.length : 0});
             WRITE_NO_CACHE.invoke(handler, packet);
-        } catch (ReflectiveOperationException e) {
-            LOGGER.warning("Failed to send UpdateAnchorUI: " + e.getMessage());
+            LOGGER.log(Level.FINE, "[Hyforged] UpdateAnchorUI sent successfully");
+        } catch (Exception e) {
+            LOGGER.warning("[Hyforged] Failed to send UpdateAnchorUI: " + e.getClass().getName()
+                    + " - " + e.getMessage());
+            if (e.getCause() != null) {
+                LOGGER.warning("[Hyforged]   Caused by: " + e.getCause().getClass().getName()
+                        + " - " + e.getCause().getMessage());
+            }
         }
     }
 }

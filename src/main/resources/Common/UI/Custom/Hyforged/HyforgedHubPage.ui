@@ -1,0 +1,107 @@
+// Hyforged Hub Page — central menu for navigating to all Hyforged systems.
+// Populated by HyforgedHubPage.java
+
+$Common = "../Common.ui";
+
+@MenuButton = Button {
+  Anchor: (Width: 400, Height: 52, Top: 6);
+  Background: @BgColor;
+
+  Group {
+    LayoutMode: Left;
+    Anchor: (Top: 0, Left: 0, Right: 0, Bottom: 0);
+    Padding: (Left: 16, Right: 16);
+
+    Label #ButtonTitle {
+      Text: @Title;
+      Anchor: (Width: 260, Height: 52);
+      Style: (FontSize: 15, RenderBold: true, TextColor: @TitleColor, VerticalAlignment: Center);
+    }
+
+    Label #ButtonHint {
+      Text: @Hint;
+      Anchor: (Width: 120, Height: 52, Right: 0);
+      Style: (FontSize: 11, TextColor: #707888, HorizontalAlignment: End, VerticalAlignment: Center);
+    }
+  }
+};
+
+Group #HyforgedHubPage {
+  LayoutMode: Top;
+  Anchor: (Width: 460, Height: 400);
+  Background: $Common.@InputBoxBackground;
+  Padding: (Full: 20);
+
+  // Header
+  Group #Header {
+    LayoutMode: Top;
+    Anchor: (Height: 44);
+
+    Label #Title {
+      Text: %hyforged.hub.title;
+      Style: (FontSize: 24, Alignment: Center, RenderBold: true, TextColor: #FFD700);
+    }
+
+    Label #Subtitle {
+      Text: %hyforged.hub.subtitle;
+      Style: (FontSize: 11, Alignment: Center, TextColor: #707888);
+      Anchor: (Height: 18, Bottom: 0);
+    }
+  }
+
+  // Separator
+  Group {
+    Anchor: (Height: 2, Top: 6);
+    Background: #c1c9d3(0.15);
+  }
+
+  // Navigation Buttons
+  Group #NavButtons {
+    LayoutMode: Top;
+    Padding: (Top: 8);
+
+    @MenuButton #StatsButton {
+      @BgColor = #1a1a2e(0.9);
+      @Title = %hyforged.hub.button.stats;
+      @TitleColor = #FFD700;
+      @Hint = %hyforged.hub.hint.stats;
+    }
+
+    @MenuButton #PassiveTreeButton {
+      @BgColor = #1a2e1a(0.9);
+      @Title = %hyforged.hub.button.passiveTree;
+      @TitleColor = #90EE90;
+      @Hint = %hyforged.hub.hint.passiveTree;
+    }
+
+    @MenuButton #ConcentrationButton {
+      @BgColor = #1a1a2e(0.9);
+      @Title = %hyforged.hub.button.concentration;
+      @TitleColor = #87CEEB;
+      @Hint = %hyforged.hub.hint.concentration;
+    }
+
+    @MenuButton #OptionsButton {
+      @BgColor = #2e2e2e(0.9);
+      @Title = %hyforged.hub.button.options;
+      @TitleColor = #C0C0C0;
+      @Hint = %hyforged.hub.hint.options;
+    }
+  }
+
+  // Footer
+  Group #Footer {
+    Anchor: (Height: 40, Bottom: 0);
+
+    Button #CloseButton {
+      Anchor: (Width: 120, Height: 34, Right: 0);
+      Background: #3a2020(0.9);
+
+      Label {
+        Text: %hyforged.hub.close;
+        Anchor: (Width: 120, Height: 34);
+        Style: (FontSize: 13, RenderBold: true, TextColor: #e0e0e0, Alignment: Center, VerticalAlignment: Center);
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+// Hyforged Menu Button — injected into the Map page's #ServerContent anchor.
+// Opens the Hyforged Hub page for navigating all Hyforged systems.
+// Note: No $Common import — anchor-injected fragments cannot resolve cross-document refs.
+
+Button #HyforgedMenuButton {
+  Anchor: (Width: 240, Height: 40);
+  Background: #1a1a2e(0.9);
+  TooltipText: %hyforged.hub.tooltip;
+
+  Label {
+    Text: %hyforged.hub.button.label;
+    Anchor: (Width: 240, Height: 40);
+    Style: (FontSize: 14, RenderBold: true, TextColor: #FFD700, Alignment: Center, VerticalAlignment: Center);
+  }
+}

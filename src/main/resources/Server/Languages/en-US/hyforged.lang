@@ -27,3 +27,43 @@ vault.breakDenied = You cannot break this vault - it belongs to another player.
 welcome.header = === Welcome to Hyforged! ===
 welcome.tipPrefix =   Tip: 
 welcome.tipSuffix = !
+
+# Inventory Buttons
+inventory.button.stats = View Character Stats
+inventory.button.stats.short = Stats
+inventory.button.passiveTree = Open Passive Skill Tree
+inventory.button.passiveTree.short = Tree
+inventory.button.concentration = Manage Concentration Priority
+inventory.button.concentration.short = Conc
+inventory.button.options = Hyforged Options
+inventory.button.options.short = Opts
+
+# Hub Page
+hub.title = Hyforged
+hub.subtitle = Select a system to manage
+hub.button.label = ⚔ Hyforged Menu
+hub.tooltip = Open Hyforged Menu
+hub.button.stats = Character Stats
+hub.button.passiveTree = Passive Skill Tree
+hub.button.concentration = Concentration Priority
+hub.button.options = Options & Settings
+hub.hint.stats = Affixes & Stats
+hub.hint.passiveTree = Allocate Points
+hub.hint.concentration = Ability Priority
+hub.hint.options = Display & Admin
+hub.close = Close
+
+# Commands
+commands.hub.desc = Open the Hyforged menu
+
+# Options Page
+options.title = Hyforged Options
+options.section.display = Display
+options.section.admin = Admin
+options.combatLogHud = Combat Log HUD
+options.combatText = Combat Text
+options.xpNotifications = XP Notifications
+options.damageNumbers = Damage Numbers
+options.debugMode = Debug Mode
+options.qualityDebug = Quality Debug
+options.close = Close

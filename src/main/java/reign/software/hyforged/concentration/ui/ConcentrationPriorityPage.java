@@ -105,7 +105,6 @@ public class ConcentrationPriorityPage extends InteractiveCustomUIPage<Concentra
 
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#CloseButton", EventData.of(PageEventData.KEY_ACTION, ACTION_CLOSE), false);
         eventBuilder.addEventBinding(CustomUIEventBindingType.Activating, "#RefreshButton", EventData.of(PageEventData.KEY_ACTION, ACTION_REFRESH), false);
-        eventBuilder.addEventBinding(CustomUIEventBindingType.ElementReordered, "#PriorityList", false);
     }
 
     private void buildPriorityList(
@@ -119,7 +118,7 @@ public class ConcentrationPriorityPage extends InteractiveCustomUIPage<Concentra
         if (abilities.isEmpty()) {
             commandBuilder.appendInline(
                     "#PriorityList",
-                    "Label { Text: No concentrated abilities found.; Style: (Alignment: Center; FontSize: 12; Color: #888888); }"
+                    "Label { Text: \"No concentrated abilities found.\"; Style: (Alignment: Center, FontSize: 12, TextColor: #888888); }"
             );
             return;
         }

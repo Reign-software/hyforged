@@ -25,7 +25,6 @@ public class PassiveCommand extends AbstractCommandCollection {
         this.addSubCommand(new PassiveGrantPointCommand());
         this.addSubCommand(new PassiveResetCommand());
         this.addSubCommand(new PassiveDebugCommand());
-        this.addSubCommand(new PassiveUICommand());
     }
     
     @Override

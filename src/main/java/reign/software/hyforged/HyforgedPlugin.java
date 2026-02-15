@@ -515,12 +515,14 @@ public class HyforgedPlugin extends JavaPlugin {
                 event -> {
                     com.hypixel.hytale.component.Ref<EntityStore> ref = event.getPlayerRef();
                     if (ref == null || !ref.isValid()) {
+                        getLogger().at(Level.WARNING).log("PlayerReadyEvent: ref is null or invalid");
                         return;
                     }
 
                     com.hypixel.hytale.component.Store<EntityStore> store = ref.getStore();
                     store.getExternalData().getWorld().execute(() -> {
                         if (!ref.isValid()) {
+                            getLogger().at(Level.WARNING).log("PlayerReadyEvent: ref became invalid on world thread");
                             return;
                         }
 
@@ -529,10 +531,14 @@ public class HyforgedPlugin extends JavaPlugin {
                         com.hypixel.hytale.server.core.universe.PlayerRef playerRef =
                                 store.getComponent(ref, com.hypixel.hytale.server.core.universe.PlayerRef.getComponentType());
                         if (uuidComponent == null || playerRef == null) {
+                            getLogger().at(Level.WARNING).log("PlayerReadyEvent: uuidComponent=%s, playerRef=%s",
+                                    uuidComponent, playerRef);
                             return;
                         }
 
                         java.util.UUID uuid = uuidComponent.getUuid();
+                        getLogger().at(Level.FINE).log("PlayerReadyEvent: player=%s, sending reticle UI",
+                                playerRef.getUsername());
                         HyforgedHudManager.markReady(uuid);
                         HyforgedReticleUI.send(playerRef);
                     });
@@ -549,6 +555,7 @@ public class HyforgedPlugin extends JavaPlugin {
                         HyforgedHudManager.remove(uuid);
                         CombatLogHudSystem.clearPlayerState(uuid);
                         CurrencyHudSystem.clearPlayerVaults(uuid);
+                        reign.software.hyforged.options.HyforgedPlayerOptions.remove(uuid);
                     }
                 }
         );
@@ -767,6 +774,7 @@ public class HyforgedPlugin extends JavaPlugin {
     private void registerCommands() {
         this.getCommandRegistry().registerCommand(new HyforgedCommand());
         this.getCommandRegistry().registerCommand(new reign.software.hyforged.passive.command.PassiveCommand());
+        this.getCommandRegistry().registerCommand(new reign.software.hyforged.hud.HyforgedHubCommand());
         getLogger().at(Level.FINE).log("Registered Hyforged commands");
     }
     
@@ -807,6 +815,26 @@ public class HyforgedPlugin extends JavaPlugin {
         );
 
         getLogger().at(Level.FINE).log("Registered PassiveTreePage custom UI interaction");
+
+        // Register HyforgedOptionsPage for options/settings
+        OpenCustomUIInteraction.registerSimple(
+            this,
+            reign.software.hyforged.options.HyforgedOptionsPage.class,
+            "HyforgedOptionsPage",
+            reign.software.hyforged.options.HyforgedOptionsPage::new
+        );
+
+        getLogger().at(Level.FINE).log("Registered HyforgedOptionsPage custom UI interaction");
+
+        // Register HyforgedHubPage for central navigation menu
+        OpenCustomUIInteraction.registerSimple(
+            this,
+            reign.software.hyforged.hud.HyforgedHubPage.class,
+            "HyforgedHubPage",
+            reign.software.hyforged.hud.HyforgedHubPage::new
+        );
+
+        getLogger().at(Level.FINE).log("Registered HyforgedHubPage custom UI interaction");
 
         // Register Point Book interaction for consuming point books
         this.getCodecRegistry(Interaction.CODEC).register(

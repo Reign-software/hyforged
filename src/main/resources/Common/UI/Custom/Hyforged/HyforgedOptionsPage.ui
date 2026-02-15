@@ -1,0 +1,141 @@
+// Hyforged Options Page UI
+// Populated by HyforgedOptionsPage.java
+
+$Common = "../Common.ui";
+
+@ToggleRow = Group {
+  LayoutMode: Left;
+  Anchor: (Height: 36, Top: 4);
+  Padding: (Left: 10, Right: 10);
+
+  Label {
+    Text: @Label;
+    Anchor: (Width: 320, Height: 36);
+    Style: (FontSize: 13, TextColor: #c8d0dc, VerticalAlignment: Center);
+  }
+
+  Button #ToggleButton {
+    Anchor: (Width: 80, Height: 28, Right: 0);
+    Background: #2a3040(0.9);
+
+    Label #ToggleLabel {
+      Text: "";
+      Anchor: (Width: 80, Height: 28);
+      Style: (FontSize: 12, RenderBold: true, Alignment: Center, VerticalAlignment: Center);
+    }
+  }
+};
+
+Group #HyforgedOptionsPage {
+  LayoutMode: Top;
+  Anchor: (Width: 500, Height: 460);
+  Background: $Common.@InputBoxBackground;
+  Padding: (Full: 20);
+
+  // Header
+  Group #Header {
+    LayoutMode: Top;
+    Anchor: (Height: 40);
+
+    Label #Title {
+      Text: %hyforged.options.title;
+      Style: (FontSize: 22, Alignment: Center, RenderBold: true, TextColor: #e0e8f0);
+    }
+  }
+
+  // Separator
+  Group {
+    Anchor: (Height: 2, Top: 4);
+    Background: #c1c9d3(0.15);
+  }
+
+  // Player Options Section
+  Group #PlayerOptions {
+    LayoutMode: Top;
+    Padding: (Top: 10);
+
+    Label {
+      Text: %hyforged.options.section.display;
+      Style: (FontSize: 15, RenderBold: true, TextColor: #a0b0c0, RenderUppercase: true);
+      Anchor: (Height: 24);
+    }
+
+    @ToggleRow #CombatLogHudRow {
+      @Label = %hyforged.options.combatLogHud;
+
+      #ToggleLabel {
+      }
+    }
+
+    @ToggleRow #CombatTextRow {
+      @Label = %hyforged.options.combatText;
+
+      #ToggleLabel {
+      }
+    }
+
+    @ToggleRow #XpNotificationsRow {
+      @Label = %hyforged.options.xpNotifications;
+
+      #ToggleLabel {
+      }
+    }
+
+    @ToggleRow #DamageNumbersRow {
+      @Label = %hyforged.options.damageNumbers;
+
+      #ToggleLabel {
+      }
+    }
+  }
+
+  // Separator
+  Group {
+    Anchor: (Height: 2, Top: 10);
+    Background: #c1c9d3(0.15);
+  }
+
+  // Admin Options Section (hidden by default, shown based on permission)
+  Group #AdminOptions {
+    LayoutMode: Top;
+    Visible: false;
+    Padding: (Top: 10);
+
+    Label {
+      Text: %hyforged.options.section.admin;
+      Style: (FontSize: 15, RenderBold: true, TextColor: #e6a84c, RenderUppercase: true);
+      Anchor: (Height: 24);
+    }
+
+    @ToggleRow #DebugModeRow {
+      @Label = %hyforged.options.debugMode;
+
+      #ToggleLabel {
+      }
+    }
+
+    @ToggleRow #QualityDebugRow {
+      @Label = %hyforged.options.qualityDebug;
+
+      #ToggleLabel {
+      }
+    }
+  }
+
+  // Footer buttons
+  Group #Footer {
+    LayoutMode: Left;
+    Anchor: (Height: 40, Bottom: 0);
+
+    Button #CloseButton {
+      Anchor: (Width: 120, Height: 34, Right: 0);
+      Background: #3a2020(0.9);
+
+      Label {
+        Text: %hyforged.options.close;
+        Anchor: (Width: 120, Height: 34);
+        Style: (FontSize: 13, RenderBold: true, TextColor: #e0e0e0, Alignment: Center, VerticalAlignment: Center);
+      }
+    }
+  }
+}
