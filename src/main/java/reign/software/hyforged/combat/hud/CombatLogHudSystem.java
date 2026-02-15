@@ -199,10 +199,10 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
      * Check if combat log HUD is visible for a player.
      *
      * @param playerUuid The player's UUID
-     * @return true if visible (default: false)
+     * @return true if visible (default: true)
      */
     public static boolean isHudVisible(@Nonnull UUID playerUuid) {
-        return hudVisibility.getOrDefault(playerUuid, false);
+        return hudVisibility.getOrDefault(playerUuid, true);
     }
 
     /**

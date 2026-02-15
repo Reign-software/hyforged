@@ -105,6 +105,8 @@ Group #HyforgedHud {
         LayoutMode: Top;
         Visible: false;
         Anchor: (Left: 0, Width: 420);
+        Background: #000000(0.55);
+        Padding: (Full: 6);
 
         Group #CombatLogHeader {
             LayoutMode: Top;
