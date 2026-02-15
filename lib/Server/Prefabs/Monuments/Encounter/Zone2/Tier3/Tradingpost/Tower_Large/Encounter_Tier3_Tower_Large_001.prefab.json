@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 2,
   "anchorY": 6,
   "anchorZ": 2,
@@ -11474,8 +11474,7 @@
       "x": 4,
       "y": 8,
       "z": -1,
-      "name": "Bench_Lumbermill",
-      "filler": 31
+      "name": "Furniture_Ancient_Barrel"
     },
     {
       "x": 4,
@@ -11913,11 +11912,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 2,
-              "Y": 63,
-              "Z": 31
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -12260,11 +12254,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 2,
-              "Y": 79,
-              "Z": 0
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -13244,7 +13233,8 @@
       "x": 5,
       "y": 8,
       "z": -1,
-      "name": "Bench_Lumbermill"
+      "name": "Furniture_Ancient_Crate",
+      "rotation": 3
     },
     {
       "x": 5,
@@ -13551,11 +13541,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 3,
-              "Y": 63,
-              "Z": 31
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -13575,11 +13560,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 3,
-              "Y": 64,
-              "Z": 31
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -15538,6 +15518,7 @@
           "SpawnMarker": "Zombie_Sand",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -15558,15 +15539,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "PLfwVcqQMXaihPuiUceMwg==",
+            "$binary": "AUAushydNRidm3Tnzp4Xcg==",
             "$type": "04"
           }
         },
@@ -15589,6 +15572,7 @@
           "SpawnMarker": "Skeleton_Sand_Ranger",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -15609,15 +15593,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "xxu4jdqbMlOBJBMC3soKMw==",
+            "$binary": "2FIbIq4vMGK9/f3+4dQclA==",
             "$type": "04"
           }
         },

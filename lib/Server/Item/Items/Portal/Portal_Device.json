@@ -38,7 +38,7 @@
     },
     "Gathering": {
       "Breaking": {
-        "GatherType": "SoftBlocks"
+        "GatherType": "Benches"
       }
     },
     "State": {

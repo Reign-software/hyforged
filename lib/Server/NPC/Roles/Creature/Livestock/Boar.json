@@ -3,28 +3,30 @@
   "Reference": "Template_Animal_Neutral",
   "Modify": {
     "Appearance": "Boar",
+    "AttitudeGroup": "PreyBig",
     "FlockArray": [
       "Boar",
       "Boar_Piglet"
     ],
-    "LovedItems": [
-      "Plant_Crop_Mushroom_Cap_Red"
+    "AttractiveItemSet": [
+      "Plant_Crop_Pumpkin_Item"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Pumpkin",
     "DropList": "Drop_Boar",
     "MaxHealth": 81,
     "ViewRange": 15,
+    "ViewSector": 300,
+    "HearingRange": 9,
+    "AlertedRange": 17,
+    "AlertedActionRange": 5,
+    "AbsoluteDetectionRange": 2,
     "AttackWhenStartled": true,
     "Attack": "Root_NPC_Attack_Melee",
-    "GreetAnimation": "Moo",
-    "ChanceToTurnFriendly": 30,
-    "ChanceToTurnFriendlyWithAttractiveItem": 50,
-    "WeightGreet": 30,
-    "WeightFollowItem": 30,
-    "WeightFollow": 20,
-    "WeightIgnore": 10,
-    "ProduceItem": "Ingredient_Poop",
-    "IsHarvestable": false,
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Boar",
     "IsMemory": true,
+    "MemoriesNameOverride": "Boar",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" },
     "_InteractionVars": {
       "Melee_Start": {
         "Interactions": [
@@ -106,9 +108,6 @@
           }
         ]
       }
-    },
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
     }
   },
   "Parameters": {

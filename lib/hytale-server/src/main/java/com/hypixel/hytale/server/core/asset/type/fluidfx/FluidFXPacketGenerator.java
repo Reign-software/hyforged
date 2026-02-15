@@ -1,7 +1,7 @@
 package com.hypixel.hytale.server.core.asset.type.fluidfx;
 
 import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
-import com.hypixel.hytale.protocol.Packet;
+import com.hypixel.hytale.protocol.ToClientPacket;
 import com.hypixel.hytale.protocol.UpdateType;
 import com.hypixel.hytale.protocol.packets.assets.UpdateFluidFX;
 import com.hypixel.hytale.server.core.asset.packet.SimpleAssetPacketGenerator;
@@ -17,7 +17,7 @@ public class FluidFXPacketGenerator extends SimpleAssetPacketGenerator<String, F
    }
 
    @Nonnull
-   public Packet generateInitPacket(@Nonnull IndexedLookupTableAssetMap<String, FluidFX> assetMap, @Nonnull Map<String, FluidFX> assets) {
+   public ToClientPacket generateInitPacket(@Nonnull IndexedLookupTableAssetMap<String, FluidFX> assetMap, @Nonnull Map<String, FluidFX> assets) {
       UpdateFluidFX packet = new UpdateFluidFX();
       packet.type = UpdateType.Init;
       packet.fluidFX = new Int2ObjectOpenHashMap<>();
@@ -37,7 +37,7 @@ public class FluidFXPacketGenerator extends SimpleAssetPacketGenerator<String, F
    }
 
    @Nonnull
-   public Packet generateUpdatePacket(@Nonnull IndexedLookupTableAssetMap<String, FluidFX> assetMap, @Nonnull Map<String, FluidFX> loadedAssets) {
+   public ToClientPacket generateUpdatePacket(@Nonnull IndexedLookupTableAssetMap<String, FluidFX> assetMap, @Nonnull Map<String, FluidFX> loadedAssets) {
       UpdateFluidFX packet = new UpdateFluidFX();
       packet.type = UpdateType.AddOrUpdate;
       packet.fluidFX = new Int2ObjectOpenHashMap<>();
@@ -57,7 +57,7 @@ public class FluidFXPacketGenerator extends SimpleAssetPacketGenerator<String, F
    }
 
    @Nonnull
-   public Packet generateRemovePacket(@Nonnull IndexedLookupTableAssetMap<String, FluidFX> assetMap, @Nonnull Set<String> removed) {
+   public ToClientPacket generateRemovePacket(@Nonnull IndexedLookupTableAssetMap<String, FluidFX> assetMap, @Nonnull Set<String> removed) {
       UpdateFluidFX packet = new UpdateFluidFX();
       packet.type = UpdateType.Remove;
       packet.fluidFX = new Int2ObjectOpenHashMap<>();

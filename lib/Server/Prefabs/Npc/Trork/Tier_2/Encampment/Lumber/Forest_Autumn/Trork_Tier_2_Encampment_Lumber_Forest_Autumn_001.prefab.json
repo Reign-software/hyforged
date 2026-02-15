@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 10,
   "anchorZ": 1,
@@ -793,7 +793,7 @@
       "x": -19,
       "y": 11,
       "z": 0,
-      "name": "Furniture_Tavern_Barrel"
+      "name": "Empty"
     },
     {
       "x": -19,
@@ -805,8 +805,7 @@
       "x": -19,
       "y": 11,
       "z": 1,
-      "name": "Bench_Lumbermill",
-      "filler": 31
+      "name": "Empty"
     },
     {
       "x": -19,
@@ -962,7 +961,7 @@
       "x": -18,
       "y": 11,
       "z": 1,
-      "name": "Bench_Lumbermill"
+      "name": "Empty"
     },
     {
       "x": -18,
@@ -3743,8 +3742,7 @@
       "x": -11,
       "y": 11,
       "z": 11,
-      "name": "Bench_Lumbermill",
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -11,
@@ -3756,9 +3754,7 @@
       "x": -11,
       "y": 11,
       "z": 12,
-      "name": "Bench_Lumbermill",
-      "filler": 32,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -11,
@@ -16549,9 +16545,7 @@
       "x": 16,
       "y": 11,
       "z": 4,
-      "name": "Bench_Lumbermill",
-      "filler": 992,
-      "rotation": 3
+      "name": "Empty"
     },
     {
       "x": 16,
@@ -16563,8 +16557,7 @@
       "x": 16,
       "y": 11,
       "z": 5,
-      "name": "Bench_Lumbermill",
-      "rotation": 3
+      "name": "Empty"
     },
     {
       "x": 16,
@@ -19083,51 +19076,14 @@
         "SpawnMarkerComponent": {
           "SpawnMarker": "Trork_Mauler",
           "RespawnTime": 0.0,
-          "SpawnCount": 0
-        },
-        "Transform": {
-          "Position": {
-            "X": -4.9973957031229475,
-            "Y": 11.0,
-            "Z": -11.238674853515818
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 12.123892784118652,
-            "Roll": 0.0
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
           }
-        },
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "ds3PZ45BNHOPYj1qXUdW5A==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 8.9822998046875,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Trork_Mauler"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Trork_Mauler",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0
         },
         "Transform": {
           "Position": {
@@ -19141,15 +19097,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "oD20wDmJO9K9CkRPcpwAcA==",
+            "$binary": "oIzXr/dzN1KtaOD5CDgGUQ==",
             "$type": "04"
           }
         },
@@ -19171,7 +19130,14 @@
         "SpawnMarkerComponent": {
           "SpawnMarker": "Trork_Shaman",
           "RespawnTime": 0.0,
-          "SpawnCount": 0
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
         },
         "Transform": {
           "Position": {
@@ -19185,15 +19151,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "X8NSizxzO7mYnpzEBPtsPg==",
+            "$binary": "9bkQkHBlPBGURbKu0PjDVg==",
             "$type": "04"
           }
         },
@@ -19201,6 +19170,60 @@
           "Rotation": {
             "Pitch": 0.0,
             "Yaw": 13.21729850769043,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Trork_Mauler"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Trork_Mauler",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -4.9973957031229475,
+            "Y": 11.0,
+            "Z": -11.238674853515818
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 12.123892784118652,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "xp4KwSSIOuuabAUptT7M9w==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 8.9822998046875,
             "Roll": 0.0
           }
         }

@@ -51,6 +51,7 @@
     "Secondary": "Fertilizer_Use"
   },
   "MaxDurability": 5,
+  "DurabilityLossOnDeath": false,
   "BlockType": {
     "BlockParticleSetId": "Dust",
     "BlockSoundSetId": "Cloth",

@@ -3,7 +3,7 @@ package com.hypixel.hytale.server.core.asset.type.blocktype;
 import com.hypixel.hytale.assetstore.AssetUpdateQuery;
 import com.hypixel.hytale.assetstore.map.BlockTypeAssetMap;
 import com.hypixel.hytale.protocol.CachedPacket;
-import com.hypixel.hytale.protocol.Packet;
+import com.hypixel.hytale.protocol.ToClientPacket;
 import com.hypixel.hytale.protocol.UpdateType;
 import com.hypixel.hytale.protocol.packets.assets.UpdateBlockTypes;
 import com.hypixel.hytale.server.core.asset.packet.AssetPacketGenerator;
@@ -19,7 +19,7 @@ public class BlockTypePacketGenerator extends AssetPacketGenerator<String, Block
    }
 
    @Nonnull
-   public Packet generateInitPacket(@Nonnull BlockTypeAssetMap<String, BlockType> assetMap, @Nonnull Map<String, BlockType> assets) {
+   public ToClientPacket generateInitPacket(@Nonnull BlockTypeAssetMap<String, BlockType> assetMap, @Nonnull Map<String, BlockType> assets) {
       UpdateBlockTypes packet = new UpdateBlockTypes();
       packet.type = UpdateType.Init;
       Map<Integer, com.hypixel.hytale.protocol.BlockType> blockTypes = new Int2ObjectOpenHashMap<>();
@@ -44,7 +44,7 @@ public class BlockTypePacketGenerator extends AssetPacketGenerator<String, Block
    }
 
    @Nonnull
-   public Packet generateUpdatePacket(
+   public ToClientPacket generateUpdatePacket(
       @Nonnull BlockTypeAssetMap<String, BlockType> assetMap, @Nonnull Map<String, BlockType> loadedAssets, @Nonnull AssetUpdateQuery query
    ) {
       UpdateBlockTypes packet = new UpdateBlockTypes();
@@ -72,7 +72,9 @@ public class BlockTypePacketGenerator extends AssetPacketGenerator<String, Block
    }
 
    @Nonnull
-   public Packet generateRemovePacket(@Nonnull BlockTypeAssetMap<String, BlockType> assetMap, @Nonnull Set<String> removed, @Nonnull AssetUpdateQuery query) {
+   public ToClientPacket generateRemovePacket(
+      @Nonnull BlockTypeAssetMap<String, BlockType> assetMap, @Nonnull Set<String> removed, @Nonnull AssetUpdateQuery query
+   ) {
       UpdateBlockTypes packet = new UpdateBlockTypes();
       packet.type = UpdateType.Remove;
       Map<Integer, com.hypixel.hytale.protocol.BlockType> blockTypes = new Int2ObjectOpenHashMap<>();

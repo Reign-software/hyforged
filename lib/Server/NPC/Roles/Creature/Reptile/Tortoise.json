@@ -4,9 +4,6 @@
   "Modify": {
     "Appearance": "Tortoise",
     "DropList": "Drop_Tortoise",
-    "AttractiveItems": [
-      "Food_Cheese"
-    ],
     "MaxSpeed": 4,
     "MaxHealth": 103,
     "IsMemory": true,

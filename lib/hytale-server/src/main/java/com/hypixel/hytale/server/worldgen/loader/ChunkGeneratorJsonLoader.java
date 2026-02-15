@@ -3,14 +3,16 @@ package com.hypixel.hytale.server.worldgen.loader;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.hypixel.hytale.assetstore.AssetPack;
 import com.hypixel.hytale.common.map.IWeightedMap;
 import com.hypixel.hytale.common.map.WeightedMap;
+import com.hypixel.hytale.common.semver.Semver;
 import com.hypixel.hytale.common.util.ArrayUtil;
 import com.hypixel.hytale.common.util.PathUtil;
+import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.FastRandom;
 import com.hypixel.hytale.math.vector.Vector2i;
 import com.hypixel.hytale.procedurallib.file.FileIO;
-import com.hypixel.hytale.procedurallib.file.FileIOSystem;
 import com.hypixel.hytale.procedurallib.json.JsonLoader;
 import com.hypixel.hytale.procedurallib.json.Loader;
 import com.hypixel.hytale.procedurallib.json.SeedString;
@@ -23,9 +25,12 @@ import com.hypixel.hytale.server.worldgen.loader.context.FileContextLoader;
 import com.hypixel.hytale.server.worldgen.loader.context.FileLoadingContext;
 import com.hypixel.hytale.server.worldgen.loader.zone.ZonePatternProviderJsonLoader;
 import com.hypixel.hytale.server.worldgen.prefab.PrefabStoreRoot;
+import com.hypixel.hytale.server.worldgen.util.LogUtil;
 import com.hypixel.hytale.server.worldgen.zone.Zone;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Objects;
 import javax.annotation.Nonnull;
 
 public class ChunkGeneratorJsonLoader extends Loader<SeedStringResource, ChunkGenerator> {
@@ -50,7 +55,8 @@ public class ChunkGeneratorJsonLoader extends Loader<SeedStringResource, ChunkGe
          WorldGenConfig config = this.config.withOverride(overrideDataFolder);
 
          ChunkGenerator var13;
-         try (FileIOSystem fs = FileIO.openFileIOSystem(new AssetFileSystem(config))) {
+         try (AssetFileSystem fs = FileIO.openFileIOSystem(new AssetFileSystem(config))) {
+            logAssetPacks(fs.packs());
             Vector2i worldSize = this.loadWorldSize(worldJson);
             Vector2i worldOffset = this.loadWorldOffset(worldJson);
             MaskProvider maskProvider = this.loadMaskProvider(worldJson, worldSize, worldOffset);
@@ -190,6 +196,20 @@ public class ChunkGeneratorJsonLoader extends Loader<SeedStringResource, ChunkGe
          return new ZonePatternProviderJsonLoader(this.seed, this.dataFolder, zoneJson, maskProvider);
       } catch (Throwable var4) {
          throw new Error(String.format("Failed to read zone configuration file! File: %s", zoneFile.toString()), var4);
+      }
+   }
+
+   protected static void logAssetPacks(@Nonnull List<AssetPack> packs) {
+      HytaleLogger.Api logger = LogUtil.getLogger().atInfo();
+      Semver unversioned = new Semver(0L, 0L, 0L);
+      logger.log("Loading world-gen with the following asset-packs (highest priority first):");
+
+      for (int i = 0; i < packs.size(); i++) {
+         AssetPack pack = packs.get(i);
+         String name = pack.getName();
+         Semver version = Objects.requireNonNullElse(pack.getManifest().getVersion(), unversioned);
+         Path location = pack.getPackLocation();
+         logger.log("- [%3d] %s:%s - [%s]", i, name, version, location);
       }
    }
 

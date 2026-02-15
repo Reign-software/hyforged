@@ -190,8 +190,7 @@
         "Fertilizer",
         "Water",
         "LightLevel"
-      ],
-      "StageSetAfterHarvest": "Harvested"
+      ]
     },
     "Gathering": {
       "Soft": {

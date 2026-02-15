@@ -103,10 +103,12 @@
       3
     ],
     "CombatMovingRelativeSpeed": 0.2,
+    "CombatFleeIfTooCloseDistance": 2,
     "Attack": {
       "Compute": "Attack"
     },
     "AttackDistance": 3.25,
+    "TargetRange": 3.25,
     "ChaseRelativeSpeed": 1,
     "AlwaysSleepAtNight": true,
     "DayFlavorAnimation": "Eat",

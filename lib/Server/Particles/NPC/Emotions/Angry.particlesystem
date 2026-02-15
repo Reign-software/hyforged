@@ -4,7 +4,7 @@
       "SpawnerId": "Angry",
       "PositionOffset": {
         "X": -0.2,
-        "Y": 0.4,
+        "Y": 0.1,
         "Z": 0.3
       }
     },
@@ -13,7 +13,7 @@
       "FixedRotation": false,
       "PositionOffset": {
         "X": 0.3,
-        "Y": 0.4,
+        "Y": 0.1,
         "Z": 0
       }
     }

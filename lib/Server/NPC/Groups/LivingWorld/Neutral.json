@@ -1,6 +1,5 @@
 {
   "IncludeGroups": [
-    "Livestock",
     "Prey",
     "PreyBig"
   ]

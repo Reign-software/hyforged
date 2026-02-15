@@ -8,6 +8,13 @@
     "MaxHealth": 54,
     "IsMemory": true,
     "MemoriesCategory": "Goblin",
-    "MemoriesNameOverride": "Goblin_Scavenger"
+    "MemoriesNameOverride": "Goblin_Scavenger",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" }
+  },
+  "Parameters": {
+    "NameTranslationKey": {
+      "Value": "server.npcRoles.Goblin_Scavenger.name",
+      "Description": "Translation key for NPC name display"
+    }
   }
 }

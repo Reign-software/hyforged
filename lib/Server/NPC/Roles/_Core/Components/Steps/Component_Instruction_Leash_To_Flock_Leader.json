@@ -13,6 +13,10 @@
     "StopDistance": {
       "Value": 5,
       "Description": "Distance from leader at which to stop."
+    },
+    "RelativeSpeed": {
+      "Value": 1,
+      "Description": "Distance from leader at which to stop."
     }
   },
   "Content": {
@@ -48,7 +52,7 @@
       "Type": "Seek",
       "SlowDownDistance": { "Compute": "StopDistance + 2" },
       "StopDistance": { "Compute": "StopDistance" },
-      "RelativeSpeed": 1,
+      "RelativeSpeed": { "Compute": "RelativeSpeed" },
       "AbortDistance": 100
     }
   }

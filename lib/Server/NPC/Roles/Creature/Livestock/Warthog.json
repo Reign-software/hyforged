@@ -3,27 +3,32 @@
   "Reference": "Template_Animal_Neutral",
   "Modify": {
     "Appearance": "Warthog",
-    "AttitudeGroup": "Prey",
+    "AttitudeGroup": "PreyBig",
     "FlockArray": [
       "Warthog",
       "Warthog_Piglet"
     ],
+    "AttractiveItemSet": [
+      "Plant_Crop_Onion_Item"
+    ],
+    "AttractiveItemSetParticles": "Want_Food_Onion",
     "DropList": "Drop_Warthog",
     "MaxHealth": 103,
     "MaxSpeed": 6,
     "ViewRange": 15,
+    "ViewSector": 300,
+    "HearingRange": 10,
+    "AlertedRange": 17,
+    "AlertedActionRange": 6,
+    "AbsoluteDetectionRange": 1.5,
     "AttackWhenStartled": true,
     "Attack": "Root_NPC_Attack_Melee",
-    "GreetAnimation": "Moo",
-    "ChanceToTurnFriendly": 5,
-    "ChanceToTurnFriendlyWithAttractiveItem": 20,
-    "WeightGreet": 20,
-    "WeightFollowItem": 10,
-    "WeightFollow": 20,
-    "WeightIgnore": 30,
     "ProduceItem": "Ingredient_Poop",
-    "IsHarvestable": false,
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Warthog",
     "IsMemory": true,
+    "MemoriesNameOverride": "Warthog",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" },
     "_InteractionVars": {
       "Melee_Start": {
         "Interactions": [
@@ -105,9 +110,6 @@
           }
         ]
       }
-    },
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
     }
   },
   "Parameters": {

@@ -208,5 +208,18 @@
         }
       ]
     }
+  },
+  "Icon": "Icons/ModelsGenerated/Toad_Rhino.png",
+  "IconProperties": {
+    "Scale": 0.2,
+    "Rotation": [
+      0,
+      313,
+      0
+    ],
+    "Translation": [
+      3,
+      -71
+    ]
   }
 }

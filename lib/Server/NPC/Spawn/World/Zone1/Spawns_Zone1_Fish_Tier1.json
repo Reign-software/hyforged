@@ -6,12 +6,14 @@
     {
       "Weight": 10,
       "Id": "Minnow",
-      "Flock": "Group_Small"
+      "Flock": "Group_Small",
+      "SpawnFluidTag": "Water_Source"
     },
     {
       "Weight": 10,
       "Id": "Bluegill",
-      "Flock": "Group_Small"
+      "Flock": "Group_Small",
+      "SpawnFluidTag": "Water_Source"
     }
   ],
   "DayTimeRange": [

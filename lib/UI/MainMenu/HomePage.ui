@@ -167,7 +167,7 @@ Group {
 
   Button #BugReportButton {
     Anchor: (Height: 50);
-    TooltipText: %client.bugReportButton.tooltip;
+    TooltipText: %client.feedback.bugReportButton.tooltip;
     TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
     Style: (
       Default: (Background: PatchStyle(TexturePath: "../Common/Buttons/Secondary.png", Border: $Common.@ButtonBorderSize, Color: #ffffff(0.5))),
@@ -186,7 +186,7 @@ Group {
         Background: (TexturePath: "FeedbackButtonIcon.png", Color: #ffffff);
         Anchor: (Width: 110, Height: 110, Top: -40, Left: -95);
       }
-  
+
       Label {
         Text: %client.mainMenu.feedback.button.label;
         Style: (...$Common.@SecondaryButtonLabelStyle, FontSize: 18, TextColor: #ffffff);

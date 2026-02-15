@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 4,
   "anchorY": 7,
   "anchorZ": 1,
@@ -1061,25 +1061,19 @@
       "x": 0,
       "y": 8,
       "z": 0,
-      "name": "Coop_Chicken",
-      "filler": 1023,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 9,
       "z": 0,
-      "name": "Coop_Chicken",
-      "filler": 2047,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 10,
       "z": 0,
-      "name": "Coop_Chicken",
-      "filler": 3071,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 0,
@@ -1145,25 +1139,19 @@
       "x": 0,
       "y": 8,
       "z": 1,
-      "name": "Coop_Chicken",
-      "filler": 31,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 9,
       "z": 1,
-      "name": "Coop_Chicken",
-      "filler": 1055,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 10,
       "z": 1,
-      "name": "Coop_Chicken",
-      "filler": 2079,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 0,
@@ -1229,25 +1217,19 @@
       "x": 0,
       "y": 8,
       "z": 2,
-      "name": "Coop_Chicken",
-      "filler": 63,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 9,
       "z": 2,
-      "name": "Coop_Chicken",
-      "filler": 1087,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 10,
       "z": 2,
-      "name": "Coop_Chicken",
-      "filler": 2111,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 0,
@@ -1928,25 +1910,19 @@
       "x": 1,
       "y": 8,
       "z": 0,
-      "name": "Coop_Chicken",
-      "filler": 992,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 1,
       "y": 9,
       "z": 0,
-      "name": "Coop_Chicken",
-      "filler": 2016,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 1,
       "y": 10,
       "z": 0,
-      "name": "Coop_Chicken",
-      "filler": 3040,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 1,
@@ -2012,24 +1988,19 @@
       "x": 1,
       "y": 8,
       "z": 1,
-      "name": "Coop_Chicken",
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 1,
       "y": 9,
       "z": 1,
-      "name": "Coop_Chicken",
-      "filler": 1024,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 1,
       "y": 10,
       "z": 1,
-      "name": "Coop_Chicken",
-      "filler": 2048,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 1,
@@ -2095,25 +2066,19 @@
       "x": 1,
       "y": 8,
       "z": 2,
-      "name": "Coop_Chicken",
-      "filler": 32,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 1,
       "y": 9,
       "z": 2,
-      "name": "Coop_Chicken",
-      "filler": 1056,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 1,
       "y": 10,
       "z": 2,
-      "name": "Coop_Chicken",
-      "filler": 2080,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 1,
@@ -5005,25 +4970,19 @@
       "x": 4,
       "y": 8,
       "z": 4,
-      "name": "Coop_Chicken",
-      "filler": 31,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 4,
       "y": 9,
       "z": 4,
-      "name": "Coop_Chicken",
-      "filler": 1055,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 4,
       "y": 10,
       "z": 4,
-      "name": "Coop_Chicken",
-      "filler": 2079,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 4,
@@ -5089,25 +5048,19 @@
       "x": 4,
       "y": 8,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 63,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 4,
       "y": 9,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 1087,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 4,
       "y": 10,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 2111,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 4,
@@ -5930,24 +5883,19 @@
       "x": 5,
       "y": 8,
       "z": 4,
-      "name": "Coop_Chicken",
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 5,
       "y": 9,
       "z": 4,
-      "name": "Coop_Chicken",
-      "filler": 1024,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 5,
       "y": 10,
       "z": 4,
-      "name": "Coop_Chicken",
-      "filler": 2048,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 5,
@@ -6013,25 +5961,19 @@
       "x": 5,
       "y": 8,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 32,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 5,
       "y": 9,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 1056,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 5,
       "y": 10,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 2080,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 5,
@@ -6836,25 +6778,19 @@
       "x": 6,
       "y": 8,
       "z": 4,
-      "name": "Coop_Chicken",
-      "filler": 1,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 6,
       "y": 9,
       "z": 4,
-      "name": "Coop_Chicken",
-      "filler": 1025,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 6,
       "y": 10,
       "z": 4,
-      "name": "Coop_Chicken",
-      "filler": 2049,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 6,
@@ -6920,25 +6856,19 @@
       "x": 6,
       "y": 8,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 33,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 6,
       "y": 9,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 1057,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 6,
       "y": 10,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 2081,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 6,
@@ -9725,6 +9655,7 @@
           "SpawnMarker": "Kweebec_Rabbit",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -9744,15 +9675,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "Dq/qWulIOMq0MIbmkMtgjg==",
+            "$binary": "CrAOwZHvMwKbwpyi+Hpf7A==",
             "$type": "04"
           }
         },

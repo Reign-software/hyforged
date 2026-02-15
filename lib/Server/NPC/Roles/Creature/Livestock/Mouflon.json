@@ -3,29 +3,29 @@
   "Reference": "Template_Animal_Neutral",
   "Modify": {
     "Appearance": "Mouflon",
-    "AttitudeGroup": "Prey",
+    "AttitudeGroup": "PreyBig",
     "FlockArray": [
       "Mouflon",
       "Mouflon_Lamb"
     ],
-    "LovedItems": [
+    "AttractiveItemSet": [
       "Plant_Fruit_Apple"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Apple",
     "DropList": "Drop_Mouflon",
     "MaxHealth": 81,
     "ViewRange": 15,
-    "GreetAnimation": "Bleat",
-    "ChanceToTurnFriendly": 30,
-    "ChanceToTurnFriendlyWithAttractiveItem": 50,
-    "WeightGreet": 30,
-    "WeightFollowItem": 20,
-    "WeightFollow": 10,
-    "WeightIgnore": 20,
+    "ViewSector": 340,
+    "HearingRange": 9,
+    "AlertedRange": 17,
+    "AlertedActionRange": 6,
+    "AbsoluteDetectionRange": 2,
     "ProduceItem": "Ingredient_Poop",
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Mouflon",
     "IsMemory": true,
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
-    }
+    "MemoriesNameOverride": "Mouflon",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" }
   },
   "Parameters": {
     "NameTranslationKey": {

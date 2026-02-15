@@ -97,7 +97,7 @@ Group {
 
   Button #BugReportButton {
     Anchor: (Width: 140, Height: 140);
-    TooltipText: %client.bugReportButton.tooltip;
+    TooltipText: %client.feedback.bugReportButton.tooltip;
     TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
     Style: (
       Default: (Background: (TexturePath: "../../Common/BugReportIcon.png")),

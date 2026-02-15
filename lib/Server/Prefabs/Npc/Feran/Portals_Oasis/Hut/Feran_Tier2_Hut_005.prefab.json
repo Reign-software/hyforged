@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 10,
+  "blockIdVersion": 11,
   "anchorX": 2,
   "anchorY": 9,
   "anchorZ": 1,
@@ -6224,46 +6224,13 @@
       "x": -5,
       "y": 10,
       "z": 3,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": -7,
-              "Y": 1,
-              "Z": 2
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "InputContainer": {
-              "Id": "Simple",
-              "Capacity": 2,
-              "Items": {}
-            },
-            "FuelContainer": {
-              "Id": "Empty"
-            },
-            "OutputContainer": {
-              "Id": "Simple",
-              "Capacity": 2,
-              "Items": {}
-            },
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": true,
-            "NextExtra": 0
-          }
-        }
-      },
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 11,
       "z": 3,
-      "name": "Bench_Tannery",
-      "filler": 1024,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
@@ -6367,17 +6334,13 @@
       "x": -5,
       "y": 10,
       "z": 4,
-      "name": "Bench_Tannery",
-      "filler": 32,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 11,
       "z": 4,
-      "name": "Bench_Tannery",
-      "filler": 1056,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
@@ -40183,6 +40146,61 @@
           "SpawnMarker": "Feran_T2",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -1.5789416015625761,
+            "Y": 11.7153,
+            "Z": 10.41998955078111
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 9.418290138244629,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "YlpkEwBbPx+PccgXBeAzpA==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 6.276697635650635,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Feran_T2"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Feran_T2",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -40203,6 +40221,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -40212,7 +40231,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "u0jQqxQXN1mRcYCGTRDEEw==",
+            "$binary": "5M9SsXTiP4axR7nczzxWlw==",
             "$type": "04"
           }
         },
@@ -40220,58 +40239,6 @@
           "Rotation": {
             "Pitch": 0.0,
             "Yaw": 7.813680648803711,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Feran_T2"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Feran_T2",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -1.5789416015625761,
-            "Y": 11.7153,
-            "Z": 10.419989550781168
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 9.418290138244629,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "knVlEhScOeqtcojIHObnBg==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 6.276697635650635,
             "Roll": 0.0
           }
         }

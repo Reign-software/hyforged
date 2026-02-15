@@ -5,7 +5,9 @@ $Common = "../../../../Common.ui";
   FontSize: 16,
   HorizontalAlignment: Start,
   VerticalAlignment: Center,
-  RenderUppercase: false
+  RenderUppercase: false,
+  ShrinkTextToFit: true,
+  MinShrinkTextToFitFontSize: 12
 );
 
 @LabelAffix = Label {
@@ -14,6 +16,8 @@ $Common = "../../../../Common.ui";
 };
 
 @Label = Label {
-  Style: @DefaultLabelStyle;
+  @LabelStyle = ();
+  Padding: (Right: 4);
+  Style: (...@DefaultLabelStyle, ...@LabelStyle);
   TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
 };

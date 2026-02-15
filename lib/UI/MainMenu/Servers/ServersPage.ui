@@ -274,7 +274,7 @@ Group {
     Group #ServersTableBody {
       ScrollbarStyle: $Common.@DefaultScrollbarStyle;
       LayoutMode: TopScrolling;
-      Anchor: (Right: -12); // This brings the scrollbar outside to the right
+      Anchor: (Height: 700); // This brings the scrollbar outside to the right
     }
 
     Group #NoServersFound {

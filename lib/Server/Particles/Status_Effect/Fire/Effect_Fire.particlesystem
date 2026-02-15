@@ -1,18 +1,6 @@
 {
   "Spawners": [
     {
-      "SpawnerId": "StatusFire_SpawnGlow",
-      "PositionOffset": {
-        "Y": 1.0
-      }
-    },
-    {
-      "SpawnerId": "StatusFire_Spawn",
-      "PositionOffset": {
-        "Y": -0.2
-      }
-    },
-    {
       "SpawnerId": "StatusFire_Sparks_Up",
       "PositionOffset": {
         "Y": 0.0

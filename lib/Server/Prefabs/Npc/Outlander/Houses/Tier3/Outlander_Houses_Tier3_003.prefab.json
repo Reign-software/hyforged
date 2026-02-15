@@ -12466,6 +12466,9 @@
       "y": 11,
       "z": 11,
       "name": "Furniture_Lumberjack_Chair",
+      "components": {
+        "Components": {}
+      },
       "rotation": 2
     },
     {
@@ -13384,37 +13387,6 @@
     },
     {
       "x": -3,
-      "y": 11,
-      "z": -2,
-      "name": "Bench_Armour",
-      "components": {
-        "Components": {
-          "crafting": {
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "rotation": 1
-    },
-    {
-      "x": -3,
-      "y": 12,
-      "z": -2,
-      "name": "Bench_Armour",
-      "components": {
-        "Components": {
-          "crafting": {
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024,
-      "rotation": 1
-    },
-    {
-      "x": -3,
       "y": 14,
       "z": -2,
       "name": "Wood_Redwood_Trunk",
@@ -13522,38 +13494,6 @@
       "y": 10,
       "z": -1,
       "name": "Soil_Dirt_Cold"
-    },
-    {
-      "x": -3,
-      "y": 11,
-      "z": -1,
-      "name": "Bench_Armour",
-      "components": {
-        "Components": {
-          "crafting": {
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 32,
-      "rotation": 1
-    },
-    {
-      "x": -3,
-      "y": 12,
-      "z": -1,
-      "name": "Bench_Armour",
-      "components": {
-        "Components": {
-          "crafting": {
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1056,
-      "rotation": 1
     },
     {
       "x": -3,

@@ -44,6 +44,7 @@
       "Recipe": null,
       "Consumable": true,
       "MaxDurability": 1,
+      "DurabilityLossOnDeath": false,
       "MaxStack": 1,
       "BlockType": {
         "CustomModelTexture": [

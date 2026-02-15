@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": -1,
   "anchorY": 61,
   "anchorZ": 21,
@@ -2568,11 +2568,6 @@
       "y": 67,
       "z": 17,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 32
     },
     {
@@ -2580,11 +2575,6 @@
       "y": 68,
       "z": 17,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1056
     },
     {
@@ -2665,11 +2655,6 @@
       "y": 67,
       "z": 18,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 64
     },
     {
@@ -2677,11 +2662,6 @@
       "y": 68,
       "z": 18,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1088
     },
     {
@@ -3606,11 +3586,6 @@
       "y": 67,
       "z": 16,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1
     },
     {
@@ -3618,11 +3593,6 @@
       "y": 68,
       "z": 16,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1025
     },
     {
@@ -3711,11 +3681,6 @@
       "y": 67,
       "z": 17,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 33
     },
     {
@@ -3723,11 +3688,6 @@
       "y": 68,
       "z": 17,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1057
     },
     {
@@ -3816,11 +3776,6 @@
       "y": 67,
       "z": 18,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 65
     },
     {
@@ -3828,11 +3783,6 @@
       "y": 68,
       "z": 18,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1089
     },
     {
@@ -5689,46 +5639,24 @@
       "x": -2,
       "y": 62,
       "z": 25,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": -1,
-              "Y": 1,
-              "Z": 4
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
+      "name": "Furniture_Lumberjack_Shelf",
       "rotation": 2
     },
     {
       "x": -2,
       "y": 63,
       "z": 25,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 30,
-              "Y": 63,
-              "Z": 25
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -2,
       "y": 64,
+      "z": 25,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 65,
       "z": 25,
       "name": "Empty"
     },
@@ -6901,43 +6829,13 @@
       "x": -1,
       "y": 62,
       "z": 25,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 31,
-              "Y": 62,
-              "Z": 25
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -1,
       "y": 63,
       "z": 25,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 31,
-              "Y": 63,
-              "Z": 25
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1025,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -1,
@@ -9109,11 +9007,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 2,
-              "Y": 1,
-              "Z": 4
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -12278,6 +12171,7 @@
           "SpawnMarker": "Outlander_Berserker",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -12298,15 +12192,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "qpkCBcc3O5eJProDcRySGg==",
+            "$binary": "aSTUfqWCPkq1G7ifYf9Qjw==",
             "$type": "04"
           }
         },

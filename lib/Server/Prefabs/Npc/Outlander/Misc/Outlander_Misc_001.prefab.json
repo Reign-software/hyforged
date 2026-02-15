@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 4,
   "anchorZ": 0,
@@ -1401,11 +1401,6 @@
       "components": {
         "Components": {
           "crafting": {
-            "Position": {
-              "X": -4,
-              "Y": 1,
-              "Z": -3
-            },
             "TierLevel": 1,
             "UpgradeItems": []
           }
@@ -1458,11 +1453,6 @@
       "components": {
         "Components": {
           "crafting": {
-            "Position": {
-              "X": 28,
-              "Y": 5,
-              "Z": 30
-            },
             "TierLevel": 1,
             "UpgradeItems": []
           }
@@ -6272,7 +6262,7 @@
       "x": 1,
       "y": 6,
       "z": 7,
-      "name": "*Wood_Deadwood_Fence_State_Definitions_Corner",
+      "name": "Wood_Deadwood_Fence",
       "rotation": 2
     },
     {
@@ -7086,8 +7076,7 @@
       "x": 2,
       "y": 5,
       "z": 6,
-      "name": "Bench_Lumbermill",
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 2,
@@ -7970,9 +7959,7 @@
       "x": 3,
       "y": 5,
       "z": 6,
-      "name": "Bench_Lumbermill",
-      "filler": 1,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 3,

@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 0,
   "anchorZ": 0,
@@ -3968,7 +3968,9 @@
       "name": "Plant_Crop_Mushroom_Common_Blue",
       "components": {
         "Components": {
-          "FarmingBlock": {}
+          "FarmingBlock": {
+            "LastTickGameTime": "0001-01-01T12:00:00Z"
+          }
         }
       }
     },
@@ -4209,7 +4211,9 @@
       "name": "Plant_Crop_Mushroom_Flatcap_Green",
       "components": {
         "Components": {
-          "FarmingBlock": {}
+          "FarmingBlock": {
+            "LastTickGameTime": "0001-01-01T12:00:00Z"
+          }
         }
       }
     },
@@ -4850,7 +4854,9 @@
       "name": "Plant_Crop_Mushroom_Common_Blue",
       "components": {
         "Components": {
-          "FarmingBlock": {}
+          "FarmingBlock": {
+            "LastTickGameTime": "0001-01-01T12:00:00Z"
+          }
         }
       }
     },
@@ -7019,7 +7025,9 @@
       "name": "Plant_Crop_Mushroom_Flatcap_Green",
       "components": {
         "Components": {
-          "FarmingBlock": {}
+          "FarmingBlock": {
+            "LastTickGameTime": "0001-01-01T12:00:00Z"
+          }
         }
       }
     },
@@ -24558,7 +24566,9 @@
       "name": "Plant_Crop_Mushroom_Common_Blue",
       "components": {
         "Components": {
-          "FarmingBlock": {}
+          "FarmingBlock": {
+            "LastTickGameTime": "0001-01-01T12:00:00Z"
+          }
         }
       }
     },
@@ -37881,7 +37891,9 @@
       "name": "Plant_Crop_Mushroom_Flatcap_Green",
       "components": {
         "Components": {
-          "FarmingBlock": {}
+          "FarmingBlock": {
+            "LastTickGameTime": "0001-01-01T12:00:00Z"
+          }
         }
       }
     },
@@ -41903,42 +41915,13 @@
       "x": 7,
       "y": 3,
       "z": -2,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 7,
-              "Y": 3,
-              "Z": 30
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 7,
       "y": 4,
       "z": -2,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 7,
-              "Y": 4,
-              "Z": 30
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 7,
@@ -44150,43 +44133,14 @@
       "x": 8,
       "y": 3,
       "z": -2,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 8,
-              "Y": 3,
-              "Z": 30
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1,
+      "name": "Furniture_Ancient_Crate",
       "rotation": 2
     },
     {
       "x": 8,
       "y": 4,
       "z": -2,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 8,
-              "Y": 4,
-              "Z": 30
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1025,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 8,
@@ -44276,7 +44230,8 @@
       "x": 8,
       "y": 3,
       "z": -1,
-      "name": "Rock_Stone_Brick_Wall"
+      "name": "Furniture_Ancient_Crate",
+      "rotation": 3
     },
     {
       "x": 8,
@@ -45920,7 +45875,9 @@
       "name": "Plant_Crop_Mushroom_Common_Blue",
       "components": {
         "Components": {
-          "FarmingBlock": {}
+          "FarmingBlock": {
+            "LastTickGameTime": "0001-01-01T12:00:00Z"
+          }
         }
       }
     },
@@ -46520,13 +46477,15 @@
       "x": 9,
       "y": 3,
       "z": -1,
-      "name": "Rock_Stone_Brick_Wall"
+      "name": "Furniture_Ancient_Crate",
+      "rotation": 2
     },
     {
       "x": 9,
       "y": 4,
       "z": -1,
-      "name": "Empty"
+      "name": "Furniture_Ancient_Crate",
+      "rotation": 2
     },
     {
       "x": 9,
@@ -48065,7 +48024,9 @@
       "name": "Plant_Crop_Mushroom_Common_Blue",
       "components": {
         "Components": {
-          "FarmingBlock": {}
+          "FarmingBlock": {
+            "LastTickGameTime": "0001-01-01T12:00:00Z"
+          }
         }
       }
     },
@@ -51154,48 +51115,72 @@
     {
       "Components": {
         "Nameplate": {
-          "Text": "Skeleton_Soldier_Patrol"
+          "Text": "0.91080507-564e-45e6-a92e-fc5e2f8f965a (MagicRuins_Room) #0 [Wait 10.0s] <Rotate 90.00deg>"
+        },
+        "PatrolPathMarker": {
+          "Version": 5,
+          "DisplayName": "0.91080507-564e-45e6-a92e-fc5e2f8f965a (MagicRuins_Room) #0 [Wait 10.0s] <Rotate 90.00deg>",
+          "UUID": {
+            "$binary": "jakuGzEsMN22oM7SznLeSQ==",
+            "$type": "04"
+          },
+          "PathId": {
+            "$binary": "SOKYAZQ/TF+/yhYh1BEQew==",
+            "$type": "04"
+          },
+          "PathName": "MagicRuins_Room",
+          "PathLength": 3,
+          "Order": 0,
+          "PauseTime": 10.0,
+          "ObsvAngle": 1.5707963705062866
         },
         "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Soldier_Patrol",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
+        "DisplayName": {
+          "DisplayName": {
+            "RawText": "0.91080507-564e-45e6-a92e-fc5e2f8f965a (MagicRuins_Room) #0 [Wait 10.0s] <Rotate 90.00deg>",
+            "Bold": null,
+            "Italic": null,
+            "Monospace": null,
+            "Underline": null
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -7.108035644531128,
+            "Y": 2.0,
+            "Z": -18.706321606445314
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 91.24235534667969,
+            "Roll": 0.0
+          }
+        },
+        "Velocity": {
+          "Velocity": {
             "X": 0.0,
             "Y": 0.0,
             "Z": 0.0
           }
         },
-        "Transform": {
-          "Position": {
-            "X": 8.33697509765625,
-            "Y": 3.0362396240234375,
-            "Z": -3.49005126953125
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 0.44134506583213806,
-            "Roll": 0.0
-          }
-        },
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Id": "NPC_Path_Marker",
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "h26fQo5ZN/yPJhCLB2XFFg==",
+            "$binary": "jakuGzEsMN22oM7SznLeSQ==",
             "$type": "04"
           }
         },
         "HeadRotation": {
           "Rotation": {
-            "Pitch": -0.2965671122074127,
-            "Yaw": 0.44134506583213806,
+            "Pitch": 0.0,
+            "Yaw": 91.24235534667969,
             "Roll": 0.0
           }
         }
@@ -51211,6 +51196,7 @@
           "SpawnMarker": "Skeleton_Archer_Patrol",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -51230,15 +51216,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "DA8qxgpDMm2Tjqkbk1wUrg==",
+            "$binary": "1U4vN6/jMIGJeONReugpIA==",
             "$type": "04"
           }
         },
@@ -51246,451 +51235,6 @@
           "Rotation": {
             "Pitch": -0.1480812430381775,
             "Yaw": -3.0035033226013184,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "PatrolPathMarker": {
-          "Version": 5,
-          "Position": {
-            "X": 7.69683837890625,
-            "Y": 1.0,
-            "Z": -8.2552490234375
-          },
-          "HeadRotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.9520316123962402,
-            "Roll": 0.0
-          },
-          "BodyRotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.0593630075454712,
-            "Roll": 0.0
-          },
-          "DisplayName": "0.a1afc3b7-3089-431a-b1c7-dece0c75ef58 (MagicRuins_Room) #1 [Wait 7.0s] <Rotate 90.00deg>",
-          "NameTagVisible": true,
-          "UUID": {
-            "$binary": "5L8JtSeeOZaS63TNqcTySg==",
-            "$type": "04"
-          },
-          "Metadata": {},
-          "PathId": {
-            "$binary": "oa/DtzCJQxqxx97ODHXvWA==",
-            "$type": "04"
-          },
-          "PathName": "MagicRuins_Room",
-          "PathLength": 3,
-          "Order": 1,
-          "PauseTime": 7.0,
-          "ObsvAngle": 1.5707963705062866
-        },
-        "Model": {
-          "Model": {
-            "Id": "NPC_Path_Marker",
-            "Scale": 1.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 7.69683837890625,
-            "Y": 1.0,
-            "Z": -8.2552490234375
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.0593630075454712,
-            "Roll": 0.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "5L8JtSeeOZaS63TNqcTySg==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.9520316123962402,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "PatrolPathMarker": {
-          "Version": 5,
-          "Position": {
-            "X": 8.310791015625,
-            "Y": 3.0,
-            "Z": -3.617218017578125
-          },
-          "HeadRotation": {
-            "Pitch": 0.0,
-            "Yaw": 94.36454772949219,
-            "Roll": 0.0
-          },
-          "BodyRotation": {
-            "Pitch": 0.0,
-            "Yaw": 94.36454772949219,
-            "Roll": 0.0
-          },
-          "DisplayName": "0.a1afc3b7-3089-431a-b1c7-dece0c75ef58 (MagicRuins_Room) #0 [Wait 10.0s] <Rotate 90.00deg>",
-          "NameTagVisible": true,
-          "UUID": {
-            "$binary": "9YlOIecpOUilwTOJ5GDSVA==",
-            "$type": "04"
-          },
-          "Metadata": {},
-          "PathId": {
-            "$binary": "oa/DtzCJQxqxx97ODHXvWA==",
-            "$type": "04"
-          },
-          "PathName": "MagicRuins_Room",
-          "PathLength": 3,
-          "Order": 0,
-          "PauseTime": 10.0,
-          "ObsvAngle": 1.5707963705062866
-        },
-        "Model": {
-          "Model": {
-            "Id": "NPC_Path_Marker",
-            "Scale": 1.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 8.310791015625,
-            "Y": 3.0,
-            "Z": -3.617218017578125
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 94.36454772949219,
-            "Roll": 0.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "9YlOIecpOUilwTOJ5GDSVA==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 94.36454772949219,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "PatrolPathMarker": {
-          "Version": 5,
-          "Position": {
-            "X": -2.65545654296875,
-            "Y": 2.0,
-            "Z": -19.062156677246094
-          },
-          "HeadRotation": {
-            "Pitch": 0.0,
-            "Yaw": 91.69920349121094,
-            "Roll": 0.0
-          },
-          "BodyRotation": {
-            "Pitch": 0.0,
-            "Yaw": 91.69920349121094,
-            "Roll": 0.0
-          },
-          "DisplayName": "0.91080507-564e-45e6-a92e-fc5e2f8f965a (MagicRuins_Room) #1 [Wait 10.0s] <Rotate 110.00deg>",
-          "NameTagVisible": true,
-          "UUID": {
-            "$binary": "/RvIn9o+PVumx0bnddzHBg==",
-            "$type": "04"
-          },
-          "Metadata": {},
-          "PathId": {
-            "$binary": "kQgFB1ZOReapLvxeL4+WWg==",
-            "$type": "04"
-          },
-          "PathName": "MagicRuins_Room",
-          "PathLength": 3,
-          "Order": 1,
-          "PauseTime": 10.0,
-          "ObsvAngle": 1.919862151145935
-        },
-        "Model": {
-          "Model": {
-            "Id": "NPC_Path_Marker",
-            "Scale": 1.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -2.65545654296875,
-            "Y": 2.0,
-            "Z": -19.062156677246094
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 91.69920349121094,
-            "Roll": 0.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "/RvIn9o+PVumx0bnddzHBg==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 91.69920349121094,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Fighter"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Fighter",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -4.837158203125,
-            "Y": 7.0,
-            "Z": -2.247802734375
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 0.5834637880325317,
-            "Roll": 0.0
-          }
-        },
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "+OC3zHMLPP+Nn5x+BjYtRQ==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": -0.27959758043289185,
-            "Yaw": 0.5834637880325317,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Fighter"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Fighter",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 9.056342871093875,
-            "Y": 8.0,
-            "Z": -2.779675646972649
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 0.4096812903881073,
-            "Roll": 0.0
-          }
-        },
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "UNzJl9WXM+m+o4e82g9zsA==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": -0.32202136516571045,
-            "Yaw": 0.4096812903881073,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "PatrolPathMarker": {
-          "Version": 5,
-          "Position": {
-            "X": 2.632931152343531,
-            "Y": 2.0,
-            "Z": -18.817453637695323
-          },
-          "HeadRotation": {
-            "Pitch": 0.0,
-            "Yaw": 91.02557373046875,
-            "Roll": 0.0
-          },
-          "BodyRotation": {
-            "Pitch": 0.0,
-            "Yaw": 91.02557373046875,
-            "Roll": 0.0
-          },
-          "DisplayName": "0.91080507-564e-45e6-a92e-fc5e2f8f965a (MagicRuins_Room) #2 [Wait 11.0s] <Rotate 90.00deg>",
-          "NameTagVisible": true,
-          "UUID": {
-            "$binary": "KuBol0cdPMyxORXuLhm1xA==",
-            "$type": "04"
-          },
-          "Metadata": {},
-          "PathId": {
-            "$binary": "kQgFB1ZOReapLvxeL4+WWg==",
-            "$type": "04"
-          },
-          "PathName": "MagicRuins_Room",
-          "PathLength": 3,
-          "Order": 2,
-          "PauseTime": 11.0,
-          "ObsvAngle": 1.5707963705062866
-        },
-        "Model": {
-          "Model": {
-            "Id": "NPC_Path_Marker",
-            "Scale": 1.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 2.632931152343531,
-            "Y": 2.0,
-            "Z": -18.817453637695323
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 91.02557373046875,
-            "Roll": 0.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "KuBol0cdPMyxORXuLhm1xA==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 91.02557373046875,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "PatrolPathMarker": {
-          "Version": 5,
-          "Position": {
-            "X": -7.108035644531128,
-            "Y": 2.0,
-            "Z": -18.706321606445314
-          },
-          "HeadRotation": {
-            "Pitch": 0.0,
-            "Yaw": 91.24235534667969,
-            "Roll": 0.0
-          },
-          "BodyRotation": {
-            "Pitch": 0.0,
-            "Yaw": 91.24235534667969,
-            "Roll": 0.0
-          },
-          "DisplayName": "0.91080507-564e-45e6-a92e-fc5e2f8f965a (MagicRuins_Room) #0 [Wait 10.0s] <Rotate 90.00deg>",
-          "NameTagVisible": true,
-          "UUID": {
-            "$binary": "wUCF/z37OmeaEY1IAzBOuQ==",
-            "$type": "04"
-          },
-          "Metadata": {},
-          "PathId": {
-            "$binary": "kQgFB1ZOReapLvxeL4+WWg==",
-            "$type": "04"
-          },
-          "PathName": "MagicRuins_Room",
-          "PathLength": 3,
-          "Order": 0,
-          "PauseTime": 10.0,
-          "ObsvAngle": 1.5707963705062866
-        },
-        "Model": {
-          "Model": {
-            "Id": "NPC_Path_Marker",
-            "Scale": 1.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -7.108035644531128,
-            "Y": 2.0,
-            "Z": -18.706321606445314
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 91.24235534667969,
-            "Roll": 0.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "wUCF/z37OmeaEY1IAzBOuQ==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 91.24235534667969,
             "Roll": 0.0
           }
         }
@@ -51706,6 +51250,7 @@
           "SpawnMarker": "Skeleton_Archer",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -51725,15 +51270,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "pBqoN45EPy6gNCbVS64MUg==",
+            "$binary": "OxWhglvwOO258HWtkPSpKg==",
             "$type": "04"
           }
         },
@@ -51748,32 +51296,476 @@
     },
     {
       "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Fighter"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Fighter",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -4.837158203125,
+            "Y": 7.0,
+            "Z": -2.247802734375
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 0.5834637880325317,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "iboKMP9UO5eZI1khRyajaQ==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": -0.27959758043289185,
+            "Yaw": 0.5834637880325317,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "0.91080507-564e-45e6-a92e-fc5e2f8f965a (MagicRuins_Room) #1 [Wait 10.0s] <Rotate 110.00deg>"
+        },
         "PatrolPathMarker": {
           "Version": 5,
-          "Position": {
-            "X": 9.716351660156192,
-            "Y": 1.0,
-            "Z": -9.923611779785176
-          },
-          "HeadRotation": {
-            "Pitch": 0.0,
-            "Yaw": 92.89759063720703,
-            "Roll": 0.0
-          },
-          "BodyRotation": {
-            "Pitch": 0.0,
-            "Yaw": 92.89759063720703,
-            "Roll": 0.0
-          },
-          "DisplayName": "0.a1afc3b7-3089-431a-b1c7-dece0c75ef58 (MagicRuins_Room) #2 [Wait 10.0s] <Rotate 90.00deg>",
-          "NameTagVisible": true,
+          "DisplayName": "0.91080507-564e-45e6-a92e-fc5e2f8f965a (MagicRuins_Room) #1 [Wait 10.0s] <Rotate 110.00deg>",
           "UUID": {
-            "$binary": "1oCIMpBNPSuWNNbJWVI5uQ==",
+            "$binary": "Gi7xLGh2P/a247ouF9bmtQ==",
             "$type": "04"
           },
-          "Metadata": {},
           "PathId": {
-            "$binary": "oa/DtzCJQxqxx97ODHXvWA==",
+            "$binary": "SOKYAZQ/TF+/yhYh1BEQew==",
+            "$type": "04"
+          },
+          "PathName": "MagicRuins_Room",
+          "PathLength": 3,
+          "Order": 1,
+          "PauseTime": 10.0,
+          "ObsvAngle": 1.919862151145935
+        },
+        "HiddenFromAdventurePlayer": {},
+        "DisplayName": {
+          "DisplayName": {
+            "RawText": "0.91080507-564e-45e6-a92e-fc5e2f8f965a (MagicRuins_Room) #1 [Wait 10.0s] <Rotate 110.00deg>",
+            "Bold": null,
+            "Italic": null,
+            "Monospace": null,
+            "Underline": null
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -2.65545654296875,
+            "Y": 2.0,
+            "Z": -19.062156677246094
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 91.69920349121094,
+            "Roll": 0.0
+          }
+        },
+        "Velocity": {
+          "Velocity": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Path_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "Gi7xLGh2P/a247ouF9bmtQ==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 91.69920349121094,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "0.91080507-564e-45e6-a92e-fc5e2f8f965a (MagicRuins_Room) #2 [Wait 11.0s] <Rotate 90.00deg>"
+        },
+        "PatrolPathMarker": {
+          "Version": 5,
+          "DisplayName": "0.91080507-564e-45e6-a92e-fc5e2f8f965a (MagicRuins_Room) #2 [Wait 11.0s] <Rotate 90.00deg>",
+          "UUID": {
+            "$binary": "3baeujHmPAahoRKH9pB73w==",
+            "$type": "04"
+          },
+          "PathId": {
+            "$binary": "SOKYAZQ/TF+/yhYh1BEQew==",
+            "$type": "04"
+          },
+          "PathName": "MagicRuins_Room",
+          "PathLength": 3,
+          "Order": 2,
+          "PauseTime": 11.0,
+          "ObsvAngle": 1.5707963705062866
+        },
+        "HiddenFromAdventurePlayer": {},
+        "DisplayName": {
+          "DisplayName": {
+            "RawText": "0.91080507-564e-45e6-a92e-fc5e2f8f965a (MagicRuins_Room) #2 [Wait 11.0s] <Rotate 90.00deg>",
+            "Bold": null,
+            "Italic": null,
+            "Monospace": null,
+            "Underline": null
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 2.632931152343531,
+            "Y": 2.0,
+            "Z": -18.817453637695323
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 91.02557373046875,
+            "Roll": 0.0
+          }
+        },
+        "Velocity": {
+          "Velocity": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Path_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "3baeujHmPAahoRKH9pB73w==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 91.02557373046875,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "0.a1afc3b7-3089-431a-b1c7-dece0c75ef58 (MagicRuins_Room) #1 [Wait 7.0s] <Rotate 90.00deg>"
+        },
+        "PatrolPathMarker": {
+          "Version": 5,
+          "DisplayName": "0.a1afc3b7-3089-431a-b1c7-dece0c75ef58 (MagicRuins_Room) #1 [Wait 7.0s] <Rotate 90.00deg>",
+          "UUID": {
+            "$binary": "IXsJC23mMSK7AhZ4lZj/+w==",
+            "$type": "04"
+          },
+          "PathId": {
+            "$binary": "uHzh82mATzGPzT1kjTxRPg==",
+            "$type": "04"
+          },
+          "PathName": "MagicRuins_Room",
+          "PathLength": 3,
+          "Order": 1,
+          "PauseTime": 7.0,
+          "ObsvAngle": 1.5707963705062866
+        },
+        "HiddenFromAdventurePlayer": {},
+        "DisplayName": {
+          "DisplayName": {
+            "RawText": "0.a1afc3b7-3089-431a-b1c7-dece0c75ef58 (MagicRuins_Room) #1 [Wait 7.0s] <Rotate 90.00deg>",
+            "Bold": null,
+            "Italic": null,
+            "Monospace": null,
+            "Underline": null
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 7.69683837890625,
+            "Y": 1.0,
+            "Z": -8.2552490234375
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 1.0593630075454712,
+            "Roll": 0.0
+          }
+        },
+        "Velocity": {
+          "Velocity": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Path_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "IXsJC23mMSK7AhZ4lZj/+w==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 1.9520316123962402,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "0.a1afc3b7-3089-431a-b1c7-dece0c75ef58 (MagicRuins_Room) #0 [Wait 10.0s] <Rotate 90.00deg>"
+        },
+        "PatrolPathMarker": {
+          "Version": 5,
+          "DisplayName": "0.a1afc3b7-3089-431a-b1c7-dece0c75ef58 (MagicRuins_Room) #0 [Wait 10.0s] <Rotate 90.00deg>",
+          "UUID": {
+            "$binary": "Cmorvwr5PQaLpPEBmgcayg==",
+            "$type": "04"
+          },
+          "PathId": {
+            "$binary": "uHzh82mATzGPzT1kjTxRPg==",
+            "$type": "04"
+          },
+          "PathName": "MagicRuins_Room",
+          "PathLength": 3,
+          "Order": 0,
+          "PauseTime": 10.0,
+          "ObsvAngle": 1.5707963705062866
+        },
+        "HiddenFromAdventurePlayer": {},
+        "DisplayName": {
+          "DisplayName": {
+            "RawText": "0.a1afc3b7-3089-431a-b1c7-dece0c75ef58 (MagicRuins_Room) #0 [Wait 10.0s] <Rotate 90.00deg>",
+            "Bold": null,
+            "Italic": null,
+            "Monospace": null,
+            "Underline": null
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 8.310791015625,
+            "Y": 3.0,
+            "Z": -3.617218017578125
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 94.36454772949219,
+            "Roll": 0.0
+          }
+        },
+        "Velocity": {
+          "Velocity": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Path_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "Cmorvwr5PQaLpPEBmgcayg==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 94.36454772949219,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Soldier_Patrol"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Soldier_Patrol",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 8.33697509765625,
+            "Y": 3.0362396240234375,
+            "Z": -3.49005126953125
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 0.44134506583213806,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "3Z8SlQqoNki3hMZOL/O2FQ==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": -0.2965671122074127,
+            "Yaw": 0.44134506583213806,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Fighter"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Fighter",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 9.056342871093875,
+            "Y": 8.0,
+            "Z": -2.779675646972649
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 0.4096812903881073,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "yPzwt3ZNNb610cpRtH4lVg==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": -0.32202136516571045,
+            "Yaw": 0.4096812903881073,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "0.a1afc3b7-3089-431a-b1c7-dece0c75ef58 (MagicRuins_Room) #2 [Wait 10.0s] <Rotate 90.00deg>"
+        },
+        "PatrolPathMarker": {
+          "Version": 5,
+          "DisplayName": "0.a1afc3b7-3089-431a-b1c7-dece0c75ef58 (MagicRuins_Room) #2 [Wait 10.0s] <Rotate 90.00deg>",
+          "UUID": {
+            "$binary": "wGv5OMkaNiiXV7y0mvKAwA==",
+            "$type": "04"
+          },
+          "PathId": {
+            "$binary": "uHzh82mATzGPzT1kjTxRPg==",
             "$type": "04"
           },
           "PathName": "MagicRuins_Room",
@@ -51782,10 +51774,14 @@
           "PauseTime": 10.0,
           "ObsvAngle": 1.5707963705062866
         },
-        "Model": {
-          "Model": {
-            "Id": "NPC_Path_Marker",
-            "Scale": 1.0
+        "HiddenFromAdventurePlayer": {},
+        "DisplayName": {
+          "DisplayName": {
+            "RawText": "0.a1afc3b7-3089-431a-b1c7-dece0c75ef58 (MagicRuins_Room) #2 [Wait 10.0s] <Rotate 90.00deg>",
+            "Bold": null,
+            "Italic": null,
+            "Monospace": null,
+            "Underline": null
           }
         },
         "Transform": {
@@ -51800,9 +51796,24 @@
             "Roll": 0.0
           }
         },
+        "Velocity": {
+          "Velocity": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Path_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
         "UUID": {
           "UUID": {
-            "$binary": "1oCIMpBNPSuWNNbJWVI5uQ==",
+            "$binary": "wGv5OMkaNiiXV7y0mvKAwA==",
             "$type": "04"
           }
         },

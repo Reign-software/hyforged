@@ -20,6 +20,7 @@
     "MaxSpeed": 4,
     "Attack": "Root_NPC_Attack_Melee",
     "AttackDistance": 3,
+    "TargetRange": 3,
     "TimidDuringDay": false,
     "AlwaysSleepAtNight": false,
     "MaxHealth": 145,

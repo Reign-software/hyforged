@@ -3,41 +3,31 @@
   "Reference": "Template_Animal_Neutral",
   "Modify": {
     "Appearance": "Cow",
+    "AttitudeGroup": "PreyBig",
     "FlockArray": [
       "Cow",
       "Cow_Calf"
     ],
-    "LovedItems": [
-      "Plant_Crop_Cauliflower_Item"
+    "AttractiveItemSet": [
+      "Plant_Crop_Lettuce_Item"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Lettuce",
     "DropList": "Drop_Cow",
     "MaxHealth": 103,
     "ViewRange": 15,
+    "ViewSector": 340,
+    "HearingRange": 9,
+    "AlertedRange": 17,
+    "AlertedActionRange": 6,
+    "AbsoluteDetectionRange": 2,
     "AttackWhenStartled": true,
     "Attack": "Root_NPC_Attack_Melee",
-    "GreetAnimation": "Moo",
-    "ChanceToTurnFriendly": 30,
-    "ChanceToTurnFriendlyWithAttractiveItem": 60,
-    "WeightGreet": 30,
-    "WeightFollowItem": 30,
-    "WeightFollow": 20,
-    "WeightIgnore": 10,
     "ProduceItem": "Ingredient_Poop",
-    "IsHarvestable": true,
-    "HarvestDropList": "Drop_Cow_Harvest",
-    "HarvestInteractionContext": "Milk",
-    "HarvestParticles": "Block_Break_Snow",
-    "HarvestSound": "SFX_Water_MoveOut",
-    "HarvestTimeout": [
-      "PT11H",
-      "PT14H"
-    ],
-    "HarvestAddItemBucket": "*Container_Bucket_State_Filled_Milk",
-    "HarvestAddItemDecoBucket": "*Deco_Bucket_State_Filled_Milk",
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Cow",
     "IsMemory": true,
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
-    },
+    "MemoriesNameOverride": "Cow",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" },
     "_InteractionVars": {
       "Melee_Start": {
         "Interactions": [

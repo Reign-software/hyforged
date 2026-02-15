@@ -2,7 +2,7 @@ package com.hypixel.hytale.server.core.modules.entityui.asset;
 
 import com.hypixel.hytale.assetstore.AssetUpdateQuery;
 import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
-import com.hypixel.hytale.protocol.Packet;
+import com.hypixel.hytale.protocol.ToClientPacket;
 import com.hypixel.hytale.protocol.UpdateType;
 import com.hypixel.hytale.protocol.packets.assets.UpdateEntityUIComponents;
 import com.hypixel.hytale.server.core.asset.packet.AssetPacketGenerator;
@@ -18,7 +18,9 @@ public class EntityUIComponentPacketGenerator extends AssetPacketGenerator<Strin
    }
 
    @Nonnull
-   public Packet generateInitPacket(@Nonnull IndexedLookupTableAssetMap<String, EntityUIComponent> assetMap, @Nonnull Map<String, EntityUIComponent> assets) {
+   public ToClientPacket generateInitPacket(
+      @Nonnull IndexedLookupTableAssetMap<String, EntityUIComponent> assetMap, @Nonnull Map<String, EntityUIComponent> assets
+   ) {
       Int2ObjectMap<com.hypixel.hytale.protocol.EntityUIComponent> configs = new Int2ObjectOpenHashMap<>();
 
       for (Entry<String, EntityUIComponent> entry : assets.entrySet()) {
@@ -29,7 +31,7 @@ public class EntityUIComponentPacketGenerator extends AssetPacketGenerator<Strin
    }
 
    @Nonnull
-   public Packet generateUpdatePacket(
+   public ToClientPacket generateUpdatePacket(
       @Nonnull IndexedLookupTableAssetMap<String, EntityUIComponent> assetMap,
       @Nonnull Map<String, EntityUIComponent> loadedAssets,
       @Nonnull AssetUpdateQuery query
@@ -44,7 +46,7 @@ public class EntityUIComponentPacketGenerator extends AssetPacketGenerator<Strin
    }
 
    @Nonnull
-   public Packet generateRemovePacket(
+   public ToClientPacket generateRemovePacket(
       @Nonnull IndexedLookupTableAssetMap<String, EntityUIComponent> assetMap, @Nonnull Set<String> removed, @Nonnull AssetUpdateQuery query
    ) {
       Int2ObjectMap<com.hypixel.hytale.protocol.EntityUIComponent> configs = new Int2ObjectOpenHashMap<>();

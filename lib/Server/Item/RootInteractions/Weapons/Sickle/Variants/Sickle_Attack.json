@@ -1,4 +1,6 @@
 {
+  "ClickQueuingTimeout": 0.3,
+  "RequireNewClick": true,
   "Interactions": [
     "Sickle_Attack"
   ]

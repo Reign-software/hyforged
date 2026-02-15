@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 2,
   "anchorY": 8,
   "anchorZ": 0,
@@ -1199,42 +1199,14 @@
       "x": 0,
       "y": 5,
       "z": 0,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 26,
-              "Y": 60,
-              "Z": 0
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
+      "name": "Furniture_Human_Ruins_Desk",
       "rotation": 1
     },
     {
       "x": 0,
       "y": 6,
       "z": 0,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 0,
-              "Y": 6,
-              "Z": 0
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024,
-      "rotation": 1
+      "name": "Deco_Scroll"
     },
     {
       "x": 0,
@@ -1300,20 +1272,7 @@
       "x": 0,
       "y": 5,
       "z": 1,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 0,
-              "Y": 5,
-              "Z": 1
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
+      "name": "Furniture_Human_Ruins_Desk",
       "filler": 32,
       "rotation": 1
     },
@@ -1321,22 +1280,7 @@
       "x": 0,
       "y": 6,
       "z": 1,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 0,
-              "Y": 6,
-              "Z": 1
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1056,
-      "rotation": 1
+      "name": "Potion_Mana_Small"
     },
     {
       "x": 0,

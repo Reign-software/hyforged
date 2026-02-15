@@ -7,25 +7,25 @@
       "Rabbit",
       "Bunny"
     ],
-    "LovedItems": [
+    "AttractiveItemSet": [
       "Plant_Crop_Carrot_Item"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Carrot",
     "DropList": "Drop_Rabbit",
     "MaxHealth": 49,
     "MaxSpeed": 8,
-    "AlertedActionRange": 16,
-    "AbsoluteDetectionRange": 4,
-    "ChanceToTurnFriendly": 30,
-    "ChanceToTurnFriendlyWithAttractiveItem": 60,
-    "WeightGreet": 1,
-    "WeightFollowItem": 20,
-    "WeightFollow": 40,
-    "WeightIgnore": 10,
+    "ViewRange": 20,
+    "ViewSector": 350,
+    "HearingRange": 14,
+    "AlertedRange": 22,
+    "AlertedActionRange": 6,
+    "AbsoluteDetectionRange": 3,
     "Timid": true,
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Rabbit",
     "IsMemory": true,
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
-    }
+    "MemoriesNameOverride": "Rabbit",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" }
   },
   "Parameters": {
     "NameTranslationKey": {

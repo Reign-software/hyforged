@@ -198,6 +198,14 @@
       "Value": [ 2, 3 ],
       "Description": "How long to back off for after performing an attack."
     },
+    "TargetSwitchTimer": {
+      "Value": [ 1, 3 ],
+      "Description": "Minimum time the NPC will be locked onto a single target before switching"
+    },
+    "TargetRange": {
+      "Value": 2.5,
+      "Description": "The distance the target needs to be within to maintain priority over other targets while in combat"
+    },
     "Weapons": {
       "Value": [ ],
       "TypeHint": "String",
@@ -210,6 +218,10 @@
     "BlockProbability": {
       "Value": 50,
       "Description": "The probability this NPC will block when backing away if a BlockAbility is set."
+    },
+    "CombatFleeIfTooCloseDistance": {
+      "Value": 0,
+      "Description": "In combat, if the target gets within this distance for a certain amount of time, the NPC will attempt to flee to a safe distance instead of simply backing away. Set to 0 to disable behavior."
     },
     "AdditionalCombatBehaviorMacroElement": {
       "Value": "Component_Instruction_Null",
@@ -478,6 +490,19 @@
     }
   },
   "Instructions": [
+    {
+      "Continue": true,
+      "Sensor": {
+        "Type": "Leash",
+        "Range": { "Compute": "HardLeashDistance" }
+      },
+      "Actions": [
+        {
+          "Type": "SetLeashPosition",
+          "ToCurrent": true
+        }
+      ]
+    },
     {
       "$Comment": "This is separate so it can run all the time regardless of the rest of the script",
       "Continue": true,
@@ -1104,7 +1129,12 @@
               "Continue": true,
               "Sensor": {
                 "Type": "Target",
-                "Range": { "Compute": "AlertedRange" }
+                "Range": { "Compute": "AlertedRange" },
+                "Filters": [
+                  {
+                    "Type": "LineOfSight"
+                  }
+                ]
               },
               "HeadMotion": {
                 "Type": "Watch"
@@ -1360,6 +1390,19 @@
             },
             {
               "Sensor": {
+                "Type": "Damage",
+                "Combat": true
+              },
+              "Actions": [
+                {
+                  "Type": "OverrideAttitude",
+                  "Attitude": "Hostile",
+                  "Duration": 60
+                }
+              ]
+            },
+            {
+              "Sensor": {
                 "Type": "State",
                 "State": ".Maybe"
               },
@@ -1404,6 +1447,21 @@
                   "State": ".Default"
                 }
               ]
+            },
+            {
+              "Reference": "Component_Instruction_Combat_Retreat",
+              "Modify": {
+                "CombatFleeIfTooCloseDistance": { "Compute": "CombatFleeIfTooCloseDistance" },
+                "AttackDistance": { "Compute": "AttackDistance" }
+              }
+            },
+            {
+              "Reference": "Component_Instruction_Combat_Target_Swap",
+              "Modify": {
+                "TargetSwitchTimer": { "Compute": "TargetSwitchTimer" },
+                "TargetRange": { "Compute": "TargetRange" },
+                "NextTargetRange": { "Compute": "max(ViewRange, HearingRange)" }
+              }
             },
             {
               "Sensor": {
@@ -1694,7 +1752,7 @@
                 "Type": "Not",
                 "Sensor": {
                   "Type": "Target",
-                  "Range": { "Compute": "ViewRange" }
+                  "Range": { "Compute": "AlertedRange" }
                 }
               },
               "ActionsBlocking": true,

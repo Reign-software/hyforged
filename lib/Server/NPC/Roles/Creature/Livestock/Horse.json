@@ -8,27 +8,28 @@
       "Horse",
       "Horse_Foal"
     ],
-    "LovedItems": [
+    "AttractiveItemSet": [
       "Plant_Crop_Carrot_Item"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Carrot",
     "DropList": "Drop_Horse",
     "MaxHealth": 124,
     "MaxSpeed": 10,
     "ViewRange": 15,
+    "ViewSector": 350,
+    "HearingRange": 12,
+    "AlertedRange": 20,
+    "AlertedActionRange": 8,
+    "AbsoluteDetectionRange": 2,
     "AttackWhenStartled": true,
     "Attack": "Root_NPC_Attack_Melee",
-    "ChanceToTurnFriendly": 30,
-    "ChanceToTurnFriendlyWithAttractiveItem": 70,
-    "WeightGreet": 15,
-    "WeightFollowItem": 30,
-    "WeightFollow": 10,
-    "WeightIgnore": 50,
     "ProduceItem": "Ingredient_Poop",
-    "IsMemory": true,
+    "IsTameable": true,
     "IsMountable": true,
-    "MountAnchorX": 0,
-    "MountAnchorY": 1.6,
-    "MountAnchorZ": 0,
+    "TameRoleChange": "Tamed_Horse",
+    "IsMemory": true,
+    "MemoriesNameOverride": "Horse",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" },
     "_InteractionVars": {
       "Melee_Start": {
         "Interactions": [
@@ -96,7 +97,7 @@
                   "Y": 1,
                   "Z": 2
                 },
-                "Force": 15,
+                "Force": 7,
                 "VelocityType": "Set"
               },
               "WorldSoundEventId": "SFX_Unarmed_Impact",
@@ -110,9 +111,6 @@
           }
         ]
       }
-    },
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
     }
   },
   "Parameters": {

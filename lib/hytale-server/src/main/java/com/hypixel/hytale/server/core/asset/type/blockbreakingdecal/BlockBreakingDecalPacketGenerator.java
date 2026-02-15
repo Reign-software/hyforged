@@ -1,7 +1,7 @@
 package com.hypixel.hytale.server.core.asset.type.blockbreakingdecal;
 
 import com.hypixel.hytale.assetstore.map.DefaultAssetMap;
-import com.hypixel.hytale.protocol.Packet;
+import com.hypixel.hytale.protocol.ToClientPacket;
 import com.hypixel.hytale.protocol.UpdateType;
 import com.hypixel.hytale.protocol.packets.assets.UpdateBlockBreakingDecals;
 import com.hypixel.hytale.server.core.asset.packet.DefaultAssetPacketGenerator;
@@ -20,7 +20,7 @@ public class BlockBreakingDecalPacketGenerator extends DefaultAssetPacketGenerat
 
    @Nonnull
    @Override
-   public Packet generateInitPacket(@Nonnull DefaultAssetMap<String, BlockBreakingDecal> assetMap, Map<String, BlockBreakingDecal> assets) {
+   public ToClientPacket generateInitPacket(@Nonnull DefaultAssetMap<String, BlockBreakingDecal> assetMap, Map<String, BlockBreakingDecal> assets) {
       UpdateBlockBreakingDecals packet = new UpdateBlockBreakingDecals();
       packet.type = UpdateType.Init;
       packet.blockBreakingDecals = assetMap.getAssetMap().entrySet().stream().collect(Collectors.toMap(Entry::getKey, entry -> entry.getValue().toPacket()));
@@ -29,7 +29,7 @@ public class BlockBreakingDecalPacketGenerator extends DefaultAssetPacketGenerat
 
    @Nonnull
    @Override
-   public Packet generateUpdatePacket(@Nonnull Map<String, BlockBreakingDecal> loadedAssets) {
+   public ToClientPacket generateUpdatePacket(@Nonnull Map<String, BlockBreakingDecal> loadedAssets) {
       UpdateBlockBreakingDecals packet = new UpdateBlockBreakingDecals();
       packet.type = UpdateType.AddOrUpdate;
       packet.blockBreakingDecals = loadedAssets.entrySet().stream().collect(Collectors.toMap(Entry::getKey, entry -> entry.getValue().toPacket()));
@@ -38,7 +38,7 @@ public class BlockBreakingDecalPacketGenerator extends DefaultAssetPacketGenerat
 
    @Nullable
    @Override
-   public Packet generateRemovePacket(@Nonnull Set<String> removed) {
+   public ToClientPacket generateRemovePacket(@Nonnull Set<String> removed) {
       UpdateBlockBreakingDecals packet = new UpdateBlockBreakingDecals();
       packet.type = UpdateType.Remove;
       packet.blockBreakingDecals = new Object2ObjectOpenHashMap<>();

@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 61,
   "anchorZ": 21,
@@ -974,42 +974,13 @@
       "x": -5,
       "y": 62,
       "z": 18,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": -5,
-              "Y": 1,
-              "Z": -3
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "rotation": 1
+      "name": "Furniture_Village_Crate"
     },
     {
       "x": -5,
       "y": 63,
       "z": 18,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 27,
-              "Y": 63,
-              "Z": 18
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024,
-      "rotation": 1
+      "name": "Furniture_Village_Crate"
     },
     {
       "x": -5,
@@ -1070,43 +1041,13 @@
       "x": -5,
       "y": 62,
       "z": 19,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 27,
-              "Y": 62,
-              "Z": 19
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 32,
-      "rotation": 1
+      "name": "Furniture_Village_Crate"
     },
     {
       "x": -5,
       "y": 63,
       "z": 19,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 27,
-              "Y": 63,
-              "Z": 19
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1056,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
@@ -9549,11 +9490,6 @@
       "y": 68,
       "z": 22,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 991,
       "rotation": 2
     },
@@ -9562,11 +9498,6 @@
       "y": 69,
       "z": 22,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 2015,
       "rotation": 2
     },
@@ -9759,11 +9690,6 @@
       "y": 68,
       "z": 24,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 31,
       "rotation": 2
     },
@@ -9772,11 +9698,6 @@
       "y": 69,
       "z": 24,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1055,
       "rotation": 2
     },
@@ -16697,6 +16618,7 @@
           "SpawnMarker": "Outlander_Berserker",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -16717,15 +16639,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "+zDFVjTRNeKr6i70CsYDig==",
+            "$binary": "CS6YClNmNTS07i9bfMs2kA==",
             "$type": "04"
           }
         },

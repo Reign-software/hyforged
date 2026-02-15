@@ -18,6 +18,8 @@ $Sounds = "../Sounds.ui";
   TextColor: #b4c8c9,
   FontName: "Secondary",
   RenderBold: true,
+  ShrinkTextToFit: true,
+  MinShrinkTextToFitFontSize: 11,
   LetterSpacing: 0
 );
 
@@ -208,6 +210,8 @@ $Sounds = "../Sounds.ui";
       TextColor: #cfd6e0,
       FontName: "Secondary",
       HorizontalAlignment: @Alignment,
+      ShrinkTextToFit: true,
+      MinShrinkTextToFitFontSize: 11,
       LetterSpacing: 0
     );
     Anchor: (Height: 35, Horizontal: 8);

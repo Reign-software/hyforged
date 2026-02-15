@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 1,
   "anchorZ": 8,
@@ -274,6 +274,12 @@
       "y": 3,
       "z": 0,
       "name": "Rock_Quartzite_Brick"
+    },
+    {
+      "x": -8,
+      "y": 4,
+      "z": 0,
+      "name": "Rock_Quartzite"
     },
     {
       "x": -8,
@@ -801,13 +807,6 @@
       "y": 7,
       "z": -1,
       "name": "Rock_Quartzite"
-    },
-    {
-      "x": -7,
-      "y": 8,
-      "z": -1,
-      "name": "Plant_Vine",
-      "rotation": 1
     },
     {
       "x": -7,
@@ -6810,6 +6809,12 @@
     },
     {
       "x": 1,
+      "y": 1,
+      "z": 6,
+      "name": "Rock_Stone_Cobble"
+    },
+    {
+      "x": 1,
       "y": 2,
       "z": 6,
       "name": "Empty"
@@ -8825,13 +8830,6 @@
     },
     {
       "x": 4,
-      "y": 9,
-      "z": 0,
-      "name": "Wood_Oak_Trunk",
-      "rotation": 4
-    },
-    {
-      "x": 4,
       "y": 1,
       "z": 1,
       "name": "Soil_Dirt"
@@ -9251,47 +9249,20 @@
       "x": 5,
       "y": 2,
       "z": -2,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 5,
-              "Y": 2,
-              "Z": 30
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
+      "name": "Furniture_Village_Counter",
       "filler": 31
     },
     {
       "x": 5,
       "y": 3,
       "z": -2,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 5,
-              "Y": 3,
-              "Z": 30
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1055
+      "name": "Furniture_Tavern_Shelf"
     },
     {
       "x": 5,
       "y": 4,
       "z": -2,
-      "name": "Empty"
+      "name": "Potion_Health_Small"
     },
     {
       "x": 5,
@@ -9827,46 +9798,19 @@
       "x": 6,
       "y": 2,
       "z": -2,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 6,
-              "Y": 2,
-              "Z": 30
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      }
+      "name": "Furniture_Village_Counter"
     },
     {
       "x": 6,
       "y": 3,
       "z": -2,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 6,
-              "Y": 3,
-              "Z": 30
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024
+      "name": "Furniture_Tavern_Shelf"
     },
     {
       "x": 6,
       "y": 4,
       "z": -2,
-      "name": "Empty"
+      "name": "Potion_Mana_Small"
     },
     {
       "x": 6,
@@ -9885,12 +9829,6 @@
       "y": 1,
       "z": -1,
       "name": "Soil_Dirt"
-    },
-    {
-      "x": 6,
-      "y": 2,
-      "z": -1,
-      "name": "Empty"
     },
     {
       "x": 6,
@@ -10373,20 +10311,7 @@
       "x": 7,
       "y": 6,
       "z": -2,
-      "name": "Furniture_Village_Counter",
-      "rotation": 1
-    },
-    {
-      "x": 7,
-      "y": 7,
-      "z": -2,
-      "name": "Furniture_Village_Shelf_Full"
-    },
-    {
-      "x": 7,
-      "y": 8,
-      "z": -2,
-      "name": "Furniture_Village_Shelf_Full"
+      "name": "Rock_Quartzite"
     },
     {
       "x": 7,
@@ -10425,9 +10350,7 @@
       "x": 7,
       "y": 6,
       "z": -1,
-      "name": "Furniture_Village_Counter",
-      "filler": 32,
-      "rotation": 1
+      "name": "Rock_Quartzite"
     },
     {
       "x": 7,
@@ -10608,12 +10531,6 @@
     {
       "x": 7,
       "y": 6,
-      "z": 4,
-      "name": "Rock_Quartzite"
-    },
-    {
-      "x": 7,
-      "y": 10,
       "z": 4,
       "name": "Rock_Quartzite"
     },
@@ -11192,7 +11109,14 @@
         "SpawnMarkerComponent": {
           "SpawnMarker": "Goblin_Scrapper_Patrol",
           "RespawnTime": 0.0,
-          "SpawnCount": 0
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
         },
         "Transform": {
           "Position": {
@@ -11206,15 +11130,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "FQ1ydwWTPnaYXXMh8w8Eiw==",
+            "$binary": "NjrUq1QRNJihQp2g0FYQ/A==",
             "$type": "04"
           }
         },

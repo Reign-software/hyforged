@@ -30,6 +30,7 @@ Group {
 
       AssetImage #Icon {
         Anchor: (Width: 128, Height: 128);
+        FallbackTexturePath: "UI/Custom/Pages/Memories/MissingIcon.png";
       }
     }
 
@@ -40,6 +41,7 @@ Group {
 
       AssetImage #CategoryIcon {
         Anchor: (Width: 32, Height: 32);
+        FallbackTexturePath: "UI/Custom/Pages/Memories/MissingIcon.png";
       }
     }
 

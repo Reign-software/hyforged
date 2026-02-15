@@ -7,25 +7,24 @@
       "Warthog_Piglet",
       "Warthog"
     ],
-    "LovedItems": [
-      "Plant_Fruit_Berries_Red"
+    "AttractiveItemSet": [
+      "Plant_Crop_Onion_Item"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Onion",
     "DropList": "Drop_Warthog_Piglet",
     "MaxHealth": 81,
     "ViewRange": 15,
-    "GreetAnimation": "Moo",
-    "ChanceToTurnFriendly": 25,
-    "ChanceToTurnFriendlyWithAttractiveItem": 50,
-    "WeightGreet": 20,
-    "WeightFollowItem": 20,
-    "WeightFollow": 20,
-    "WeightIgnore": 20,
+    "ViewSector": 320,
+    "HearingRange": 9,
+    "AlertedRange": 13,
+    "AlertedActionRange": 6,
+    "AbsoluteDetectionRange": 2,
     "ProduceItem": "Ingredient_Poop",
-    "IsHarvestable": false,
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Warthog_Piglet",
     "IsMemory": true,
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
-    }
+    "MemoriesNameOverride": "Warthog_Piglet",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" }
   },
   "Parameters": {
     "NameTranslationKey": {

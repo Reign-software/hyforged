@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 5,
   "anchorZ": 0,
@@ -967,41 +967,13 @@
       "x": -2,
       "y": 4,
       "z": -4,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 30,
-              "Y": 4,
-              "Z": 28
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 31
+      "name": "Furniture_Village_Crate"
     },
     {
       "x": -2,
       "y": 5,
       "z": -4,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 30,
-              "Y": 5,
-              "Z": 28
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1055
+      "name": "Furniture_Lumberjack_Shelf"
     },
     {
       "x": -2,
@@ -1514,11 +1486,6 @@
       "y": 4,
       "z": 6,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 64
     },
     {
@@ -1526,11 +1493,6 @@
       "y": 5,
       "z": 6,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1088
     },
     {
@@ -1801,42 +1763,9 @@
     },
     {
       "x": -1,
-      "y": 4,
-      "z": -4,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": -1,
-              "Y": -1,
-              "Z": -4
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      }
-    },
-    {
-      "x": -1,
       "y": 5,
       "z": -4,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 31,
-              "Y": 5,
-              "Z": 28
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024
+      "name": "Furniture_Lumberjack_Shelf"
     },
     {
       "x": -1,
@@ -2279,11 +2208,6 @@
       "y": 4,
       "z": 4,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1
     },
     {
@@ -2291,11 +2215,6 @@
       "y": 5,
       "z": 4,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1025
     },
     {
@@ -2346,11 +2265,6 @@
       "y": 4,
       "z": 5,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 33
     },
     {
@@ -2358,11 +2272,6 @@
       "y": 5,
       "z": 5,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1057
     },
     {
@@ -2413,11 +2322,6 @@
       "y": 4,
       "z": 6,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 65
     },
     {
@@ -2425,11 +2329,6 @@
       "y": 5,
       "z": 6,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1089
     },
     {

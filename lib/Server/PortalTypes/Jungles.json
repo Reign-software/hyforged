@@ -5,11 +5,5 @@
     "FlavorText": "server.portals.jungles.description",
     "ThemeColor": "#23970cec",
     "SplashImage": "DefaultArtwork.png"
-  },
-  "PlayerSpawn": {
-    "Y": 140,
-    "ScanHeight": 27,
-    "MinRadius": 200,
-    "MaxRadius": 200
   }
 }

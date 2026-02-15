@@ -53,6 +53,7 @@
       5
     ],
     "AttackDistance": 3.25,
+    "TargetRange": 3.25,
     "ChaseRelativeSpeed": 0.8,
     "AlwaysSleepAtNight": true,
     "DayFlavorAnimation": "",

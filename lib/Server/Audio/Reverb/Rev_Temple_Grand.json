@@ -2,7 +2,7 @@
   "DryGain": 0,
   "ModalDensity": 1,
   "Diffusion": 0.85,
-  "Gain": -12,
+  "Gain": -10,
   "HighFrequencyGain": -22,
   "DecayTime": 7,
   "HighFrequencyDecayRatio": 0.65,

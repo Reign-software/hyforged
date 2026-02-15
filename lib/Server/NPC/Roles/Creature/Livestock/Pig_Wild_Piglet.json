@@ -4,19 +4,28 @@
   "Modify": {
     "Appearance": "Piglet_Wild",
     "FlockArray": [ "Pig_Wild_Piglet", "Pig_Wild" ],
-    "LovedItems": [ "Plant_Crop_Pumpkin_Item" ],
+    "AttractiveItemSet": [
+      "Plant_Crop_Aubergine_Item"
+    ],
+    "AttractiveItemSetParticles": "Want_Food_Aubergine",
     "DropList": "Drop_Piglet",
     "MaxHealth": 30,
     "ViewRange": 10,
-    "ChanceToTurnFriendly": 60,
-    "ChanceToTurnFriendlyWithAttractiveItem": 85,
-    "WeightGreet": 20,
-    "WeightFollowItem": 40,
-    "WeightFollow": 20,
-    "WeightIgnore": 10,
-    "ProduceItem": "Ingredient_Poop",
-    "IsHarvestable": false,
+    "ViewSector": 320,
+    "HearingRange": 6,
+    "AlertedRange": 11,
+    "AlertedActionRange": 6,
+    "AbsoluteDetectionRange": 1,
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Pig_Wild_Piglet",
     "IsMemory": true,
-    "MemoriesNameOverride": "Pig_Piglet"
+    "MemoriesNameOverride": "Pig_Wild_Piglet",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" }
+  },
+  "Parameters": {
+    "NameTranslationKey": {
+      "Value": "server.npcRoles.Pig_Wild_Piglet.name",
+      "Description": "Translation key for NPC name display"
+    }
   }
 }

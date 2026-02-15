@@ -89,6 +89,11 @@ Label #MapNotAvailable {
 
 $Common.@BackButton {}
 
+Group #ServerContent {
+  Anchor: (Top: 100, Right: 50, Width: 250, Height: 60);
+  Visible: false;
+}
+
 $Common.@ActionButtonContainer {
   ActionButton #PlaceMarkerButton {
     ActionName: %client.map.actions.placeMarker;

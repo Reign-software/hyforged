@@ -4,20 +4,24 @@
   "Modify": {
     "Appearance": "Chick",
     "FlockArray": [ "Chicken_Chick", "Chicken" ],
-    "LovedItems": [ "Plant_Crop_Corn_Item" ],
+    "AttractiveItemSet": [
+      "Plant_Crop_Corn_Item"
+    ],
+    "AttractiveItemSetParticles": "Want_Food_Corn",
     "DropList": "Drop_Chick",
     "MaxHealth": 7,
     "MaxSpeed": 3,
-    "AlertedActionRange": 3,
-    "AbsoluteDetectionRange": 1,
-    "ChanceToTurnFriendly": 40,
-    "ChanceToTurnFriendlyWithAttractiveItem": 90,
-    "WeightGreet": 1,
-    "WeightFollowItem": 40,
-    "WeightFollow": 40,
-    "WeightIgnore": 10,
+    "ViewRange": 6,
+    "ViewSector": 300,
+    "HearingRange": 4,
+    "AlertedRange": 8,
+    "AlertedActionRange": 4,
+    "AbsoluteDetectionRange": 0.5,
     "Timid": true,
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Chicken_Chick",
     "IsMemory": true,
+    "MemoriesNameOverride": "Chicken_Chick",
     "NameTranslationKey": { "Compute": "NameTranslationKey" }
   },
   "Parameters": {

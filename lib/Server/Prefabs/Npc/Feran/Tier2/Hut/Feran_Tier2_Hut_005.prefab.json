@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 10,
+  "blockIdVersion": 11,
   "anchorX": 2,
   "anchorY": 9,
   "anchorZ": 1,
@@ -5240,46 +5240,13 @@
       "x": -5,
       "y": 10,
       "z": 3,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": -7,
-              "Y": 1,
-              "Z": 2
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "InputContainer": {
-              "Id": "Simple",
-              "Capacity": 2,
-              "Items": {}
-            },
-            "FuelContainer": {
-              "Id": "Empty"
-            },
-            "OutputContainer": {
-              "Id": "Simple",
-              "Capacity": 2,
-              "Items": {}
-            },
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": true,
-            "NextExtra": 0
-          }
-        }
-      },
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 11,
       "z": 3,
-      "name": "Bench_Tannery",
-      "filler": 1024,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
@@ -5377,17 +5344,13 @@
       "x": -5,
       "y": 10,
       "z": 4,
-      "name": "Bench_Tannery",
-      "filler": 32,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 11,
       "z": 4,
-      "name": "Bench_Tannery",
-      "filler": 1056,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
@@ -35587,6 +35550,7 @@
           "SpawnMarker": "Feran_T2",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -35598,7 +35562,7 @@
           "Position": {
             "X": -1.5789416015625761,
             "Y": 11.7153,
-            "Z": 10.419989550781168
+            "Z": 10.41998955078111
           },
           "Rotation": {
             "Pitch": 0.0,
@@ -35607,6 +35571,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -35616,7 +35581,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "Y20ZoWI3Mra+sVXZUPSx5Q==",
+            "$binary": "3eHobCX9PrGtUWGWiEa9VA==",
             "$type": "04"
           }
         },
@@ -35639,6 +35604,7 @@
           "SpawnMarker": "Feran_T2",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -35659,6 +35625,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -35668,7 +35635,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "2FRkRCWQM5SI8S4tmJeVCQ==",
+            "$binary": "16T/JzckN3atUMLFp97YvA==",
             "$type": "04"
           }
         },

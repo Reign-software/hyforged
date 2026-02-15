@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 10,
+  "blockIdVersion": 11,
   "anchorX": 3,
   "anchorY": 9,
   "anchorZ": -1,
@@ -5930,46 +5930,13 @@
       "x": 0,
       "y": 10,
       "z": -2,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": -3,
-              "Y": 1,
-              "Z": -1
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "InputContainer": {
-              "Id": "Simple",
-              "Capacity": 2,
-              "Items": {}
-            },
-            "FuelContainer": {
-              "Id": "Empty"
-            },
-            "OutputContainer": {
-              "Id": "Simple",
-              "Capacity": 2,
-              "Items": {}
-            },
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": true,
-            "NextExtra": 0
-          }
-        }
-      },
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 11,
       "z": -2,
-      "name": "Bench_Tannery",
-      "filler": 1024,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 0,
@@ -6067,17 +6034,13 @@
       "x": 0,
       "y": 10,
       "z": -1,
-      "name": "Bench_Tannery",
-      "filler": 32,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 11,
       "z": -1,
-      "name": "Bench_Tannery",
-      "filler": 1056,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": 0,
@@ -21902,6 +21865,7 @@
           "SpawnMarker": "Feran_T2",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -21913,7 +21877,7 @@
           "Position": {
             "X": 3.631353369140811,
             "Y": 11.448700000000002,
-            "Z": 5.371539739990254
+            "Z": 5.3715397399903395
           },
           "Rotation": {
             "Pitch": 0.0,
@@ -21922,6 +21886,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -21931,7 +21896,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "eoPwNRFQNhC8GpyVlYkLRw==",
+            "$binary": "Xb9SPufqP3OuUG23i5IAwg==",
             "$type": "04"
           }
         },

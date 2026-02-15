@@ -161,7 +161,6 @@
         ]
       },
       "StartingStageSet": "Default",
-      "StageSetAfterHarvest": "Harvested",
       "ActiveGrowthModifiers": [
         "Fertilizer",
         "Water",

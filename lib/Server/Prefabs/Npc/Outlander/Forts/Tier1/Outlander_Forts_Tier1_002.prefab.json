@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 2,
   "anchorY": 61,
   "anchorZ": 21,
@@ -1572,8 +1572,7 @@
       "x": -5,
       "y": 64,
       "z": 22,
-      "name": "Bench_Lumbermill",
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
@@ -1687,9 +1686,7 @@
       "x": -5,
       "y": 64,
       "z": 23,
-      "name": "Bench_Lumbermill",
-      "filler": 32,
-      "rotation": 1
+      "name": "Furniture_Village_Crate"
     },
     {
       "x": -5,
@@ -1807,11 +1804,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -7,
-              "Y": 3,
-              "Z": 3
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -2973,7 +2965,7 @@
       "x": -4,
       "y": 64,
       "z": 24,
-      "name": "Empty"
+      "name": "Furniture_Village_Crate"
     },
     {
       "x": -4,
@@ -6857,11 +6849,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -4,
-              "Y": 3,
-              "Z": 3
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -21684,11 +21671,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 2,
-              "Y": 7,
-              "Z": 3
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -22754,11 +22736,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 3,
-              "Y": 14,
-              "Z": -3
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -23773,11 +23750,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 3,
-              "Y": 7,
-              "Z": 3
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -24840,11 +24812,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 4,
-              "Y": 14,
-              "Z": -3
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -24871,11 +24838,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 4,
-              "Y": 15,
-              "Z": -3
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -25053,11 +25015,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 4,
-              "Y": 14,
-              "Z": -2
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -29396,6 +29353,7 @@
           "SpawnMarker": "Outlander_Hunter",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -29416,15 +29374,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "rO/trEFMM8abgzlVS5dA1w==",
+            "$binary": "cRUAHlOHNRCIBU1cZz+nkQ==",
             "$type": "04"
           }
         },
@@ -29447,6 +29407,7 @@
           "SpawnMarker": "Outlander_Hunter",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -29467,15 +29428,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "65g3wiKUMo2Fimm65qY2WQ==",
+            "$binary": "VGTaYGwBNSGAezEFfMiuSQ==",
             "$type": "04"
           }
         },
@@ -29498,6 +29461,7 @@
           "SpawnMarker": "Outlander_Berserker",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -29518,15 +29482,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "R+14U7obNJqG43+nGPcD8g==",
+            "$binary": "mU06DBuYNJGpTMjCPZNIVQ==",
             "$type": "04"
           }
         },
@@ -29549,6 +29515,7 @@
           "SpawnMarker": "Outlander_Berserker",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -29569,15 +29536,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "mzblxk+/Nve79f1mSojVhQ==",
+            "$binary": "VSX0bihZMyqLynXU8dK5RA==",
             "$type": "04"
           }
         },

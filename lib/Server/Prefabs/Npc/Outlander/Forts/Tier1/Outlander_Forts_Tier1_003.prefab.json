@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 61,
   "anchorZ": 21,
@@ -19423,7 +19423,7 @@
       "x": 2,
       "y": 67,
       "z": 26,
-      "name": "Empty"
+      "name": "Furniture_Ancient_Barrel"
     },
     {
       "x": 2,
@@ -19558,41 +19558,7 @@
       "x": 2,
       "y": 67,
       "z": 27,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 2,
-              "Y": 6,
-              "Z": 6
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "rotation": 1
-    },
-    {
-      "x": 2,
-      "y": 68,
-      "z": 27,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 2,
-              "Y": 68,
-              "Z": 27
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024,
+      "name": "Furniture_Lumberjack_Shelf",
       "rotation": 1
     },
     {
@@ -19722,42 +19688,7 @@
       "x": 2,
       "y": 67,
       "z": 28,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 2,
-              "Y": 67,
-              "Z": 28
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 32,
-      "rotation": 1
-    },
-    {
-      "x": 2,
-      "y": 68,
-      "z": 28,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 2,
-              "Y": 68,
-              "Z": 28
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1056,
+      "name": "Furniture_Lumberjack_Shelf",
       "rotation": 1
     },
     {
@@ -26269,11 +26200,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 5,
-              "Y": 1,
-              "Z": -3
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -28883,11 +28809,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 6,
-              "Y": 1,
-              "Z": -3
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -28921,11 +28842,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 6,
-              "Y": 2,
-              "Z": -3
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -29063,11 +28979,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 6,
-              "Y": 1,
-              "Z": -2
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -29384,11 +29295,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 6,
-              "Y": 7,
-              "Z": 0
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -36317,57 +36223,6 @@
     {
       "Components": {
         "Nameplate": {
-          "Text": "Outlander_Berserker"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander_Berserker",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -0.6770717773442811,
-            "Y": 62.0,
-            "Z": 15.080979809570408
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -6.1957292556762695,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "DIWhhorqN+KluGyFdmjXXg==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -9.337322235107422,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
           "Text": "Outlander_Hunter"
         },
         "HiddenFromAdventurePlayer": {},
@@ -36375,6 +36230,7 @@
           "SpawnMarker": "Outlander_Hunter",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -36395,15 +36251,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "YaEF2nyvOq+GhDznmn36ig==",
+            "$binary": "CXFHUp7OPcyBNDOwS6gr3g==",
             "$type": "04"
           }
         },
@@ -36426,6 +36284,7 @@
           "SpawnMarker": "Outlander_Berserker",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -36446,15 +36305,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "Y1IvJG3dMeK+SZAl215O8A==",
+            "$binary": "rOD8Hu0HN6KZ9MFQkApgSg==",
             "$type": "04"
           }
         },
@@ -36477,6 +36338,61 @@
           "SpawnMarker": "Outlander_Berserker",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -0.6770717773442811,
+            "Y": 62.0,
+            "Z": 15.080979809570408
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -6.1957292556762695,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "w6DOcWueOQKuS/M5OR0BJQ==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -9.337322235107422,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Outlander_Berserker"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Outlander_Berserker",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -36497,15 +36413,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "EDXZ5MU5OZ6hvdNAOWPSlg==",
+            "$binary": "JIIsz0ssOkyjZRal07vP7w==",
             "$type": "04"
           }
         },

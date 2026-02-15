@@ -12,7 +12,7 @@
   "Model": "Items/Tools/Pickaxe/Crude.blockymodel",
   "Texture": "Items/Tools/Pickaxe/Crude_Texture.png",
   "Recipe": {
-    "TimeSeconds": 1,
+    "TimeSeconds": 0,
     "KnowledgeRequired": false,
     "Input": [
       {

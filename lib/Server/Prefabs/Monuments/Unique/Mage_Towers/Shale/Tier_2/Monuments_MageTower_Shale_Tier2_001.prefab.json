@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 9,
+  "blockIdVersion": 11,
   "anchorX": 2,
   "anchorY": 14,
   "anchorZ": -2,
@@ -12518,11 +12518,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -10,
-              "Y": 18,
-              "Z": -7
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -17398,11 +17393,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -10,
-              "Y": 17,
-              "Z": 10
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -17422,11 +17412,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -10,
-              "Y": 18,
-              "Z": 10
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -23271,11 +23256,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -9,
-              "Y": 17,
-              "Z": 8
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -33208,11 +33188,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -7,
-              "Y": 18,
-              "Z": -5
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -33232,11 +33207,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -7,
-              "Y": 19,
-              "Z": -5
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -40756,11 +40726,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -6,
-              "Y": 1,
-              "Z": -7
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -61486,11 +61451,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -4,
-              "Y": 18,
-              "Z": -7
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -73532,11 +73492,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -3,
-              "Y": 18,
-              "Z": -7
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -73713,11 +73668,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -3,
-              "Y": 45,
-              "Z": -7
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -73982,11 +73932,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -3,
-              "Y": 18,
-              "Z": -6
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -74005,11 +73950,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -3,
-              "Y": 19,
-              "Z": -6
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -78007,19 +77947,14 @@
       "x": -1,
       "y": 59,
       "z": 1,
-      "name": "*Furniture_Temple_Dark_Coffin_State_Definitions_CloseWindow",
+      "name": "Furniture_Temple_Dark_Coffin",
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -3,
-              "Y": 45,
-              "Z": 3
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
-              "Capacity": 36,
+              "Capacity": 20,
               "Items": {}
             }
           }
@@ -90478,7 +90413,7 @@
       "x": 0,
       "y": 59,
       "z": 1,
-      "name": "*Furniture_Temple_Dark_Coffin_State_Definitions_CloseWindow",
+      "name": "Furniture_Temple_Dark_Coffin",
       "filler": 1
     },
     {
@@ -98608,7 +98543,7 @@
       "x": 1,
       "y": 59,
       "z": -9,
-      "name": "*Furniture_Temple_Dark_Coffin_State_Definitions_CloseWindow",
+      "name": "Furniture_Temple_Dark_Coffin",
       "filler": 992,
       "rotation": 1
     },
@@ -99023,19 +98958,14 @@
       "x": 1,
       "y": 59,
       "z": -8,
-      "name": "*Furniture_Temple_Dark_Coffin_State_Definitions_CloseWindow",
+      "name": "Furniture_Temple_Dark_Coffin",
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -1,
-              "Y": 45,
-              "Z": -6
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
-              "Capacity": 36,
+              "Capacity": 20,
               "Items": {}
             }
           }
@@ -104018,11 +103948,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -1,
-              "Y": 18,
-              "Z": 6
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -116408,11 +116333,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 0,
-              "Y": 18,
-              "Z": 6
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -123331,7 +123251,7 @@
       "x": 3,
       "y": 59,
       "z": -9,
-      "name": "*Furniture_Temple_Dark_Coffin_State_Definitions_CloseWindow",
+      "name": "Furniture_Temple_Dark_Coffin",
       "filler": 992,
       "rotation": 1
     },
@@ -123747,19 +123667,14 @@
       "x": 3,
       "y": 59,
       "z": -8,
-      "name": "*Furniture_Temple_Dark_Coffin_State_Definitions_CloseWindow",
+      "name": "Furniture_Temple_Dark_Coffin",
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 1,
-              "Y": 45,
-              "Z": -6
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
-              "Capacity": 36,
+              "Capacity": 20,
               "Items": {}
             }
           }
@@ -150391,19 +150306,14 @@
       "x": 5,
       "y": 59,
       "z": -3,
-      "name": "*Furniture_Temple_Dark_Coffin_State_Definitions_CloseWindow",
+      "name": "Furniture_Temple_Dark_Coffin",
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 3,
-              "Y": 45,
-              "Z": -1
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
-              "Capacity": 36,
+              "Capacity": 20,
               "Items": {}
             }
           }
@@ -162471,7 +162381,7 @@
       "x": 6,
       "y": 59,
       "z": -3,
-      "name": "*Furniture_Temple_Dark_Coffin_State_Definitions_CloseWindow",
+      "name": "Furniture_Temple_Dark_Coffin",
       "filler": 1
     },
     {
@@ -166393,11 +166303,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 4,
-              "Y": 22,
-              "Z": 8
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -177837,11 +177742,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 5,
-              "Y": 22,
-              "Z": 8
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -177860,11 +177760,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 5,
-              "Y": 23,
-              "Z": 8
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -178344,11 +178239,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 5,
-              "Y": 22,
-              "Z": 9
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -178822,11 +178712,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 5,
-              "Y": 22,
-              "Z": 10
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -197745,11 +197630,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 7,
-              "Y": 18,
-              "Z": 9
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -202315,16 +202195,7 @@
       "x": 10,
       "y": 32,
       "z": -2,
-      "name": "Bench_Alchemy",
-      "filler": 992,
-      "rotation": 3
-    },
-    {
-      "x": 10,
-      "y": 33,
-      "z": -2,
-      "name": "Bench_Alchemy",
-      "filler": 2016,
+      "name": "Furniture_Temple_Dark_Platform",
       "rotation": 3
     },
     {
@@ -202702,29 +202573,14 @@
       "x": 10,
       "y": 32,
       "z": -1,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 8,
-              "Y": 18,
-              "Z": 1
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
+      "name": "Furniture_Temple_Dark_Platform",
       "rotation": 3
     },
     {
       "x": 10,
       "y": 33,
       "z": -1,
-      "name": "Bench_Alchemy",
-      "filler": 1024,
-      "rotation": 3
+      "name": "Potion_Health_Small"
     },
     {
       "x": 10,
@@ -212325,11 +212181,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 10,
-              "Y": 22,
-              "Z": -6
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -218201,930 +218052,6 @@
     {
       "Components": {
         "Nameplate": {
-          "Text": "Skeleton_Frost_Archer"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 479
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Archer",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "NPCReferences": [
-            {
-              "UUID": {
-                "$binary": "p6JftTRWObCjVz4TN1kOtQ==",
-                "$type": "04"
-              },
-              "RefCount": 0
-            }
-          ],
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2444.5,
-            "Y": 253.05,
-            "Z": -3921.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 7.522991180419922,
-            "Y": 32.24390411376953,
-            "Z": 0.8320083618164062
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -2.983668804168701,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "avp+Qx9jONGwdnDKd0tIDA==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 0.15792369842529297,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Knight"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 393
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Knight",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2443.5,
-            "Y": 272.0,
-            "Z": -3915.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 6.974390515136292,
-            "Y": 51.0,
-            "Z": 0.8917941406248246
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 33.56486129760742,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "queVkRolP0eEuZJgGsxzcw==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 30.423267364501953,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 485
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "NPCReferences": [
-            {
-              "UUID": {
-                "$binary": "LHUa/vMBOUeqWE6ccupjhw==",
-                "$type": "04"
-              },
-              "RefCount": 0
-            }
-          ],
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2441.5,
-            "Y": 262.05,
-            "Z": -3924.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 4.7166290283203125,
-            "Y": 41.065818786621094,
-            "Z": -8.89612865447998
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -2.5516276359558105,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "3iSoDp0rOPub8Uzpolb1zg==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 0.5899658203125,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 318
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2439.5,
-            "Y": 248.0,
-            "Z": -3918.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 3.0544357299804688,
-            "Y": 27.077171325683594,
-            "Z": -7.534215927124023
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.5844182968139648,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "f+Lhf3HDPr+Flhv6y9Jyaw==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -1.5571746826171875,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 318
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2439.5,
-            "Y": 248.0,
-            "Z": -3918.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 3.7493667602539062,
-            "Y": 27.176116943359375,
-            "Z": -2.4193668365478516
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.5844182968139648,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "T4IIDdbzPRG/1RXJdD4eZg==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -1.5571746826171875,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Mage"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 180
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Mage",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2439.5,
-            "Y": 280.0,
-            "Z": -3920.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 2.5969161987304688,
-            "Y": 59.0,
-            "Z": -4.930908203125
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 28.27804946899414,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "5ixUD4kHPmaCMTseRHl0fQ==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 25.136457443237305,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 400
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2441.5,
-            "Y": 262.0,
-            "Z": -3916.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 5.012325286865234,
-            "Y": 41.0762939453125,
-            "Z": -0.2707080841064453
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -2.3591318130493164,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "SIQhbsl3O7er2Gy+QZNasA==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 0.7824597358703613,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Archer"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 479
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Archer",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "NPCReferences": [
-            {
-              "UUID": {
-                "$binary": "p6JftTRWObCjVz4TN1kOtQ==",
-                "$type": "04"
-              },
-              "RefCount": 0
-            }
-          ],
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2444.5,
-            "Y": 253.05,
-            "Z": -3921.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 6.6398162841796875,
-            "Y": 32.285308837890625,
-            "Z": -8.970703125
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -2.983668804168701,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "+zabmWUyNMmIQiN0aPovEQ==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 0.15792369842529297,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Knight"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 257
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Knight",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2442.5,
-            "Y": 280.0,
-            "Z": -3916.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 4.920684814453125,
-            "Y": 59.06708526611328,
-            "Z": -0.7281455993652344
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 2.2126216888427734,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "E/1o5ij2M9yDuzLBKctXEg==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -0.9289703369140625,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Archer"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 335
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Archer",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2441.5,
-            "Y": 280.0,
-            "Z": -3920.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 4.938757775878912,
-            "Y": 59.00010681152344,
-            "Z": -4.379277929687305
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 33.801025390625,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "UwcbTFtYPYa82QlcwGBf0A==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 30.659433364868164,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Archer"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 335
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Archer",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2441.5,
-            "Y": 280.0,
-            "Z": -3920.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 4.082622528076172,
-            "Y": 41.273284912109375,
-            "Z": 7.515911102294922
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 2.3850979804992676,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "Gthy/C4BPFOcNd9o/kG6Jg==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -0.7564940452575684,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 463
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2434.5,
-            "Y": 272.0,
-            "Z": -3918.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 4.438232421875,
-            "Y": 48.22766876220703,
-            "Z": 10.650707244873047
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 3.0395169258117676,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "UWQpNohMNRiCzkavx7G/Xg==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -0.10207509994506836,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Archer"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 365
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Archer",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "NPCReferences": [
-            {
-              "UUID": {
-                "$binary": "AdR2J7edOFyK5xeWSgdXKQ==",
-                "$type": "04"
-              },
-              "RefCount": 0
-            }
-          ],
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2442.5,
-            "Y": 241.0,
-            "Z": -3909.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 5.950275421142578,
-            "Y": 20.00677490234375,
-            "Z": 6.507913589477539
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 0.06563091278076172,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "sqj4su3HOZePgFHoVJoxug==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -3.0759620666503906,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 226
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "NPCReferences": [
-            {
-              "UUID": {
-                "$binary": "9s1pMTE9NdeUK0MQw3Yh7A==",
-                "$type": "04"
-              },
-              "RefCount": 0
-            }
-          ],
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2444.5,
-            "Y": 248.0,
-            "Z": -3909.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 7.499534606933594,
-            "Y": 27.060638427734375,
-            "Z": 4.845355987548828
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 0.08476591110229492,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "NkvNQk2BPpqdIIFk1Za9DA==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -3.056826114654541,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 209
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "NPCReferences": [
-            {
-              "UUID": {
-                "$binary": "pzpQlkpUMFGp2Ar9oU3dLA==",
-                "$type": "04"
-              },
-              "RefCount": 0
-            }
-          ],
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2439.5,
-            "Y": 236.0,
-            "Z": -3915.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 2.5611915588378906,
-            "Y": 15.0,
-            "Z": 0.9691944122314453
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 0.04068899154663086,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "3STa1bkLOhyvScBalRUSeQ==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -3.1009035110473633,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
           "Text": "Skeleton_Frost_Knight"
         },
         "HiddenFromAdventurePlayer": {},
@@ -219164,6 +218091,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -219173,7 +218101,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "P1kQUDhtOJmten1GolIbMQ==",
+            "$binary": "oCaVX1dIMoapr452rd4aLg==",
             "$type": "04"
           }
         },
@@ -219184,6 +218112,113 @@
           "Rotation": {
             "Pitch": 0.0,
             "Yaw": -2.952765941619873,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Soldier"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Soldier",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -5.063198089599609,
+            "Y": 22.05596923828125,
+            "Z": -3.9844493865966797
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -1.0013484954833984,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "QCYZC39JPbKtf1nyjKTz1Q==",
+            "$type": "04"
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Soldier"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 449
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Soldier",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2432.5,
+            "Y": 265.0,
+            "Z": -3916.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -4.48480224609375,
+            "Y": 44.08759307861328,
+            "Z": -0.2606220245361328
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -1.6042094230651855,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "CFGlQxmIOTSANdWyZlXKeg==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 1.537384033203125,
             "Roll": 0.0
           }
         }
@@ -219231,6 +218266,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -219240,7 +218276,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "SrvzcJ7sNpikSRDr3ssYKg==",
+            "$binary": "YZPaSygOMOGeQdovUwxYDA==",
             "$type": "04"
           }
         },
@@ -219298,6 +218334,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -219307,7 +218344,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "ELR4K+WGNc6HAz1A2kacHw==",
+            "$binary": "F2aEmeaUNXmfeEHa2Jt+pw==",
             "$type": "04"
           }
         },
@@ -219336,6 +218373,7 @@
           "SpawnMarker": "Skeleton_Frost_Knight",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 2435.5,
@@ -219356,6 +218394,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -219365,7 +218404,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "FehGaTl5P/uvWEauaHLfAA==",
+            "$binary": "2agljwj7MpGw8KRt3F9MRA==",
             "$type": "04"
           }
         },
@@ -219376,180 +218415,6 @@
           "Rotation": {
             "Pitch": 0.0,
             "Yaw": 32.14499282836914,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 449
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2432.5,
-            "Y": 265.0,
-            "Z": -3916.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -4.48480224609375,
-            "Y": 44.08759307861328,
-            "Z": -0.2606220245361328
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -1.6042094230651855,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "EyeHXiR/PEarXxPJynjv6w==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.537384033203125,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Archer"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 442
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Archer",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2436.5,
-            "Y": 265.0,
-            "Z": -3914.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -0.8593521118164062,
-            "Y": 44.161659240722656,
-            "Z": 1.8846168518066406
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -1.1149325370788574,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "Y+CqW2JcOy63scV+pbGTJg==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 2.026660919189453,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Knight"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "RefId": {
-          "Count": 375
-        },
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Knight",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 2436.5,
-            "Y": 280.0,
-            "Z": -3916.5
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 0.3612937927246094,
-            "Y": 59.02843475341797,
-            "Z": -0.9846477508544922
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -1.5724081993103027,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "thvSJe0jN8CJ4c7ORtuRHQ==",
-            "$type": "04"
-          }
-        },
-        "WorldGenId": {
-          "WorldGenId": 0
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.5691852569580078,
             "Roll": 0.0
           }
         }
@@ -219597,6 +218462,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -219606,7 +218472,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "y4MgCIOPPNiud2d8atACdg==",
+            "$binary": "XQ0xr7SIP9K5Gq7Jasvl1A==",
             "$type": "04"
           }
         },
@@ -219617,6 +218483,233 @@
           "Rotation": {
             "Pitch": 0.0,
             "Yaw": 9.30474853515625,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Archer"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 442
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Archer",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2436.5,
+            "Y": 265.0,
+            "Z": -3914.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -0.8593521118164062,
+            "Y": 44.161659240722656,
+            "Z": 1.8846168518066406
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -1.1149325370788574,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "YaC+9KFjMWyvUVlEmrQzMQ==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 2.026660919189453,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Knight"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 375
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Knight",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2436.5,
+            "Y": 280.0,
+            "Z": -3916.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 0.3612937927246094,
+            "Y": 59.02843475341797,
+            "Z": -0.9846477508544922
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -1.5724081993103027,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "DZ3KvgsmO82LXRQ6Pvwcrg==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 1.5691852569580078,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Soldier"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Soldier",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 0.8740577697753906,
+            "Y": 11.01654052734375,
+            "Z": 3.959320068359375
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -2.567516565322876,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "n+F2IZqANhSlaTKDZYOn2w==",
+            "$type": "04"
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Mage"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 423
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Mage",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2437.5,
+            "Y": 292.0,
+            "Z": -3907.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 0.9213890136716145,
+            "Y": 71.06010437011719,
+            "Z": 8.484912036132755
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 36.119869232177734,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "dfC9nGKkOkqR9fu+MGZUAg==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 32.978275299072266,
             "Roll": 0.0
           }
         }
@@ -219664,6 +218757,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -219673,7 +218767,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "7mL+2x4bMlGuTSyIZm8wrA==",
+            "$binary": "1cKcqf5tP5uT9RxCBC+nBQ==",
             "$type": "04"
           }
         },
@@ -219692,36 +218786,106 @@
     {
       "Components": {
         "Nameplate": {
+          "Text": "Skeleton_Frost_Soldier"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 209
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Soldier",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [
+            {
+              "UUID": {
+                "$binary": "pzpQlkpUMFGp2Ar9oU3dLA==",
+                "$type": "04"
+              },
+              "RefCount": 0
+            }
+          ],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2439.5,
+            "Y": 236.0,
+            "Z": -3915.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 2.5611915588378906,
+            "Y": 15.0,
+            "Z": 0.9691944122314453
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 0.04068899154663086,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "QCvUAAVZPz+vTaIhq8qscw==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -3.1009035110473633,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
           "Text": "Skeleton_Frost_Mage"
         },
         "HiddenFromAdventurePlayer": {},
         "RefId": {
-          "Count": 423
+          "Count": 180
         },
         "SpawnMarkerComponent": {
           "SpawnMarker": "Skeleton_Frost_Mage",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
-            "X": 2437.5,
-            "Y": 292.0,
-            "Z": -3907.5
+            "X": 2439.5,
+            "Y": 280.0,
+            "Z": -3920.5
           }
         },
         "Transform": {
           "Position": {
-            "X": 0.9213890136716145,
-            "Y": 71.06010437011719,
-            "Z": 8.484912036132755
+            "X": 2.5969161987304688,
+            "Y": 59.0,
+            "Z": -4.930908203125
           },
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": 36.119869232177734,
+            "Yaw": 28.27804946899414,
             "Roll": 0.0
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -219731,7 +218895,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "t6xp4lDVMHugGPsmRubp6w==",
+            "$binary": "ITeyGnuoPSm3LUp57qM1ug==",
             "$type": "04"
           }
         },
@@ -219741,7 +218905,7 @@
         "HeadRotation": {
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": 32.978275299072266,
+            "Yaw": 25.136457443237305,
             "Roll": 0.0
           }
         }
@@ -219750,36 +218914,38 @@
     {
       "Components": {
         "Nameplate": {
-          "Text": "Skeleton_Frost_Knight"
+          "Text": "Skeleton_Frost_Soldier"
         },
         "HiddenFromAdventurePlayer": {},
         "RefId": {
-          "Count": 374
+          "Count": 318
         },
         "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Knight",
+          "SpawnMarker": "Skeleton_Frost_Soldier",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
-            "X": 2445.5,
-            "Y": 262.0,
-            "Z": -3917.5
+            "X": 2439.5,
+            "Y": 248.0,
+            "Z": -3918.5
           }
         },
         "Transform": {
           "Position": {
-            "X": 8.470120983886773,
-            "Y": 41.0,
-            "Z": -1.3106436523439697
+            "X": 3.0544357299804688,
+            "Y": 27.077171325683594,
+            "Z": -7.534215927124023
           },
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": 27.10003662109375,
+            "Yaw": 1.5844182968139648,
             "Roll": 0.0
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -219789,7 +218955,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "DRxFijqrPtOsJvluEMDsHQ==",
+            "$binary": "jNe1pOAQMLay+hCCDeOl+g==",
             "$type": "04"
           }
         },
@@ -219799,7 +218965,7 @@
         "HeadRotation": {
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": 23.958444595336914,
+            "Yaw": -1.5571746826171875,
             "Roll": 0.0
           }
         }
@@ -219808,36 +218974,38 @@
     {
       "Components": {
         "Nameplate": {
-          "Text": "Skeleton_Frost_Knight"
+          "Text": "Skeleton_Frost_Soldier"
         },
         "HiddenFromAdventurePlayer": {},
         "RefId": {
-          "Count": 374
+          "Count": 318
         },
         "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Knight",
+          "SpawnMarker": "Skeleton_Frost_Soldier",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
-            "X": 2445.5,
-            "Y": 262.0,
-            "Z": -3917.5
+            "X": 2439.5,
+            "Y": 248.0,
+            "Z": -3918.5
           }
         },
         "Transform": {
           "Position": {
-            "X": 8.470120983886773,
-            "Y": 41.0,
-            "Z": -1.3106436523439697
+            "X": 3.7493667602539062,
+            "Y": 27.176116943359375,
+            "Z": -2.4193668365478516
           },
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": 27.10003662109375,
+            "Yaw": 1.5844182968139648,
             "Roll": 0.0
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -219847,7 +219015,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "dfT0Ed1NNLe/jvgTeW7iTA==",
+            "$binary": "OT5ns6+eOueEXMBDiiwNZA==",
             "$type": "04"
           }
         },
@@ -219857,7 +219025,67 @@
         "HeadRotation": {
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": 23.958444595336914,
+            "Yaw": -1.5571746826171875,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Archer"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 335
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Archer",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2441.5,
+            "Y": 280.0,
+            "Z": -3920.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 4.082622528076172,
+            "Y": 41.273284912109375,
+            "Z": 7.515911102294922
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 2.3850979804992676,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "qtW22YatPs2dC0n4eH84IA==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -0.7564940452575684,
             "Roll": 0.0
           }
         }
@@ -219873,51 +219101,7 @@
           "SpawnMarker": "Skeleton_Frost_Soldier",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 5.0897216796875,
-            "Y": 55.35669708251953,
-            "Z": 11.541967391967773
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 0.29541540145874023,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "zr1Ke1vZPAyqdHgEaUXVOw==",
-            "$type": "04"
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Frost_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Frost_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -219938,6 +219122,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -219947,8 +219132,316 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "eEuiR+3/Opa8YO8IrDzuZQ==",
+            "$binary": "SJmJ/VxdOAeL9TpOKK0UiQ==",
             "$type": "04"
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Soldier"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 463
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Soldier",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2434.5,
+            "Y": 272.0,
+            "Z": -3918.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 4.438232421875,
+            "Y": 48.22766876220703,
+            "Z": 10.650707244873047
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 3.0395169258117676,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "QOt3XVXTNYaLYTZhDw6i+A==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -0.10207509994506836,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Soldier"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 485
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Soldier",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [
+            {
+              "UUID": {
+                "$binary": "LHUa/vMBOUeqWE6ccupjhw==",
+                "$type": "04"
+              },
+              "RefCount": 0
+            }
+          ],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2441.5,
+            "Y": 262.05,
+            "Z": -3924.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 4.7166290283203125,
+            "Y": 41.065818786621094,
+            "Z": -8.89612865447998
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -2.5516276359558105,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "UlVAEiZUMJOX1RopOfh9Ow==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 0.5899658203125,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Knight"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 257
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Knight",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2442.5,
+            "Y": 280.0,
+            "Z": -3916.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 4.920684814453125,
+            "Y": 59.06708526611328,
+            "Z": -0.7281455993652344
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 2.2126216888427734,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "x1kJE+R8PNCgfwRm8aD1Bg==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -0.9289703369140625,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Archer"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 335
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Archer",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2441.5,
+            "Y": 280.0,
+            "Z": -3920.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 4.938757775878912,
+            "Y": 59.00010681152344,
+            "Z": -4.379277929687305
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 33.801025390625,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "Hc96cFfGNWinGKcFx/Vwiw==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 30.659433364868164,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Soldier"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 400
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Soldier",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2441.5,
+            "Y": 262.0,
+            "Z": -3916.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 5.012325286865234,
+            "Y": 41.0762939453125,
+            "Z": -0.2707080841064453
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -2.3591318130493164,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "2Jo5zEWdMCyZx0OoLpgY6Q==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 0.7824597358703613,
+            "Roll": 0.0
           }
         }
       }
@@ -219963,6 +219456,7 @@
           "SpawnMarker": "Skeleton_Frost_Soldier",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -219972,17 +219466,18 @@
         },
         "Transform": {
           "Position": {
-            "X": -5.063198089599609,
-            "Y": 22.05596923828125,
-            "Z": -3.9844493865966797
+            "X": 5.0897216796875,
+            "Y": 55.35669708251953,
+            "Z": 11.541967391967773
           },
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": -1.0013484954833984,
+            "Yaw": 0.29541540145874023,
             "Roll": 0.0
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -219992,8 +219487,204 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "WsFtA1KRN6i0lrQkb2/fRA==",
+            "$binary": "WWnU/P75NyGDh2M6kxWxGA==",
             "$type": "04"
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Archer"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 365
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Archer",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [
+            {
+              "UUID": {
+                "$binary": "AdR2J7edOFyK5xeWSgdXKQ==",
+                "$type": "04"
+              },
+              "RefCount": 0
+            }
+          ],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2442.5,
+            "Y": 241.0,
+            "Z": -3909.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 5.950275421142578,
+            "Y": 20.00677490234375,
+            "Z": 6.507913589477539
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 0.06563091278076172,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "DmfOIrv6PviztbJocXFdjA==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -3.0759620666503906,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Archer"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 479
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Archer",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [
+            {
+              "UUID": {
+                "$binary": "p6JftTRWObCjVz4TN1kOtQ==",
+                "$type": "04"
+              },
+              "RefCount": 0
+            }
+          ],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2444.5,
+            "Y": 253.05,
+            "Z": -3921.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 6.6398162841796875,
+            "Y": 32.285308837890625,
+            "Z": -8.970703125
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -2.983668804168701,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "E4MQPkr3MeG++8FXlfkDCA==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 0.15792369842529297,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Knight"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 393
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Knight",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2443.5,
+            "Y": 272.0,
+            "Z": -3915.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 6.974390515136292,
+            "Y": 51.0,
+            "Z": 0.8917941406248246
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 33.56486129760742,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "TTCin9+LNQa4TpynGO+d7A==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 30.423267364501953,
+            "Roll": 0.0
           }
         }
       }
@@ -220004,30 +219695,43 @@
           "Text": "Skeleton_Frost_Soldier"
         },
         "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 226
+        },
         "SpawnMarkerComponent": {
           "SpawnMarker": "Skeleton_Frost_Soldier",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [
+            {
+              "UUID": {
+                "$binary": "9s1pMTE9NdeUK0MQw3Yh7A==",
+                "$type": "04"
+              },
+              "RefCount": 0
+            }
+          ],
           "PersistedFlock": {},
           "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
+            "X": 2444.5,
+            "Y": 248.0,
+            "Z": -3909.5
           }
         },
         "Transform": {
           "Position": {
-            "X": 0.8740577697753906,
-            "Y": 11.01654052734375,
-            "Z": 3.959320068359375
+            "X": 7.499534606933594,
+            "Y": 27.060638427734375,
+            "Z": 4.845355987548828
           },
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": -2.567516565322876,
+            "Yaw": 0.08476591110229492,
             "Roll": 0.0
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -220037,8 +219741,206 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "HokPqT+OMA+eRbbDQuZHMg==",
+            "$binary": "EqjmeEDEPO+/OKXoAPs53w==",
             "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -3.056826114654541,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Archer"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 479
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Archer",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [
+            {
+              "UUID": {
+                "$binary": "p6JftTRWObCjVz4TN1kOtQ==",
+                "$type": "04"
+              },
+              "RefCount": 0
+            }
+          ],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2444.5,
+            "Y": 253.05,
+            "Z": -3921.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 7.522991180419922,
+            "Y": 32.24390411376953,
+            "Z": 0.8320083618164062
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -2.983668804168701,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "6umxLQ3nPWirjRsuqUa8mg==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 0.15792369842529297,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Knight"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 374
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Knight",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2445.5,
+            "Y": 262.0,
+            "Z": -3917.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 8.470120983886773,
+            "Y": 41.0,
+            "Z": -1.3106436523439697
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 27.10003662109375,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "C5Jz8InePlCgIstqfX/f8A==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 23.958444595336914,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Frost_Knight"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "RefId": {
+          "Count": 374
+        },
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Frost_Knight",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 2445.5,
+            "Y": 262.0,
+            "Z": -3917.5
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 8.470120983886773,
+            "Y": 41.0,
+            "Z": -1.3106436523439697
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 27.10003662109375,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "IWAKXiKONReoNllQjoOgSQ==",
+            "$type": "04"
+          }
+        },
+        "WorldGenId": {
+          "WorldGenId": 0
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 23.958444595336914,
+            "Roll": 0.0
           }
         }
       }

@@ -71,6 +71,7 @@
     ],
     "Attack": "Root_NPC_Spider_Attack",
     "AttackDistance": 3,
+    "TargetRange": 3,
     "ChaseRelativeSpeed": 0.6,
     "CombatMovingRelativeSpeed": 0.8,
     "BlockStepDetectionBlockSet": {

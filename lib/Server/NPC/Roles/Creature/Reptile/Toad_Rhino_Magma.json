@@ -11,6 +11,7 @@
     "MaxSpeed": 8,
     "Attack": "Root_NPC_Toad_Rhino_Magma_Attack",
     "AttackDistance": 10,
+    "TargetRange": 10,
     "CombatBehaviorDistance": 12,
     "LeashDistance": 40,
     "HardLeashDistance": 80,

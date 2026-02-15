@@ -138,6 +138,7 @@
   "Quality": "Developer",
   "Consumable": true,
   "MaxDurability": 1,
+  "DurabilityLossOnDeath": false,
   "Tags": {
     "Type": [
       "Potion"

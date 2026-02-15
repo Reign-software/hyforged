@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 10,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 7,
   "anchorZ": 0,
@@ -7897,11 +7897,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": -49,
-              "Y": 0,
-              "Z": 2
-            },
             "PrefabPath": "Npc.Outlander.Houses.Tier0.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -25847,11 +25842,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": -38,
-              "Y": 0,
-              "Z": -24
-            },
             "PrefabPath": "Npc.Outlander.Houses.Tier1.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -34215,11 +34205,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": -35,
-              "Y": 0,
-              "Z": 34
-            },
             "PrefabPath": "Npc.Outlander.Houses.Tier1.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -49958,11 +49943,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": -28,
-              "Y": 0,
-              "Z": 10
-            },
             "PrefabPath": "Npc.Outlander.Houses.Tier3.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -94815,11 +94795,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": -16,
-              "Y": 0,
-              "Z": -42
-            },
             "PrefabPath": "Npc.Outlander.Towers.Tier3.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -103477,11 +103452,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": -14,
-              "Y": 0,
-              "Z": -23
-            },
             "PrefabPath": "Npc.Outlander.Misc.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -114865,11 +114835,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": -11,
-              "Y": 0,
-              "Z": 48
-            },
             "PrefabPath": "Npc.Outlander.Houses.Tier0.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -114887,11 +114852,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": -10,
-              "Y": 0,
-              "Z": -50
-            },
             "PrefabPath": "Npc.Outlander.Houses.Tier0.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -149772,11 +149732,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": 0,
-              "Y": 0,
-              "Z": -4
-            },
             "PrefabPath": "Npc.Outlander.Totems.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -149872,11 +149827,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": 0,
-              "Y": 1,
-              "Z": 0
-            },
             "PrefabPath": "Npc.Outlander.Camps.Tier3.Walls.Outlander_Camps_Tier3_Walls_001",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -154153,11 +154103,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": 1,
-              "Y": 0,
-              "Z": 23
-            },
             "PrefabPath": "Npc.Outlander.Forts.Tier3.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -171228,11 +171173,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": 6,
-              "Y": 0,
-              "Z": 48
-            },
             "PrefabPath": "Npc.Outlander.Houses.Tier0.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -189508,11 +189448,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": 13,
-              "Y": 0,
-              "Z": -42
-            },
             "PrefabPath": "Npc.Outlander.Houses.Tier1.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -212997,11 +212932,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": 20,
-              "Y": 0,
-              "Z": -18
-            },
             "PrefabPath": "Npc.Outlander.Houses.Tier3.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -214093,14 +214023,6 @@
     },
     {
       "x": 20,
-      "y": 8,
-      "z": 8,
-      "name": "Bench_Lumbermill",
-      "filler": 992,
-      "rotation": 3
-    },
-    {
-      "x": 20,
       "y": 4,
       "z": 9,
       "name": "Soil_Dirt_Poisoned"
@@ -214122,13 +214044,6 @@
       "y": 7,
       "z": 9,
       "name": "Soil_Dirt_Poisoned"
-    },
-    {
-      "x": 20,
-      "y": 8,
-      "z": 9,
-      "name": "Bench_Lumbermill",
-      "rotation": 3
     },
     {
       "x": 20,
@@ -231121,11 +231036,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": 26,
-              "Y": 1,
-              "Z": 15
-            },
             "PrefabPath": "Npc.Outlander.Houses.Tier1.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -233892,11 +233802,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": 27,
-              "Y": 0,
-              "Z": 38
-            },
             "PrefabPath": "Npc.Outlander.Houses.Tier0.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -273368,11 +273273,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": 40,
-              "Y": 0,
-              "Z": -32
-            },
             "PrefabPath": "Npc.Outlander.Towers.Tier2.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -279630,11 +279530,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": 43,
-              "Y": 0,
-              "Z": -15
-            },
             "PrefabPath": "Npc.Outlander.Houses.Tier1.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -280191,11 +280086,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": 43,
-              "Y": 0,
-              "Z": 30
-            },
             "PrefabPath": "Npc.Outlander.Towers.Tier3.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -282427,11 +282317,6 @@
       "components": {
         "Components": {
           "prefabspawner": {
-            "Position": {
-              "X": 46,
-              "Y": 0,
-              "Z": 13
-            },
             "PrefabPath": "Npc.Outlander.Houses.Tier0.*",
             "FitHeightmap": false,
             "InheritSeed": true,
@@ -290877,6 +290762,7 @@
           "SpawnMarker": "Outlander_Cultist",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -290886,17 +290772,18 @@
         },
         "Transform": {
           "Position": {
-            "X": 23.547060546874945,
-            "Y": 8.5,
-            "Z": -3.4817891235351226
+            "X": -14.562929687500855,
+            "Y": 8.500099182128906,
+            "Z": -7.622986914062494
           },
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": -115.55545043945312,
+            "Yaw": -114.11824798583984,
             "Roll": 0.0
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -290906,14 +290793,14 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "ks2DH+GyMIiupgnSW/jhTw==",
+            "$binary": "a4R7H9ZAO4qAl8ubyKmeyw==",
             "$type": "04"
           }
         },
         "HeadRotation": {
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": -118.6970443725586,
+            "Yaw": -117.25984191894531,
             "Roll": 0.0
           }
         }
@@ -290929,58 +290816,7 @@
           "SpawnMarker": "Outlander_Berserker",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 20.48388671875,
-            "Y": 9.233734130859375,
-            "Z": 1.5304794311523438
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -0.8477120399475098,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "LYchQgLUPAGw/AygHqyylA==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 2.2938804626464844,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Outlander_Berserker"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander_Berserker",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -290992,7 +290828,7 @@
           "Position": {
             "X": -13.2553230468734,
             "Y": 8.5,
-            "Z": -10.477375872802725
+            "Z": -10.477375872802668
           },
           "Rotation": {
             "Pitch": 0.0,
@@ -291001,6 +290837,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -291010,7 +290847,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "vBBFHDaQOi6MlFKyDxFKfw==",
+            "$binary": "6D0O9iWEONOWKk0dOIK6KQ==",
             "$type": "04"
           }
         },
@@ -291033,6 +290870,7 @@
           "SpawnMarker": "Outlander_Berserker",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -291053,6 +290891,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -291062,7 +290901,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "WGPzNsXUMhGT1yc8SCT4Rw==",
+            "$binary": "GyYFTezTNgO/o07NExQvwA==",
             "$type": "04"
           }
         },
@@ -291078,13 +290917,14 @@
     {
       "Components": {
         "Nameplate": {
-          "Text": "Outlander_Cultist"
+          "Text": "Outlander_Berserker"
         },
         "HiddenFromAdventurePlayer": {},
         "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander_Cultist",
+          "SpawnMarker": "Outlander_Berserker",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -291094,17 +290934,18 @@
         },
         "Transform": {
           "Position": {
-            "X": -14.562929687500855,
-            "Y": 8.500099182128906,
-            "Z": -7.622986914062437
+            "X": 20.48388671875,
+            "Y": 9.233734130859375,
+            "Z": 1.5304794311523438
           },
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": -114.11824798583984,
+            "Yaw": -0.8477120399475098,
             "Roll": 0.0
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -291114,14 +290955,68 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "k8ghGvh9MfaA96Jo1Ueq/w==",
+            "$binary": "X6fE7ivSPeGioJxQkuausQ==",
             "$type": "04"
           }
         },
         "HeadRotation": {
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": -117.25984191894531,
+            "Yaw": 2.2938804626464844,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Outlander_Cultist"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Outlander_Cultist",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 23.547060546874945,
+            "Y": 8.5,
+            "Z": -3.4817891235351226
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -115.55545043945312,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "O/3Qe6M3PC2Uq0BGmX/pyg==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -118.6970443725586,
             "Roll": 0.0
           }
         }

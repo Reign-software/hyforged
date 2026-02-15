@@ -505,7 +505,7 @@ Group {
           Label #LockedCosmeticName {
             Style: (FontSize: 18, VerticalAlignment: Center, RenderBold: true);
             FlexWeight: 1;
-            Text: "Locked Cosmetic";
+            Text: %client.myAvatar.lockedCosmetic;
           }
         }
 

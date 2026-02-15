@@ -30,7 +30,7 @@ Group #AvatarPresetContainer {
           Background: "IconAdd.png";
         }
 
-        Label {
+        Label #AddPresetButtonLabel {
           Anchor: (Left: 8);
           Text: %client.myAvatar.presets.panel.addPresetButton;
           Style: (FontSize: 18, TextColor: #bdcbd3, RenderBold: true, RenderUppercase: true);

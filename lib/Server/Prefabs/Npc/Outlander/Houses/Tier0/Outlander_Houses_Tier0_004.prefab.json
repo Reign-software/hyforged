@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 14,
   "anchorZ": 0,
@@ -142,7 +142,7 @@
       "x": -4,
       "y": 15,
       "z": 2,
-      "name": "*Wood_Deadwood_Fence_State_Definitions_Corner",
+      "name": "Wood_Deadwood_Fence",
       "rotation": 1
     },
     {
@@ -772,8 +772,7 @@
       "x": -3,
       "y": 15,
       "z": 3,
-      "name": "Bench_Lumbermill",
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -3,
@@ -827,9 +826,7 @@
       "x": -3,
       "y": 15,
       "z": 4,
-      "name": "Bench_Lumbermill",
-      "filler": 32,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -3,
@@ -3485,11 +3482,6 @@
       "y": 15,
       "z": -3,
       "name": "Furniture_Crude_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 32
     },
     {

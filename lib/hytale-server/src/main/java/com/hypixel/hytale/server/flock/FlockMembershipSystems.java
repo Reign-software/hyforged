@@ -4,6 +4,7 @@ import com.hypixel.hytale.component.AddReason;
 import com.hypixel.hytale.component.Archetype;
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
+import com.hypixel.hytale.component.ComponentAccessor;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Holder;
 import com.hypixel.hytale.component.Ref;
@@ -95,6 +96,30 @@ public class FlockMembershipSystems {
       }
    }
 
+   private static void registerFlockDebugListener(
+      @Nonnull Ref<EntityStore> ref, @Nonnull FlockMembership membership, @Nonnull Flock flock, @Nonnull ComponentAccessor<EntityStore> accessor
+   ) {
+      NPCEntity npcComponent = accessor.getComponent(ref, NPCEntity.getComponentType());
+      if (npcComponent != null) {
+         Role role = npcComponent.getRole();
+         if (role != null) {
+            membership.registerAsDebugListener(role.getDebugSupport(), flock);
+         }
+      }
+   }
+
+   private static void unregisterFlockDebugListener(
+      @Nonnull Ref<EntityStore> ref, @Nonnull FlockMembership membership, @Nonnull Flock flock, @Nonnull ComponentAccessor<EntityStore> accessor
+   ) {
+      NPCEntity npcComponent = accessor.getComponent(ref, NPCEntity.getComponentType());
+      if (npcComponent != null) {
+         Role role = npcComponent.getRole();
+         if (role != null) {
+            membership.unregisterAsDebugListener(role.getDebugSupport(), flock);
+         }
+      }
+   }
+
    public static class EntityRef extends RefSystem<EntityStore> {
       @Nonnull
       private final ComponentType<EntityStore, FlockMembership> flockMembershipComponentType;
@@ -147,6 +172,7 @@ public class FlockMembershipSystems {
             throw new IllegalStateException(String.format("Entity %s attempting to reload into group with ID %s despite already being a member", ref, flockId));
          } else {
             entityGroup.add(ref);
+            FlockMembershipSystems.registerFlockDebugListener(ref, flockMembershipComponent, flock, store);
             if (flockMembershipComponent.getMembershipType() == FlockMembership.Type.LEADER) {
                PersistentFlockData persistentFlockData = store.getComponent(ref, PersistentFlockData.getComponentType());
                if (persistentFlockData != null) {
@@ -211,6 +237,7 @@ public class FlockMembershipSystems {
 
             UUID flockId = uuidComponent.getUuid();
             if (reason == RemoveReason.REMOVE || store.getArchetype(ref).contains(Player.getComponentType())) {
+               FlockMembershipSystems.unregisterFlockDebugListener(ref, membership, flockComponent, store);
                entityGroupComponent.remove(ref);
                if (flockComponent.isTrace()) {
                   FlockPlugin.get()
@@ -282,6 +309,7 @@ public class FlockMembershipSystems {
                      .log("Flock %s: Set new leader, old=%s, new=%s, size=%s", flockId, ref, newLeader, entityGroupComponent.size());
                }
             } else if (reason == RemoveReason.UNLOAD) {
+               FlockMembershipSystems.unregisterFlockDebugListener(ref, membership, flockComponent, store);
                entityGroupComponent.remove(ref);
                if (!entityGroupComponent.isDissolved() && membership.getMembershipType().isActingAsLeader()) {
                   Ref<EntityStore> interimLeader = entityGroupComponent.testMembers(member -> true, true);
@@ -656,6 +684,7 @@ public class FlockMembershipSystems {
                               }
 
                               entityGroupComponent.add(ref);
+                              FlockMembershipSystems.registerFlockDebugListener(ref, membershipComponent, flockComponent, store);
                               if (mustBecomeLeader) {
                                  setNewLeader(flockId, entityGroupComponent, flockComponent, ref, store, commandBuffer);
                                  if (wasFirstJoiner && flockComponent.isTrace()) {
@@ -717,6 +746,7 @@ public class FlockMembershipSystems {
             assert uuidComponent != null;
 
             UUID flockId = uuidComponent.getUuid();
+            FlockMembershipSystems.unregisterFlockDebugListener(ref, membershipComponent, flockComponent, store);
             entityGroupComponent.remove(ref);
             if (flockComponent.isTrace()) {
                FlockPlugin.get()

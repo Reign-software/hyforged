@@ -11,6 +11,7 @@
     "Weapons": [ ],
     "OffHand": [ ],
     "AttackDistance": 2,
+    "TargetRange": 2,
     "DesiredAttackDistanceRange": [ 1, 1.6 ],
     "CombatBehaviorDistance": 3,
     "CombatStrafeWeight": 5,

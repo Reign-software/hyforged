@@ -14,14 +14,7 @@
     "RunThreshold": 0.6,
     "AttackWhenStartled": true,
     "Attack": "Root_NPC_Attack_Melee",
-    "GreetAnimation": "Moo",
-    "ChanceToTurnFriendly": 20,
-    "WeightGreet": 30,
-    "WeightFollowItem": 10,
-    "WeightFollow": 10,
-    "WeightIgnore": 30,
     "ProduceItem": "Ingredient_Poop",
-    "IsHarvestable": false,
     "IsMemory": true,
     "MemoriesCategory": "Livestock",
     "_InteractionVars": {
@@ -71,7 +64,7 @@
             "DamageCalculator": {
               "Type": "Absolute",
               "BaseDamage": {
-                "Physical": 45
+                "Physical": 50
               },
               "RandomPercentageModifier": 0.1
             },

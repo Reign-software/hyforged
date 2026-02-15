@@ -11,8 +11,7 @@
   "Texture": "NPC/Intelligent/Goblin/Models/Weapons/Flamethrower/Flamethrower_Goblin_Texture.png",
   "PlayerAnimationsId": "Rifle",
   "Interactions": {
-    "Primary": "Flamethrower_Goblin_Primary",
-    "Secondary": "Flamethrower_Goblin_Secondary"
+    "Primary": "Flamethrower_Goblin_Primary"
   },
   "InteractionVars": {
     "Flamethrower_Damage": {
@@ -36,7 +35,7 @@
             },
             "WorldParticles": [
               {
-                "SystemId": "Impact_Sword_Charged"
+                "SystemId": "Impact_Explosion"
               }
             ]
           },

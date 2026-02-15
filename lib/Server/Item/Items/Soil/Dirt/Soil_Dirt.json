@@ -43,6 +43,9 @@
   "Tags": {
     "Type": [
       "Soil"
+    ],
+    "Spreadable":[
+      "Grass"
     ]
   },
   "ItemSoundSetId": "ISS_Blocks_Soft"

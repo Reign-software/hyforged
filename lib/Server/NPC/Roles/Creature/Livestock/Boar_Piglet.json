@@ -7,25 +7,23 @@
       "Boar",
       "Boar_Piglet"
     ],
-    "LovedItems": [
-      "Plant_Crop_Mushroom_Cap_Red"
+    "AttractiveItemSet": [
+      "Plant_Crop_Pumpkin_Item"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Pumpkin",
     "DropList": "Drop_Boar_Piglet",
     "MaxHealth": 29,
     "ViewRange": 12,
-    "GreetAnimation": "Moo",
-    "ChanceToTurnFriendly": 50,
-    "ChanceToTurnFriendlyWithAttractiveItem": 75,
-    "WeightGreet": 30,
-    "WeightFollowItem": 30,
-    "WeightFollow": 20,
-    "WeightIgnore": 10,
-    "ProduceItem": "Ingredient_Poop",
-    "IsHarvestable": false,
+    "ViewSector": 300,
+    "HearingRange": 7,
+    "AlertedRange": 13,
+    "AlertedActionRange": 5,
+    "AbsoluteDetectionRange": 1.5,
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Boar_Piglet",
     "IsMemory": true,
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
-    }
+    "MemoriesNameOverride": "Boar_Piglet",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" }
   },
   "Parameters": {
     "NameTranslationKey": {

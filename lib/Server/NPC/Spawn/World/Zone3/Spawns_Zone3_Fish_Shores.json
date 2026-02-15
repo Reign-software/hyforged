@@ -6,15 +6,18 @@
     {
       "Weight": 10,
       "Id": "Frostgill",
-      "Flock": "Group_Small"
+      "Flock": "Group_Small",
+      "SpawnFluidTag": "Water_Source"
     },
     {
       "Weight": 10,
-      "Id": "Trilobite"
+      "Id": "Trilobite",
+      "SpawnFluidTag": "Water_Source"
     },
     {
       "Weight": 10,
-      "Id": "Snapjaw"
+      "Id": "Snapjaw",
+      "SpawnFluidTag": "Water_Source"
     }
   ],
   "DayTimeRange": [

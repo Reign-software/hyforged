@@ -6,15 +6,9 @@
     "FlockArray": [
       "Flamingo"
     ],
-    "AttitudeGroup": "Prey",
     "DropList": "Drop_Flamingo",
     "MaxHealth": 49,
     "WanderRadius": 15,
-    "ChanceToTurnFriendly": 15,
-    "WeightGreet": 20,
-    "WeightFollowItem": 20,
-    "WeightFollow": 10,
-    "WeightIgnore": 30,
     "IsMemory": true,
     "MemoriesCategory": "Avian",
     "NameTranslationKey": {

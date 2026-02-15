@@ -242,7 +242,7 @@ public abstract class ObjectiveTask implements NetworkSerializer<Objective, com.
 
    private void shutdownEventRegistry() {
       if (this.eventRegistry != null) {
-         this.eventRegistry.shutdown();
+         this.eventRegistry.shutdownAndCleanup(true);
          this.eventRegistry = null;
       }
    }

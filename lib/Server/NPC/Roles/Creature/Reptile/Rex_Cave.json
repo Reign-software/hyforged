@@ -15,6 +15,7 @@
     "MaxSpeed": 9,
     "Attack": "Root_NPC_Attack_Melee",
     "AttackDistance": 3,
+    "TargetRange": 3,
     "CombatBehaviorDistance": 6,
     "CombatAlwaysMovingWeight": 1000,
     "RunThreshold": 0.1,

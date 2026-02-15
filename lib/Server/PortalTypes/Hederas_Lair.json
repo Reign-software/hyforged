@@ -10,11 +10,5 @@
       "server.portals.hederas_lair.tip2"
     ]
   },
-  "VoidInvasionEnabled": true,
-  "PlayerSpawn": {
-    "Y": 110,
-    "ScanHeight": 16,
-    "MinRadius": 60,
-    "MaxRadius": 60
-  }
+  "VoidInvasionEnabled": true
 }

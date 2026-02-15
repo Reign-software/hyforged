@@ -1,7 +1,7 @@
 package com.hypixel.hytale.server.core.modules.entitystats.asset;
 
 import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
-import com.hypixel.hytale.protocol.Packet;
+import com.hypixel.hytale.protocol.ToClientPacket;
 import com.hypixel.hytale.protocol.UpdateType;
 import com.hypixel.hytale.protocol.packets.assets.UpdateEntityStatTypes;
 import com.hypixel.hytale.server.core.asset.packet.SimpleAssetPacketGenerator;
@@ -16,7 +16,7 @@ public class EntityStatTypePacketGenerator extends SimpleAssetPacketGenerator<St
    }
 
    @Nonnull
-   public Packet generateInitPacket(@Nonnull IndexedLookupTableAssetMap<String, EntityStatType> assetMap, @Nonnull Map<String, EntityStatType> assets) {
+   public ToClientPacket generateInitPacket(@Nonnull IndexedLookupTableAssetMap<String, EntityStatType> assetMap, @Nonnull Map<String, EntityStatType> assets) {
       UpdateEntityStatTypes packet = new UpdateEntityStatTypes();
       packet.type = UpdateType.Init;
       packet.types = new Int2ObjectOpenHashMap<>();
@@ -36,7 +36,9 @@ public class EntityStatTypePacketGenerator extends SimpleAssetPacketGenerator<St
    }
 
    @Nonnull
-   public Packet generateUpdatePacket(@Nonnull IndexedLookupTableAssetMap<String, EntityStatType> assetMap, @Nonnull Map<String, EntityStatType> loadedAssets) {
+   public ToClientPacket generateUpdatePacket(
+      @Nonnull IndexedLookupTableAssetMap<String, EntityStatType> assetMap, @Nonnull Map<String, EntityStatType> loadedAssets
+   ) {
       UpdateEntityStatTypes packet = new UpdateEntityStatTypes();
       packet.type = UpdateType.AddOrUpdate;
       packet.types = new Int2ObjectOpenHashMap<>();
@@ -56,7 +58,7 @@ public class EntityStatTypePacketGenerator extends SimpleAssetPacketGenerator<St
    }
 
    @Nonnull
-   public Packet generateRemovePacket(@Nonnull IndexedLookupTableAssetMap<String, EntityStatType> assetMap, @Nonnull Set<String> removed) {
+   public ToClientPacket generateRemovePacket(@Nonnull IndexedLookupTableAssetMap<String, EntityStatType> assetMap, @Nonnull Set<String> removed) {
       UpdateEntityStatTypes packet = new UpdateEntityStatTypes();
       packet.type = UpdateType.Remove;
       packet.types = new Int2ObjectOpenHashMap<>();

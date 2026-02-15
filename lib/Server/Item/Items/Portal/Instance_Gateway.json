@@ -39,7 +39,7 @@
     },
     "Gathering": {
       "Breaking": {
-        "GatherType": "SoftBlocks"
+        "GatherType": "Benches"
       }
     },
     "AmbientSoundEventId": "SFX_Portal_Neutral",

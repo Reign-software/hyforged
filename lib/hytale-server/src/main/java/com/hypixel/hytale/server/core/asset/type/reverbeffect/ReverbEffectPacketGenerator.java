@@ -1,7 +1,7 @@
 package com.hypixel.hytale.server.core.asset.type.reverbeffect;
 
 import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
-import com.hypixel.hytale.protocol.Packet;
+import com.hypixel.hytale.protocol.ToClientPacket;
 import com.hypixel.hytale.protocol.UpdateType;
 import com.hypixel.hytale.protocol.packets.assets.UpdateReverbEffects;
 import com.hypixel.hytale.server.core.asset.packet.SimpleAssetPacketGenerator;
@@ -17,7 +17,7 @@ public class ReverbEffectPacketGenerator extends SimpleAssetPacketGenerator<Stri
    }
 
    @Nonnull
-   public Packet generateInitPacket(@Nonnull IndexedLookupTableAssetMap<String, ReverbEffect> assetMap, @Nonnull Map<String, ReverbEffect> assets) {
+   public ToClientPacket generateInitPacket(@Nonnull IndexedLookupTableAssetMap<String, ReverbEffect> assetMap, @Nonnull Map<String, ReverbEffect> assets) {
       UpdateReverbEffects packet = new UpdateReverbEffects();
       packet.type = UpdateType.Init;
       packet.effects = new Int2ObjectOpenHashMap<>(assets.size());
@@ -37,7 +37,9 @@ public class ReverbEffectPacketGenerator extends SimpleAssetPacketGenerator<Stri
    }
 
    @Nonnull
-   public Packet generateUpdatePacket(@Nonnull IndexedLookupTableAssetMap<String, ReverbEffect> assetMap, @Nonnull Map<String, ReverbEffect> loadedAssets) {
+   public ToClientPacket generateUpdatePacket(
+      @Nonnull IndexedLookupTableAssetMap<String, ReverbEffect> assetMap, @Nonnull Map<String, ReverbEffect> loadedAssets
+   ) {
       UpdateReverbEffects packet = new UpdateReverbEffects();
       packet.type = UpdateType.AddOrUpdate;
       packet.effects = new Int2ObjectOpenHashMap<>(loadedAssets.size());
@@ -57,7 +59,7 @@ public class ReverbEffectPacketGenerator extends SimpleAssetPacketGenerator<Stri
    }
 
    @Nonnull
-   public Packet generateRemovePacket(@Nonnull IndexedLookupTableAssetMap<String, ReverbEffect> assetMap, @Nonnull Set<String> removed) {
+   public ToClientPacket generateRemovePacket(@Nonnull IndexedLookupTableAssetMap<String, ReverbEffect> assetMap, @Nonnull Set<String> removed) {
       UpdateReverbEffects packet = new UpdateReverbEffects();
       packet.type = UpdateType.Remove;
       packet.effects = new Int2ObjectOpenHashMap<>(removed.size());

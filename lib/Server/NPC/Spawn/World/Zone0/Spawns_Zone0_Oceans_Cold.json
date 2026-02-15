@@ -5,12 +5,14 @@
   "NPCs": [
     {
       "Weight": 10,
-      "Id": "Salmon"
+      "Id": "Salmon",
+      "SpawnFluidTag": "Water_Source"
     },
     {
       "Weight": 10,
       "Id": "Frostgill",
-      "Flock": "Group_Large"
+      "Flock": "Group_Large",
+      "SpawnFluidTag": "Water_Source"
     }
   ]
 }

@@ -44,11 +44,18 @@
     "Opacity": "Transparent",
     "ParticleColor": "#4c4a31",
     "Support": {
-      "Down": [
+      "West": [
         {
           "AllowSupportPropagation": false,
           "FaceType": "Full",
-          "Rotate": false
+          "Rotate": true
+        }
+      ],
+      "East": [
+        {
+          "FaceType": "Full",
+          "AllowSupportPropagation": false,
+          "Rotate": true
         }
       ]
     },

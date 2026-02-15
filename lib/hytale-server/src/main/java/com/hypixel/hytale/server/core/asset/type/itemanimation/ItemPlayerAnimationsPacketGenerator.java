@@ -1,7 +1,7 @@
 package com.hypixel.hytale.server.core.asset.type.itemanimation;
 
 import com.hypixel.hytale.assetstore.map.DefaultAssetMap;
-import com.hypixel.hytale.protocol.Packet;
+import com.hypixel.hytale.protocol.ToClientPacket;
 import com.hypixel.hytale.protocol.UpdateType;
 import com.hypixel.hytale.protocol.packets.assets.UpdateItemPlayerAnimations;
 import com.hypixel.hytale.server.core.asset.packet.DefaultAssetPacketGenerator;
@@ -17,7 +17,7 @@ public class ItemPlayerAnimationsPacketGenerator extends DefaultAssetPacketGener
 
    @Nonnull
    @Override
-   public Packet generateInitPacket(DefaultAssetMap<String, ItemPlayerAnimations> assetMap, @Nonnull Map<String, ItemPlayerAnimations> assets) {
+   public ToClientPacket generateInitPacket(DefaultAssetMap<String, ItemPlayerAnimations> assetMap, @Nonnull Map<String, ItemPlayerAnimations> assets) {
       UpdateItemPlayerAnimations packet = new UpdateItemPlayerAnimations();
       packet.type = UpdateType.Init;
       packet.itemPlayerAnimations = new Object2ObjectOpenHashMap<>(assets.size());
@@ -31,7 +31,7 @@ public class ItemPlayerAnimationsPacketGenerator extends DefaultAssetPacketGener
 
    @Nonnull
    @Override
-   public Packet generateUpdatePacket(@Nonnull Map<String, ItemPlayerAnimations> loadedAssets) {
+   public ToClientPacket generateUpdatePacket(@Nonnull Map<String, ItemPlayerAnimations> loadedAssets) {
       UpdateItemPlayerAnimations packet = new UpdateItemPlayerAnimations();
       packet.type = UpdateType.AddOrUpdate;
       packet.itemPlayerAnimations = new Object2ObjectOpenHashMap<>(loadedAssets.size());
@@ -45,7 +45,7 @@ public class ItemPlayerAnimationsPacketGenerator extends DefaultAssetPacketGener
 
    @Nonnull
    @Override
-   public Packet generateRemovePacket(@Nonnull Set<String> removed) {
+   public ToClientPacket generateRemovePacket(@Nonnull Set<String> removed) {
       UpdateItemPlayerAnimations packet = new UpdateItemPlayerAnimations();
       packet.type = UpdateType.Remove;
       packet.itemPlayerAnimations = new Object2ObjectOpenHashMap<>(removed.size());

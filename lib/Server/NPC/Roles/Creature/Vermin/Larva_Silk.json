@@ -4,6 +4,7 @@
   "Modify": {
     "Appearance": "Larva_Silk",
     "AttackDistance": 1.6,
+    "TargetRange": 1.6,
     "Attack": "Larva_Silk_Bite",
     "DropList": "Drop_Larva_Silk",
     "FlockArray": [

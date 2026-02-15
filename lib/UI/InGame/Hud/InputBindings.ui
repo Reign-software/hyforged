@@ -31,6 +31,14 @@ Group #Container {
       Anchor: (Top: 15);
     }
 
+    ActionButton #BindingDismount {
+      Disabled: true;
+      LayoutMode: Right;
+      Alignment: Right;
+      ActionName: %client.settings.bindings.DismountAction;
+      Anchor: (Top: 15);
+    }
+
     ActionButton #BindingInventory {
       Disabled: true;
       LayoutMode: Right;

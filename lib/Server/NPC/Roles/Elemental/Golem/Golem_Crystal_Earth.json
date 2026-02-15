@@ -13,6 +13,7 @@
     "WakingIdleBehaviorComponent": "Component_Instruction_Stationary_Idle",
     "Attack": "Root_NPC_Golem_Crystal_Earth_Attack",
     "AttackDistance": 3,
+    "TargetRange": 3,
     "BlockProbability": 0,
     "DesiredAttackDistanceRange": [
       2,

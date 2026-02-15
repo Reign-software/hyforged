@@ -10,7 +10,7 @@
     "Furniture.Benches"
   ],
   "Recipe": {
-    "TimeSeconds": 3,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ResourceTypeId": "Wood_Trunk",

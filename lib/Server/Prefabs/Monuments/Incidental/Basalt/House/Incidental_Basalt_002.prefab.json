@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 1,
   "anchorY": 8,
   "anchorZ": -1,
@@ -1432,42 +1432,14 @@
       "x": -1,
       "y": 5,
       "z": -1,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 16,
-              "Y": 60,
-              "Z": 0
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
+      "name": "Furniture_Human_Ruins_Desk",
       "rotation": 1
     },
     {
       "x": -1,
       "y": 6,
       "z": -1,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 31,
-              "Y": 6,
-              "Z": 31
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024,
-      "rotation": 1
+      "name": "Potion_Health_Greater"
     },
     {
       "x": -1,
@@ -1551,20 +1523,7 @@
       "x": -1,
       "y": 5,
       "z": 0,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 31,
-              "Y": 5,
-              "Z": 0
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
+      "name": "Furniture_Human_Ruins_Desk",
       "filler": 32,
       "rotation": 1
     },
@@ -1572,22 +1531,7 @@
       "x": -1,
       "y": 6,
       "z": 0,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 31,
-              "Y": 6,
-              "Z": 0
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1056,
-      "rotation": 1
+      "name": "Deco_Scroll"
     },
     {
       "x": -1,
@@ -4404,6 +4348,7 @@
           "SpawnMarker": "Skeleton_Burnt_Alchemist",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -4423,15 +4368,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "tc7YKlGVMO2QdQ7to9ytpQ==",
+            "$binary": "d4M4pLKwNWqdxoy4/A1ttA==",
             "$type": "04"
           }
         },

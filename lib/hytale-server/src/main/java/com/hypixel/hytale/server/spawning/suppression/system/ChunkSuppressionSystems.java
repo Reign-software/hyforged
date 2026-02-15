@@ -87,8 +87,10 @@ public class ChunkSuppressionSystems {
             for (int i = 0; i < addQueue.size(); i++) {
                Entry<Ref<ChunkStore>, ChunkSuppressionEntry> entry = addQueue.get(i);
                Ref<ChunkStore> ref = entry.getKey();
-               store.putComponent(ref, this.chunkSuppressionEntryComponentType, entry.getValue());
-               SpawningPlugin.get().getLogger().at(Level.FINEST).log("Annotated chunk %s from queue", ref);
+               if (ref.isValid()) {
+                  store.putComponent(ref, this.chunkSuppressionEntryComponentType, entry.getValue());
+                  SpawningPlugin.get().getLogger().at(Level.FINEST).log("Annotated chunk %s from queue", ref);
+               }
             }
 
             addQueue.clear();
@@ -96,10 +98,12 @@ public class ChunkSuppressionSystems {
 
          List<Ref<ChunkStore>> removeQueue = queue.getToRemove();
          if (!removeQueue.isEmpty()) {
-            for (int i = 0; i < removeQueue.size(); i++) {
-               Ref<ChunkStore> ref = removeQueue.get(i);
-               store.tryRemoveComponent(ref, this.chunkSuppressionEntryComponentType);
-               SpawningPlugin.get().getLogger().at(Level.FINEST).log("Removed annotation from chunk %s from queue", ref);
+            for (int ix = 0; ix < removeQueue.size(); ix++) {
+               Ref<ChunkStore> ref = removeQueue.get(ix);
+               if (ref.isValid()) {
+                  store.tryRemoveComponent(ref, this.chunkSuppressionEntryComponentType);
+                  SpawningPlugin.get().getLogger().at(Level.FINEST).log("Removed annotation from chunk %s from queue", ref);
+               }
             }
 
             removeQueue.clear();

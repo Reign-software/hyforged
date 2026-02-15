@@ -4,31 +4,21 @@
   "Modify": {
     "Appearance": "Mosshorn_Plain",
     "AttitudeGroup": "PreyBig",
-    "LovedItems": [
+    "AttractiveItemSet": [
       "Plant_Crop_Potato_Item"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Potato",
     "DropList": "Drop_Mosshorn",
     "Attack": "Root_NPC_Attack_Melee",
     "MaxHealth": 124,
-    "ChanceToTurnFriendly": 60,
-    "WeightGreet": 10,
-    "WeightFollowItem": 40,
-    "WeightFollow": 40,
-    "WeightIgnore": 30,
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Mosshorn_Plain",
     "IsMemory": true,
     "MemoriesCategory": "Livestock",
     "MemoriesNameOverride": "Mosshorn",
-    "IsHarvestable": true,
-    "HarvestDropList": "Drop_Mosshorn_Poop",
-    "HarvestInteractionContext": "Milk",
-    "HarvestParticles": "Block_Break_Snow",
-    "HarvestSound": "SFX_Water_MoveOut",
-    "HarvestTimeout": [
-      "PT11H",
-      "PT14H"
-    ],
-    "HarvestAddItemBucket": "*Container_Bucket_State_Filled_Mosshorn_Milk",
-    "HarvestAddItemDecoBucket": "*Deco_Bucket_State_Filled_Mosshorn_Milk",
+    "NameTranslationKey": {
+      "Compute": "NameTranslationKey"
+    },
     "_InteractionVars": {
       "Melee_Start": {
         "Interactions": [
@@ -58,6 +48,12 @@
           }
         ]
       }
+    }
+  },
+  "Parameters": {
+    "NameTranslationKey": {
+      "Value": "server.npcRoles.Mosshorn_Plain.name",
+      "Description": "Translation key for NPC name display"
     }
   }
 }

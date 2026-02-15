@@ -3,24 +3,19 @@
   "Reference": "Template_Animal_Neutral",
   "Modify": {
     "Appearance": "Horse_Skeleton_Armored",
-    "FlockArray": [ "Horse_Skeleton_Armored", "Horse_Skeleton" ],
+    "FlockArray": [ 
+      "Horse_Skeleton_Armored",
+      "Horse_Skeleton"
+    ],
     "DropList": "Drop_Horse_Skeleton_Armored",
     "MaxHealth": 90,
     "MaxSpeed": 10,
     "ViewRange": 15,
     "AttackWhenStartled": true,
     "Attack": "Root_NPC_Attack_Melee",
-    "ChanceToTurnFriendly": 30,
-    "WeightGreet": 15,
-    "WeightFollowItem": 30,
-    "WeightFollow": 10,
-    "WeightIgnore": 50,
     "IsMemory": true,
     "MemoriesCategory": "Undead",
-    "IsMountable": true,
-    "MountAnchorX": 0,
-    "MountAnchorY": 1.6,
-    "MountAnchorZ": 0,
+    "MemoriesNameOverride": "Horse_Skeleton_Armored",
     "_InteractionVars": {
       "Melee_Start": {
         "Interactions": [

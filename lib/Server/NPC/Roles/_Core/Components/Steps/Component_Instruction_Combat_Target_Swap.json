@@ -9,6 +9,10 @@
     "TargetRange": {
       "Value": 4,
       "Description": "The distance the target needs to be within to maintain priority over other targets while in combat"
+    },
+    "NextTargetRange": {
+      "Value": 16,
+      "Description": "The maximum distance within which the NPC will pick the next target"
     }
   },
   "Content": {
@@ -64,7 +68,7 @@
                 },
                 {
                   "Type": "Mob",
-                  "Range": { "Compute": "TargetRange" },
+                  "Range": { "Compute": "NextTargetRange" },
                   "LockOnTarget": true,
                   "GetPlayers": true,
                   "GetNPCs": true,

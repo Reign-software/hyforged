@@ -1,4 +1,8 @@
 {
+  "SoundEffect": {
+    "ReverbEffectId": "Rev_Mountain_Snow",
+    "IsInstant": false
+  },
   "Conditions": {
     "EnvironmentIds": [
       "Env_Zone3_Mountains"

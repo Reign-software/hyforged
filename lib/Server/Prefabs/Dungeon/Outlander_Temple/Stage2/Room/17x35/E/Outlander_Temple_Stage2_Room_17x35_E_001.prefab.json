@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 0,
   "anchorZ": 0,
@@ -813,13 +813,13 @@
       "x": -7,
       "y": 1,
       "z": -33,
-      "name": "Empty"
+      "name": "Furniture_Ancient_Crate"
     },
     {
       "x": -7,
       "y": 2,
       "z": -33,
-      "name": "Empty"
+      "name": "Furniture_Ancient_Crate"
     },
     {
       "x": -7,
@@ -855,63 +855,13 @@
       "x": -7,
       "y": 1,
       "z": -32,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 18,
-              "Y": 102,
-              "Z": 30
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "InputContainer": {
-              "Id": "Simple",
-              "Capacity": 2,
-              "Items": {}
-            },
-            "FuelContainer": {
-              "Id": "Empty"
-            },
-            "OutputContainer": {
-              "Id": "Simple",
-              "Capacity": 1,
-              "Items": {}
-            },
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": true,
-            "NextExtra": 0
-          }
-        }
-      },
-      "rotation": 1
+      "name": "Furniture_Ancient_Crate"
     },
     {
       "x": -7,
       "y": 2,
       "z": -32,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 25,
-              "Y": 2,
-              "Z": 0
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": false,
-            "NextExtra": -1
-          }
-        }
-      },
-      "filler": 1024,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -7,
@@ -947,51 +897,13 @@
       "x": -7,
       "y": 1,
       "z": -31,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 25,
-              "Y": 1,
-              "Z": 1
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": false,
-            "NextExtra": -1
-          }
-        }
-      },
-      "filler": 32,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -7,
       "y": 2,
       "z": -31,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 25,
-              "Y": 2,
-              "Z": 1
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": false,
-            "NextExtra": -1
-          }
-        }
-      },
-      "filler": 1056,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -7,
@@ -1069,63 +981,13 @@
       "x": -7,
       "y": 1,
       "z": -29,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 18,
-              "Y": 102,
-              "Z": 1
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "InputContainer": {
-              "Id": "Simple",
-              "Capacity": 2,
-              "Items": {}
-            },
-            "FuelContainer": {
-              "Id": "Empty"
-            },
-            "OutputContainer": {
-              "Id": "Simple",
-              "Capacity": 1,
-              "Items": {}
-            },
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": true,
-            "NextExtra": 0
-          }
-        }
-      },
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -7,
       "y": 2,
       "z": -29,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 25,
-              "Y": 2,
-              "Z": 3
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": false,
-            "NextExtra": -1
-          }
-        }
-      },
-      "filler": 1024,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -7,
@@ -1161,51 +1023,13 @@
       "x": -7,
       "y": 1,
       "z": -28,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 25,
-              "Y": 1,
-              "Z": 4
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": false,
-            "NextExtra": -1
-          }
-        }
-      },
-      "filler": 32,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -7,
       "y": 2,
       "z": -28,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 25,
-              "Y": 2,
-              "Z": 4
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": false,
-            "NextExtra": -1
-          }
-        }
-      },
-      "filler": 1056,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -7,
@@ -1997,7 +1821,8 @@
       "x": -6,
       "y": 1,
       "z": -33,
-      "name": "Empty"
+      "name": "Furniture_Ancient_Crate",
+      "rotation": 2
     },
     {
       "x": -6,
@@ -24560,56 +24385,6 @@
     {
       "Components": {
         "Nameplate": {
-          "Text": "Outlander_Peon"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander_Peon",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 4.059351171875278,
-            "Y": 1.0,
-            "Z": -1.0243585571289913
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -67.55445861816406,
-            "Roll": 0.0
-          }
-        },
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "Q9a8KnctMG6WGPUYcfTJ5A==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -67.55445861816406,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
           "Text": "Spider_Cave"
         },
         "HiddenFromAdventurePlayer": {},
@@ -24617,6 +24392,7 @@
           "SpawnMarker": "Spider_Cave",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -24628,7 +24404,7 @@
           "Position": {
             "X": -5.76582890625059,
             "Y": 1.0,
-            "Z": -4.460928149414116
+            "Z": -4.4609281494140305
           },
           "Rotation": {
             "Pitch": 0.0,
@@ -24636,15 +24412,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "rA76185YMvuJHKWG6CLqoQ==",
+            "$binary": "D3bjhlc9NqCOfBeuQzYpEQ==",
             "$type": "04"
           }
         },
@@ -24667,6 +24446,7 @@
           "SpawnMarker": "Spider_Cave",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -24678,7 +24458,7 @@
           "Position": {
             "X": -5.371377343750282,
             "Y": 1.0,
-            "Z": -1.4782660644531518
+            "Z": -1.478266064453237
           },
           "Rotation": {
             "Pitch": 0.0,
@@ -24686,15 +24466,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "QdRtmioUNhGJqBzCv+0gUw==",
+            "$binary": "g2U72BmsNH2C4i6/eE8p5w==",
             "$type": "04"
           }
         },
@@ -24710,6 +24493,60 @@
     {
       "Components": {
         "Nameplate": {
+          "Text": "Outlander_Peon"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Outlander_Peon",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 4.059351171875278,
+            "Y": 1.0,
+            "Z": -1.0243585571290623
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -67.55445861816406,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "XlvWnD6MMxGNvRhlnN54zQ==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -67.55445861816406,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
           "Text": "Spider_Cave"
         },
         "HiddenFromAdventurePlayer": {},
@@ -24717,6 +24554,7 @@
           "SpawnMarker": "Spider_Cave",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -24728,7 +24566,7 @@
           "Position": {
             "X": 6.641113281249545,
             "Y": 1.0000313842773352,
-            "Z": -11.031048132324216
+            "Z": -11.031048132324258
           },
           "Rotation": {
             "Pitch": 0.0,
@@ -24736,15 +24574,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "7AV3HzBHPw2uzlf5dPWwyg==",
+            "$binary": "0hRNEHe+PYuJ1IEYgm28gg==",
             "$type": "04"
           }
         },

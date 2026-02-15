@@ -9,7 +9,7 @@
   "ItemLevel": 9,
   "PlayerAnimationsId": "Dagger",
   "Recipe": {
-    "TimeSeconds": 0.5,
+    "TimeSeconds": 0,
     "KnowledgeRequired": false,
     "Input": [
       {

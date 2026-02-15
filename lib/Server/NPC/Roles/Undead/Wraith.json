@@ -19,6 +19,7 @@
     ],
     "Attack": "Root_NPC_Wraith_Attack",
     "AttackDistance": 3.5,
+    "TargetRange": 3.5,
     "BlockProbability": 10,
     "DesiredAttackDistanceRange": [
       2,

@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": -1,
   "anchorY": 10,
   "anchorZ": 1,
@@ -807,22 +807,19 @@
       "x": -5,
       "y": 11,
       "z": -4,
-      "name": "Coop_Chicken",
-      "filler": 1023
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 12,
       "z": -4,
-      "name": "Coop_Chicken",
-      "filler": 2047
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 13,
       "z": -4,
-      "name": "Coop_Chicken",
-      "filler": 3071
+      "name": "Empty"
     },
     {
       "x": -5,
@@ -864,22 +861,19 @@
       "x": -5,
       "y": 11,
       "z": -3,
-      "name": "Coop_Chicken",
-      "filler": 31
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 12,
       "z": -3,
-      "name": "Coop_Chicken",
-      "filler": 1055
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 13,
       "z": -3,
-      "name": "Coop_Chicken",
-      "filler": 2079
+      "name": "Empty"
     },
     {
       "x": -5,
@@ -1265,22 +1259,19 @@
       "x": -4,
       "y": 11,
       "z": -4,
-      "name": "Coop_Chicken",
-      "filler": 992
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 12,
       "z": -4,
-      "name": "Coop_Chicken",
-      "filler": 2016
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 13,
       "z": -4,
-      "name": "Coop_Chicken",
-      "filler": 3040
+      "name": "Empty"
     },
     {
       "x": -4,
@@ -1322,21 +1313,19 @@
       "x": -4,
       "y": 11,
       "z": -3,
-      "name": "Coop_Chicken"
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 12,
       "z": -3,
-      "name": "Coop_Chicken",
-      "filler": 1024
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 13,
       "z": -3,
-      "name": "Coop_Chicken",
-      "filler": 2048
+      "name": "Empty"
     },
     {
       "x": -4,
@@ -1739,28 +1728,33 @@
       "x": -3,
       "y": 10,
       "z": -4,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T17:33:30Z"
+          }
+        }
+      }
     },
     {
       "x": -3,
       "y": 11,
       "z": -4,
-      "name": "Coop_Chicken",
-      "filler": 993
+      "name": "Empty"
     },
     {
       "x": -3,
       "y": 12,
       "z": -4,
-      "name": "Coop_Chicken",
-      "filler": 2017
+      "name": "Empty"
     },
     {
       "x": -3,
       "y": 13,
       "z": -4,
-      "name": "Coop_Chicken",
-      "filler": 3041
+      "name": "Empty"
     },
     {
       "x": -3,
@@ -1802,22 +1796,19 @@
       "x": -3,
       "y": 11,
       "z": -3,
-      "name": "Coop_Chicken",
-      "filler": 1
+      "name": "Empty"
     },
     {
       "x": -3,
       "y": 12,
       "z": -3,
-      "name": "Coop_Chicken",
-      "filler": 1025
+      "name": "Empty"
     },
     {
       "x": -3,
       "y": 13,
       "z": -3,
-      "name": "Coop_Chicken",
-      "filler": 2049
+      "name": "Empty"
     },
     {
       "x": -3,
@@ -2153,7 +2144,15 @@
       "x": -2,
       "y": 10,
       "z": -6,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T18:29:51Z"
+          }
+        }
+      }
     },
     {
       "x": -2,
@@ -2183,7 +2182,15 @@
       "x": -2,
       "y": 10,
       "z": -5,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T20:52:31Z"
+          }
+        }
+      }
     },
     {
       "x": -2,
@@ -2238,7 +2245,15 @@
       "x": -2,
       "y": 10,
       "z": -4,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T18:47:31Z"
+          }
+        }
+      }
     },
     {
       "x": -2,
@@ -2616,7 +2631,15 @@
       "x": -2,
       "y": 10,
       "z": 3,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T19:29:31Z"
+          }
+        }
+      }
     },
     {
       "x": -2,
@@ -2670,7 +2693,15 @@
       "x": -2,
       "y": 10,
       "z": 4,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T20:33:44Z"
+          }
+        }
+      }
     },
     {
       "x": -2,
@@ -2719,7 +2750,15 @@
       "x": -2,
       "y": 10,
       "z": 5,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T17:22:56Z"
+          }
+        }
+      }
     },
     {
       "x": -2,
@@ -2762,7 +2801,15 @@
       "x": -2,
       "y": 10,
       "z": 6,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T22:42:04Z"
+          }
+        }
+      }
     },
     {
       "x": -2,
@@ -2842,7 +2889,15 @@
       "x": -1,
       "y": 10,
       "z": -6,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T18:41:06Z"
+          }
+        }
+      }
     },
     {
       "x": -1,
@@ -2866,7 +2921,15 @@
       "x": -1,
       "y": 10,
       "z": -5,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T17:46:54Z"
+          }
+        }
+      }
     },
     {
       "x": -1,
@@ -2915,7 +2978,15 @@
       "x": -1,
       "y": 10,
       "z": -4,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T22:50:30Z"
+          }
+        }
+      }
     },
     {
       "x": -1,
@@ -2924,7 +2995,10 @@
       "name": "*Plant_Crop_Carrot_Block_State_Definitions_Stage1",
       "components": {
         "Components": {
-          "FarmingBlock": {}
+          "FarmingBlock": {
+            "GrowthProgress": 1.0,
+            "LastTickGameTime": "0001-01-01T12:00:00Z"
+          }
         }
       }
     },
@@ -2974,7 +3048,15 @@
       "x": -1,
       "y": 10,
       "z": -3,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T23:01:03Z"
+          }
+        }
+      }
     },
     {
       "x": -1,
@@ -3028,7 +3110,15 @@
       "x": -1,
       "y": 10,
       "z": -2,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T23:17:29Z"
+          }
+        }
+      }
     },
     {
       "x": -1,
@@ -3037,7 +3127,10 @@
       "name": "*Plant_Crop_Carrot_Block_State_Definitions_Stage1",
       "components": {
         "Components": {
-          "FarmingBlock": {}
+          "FarmingBlock": {
+            "GrowthProgress": 1.0,
+            "LastTickGameTime": "0001-01-01T12:00:00Z"
+          }
         }
       }
     },
@@ -3303,7 +3396,15 @@
       "x": -1,
       "y": 10,
       "z": 3,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T23:18:52Z"
+          }
+        }
+      }
     },
     {
       "x": -1,
@@ -3357,7 +3458,15 @@
       "x": -1,
       "y": 10,
       "z": 4,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T19:12:10Z"
+          }
+        }
+      }
     },
     {
       "x": -1,
@@ -3366,7 +3475,10 @@
       "name": "*Plant_Crop_Carrot_Block_State_Definitions_Stage2",
       "components": {
         "Components": {
-          "FarmingBlock": {}
+          "FarmingBlock": {
+            "GrowthProgress": 2.0,
+            "LastTickGameTime": "0001-01-01T12:00:00Z"
+          }
         }
       }
     },
@@ -3416,18 +3528,21 @@
       "x": -1,
       "y": 10,
       "z": 5,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T22:27:35Z"
+          }
+        }
+      }
     },
     {
       "x": -1,
       "y": 11,
       "z": 5,
-      "name": "*Plant_Crop_Carrot_Block_State_Definitions_StageFinal",
-      "components": {
-        "Components": {
-          "FarmingBlock": {}
-        }
-      }
+      "name": "*Plant_Crop_Carrot_Block_State_Definitions_StageFinal"
     },
     {
       "x": -1,
@@ -3547,7 +3662,15 @@
       "x": 0,
       "y": 10,
       "z": -5,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T17:21:01Z"
+          }
+        }
+      }
     },
     {
       "x": 0,
@@ -3596,21 +3719,24 @@
       "x": 0,
       "y": 10,
       "z": -4,
-      "name": "Soil_Dirt_Tilled"
-    },
-    {
-      "x": 0,
-      "y": 11,
-      "z": -4,
-      "name": "*Plant_Crop_Carrot_Block_State_Definitions_StageFinal",
+      "name": "Soil_Dirt_Tilled",
       "components": {
         "Components": {
-          "FarmingBlock": {}
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T19:40:01Z"
+          }
         }
       }
     },
     {
       "x": 0,
+      "y": 11,
+      "z": -4,
+      "name": "*Plant_Crop_Carrot_Block_State_Definitions_StageFinal"
+    },
+    {
+      "x": 0,
       "y": 12,
       "z": -4,
       "name": "Empty"
@@ -3655,21 +3781,24 @@
       "x": 0,
       "y": 10,
       "z": -3,
-      "name": "Soil_Dirt_Tilled"
-    },
-    {
-      "x": 0,
-      "y": 11,
-      "z": -3,
-      "name": "*Plant_Crop_Carrot_Block_State_Definitions_StageFinal",
+      "name": "Soil_Dirt_Tilled",
       "components": {
         "Components": {
-          "FarmingBlock": {}
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T20:01:12Z"
+          }
         }
       }
     },
     {
       "x": 0,
+      "y": 11,
+      "z": -3,
+      "name": "*Plant_Crop_Carrot_Block_State_Definitions_StageFinal"
+    },
+    {
+      "x": 0,
       "y": 12,
       "z": -3,
       "name": "Empty"
@@ -3714,7 +3843,15 @@
       "x": 0,
       "y": 10,
       "z": -2,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T19:35:31Z"
+          }
+        }
+      }
     },
     {
       "x": 0,
@@ -4038,7 +4175,15 @@
       "x": 0,
       "y": 10,
       "z": 4,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T22:07:57Z"
+          }
+        }
+      }
     },
     {
       "x": 0,
@@ -4092,31 +4237,33 @@
       "x": 0,
       "y": 10,
       "z": 5,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T16:49:50Z"
+          }
+        }
+      }
     },
     {
       "x": 0,
       "y": 11,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 31,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 12,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 1055,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 13,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 2079,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 0,
@@ -4152,25 +4299,19 @@
       "x": 0,
       "y": 11,
       "z": 6,
-      "name": "Coop_Chicken",
-      "filler": 63,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 12,
       "z": 6,
-      "name": "Coop_Chicken",
-      "filler": 1087,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 13,
       "z": 6,
-      "name": "Coop_Chicken",
-      "filler": 2111,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 0,
@@ -4284,7 +4425,15 @@
       "x": 1,
       "y": 10,
       "z": -4,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T21:14:14Z"
+          }
+        }
+      }
     },
     {
       "x": 1,
@@ -4339,7 +4488,15 @@
       "x": 1,
       "y": 10,
       "z": -3,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T21:12:14Z"
+          }
+        }
+      }
     },
     {
       "x": 1,
@@ -4348,7 +4505,10 @@
       "name": "*Plant_Crop_Carrot_Block_State_Definitions_Stage1",
       "components": {
         "Components": {
-          "FarmingBlock": {}
+          "FarmingBlock": {
+            "GrowthProgress": 1.0,
+            "LastTickGameTime": "0001-01-01T12:00:00Z"
+          }
         }
       }
     },
@@ -4398,7 +4558,15 @@
       "x": 1,
       "y": 10,
       "z": -2,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T17:59:58Z"
+          }
+        }
+      }
     },
     {
       "x": 1,
@@ -4452,7 +4620,15 @@
       "x": 1,
       "y": 10,
       "z": -1,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T20:54:27Z"
+          }
+        }
+      }
     },
     {
       "x": 1,
@@ -4782,24 +4958,19 @@
       "x": 1,
       "y": 11,
       "z": 5,
-      "name": "Coop_Chicken",
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 1,
       "y": 12,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 1024,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 1,
       "y": 13,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 2048,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 1,
@@ -4835,25 +5006,19 @@
       "x": 1,
       "y": 11,
       "z": 6,
-      "name": "Coop_Chicken",
-      "filler": 32,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 1,
       "y": 12,
       "z": 6,
-      "name": "Coop_Chicken",
-      "filler": 1056,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 1,
       "y": 13,
       "z": 6,
-      "name": "Coop_Chicken",
-      "filler": 2080,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 1,
@@ -4919,7 +5084,15 @@
       "x": 2,
       "y": 10,
       "z": -4,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T18:16:28Z"
+          }
+        }
+      }
     },
     {
       "x": 2,
@@ -4968,7 +5141,15 @@
       "x": 2,
       "y": 10,
       "z": -3,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T19:22:24Z"
+          }
+        }
+      }
     },
     {
       "x": 2,
@@ -5406,25 +5587,19 @@
       "x": 2,
       "y": 11,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 1,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 2,
       "y": 12,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 1025,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 2,
       "y": 13,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 2049,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 2,
@@ -5460,25 +5635,19 @@
       "x": 2,
       "y": 11,
       "z": 6,
-      "name": "Coop_Chicken",
-      "filler": 33,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 2,
       "y": 12,
       "z": 6,
-      "name": "Coop_Chicken",
-      "filler": 1057,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 2,
       "y": 13,
       "z": 6,
-      "name": "Coop_Chicken",
-      "filler": 2081,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 2,
@@ -5599,7 +5768,15 @@
       "x": 3,
       "y": 10,
       "z": -3,
-      "name": "Soil_Dirt_Tilled"
+      "name": "Soil_Dirt_Tilled",
+      "components": {
+        "Components": {
+          "TilledSoil": {
+            "Version": 1,
+            "DecayTime": "0001-01-02T23:33:15Z"
+          }
+        }
+      }
     },
     {
       "x": 3,
@@ -5608,7 +5785,10 @@
       "name": "*Plant_Crop_Carrot_Block_State_Definitions_Stage1",
       "components": {
         "Components": {
-          "FarmingBlock": {}
+          "FarmingBlock": {
+            "GrowthProgress": 1.0,
+            "LastTickGameTime": "0001-01-01T12:00:00Z"
+          }
         }
       }
     },
@@ -6885,36 +7065,46 @@
         "SpawnMarkerComponent": {
           "SpawnMarker": "Kweebec_Rabbit",
           "RespawnTime": 0.0,
-          "SpawnCount": 0
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
         },
         "Transform": {
           "Position": {
-            "X": 1.3345489501953125,
-            "Y": 11.174522399902344,
-            "Z": -0.298004150390625
+            "X": -2.5232467651367188,
+            "Y": 11.175048828125,
+            "Z": 1.16461181640625
           },
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": -1.7172925472259521,
+            "Yaw": -1.0235412120819092,
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "Lrp/FUijPU2tKB3zqFmJAg==",
+            "$binary": "mtF0873JMTyFyxfod3Em1Q==",
             "$type": "04"
           }
         },
         "HeadRotation": {
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": 1.424300193786621,
+            "Yaw": 2.118051528930664,
             "Roll": 0.0
           }
         }
@@ -6929,36 +7119,46 @@
         "SpawnMarkerComponent": {
           "SpawnMarker": "Kweebec_Rabbit",
           "RespawnTime": 0.0,
-          "SpawnCount": 0
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
         },
         "Transform": {
           "Position": {
-            "X": -2.5232467651367188,
-            "Y": 11.175048828125,
-            "Z": 1.16461181640625
+            "X": 1.3345489501953125,
+            "Y": 11.174522399902344,
+            "Z": -0.298004150390625
           },
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": -1.0235412120819092,
+            "Yaw": -1.7172925472259521,
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "t4OMACEgNpqwHHCUYZO7kg==",
+            "$binary": "o8YHiMv2Pc+S0jTAC7j++A==",
             "$type": "04"
           }
         },
         "HeadRotation": {
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": 2.118051528930664,
+            "Yaw": 1.424300193786621,
             "Roll": 0.0
           }
         }

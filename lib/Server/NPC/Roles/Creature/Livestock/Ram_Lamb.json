@@ -7,24 +7,24 @@
       "Ram_Lamb",
       "Ram"
     ],
-    "LovedItems": [
+    "AttractiveItemSet": [
       "Plant_Fruit_Apple"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Apple",
     "DropList": "Drop_Ram_Lamb",
     "MaxHealth": 81,
     "ViewRange": 15,
-    "GreetAnimation": "Bleat",
-    "ChanceToTurnFriendly": 20,
-    "ChanceToTurnFriendlyWithAttractiveItem": 40,
-    "WeightGreet": 30,
-    "WeightFollowItem": 10,
-    "WeightFollow": 10,
-    "WeightIgnore": 20,
+    "ViewSector": 320,
+    "HearingRange": 9,
+    "AlertedRange": 17,
+    "AlertedActionRange": 8,
+    "AbsoluteDetectionRange": 2,
     "ProduceItem": "Ingredient_Poop",
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Ram_Lamb",
     "IsMemory": true,
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
-    }
+    "MemoriesNameOverride": "Ram_Lamb",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" }
   },
   "Parameters": {
     "NameTranslationKey": {

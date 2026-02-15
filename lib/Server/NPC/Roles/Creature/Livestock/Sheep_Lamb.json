@@ -7,23 +7,23 @@
       "Sheep_Lamb",
       "Sheep"
     ],
-    "LovedItems": [
+    "AttractiveItemSet": [
       "Plant_Crop_Lettuce_Item"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Lettuce",
     "DropList": "Drop_Lamb",
     "MaxHealth": 29,
     "ViewRange": 10,
-    "GreetAnimation": "Bleat",
-    "ChanceToTurnFriendly": 30,
-    "WeightGreet": 50,
-    "WeightFollowItem": 20,
-    "WeightFollow": 20,
-    "WeightIgnore": 10,
-    "ProduceItem": "Ingredient_Poop",
+    "ViewSector": 320,
+    "HearingRange": 6,
+    "AlertedRange": 11,
+    "AlertedActionRange": 7,
+    "AbsoluteDetectionRange": 1,
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Sheep_Lamb",
     "IsMemory": true,
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
-    }
+    "MemoriesNameOverride": "Sheep_Lamb",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" }
   },
   "Parameters": {
     "NameTranslationKey": {

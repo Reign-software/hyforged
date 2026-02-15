@@ -7,78 +7,90 @@
     "Items.Tools"
   ],
   "Set": "Tool_Stone",
+  "PlayerAnimationsId": "Sickle",
   "Model": "Items/Tools/Sickle/Crude.blockymodel",
   "Texture": "Items/Tools/Sickle/Crude_Texture.png",
   "Icon": "Icons/ItemsGenerated/Tool_Sickle_Crude.png",
   "Quality": "Common",
   "ItemLevel": 5,
   "Recipe": {
-    "TimeSeconds": 3,
-    "KnowledgeRequired": false,
+    "TimeSeconds": 1.5,
     "Input": [
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 1
+        "Quantity": 2
       },
       {
         "ResourceTypeId": "Rock",
-        "Quantity": 2
-      },
-      {
-        "ItemId": "Ingredient_Fibre",
-        "Quantity": 2
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Workbench_Farming"
+          "Farming"
         ],
-        "Id": "Workbench"
+        "Id": "Farmingbench",
+        "RequiredTierLevel": 2
       }
     ]
   },
-  "PlayerAnimationsId": "Sickle",
   "Utility": {
     "Compatible": true
   },
+  "Weapon": {},
   "Interactions": {
-    "Primary": "Sickle_Attack",
-    "Secondary": "Sickle_Attack"
+    "Primary": "Sickle_Attack"
   },
   "InteractionVars": {
-    "Sickle_Swing_Left_Effect": "Sickle_Swing_Left_Effect",
-    "Sickle_Swing_Left_Damage": {
+    "Swing_Left_Effect": {
+      "Interactions": [
+        {
+          "Parent": "Sickle_Swing_Left_Effect",
+          "WorldSoundEventId": "SFX_Light_Melee_T2_Swing"
+        }
+      ]
+    },
+    "Swing_Left_Damage": {
       "Interactions": [
         {
           "Parent": "Sickle_Swing_Left_Damage",
-          "DamageCalculator": {
-            "Type": "Dps",
-            "BaseDamage": {
-              "Physical": 5
-            }
-          },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Sword_T2_Impact"
           }
         }
       ]
     },
-    "Sickle_Swing_Right_Effect": "Sickle_Swing_Right_Effect",
-    "Sickle_Swing_Right_Damage": {
+    "Swing_Left_Selector": {
+      "Interactions": [
+        {
+          "Parent": "Sickle_Swing_Left_Selector"
+        }
+      ]
+    },
+    "Swing_Right_Effect": {
+      "Interactions": [
+        {
+          "Parent": "Sickle_Swing_Right_Effect",
+          "WorldSoundEventId": "SFX_Light_Melee_T2_Swing"
+        }
+      ]
+    },
+    "Swing_Right_Damage": {
       "Interactions": [
         {
           "Parent": "Sickle_Swing_Right_Damage",
-          "DamageCalculator": {
-            "Type": "Dps",
-            "BaseDamage": {
-              "Physical": 5
-            }
-          },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Sword_T2_Impact"
           }
+        }
+      ]
+    },
+    "Swing_Right_Selector": {
+      "Interactions": [
+        {
+          "Parent": "Sickle_Swing_Right_Selector"
         }
       ]
     }
@@ -96,7 +108,7 @@
     ]
   },
   "DroppedItemAnimation": "Items/Animations/Dropped/Dropped_Diagonal_Left.blockyanim",
-  "MaxDurability": 60,
+  "MaxDurability": 100,
   "Tags": {
     "Type": [
       "Tool"

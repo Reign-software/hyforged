@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 2,
   "anchorY": 3,
   "anchorZ": -1,
@@ -5985,11 +5985,6 @@
       "y": 4,
       "z": 5,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 30,
       "rotation": 3
     },
@@ -5998,11 +5993,6 @@
       "y": 5,
       "z": 5,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1054,
       "rotation": 3
     },
@@ -6066,11 +6056,6 @@
       "y": 4,
       "z": 6,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 62,
       "rotation": 3
     },
@@ -6079,11 +6064,6 @@
       "y": 5,
       "z": 6,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1086,
       "rotation": 3
     },
@@ -7000,11 +6980,6 @@
       "y": 4,
       "z": 6,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 63,
       "rotation": 3
     },
@@ -7013,11 +6988,6 @@
       "y": 5,
       "z": 6,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1087,
       "rotation": 3
     },
@@ -8507,11 +8477,6 @@
       "y": 8,
       "z": -3,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 991,
       "rotation": 2
     },
@@ -8520,11 +8485,6 @@
       "y": 9,
       "z": -3,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 2015,
       "rotation": 2
     },
@@ -8587,11 +8547,6 @@
       "y": 8,
       "z": -2,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1023,
       "rotation": 2
     },
@@ -8600,11 +8555,6 @@
       "y": 9,
       "z": -2,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 2047,
       "rotation": 2
     },
@@ -8667,11 +8617,6 @@
       "y": 8,
       "z": -1,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 31,
       "rotation": 2
     },
@@ -8680,11 +8625,6 @@
       "y": 9,
       "z": -1,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1055,
       "rotation": 2
     },
@@ -9660,11 +9600,6 @@
       "y": 8,
       "z": -3,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 960,
       "rotation": 2
     },
@@ -9673,11 +9608,6 @@
       "y": 9,
       "z": -3,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1984,
       "rotation": 2
     },
@@ -9742,11 +9672,6 @@
       "y": 8,
       "z": -2,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 992,
       "rotation": 2
     },
@@ -9755,11 +9680,6 @@
       "y": 9,
       "z": -2,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 2016,
       "rotation": 2
     },
@@ -10120,11 +10040,6 @@
       "components": {
         "Components": {
           "processingBench": {
-            "Position": {
-              "X": -1,
-              "Y": 1,
-              "Z": 5
-            },
             "TierLevel": 1,
             "UpgradeItems": [],
             "InputContainer": {
@@ -10134,7 +10049,7 @@
             },
             "FuelContainer": {
               "Id": "Simple",
-              "Capacity": 2,
+              "Capacity": 1,
               "Items": {}
             },
             "OutputContainer": {
@@ -10159,17 +10074,27 @@
       "components": {
         "Components": {
           "processingBench": {
-            "Position": {
-              "X": 1,
-              "Y": 5,
-              "Z": 4
-            },
             "TierLevel": 1,
             "UpgradeItems": [],
+            "InputContainer": {
+              "Id": "Simple",
+              "Capacity": 2,
+              "Items": {}
+            },
+            "FuelContainer": {
+              "Id": "Simple",
+              "Capacity": 1,
+              "Items": {}
+            },
+            "OutputContainer": {
+              "Id": "Simple",
+              "Capacity": 4,
+              "Items": {}
+            },
             "Progress": 0.0,
             "FuelTime": 0.0,
             "Active": false,
-            "NextExtra": -1
+            "NextExtra": 2
           }
         }
       },
@@ -10205,23 +10130,6 @@
       "y": 4,
       "z": 5,
       "name": "Bench_Furnace",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 1,
-              "Y": 4,
-              "Z": 5
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": false,
-            "NextExtra": -1
-          }
-        }
-      },
       "filler": 32,
       "rotation": 1
     },
@@ -10230,23 +10138,6 @@
       "y": 5,
       "z": 5,
       "name": "Bench_Furnace",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 1,
-              "Y": 5,
-              "Z": 5
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": false,
-            "NextExtra": -1
-          }
-        }
-      },
       "filler": 1056,
       "rotation": 1
     },
@@ -10540,41 +10431,14 @@
       "x": 2,
       "y": 4,
       "z": -7,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 2,
-              "Y": 4,
-              "Z": 25
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
+      "name": "Furniture_Village_Counter",
       "filler": 31
     },
     {
       "x": 2,
       "y": 5,
       "z": -7,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 2,
-              "Y": 5,
-              "Z": 25
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1055
+      "name": "Empty"
     },
     {
       "x": 2,
@@ -11422,40 +11286,13 @@
       "x": 3,
       "y": 4,
       "z": -7,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 1,
-              "Y": 1,
-              "Z": -6
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      }
+      "name": "Furniture_Village_Counter"
     },
     {
       "x": 3,
       "y": 5,
       "z": -7,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 3,
-              "Y": 5,
-              "Z": 25
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024
+      "name": "Deco_Scroll"
     },
     {
       "x": 3,
@@ -12464,11 +12301,6 @@
       "y": 8,
       "z": -6,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 62,
       "rotation": 3
     },
@@ -12477,11 +12309,6 @@
       "y": 9,
       "z": -6,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1086,
       "rotation": 3
     },
@@ -12665,11 +12492,6 @@
       "y": 8,
       "z": -2,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 30,
       "rotation": 3
     },
@@ -12678,11 +12500,6 @@
       "y": 9,
       "z": -2,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1054,
       "rotation": 3
     },
@@ -12734,11 +12551,6 @@
       "y": 8,
       "z": -1,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 62,
       "rotation": 3
     },
@@ -12747,11 +12559,6 @@
       "y": 9,
       "z": -1,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1086,
       "rotation": 3
     },
@@ -13651,11 +13458,6 @@
       "y": 8,
       "z": -2,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 31,
       "rotation": 3
     },
@@ -13664,11 +13466,6 @@
       "y": 9,
       "z": -2,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1055,
       "rotation": 3
     },
@@ -13719,11 +13516,6 @@
       "y": 8,
       "z": -1,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 63,
       "rotation": 3
     },
@@ -13732,11 +13524,6 @@
       "y": 9,
       "z": -1,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1087,
       "rotation": 3
     },
@@ -14670,11 +14457,6 @@
       "y": 8,
       "z": -1,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 32,
       "rotation": 3
     },
@@ -14683,11 +14465,6 @@
       "y": 9,
       "z": -1,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1056,
       "rotation": 3
     },

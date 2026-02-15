@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 4,
   "anchorY": 18,
   "anchorZ": 1,
@@ -11345,11 +11345,6 @@
       "components": {
         "Components": {
           "crafting": {
-            "Position": {
-              "X": 1,
-              "Y": 19,
-              "Z": 6
-            },
             "TierLevel": 1,
             "UpgradeItems": []
           }
@@ -11444,11 +11439,6 @@
       "components": {
         "Components": {
           "crafting": {
-            "Position": {
-              "X": 1,
-              "Y": 19,
-              "Z": 7
-            },
             "TierLevel": 1,
             "UpgradeItems": []
           }
@@ -18992,9 +18982,7 @@
       "x": 5,
       "y": 19,
       "z": -8,
-      "name": "Bench_Lumbermill",
-      "filler": 992,
-      "rotation": 3
+      "name": "Empty"
     },
     {
       "x": 5,
@@ -19061,8 +19049,7 @@
       "x": 5,
       "y": 19,
       "z": -7,
-      "name": "Bench_Lumbermill",
-      "rotation": 3
+      "name": "Empty"
     },
     {
       "x": 5,
@@ -44693,51 +44680,14 @@
         "SpawnMarkerComponent": {
           "SpawnMarker": "Outlander",
           "RespawnTime": 0.0,
-          "SpawnCount": 0
-        },
-        "Transform": {
-          "Position": {
-            "X": 2.59326171875,
-            "Y": 19.63311767578125,
-            "Z": -6.5789337158203125
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 3.132228374481201,
-            "Roll": 0.0
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
           }
-        },
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "8goA3U3wMLGJ2x5PR8w36Q==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -0.009373188018798828,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Outlander"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0
         },
         "Transform": {
           "Position": {
@@ -44751,15 +44701,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "sxuS4IjmMcKZiQxm90QzWw==",
+            "$binary": "w9QSNL3QMPuH+cuNyM7LOQ==",
             "$type": "04"
           }
         },
@@ -44781,13 +44734,20 @@
         "SpawnMarkerComponent": {
           "SpawnMarker": "Outlander",
           "RespawnTime": 0.0,
-          "SpawnCount": 0
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
         },
         "Transform": {
           "Position": {
             "X": 0.9075706665039931,
             "Y": 25.440143920898436,
-            "Z": -3.7507982421871873
+            "Z": -3.7507982421872157
           },
           "Rotation": {
             "Pitch": 0.0,
@@ -44795,15 +44755,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "a0I3VvjHP1iII5Lwl4iEVQ==",
+            "$binary": "zKd3o3CSNTyYfJZYCRVoqw==",
             "$type": "04"
           }
         },
@@ -44825,13 +44788,74 @@
         "SpawnMarkerComponent": {
           "SpawnMarker": "Outlander",
           "RespawnTime": 0.0,
-          "SpawnCount": 0
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 2.59326171875,
+            "Y": 19.63311767578125,
+            "Z": -6.5789337158203125
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 3.132228374481201,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "hgNN4sv9O2mpl0c2PzazNg==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -0.009373188018798828,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Outlander"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Outlander",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
         },
         "Transform": {
           "Position": {
             "X": 8.119681341552713,
             "Y": 19.633316040039062,
-            "Z": 5.115135131835785
+            "Z": 5.115135131835814
           },
           "Rotation": {
             "Pitch": 0.0,
@@ -44839,15 +44863,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "xZmwGjbGNpeJeKSp9sDD3w==",
+            "$binary": "ANQRPHrmN7e+2SLoghcXWA==",
             "$type": "04"
           }
         },
@@ -44869,7 +44896,14 @@
         "SpawnMarkerComponent": {
           "SpawnMarker": "Outlander",
           "RespawnTime": 0.0,
-          "SpawnCount": 0
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
         },
         "Transform": {
           "Position": {
@@ -44883,15 +44917,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "yKyDTJpNMcuWxa2aaefIsg==",
+            "$binary": "+tk78hIFMCSZf6LRnioQ/g==",
             "$type": "04"
           }
         },

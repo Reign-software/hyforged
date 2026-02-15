@@ -3,32 +3,32 @@
   "Reference": "Template_Animal_Neutral",
   "Modify": {
     "Appearance": "Ram",
-    "AttitudeGroup": "Prey",
+    "AttitudeGroup": "PreyBig",
     "FlockArray": [
       "Ram",
       "Ram_Lamb"
     ],
-    "LovedItems": [
+    "AttractiveItemSet": [
       "Plant_Fruit_Apple"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Apple",
     "DropList": "Drop_Ram",
     "MaxHealth": 124,
     "ViewRange": 15,
+    "ViewSector": 340,
+    "HearingRange": 9,
+    "AlertedRange": 17,
+    "AlertedActionRange": 8,
+    "AbsoluteDetectionRange": 2,
     "AttackWhenStartled": true,
     "Attack": "Root_NPC_Attack_Melee",
-    "GreetAnimation": "Bleat",
-    "ChanceToTurnFriendly": 5,
-    "ChanceToTurnFriendlyWithAttractiveItem": 20,
-    "WeightGreet": 20,
-    "WeightFollowItem": 10,
-    "WeightFollow": 10,
-    "WeightIgnore": 20,
     "ProduceItem": "Ingredient_Poop",
-    "IsMemory": true,
+    "IsTameable": true,
     "IsMountable": true,
-    "MountAnchorX": 0,
-    "MountAnchorY": 1.3,
-    "MountAnchorZ": 0,
+    "TameRoleChange": "Tamed_Ram",
+    "IsMemory": true,
+    "MemoriesNameOverride": "Ram",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" },
     "_InteractionVars": {
       "Melee_Start": {
         "Interactions": [
@@ -110,9 +110,6 @@
           }
         ]
       }
-    },
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
     }
   },
   "Parameters": {

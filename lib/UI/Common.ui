@@ -61,6 +61,8 @@ $Sounds = "Sounds.ui";
   RenderBold: true,
   RenderUppercase: true,
   HorizontalAlignment: Center,
+  ShrinkTextToFit: true,
+  MinShrinkTextToFitFontSize: 12,
   VerticalAlignment: Center
 );
 

@@ -1,10 +1,5 @@
 {
   "Type": "DamageEntity",
-  "DamageCalculator": {
-    "BaseDamage": {
-      "Physical": 5
-    }
-  },
   "DamageEffects": {
     "Knockback": {
       "Force": 0.5,

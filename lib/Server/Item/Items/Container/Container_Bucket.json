@@ -132,6 +132,7 @@
       },
       "Consumable": true,
       "MaxDurability": 1,
+      "DurabilityLossOnDeath": false,
       "MaxStack": 1,
       "$Comment": "FOLLOWING PROPERTIES DUPLICATED BECAUSE OF SERVER BUG",
       "BlockType": {
@@ -233,6 +234,7 @@
       },
       "Consumable": true,
       "MaxDurability": 1,
+      "DurabilityLossOnDeath": false,
       "MaxStack": 1,
       "$Comment": "FOLLOWING PROPERTIES DUPLICATED BECAUSE OF SERVER BUG",
       "BlockType": {
@@ -345,6 +347,7 @@
       },
       "Consumable": true,
       "MaxDurability": 1,
+      "DurabilityLossOnDeath": false,
       "MaxStack": 1,
       "$Comment": "FOLLOWING PROPERTIES DUPLICATED BECAUSE OF SERVER BUG",
       "BlockType": {

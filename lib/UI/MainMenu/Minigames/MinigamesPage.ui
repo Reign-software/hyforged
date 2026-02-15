@@ -45,7 +45,7 @@ Group {
       }
 
       Label {
-        Text: "Minigames";
+        Text: %client.mainMenu.minigames.title;
         Anchor: (Top: 290, Height: 45);
         Style: (Alignment: Center, FontSize: 24, RenderBold: true, RenderUppercase: true, TextColor: #96a9be);
       }

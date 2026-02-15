@@ -7,24 +7,23 @@
       "Cow_Calf",
       "Cow"
     ],
-    "LovedItems": [
-      "Plant_Crop_Cauliflower_Item"
+    "AttractiveItemSet": [
+      "Plant_Crop_Lettuce_Item"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Lettuce",
     "DropList": "Drop_Calf",
     "MaxHealth": 60,
     "ViewRange": 12,
-    "GreetAnimation": "Moo",
-    "ChanceToTurnFriendly": 50,
-    "ChanceToTurnFriendlyWithAttractiveItem": 80,
-    "WeightGreet": 50,
-    "WeightFollowItem": 20,
-    "WeightFollow": 20,
-    "WeightIgnore": 10,
-    "ProduceItem": "Ingredient_Poop",
+    "ViewSector": 320,
+    "HearingRange": 7,
+    "AlertedRange": 13,
+    "AlertedActionRange": 6,
+    "AbsoluteDetectionRange": 1.5,
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Cow_Calf",
     "IsMemory": true,
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
-    }
+    "MemoriesNameOverride": "Cow_Calf",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" }
   },
   "Parameters": {
     "NameTranslationKey": {

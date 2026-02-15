@@ -15,7 +15,7 @@
   },
   "Parameters": {
     "NameTranslationKey": {
-      "Value": "server.npcRoles.Goblin_Scavenger_Sword.name",
+      "Value": "server.npcRoles.Goblin_Scavenger.name",
       "Description": "Translation key for NPC name display"
     }
   }

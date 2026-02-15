@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": -1,
   "anchorY": 5,
   "anchorZ": 0,
@@ -5056,11 +5056,6 @@
       "y": 11,
       "z": 7,
       "name": "Furniture_Ancient_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 32
     },
     {
@@ -5068,11 +5063,6 @@
       "y": 12,
       "z": 7,
       "name": "Furniture_Ancient_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1056
     },
     {
@@ -5104,11 +5094,6 @@
       "y": 11,
       "z": 8,
       "name": "Furniture_Ancient_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 64
     },
     {
@@ -5116,11 +5101,6 @@
       "y": 12,
       "z": 8,
       "name": "Furniture_Ancient_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1088
     },
     {
@@ -5316,11 +5296,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 28,
-              "Y": 61,
-              "Z": 22
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -5405,11 +5380,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 28,
-              "Y": 61,
-              "Z": 23
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -5428,11 +5398,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 28,
-              "Y": 62,
-              "Z": 23
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -6612,11 +6577,6 @@
       "y": 11,
       "z": 6,
       "name": "Furniture_Ancient_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1
     },
     {
@@ -6624,11 +6584,6 @@
       "y": 12,
       "z": 6,
       "name": "Furniture_Ancient_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1025
     },
     {
@@ -6661,11 +6616,6 @@
       "y": 11,
       "z": 7,
       "name": "Furniture_Ancient_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 33
     },
     {
@@ -6673,11 +6623,6 @@
       "y": 12,
       "z": 7,
       "name": "Furniture_Ancient_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1057
     },
     {
@@ -6709,11 +6654,6 @@
       "y": 11,
       "z": 8,
       "name": "Furniture_Ancient_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 65
     },
     {
@@ -6721,11 +6661,6 @@
       "y": 12,
       "z": 8,
       "name": "Furniture_Ancient_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1089
     },
     {
@@ -10605,11 +10540,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 31,
-              "Y": 61,
-              "Z": 26
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -19859,63 +19789,13 @@
       "x": 4,
       "y": 6,
       "z": -7,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 4,
-              "Y": 61,
-              "Z": 25
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "InputContainer": {
-              "Id": "Simple",
-              "Capacity": 2,
-              "Items": {}
-            },
-            "FuelContainer": {
-              "Id": "Empty"
-            },
-            "OutputContainer": {
-              "Id": "Simple",
-              "Capacity": 2,
-              "Items": {}
-            },
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": true,
-            "NextExtra": 0
-          }
-        }
-      },
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 4,
       "y": 7,
       "z": -7,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 4,
-              "Y": 7,
-              "Z": 25
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": false,
-            "NextExtra": -1
-          }
-        }
-      },
-      "filler": 1024,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 4,
@@ -21843,51 +21723,13 @@
       "x": 5,
       "y": 6,
       "z": -7,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 5,
-              "Y": 6,
-              "Z": 25
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": false,
-            "NextExtra": -1
-          }
-        }
-      },
-      "filler": 1,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 5,
       "y": 7,
       "z": -7,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 5,
-              "Y": 7,
-              "Z": 25
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": false,
-            "NextExtra": -1
-          }
-        }
-      },
-      "filler": 1025,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 5,
@@ -28964,50 +28806,6 @@
     {
       "Components": {
         "Nameplate": {
-          "Text": "Skeleton_Sand_Archer"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Sand_Archer",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 4.817169189453125,
-            "Y": 11.4403076171875,
-            "Z": -2.643125295639038
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -2.9747114181518555,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "wACkc72LOIeOFk2irhm5xg==",
-            "$type": "04"
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
           "Text": "Skeleton_Sand_Guard"
         },
         "HiddenFromAdventurePlayer": {},
@@ -29015,6 +28813,7 @@
           "SpawnMarker": "Skeleton_Sand_Guard",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -29035,15 +28834,64 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "wHcWlswzNhSLokQaRTIIzg==",
+            "$binary": "dXD5IUBTNZWnfD1hH9zHTg==",
+            "$type": "04"
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Sand_Archer"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Sand_Archer",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 4.817169189453125,
+            "Y": 11.4403076171875,
+            "Z": -2.643125295639038
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -2.9747114181518555,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "ueX7MSPOPqCqeUIDJU15AA==",
             "$type": "04"
           }
         }
@@ -29059,6 +28907,7 @@
           "SpawnMarker": "Skeleton_Sand",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -29079,15 +28928,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "6/4hfU58PIuJlfCEM7BjeQ==",
+            "$binary": "/tqPJmqDMrqm7hX0iK8KGQ==",
             "$type": "04"
           }
         }

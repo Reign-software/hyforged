@@ -3,41 +3,30 @@
   "Reference": "Template_Animal_Neutral",
   "Modify": {
     "Appearance": "Sheep",
+    "AttitudeGroup": "PreyBig",
     "FlockArray": [
       "Sheep",
       "Sheep_Lamb"
     ],
-    "LovedItems": [
+    "AttractiveItemSet": [
       "Plant_Crop_Lettuce_Item"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Lettuce",
     "DropList": "Drop_Sheep",
     "MaxHealth": 81,
     "MaxSpeed": 6,
     "ViewRange": 15,
-    "GreetAnimation": "Bleat",
-    "ChanceToTurnFriendly": 20,
-    "ChanceToTurnFriendlyWithAttractiveItem": 60,
-    "WeightGreet": 30,
-    "WeightFollowItem": 15,
-    "WeightFollow": 10,
-    "WeightIgnore": 30,
+    "ViewSector": 340,
+    "HearingRange": 9,
+    "AlertedRange": 17,
+    "AlertedActionRange": 7,
+    "AbsoluteDetectionRange": 2,
     "ProduceItem": "Ingredient_Poop",
-    "IsHarvestable": true,
-    "HarvestDropList": "Drop_Sheep_Harvest",
-    "HarvestInteractionContext": "Shear",
-    "HarvestModelSlot": "Fleece",
-    "HarvestModelAttachmentHarvestable": "Wool",
-    "HarvestModelAttachmentHarvested": "",
-    "HarvestTimeout": [
-      "PT11H",
-      "PT14H"
-    ],
-    "HarvestParticles": "Sheep_Wool_Shear",
-    "HarvestSound": "SFX_Sheep_Sheared",
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Sheep",
     "IsMemory": true,
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
-    }
+    "MemoriesNameOverride": "Sheep",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" }
   },
   "Parameters": {
     "NameTranslationKey": {

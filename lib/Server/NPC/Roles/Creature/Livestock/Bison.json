@@ -8,21 +8,25 @@
       "Bison",
       "Bison_Calf"
     ],
+    "AttractiveItemSet": [
+      "Plant_Crop_Cauliflower_Item"
+    ],
+    "AttractiveItemSetParticles": "Want_Food_Cauliflower",
     "DropList": "Drop_Bison",
     "MaxHealth": 126,
     "ViewRange": 20,
+    "ViewSector": 340,
+    "HearingRange": 14,
+    "AlertedRange": 24,
+    "AlertedActionRange": 8,
+    "AbsoluteDetectionRange": 3,
     "AttackWhenStartled": true,
     "Attack": "Root_NPC_Attack_Melee",
-    "GreetAnimation": "Moo",
-    "ChanceToTurnFriendly": 15,
-    "ChanceToTurnFriendlyWithAttractiveItem": 30,
-    "WeightGreet": 20,
-    "WeightFollowItem": 10,
-    "WeightFollow": 10,
-    "WeightIgnore": 50,
-    "ProduceItem": "Ingredient_Poop",
-    "IsHarvestable": false,
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Bison",
     "IsMemory": true,
+    "MemoriesNameOverride": "Bison",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" },
     "_InteractionVars": {
       "Melee_Start": {
         "Interactions": [
@@ -104,9 +108,6 @@
           }
         ]
       }
-    },
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
     }
   },
   "Parameters": {

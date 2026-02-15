@@ -1,6 +1,6 @@
 {
   "Groups": {
-    "Hostile": [
+    "Neutral": [
       "Prey",
       "PreyBig"
     ],

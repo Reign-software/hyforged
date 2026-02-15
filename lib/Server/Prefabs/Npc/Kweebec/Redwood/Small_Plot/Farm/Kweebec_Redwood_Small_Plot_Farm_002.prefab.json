@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 1,
   "anchorY": 5,
   "anchorZ": 0,
@@ -599,25 +599,19 @@
       "x": -2,
       "y": 6,
       "z": 2,
-      "name": "Coop_Chicken",
-      "filler": 31,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -2,
       "y": 7,
       "z": 2,
-      "name": "Coop_Chicken",
-      "filler": 1055,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -2,
       "y": 8,
       "z": 2,
-      "name": "Coop_Chicken",
-      "filler": 2079,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -2,
@@ -659,25 +653,19 @@
       "x": -2,
       "y": 6,
       "z": 3,
-      "name": "Coop_Chicken",
-      "filler": 63,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -2,
       "y": 7,
       "z": 3,
-      "name": "Coop_Chicken",
-      "filler": 1087,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -2,
       "y": 8,
       "z": 3,
-      "name": "Coop_Chicken",
-      "filler": 2111,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -2,
@@ -1036,24 +1024,19 @@
       "x": -1,
       "y": 6,
       "z": 2,
-      "name": "Coop_Chicken",
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -1,
       "y": 7,
       "z": 2,
-      "name": "Coop_Chicken",
-      "filler": 1024,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -1,
       "y": 8,
       "z": 2,
-      "name": "Coop_Chicken",
-      "filler": 2048,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -1,
@@ -1101,25 +1084,19 @@
       "x": -1,
       "y": 6,
       "z": 3,
-      "name": "Coop_Chicken",
-      "filler": 32,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -1,
       "y": 7,
       "z": 3,
-      "name": "Coop_Chicken",
-      "filler": 1056,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -1,
       "y": 8,
       "z": 3,
-      "name": "Coop_Chicken",
-      "filler": 2080,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -1,
@@ -1498,25 +1475,19 @@
       "x": 0,
       "y": 6,
       "z": 2,
-      "name": "Coop_Chicken",
-      "filler": 1,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 7,
       "z": 2,
-      "name": "Coop_Chicken",
-      "filler": 1025,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 8,
       "z": 2,
-      "name": "Coop_Chicken",
-      "filler": 2049,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 0,
@@ -1564,25 +1535,19 @@
       "x": 0,
       "y": 6,
       "z": 3,
-      "name": "Coop_Chicken",
-      "filler": 33,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 7,
       "z": 3,
-      "name": "Coop_Chicken",
-      "filler": 1057,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 0,
       "y": 8,
       "z": 3,
-      "name": "Coop_Chicken",
-      "filler": 2081,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 0,
@@ -3378,6 +3343,7 @@
           "SpawnMarker": "Kweebec_Rabbit",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -3397,15 +3363,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "BE/3hzoOPrWJ7b/wwwGjQA==",
+            "$binary": "44mnWmdEMbe7LlrQHsAM6A==",
             "$type": "04"
           }
         },

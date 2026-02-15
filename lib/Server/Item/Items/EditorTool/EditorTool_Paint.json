@@ -29,7 +29,7 @@
             "Max": 100
           },
           "Shape": {
-            "Default": "Cube"
+            "Default": "Sphere"
           },
           "Origin": {
             "Default": "Center"

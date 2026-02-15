@@ -199,8 +199,9 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
             commandBuilder.appendInline("#RegionOptions", buttonUI);
             
             // Add event for this region button
+            // Use MouseButtonReleased instead of Activating for appendInline Buttons
             eventBuilder.addEventBinding(
-                CustomUIEventBindingType.Activating,
+                CustomUIEventBindingType.MouseButtonReleased,
                 "#" + buttonId,
                 EventData.of("Action", "selectRegion").append("NodeId", startingNodeId),
                 false
@@ -587,9 +588,11 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
             boolean isAllocated = allocatedNodes.contains(nodeId);
             
             // Click to allocate or refund
+            // Use MouseButtonReleased instead of Activating because nodes are created
+            // via appendInline, and Activating only fires on .ui-template Buttons.
             String action = isAllocated ? "refund" : "allocate";
             eventBuilder.addEventBinding(
-                CustomUIEventBindingType.Activating,
+                CustomUIEventBindingType.MouseButtonReleased,
                 "#" + nodeElementId,
                 EventData.of("Action", action).append("NodeId", nodeId),
                 false
@@ -716,17 +719,80 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
         currentSearchQuery = query != null ? query.trim().toLowerCase() : "";
         searchMatchNodes.clear();
         
+        String activeTreeId = getActiveTreeId();
+        PassiveTree tree = PassiveTreeRegistry.get().getTree(activeTreeId);
+        if (tree == null) return;
+        
         if (!currentSearchQuery.isEmpty()) {
-            PassiveTree tree = PassiveTreeRegistry.get().getTree(getActiveTreeId());
-            if (tree != null) {
-                searchMatchNodes = tree.getNodes().values().stream()
-                    .filter(node -> matchesSearch(node, currentSearchQuery))
-                    .map(PassiveNode::id)
-                    .collect(Collectors.toSet());
-            }
+            searchMatchNodes = tree.getNodes().values().stream()
+                .filter(node -> matchesSearch(node, currentSearchQuery))
+                .map(PassiveNode::id)
+                .collect(Collectors.toSet());
         }
         
-        rebuild();
+        // Incrementally update the tree canvas instead of rebuild() so the
+        // SearchInput TextField keeps its focus and typed text.
+        refreshTreeCanvas(tree, activeTreeId);
+    }
+    
+    /**
+     * Re-render only the tree canvas (connections + nodes) via sendUpdate,
+     * preserving the rest of the page (sidebar, search input, etc.).
+     */
+    private void refreshTreeCanvas(@Nonnull PassiveTree tree, @Nonnull String activeTreeId) {
+        // Resolve player ref/store without rebuild() so the search input keeps focus.
+        Ref<EntityStore> ref = playerRef.getReference();
+        if (ref == null || !ref.isValid()) return;
+        Store<EntityStore> store = ref.getStore();
+        
+        PassiveTreeComponent component = getPassiveComponent(ref, store);
+        Set<String> allocatedNodes = getAllocatedNodes(component, tree);
+        Set<String> reachableNodes = getReachableNodes(tree, allocatedNodes);
+        Set<String> startingNodes = tree.getStartingNodeIds();
+        
+        UICommandBuilder commandBuilder = new UICommandBuilder();
+        UIEventBuilder eventBuilder = new UIEventBuilder();
+        
+        // Clear and re-render the canvas containers
+        renderedNodeElementIds.clear();
+        commandBuilder.clear("#ConnectionsCanvas");
+        commandBuilder.clear("#NodesCanvas");
+        
+        // Sort nodes
+        List<PassiveNode> sortedNodes = tree.getNodes().values().stream()
+            .sorted(Comparator.comparing(PassiveNode::id))
+            .toList();
+        
+        // Find tree bounds
+        int minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE;
+        int minY = Integer.MAX_VALUE, maxY = Integer.MIN_VALUE;
+        for (PassiveNode node : sortedNodes) {
+            minX = Math.min(minX, node.position().x());
+            maxX = Math.max(maxX, node.position().x());
+            minY = Math.min(minY, node.position().y());
+            maxY = Math.max(maxY, node.position().y());
+        }
+        int treePadding = 50;
+        minY -= treePadding;
+        maxY += treePadding;
+        int treeWidthPx = (int) ((maxX - minX) * COORD_SCALE);
+        int xOffset = Math.max(0, (VIEWPORT_WIDTH - treeWidthPx) / 2);
+        
+        // Render connections
+        renderConnections(commandBuilder, tree, allocatedNodes, reachableNodes, startingNodes,
+                         minX, minY, xOffset);
+        
+        // Render text labels
+        renderTextLabels(commandBuilder, tree, minX, minY, xOffset);
+        
+        // Render nodes
+        renderNodes(commandBuilder, tree, sortedNodes, allocatedNodes, reachableNodes, startingNodes,
+                   minX, minY, xOffset);
+        
+        // Re-bind node events
+        addNodeEvents(eventBuilder, tree, allocatedNodes, reachableNodes);
+        
+        sendUpdate(commandBuilder, eventBuilder, false);
     }
     
     private boolean matchesSearch(@Nonnull PassiveNode node, @Nonnull String query) {

@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 9,
+  "blockIdVersion": 11,
   "anchorX": 2,
   "anchorY": 15,
   "anchorZ": 0,
@@ -55385,11 +55385,6 @@
             }
           },
           "container": {
-            "Position": {
-              "X": -2,
-              "Y": 15,
-              "Z": -4
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -56530,41 +56525,21 @@
       "x": 0,
       "y": 25,
       "z": 0,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "PlacedByInteraction": {
-            "WhoPlacedUuid": {
-              "$binary": "F2LgmhWMO1aBEZTjId79Qg==",
-              "$type": "04"
-            }
-          },
-          "crafting": {
-            "Position": {
-              "X": -2,
-              "Y": 10,
-              "Z": 0
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
+      "name": "Furniture_Village_Counter",
       "rotation": 1
     },
     {
       "x": 0,
       "y": 26,
       "z": 0,
-      "name": "Bench_Alchemy",
-      "filler": 1024,
+      "name": "Furniture_Human_Ruins_Shelf",
       "rotation": 1
     },
     {
       "x": 0,
       "y": 27,
       "z": 0,
-      "name": "Empty"
+      "name": "Potion_Mana_Small"
     },
     {
       "x": 0,
@@ -56822,7 +56797,7 @@
       "x": 0,
       "y": 25,
       "z": 1,
-      "name": "Bench_Alchemy",
+      "name": "Furniture_Village_Counter",
       "filler": 32,
       "rotation": 1
     },
@@ -56830,15 +56805,8 @@
       "x": 0,
       "y": 26,
       "z": 1,
-      "name": "Bench_Alchemy",
-      "filler": 1056,
-      "rotation": 1
-    },
-    {
-      "x": 0,
-      "y": 27,
-      "z": 1,
-      "name": "Empty"
+      "name": "Deco_Book_Pile_Small",
+      "rotation": 2
     },
     {
       "x": 0,
@@ -63869,41 +63837,22 @@
       "x": 1,
       "y": 25,
       "z": 2,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "PlacedByInteraction": {
-            "WhoPlacedUuid": {
-              "$binary": "F2LgmhWMO1aBEZTjId79Qg==",
-              "$type": "04"
-            }
-          },
-          "crafting": {
-            "Position": {
-              "X": -1,
-              "Y": 10,
-              "Z": 2
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
+      "name": "Furniture_Village_Bookcase",
       "rotation": 2
     },
     {
       "x": 1,
       "y": 26,
       "z": 2,
-      "name": "Bench_Cooking",
-      "filler": 1024,
+      "name": "Furniture_Village_Shelf_Full",
       "rotation": 2
     },
     {
       "x": 1,
       "y": 27,
       "z": 2,
-      "name": "Empty"
+      "name": "Furniture_Village_Bookcase",
+      "rotation": 2
     },
     {
       "x": 1,
@@ -70542,23 +70491,22 @@
       "x": 2,
       "y": 25,
       "z": 2,
-      "name": "Bench_Cooking",
-      "filler": 1,
+      "name": "Furniture_Village_Bookcase",
       "rotation": 2
     },
     {
       "x": 2,
       "y": 26,
       "z": 2,
-      "name": "Bench_Cooking",
-      "filler": 1025,
+      "name": "Furniture_Village_Bookcase",
       "rotation": 2
     },
     {
       "x": 2,
       "y": 27,
       "z": 2,
-      "name": "Empty"
+      "name": "Furniture_Village_Shelf_Full",
+      "rotation": 2
     },
     {
       "x": 2,
@@ -82655,11 +82603,6 @@
             }
           },
           "container": {
-            "Position": {
-              "X": 2,
-              "Y": 20,
-              "Z": -4
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -98805,11 +98748,6 @@
             }
           },
           "container": {
-            "Position": {
-              "X": 4,
-              "Y": 20,
-              "Z": -3
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -127027,18 +126965,6 @@
     },
     {
       "x": 9,
-      "y": 35,
-      "z": -3,
-      "name": "Empty"
-    },
-    {
-      "x": 9,
-      "y": 36,
-      "z": -3,
-      "name": "Empty"
-    },
-    {
-      "x": 9,
       "y": 37,
       "z": -3,
       "name": "Empty"
@@ -127465,13 +127391,13 @@
       "x": 9,
       "y": 35,
       "z": -2,
-      "name": "Furniture_Village_Door"
+      "name": "*Furniture_Village_Door_State_Definitions_CloseDoorOut"
     },
     {
       "x": 9,
       "y": 36,
       "z": -2,
-      "name": "Furniture_Village_Door",
+      "name": "*Furniture_Village_Door_State_Definitions_CloseDoorOut",
       "filler": 1024
     },
     {
@@ -136985,18 +136911,6 @@
     },
     {
       "x": 10,
-      "y": 35,
-      "z": -3,
-      "name": "Empty"
-    },
-    {
-      "x": 10,
-      "y": 36,
-      "z": -3,
-      "name": "Empty"
-    },
-    {
-      "x": 10,
       "y": 37,
       "z": -3,
       "name": "Empty"
@@ -137419,14 +137333,14 @@
       "x": 10,
       "y": 35,
       "z": -2,
-      "name": "Furniture_Village_Door",
+      "name": "*Furniture_Village_Door_State_Definitions_CloseDoorIn",
       "rotation": 2
     },
     {
       "x": 10,
       "y": 36,
       "z": -2,
-      "name": "Furniture_Village_Door",
+      "name": "*Furniture_Village_Door_State_Definitions_CloseDoorIn",
       "filler": 1024,
       "rotation": 2
     },
@@ -180476,6 +180390,7 @@
           "SpawnMarker": "Skeleton_Archer",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -180496,6 +180411,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -180505,7 +180421,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "qEhKmp3HMLWVUjdj3kg4cw==",
+            "$binary": "liXVM224MKeYmACRrZiU5A==",
             "$type": "04"
           }
         },
@@ -180528,318 +180444,7 @@
           "SpawnMarker": "Skeleton_Soldier",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -2.8280930519104004,
-            "Y": 30.15057373046875,
-            "Z": 5.447891712188721
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 0.8936185836791992,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "qmdEywVIMxeXlfHnN+PB1w==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 2.979152202606201,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 1.9691050052642822,
-            "Y": 15.049545288085938,
-            "Z": 5.100461006164551
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -1.0853796005249023,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "/N2rIea+MQi21/5ArULdpA==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 2.056204319000244,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Archer"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Archer",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 1.9486064314842224,
-            "Y": 20.053184509277344,
-            "Z": -2.6080410480499268
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -1.9569616317749023,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "GXn7GRt9OUWXTPf56hMyzA==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.1846222877502441,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Knight"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Knight",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 1.5174739360809326,
-            "Y": 45.180633544921875,
-            "Z": -0.8119446635246277
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -1.2997350692749023,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "i2LzNwmVOzOHl+i+UUMbfQ==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.8418488502502441,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Knight"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Knight",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -2.244129180908203,
-            "Y": 40.08738708496094,
-            "Z": 3.6365983486175537
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -2.2278974056243896,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "+fOsaJDFNH+q+bktWa8BJw==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -0.7010235786437988,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Knight"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Knight",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -0.2501969337463379,
-            "Y": 36.01457977294922,
-            "Z": -7.936328887939453
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.8256230354309082,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "QsTLS5HUPgWdBqaXl9fXOw==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -1.3159785270690918,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -180860,6 +180465,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -180869,7 +180475,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "/7licxhcPbOlcYUScDzFpw==",
+            "$binary": "Y5RvAF5NPR67jCMwAT14XA==",
             "$type": "04"
           }
         },
@@ -180885,6 +180491,114 @@
     {
       "Components": {
         "Nameplate": {
+          "Text": "Skeleton_Soldier"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Soldier",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -2.8280930519104004,
+            "Y": 30.15057373046875,
+            "Z": 5.447891712188721
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 0.8936185836791992,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "kKRvJIRGMJGLQyfj6F42VQ==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 2.979152202606201,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Knight"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Knight",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -2.244129180908203,
+            "Y": 40.08738708496094,
+            "Z": 3.6365983486175537
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -2.2278974056243896,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "hUKE8k4kNjm69JJ5leyBJQ==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -0.7010235786437988,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
           "Text": "Skeleton_Mage"
         },
         "HiddenFromAdventurePlayer": {},
@@ -180892,6 +180606,7 @@
           "SpawnMarker": "Skeleton_Mage",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -180912,6 +180627,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -180921,7 +180637,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "NhCrPP4+M26Bl5WQKBO0sg==",
+            "$binary": "K4H3fuhRNQms17/nn19AhQ==",
             "$type": "04"
           }
         },
@@ -180944,6 +180660,547 @@
           "SpawnMarker": "Skeleton_Knight",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -0.2501969337463379,
+            "Y": 36.01457977294922,
+            "Z": -7.936328887939453
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 1.8256230354309082,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "5480tktoO16QUW7quwEqbg==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -1.3159785270690918,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Knight"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Knight",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 1.5174739360809326,
+            "Y": 45.180633544921875,
+            "Z": -0.8119446635246277
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -1.2997350692749023,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "7EeHnijlPx2DkP/5ERfZHw==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 1.8418488502502441,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Archer"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Archer",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 1.9486064314842224,
+            "Y": 20.053184509277344,
+            "Z": -2.6080410480499268
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -1.9569616317749023,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "cpRQJOSTOnaoiPrqFFaomg==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 1.1846222877502441,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Soldier"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Soldier",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 1.9691050052642822,
+            "Y": 15.049545288085938,
+            "Z": 5.100461006164551
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -1.0853796005249023,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "0MteC7rqM0eRAqBUOZpLzg==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 2.056204319000244,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Knight"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Knight",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 2.488632917404175,
+            "Y": 40.03948974609375,
+            "Z": 6.526302337646484
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -2.0382862091064453,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "Xf5d1ehMNHOb9OBXz3gpLQ==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 1.1032977104187012,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Soldier"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Soldier",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 2.4911786317825317,
+            "Y": 25.043853759765625,
+            "Z": 7.5472917556762695
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 1.4658465385437012,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "ybIe9EWSOv6wEyJWelpGaw==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -1.6757550239562988,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Archer"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Archer",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 3.0279544591903687,
+            "Y": 30.047325134277344,
+            "Z": 12.965181350708008
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -3.083739757537842,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "QIMuPxhHOK6rKsz7+/cwSA==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 0.05784416198730469,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Knight"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Knight",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 3.6620439291000366,
+            "Y": 40.03001403808594,
+            "Z": -3.229126453399658
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 2.8353004455566406,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "Twflco7YPYqfqViMwo4tuQ==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -0.3062934875488281,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Knight"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Knight",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 4.988731861114502,
+            "Y": 44.99394989013672,
+            "Z": 4.808332443237305
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -0.6183385848999023,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "asuu6/mJN56qsSJ4AR7TSQ==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 2.523245334625244,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Soldier"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Soldier",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 6.574759483337402,
+            "Y": 30.177703857421875,
+            "Z": 7.1603779792785645
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 1.3893260955810547,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "hkb2+mP+ObWBCORyJyQEyA==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -1.7522754669189453,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Knight"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Knight",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -180964,6 +181221,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -180973,7 +181231,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "xXOyi/+TNXuqc5n/hEJGVQ==",
+            "$binary": "/wg0GDbPPSqgfGAAVsedSA==",
             "$type": "04"
           }
         },
@@ -180996,6 +181254,7 @@
           "SpawnMarker": "Skeleton_Archer",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -181005,17 +181264,18 @@
         },
         "Transform": {
           "Position": {
-            "X": 3.0279544591903687,
-            "Y": 30.047325134277344,
-            "Z": 12.965181350708008
+            "X": 7.485119819641113,
+            "Y": 35.027061462402344,
+            "Z": 9.520642280578613
           },
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": -3.083739757537842,
+            "Yaw": -0.32762813568115234,
             "Roll": 0.0
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -181025,326 +181285,14 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "aLa9U8HDOxOzapuokWWGDQ==",
+            "$binary": "Pok7tHoZOCeEUGSbOJpgWQ==",
             "$type": "04"
           }
         },
         "HeadRotation": {
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": 0.05784416198730469,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 6.574759483337402,
-            "Y": 30.177703857421875,
-            "Z": 7.1603779792785645
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.3893260955810547,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "yjnjdzhSO7y2rBY4oRRQnw==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -1.7522754669189453,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 2.4911786317825317,
-            "Y": 25.043853759765625,
-            "Z": 7.5472917556762695
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.4658465385437012,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "JgaWzeu8P7ObpWbWHtVKeA==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -1.6757550239562988,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Knight"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Knight",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 2.488632917404175,
-            "Y": 40.03948974609375,
-            "Z": 6.526302337646484
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -2.0382862091064453,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "vtGECaK8Pxiha5as23TeeQ==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.1032977104187012,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Knight"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Knight",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 4.988731861114502,
-            "Y": 44.99394989013672,
-            "Z": 4.808332443237305
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -0.6183385848999023,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "Fvyy+zDZP/aJ5yi2/Y99aA==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 2.523245334625244,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Knight"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Knight",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 3.6620439291000366,
-            "Y": 40.03001403808594,
-            "Z": -3.229126453399658
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 2.8353004455566406,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "6zZQrTqzNvOcFVqqezUb/Q==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -0.3062934875488281,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 9.381139755249023,
-            "Y": 25.109725952148438,
-            "Z": 4.593365669250488
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 2.099452495574951,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "lNTTJU4VPgOa3Ntsnk6xtw==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -1.0421490669250488,
+            "Yaw": 2.813955783843994,
             "Roll": 0.0
           }
         }
@@ -181360,370 +181308,7 @@
           "SpawnMarker": "Skeleton_Archer",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 12.157230377197266,
-            "Y": 25.042030334472656,
-            "Z": -6.424144268035889
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -1.5126948356628418,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "TPAMt4KjMryJ6uAQg0ueRg==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.6288890838623047,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 9.503275394439697,
-            "Y": 25.280311584472656,
-            "Z": -6.901668071746826
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 2.933009624481201,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "Yl1Voiy+MvG3O1PL6RraBw==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -0.20859193801879883,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Knight"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Knight",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 9.699679374694824,
-            "Y": 30.465255737304688,
-            "Z": 0.41890087723731995
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 2.8075389862060547,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "9+KOv+X1OqqTc1D4RMsJ0w==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -0.3340625762939453,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Archer"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Archer",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 12.624039649963379,
-            "Y": 20.02416229248047,
-            "Z": 7.4895429611206055
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -1.4578852653503418,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "e1/ku3Y/N6ayCPFBZl97qw==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.6836986541748047,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Soldier"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Soldier",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 8.989765644073486,
-            "Y": 15.062423706054688,
-            "Z": -4.7176971435546875
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -2.9346837997436523,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "tXI3Xzk6PIS8HXStEhb4Dg==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 0.20690011978149414,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Archer"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Archer",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 12.173498153686523,
-            "Y": 35.125885009765625,
-            "Z": 7.394628047943115
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -1.5422968864440918,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "bPGWnNi0PEi8tai6YSZkMA==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 1.5992870330810547,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Knight"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Knight",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 11.179218292236328,
-            "Y": 35.09422302246094,
-            "Z": 4.500971794128418
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 0.25258970260620117,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "54s5Yk+nMdaWycTbkrRIaw==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -2.889011859893799,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Skeleton_Archer"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Archer",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -181744,6 +181329,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -181753,7 +181339,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "wa3iTLtCN4ysaJF7vnDxzg==",
+            "$binary": "1QpArqkpMcujkMpyMRVvMQ==",
             "$type": "04"
           }
         },
@@ -181776,6 +181362,7 @@
           "SpawnMarker": "Skeleton_Mage",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -181796,6 +181383,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -181805,7 +181393,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "TOvmXbG0NjSwQXTz2nmbtQ==",
+            "$binary": "TSAEbByCOlCdT3NCtQAWeQ==",
             "$type": "04"
           }
         },
@@ -181821,13 +181409,14 @@
     {
       "Components": {
         "Nameplate": {
-          "Text": "Skeleton_Archer"
+          "Text": "Skeleton_Soldier"
         },
         "HiddenFromAdventurePlayer": {},
         "SpawnMarkerComponent": {
-          "SpawnMarker": "Skeleton_Archer",
+          "SpawnMarker": "Skeleton_Soldier",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -181837,17 +181426,18 @@
         },
         "Transform": {
           "Position": {
-            "X": 7.485119819641113,
-            "Y": 35.027061462402344,
-            "Z": 9.520642280578613
+            "X": 8.989765644073486,
+            "Y": 15.062423706054688,
+            "Z": -4.7176971435546875
           },
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": -0.32762813568115234,
+            "Yaw": -2.9346837997436523,
             "Roll": 0.0
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -181857,14 +181447,392 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "33i3FYjtPpGD021Lg6B68A==",
+            "$binary": "KofSpGb+NGaCOc+vyUu/IQ==",
             "$type": "04"
           }
         },
         "HeadRotation": {
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": 2.813955783843994,
+            "Yaw": 0.20690011978149414,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Soldier"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Soldier",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 9.381139755249023,
+            "Y": 25.109725952148438,
+            "Z": 4.593365669250488
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 2.099452495574951,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "2xrNgLCXPYWD8AodSaIlrA==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -1.0421490669250488,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Soldier"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Soldier",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 9.503275394439697,
+            "Y": 25.280311584472656,
+            "Z": -6.901668071746826
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 2.933009624481201,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "ZcUb8ixhO1iy786QgvNiXA==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -0.20859193801879883,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Knight"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Knight",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 9.699679374694824,
+            "Y": 30.465255737304688,
+            "Z": 0.41890087723731995
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 2.8075389862060547,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "aeM1kAOVNruWxug6tO0ErQ==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -0.3340625762939453,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Knight"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Knight",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 11.179218292236328,
+            "Y": 35.09422302246094,
+            "Z": 4.500971794128418
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 0.25258970260620117,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "p+hu+4flNXy+qra5dFAfCQ==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -2.889011859893799,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Archer"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Archer",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 12.157230377197266,
+            "Y": 25.042030334472656,
+            "Z": -6.424144268035889
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -1.5126948356628418,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "KxUmXrmoP1K4DQcNExMQGg==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 1.6288890838623047,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Archer"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Archer",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 12.173498153686523,
+            "Y": 35.125885009765625,
+            "Z": 7.394628047943115
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -1.5422968864440918,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "VnGOZ/HgNSu/m8/986hncg==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 1.5992870330810547,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Skeleton_Archer"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Skeleton_Archer",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 12.624039649963379,
+            "Y": 20.02416229248047,
+            "Z": 7.4895429611206055
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -1.4578852653503418,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "dSjIc5P8PiCbqxRiBXbArA==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 1.6836986541748047,
             "Roll": 0.0
           }
         }
@@ -181880,6 +181848,7 @@
           "SpawnMarker": "Skeleton_Mage",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -181900,6 +181869,7 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
@@ -181909,7 +181879,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "GUK4C4k4OFO8zz+KzO8quA==",
+            "$binary": "RBbeMLj/O2SwMR4dnGispQ==",
             "$type": "04"
           }
         },

@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 10,
+  "blockIdVersion": 11,
   "anchorX": -1,
   "anchorY": 7,
   "anchorZ": 1,
@@ -10793,7 +10793,8 @@
       "x": -3,
       "y": 13,
       "z": 7,
-      "name": "Empty"
+      "name": "Furniture_Feran_Shelf",
+      "rotation": 1
     },
     {
       "x": -3,
@@ -10897,46 +10898,13 @@
       "x": -3,
       "y": 13,
       "z": 8,
-      "name": "Bench_Tannery",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": -2,
-              "Y": 6,
-              "Z": 7
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "InputContainer": {
-              "Id": "Simple",
-              "Capacity": 2,
-              "Items": {}
-            },
-            "FuelContainer": {
-              "Id": "Empty"
-            },
-            "OutputContainer": {
-              "Id": "Simple",
-              "Capacity": 2,
-              "Items": {}
-            },
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": true,
-            "NextExtra": 0
-          }
-        }
-      },
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -3,
       "y": 14,
       "z": 8,
-      "name": "Bench_Tannery",
-      "filler": 1024,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -3,
@@ -11034,17 +11002,14 @@
       "x": -3,
       "y": 13,
       "z": 9,
-      "name": "Bench_Tannery",
-      "filler": 32,
+      "name": "Furniture_Feran_Shelf",
       "rotation": 1
     },
     {
       "x": -3,
       "y": 14,
       "z": 9,
-      "name": "Bench_Tannery",
-      "filler": 1056,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -3,
@@ -34907,69 +34872,17 @@
     {
       "Components": {
         "Nameplate": {
-          "Text": "Feran_T1"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Feran_T1",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 0.681679101562537,
-            "Y": 14.199699999999993,
-            "Z": 2.426633984375144
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -12.569014549255371,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0,
-            "Static": false
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "B8hDz1rNMPmHHycBXUsqsg==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -15.710607528686523,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
           "Text": "0.c9ca6816-b665-444b-9d6b-8956a7d7a445 (Feran-Camp-T1) #6 [Wait 0.0s] <Rotate 0.00deg>"
         },
         "PatrolPathMarker": {
           "Version": 5,
           "DisplayName": "0.c9ca6816-b665-444b-9d6b-8956a7d7a445 (Feran-Camp-T1) #6 [Wait 0.0s] <Rotate 0.00deg>",
           "UUID": {
-            "$binary": "Yw1j3O5HM+mvSYmuVe6L4w==",
+            "$binary": "eknVvytoMEy3wEwp67WliA==",
             "$type": "04"
           },
           "PathId": {
-            "$binary": "gd+lNzOGQwiCzl6RuTrRhg==",
+            "$binary": "UssjQMJ+SQKVlY6ZNVFndA==",
             "$type": "04"
           },
           "PathName": "Feran-Camp-T1",
@@ -34992,7 +34905,7 @@
           "Position": {
             "X": -1.1912971923828195,
             "Y": 13.378211975097656,
-            "Z": -0.4854720947265605
+            "Z": -0.4854720947264468
           },
           "Rotation": {
             "Pitch": 0.0,
@@ -35007,6 +34920,7 @@
             "Z": 0.0
           }
         },
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Path_Marker",
@@ -35016,7 +34930,7 @@
         },
         "UUID": {
           "UUID": {
-            "$binary": "4SDHKCKmNh2ZqKbXgUOCEQ==",
+            "$binary": "eknVvytoMEy3wEwp67WliA==",
             "$type": "04"
           }
         },
@@ -35024,6 +34938,60 @@
           "Rotation": {
             "Pitch": 0.0,
             "Yaw": -10.241830825805664,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Feran_T1"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Feran_T1",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 0.681679101562537,
+            "Y": 14.199699999999993,
+            "Z": 2.4266339843752576
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -12.569014549255371,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "pc2y847bMGSRK3n/naAPnw==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -15.710607528686523,
             "Roll": 0.0
           }
         }

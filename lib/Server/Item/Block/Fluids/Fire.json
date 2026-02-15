@@ -13,9 +13,11 @@
   "DrawType": "None",
   "Particles": [
     {
-
       "SystemId": "Fluid_Fire",
-      "Scale": 1
+      "Scale": 1,
+      "PositionOffset": {
+        "Y": 0.5
+      }
     }
   ],
   "Interactions": {
@@ -65,16 +67,19 @@
       {
         "TagPattern": {
           "Op": "And",
-          "Patterns": [{
-            "Op": "Equals",
-            "Tag": "Type=Wood"
-          }, {
-            "Op": "Not",
-            "Pattern": {
+          "Patterns": [
+            {
               "Op": "Equals",
-              "Tag": "Family=Burnt"
+              "Tag": "Type=Wood"
+            },
+            {
+              "Op": "Not",
+              "Pattern": {
+                "Op": "Equals",
+                "Tag": "Family=Burnt"
+              }
             }
-          }]
+          ]
         },
         "Priority": 0,
         "BurnLevel": 6,
@@ -92,16 +97,19 @@
       {
         "TagPattern": {
           "Op": "And",
-          "Patterns": [{
-            "Op": "Equals",
-            "Tag": "Type=Trunk"
-          }, {
-            "Op": "Not",
-            "Pattern": {
+          "Patterns": [
+            {
               "Op": "Equals",
-              "Tag": "Family=Burnt"
+              "Tag": "Type=Trunk"
+            },
+            {
+              "Op": "Not",
+              "Pattern": {
+                "Op": "Equals",
+                "Tag": "Family=Burnt"
+              }
             }
-          }]
+          ]
         },
         "Priority": 10,
         "BurnLevel": 6,
@@ -111,16 +119,19 @@
       {
         "TagPattern": {
           "Op": "And",
-          "Patterns": [{
-            "Op": "Equals",
-            "Tag": "BranchType=Long"
-          }, {
-            "Op": "Not",
-            "Pattern": {
+          "Patterns": [
+            {
               "Op": "Equals",
-              "Tag": "Family=Burnt"
+              "Tag": "BranchType=Long"
+            },
+            {
+              "Op": "Not",
+              "Pattern": {
+                "Op": "Equals",
+                "Tag": "Family=Burnt"
+              }
             }
-          }]
+          ]
         },
         "Priority": 8,
         "BurnLevel": 5,
@@ -130,16 +141,19 @@
       {
         "TagPattern": {
           "Op": "And",
-          "Patterns": [{
-            "Op": "Equals",
-            "Tag": "BranchType=Short"
-          }, {
-            "Op": "Not",
-            "Pattern": {
+          "Patterns": [
+            {
               "Op": "Equals",
-              "Tag": "Family=Burnt"
+              "Tag": "BranchType=Short"
+            },
+            {
+              "Op": "Not",
+              "Pattern": {
+                "Op": "Equals",
+                "Tag": "Family=Burnt"
+              }
             }
-          }]
+          ]
         },
         "Priority": 9,
         "BurnLevel": 5,
@@ -149,16 +163,19 @@
       {
         "TagPattern": {
           "Op": "And",
-          "Patterns": [{
-            "Op": "Equals",
-            "Tag": "BranchType=Corner"
-          }, {
-            "Op": "Not",
-            "Pattern": {
+          "Patterns": [
+            {
               "Op": "Equals",
-              "Tag": "Family=Burnt"
+              "Tag": "BranchType=Corner"
+            },
+            {
+              "Op": "Not",
+              "Pattern": {
+                "Op": "Equals",
+                "Tag": "Family=Burnt"
+              }
             }
-          }]
+          ]
         },
         "Priority": 9,
         "BurnLevel": 5,

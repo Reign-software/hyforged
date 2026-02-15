@@ -10,11 +10,6 @@
     "MaxHealth": 38,
     "WanderRadius": 10,
     "RunThreshold": 0.6,
-    "ChanceToTurnFriendly": 60,
-    "WeightGreet": 20,
-    "WeightFollowItem": 15,
-    "WeightFollow": 40,
-    "WeightIgnore": 1,
     "IsMemory": true,
     "MemoriesCategory": "Avian",
     "NameTranslationKey": {

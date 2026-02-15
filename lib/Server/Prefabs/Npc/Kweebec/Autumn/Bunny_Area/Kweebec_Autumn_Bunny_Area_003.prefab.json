@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 5,
   "anchorZ": 0,
@@ -471,25 +471,19 @@
       "x": -5,
       "y": 6,
       "z": -4,
-      "name": "Coop_Chicken",
-      "filler": 1023,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 7,
       "z": -4,
-      "name": "Coop_Chicken",
-      "filler": 2047,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 8,
       "z": -4,
-      "name": "Coop_Chicken",
-      "filler": 3071,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
@@ -525,25 +519,19 @@
       "x": -5,
       "y": 6,
       "z": -3,
-      "name": "Coop_Chicken",
-      "filler": 31,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 7,
       "z": -3,
-      "name": "Coop_Chicken",
-      "filler": 1055,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 8,
       "z": -3,
-      "name": "Coop_Chicken",
-      "filler": 2079,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
@@ -573,25 +561,19 @@
       "x": -5,
       "y": 6,
       "z": -2,
-      "name": "Coop_Chicken",
-      "filler": 63,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 7,
       "z": -2,
-      "name": "Coop_Chicken",
-      "filler": 1087,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 8,
       "z": -2,
-      "name": "Coop_Chicken",
-      "filler": 2111,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
@@ -754,25 +736,19 @@
       "x": -5,
       "y": 6,
       "z": 3,
-      "name": "Coop_Chicken",
-      "filler": 1023,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 7,
       "z": 3,
-      "name": "Coop_Chicken",
-      "filler": 2047,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 8,
       "z": 3,
-      "name": "Coop_Chicken",
-      "filler": 3071,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
@@ -808,25 +784,19 @@
       "x": -5,
       "y": 6,
       "z": 4,
-      "name": "Coop_Chicken",
-      "filler": 31,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 7,
       "z": 4,
-      "name": "Coop_Chicken",
-      "filler": 1055,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 8,
       "z": 4,
-      "name": "Coop_Chicken",
-      "filler": 2079,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
@@ -856,25 +826,19 @@
       "x": -5,
       "y": 6,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 63,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 7,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 1087,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
       "y": 8,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 2111,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -5,
@@ -985,25 +949,19 @@
       "x": -4,
       "y": 6,
       "z": -4,
-      "name": "Coop_Chicken",
-      "filler": 992,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 7,
       "z": -4,
-      "name": "Coop_Chicken",
-      "filler": 2016,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 8,
       "z": -4,
-      "name": "Coop_Chicken",
-      "filler": 3040,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
@@ -1039,43 +997,19 @@
       "x": -4,
       "y": 6,
       "z": -3,
-      "name": "Coop_Chicken",
-      "components": {
-        "Components": {
-          "PlacedByInteraction": {
-            "WhoPlacedUuid": {
-              "$binary": "2yZegHbKO9CgZf0lzAc06g==",
-              "$type": "04"
-            }
-          },
-          "crafting": {
-            "Position": {
-              "X": 28,
-              "Y": 61,
-              "Z": 29
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 7,
       "z": -3,
-      "name": "Coop_Chicken",
-      "filler": 1024,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 8,
       "z": -3,
-      "name": "Coop_Chicken",
-      "filler": 2048,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
@@ -1105,25 +1039,19 @@
       "x": -4,
       "y": 6,
       "z": -2,
-      "name": "Coop_Chicken",
-      "filler": 32,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 7,
       "z": -2,
-      "name": "Coop_Chicken",
-      "filler": 1056,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 8,
       "z": -2,
-      "name": "Coop_Chicken",
-      "filler": 2080,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
@@ -1304,25 +1232,19 @@
       "x": -4,
       "y": 6,
       "z": 3,
-      "name": "Coop_Chicken",
-      "filler": 992,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 7,
       "z": 3,
-      "name": "Coop_Chicken",
-      "filler": 2016,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 8,
       "z": 3,
-      "name": "Coop_Chicken",
-      "filler": 3040,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
@@ -1358,43 +1280,19 @@
       "x": -4,
       "y": 6,
       "z": 4,
-      "name": "Coop_Chicken",
-      "components": {
-        "Components": {
-          "PlacedByInteraction": {
-            "WhoPlacedUuid": {
-              "$binary": "2yZegHbKO9CgZf0lzAc06g==",
-              "$type": "04"
-            }
-          },
-          "crafting": {
-            "Position": {
-              "X": 28,
-              "Y": 61,
-              "Z": 4
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 7,
       "z": 4,
-      "name": "Coop_Chicken",
-      "filler": 1024,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 8,
       "z": 4,
-      "name": "Coop_Chicken",
-      "filler": 2048,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
@@ -1424,25 +1322,19 @@
       "x": -4,
       "y": 6,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 32,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 7,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 1056,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
       "y": 8,
       "z": 5,
-      "name": "Coop_Chicken",
-      "filler": 2080,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -4,
@@ -3406,12 +3298,7 @@
       "x": 0,
       "y": 6,
       "z": -2,
-      "name": "*Plant_Crop_Carrot_Block_State_Definitions_StageFinal",
-      "components": {
-        "Components": {
-          "FarmingBlock": {}
-        }
-      }
+      "name": "*Plant_Crop_Carrot_Block_State_Definitions_StageFinal"
     },
     {
       "x": 0,
@@ -5395,6 +5282,24 @@
     },
     {
       "x": 4,
+      "y": 6,
+      "z": -5,
+      "name": "Empty"
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "z": -5,
+      "name": "Empty"
+    },
+    {
+      "x": 4,
+      "y": 8,
+      "z": -5,
+      "name": "Empty"
+    },
+    {
+      "x": 4,
       "y": 0,
       "z": -4,
       "name": "Soil_Dirt"
@@ -5428,6 +5333,12 @@
       "y": 5,
       "z": -4,
       "name": "Soil_Mud_Dry"
+    },
+    {
+      "x": 4,
+      "y": 6,
+      "z": -4,
+      "name": "Empty"
     },
     {
       "x": 4,
@@ -5636,12 +5547,7 @@
       "x": 4,
       "y": 6,
       "z": 3,
-      "name": "*Plant_Crop_Carrot_Block_State_Definitions_StageFinal",
-      "components": {
-        "Components": {
-          "FarmingBlock": {}
-        }
-      }
+      "name": "*Plant_Crop_Carrot_Block_State_Definitions_StageFinal"
     },
     {
       "x": 4,
@@ -5697,12 +5603,7 @@
       "x": 4,
       "y": 6,
       "z": 4,
-      "name": "*Plant_Crop_Carrot_Block_State_Definitions_StageFinal",
-      "components": {
-        "Components": {
-          "FarmingBlock": {}
-        }
-      }
+      "name": "*Plant_Crop_Carrot_Block_State_Definitions_StageFinal"
     },
     {
       "x": 4,
@@ -6603,6 +6504,7 @@
           "SpawnMarker": "Kweebec_Rabbit",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -6623,15 +6525,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "LO6yvN9DOFKd5ULhyOoKFw==",
+            "$binary": "g3H38I20PfazaJbEWicUwQ==",
             "$type": "04"
           }
         },
@@ -6654,6 +6558,7 @@
           "SpawnMarker": "Kweebec_Rabbit",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -6674,15 +6579,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "UJMMeqTmNuy774ci5lmI5A==",
+            "$binary": "Qka9szMoP9CX3VS/e+3uBg==",
             "$type": "04"
           }
         },

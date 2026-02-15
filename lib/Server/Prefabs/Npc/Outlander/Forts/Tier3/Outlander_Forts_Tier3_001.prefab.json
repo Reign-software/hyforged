@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": -1,
   "anchorY": 61,
   "anchorZ": 21,
@@ -20126,42 +20126,13 @@
       "x": -7,
       "y": 73,
       "z": 19,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": -6,
-              "Y": 12,
-              "Z": -2
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -7,
       "y": 74,
       "z": 19,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 25,
-              "Y": 74,
-              "Z": 19
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -7,
@@ -20325,43 +20296,13 @@
       "x": -7,
       "y": 73,
       "z": 20,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 25,
-              "Y": 73,
-              "Z": 20
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 32,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -7,
       "y": 74,
       "z": 20,
-      "name": "Bench_Alchemy",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 25,
-              "Y": 74,
-              "Z": 20
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1056,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -7,
@@ -34531,12 +34472,6 @@
     },
     {
       "x": -4,
-      "y": 63,
-      "z": 18,
-      "name": "Empty"
-    },
-    {
-      "x": -4,
       "y": 64,
       "z": 18,
       "name": "Empty"
@@ -34768,12 +34703,6 @@
       "y": 62,
       "z": 19,
       "name": "Rock_Slate"
-    },
-    {
-      "x": -4,
-      "y": 63,
-      "z": 19,
-      "name": "Empty"
     },
     {
       "x": -4,
@@ -35009,12 +34938,6 @@
       "y": 62,
       "z": 20,
       "name": "Rock_Slate"
-    },
-    {
-      "x": -4,
-      "y": 63,
-      "z": 20,
-      "name": "Empty"
     },
     {
       "x": -4,
@@ -39765,12 +39688,6 @@
     },
     {
       "x": -3,
-      "y": 63,
-      "z": 16,
-      "name": "Empty"
-    },
-    {
-      "x": -3,
       "y": 64,
       "z": 16,
       "name": "Empty"
@@ -40019,12 +39936,6 @@
     },
     {
       "x": -3,
-      "y": 63,
-      "z": 17,
-      "name": "Empty"
-    },
-    {
-      "x": -3,
       "y": 64,
       "z": 17,
       "name": "Empty"
@@ -40270,12 +40181,6 @@
       "y": 62,
       "z": 18,
       "name": "Rock_Slate"
-    },
-    {
-      "x": -3,
-      "y": 63,
-      "z": 18,
-      "name": "Empty"
     },
     {
       "x": -3,
@@ -40528,12 +40433,6 @@
     },
     {
       "x": -3,
-      "y": 63,
-      "z": 19,
-      "name": "Empty"
-    },
-    {
-      "x": -3,
       "y": 64,
       "z": 19,
       "name": "Empty"
@@ -40779,12 +40678,6 @@
       "y": 62,
       "z": 20,
       "name": "Rock_Slate"
-    },
-    {
-      "x": -3,
-      "y": 63,
-      "z": 20,
-      "name": "Empty"
     },
     {
       "x": -3,
@@ -41033,12 +40926,6 @@
       "y": 62,
       "z": 21,
       "name": "Rock_Slate"
-    },
-    {
-      "x": -3,
-      "y": 63,
-      "z": 21,
-      "name": "Empty"
     },
     {
       "x": -3,
@@ -45827,12 +45714,6 @@
     },
     {
       "x": -2,
-      "y": 63,
-      "z": 16,
-      "name": "Empty"
-    },
-    {
-      "x": -2,
       "y": 64,
       "z": 16,
       "name": "Empty"
@@ -46084,12 +45965,6 @@
       "y": 62,
       "z": 17,
       "name": "Rock_Slate"
-    },
-    {
-      "x": -2,
-      "y": 63,
-      "z": 17,
-      "name": "Empty"
     },
     {
       "x": -2,
@@ -46324,12 +46199,6 @@
     },
     {
       "x": -2,
-      "y": 63,
-      "z": 18,
-      "name": "Empty"
-    },
-    {
-      "x": -2,
       "y": 64,
       "z": 18,
       "name": "Empty"
@@ -46561,12 +46430,6 @@
       "y": 62,
       "z": 19,
       "name": "Rock_Slate"
-    },
-    {
-      "x": -2,
-      "y": 63,
-      "z": 19,
-      "name": "Empty"
     },
     {
       "x": -2,
@@ -46799,12 +46662,6 @@
       "y": 62,
       "z": 20,
       "name": "Rock_Slate"
-    },
-    {
-      "x": -2,
-      "y": 63,
-      "z": 20,
-      "name": "Empty"
     },
     {
       "x": -2,
@@ -47059,12 +46916,6 @@
       "y": 62,
       "z": 21,
       "name": "Rock_Slate"
-    },
-    {
-      "x": -2,
-      "y": 63,
-      "z": 21,
-      "name": "Empty"
     },
     {
       "x": -2,
@@ -47322,12 +47173,6 @@
       "y": 62,
       "z": 22,
       "name": "Rock_Slate"
-    },
-    {
-      "x": -2,
-      "y": 63,
-      "z": 22,
-      "name": "Empty"
     },
     {
       "x": -2,
@@ -51993,12 +51838,6 @@
     },
     {
       "x": -1,
-      "y": 63,
-      "z": 15,
-      "name": "Empty"
-    },
-    {
-      "x": -1,
       "y": 64,
       "z": 15,
       "name": "Empty"
@@ -52262,12 +52101,6 @@
     },
     {
       "x": -1,
-      "y": 63,
-      "z": 16,
-      "name": "Empty"
-    },
-    {
-      "x": -1,
       "y": 64,
       "z": 16,
       "name": "Empty"
@@ -52517,12 +52350,6 @@
     },
     {
       "x": -1,
-      "y": 63,
-      "z": 17,
-      "name": "Empty"
-    },
-    {
-      "x": -1,
       "y": 64,
       "z": 17,
       "name": "Empty"
@@ -52756,12 +52583,6 @@
       "y": 62,
       "z": 18,
       "name": "Rock_Shale_Brick_Smooth"
-    },
-    {
-      "x": -1,
-      "y": 63,
-      "z": 18,
-      "name": "Empty"
     },
     {
       "x": -1,
@@ -53003,12 +52824,6 @@
     },
     {
       "x": -1,
-      "y": 63,
-      "z": 19,
-      "name": "Empty"
-    },
-    {
-      "x": -1,
       "y": 64,
       "z": 19,
       "name": "Empty"
@@ -53242,12 +53057,6 @@
       "y": 62,
       "z": 20,
       "name": "Rock_Slate"
-    },
-    {
-      "x": -1,
-      "y": 63,
-      "z": 20,
-      "name": "Empty"
     },
     {
       "x": -1,
@@ -53497,12 +53306,6 @@
       "y": 62,
       "z": 21,
       "name": "Rock_Slate"
-    },
-    {
-      "x": -1,
-      "y": 63,
-      "z": 21,
-      "name": "Empty"
     },
     {
       "x": -1,
@@ -53768,12 +53571,6 @@
       "y": 62,
       "z": 22,
       "name": "Rock_Slate"
-    },
-    {
-      "x": -1,
-      "y": 63,
-      "z": 22,
-      "name": "Empty"
     },
     {
       "x": -1,
@@ -58737,12 +58534,6 @@
     },
     {
       "x": 0,
-      "y": 63,
-      "z": 16,
-      "name": "Empty"
-    },
-    {
-      "x": 0,
       "y": 64,
       "z": 16,
       "name": "Empty"
@@ -58997,12 +58788,6 @@
     },
     {
       "x": 0,
-      "y": 63,
-      "z": 17,
-      "name": "Empty"
-    },
-    {
-      "x": 0,
       "y": 64,
       "z": 17,
       "name": "Empty"
@@ -59229,12 +59014,6 @@
       "y": 62,
       "z": 18,
       "name": "Rock_Slate"
-    },
-    {
-      "x": 0,
-      "y": 63,
-      "z": 18,
-      "name": "Empty"
     },
     {
       "x": 0,
@@ -59472,12 +59251,6 @@
     },
     {
       "x": 0,
-      "y": 63,
-      "z": 19,
-      "name": "Empty"
-    },
-    {
-      "x": 0,
       "y": 64,
       "z": 19,
       "name": "Empty"
@@ -59707,12 +59480,6 @@
       "y": 62,
       "z": 20,
       "name": "Rock_Slate"
-    },
-    {
-      "x": 0,
-      "y": 63,
-      "z": 20,
-      "name": "Empty"
     },
     {
       "x": 0,
@@ -59967,12 +59734,6 @@
       "y": 62,
       "z": 21,
       "name": "Rock_Slate"
-    },
-    {
-      "x": 0,
-      "y": 63,
-      "z": 21,
-      "name": "Empty"
     },
     {
       "x": 0,
@@ -60231,12 +59992,6 @@
       "y": 62,
       "z": 22,
       "name": "Rock_Slate"
-    },
-    {
-      "x": 0,
-      "y": 63,
-      "z": 22,
-      "name": "Empty"
     },
     {
       "x": 0,
@@ -65158,12 +64913,6 @@
     },
     {
       "x": 1,
-      "y": 63,
-      "z": 17,
-      "name": "Empty"
-    },
-    {
-      "x": 1,
       "y": 64,
       "z": 17,
       "name": "Empty"
@@ -65409,12 +65158,6 @@
       "y": 62,
       "z": 18,
       "name": "Rock_Slate"
-    },
-    {
-      "x": 1,
-      "y": 63,
-      "z": 18,
-      "name": "Empty"
     },
     {
       "x": 1,
@@ -65667,12 +65410,6 @@
     },
     {
       "x": 1,
-      "y": 63,
-      "z": 19,
-      "name": "Empty"
-    },
-    {
-      "x": 1,
       "y": 64,
       "z": 19,
       "name": "Empty"
@@ -65918,12 +65655,6 @@
       "y": 62,
       "z": 20,
       "name": "Rock_Slate"
-    },
-    {
-      "x": 1,
-      "y": 63,
-      "z": 20,
-      "name": "Empty"
     },
     {
       "x": 1,
@@ -66172,12 +65903,6 @@
       "y": 62,
       "z": 21,
       "name": "Rock_Slate"
-    },
-    {
-      "x": 1,
-      "y": 63,
-      "z": 21,
-      "name": "Empty"
     },
     {
       "x": 1,
@@ -71212,12 +70937,6 @@
     },
     {
       "x": 2,
-      "y": 63,
-      "z": 18,
-      "name": "Empty"
-    },
-    {
-      "x": 2,
       "y": 64,
       "z": 18,
       "name": "Empty"
@@ -71452,12 +71171,6 @@
     },
     {
       "x": 2,
-      "y": 63,
-      "z": 19,
-      "name": "Empty"
-    },
-    {
-      "x": 2,
       "y": 64,
       "z": 19,
       "name": "Empty"
@@ -71689,12 +71402,6 @@
       "y": 62,
       "z": 20,
       "name": "Rock_Slate"
-    },
-    {
-      "x": 2,
-      "y": 63,
-      "z": 20,
-      "name": "Empty"
     },
     {
       "x": 2,
@@ -106587,312 +106294,6 @@
     {
       "Components": {
         "Nameplate": {
-          "Text": "Outlander_Priest"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander_Priest",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -5.039796874995773,
-            "Y": 64.0,
-            "Z": 14.87122342529301
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -96.90963745117188,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "i/U44yX8Obu0FjFv+B44aw==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -100.05123138427734,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Spider_Cave"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Spider_Cave",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -0.460693359375,
-            "Y": 86.1900405883789,
-            "Z": 13.232135772705078
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 0.03344106674194336,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "TRh/x9yuMS2TP0a3WUhFjQ==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -3.1081509590148926,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Outlander_Sorcerer"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander_Sorcerer",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -0.5103863281256054,
-            "Y": 66.0000991821289,
-            "Z": 13.42944687499994
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -84.84090423583984,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "VqUCtpChPDO3ppLhqM8ewA==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -87.98249816894531,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Outlander_Brute"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander_Brute",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -0.45379843750015425,
-            "Y": 63.0,
-            "Z": 21.050619165039052
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -87.97754669189453,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "rrifsiqvO2SugIcLFuc1ew==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -91.119140625,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Outlander_Priest"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander_Priest",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 4.636978515623923,
-            "Y": 64.0,
-            "Z": 20.541831933593812
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -99.07476043701172,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "6STH+1+jMTC+5nEzMRVHzw==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -102.21635437011719,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Outlander_Sorcerer"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander_Sorcerer",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 4.299862109375681,
-            "Y": 64.0,
-            "Z": 18.16834487915048
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -98.3245620727539,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "0Omgyo6UPB+b4FFs6dxeLQ==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -101.46615600585938,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
           "Text": "Outlander_Cultist"
         },
         "HiddenFromAdventurePlayer": {},
@@ -106900,57 +106301,7 @@
           "SpawnMarker": "Outlander_Cultist",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": 3.8055339843749607,
-            "Y": 64.0,
-            "Z": 22.471975335693287
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -93.34688568115234,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "MOLO6OonM22Wgez/t2KSAA==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -96.48847961425781,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Outlander_Cultist"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander_Cultist",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -106971,15 +106322,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "vv+iDjXkPhyOsRe+XqZ0KA==",
+            "$binary": "uhd/09BlP8O9swUCcJwJVQ==",
             "$type": "04"
           }
         },
@@ -106995,6 +106348,60 @@
     {
       "Components": {
         "Nameplate": {
+          "Text": "Outlander_Priest"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Outlander_Priest",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -5.039796874995773,
+            "Y": 64.0,
+            "Z": 14.87122342529301
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -96.90963745117188,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "56HdEqjEM7a2+kw5DgKoFQ==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -100.05123138427734,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
           "Text": "Outlander_Cultist"
         },
         "HiddenFromAdventurePlayer": {},
@@ -107002,6 +106409,7 @@
           "SpawnMarker": "Outlander_Cultist",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -107022,15 +106430,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "e6GSYoNOMVi4ajiwHURkZw==",
+            "$binary": "ZL5vKy+bNCylafuNtE9SvQ==",
             "$type": "04"
           }
         },
@@ -107038,6 +106448,330 @@
           "Rotation": {
             "Pitch": 0.0,
             "Yaw": -98.12862396240234,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Outlander_Sorcerer"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Outlander_Sorcerer",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -0.5103863281256054,
+            "Y": 66.0000991821289,
+            "Z": 13.42944687499994
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -84.84090423583984,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "uSZ6WPn4PyuE7MUyAokz/g==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -87.98249816894531,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Spider_Cave"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Spider_Cave",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -0.460693359375,
+            "Y": 86.1900405883789,
+            "Z": 13.232135772705078
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 0.03344106674194336,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "yUqUGLKxMXu6ZH2Js//JHw==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -3.1081509590148926,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Outlander_Brute"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Outlander_Brute",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -0.45379843750015425,
+            "Y": 63.0,
+            "Z": 21.050619165039052
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -87.97754669189453,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "EXVx4CCFMXmUClFBZJs/ow==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -91.119140625,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Outlander_Cultist"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Outlander_Cultist",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 3.8055339843749607,
+            "Y": 64.0,
+            "Z": 22.471975335693287
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -93.34688568115234,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "H/BDgPUTNzqhuw8PQnTejw==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -96.48847961425781,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Outlander_Sorcerer"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Outlander_Sorcerer",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 4.299862109375681,
+            "Y": 64.0,
+            "Z": 18.16834487915048
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -98.3245620727539,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "so0MJ+X1NzyKwYG325spBA==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -101.46615600585938,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Outlander_Priest"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Outlander_Priest",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 4.636978515623923,
+            "Y": 64.0,
+            "Z": 20.541831933593812
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -99.07476043701172,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "vNoOxaFJPGy/OnOteH1Qkg==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -102.21635437011719,
             "Roll": 0.0
           }
         }

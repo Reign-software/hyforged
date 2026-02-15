@@ -7,25 +7,25 @@
       "Skrill_Chick",
       "Skrill"
     ],
-    "LovedItems": [
+    "AttractiveItemSet": [
       "Plant_Crop_Chilli_Item"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Chilli",
     "DropList": "Drop_Skrill_Chick",
     "MaxHealth": 15,
     "MaxSpeed": 4,
-    "AlertedActionRange": 2,
+    "ViewRange": 8,
+    "ViewSector": 270,
+    "HearingRange": 6,
+    "AlertedRange": 10,
+    "AlertedActionRange": 4,
     "AbsoluteDetectionRange": 1,
-    "ChanceToTurnFriendly": 30,
-    "ChanceToTurnFriendlyWithAttractiveItem": 70,
-    "WeightGreet": 10,
-    "WeightFollowItem": 20,
-    "WeightFollow": 40,
-    "WeightIgnore": 20,
     "Timid": true,
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Skrill_Chick",
     "IsMemory": true,
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
-    }
+    "MemoriesNameOverride": "Skrill_Chick",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" }
   },
   "Parameters": {
     "NameTranslationKey": {

@@ -150,7 +150,7 @@
               },
               {
                 "Quantity": 30,
-                "ResourceTypeId": "Wood_Redwood_Trunk"
+                "ResourceTypeId": "Wood_Drywood_Trunk"
               }
             ],
             "TimeSeconds": 3
@@ -196,7 +196,7 @@
               },
               {
                 "Quantity": 50,
-                "ResourceTypeId": "Wood_Drywood_Trunk"
+                "ResourceTypeId": "Wood_Redwood_Trunk"
               }
             ],
             "TimeSeconds": 3

@@ -94,6 +94,7 @@
         }
       },
       "MaxDurability": 20,
+      "DurabilityLossOnDeath": false,
       "DurabilityLossOnHit": 1,
       "Weapon": {}
     }

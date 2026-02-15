@@ -6,19 +6,9 @@
     "FlockArray": [
       "Penguin"
     ],
-    "AttitudeGroup": "Prey",
     "DropList": "Drop_Penguin",
-    "LovedItems": [
-      "Fish*",
-      "Food_Fish*"
-    ],
     "MaxHealth": 38,
     "WanderRadius": 12,
-    "ChanceToTurnFriendly": 30,
-    "WeightGreet": 20,
-    "WeightFollowItem": 20,
-    "WeightFollow": 20,
-    "WeightIgnore": 20,
     "IsMemory": true,
     "MemoriesCategory": "Avian",
     "NameTranslationKey": {

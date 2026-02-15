@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 1,
   "anchorY": 7,
   "anchorZ": 0,
@@ -6577,11 +6577,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -8,
-              "Y": 4,
-              "Z": -8
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -8089,11 +8084,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -8,
-              "Y": 4,
-              "Z": 7
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -8204,11 +8194,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -8,
-              "Y": 4,
-              "Z": 8
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -13360,11 +13345,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -5,
-              "Y": 1,
-              "Z": -8
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -17512,11 +17492,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -3,
-              "Y": 1,
-              "Z": -8
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -25409,11 +25384,6 @@
       "components": {
         "Components": {
           "processingBench": {
-            "Position": {
-              "X": 0,
-              "Y": 4,
-              "Z": 5
-            },
             "TierLevel": 1,
             "UpgradeItems": [],
             "InputContainer": {
@@ -25423,7 +25393,7 @@
             },
             "FuelContainer": {
               "Id": "Simple",
-              "Capacity": 2,
+              "Capacity": 1,
               "Items": {}
             },
             "OutputContainer": {
@@ -25448,17 +25418,27 @@
       "components": {
         "Components": {
           "processingBench": {
-            "Position": {
-              "X": 1,
-              "Y": 12,
-              "Z": 5
-            },
             "TierLevel": 1,
             "UpgradeItems": [],
+            "InputContainer": {
+              "Id": "Simple",
+              "Capacity": 2,
+              "Items": {}
+            },
+            "FuelContainer": {
+              "Id": "Simple",
+              "Capacity": 1,
+              "Items": {}
+            },
+            "OutputContainer": {
+              "Id": "Simple",
+              "Capacity": 4,
+              "Items": {}
+            },
             "Progress": 0.0,
             "FuelTime": 0.0,
             "Active": false,
-            "NextExtra": -1
+            "NextExtra": 2
           }
         }
       },
@@ -25546,17 +25526,27 @@
       "components": {
         "Components": {
           "processingBench": {
-            "Position": {
-              "X": 1,
-              "Y": 11,
-              "Z": 6
-            },
             "TierLevel": 1,
             "UpgradeItems": [],
+            "InputContainer": {
+              "Id": "Simple",
+              "Capacity": 2,
+              "Items": {}
+            },
+            "FuelContainer": {
+              "Id": "Simple",
+              "Capacity": 1,
+              "Items": {}
+            },
+            "OutputContainer": {
+              "Id": "Simple",
+              "Capacity": 4,
+              "Items": {}
+            },
             "Progress": 0.0,
             "FuelTime": 0.0,
             "Active": false,
-            "NextExtra": -1
+            "NextExtra": 2
           }
         }
       },
@@ -25571,17 +25561,27 @@
       "components": {
         "Components": {
           "processingBench": {
-            "Position": {
-              "X": 1,
-              "Y": 12,
-              "Z": 6
-            },
             "TierLevel": 1,
             "UpgradeItems": [],
+            "InputContainer": {
+              "Id": "Simple",
+              "Capacity": 2,
+              "Items": {}
+            },
+            "FuelContainer": {
+              "Id": "Simple",
+              "Capacity": 1,
+              "Items": {}
+            },
+            "OutputContainer": {
+              "Id": "Simple",
+              "Capacity": 4,
+              "Items": {}
+            },
             "Progress": 0.0,
             "FuelTime": 0.0,
             "Active": false,
-            "NextExtra": -1
+            "NextExtra": 2
           }
         }
       },
@@ -26546,47 +26546,8 @@
       "x": 2,
       "y": 11,
       "z": -6,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 2,
-              "Y": 11,
-              "Z": 26
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
+      "name": "Furniture_Village_Counter",
       "filler": 31
-    },
-    {
-      "x": 2,
-      "y": 12,
-      "z": -6,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 2,
-              "Y": 12,
-              "Z": 26
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1055
-    },
-    {
-      "x": 2,
-      "y": 13,
-      "z": -6,
-      "name": "Empty"
     },
     {
       "x": 2,
@@ -28631,46 +28592,13 @@
       "x": 3,
       "y": 11,
       "z": -6,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 2,
-              "Y": 4,
-              "Z": -6
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      }
+      "name": "Furniture_Village_Counter"
     },
     {
       "x": 3,
       "y": 12,
       "z": -6,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 3,
-              "Y": 12,
-              "Z": 26
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024
-    },
-    {
-      "x": 3,
-      "y": 13,
-      "z": -6,
-      "name": "Empty"
+      "name": "Furniture_Crude_Candle"
     },
     {
       "x": 3,
@@ -30864,11 +30792,6 @@
       "y": 15,
       "z": -5,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 62,
       "rotation": 3
     },
@@ -30877,11 +30800,6 @@
       "y": 16,
       "z": -5,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1086,
       "rotation": 3
     },
@@ -31234,11 +31152,6 @@
       "y": 15,
       "z": -1,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 30,
       "rotation": 3
     },
@@ -31247,11 +31160,6 @@
       "y": 16,
       "z": -1,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1054,
       "rotation": 3
     },
@@ -32864,11 +32772,6 @@
       "y": 15,
       "z": -6,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 31,
       "rotation": 3
     },
@@ -32877,11 +32780,6 @@
       "y": 16,
       "z": -6,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1055,
       "rotation": 3
     },
@@ -32974,11 +32872,6 @@
       "y": 15,
       "z": -5,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 63,
       "rotation": 3
     },
@@ -32987,11 +32880,6 @@
       "y": 16,
       "z": -5,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1087,
       "rotation": 3
     },
@@ -33450,11 +33338,6 @@
       "y": 15,
       "z": 0,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 63,
       "rotation": 3
     },
@@ -33463,11 +33346,6 @@
       "y": 16,
       "z": 0,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1087,
       "rotation": 3
     },
@@ -44593,11 +44471,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 10,
-              "Y": 1,
-              "Z": -1
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -44733,11 +44606,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 10,
-              "Y": 1,
-              "Z": 1
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -45937,11 +45805,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 11,
-              "Y": -2,
-              "Z": 2
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -47162,6 +47025,7 @@
           "SpawnMarker": "Outlander_Hunter",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -47182,15 +47046,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "y79RbJvfOAS2X+hmetL8xg==",
+            "$binary": "pqsDLOKAN3SLW+5oOORTLQ==",
             "$type": "04"
           }
         },
@@ -47206,57 +47072,6 @@
     {
       "Components": {
         "Nameplate": {
-          "Text": "Outlander_Berserker"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander_Berserker",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -2.32177734375,
-            "Y": 11.110671997070312,
-            "Z": -0.2732257843017578
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -0.846832275390625,
-            "Roll": 0.0
-          }
-        },
-        "Intangible": {},
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "4aoVfsMAOlOhsv8O5bhsSQ==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": 2.294760227203369,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
           "Text": "Outlander_Cultist"
         },
         "HiddenFromAdventurePlayer": {},
@@ -47264,6 +47079,7 @@
           "SpawnMarker": "Outlander_Cultist",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -47284,15 +47100,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "XF2HWcftNuKwUb9p8+p1SA==",
+            "$binary": "EU0P0nz9PO+ubobx+Ymjew==",
             "$type": "04"
           }
         },
@@ -47308,13 +47126,14 @@
     {
       "Components": {
         "Nameplate": {
-          "Text": "Outlander_Hunter"
+          "Text": "Outlander_Berserker"
         },
         "HiddenFromAdventurePlayer": {},
         "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander_Hunter",
+          "SpawnMarker": "Outlander_Berserker",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -47324,33 +47143,35 @@
         },
         "Transform": {
           "Position": {
-            "X": 12.19091796875,
-            "Y": 11.570098876953125,
-            "Z": 5.585275650024414
+            "X": -2.32177734375,
+            "Y": 11.110671997070312,
+            "Z": -0.2732257843017578
           },
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": -11.151988983154297,
+            "Yaw": -0.846832275390625,
             "Roll": 0.0
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "8APDuNN3M+e+lL8V/+z68A==",
+            "$binary": "JUI8zPIEO+qce/d9bIWtFA==",
             "$type": "04"
           }
         },
         "HeadRotation": {
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": -14.29358196258545,
+            "Yaw": 2.294760227203369,
             "Roll": 0.0
           }
         }
@@ -47366,6 +47187,7 @@
           "SpawnMarker": "Outlander_Berserker",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -47386,15 +47208,17 @@
           }
         },
         "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "O/oSJ+0UM9ya3zm3/cwQgw==",
+            "$binary": "hk+JHjsqNqm934o6w92w+w==",
             "$type": "04"
           }
         },
@@ -47402,6 +47226,60 @@
           "Rotation": {
             "Pitch": 0.0,
             "Yaw": -15.453811645507812,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Outlander_Hunter"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Outlander_Hunter",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": 12.19091796875,
+            "Y": 11.570098876953125,
+            "Z": 5.585275650024414
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -11.151988983154297,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "TvH/LBDoPKmCs+Q9IFsxXw==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -14.29358196258545,
             "Roll": 0.0
           }
         }

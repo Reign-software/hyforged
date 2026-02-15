@@ -1,7 +1,7 @@
 package com.hypixel.hytale.server.core.asset.type.entityeffect;
 
 import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
-import com.hypixel.hytale.protocol.Packet;
+import com.hypixel.hytale.protocol.ToClientPacket;
 import com.hypixel.hytale.protocol.UpdateType;
 import com.hypixel.hytale.protocol.packets.assets.UpdateEntityEffects;
 import com.hypixel.hytale.server.core.asset.packet.SimpleAssetPacketGenerator;
@@ -17,7 +17,7 @@ public class EntityEffectPacketGenerator extends SimpleAssetPacketGenerator<Stri
    }
 
    @Nonnull
-   public Packet generateInitPacket(@Nonnull IndexedLookupTableAssetMap<String, EntityEffect> assetMap, @Nonnull Map<String, EntityEffect> assets) {
+   public ToClientPacket generateInitPacket(@Nonnull IndexedLookupTableAssetMap<String, EntityEffect> assetMap, @Nonnull Map<String, EntityEffect> assets) {
       UpdateEntityEffects packet = new UpdateEntityEffects();
       packet.type = UpdateType.Init;
       packet.entityEffects = new Int2ObjectOpenHashMap<>(assets.size());
@@ -37,7 +37,9 @@ public class EntityEffectPacketGenerator extends SimpleAssetPacketGenerator<Stri
    }
 
    @Nonnull
-   protected Packet generateUpdatePacket(@Nonnull IndexedLookupTableAssetMap<String, EntityEffect> assetMap, @Nonnull Map<String, EntityEffect> loadedAssets) {
+   protected ToClientPacket generateUpdatePacket(
+      @Nonnull IndexedLookupTableAssetMap<String, EntityEffect> assetMap, @Nonnull Map<String, EntityEffect> loadedAssets
+   ) {
       UpdateEntityEffects packet = new UpdateEntityEffects();
       packet.type = UpdateType.AddOrUpdate;
       packet.entityEffects = new Int2ObjectOpenHashMap<>(loadedAssets.size());
@@ -57,7 +59,7 @@ public class EntityEffectPacketGenerator extends SimpleAssetPacketGenerator<Stri
    }
 
    @Nonnull
-   protected Packet generateRemovePacket(@Nonnull IndexedLookupTableAssetMap<String, EntityEffect> assetMap, @Nonnull Set<String> removed) {
+   protected ToClientPacket generateRemovePacket(@Nonnull IndexedLookupTableAssetMap<String, EntityEffect> assetMap, @Nonnull Set<String> removed) {
       UpdateEntityEffects packet = new UpdateEntityEffects();
       packet.type = UpdateType.Remove;
       packet.entityEffects = new Int2ObjectOpenHashMap<>(removed.size());

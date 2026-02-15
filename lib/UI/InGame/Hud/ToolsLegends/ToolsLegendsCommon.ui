@@ -64,7 +64,7 @@
 @Legend = Group {
   Background: (TexturePath: "LegendContainerPanelPatch.png", Border: 4);
   LayoutMode: Top;
-  Anchor: (Left: 20, Top: 130, Width: 280, Height: 780);
+  Anchor: (Left: 20, Top: 110, Width: 350, Height: 800);
   Padding: (Full: 14);
   Visible: true;
 

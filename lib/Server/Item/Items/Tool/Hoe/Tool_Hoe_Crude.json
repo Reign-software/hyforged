@@ -12,7 +12,7 @@
   "MaxStack": 1,
   "ItemLevel": 1,
   "Recipe": {
-    "TimeSeconds": 1.5,
+    "TimeSeconds": 0,
     "Input": [
       {
         "ResourceTypeId": "Wood_Trunk",

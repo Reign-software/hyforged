@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 7,
   "anchorZ": -1,
@@ -6678,11 +6678,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -8,
-              "Y": 5,
-              "Z": -11
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -8963,11 +8958,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": -7,
-              "Y": 5,
-              "Z": -5
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -16685,11 +16675,6 @@
       "y": 17,
       "z": -5,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 32
     },
     {
@@ -16697,11 +16682,6 @@
       "y": 18,
       "z": -5,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1056
     },
     {
@@ -16830,11 +16810,6 @@
       "y": 17,
       "z": -4,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 64
     },
     {
@@ -16842,11 +16817,6 @@
       "y": 18,
       "z": -4,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1088
     },
     {
@@ -17405,14 +17375,14 @@
       "x": -3,
       "y": 12,
       "z": 1,
-      "name": "Furniture_Lumberjack_Door",
+      "name": "*Furniture_Lumberjack_Door_State_Definitions_CloseDoorIn",
       "rotation": 3
     },
     {
       "x": -3,
       "y": 13,
       "z": 1,
-      "name": "Furniture_Lumberjack_Door",
+      "name": "*Furniture_Lumberjack_Door_State_Definitions_CloseDoorIn",
       "filler": 1024,
       "rotation": 3
     },
@@ -21989,48 +21959,7 @@
       "x": -1,
       "y": 12,
       "z": 3,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": -1,
-              "Y": 5,
-              "Z": 4
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "rotation": 2
-    },
-    {
-      "x": -1,
-      "y": 13,
-      "z": 3,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 31,
-              "Y": 13,
-              "Z": 3
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024,
-      "rotation": 2
-    },
-    {
-      "x": -1,
-      "y": 14,
-      "z": 3,
-      "name": "Empty"
+      "name": "Furniture_Village_Crate"
     },
     {
       "x": -1,
@@ -24155,54 +24084,6 @@
       "y": 11,
       "z": 3,
       "name": "Soil_Dirt_Cold"
-    },
-    {
-      "x": 0,
-      "y": 12,
-      "z": 3,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 0,
-              "Y": 12,
-              "Z": 3
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1,
-      "rotation": 2
-    },
-    {
-      "x": 0,
-      "y": 13,
-      "z": 3,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 0,
-              "Y": 13,
-              "Z": 3
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1025,
-      "rotation": 2
-    },
-    {
-      "x": 0,
-      "y": 14,
-      "z": 3,
-      "name": "Empty"
     },
     {
       "x": 0,
@@ -28577,11 +28458,6 @@
       "components": {
         "Components": {
           "container": {
-            "Position": {
-              "X": 2,
-              "Y": 5,
-              "Z": 4
-            },
             "Custom": false,
             "AllowViewing": true,
             "ItemContainer": {
@@ -36126,13 +36002,6 @@
     },
     {
       "x": 6,
-      "y": 10,
-      "z": 3,
-      "name": "Bench_Lumbermill",
-      "filler": 31
-    },
-    {
-      "x": 6,
       "y": 13,
       "z": 3,
       "name": "Wood_Redwood_Stairs",
@@ -37923,12 +37792,6 @@
       "y": 9,
       "z": 3,
       "name": "Soil_Dirt_Cold"
-    },
-    {
-      "x": 7,
-      "y": 10,
-      "z": 3,
-      "name": "Bench_Lumbermill"
     },
     {
       "x": 7,

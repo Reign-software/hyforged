@@ -13,7 +13,7 @@
   "Quality": "Common",
   "ItemLevel": 4,
   "Recipe": {
-    "TimeSeconds": 1,
+    "TimeSeconds": 0,
     "KnowledgeRequired": false,
     "Input": [
       {

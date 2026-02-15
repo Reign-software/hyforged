@@ -21295,7 +21295,7 @@
       "x": 0,
       "y": 12,
       "z": -6,
-      "name": "Furniture_Lumberjack_Shelf"
+      "name": "Furniture_Ancient_Barrel"
     },
     {
       "x": 0,
@@ -23390,15 +23390,8 @@
       "x": 1,
       "y": 12,
       "z": -6,
-      "name": "Bench_Cooking",
+      "name": "Furniture_Village_Counter",
       "filler": 31
-    },
-    {
-      "x": 1,
-      "y": 13,
-      "z": -6,
-      "name": "Bench_Cooking",
-      "filler": 1055
     },
     {
       "x": 1,
@@ -25525,36 +25518,13 @@
       "x": 2,
       "y": 12,
       "z": -6,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      }
+      "name": "Furniture_Village_Counter"
     },
     {
       "x": 2,
       "y": 13,
       "z": -6,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024
-    },
-    {
-      "x": 2,
-      "y": 14,
-      "z": -6,
-      "name": "Empty"
+      "name": "Furniture_Lumberjack_Shelf"
     },
     {
       "x": 2,
@@ -38109,14 +38079,14 @@
       "x": 8,
       "y": 11,
       "z": -2,
-      "name": "*Furniture_Lumberjack_Door_State_Definitions_OpenDoorIn",
+      "name": "*Furniture_Lumberjack_Door_State_Definitions_CloseDoorIn",
       "rotation": 1
     },
     {
       "x": 8,
       "y": 12,
       "z": -2,
-      "name": "*Furniture_Lumberjack_Door_State_Definitions_OpenDoorIn",
+      "name": "*Furniture_Lumberjack_Door_State_Definitions_CloseDoorIn",
       "filler": 1024,
       "rotation": 1
     },
@@ -39840,22 +39810,6 @@
       "y": 10,
       "z": -2,
       "name": "Soil_Pebbles_Frozen"
-    },
-    {
-      "x": 9,
-      "y": 11,
-      "z": -2,
-      "name": "*Furniture_Lumberjack_Door_State_Definitions_OpenDoorIn",
-      "filler": 1,
-      "rotation": 1
-    },
-    {
-      "x": 9,
-      "y": 12,
-      "z": -2,
-      "name": "*Furniture_Lumberjack_Door_State_Definitions_OpenDoorIn",
-      "filler": 1025,
-      "rotation": 1
     },
     {
       "x": 9,

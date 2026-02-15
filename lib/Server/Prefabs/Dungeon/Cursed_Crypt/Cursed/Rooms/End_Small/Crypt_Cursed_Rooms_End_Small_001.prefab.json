@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 0,
   "anchorZ": 0,
@@ -4134,11 +4134,6 @@
       "y": 1,
       "z": -3,
       "name": "Furniture_Human_Ruins_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 960,
       "rotation": 2
     },
@@ -4147,11 +4142,6 @@
       "y": 2,
       "z": -3,
       "name": "Furniture_Human_Ruins_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1984,
       "rotation": 2
     },
@@ -4214,11 +4204,6 @@
       "y": 1,
       "z": -2,
       "name": "Furniture_Human_Ruins_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 992,
       "rotation": 2
     },
@@ -4227,11 +4212,6 @@
       "y": 2,
       "z": -2,
       "name": "Furniture_Human_Ruins_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 2016,
       "rotation": 2
     },
@@ -7254,7 +7234,7 @@
       "x": 0,
       "y": 2,
       "z": -9,
-      "name": "*Furniture_Human_Ruins_Coffin_State_Definitions_CloseWindow",
+      "name": "Furniture_Human_Ruins_Coffin",
       "filler": 992,
       "rotation": 1
     },
@@ -7322,7 +7302,7 @@
       "x": 0,
       "y": 2,
       "z": -8,
-      "name": "*Furniture_Human_Ruins_Coffin_State_Definitions_CloseWindow",
+      "name": "Furniture_Human_Ruins_Coffin",
       "rotation": 1
     },
     {
@@ -12895,11 +12875,6 @@
       "y": 1,
       "z": -3,
       "name": "Furniture_Human_Ruins_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 960,
       "rotation": 2
     },
@@ -12908,11 +12883,6 @@
       "y": 2,
       "z": -3,
       "name": "Furniture_Human_Ruins_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1984,
       "rotation": 2
     },
@@ -13601,20 +13571,7 @@
       "x": 7,
       "y": 1,
       "z": -6,
-      "name": "Bench_Armour",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 7,
-              "Y": 1,
-              "Z": 26
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
+      "name": "Furniture_Human_Ruins_Desk",
       "filler": 992,
       "rotation": 3
     },
@@ -13622,28 +13579,7 @@
       "x": 7,
       "y": 2,
       "z": -6,
-      "name": "Bench_Armour",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 7,
-              "Y": 2,
-              "Z": 26
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 2016,
-      "rotation": 3
-    },
-    {
-      "x": 7,
-      "y": 3,
-      "z": -6,
-      "name": "Empty"
+      "name": "Deco_Scroll"
     },
     {
       "x": 7,
@@ -13698,48 +13634,15 @@
       "x": 7,
       "y": 1,
       "z": -5,
-      "name": "Bench_Armour",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 7,
-              "Y": 1,
-              "Z": -5
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
+      "name": "Furniture_Human_Ruins_Desk",
       "rotation": 3
     },
     {
       "x": 7,
       "y": 2,
       "z": -5,
-      "name": "Bench_Armour",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 7,
-              "Y": 2,
-              "Z": 27
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024,
+      "name": "Furniture_Human_Ruins_Shelf",
       "rotation": 3
-    },
-    {
-      "x": 7,
-      "y": 3,
-      "z": -5,
-      "name": "Empty"
     },
     {
       "x": 7,

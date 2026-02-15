@@ -22,13 +22,13 @@
             "Type": "Int",
             "Default": 3,
             "Min": 1,
-            "Max": 100
+            "Max": 50
           },
           "ExtrudeDepth": {
             "Type": "Int",
             "Default": 3,
             "Min": 1,
-            "Max": 100
+            "Max": 50
           },
           "ExtrudeMaterial": {
             "Type": "Block",

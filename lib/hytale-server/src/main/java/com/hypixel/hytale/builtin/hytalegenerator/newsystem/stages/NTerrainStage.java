@@ -392,7 +392,6 @@ public class NTerrainStage implements NStage {
          for (int y = this.top; y >= this.bottom; y--) {
             position.y = y;
             positionAbove.y = y + 1;
-            positionBelow.y = y - 1;
             int i = y - this.bottom;
             float density = this.densityBuffer.get(position);
             boolean solidity = density > 0.0;
@@ -418,6 +417,8 @@ public class NTerrainStage implements NStage {
          }
 
          for (int yx = this.bottom; yx <= this.top; yx++) {
+            position.y = yx;
+            positionBelow.y = yx - 1;
             int i = yx - this.bottom;
             double density = this.densityBuffer.get(position);
             boolean solidity = density > 0.0;

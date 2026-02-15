@@ -67,6 +67,9 @@
     ],
     "Family": [
       "Dirt"
+    ],
+    "Spreadable": [
+      "Grass_Dry"
     ]
   },
   "ItemSoundSetId": "ISS_Blocks_Soft"

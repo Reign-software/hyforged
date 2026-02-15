@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 0,
   "anchorZ": 0,
@@ -3700,42 +3700,13 @@
       "x": -16,
       "y": 6,
       "z": -12,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 16,
-              "Y": 6,
-              "Z": 20
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "rotation": 1
+      "name": "Furniture_Ancient_Barrel"
     },
     {
       "x": -16,
       "y": 7,
       "z": -12,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 16,
-              "Y": 7,
-              "Z": 20
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -16,
@@ -3795,43 +3766,14 @@
       "x": -16,
       "y": 6,
       "z": -11,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 16,
-              "Y": 6,
-              "Z": 21
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 32,
-      "rotation": 1
+      "name": "Furniture_Ancient_Crate",
+      "rotation": 2
     },
     {
       "x": -16,
       "y": 7,
       "z": -11,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 16,
-              "Y": 7,
-              "Z": 21
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1056,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -16,
@@ -6379,11 +6321,6 @@
       "y": 7,
       "z": -7,
       "name": "Furniture_Crude_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1,
       "rotation": 1
     },
@@ -6519,11 +6456,6 @@
       "y": 7,
       "z": -5,
       "name": "Furniture_Crude_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1,
       "rotation": 1
     },
@@ -6659,11 +6591,6 @@
       "y": 7,
       "z": -3,
       "name": "Furniture_Crude_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1,
       "rotation": 1
     },
@@ -6799,11 +6726,6 @@
       "y": 7,
       "z": -1,
       "name": "Furniture_Crude_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1,
       "rotation": 1
     },
@@ -71083,13 +71005,14 @@
     {
       "Components": {
         "Nameplate": {
-          "Text": "Outlander_Peon"
+          "Text": "Outlander_Cultist"
         },
         "HiddenFromAdventurePlayer": {},
         "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander_Peon",
+          "SpawnMarker": "Outlander_Cultist",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -71099,32 +71022,35 @@
         },
         "Transform": {
           "Position": {
-            "X": -5.820325390625385,
-            "Y": 1.0008151123047355,
-            "Z": -29.11122630615239
+            "X": -13.16765312499956,
+            "Y": 6.0,
+            "Z": -10.747393334960975
           },
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": -54.73753356933594,
+            "Yaw": -54.965179443359375,
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "JbeGs312OwWtX1uFY0XGHQ==",
+            "$binary": "z3kxBz1HPN+Jvi6tZHQLiw==",
             "$type": "04"
           }
         },
         "HeadRotation": {
           "Rotation": {
             "Pitch": 0.0,
-            "Yaw": -54.73753356933594,
+            "Yaw": -54.965179443359375,
             "Roll": 0.0
           }
         }
@@ -71140,56 +71066,7 @@
           "SpawnMarker": "Outlander_Peon",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -5.543630468750507,
-            "Y": 1.0,
-            "Z": -25.089637890625
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -55.302974700927734,
-            "Roll": 0.0
-          }
-        },
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "/IGnRhG7OuiRehDtLnJvuw==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -55.302974700927734,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Outlander_Peon"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander_Peon",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -71209,15 +71086,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "m8L92nG+MrWMstk3AmXJog==",
+            "$binary": "ZUYIvRZoM52gN7VCTyBP6g==",
             "$type": "04"
           }
         },
@@ -71240,6 +71120,7 @@
           "SpawnMarker": "Outlander_Cultist",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -71251,7 +71132,7 @@
           "Position": {
             "X": -6.427002343749791,
             "Y": 1.0,
-            "Z": -26.881290148925757
+            "Z": -26.8812901489257
           },
           "Rotation": {
             "Pitch": 0.0,
@@ -71259,15 +71140,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "rikpq+xtNlCL26qXjVCGOQ==",
+            "$binary": "I6K5CLYmP3yzwMwbTtxJMw==",
             "$type": "04"
           }
         },
@@ -71275,56 +71159,6 @@
           "Rotation": {
             "Pitch": 0.0,
             "Yaw": -54.970890045166016,
-            "Roll": 0.0
-          }
-        }
-      }
-    },
-    {
-      "Components": {
-        "Nameplate": {
-          "Text": "Outlander_Cultist"
-        },
-        "HiddenFromAdventurePlayer": {},
-        "SpawnMarkerComponent": {
-          "SpawnMarker": "Outlander_Cultist",
-          "RespawnTime": 0.0,
-          "SpawnCount": 0,
-          "PersistedFlock": {},
-          "SpawnPosition": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
-          }
-        },
-        "Transform": {
-          "Position": {
-            "X": -13.16765312499956,
-            "Y": 6.0,
-            "Z": -10.747393334960947
-          },
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -54.965179443359375,
-            "Roll": 0.0
-          }
-        },
-        "Model": {
-          "Model": {
-            "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
-          }
-        },
-        "UUID": {
-          "UUID": {
-            "$binary": "veJ3A5MBNdiLEsuEPPlaLw==",
-            "$type": "04"
-          }
-        },
-        "HeadRotation": {
-          "Rotation": {
-            "Pitch": 0.0,
-            "Yaw": -54.965179443359375,
             "Roll": 0.0
           }
         }
@@ -71340,6 +71174,115 @@
           "SpawnMarker": "Outlander_Peon",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -5.820325390625385,
+            "Y": 1.0008151123047355,
+            "Z": -29.11122630615239
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -54.73753356933594,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "Hy0Nqj8fMm6WMu+0Mb5d5g==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -54.73753356933594,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Outlander_Peon"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Outlander_Peon",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
+          "PersistedFlock": {},
+          "SpawnPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+          }
+        },
+        "Transform": {
+          "Position": {
+            "X": -5.543630468750507,
+            "Y": 1.0,
+            "Z": -25.089637890625
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -55.302974700927734,
+            "Roll": 0.0
+          }
+        },
+        "Intangible": {},
+        "PrefabCopyable": {},
+        "Model": {
+          "Model": {
+            "Id": "NPC_Spawn_Marker",
+            "Scale": 1.0,
+            "Static": false
+          }
+        },
+        "UUID": {
+          "UUID": {
+            "$binary": "vKqL4YAXMjqfEfO6gyKXoQ==",
+            "$type": "04"
+          }
+        },
+        "HeadRotation": {
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": -55.302974700927734,
+            "Roll": 0.0
+          }
+        }
+      }
+    },
+    {
+      "Components": {
+        "Nameplate": {
+          "Text": "Outlander_Peon"
+        },
+        "HiddenFromAdventurePlayer": {},
+        "SpawnMarkerComponent": {
+          "SpawnMarker": "Outlander_Peon",
+          "RespawnTime": 0.0,
+          "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -71351,7 +71294,7 @@
           "Position": {
             "X": 7.414876171875221,
             "Y": 1.0,
-            "Z": -25.41440158691411
+            "Z": -25.414401586914096
           },
           "Rotation": {
             "Pitch": 0.0,
@@ -71359,15 +71302,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "jGOlA//zOM6A9HirR/O/Qw==",
+            "$binary": "cFPLq0KWNBePM1pltF3L2g==",
             "$type": "04"
           }
         },
@@ -71390,6 +71336,7 @@
           "SpawnMarker": "Outlander_Peon",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -71409,15 +71356,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "yHF92F/ZO0aC3l/UYgNgiw==",
+            "$binary": "FTF6B9v6M7aRN+Mba01FhA==",
             "$type": "04"
           }
         },
@@ -71440,6 +71390,7 @@
           "SpawnMarker": "Outlander_Berserker",
           "RespawnTime": 0.0,
           "SpawnCount": 0,
+          "NPCReferences": [],
           "PersistedFlock": {},
           "SpawnPosition": {
             "X": 0.0,
@@ -71451,7 +71402,7 @@
           "Position": {
             "X": 10.9015230468749,
             "Y": 1.0,
-            "Z": -7.822857360839819
+            "Z": -7.822857360839862
           },
           "Rotation": {
             "Pitch": 0.0,
@@ -71459,15 +71410,18 @@
             "Roll": 0.0
           }
         },
+        "Intangible": {},
+        "PrefabCopyable": {},
         "Model": {
           "Model": {
             "Id": "NPC_Spawn_Marker",
-            "Scale": 1.0
+            "Scale": 1.0,
+            "Static": false
           }
         },
         "UUID": {
           "UUID": {
-            "$binary": "l9ojHnKIPoKTGdr2byglFQ==",
+            "$binary": "JMEmAwqFOdaSOKgYAujx6g==",
             "$type": "04"
           }
         },

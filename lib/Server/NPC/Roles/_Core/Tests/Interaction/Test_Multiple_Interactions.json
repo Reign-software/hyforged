@@ -231,17 +231,7 @@
           {
             "$Comment": "If this matches we won't check the next interaction either. Since this is normal TreeMode semantics, we don't need to invert anything.",
             "Sensor": {
-              "Type": "And",
-              "Sensors": [
-                {
-                  "Type": "HasInteracted"
-                },
-                {
-                  "Type": "Alarm",
-                  "Name": "Interaction_1",
-                  "State": "Unset"
-                }
-              ]
+              "Type": "HasInteracted"
             },
             "Actions": [
               {
@@ -305,17 +295,7 @@
           },
           {
             "Sensor": {
-              "Type": "And",
-              "Sensors": [
-                {
-                  "Type": "HasInteracted"
-                },
-                {
-                  "Type": "Alarm",
-                  "Name": "Interaction_2",
-                  "State": "Unset"
-                }
-              ]
+              "Type": "HasInteracted"
             },
             "Actions": [
               {
@@ -379,17 +359,7 @@
           },
           {
             "Sensor": {
-              "Type": "And",
-              "Sensors": [
-                {
-                  "Type": "HasInteracted"
-                },
-                {
-                  "Type": "Alarm",
-                  "Name": "Interaction_3",
-                  "State": "Unset"
-                }
-              ]
+              "Type": "HasInteracted"
             },
             "Actions": [
               {

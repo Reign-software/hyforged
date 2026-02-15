@@ -26,8 +26,8 @@ Group #EntityToolSelectedEntityPanel {
           FlexWeight: 1;
           Label { Text: %client.builderTools.panel.entityType; Style: $Label.@DefaultLabelStyle; }
         }
-        Label #EntityTypeLabel { 
-          Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End); 
+        Label #EntityTypeLabel {
+          Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End);
           Anchor: (Width: 280);
         }
       }
@@ -38,8 +38,8 @@ Group #EntityToolSelectedEntityPanel {
           FlexWeight: 1;
           Label { Text: %client.builderTools.panel.entityModel; Style: $Label.@DefaultLabelStyle; }
         }
-        Label #EntityModelLabel { 
-          Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End); 
+        Label #EntityModelLabel {
+          Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End);
           Anchor: (Width: 280);
         }
       }
@@ -50,8 +50,8 @@ Group #EntityToolSelectedEntityPanel {
           FlexWeight: 1;
           Label { Text: %client.builderTools.panel.entityName; Style: $Label.@DefaultLabelStyle; }
         }
-        Label #EntityNameLabel { 
-          Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End); 
+        Label #EntityNameLabel {
+          Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End);
           Anchor: (Width: 280);
         }
       }
@@ -62,8 +62,8 @@ Group #EntityToolSelectedEntityPanel {
           FlexWeight: 1;
           Label { Text: %client.builderTools.panel.entityPosition; Style: $Label.@DefaultLabelStyle; }
         }
-        Label #PositionLabel { 
-          Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End); 
+        Label #PositionLabel {
+          Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End);
           Anchor: (Width: 280);
         }
       }
@@ -74,8 +74,8 @@ Group #EntityToolSelectedEntityPanel {
           FlexWeight: 1;
           Label { Text: %client.builderTools.panel.entityRotation; Style: $Label.@DefaultLabelStyle; }
         }
-        Label #RotationLabel { 
-          Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End); 
+        Label #RotationLabel {
+          Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End);
           Anchor: (Width: 140);
         }
       }
@@ -86,8 +86,8 @@ Group #EntityToolSelectedEntityPanel {
           FlexWeight: 1;
           Label { Text: %client.builderTools.panel.entityScale; Style: $Label.@DefaultLabelStyle; }
         }
-        Label #ScaleLabel { 
-          Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End); 
+        Label #ScaleLabel {
+          Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End);
           Anchor: (Width: 280);
         }
       }
@@ -146,8 +146,8 @@ Group #EntityToolSelectedEntityPanel {
             FlexWeight: 1;
             Label { Text: %client.builderTools.panel.npcState; Style: $Label.@DefaultLabelStyle; }
           }
-          Label #NPCStateLabel { 
-            Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End); 
+          Label #NPCStateLabel {
+            Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End);
             Anchor: (Width: 200);
           }
         }
@@ -158,8 +158,8 @@ Group #EntityToolSelectedEntityPanel {
             FlexWeight: 1;
             Label { Text: %client.builderTools.panel.npcHealth; Style: $Label.@DefaultLabelStyle; }
           }
-          Label #NPCHealthLabel { 
-            Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End); 
+          Label #NPCHealthLabel {
+            Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End);
             Anchor: (Width: 200);
           }
         }
@@ -170,8 +170,8 @@ Group #EntityToolSelectedEntityPanel {
             FlexWeight: 1;
             Label { Text: %client.builderTools.panel.npcStamina; Style: $Label.@DefaultLabelStyle; }
           }
-          Label #NPCStaminaLabel { 
-            Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End); 
+          Label #NPCStaminaLabel {
+            Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End);
             Anchor: (Width: 200);
           }
         }
@@ -182,8 +182,8 @@ Group #EntityToolSelectedEntityPanel {
             FlexWeight: 1;
             Label { Text: %client.builderTools.panel.npcSpeed; Style: $Label.@DefaultLabelStyle; }
           }
-          Label #NPCSpeedLabel { 
-            Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End); 
+          Label #NPCSpeedLabel {
+            Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End);
             Anchor: (Width: 200);
           }
         }
@@ -194,8 +194,8 @@ Group #EntityToolSelectedEntityPanel {
             FlexWeight: 1;
             Label { Text: %client.builderTools.panel.npcTarget; Style: $Label.@DefaultLabelStyle; }
           }
-          Label #NPCTargetLabel { 
-            Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End); 
+          Label #NPCTargetLabel {
+            Style: (...$Label.@DefaultLabelStyle, HorizontalAlignment: End);
             Anchor: (Width: 200);
           }
         }
@@ -245,7 +245,7 @@ Group #EntityToolSelectedEntityPanel {
             Min: 1;
             Max: 15;
             Step: 1;
-            Value: 15;
+            Value: 1;
           }
         }
       }

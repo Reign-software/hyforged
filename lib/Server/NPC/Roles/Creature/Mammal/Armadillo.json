@@ -10,11 +10,6 @@
     "DropList": "Drop_Armadillo",
     "MaxHealth": 103,
     "ViewRange": 10,
-    "ChanceToTurnFriendly": 10,
-    "WeightGreet": 10,
-    "WeightFollowItem": 30,
-    "WeightFollow": 10,
-    "WeightIgnore": 50,
     "IsMemory": true,
     "MemoriesCategory": "Livestock",
     "NameTranslationKey": {

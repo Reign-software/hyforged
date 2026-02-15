@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 61,
   "anchorZ": 21,
@@ -1037,11 +1037,6 @@
       "y": 62,
       "z": 25,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 991,
       "rotation": 2
     },
@@ -1050,11 +1045,6 @@
       "y": 63,
       "z": 25,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 2015,
       "rotation": 2
     },
@@ -1111,11 +1101,6 @@
       "y": 62,
       "z": 26,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1023,
       "rotation": 2
     },
@@ -1124,11 +1109,6 @@
       "y": 63,
       "z": 26,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 2047,
       "rotation": 2
     },
@@ -1697,11 +1677,6 @@
       "y": 62,
       "z": 25,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 960,
       "rotation": 2
     },
@@ -1710,11 +1685,6 @@
       "y": 63,
       "z": 25,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1984,
       "rotation": 2
     },
@@ -1771,11 +1741,6 @@
       "y": 62,
       "z": 26,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 992,
       "rotation": 2
     },
@@ -1784,11 +1749,6 @@
       "y": 63,
       "z": 26,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 2016,
       "rotation": 2
     },
@@ -7397,9 +7357,7 @@
       "x": 3,
       "y": 62,
       "z": 19,
-      "name": "Bench_Lumbermill",
-      "filler": 992,
-      "rotation": 3
+      "name": "Empty"
     },
     {
       "x": 3,
@@ -7454,8 +7412,7 @@
       "x": 3,
       "y": 62,
       "z": 20,
-      "name": "Bench_Lumbermill",
-      "rotation": 3
+      "name": "Empty"
     },
     {
       "x": 3,
@@ -7677,23 +7634,6 @@
       "y": 62,
       "z": 24,
       "name": "Bench_Furnace",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 3,
-              "Y": 62,
-              "Z": 24
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": false,
-            "NextExtra": -1
-          }
-        }
-      },
       "filler": 992,
       "rotation": 3
     },
@@ -7702,23 +7642,6 @@
       "y": 63,
       "z": 24,
       "name": "Bench_Furnace",
-      "components": {
-        "Components": {
-          "processingBench": {
-            "Position": {
-              "X": 3,
-              "Y": 63,
-              "Z": 24
-            },
-            "TierLevel": 1,
-            "UpgradeItems": [],
-            "Progress": 0.0,
-            "FuelTime": 0.0,
-            "Active": false,
-            "NextExtra": -1
-          }
-        }
-      },
       "filler": 2016,
       "rotation": 3
     },
@@ -7778,11 +7701,6 @@
       "components": {
         "Components": {
           "processingBench": {
-            "Position": {
-              "X": 3,
-              "Y": 1,
-              "Z": 4
-            },
             "TierLevel": 1,
             "UpgradeItems": [],
             "InputContainer": {
@@ -7792,7 +7710,7 @@
             },
             "FuelContainer": {
               "Id": "Simple",
-              "Capacity": 2,
+              "Capacity": 1,
               "Items": {}
             },
             "OutputContainer": {
@@ -7817,17 +7735,27 @@
       "components": {
         "Components": {
           "processingBench": {
-            "Position": {
-              "X": 3,
-              "Y": 63,
-              "Z": 25
-            },
             "TierLevel": 1,
             "UpgradeItems": [],
+            "InputContainer": {
+              "Id": "Simple",
+              "Capacity": 2,
+              "Items": {}
+            },
+            "FuelContainer": {
+              "Id": "Simple",
+              "Capacity": 1,
+              "Items": {}
+            },
+            "OutputContainer": {
+              "Id": "Simple",
+              "Capacity": 4,
+              "Items": {}
+            },
             "Progress": 0.0,
             "FuelTime": 0.0,
             "Active": false,
-            "NextExtra": -1
+            "NextExtra": 2
           }
         }
       },
@@ -7886,43 +7814,7 @@
       "x": 3,
       "y": 62,
       "z": 26,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 3,
-              "Y": 62,
-              "Z": 26
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 992,
-      "rotation": 3
-    },
-    {
-      "x": 3,
-      "y": 63,
-      "z": 26,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 3,
-              "Y": 63,
-              "Z": 26
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 2016,
-      "rotation": 3
+      "name": "Furniture_Village_Crate"
     },
     {
       "x": 3,
@@ -7965,42 +7857,13 @@
       "x": 3,
       "y": 62,
       "z": 27,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 3,
-              "Y": 1,
-              "Z": 6
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "rotation": 3
+      "name": "Furniture_Village_Crate"
     },
     {
       "x": 3,
       "y": 63,
       "z": 27,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 3,
-              "Y": 63,
-              "Z": 27
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024,
-      "rotation": 3
+      "name": "Furniture_Village_Crate"
     },
     {
       "x": 3,

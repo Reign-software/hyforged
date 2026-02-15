@@ -3,27 +3,28 @@
   "Reference": "Template_Animal_Neutral",
   "Modify": {
     "Appearance": "Bison_Calf",
-    "AttitudeGroup": "Prey",
+    "AttitudeGroup": "PreyBig",
     "FlockArray": [
       "Bison",
       "Bison_Calf"
     ],
+    "AttractiveItemSet": [
+      "Plant_Crop_Cauliflower_Item"
+    ],
+    "AttractiveItemSetParticles": "Want_Food_Cauliflower",
     "DropList": "Drop_Bison_Calf",
     "MaxHealth": 94,
     "ViewRange": 15,
-    "GreetAnimation": "Moo",
-    "ChanceToTurnFriendly": 30,
-    "ChanceToTurnFriendlyWithAttractiveItem": 50,
-    "WeightGreet": 20,
-    "WeightFollowItem": 10,
-    "WeightFollow": 10,
-    "WeightIgnore": 50,
-    "ProduceItem": "Ingredient_Poop",
-    "IsHarvestable": false,
+    "ViewSector": 320,
+    "HearingRange": 10,
+    "AlertedRange": 18,
+    "AlertedActionRange": 8,
+    "AbsoluteDetectionRange": 2,
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Bison_Calf",
     "IsMemory": true,
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
-    }
+    "MemoriesNameOverride": "Bison_Calf",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" }
   },
   "Parameters": {
     "NameTranslationKey": {

@@ -362,7 +362,7 @@
     "Curious": {
       "Animations": [
         {
-          "Animation": "NPC/Wildlife/Mosshorn/Animations/Default/Idle.blockyanim",
+          "Animation": "NPC/Livestock/Cow/Animations/Flavor/Curious.blockyanim",
           "Speed": 0.8
         }
       ]

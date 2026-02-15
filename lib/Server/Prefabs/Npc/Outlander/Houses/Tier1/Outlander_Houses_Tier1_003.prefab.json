@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": -1,
   "anchorY": 61,
   "anchorZ": 21,
@@ -2046,11 +2046,6 @@
       "y": 65,
       "z": 22,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 992,
       "rotation": 1
     },
@@ -2059,11 +2054,6 @@
       "y": 66,
       "z": 22,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 2016,
       "rotation": 1
     },
@@ -3037,11 +3027,6 @@
       "y": 65,
       "z": 22,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 993,
       "rotation": 1
     },
@@ -3050,11 +3035,6 @@
       "y": 66,
       "z": 22,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 2017,
       "rotation": 1
     },
@@ -3124,11 +3104,6 @@
       "y": 65,
       "z": 23,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1,
       "rotation": 1
     },
@@ -3137,11 +3112,6 @@
       "y": 66,
       "z": 23,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1025,
       "rotation": 1
     },
@@ -4079,11 +4049,6 @@
       "y": 65,
       "z": 22,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 994,
       "rotation": 1
     },
@@ -4092,11 +4057,6 @@
       "y": 66,
       "z": 22,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 2018,
       "rotation": 1
     },
@@ -4166,11 +4126,6 @@
       "y": 65,
       "z": 23,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 2,
       "rotation": 1
     },
@@ -4179,11 +4134,6 @@
       "y": 66,
       "z": 23,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1026,
       "rotation": 1
     },
@@ -8718,41 +8668,7 @@
       "x": 2,
       "y": 62,
       "z": 20,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 2,
-              "Y": 62,
-              "Z": 20
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 31
-    },
-    {
-      "x": 2,
-      "y": 63,
-      "z": 20,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 2,
-              "Y": 63,
-              "Z": 20
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1055
+      "name": "Furniture_Village_Crate"
     },
     {
       "x": 2,
@@ -9742,40 +9658,7 @@
       "x": 3,
       "y": 62,
       "z": 20,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 4,
-              "Y": 1,
-              "Z": -1
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      }
-    },
-    {
-      "x": 3,
-      "y": 63,
-      "z": 20,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 3,
-              "Y": 63,
-              "Z": 20
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024
+      "name": "Furniture_Village_Crate"
     },
     {
       "x": 3,

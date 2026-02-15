@@ -3,30 +3,29 @@
   "Reference": "Template_Animal_Neutral",
   "Modify": {
     "Appearance": "Camel_Calf",
-    "AttitudeGroup": "Prey",
+    "AttitudeGroup": "PreyBig",
     "FlockArray": [
       "Camel",
       "Camel_Calf"
     ],
-    "LovedItems": [
-      "Plant_Crop_Wheat_Item"
+    "AttractiveItemSet": [
+      "Plant_Crop_Tomato_Item"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Tomato",
     "DropList": "Drop_Camel_Calf",
     "MaxHealth": 94,
     "ViewRange": 15,
+    "ViewSector": 320,
+    "HearingRange": 9,
+    "AlertedRange": 17,
+    "AlertedActionRange": 8,
+    "AbsoluteDetectionRange": 2,
     "Attack": "Root_NPC_Attack_Melee",
-    "GreetAnimation": "Moo",
-    "ChanceToTurnFriendly": 30,
-    "ChanceToTurnFriendlyWithAttractiveItem": 60,
-    "WeightGreet": 10,
-    "WeightFollowItem": 30,
-    "WeightFollow": 40,
-    "WeightIgnore": 20,
-    "ProduceItem": "Ingredient_Poop",
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Camel_Calf",
     "IsMemory": true,
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
-    }
+    "MemoriesNameOverride": "Camel_Calf",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" }
   },
   "Parameters": {
     "NameTranslationKey": {

@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 1,
   "anchorY": 9,
   "anchorZ": -1,
@@ -10394,9 +10394,7 @@
       "x": 2,
       "y": 12,
       "z": -5,
-      "name": "Bench_Lumbermill",
-      "filler": 992,
-      "rotation": 3
+      "name": "Empty"
     },
     {
       "x": 2,
@@ -10469,8 +10467,7 @@
       "x": 2,
       "y": 12,
       "z": -4,
-      "name": "Bench_Lumbermill",
-      "rotation": 3
+      "name": "Empty"
     },
     {
       "x": 2,

@@ -1,4 +1,4 @@
-# === assetEditor ===
+﻿# === assetEditor ===
 
 assetEditor.messages.unknownItem = Unknown Item "{id}"
 assetEditor.messages.unknownModel = Unknown Model "{id}"
@@ -129,7 +129,7 @@ barter.customUI.barterPage.noStock = OUT OF STOCK
 barter.customUI.barterPage.inStock = Stock: {count}
 barter.customUI.barterPage.quantityStock = Have: {count}
 barter.customUI.barterPage.invalidItem = Invalid Item
-
+barter.customUI.barterPage.cost = Cost:
 # === benchCategories ===
 
 benchCategories.workbench.crafting = Crafting
@@ -912,6 +912,7 @@ commands.clear.success = Blocks cleared.
 commands.clearhistory.desc = Clear clipboard history
 commands.contract.desc = Make your selection smaller in all directions, or by the specified amount in a direction
 commands.contract.arg.distance.desc = The number of blocks you want to move your selection inwards
+commands.contract.arg.axis.desc = [TMP] The axis used to do the operation.
 commands.fill.desc = Fill all air within your selection with the specified block types
 commands.fill.args.replacement.desc = A list of block types to replace air with
 commands.fill.success = Successfully replaced air blocks within your selection with {key}
@@ -952,7 +953,7 @@ commands.extendface.yMax.desc = The maximum Y coordinate of the region
 commands.extendface.zMax.desc = The maximum Z coordinate of the region
 commands.flip.desc = Flip the blocks in your clipboard
 commands.fluid.desc = Fluid debug commands.
-commands.fluid.fluidArgType.desc = [TMP] An ID of a fluid asset
+commands.fluid.fluidArgType.desc = A fluid asset ID.
 commands.fluid.get.desc = Gets the fluid at the target position.
 commands.fluid.set.desc = Changes the fluid at the target position.
 commands.fluid.setradius.desc = Changes the fluid at the player position in a given radius.
@@ -1017,10 +1018,10 @@ commands.set.args.blocktype.desc = The blocktype to set your selection to
 commands.shift.desc = Shift selection
 commands.stack.desc = Stack selection
 commands.submerge.desc = Submerges the selection with a fluid. Use 'Empty' to unsubmerge the section.
-commands.layer.desc = [TMP] Applies layering to the selection
-commands.layer.direction.desc = [TMP] Direction to apply the layers
-commands.layer.layers.desc = [TMP] Layers to apply to the selection. NOTE: If the block patterns use percentages, separate each entry with a ';' instead of a ','
-commands.layer.directionInvalid = [TMP] The direction "{direction}" is not valid!
+commands.layer.desc = Applies layering to the selection.
+commands.layer.direction.desc = Direction to apply the layers.
+commands.layer.layers.desc = Layers to apply to the selection. NOTE: If the block patterns use percentages, separate each entry with a ';' instead of a ','.
+commands.layer.directionInvalid = The direction "{direction}" is not valid!
 commands.tint.desc = Tints the selection with the specified color
 commands.undo.desc = Undo last change
 commands.updateselection.desc = Update selection
@@ -1299,7 +1300,7 @@ commands.instances.createdInstanceAssetConfig = Created instance asset config fo
 commands.instances.beginLoading = Started loading for instance asset: {name}
 commands.instances.doneLoading = Finished loading instance asset at world: {world}
 commands.instances.fail.instanceAssetNotExist = An instance asset with the name '{name}' does not exist
-commands.instances.migrate.desc = [TMP] Upgrades all instance worlds to the latest data format.
+commands.instances.migrate.desc = Upgrades all instance worlds to the latest data format.
 commands.instances.migrate.complete = Migrated {worlds} instances. Chunks migrated {chunks}
 commands.instances.migrate.failed = Failed to migrate instances: {error}
 commands.instances.migrate.update = Migration in progress: {chunks}/{max}
@@ -1398,7 +1399,7 @@ commands.parsing.argtype.variantrotation.name = VariantRotation
 commands.parsing.argtype.integer.name = Integer
 commands.parsing.argtype.integer.usage = A whole number
 commands.parsing.argtype.integer.fail = Invalid integer value: '{input}'
-commands.parsing.argtype.enum.name = option
+commands.parsing.argtype.enum.name = Option
 commands.parsing.argtype.string.name = Text
 commands.parsing.argtype.string.usage = Words, text, numbers, letters
 commands.parsing.argtype.logLevel.name = Log Level
@@ -1412,18 +1413,18 @@ commands.parsing.argtype.double.fail = '{input}' is not a decimal number
 commands.parsing.argtype.uuid.name = UUID
 commands.parsing.argtype.uuid.usage = A UUID (Universally Unique Identifier)
 commands.parsing.argtype.uuid.fail = '{input}' is not a valid UUID
-commands.parsing.argtype.player.name = player
-commands.parsing.argtype.player.usage = <player>
+commands.parsing.argtype.player.name = Player
+commands.parsing.argtype.player.usage = The name of the player.
 commands.parsing.argtype.playerUuid.name = Player UUID
 commands.parsing.argtype.playerUuid.usage = A UUID or an online player's username
 commands.parsing.argtype.playerUuid.fail = '{input}' is not a valid UUID or online player username
-commands.parsing.argtype.relativeFloat.name = number
-commands.parsing.argtype.relativeFloat.usage = <number or ~relative>
+commands.parsing.argtype.relativeFloat.name = Relative Float
+commands.parsing.argtype.relativeFloat.usage = A floating-point number. Prefix with a tilde (~) to define as relative.
 commands.parsing.argtype.doubleCoordinate.name = Relative Decimal Coordinate
-commands.parsing.argtype.doubleCoordinate.usage = An x, y, or z coordinate as a decimal, optionally relative by specifying a tilde (~) in front of the number
+commands.parsing.argtype.doubleCoordinate.usage = An x, y, or z coordinate as a decimal. Prefix with a tilde (~) to define as relative.
 commands.parsing.argtype.doubleCoordinate.fail = Invalid coordinate value: '{input}'
 commands.parsing.argtype.integerCoordinate.name = Relative Integer Coordinate
-commands.parsing.argtype.integerCoordinate.usage = An x, y, or z coordinate as a whole number, optionally relative by specifying a tilde (~) in front of the number
+commands.parsing.argtype.integerCoordinate.usage = An x, y, or z coordinate as a whole number. Prefix with a tilde (~) to define as relative.
 commands.parsing.argtype.integerCoordinate.fail = Invalid integer coordinate: '{input}'
 commands.parsing.argtype.world.name = World
 commands.parsing.argtype.world.usage = A world folder name
@@ -1529,10 +1530,10 @@ commands.gamemode.alreadyInMode.self = You are already in this game mode
 commands.gamemode.gamemode.desc = The game mode to set (adventure, creative, or their abbreviations: a, c)
 commands.gamemode.success.other = {username}'s game mode has been set to {mode}
 commands.gamemode.success.self = Your game mode has been set to {mode}
-creativehub.portal.returnHint = Type the '/hub' command to get back to the Cosmos of Creativity
-commands.hub.desc = Return to the Cosmos of Creativity hub
-commands.hub.notInHubWorld = You are not in a Creative Hub world!
-commands.hub.alreadyInHub = You are already in the hub!
+creativehub.portal.returnHint = Use the button in the map to return to the Crossroads or use the /crossroads command
+commands.hub.desc = Return to the Cosmos of Creativity Crossroads
+commands.hub.notInHubWorld = You are not in a Crossroads-enabled world!
+commands.hub.alreadyInHub = You are already in the Crossroads!
 commands.hide.desc = Hide and show players from/to other players
 commands.hide.player.desc = Hide a player from a target player or all players
 commands.hide.showPlayer.desc = Show a player to a target player or all players
@@ -1601,7 +1602,7 @@ commands.whereami.header = You are currently:\n\
   Look: {yaw, number}, {pitch, number}, {roll, number}\n\
   Direction: {direction}\n\
   Axis Direction: {axisDirection}\n\
-  Axis: {axis}\n
+  Axis: {axis}
 commands.whereami.header.other = {username} is currently:\n\
   World: {world}\n\
   Chunk: {chunkX, number}, {chunkY, number}, {chunkZ, number}\n\
@@ -1609,13 +1610,13 @@ commands.whereami.header.other = {username} is currently:\n\
   Look: {yaw, number}, {pitch, number}, {roll, number}\n\
   Direction: {direction}\n\
   Axis Direction: {axisDirection}\n\
-  Axis: {axis}\n
+  Axis: {axis}
 commands.whereami.needsSaving = Needs Saving: {needsSaving}
 commands.whereami.chunkNotLoaded = Chunk is not loaded!
 commands.whoami.header = Your player info:\n\
   UUID: {uuid}\n\
   Username: {username}\n\
-  Language: {language}\n
+  Language: {language}
 commands.clearinv.success = Inventory cleared.
 commands.give.insufficientInvSpace = Unable to give {quantity, number} of {item}; insufficient inventory space.
 commands.give.gave = You gave {targetUsername} {quantity, number} of {item}
@@ -1648,7 +1649,8 @@ commands.assets.tags.tagNotFound = No asset found with tag: {tag}
 commands.assets.tags.assetsOfTypeWithTag = Assets of type {type} with tag {tag}:
 commands.assets.tags.assetKeys = Keys
 commands.assets.tags.assetIndexes = Indexes
-commands.assets.longest.desc = [TMP] Returns the length of the longest asset name of each asset type.
+commands.assets.longest.desc = Returns the length of the longest asset name of each asset type.
+commands.assets.longest.result = Longest asset name for {type}: {assetName} ({length} {length, plural, one {character} other {characters}})
 commands.packs.desc = Commands related to asset packs
 commands.packs.list.desc = List all loaded asset packs
 commands.packs.notInitialized = AssetModule is not initialized.
@@ -1931,6 +1933,8 @@ commands.time.period.day.desc = Set the world time to day
 commands.time.period.night.desc = Set the world time to night
 commands.time.period.midday.desc = Set the world time to midday
 commands.time.period.midnight.desc = Set the world time to midnight
+commands.time.period.dawn.desc = [TMP] Sets the world time to dawn.
+commands.time.period.dusk.desc = [TMP] Sets the world time to dusk.
 commands.time.set.timeArg.desc = The hour of the day (between 0 and 24) to set the time to
 commands.worldthread.arg.desc = The world to operate this command on
 commands.world.settings.desc = Commands for managing world settings
@@ -1945,6 +1949,11 @@ commands.world.settings.box2d.minX.desc = Minimum X coordinate
 commands.world.settings.box2d.minZ.desc = Minimum Z coordinate
 commands.world.settings.box2d.maxX.desc = Maximum X coordinate
 commands.world.settings.box2d.maxZ.desc = Maximum Z coordinate
+commands.world.rocksdb = Commands that work on rocksdb chunk storage
+commands.world.rocksdb.compact = Compacts the RocksDB database to save space
+commands.world.rocksdb.compact.start = Starting compaction of RocksDB chunk storage...
+commands.world.rocksdb.compact.end = RocksDB chunk storage compaction completed.
+commands.world.rocksdb.compact.wrong = This world does not use RocksDB for chunk storage.
 commands.emote.emoteNotFound = Failed to find emote: {id}
 commands.hitbox.extentsThresholdNeeded = Using the extents threshold of {threshold} the total number of filler blocks needed is: {nb}
 commands.hitbox.notFound = No hitbox with name '{name}'
@@ -2003,7 +2012,10 @@ commands.nearDeath.desc = Sets your health to 1.
 commands.noon.desc = Sets the time to noon and pauses.
 commands.resetRotation.desc = Resets camera rotation to default (pitch=0, yaw=0, roll=0).
 commands.unstuck.desc = Teleports to the top of the world at your current position.
-
+commands.setTimeAndGoHome.desc = Sets the time of day and teleports the user.
+commands.setTimeAndGoHome.timeOfDay.desc = The time of day to set the world to.
+commands.setTimeAndGoHome.world.desc = The world to tp to.
+commands.setTimeAndGoHome.world.default.desc = The default world
 # Auto-apply messages
 update.notify_players = Server update {version} is available. An admin can run '/update download' to stage it.
 update.auto_apply_warning = Update {version} will be automatically applied in {minutes, plural, one {1 minute} other {{minutes} minutes}}. Please save your progress.
@@ -2028,6 +2040,7 @@ commands.play.enabled.desc = Whether to enable or disable the access type
 commands.play.lan.desc = Toggle LAN play access
 commands.play.friend.desc = Toggle friend play access
 commands.play.online.desc = Toggle online play access
+commands.play.offlineMode = This command is unavailable when offline. If you wish to use this command, restart in online mode.
 commands.play.singleplayerOnlyPrivate = Private Play can only be enabled/disabled in singleplayer!
 commands.play.singleplayerOnlyLan = LAN Play can only be enabled/disabled in singleplayer!
 commands.play.singleplayerOnlyFriend = Friend Play can only be enabled/disabled in singleplayer!
@@ -2149,6 +2162,7 @@ commands.eventtitle.secondary.defaultDesc = Event
 commands.eventtitle.title.desc = The primary title text
 commands.eventtitle.titleRequired = A title must be provided
 commands.help.desc = Display command help
+commands.uigallery.desc = Open the UI Gallery showcasing all UI elements and styles
 commands.notify.desc = Send a notification to all players across all worlds
 commands.say.desc = Announce a message to the whole server
 commands.stash.setDroplist.desc = Set a droplist for the Chest you're looking at
@@ -2368,13 +2382,13 @@ commands.chunkinfo.chunk = Chunk {chunkX}, {chunkZ}:\n\
   \tNeeds Saving: {saving}\n\
   \tMetadata:\n\
   \tBlockChunk:\n\
-    \t\tNeeds Saving: {savingChunk}\n
+    \t\tNeeds Saving: {savingChunk}
 commands.chunkinfo.section = \t\tSection {index}:\n
 commands.chunkinfo.dataType = \t\t\tData Type: {data}\n
 commands.chunkinfo.sectionInfo = \t\t\tHas Ticking: {ticking}\n\
       \t\t\tIs Solid Air: {solidAir}\n\
       \t\t\tBlock Count: {count}\n\
-      \t\t\tBlock Counts: {counts}\n
+      \t\t\tBlock Counts: {counts}
 commands.chunkinfo.blockStateChunk = \tBlock State Chunk:\n\
     \t\tNeeds Saving: {saving}\n\
     \t\tBlock States: {countStates}\n\
@@ -2383,7 +2397,7 @@ commands.chunkinfo.blockStateChunk = \tBlock State Chunk:\n\
     \t\tTickable Block States: {countTickable}\n\
   \tEntity Chunk:\n\
     \t\tNeeds Saving: {savingEntity}\n\
-    \t\tEntities: {countEntities}\n
+    \t\tEntities: {countEntities}
 commands.time.dilation.desc = Change the time dilation scaling of the server, also modifies any online clients with the updated value
 commands.time.dilation.timeDilation.desc = The time dilation value (must be >0.01 and <=4)
 commands.time.dilation.set.success = Time dilation set: {timeDilation, number}
@@ -2527,6 +2541,7 @@ commands.block.find-here.desc = Find a block around where you are
 commands.block.find-here.print.desc = Print block name in output
 commands.block.find-here.block.desc = Block type to search for
 commands.block.find-here.radius.desc = Search radius in chunks
+commands.block.find-here.result = Found {count}{blockName} {count, plural, one {block} other {blocks}} in {time} {time, plural, one {second} other {seconds}}!
 commands.block.select.desc = Setup the builder tools clipboard with selected blocks for easy testing!
 commands.block.select.regex.desc = A regex pattern to filter blocks by name
 commands.block.select.all.desc = Include all block types (including state blocks)
@@ -2540,10 +2555,11 @@ commands.block.select.select = Selected {count} blocks!
 commands.block.select.done = Done setting up clipboard with blocks! You can now paste it with the paste tool.
 commands.block.select.noSelectionProvider = No block selection plugin is present!
 commands.block.bulk.desc = Block commands which perhaps impact a lot of blocks
-commands.block.bulk.replace.desc = [TMP] Replaces blocks around the player in bulk
+commands.block.bulk.replace.desc = Replaces blocks around the player in bulk.
 commands.block.bulk.replace.find.desc = Block type to find
 commands.block.bulk.replace.replaceWith.desc = Block type to replace with
 commands.block.bulk.replace.radius.desc = Search radius in chunks
+commands.block.bulk.replace.result = Found and replaced {count} {count, plural, one {block} other {blocks}} in {time} {time, plural, one {second} other {seconds}}!
 commands.block.row.desc = Spawn base blocks matching a wildcard in a line from your feet in the direction you're facing
 commands.block.row.arg.desc = A wildcard block query, like "Furniture_*_Table"
 commands.block.row.nonefound = Couldn't match any block type for wildcard "{query}"
@@ -2563,7 +2579,7 @@ commands.block.inspectrotation.noblocks = No rotated blocks found in this chunk
 commands.block.setticking.desc = Enable ticking for a block at the specified position
 commands.block.setticking.success = Block at ({x, number}, {y, number}, {z, number}) is now ticking
 commands.block.setstate.desc = Sets the state of a block
-commands.block.setstate.arg.state = [TMP] The state to set for the block
+commands.block.setstate.arg.state = The state to set for the block.
 commands.entityStats.success = EntityStat "{name}" set to {value}!
 commands.entityStats.entityStatNotFound = EntityStat "{name}" not found!
 commands.entityStats.valueReset = "{name}" reset: {value, number}
@@ -2617,7 +2633,7 @@ commands.prefabspawner.set.inheritHeightCheck.desc = Whether to inherit height c
 commands.prefabspawner.set.defaultWeight.desc = The default weight for prefabs
 commands.prefabspawner.weight.prefab.desc = The prefab path
 commands.prefabspawner.weight.weight.desc = The weight (negative to remove)
-commands.hitboxcollision.desc = Command to add/remove a HitboxCollision component to an entity/yourself
+commands.hitboxcollision.desc = Commands to add/remove a HitboxCollision component to an entity/yourself
 commands.hitboxcollision.add.desc = Command to add a HitboxCollision component to an entity/yourself
 commands.hitboxcollision.add.entity.desc = Command to add a HitboxCollision component to an entity
 commands.hitboxcollision.add.entityArg.desc = The entity to add the component to
@@ -2630,7 +2646,7 @@ commands.hitboxcollision.remove.self.desc = Command to remove a HitboxCollision 
 commands.hitboxcollision.add.success = HitboxCollision component added!
 commands.hitboxcollision.add.alreadyAdded = HitboxCollision component already added!
 commands.hitboxcollision.remove.success = HitboxCollision component removed!
-commands.repulsion.desc = Command to add/remove a Repulsion component to an entity/yourself
+commands.repulsion.desc = Commands to add/remove a Repulsion component to an entity/yourself
 commands.repulsion.add.desc = Command to add a Repulsion component to an entity/yourself
 commands.repulsion.add.repulsionConfig.desc = The repulsion config to use
 commands.repulsion.add.entity.desc = Command to add a Repulsion component to an entity
@@ -2660,6 +2676,20 @@ commands.network.serverknockback.desc = Toggle server-side knockback prediction
 commands.network.debugknockback.desc = Toggle knockback position debugging
 commands.network.knockbackServerPredictionEnabled = Server knockback: {enabled}
 commands.network.knockbackDebugEnabled = Knockback debug: {enabled}
+commands.network.streamPriority.desc = Commands for QUIC stream priority settings
+commands.network.streamPriority.channel = Network channel
+commands.network.streamPriority.set.desc = Set the stream priority for a specific channel
+commands.network.streamPriority.set.channel.desc = The network channel (Default, Chunks, WorldMap)
+commands.network.streamPriority.set.priority.desc = The urgency value (0-255, lower is higher priority)
+commands.network.streamPriority.set.notQuic = Channel '{channel}' is not a QUIC stream
+commands.network.streamPriority.set.invalidPriority = Priority must be between 0 and 255
+commands.network.streamPriority.set.success = Set {channel} stream priority to {priority} (incremental)
+commands.network.streamPriority.preset.desc = Apply a named priority preset
+commands.network.streamPriority.preset.name.desc = The preset name
+commands.network.streamPriority.preset.unknown = Unknown preset '{name}'. Valid presets: {presets}
+commands.network.streamPriority.preset.success = Applied preset '{name}' ({priorities})
+commands.network.streamPriority.reset.desc = Reset stream priorities to defaults
+commands.network.streamPriority.reset.success = Reset all stream priorities to defaults ({priorities})
 commands.networkChunkSending.noComponent = Player missing ChunkTracker component
 commands.networkChunkSending.set = Set chunk network sending for {username}: {enabled}
 commands.networkChunkSending.sendNetworkChunks.desc = Whether chunks should be sent over the network to yourself.
@@ -2777,16 +2807,14 @@ commands.npc.blackboard.chunk.notLoaded = Chunk not loaded
 commands.npc.blackboard.chunk.noEntry = No entry exists
 commands.npc.blackboard.chunk.entries = ]\n Entries:\n
 commands.npc.blackboard.chunk.blockSet = BlockSet: {id}\n  Blocks:
-commands.npc.blackboard.views.title = Blackboard views:
+commands.npc.blackboard.views.title = Blackboard views:\n
 commands.npc.blackboard.views.partialViews = Total partial views: {count}\nViews:\n
 commands.npc.blackboard.views.view = View ({x}, {z}) Entities: {size}, BlockSets: {cardinal}
-commands.npc.blackboard.chunks.chunkInfo = Blackboard chunk info:\n\
-  \tTotal sections: {nb}\n\
-  \tChunk sections:\n
+commands.npc.blackboard.chunks.chunkInfo = Blackboard chunk info:\n\tTotal sections: {nb}\n\tChunk sections:\n
 commands.npc.blackboard.chunks.detailed_entry = \t{x}, {y}, {z} ({count} entries, {blockSets} BlockSets)\n
 commands.npc.blackboard.chunk.entry = Blackboard chunk entry {index} ({chunkX}, {chunkY}, {chunkZ}):\n\
   Partial blackboard grid coordinates: {regionChunkX}, {regionChunkZ}
-commands.npc.blackboard.view.title = View ({x}, {z})
+commands.npc.blackboard.view.title = View ({x}, {z})\n
 commands.npc.blackboard.view.coordinates = Spans world coordinates: ({x1}, {z1}) to ({x2}, {z2})
 commands.npc.blackboard.view.noPartialViews = No partial view exists
 commands.npc.blackboard.view.entities = ]\n Entities ({count}):\n
@@ -2822,8 +2850,8 @@ commands.npc.debug.presets.preset.desc = Name of preset to show flags for
 commands.npc.debug.currentFlags = Role {role} - Current debug flags: {flags}
 commands.npc.debug.debugFlagsSet = Role {role} - Debug flags set to: {flags}
 commands.npc.debug.presets.info = NPC debug flags:\n{flags}\n\n\
-  NPC debug presets:\n{presets}\n\n
-commands.npc.debug.preset.info = NPC debug flags for preset {preset}:\n{flags}\n\n
+  NPC debug presets:\n{presets}
+commands.npc.debug.preset.info = NPC debug flags for preset {preset}:\n{flags}
 commands.npc.dump.desc = Dump all component info about an NPC
 commands.npc.dump.json = Dump in json format
 commands.npc.flock.desc = Add or remove NPCs from a flock
@@ -3053,6 +3081,10 @@ commands.auth.status.format = === Server Authentication Status ===\n\
     Identity Token: {identityToken}\n\
     Expiry: {expiry}\n\
     Certificate: {certificate}
+commands.auth.status.remaining = {hours}:{minutes}:{seconds} remaining
+commands.auth.status.expired = EXPIRED
+commands.auth.status.certificate.unknown = Unknown
+commands.auth.status.certificate.notLoaded = Not loaded
 commands.auth.status.connectionMode.authenticated = Authenticated (mTLS + JWT)
 commands.auth.status.connectionMode.offline = Offline
 commands.auth.status.connectionMode.insecure = Insecure (dev)
@@ -3144,6 +3176,151 @@ customUI.commandListPage.paramTypeFlag = Type: Flag (boolean)
 customUI.commandListPage.noDescription = No description
 customUI.commandListPage.examples = Examples: '{examples}'
 customUI.commandListPage.sendToChat = Send to Chat
+customUI.commandListPage.aliases = Aliases:
+customUI.commandListPage.permission = Permission:
+customUI.commandListPage.required = [Required]
+customUI.commandListPage.optional = [Optional]
+customUI.commandListPage.flag = [Flag]
+customUI.commandListPage.default = [Default]
+customUI.uiGallery.title = UI Gallery
+customUI.uiGallery.category.buttons = Buttons
+customUI.uiGallery.category.buttons.desc = Button elements with various styles including primary, secondary, tertiary, and destructive variants.
+customUI.uiGallery.category.inputs = Input Fields
+customUI.uiGallery.category.inputs.desc = Text input elements including TextField, NumberField, and CompactTextField for search functionality.
+customUI.uiGallery.category.selection = Selection
+customUI.uiGallery.category.selection.desc = Selection elements including CheckBox, DropdownBox, and ColorPicker for user choices.
+customUI.uiGallery.category.containers = Containers
+customUI.uiGallery.category.containers.desc = Layout containers and panels including Panel, Container, DecoratedContainer, and separator elements.
+customUI.uiGallery.category.text = Text & Labels
+customUI.uiGallery.category.text.desc = Typography elements showcasing title styles, label styles, font sizes, and text colors.
+customUI.uiGallery.category.sliders = Sliders
+customUI.uiGallery.category.sliders.desc = Slider elements for value selection including integer sliders, float sliders, and combined slider-number fields.
+customUI.uiGallery.category.progress = Progress & Loading
+customUI.uiGallery.category.progress.desc = Progress indicators including ProgressBar, CircularProgressBar, and animated Spinner for loading states.
+customUI.uiGallery.category.scrollbars = Scrollbars
+customUI.uiGallery.category.scrollbars.desc = Scrollbar styles including default, extra spacing, and translucent variants for scrolling containers.
+customUI.uiGallery.category.navigation = Navigation
+customUI.uiGallery.category.navigation.desc = Tab navigation elements including top tabs for container switching and header tabs for inline navigation.
+customUI.uiGallery.category.tooltips = Tooltips
+customUI.uiGallery.category.tooltips.desc = Tooltip styling for providing contextual help and additional information on hover.
+customUI.uiGallery.showCode = Show Code
+customUI.uiGallery.searchPlaceholder = Search...
+customUI.uiGallery.buttons.section.primary = Primary Buttons
+customUI.uiGallery.buttons.section.secondary = Secondary Buttons
+customUI.uiGallery.buttons.section.tertiary = Tertiary Buttons
+customUI.uiGallery.buttons.section.destructive = Destructive Buttons
+customUI.uiGallery.buttons.section.small = Small Buttons
+customUI.uiGallery.buttons.section.icon = Icon Buttons (Square)
+customUI.uiGallery.buttons.section.back = Back Button
+customUI.uiGallery.buttons.backButtonDesc = Navigation back button - typically positioned at bottom-left of pages
+customUI.uiGallery.inputs.section.textField = Text Field
+customUI.uiGallery.inputs.section.numberField = Number Field
+customUI.uiGallery.inputs.section.compactTextField = Compact TextField (Search)
+customUI.uiGallery.inputs.section.multilineTextField = Multiline TextField
+customUI.uiGallery.inputs.textFieldPlaceholder = Enter text here...
+customUI.uiGallery.inputs.textFieldDesc = Standard text input
+customUI.uiGallery.inputs.numberFieldDesc = Numeric input only
+customUI.uiGallery.inputs.compactTextFieldDesc = Expands on focus
+customUI.uiGallery.inputs.multilinePlaceholder = Enter multiple lines of text...
+customUI.uiGallery.selection.section.checkBox = CheckBox
+customUI.uiGallery.selection.section.checkBoxWithLabel = CheckBox with Label
+customUI.uiGallery.selection.section.dropdownBox = Dropdown Box
+customUI.uiGallery.selection.section.colorPicker = Color Picker
+customUI.uiGallery.selection.uncheckedCheckbox = Unchecked checkbox
+customUI.uiGallery.selection.checkedCheckbox = Checked checkbox
+customUI.uiGallery.selection.enableFeature = Enable feature
+customUI.uiGallery.selection.showAdvancedOptions = Show advanced options
+customUI.uiGallery.selection.option1 = Option 1
+customUI.uiGallery.selection.option2 = Option 2
+customUI.uiGallery.selection.option3 = Option 3
+customUI.uiGallery.selection.standardDropdown = Standard dropdown
+customUI.uiGallery.selection.clickToOpenColorPicker = Click to open color picker
+customUI.uiGallery.containers.section.panel = Panel (@Panel)
+customUI.uiGallery.containers.section.panelWithTitle = Panel with Title (@PanelTitle)
+customUI.uiGallery.containers.section.container = Container (@Container)
+customUI.uiGallery.containers.section.decoratedContainer = Decorated Container (@DecoratedContainer)
+customUI.uiGallery.containers.section.complexContainer = Complex Container Example
+customUI.uiGallery.containers.section.simpleContainer = Simple Container (@SimpleContainer)
+customUI.uiGallery.containers.section.separators = Separators
+customUI.uiGallery.containers.panelDesc = This is a basic panel with the default background texture and border.
+customUI.uiGallery.containers.panelTitleExample = Panel Title Example
+customUI.uiGallery.containers.panelTitleContent = Content below the titled header.
+customUI.uiGallery.containers.containerTitle = Container Title
+customUI.uiGallery.containers.containerContent = Container with header and content body.
+customUI.uiGallery.containers.decoratedTitle = Decorated Title
+customUI.uiGallery.containers.decoratedContent = With ornamental decorations at top and bottom.
+customUI.uiGallery.containers.complexDesc = Container with top tabs, header tabs, and search - combining multiple navigation patterns.
+customUI.uiGallery.containers.complexContent = This container demonstrates a complex layout with top tabs for major sections, header tabs for view switching, and an integrated search field.
+customUI.uiGallery.containers.tabMain = Main
+customUI.uiGallery.containers.tabSettings = Settings
+customUI.uiGallery.containers.tabInfo = Info
+customUI.uiGallery.containers.tabListView = List View
+customUI.uiGallery.containers.tabGridView = Grid View
+customUI.uiGallery.containers.simpleContainerContent = A minimal container with a simple background and padding.
+customUI.uiGallery.containers.contentSeparatorDesc = @ContentSeparator - Simple horizontal line
+customUI.uiGallery.containers.fancySeparatorDesc = @PanelSeparatorFancy - Decorated separator
+customUI.uiGallery.text.section.titleStyles = Title Styles
+customUI.uiGallery.text.section.commonColors = Common Text Colors
+customUI.uiGallery.text.section.gradientMask = Text Gradient Mask (@TextHighlightGradientMask)
+customUI.uiGallery.text.titleLabelDesc = @TitleLabel - FontSize: 40, Center aligned
+customUI.uiGallery.text.titleDesc = @Title - Secondary font, uppercase, bold
+customUI.uiGallery.text.subtitleDesc = @Subtitle - FontSize: 15, uppercase, muted
+customUI.uiGallery.text.colorDefault = @ColorDefault - White (default)
+customUI.uiGallery.text.colorDefaultLabel = @ColorDefaultLabel - Muted (default label)
+customUI.uiGallery.text.colorBlueAccent = @ColorBlueAccent - Blue accent
+customUI.uiGallery.text.colorBlueAccentHovered = @ColorBlueAccentHovered - Blue accent (hovered)
+customUI.uiGallery.text.colorBlueAccentPressed = @ColorBlueAccentPressed - Blue accent (pressed)
+customUI.uiGallery.text.colorGoldHighlight = @ColorGoldHighlight - Gold highlight
+customUI.uiGallery.text.colorGrayCaption = @ColorGrayCaption - Gray caption
+customUI.uiGallery.text.colorButtonText = @ColorButton - Button text
+customUI.uiGallery.text.highlightedGradientText = Highlighted Gradient Text
+customUI.uiGallery.text.gradientMaskDesc = Wrap in a Group with LayoutMode: Left so the mask applies to text bounds, not full width.
+customUI.uiGallery.sliders.section.slider = Slider
+customUI.uiGallery.sliders.section.floatSlider = Float Slider
+customUI.uiGallery.sliders.section.sliderWithNumberField = Slider with Number Field
+customUI.uiGallery.sliders.integerSliderDesc = Integer slider (0-100)
+customUI.uiGallery.sliders.value25 = Value: 25
+customUI.uiGallery.sliders.floatSliderDesc = Float slider (0.0-1.0)
+customUI.uiGallery.sliders.combinedControl = Combined control
+customUI.uiGallery.progress.section.spinner = Spinner
+customUI.uiGallery.progress.section.progressBar = Progress Bar
+customUI.uiGallery.progress.section.circularProgressBar = Circular Progress Bar
+customUI.uiGallery.progress.spinnerDesc = @DefaultSpinner - 32x32 animated loading indicator
+customUI.uiGallery.progress.percent25 = 25% complete
+customUI.uiGallery.progress.percent75 = 75% complete
+customUI.uiGallery.progress.percent100 = 100% complete
+customUI.uiGallery.progress.circularPercentages = 33%, 66%, 100%
+customUI.uiGallery.scrollbars.section.default = Default Scrollbar Style
+customUI.uiGallery.scrollbars.section.extraSpacing = Extra Spacing Scrollbar Style
+customUI.uiGallery.scrollbars.section.translucent = Translucent Scrollbar Style
+customUI.uiGallery.scrollbars.defaultContent = This content area uses @DefaultScrollbarStyle.\n\nThe scrollbar appears when content exceeds the container height.\n\nLine 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6
+customUI.uiGallery.scrollbars.extraSpacingContent = @DefaultExtraSpacingScrollbarStyle\n\nSame as default but with 12px spacing from content.\n\nMore lines...\nMore lines...
+customUI.uiGallery.scrollbars.translucentContent = @TranslucentScrollbarStyle\n\nNo background track, only visible when hovered.\n\nHover to see scrollbar...\nMore content...
+customUI.uiGallery.navigation.section.topTabs = Top Tabs (@TopTabsStyle)
+customUI.uiGallery.navigation.section.headerTabs = Header Tabs (@HeaderTabsStyle)
+customUI.uiGallery.navigation.topTabsDesc = Large icon tabs positioned above containers. Tabs animate on hover/press and lift when selected.
+customUI.uiGallery.navigation.headerTabsDesc = Compact icon tabs for use within container headers. Icons fade when unselected.
+customUI.uiGallery.navigation.tabOne = Tab One
+customUI.uiGallery.navigation.tabTwo = Tab Two
+customUI.uiGallery.navigation.tabThree = Tab Three
+customUI.uiGallery.navigation.tabContentArea = Tab Content Area
+customUI.uiGallery.navigation.tabContent = Tab Content
+customUI.uiGallery.navigation.first = First
+customUI.uiGallery.navigation.second = Second
+customUI.uiGallery.navigation.third = Third
+customUI.uiGallery.navigation.headerTabsSeparator = With separator between tabs
+customUI.uiGallery.tooltips.section.defaultTooltip = Default Text Tooltip (@DefaultTextTooltipStyle)
+customUI.uiGallery.tooltips.section.variousElements = Tooltips on Various Elements
+customUI.uiGallery.tooltips.hoverDescription = Hover over the elements below to see tooltips in action.
+customUI.uiGallery.tooltips.simpleTooltip = This is a simple tooltip.
+customUI.uiGallery.tooltips.buttonWithTooltip = Button with tooltip
+customUI.uiGallery.tooltips.contextTooltip = Tooltips can provide additional context or help text for UI elements.
+customUI.uiGallery.tooltips.longerTooltip = Longer tooltip (wraps)
+customUI.uiGallery.tooltips.enableDisableFeature = Enable or disable this feature
+customUI.uiGallery.tooltips.checkboxWithTooltip = Checkbox with tooltip
+customUI.uiGallery.tooltips.anyElementTooltip = You can add tooltips to any element.
+customUI.uiGallery.tooltips.hoverThisArea = Hover this area
+customUI.uiGallery.tooltips.groupWithTooltip = Group with tooltip
 customUI.warpListPage.warps = Warps
 customUI.warpListPage.noWarps = There are no warps set up
 customUI.prefabListPage.title = Prefabs
@@ -3170,6 +3347,8 @@ customUI.instanceListPage.button.spawn = Spawn
 customUI.instanceListPage.button.load = Edit
 customUI.instanceListPage.searchPlaceholder = Search instances...
 customUI.playSoundPage.play = Play Sound
+customUI.playSoundPage.volume = Volume (dB)
+customUI.playSoundPage.pitch = Pitch (st)
 customUI.tintChunkPage.title = Tint Chunk
 customUI.tintChunkPage.applyTint = Apply Tint
 customUI.tintChunkPage.sigma = Sigma
@@ -3365,6 +3544,7 @@ customUI.objImport.sizeMode.scale = Scale
 customUI.objImport.height = Height (blocks):
 customUI.objImport.scale = Scale:
 customUI.objImport.blockPattern = Fill Block Pattern:
+customUI.objImport.blockPattern.placeholder = [TMP] Rock_Stone or 50%Rock_Stone,50%Rock_Basalt
 customUI.objImport.fillSolid = Fill solid (uncheck for hollow shell)
 customUI.objImport.useMaterials = Use materials from .mtl file
 customUI.objImport.autoDetectTextures = Auto-detect textures (for broken exports)
@@ -3518,7 +3698,7 @@ worldmap.markers.edit.notFound = Couldn't find the map marker you're trying to e
 
 instances.forgotten_temple.title = Forgotten Temple
 instances.forgotten_temple.subtitle = Edge of the Echo
-instances.creative_hub.title = Convergence
+instances.creative_hub.title = Crossroads
 instances.creative_hub.subtitle = Cosmos of Creativity
 
 # === interactionHints ===
@@ -3530,9 +3710,12 @@ interactionHints.edit = Press [{key}] to edit
 interactionHints.turnon = Press [{key}] to turn on
 interactionHints.turnoff = Press [{key}] to turn off
 interactionHints.sit = Press [{key}] to sit
+interactionHints.tame = Press [{key}] to tame
+interactionHints.feed = Press [{key}] to feed
 interactionHints.harvest = Press [{key}] to harvest {name}
-interactionHints.trade = Press [{key}] to Trade
-interactionHints.mount = Press [{key}] to Mount
+interactionHints.pet = Press [{key}] to pet
+interactionHints.trade = Press [{key}] to trade
+interactionHints.mount = Press [{key}] to mount
 interactionHints.burst = Press [{key}] to burst {name}
 interactionHints.pickup = Press [{key}] to pick up {name}
 
@@ -3548,10 +3731,10 @@ interactions.sleep.notWithinHours = You can't sleep at this hour.
 interactions.sleep.durationHours = {hours}h{mins}m
 interactions.sleep.durationMins = {mins}m
 interactions.sleep.sleepAtTheseHours = You may sleep starting at {timeValue, time}. (in {until})
-interactions.sleep.notificationSingle = [TMP] {player} is in bed waiting to sleep!
-interactions.sleep.notificationSmall = [TMP] {sleepers} players are waiting for you to sleep!
-interactions.sleep.notificationBig = [TMP] {sleepers} out of {total} players are in bed waiting to sleep!
-interactions.sleep.notificationSingleEnter = [TMP] {player} has entered a bed to sleep!
+interactions.sleep.notificationSingle = {player} is in bed waiting to sleep!
+interactions.sleep.notificationSmall = {sleepers} {sleepers, plural, one {player is} other {players are}} waiting for you to sleep!
+interactions.sleep.notificationBig = {sleepers} out of {total} players {sleepers, plural, one {is} other {are}} in bed waiting to sleep!
+interactions.sleep.notificationSingleEnter = {player} has entered a bed to sleep!
 
 # === io ===
 
@@ -5206,7 +5389,7 @@ items.Plant_Seeds_Rice_Eternal.description = Grows Rice
 items.Plant_Seeds_Sallow.name = Sallow Seed Bag
 items.Plant_Seeds_Spiral.name = Spiral Seed Bag
 items.Plant_Seeds_Stamina1.name = Storm Thistle Seed Bag
-items.Plant_Seeds_Stamina2.name = Stormcap Spawn
+items.Plant_Seeds_Stamina2.name = Stormcap Spawn Bag
 items.Plant_Seeds_Stamina3.name = Storm Sapling Seed Bag
 items.Plant_Seeds_Sunflower.name = Sunflower Seed Bag
 items.Plant_Seeds_Test_Tree.name = Seed Test Tree
@@ -5270,11 +5453,11 @@ items.PortalKey_Henges.description = <msg key="server.items.PortalKey.descriptio
 items.Portal_Device.name = Ancient Gateway
 items.Portal_Device.description = Place this in your base to tear down the barriers and travel to other Fragments!<i>\nWork In Progress.\n\nThough the curse keeps Gaia's Orbis locked away, there are ways to pierce the Void that veils it.</i>
 items.Hub_Portal_Zone3_Taiga1.name = Zone 3 Taiga Portal
-items.Hub_Portal_Zone3_Taiga1.description = Portal that teleports you to Zone 3 Taiga, used in the Creative Hub
+items.Hub_Portal_Zone3_Taiga1.description = Portal that teleports you to Zone 3 Taiga. Used in the Crossroads.
 items.Hub_Portal_Default.name = Exploration Worldgen Portal
-items.Hub_Portal_Default.description = Portal that teleports you to Exploration Worldgen, used in the Creative Hub
+items.Hub_Portal_Default.description = Portal that teleports you to Exploration Worldgen. Used in the Crossroads.
 items.Hub_Portal_Flat.name = Flat Worldgen Portal
-items.Hub_Portal_Flat.description = Portal that teleports you to Flat Worldgen, used in the Creative Hub
+items.Hub_Portal_Flat.description = Portal that teleports you to Flat Worldgen. Used in the Crossroads.
 items.Instance_Gateway.name = Instance Gateway
 items.Instance_Gateway.description = A gateway that allows you to travel to different instances. Interact with it to configure the destination.
 items.Portal_Return.name = Return Portal
@@ -6061,7 +6244,7 @@ items.Tool_Capture_Crate.name = Capture Crate
 items.Tool_Capture_Crate.nameFull = Capture Crate ({npc})
 items.Tool_Capture_Crate.description = Used to capture small animals in order to bring them back to your home.
 items.Tool_Feedbag.name = Feed Bag
-items.Tool_Feedbag.description = A bag of animal feed. Holding this may lure some animals.
+items.Tool_Feedbag.description = A bag of animal feed. Can be used to lure tamed animals.
 items.Tool_Fertilizer.name = Fertilizer Bag
 items.Tool_Fertilizer.description = Used to fertilize tilled soil. Fertilized crops grow <color is="#4ade80">2x</color> faster.
 items.Tool_Fishing_Trap.name = Fishing Trap
@@ -6868,13 +7051,13 @@ items.Rock_Limestone_Cobble_Half.name = Limestone Cobble Half Slab
 items.Rock_Limestone_Cobble_Pillar_Base.name = Limestone Cobble Pillar - Base
 items.Rock_Limestone_Cobble_Pillar_Middle.name = Limestone Cobble Pillar - Middle
 items.Rock_Limestone_Cobble_Stairs.name = Limestone Cobble Stairs
-items.Rock_Lime.name = [TMP] Limestone
-items.Rock_Lime_Stalactite_Large.name = [TMP] Limestone Stalactite - Large
-items.Rock_Lime_Stalactite_Small.name = [TMP] Limestone Stalactite - Small
-items.Rubble_Lime.name = [TMP] Limestone Rubble
-items.Rubble_Lime_Medium.name = [TMP] Limestone Rubble - Medium
+items.Rock_Lime.name = Limestone
+items.Rock_Lime_Stalactite_Large.name = Limestone Stalactite - Large
+items.Rock_Lime_Stalactite_Small.name = Limestone Stalactite - Small
+items.Rubble_Lime.name = Limestone Rubble
+items.Rubble_Lime_Medium.name = Limestone Rubble - Medium
 items.Rubble_Lime.description = [TMP] Can also be acquired by breaking down cobble in a <item is="Bench_Salvage"/>.
-items.Soil_Gravel_Lime.name = [TMP] Limestone Gravel
+items.Soil_Gravel_Lime.name = Limestone Gravel
 items.Rock_Peachstone_Brick.name = Peachstone Brick
 items.Rock_Peachstone_Brick_Half.name = Peachstone Brick Half Slab
 items.Rock_Peachstone_Brick_Pillar_Base.name = Peachstone Brick Pillar - Base
@@ -6927,7 +7110,7 @@ items.Rock_Salt.name = Salt Block
 items.Rock_Salt.description = Can be refined at the <item is="Bench_Cooking"/>.
 items.Rock_Salt_Half.name = Salt Half Slab
 items.Rock_Slate_Cobble_Corner.name = Slate Cobble - Corner
-items.Plant_Fruit_Apple.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
+items.Plant_Fruit_Apple.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>\nLiked by <color is="#ffffff">Goats</color>, <color is="#ffffff">Rams</color> and <color is="#ffffff">Mouflons</color>.
 items.Plant_Fruit_Berries_Red.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
 items.Plant_Fruit_Berries_Blue.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
 items.Plant_Fruit_Orange.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
@@ -6939,18 +7122,18 @@ items.Plant_Fruit_Pinkberry.description = [TMP] Instantly restores <color is="#f
 items.Plant_Fruit_Poison.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
 items.Plant_Fruit_Spiral.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
 items.Plant_Fruit_Windwillow.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
-items.Plant_Crop_Carrot_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
-items.Plant_Crop_Corn_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
-items.Plant_Crop_Potato_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
-items.Plant_Crop_Pumpkin_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
-items.Plant_Crop_Onion_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
-items.Plant_Crop_Lettuce_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
-items.Plant_Crop_Turnip_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
-items.Plant_Crop_Tomato_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
+items.Plant_Crop_Carrot_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>\nLiked by <color is="#ffffff">Rabbits</color>, <color is="#ffffff">Bunnies</color> and <color is="#ffffff">Horses</color>.
+items.Plant_Crop_Corn_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>\nLiked by <color is="#ffffff">Chickens</color> and <color is="#ffffff">Turkeys</color>.
+items.Plant_Crop_Potato_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>\nLiked by <color is="#ffffff">Mosshorns</color>.
+items.Plant_Crop_Pumpkin_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>\nLiked by <color is="#ffffff">Boars</color>.
+items.Plant_Crop_Onion_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>\nLiked by <color is="#ffffff">Warthogs</color>.
+items.Plant_Crop_Lettuce_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>\nLiked by <color is="#ffffff">Cows</color> and <color is="#ffffff">Sheep</color>.
+items.Plant_Crop_Turnip_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>\nLiked by <color is="#ffffff">Pigs</color>.
+items.Plant_Crop_Tomato_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>\nLiked by <color is="#ffffff">Camels</color>.
 items.Plant_Crop_Rice_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
-items.Plant_Crop_Cauliflower_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
-items.Plant_Crop_Chilli_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
-items.Plant_Crop_Aubergine_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
+items.Plant_Crop_Cauliflower_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>\nLiked by <color is="#ffffff">Bison</color>.
+items.Plant_Crop_Chilli_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>\nLiked by <color is="#ffffff">Skrills</color>.
+items.Plant_Crop_Aubergine_Item.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>\nLiked by <color is="#ffffff">Wild Pigs</color>.
 items.Plant_Mushroom_Brown.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
 items.Plant_Mushroom_Red.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n\nDuration: <color is="#ffffff">0:45</color>
 items.Food_Vegetable_Cooked.description = [TMP] Instantly restores <color is="#ffffff">5%</color> health and grants:\n\n• <color is="#ffffff">Health Regen I</color>\n• <color is="#ffffff">Stamina Boost I</color>\n\nDuration: <color is="#ffffff">0:45</color>
@@ -6995,6 +7178,7 @@ map.region.Zone1_Spawn = First Gate of the Echo
 map.region.Zone1_Tier1 = Drifting Plains
 map.region.Zone1_Tier2 = Seedling Woods
 map.region.Zone1_Tier3 = The Fens
+map.region.Zone1_Temple = [TMP] Temple
 map.region.Zone2_Tier1 = Golden Steppes
 map.region.Zone2_Tier2 = Badlands
 map.region.Zone2_Tier3 = Desolate Basin
@@ -7007,6 +7191,7 @@ map.region.Oceans = Crystalline Depths
 map.region.ForgottenTemple = Forgotten Temple
 
 map.markers.death = Death (Day {day})
+map.returnToHub = Return to Crossroads
 
 # === memories ===
 
@@ -7036,9 +7221,9 @@ memories.unlock.bullet3 = Your inventory can now store a limited number of memor
 memories.unlock.discoverMemories = Discover memories
 
 memories.general.title = Memories
-memories.general.noMemories = No memories to record
+memories.general.noMemories = No memories to restore
 memories.general.categories = Categories
-memories.general.recordNum = Record {count, number} {count, plural, one {memory} other {memories}}
+memories.general.recordNum = Restore {count, number} {count, plural, one {memory} other {memories}}
 memories.general.collected = New memory collected! '{memoryTitle}' discovered!
 memories.general.featureUnlockedNotification = Memories unlocked! Explore the many versions of Orbis to collect memories!
 memories.general.featureUnlockedMessage = You've unlocked the Memories feature!\nWhen encountering creatures you'll collect memories that will be stored in your inventory.\nBring these memories back to the Heart of Orbis to record them and unlock rewards!
@@ -7089,10 +7274,10 @@ modules.blockset.setNotFound = Failed to find {name}
 modules.interaction.interactedWith = Interacted with type '{interactionType}' using item '{item}' with block '{block}' at position {pos}!
 modules.interaction.failedGetActiveSlot = Failed check getActiveSlot: {server} != {packet}
 modules.interaction.builderToolInteractionError = BuilderTool interaction reached server but shouldn't!
-modules.interaction.failedCheck = [TMP] Failed to place the block!
-modules.interaction.failedCheckBlock = [TMP] Failed to place the block, the block type was invalid!
-modules.interaction.failedCheckEmpty = [TMP] Failed to place the block, the block type was empty!
-modules.interaction.failedCheckUnknown = [TMP] Failed to place the block, the block type was unknown!
+modules.interaction.failedCheck = Failed to place the block!
+modules.interaction.failedCheckBlock = Failed to place the block: the block type was invalid!
+modules.interaction.failedCheckEmpty = Failed to place the block: the block type was empty!
+modules.interaction.failedCheckUnknown = Failed to place the block: the block type was unknown!
 modules.interaction.failedAddBackAfterFailedPlace = Failed to add item back to the inventory after failed place!
 modules.interaction.overlappingBlocks = Tried to place block in invalid position! Overlapping blocks.
 modules.interaction.buildForbidden = You are not allowed to build here!
@@ -7299,6 +7484,7 @@ npcRoles.Molerat.name = Molerat
 npcRoles.Moose_Bull.name = Moose Bull
 npcRoles.Moose_Cow.name = Moose Cow
 npcRoles.Mosshorn.name = Mosshorn
+npcRoles.Mosshorn_Plain.name = Plain Mosshorn
 npcRoles.Mouflon.name = Mouflon
 npcRoles.Mouflon_Lamb.name = Mouflon Lamb
 npcRoles.Mouse.name = Mouse
@@ -7318,6 +7504,8 @@ npcRoles.Penguin.name = Penguin
 npcRoles.Pig.name = Pig
 npcRoles.Pig_Piglet.name = Piglet
 npcRoles.Pig_Undead.name = Undead Pig
+npcRoles.Pig_Wild.name = [TMP] Wild Pig
+npcRoles.Pig_Wild_Piglet.name = [TMP] Wild Piglet
 npcRoles.Pigeon.name = Pigeon
 npcRoles.Pike.name = Pike
 npcRoles.Piranha.name = Piranha
@@ -7746,7 +7934,14 @@ objectives.Objective_Tutorial.taskSet.4.task.0 = Collect materials and craft a W
 objectives.bounty.marker = Bounty Target
 objectives.treasure.marker = Chest
 objectives.itemObjectiveCompletion = Earned: {item}
-
+objectives.Objective_Bounty.title = [TMP] Bounty objective
+objectives.Objective_Bounty.taskSet.0.task.0 = [TMP] Kill the nearby Trork.
+objectives.Objective_KillSpawnBeacon.title = [TMP] KillSpawnBeacon objective
+objectives.Objective_KillSpawnBeacon.taskSet.0.task.0 = [TMP] Kill the nearby Trorks.
+objectives.Objective_KillSpawnMarker.title = [TMP] KillSpawnMarker objective
+objectives.Objective_KillSpawnMarker.taskSet.0.task.0 = [TMP] Kill the nearby Trorks.
+objectives.Objective_ReachLocation.title = [TMP] ReachLocation objective
+objectives.Objective_ReachLocation.taskSet.0.task.0 = [TMP] Reach the target location.
 # === portals ===
 
 portals.desert = Howling Sands
@@ -7895,12 +8090,12 @@ universe.worldpath.removedIndex = Removed {index}!
 universe.worldpath.noPointsDefined = You have no points defined!
 universe.worldpath.saved = Path saved!
 universe.backup.error = An error has occurred while creating a backup: {message}
-universe.worldRemoved = [TMP] The world you were on was removed and you've been sent back to the default world
-universe.worldCrash.unknown = [TMP] The world you were on has crashed and you've been sent back to the default world
-universe.worldCrash.mod = [TMP] The world you were on has crashed (possibly caused by {mod}) and you've been sent back to the default world
+universe.worldRemoved = The world you were on was removed and you've been sent back to the default world.
+universe.worldCrash.unknown = The world you were on has crashed and you've been sent back to the default world.
+universe.worldCrash.mod = The world you were on has crashed (possibly caused by {mod}) and you've been sent back to the default world.
 
-pluginManager.outOfDatePlugins = [TMP] One or more plugins are targeting a different server version. It is recommended to update these plugins to ensure compatibility.
-assetModule.outOfDatePacks = [TMP] One or more asset packs are targeting an older server version. It is recommended to update these plugins to ensure compatibility.
+pluginManager.outOfDatePlugins = One or more plugins are targeting a different server version. It is recommended to update these plugins to ensure compatibility.
+assetModule.outOfDatePacks = One or more asset packs are targeting an older server version. It is recommended to update these asset packs to ensure compatibility.
 
 # === world ===
 

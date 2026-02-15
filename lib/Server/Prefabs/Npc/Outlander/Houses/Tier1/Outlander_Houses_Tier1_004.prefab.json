@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 1,
   "anchorY": 5,
   "anchorZ": 0,
@@ -238,7 +238,7 @@
       "x": -2,
       "y": 9,
       "z": -3,
-      "name": "Wood_Deadwood_Roof",
+      "name": "*Wood_Deadwood_Roof_State_Definitions_Inverted_Corner_Right",
       "rotation": 3
     },
     {
@@ -941,42 +941,14 @@
       "x": -1,
       "y": 6,
       "z": -3,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": -2,
-              "Y": 1,
-              "Z": -3
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
+      "name": "Furniture_Village_Counter",
       "rotation": 1
     },
     {
       "x": -1,
       "y": 7,
       "z": -3,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 31,
-              "Y": 7,
-              "Z": 29
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1024,
-      "rotation": 1
+      "name": "Furniture_Ancient_Candle"
     },
     {
       "x": -1,
@@ -1025,20 +997,7 @@
       "x": -1,
       "y": 6,
       "z": -2,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 31,
-              "Y": 6,
-              "Z": 30
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
+      "name": "Furniture_Village_Counter",
       "filler": 32,
       "rotation": 1
     },
@@ -1046,22 +1005,7 @@
       "x": -1,
       "y": 7,
       "z": -2,
-      "name": "Bench_Cooking",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 31,
-              "Y": 7,
-              "Z": 30
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1056,
-      "rotation": 1
+      "name": "Empty"
     },
     {
       "x": -1,
@@ -2248,11 +2192,6 @@
       "y": 6,
       "z": 3,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 960,
       "rotation": 2
     },
@@ -2261,11 +2200,6 @@
       "y": 7,
       "z": 3,
       "name": "Furniture_Lumberjack_Bed",
-      "components": {
-        "Components": {
-          "RespawnBlock": {}
-        }
-      },
       "filler": 1984,
       "rotation": 2
     },

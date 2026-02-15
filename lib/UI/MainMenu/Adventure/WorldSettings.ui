@@ -9,7 +9,7 @@ Group #WorldSettings {
 
   Group {
     LayoutMode: Top;
-    Anchor: (Width: 980, Top: 0);
+    Anchor: (Width: 1500, Top: 0);
     FlexWeight: 1;
 
     Group {
@@ -270,7 +270,7 @@ Group #WorldSettings {
                 }
 
                 DropdownBox #DayNightCycleDropdown {
-                  Anchor: (Width: 180, Height: 32);
+                  Anchor: (Width: 200, Height: 32);
                   Style: $Common.@DefaultDropdownBoxStyle;
                 }
               }
@@ -363,7 +363,7 @@ Group #WorldSettings {
                 }
 
                 DropdownBox #DeathPenaltyDropdown {
-                  Anchor: (Width: 180, Height: 32);
+                  Anchor: (Width: 200, Height: 32);
                   Style: $Common.@DefaultDropdownBoxStyle;
                 }
               }
@@ -455,6 +455,169 @@ Group #WorldSettings {
               Background: (TexturePath: "../../Common/Divider.png", HorizontalBorder: 4);
             }
 
+            Group #BackupSettingsSection {
+              LayoutMode: Top;
+              Anchor: (Top: 15);
+
+              Label {
+                Text: %client.mainMenu.worlds.settings.backups;
+                Anchor: (Bottom: 15);
+                Style: (
+                  TextColor: #96a9be,
+                  FontSize: 16,
+                  RenderBold: true,
+                  RenderUppercase: true
+                );
+              }
+
+              Group #BackupEnabledRow {
+                LayoutMode: Left;
+                Anchor: (Top: 10);
+
+                CheckBox #BackupEnabledCheckBox {
+                  Anchor: (Width: 22, Height: 22);
+                  Background: (TexturePath: "../../Common/CheckBoxFrame.png", Border: 7);
+                  Padding: (Full: 4);
+                  Style: $Common.@DefaultCheckBoxStyle;
+                }
+
+                Label {
+                  Text: %client.mainMenu.worlds.settings.backups.enabled;
+                  Anchor: (Left: 11);
+                  Style: (
+                    FontSize: 18,
+                    TextColor: #96a9be,
+                    VerticalAlignment: Center
+                  );
+                  TooltipTextSpans: %client.mainMenu.worlds.settings.backups.enabled.tooltip;
+                  TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+                }
+              }
+
+              Group #BackupOptionsContainer {
+                LayoutMode: Top;
+                Anchor: (Top: 15);
+
+                Group #BackupFrequencyRow {
+                  LayoutMode: Left;
+                  Anchor: (Height: 32, Bottom: 10);
+
+                  Label {
+                    Text: %client.mainMenu.worlds.settings.backups.frequency;
+                    Anchor: (Right: 15);
+                    Style: (
+                      FontSize: 18,
+                      TextColor: #96a9be,
+                      VerticalAlignment: Center
+                    );
+                  }
+
+                  Group {
+                    FlexWeight: 1;
+                  }
+
+                  NumberField #BackupFrequencyInput {
+                    Format: (
+                      MaxDecimalPlaces: 0,
+                      Step: 5,
+                      MinValue: 1,
+                      MaxValue: 1440
+                    );
+                    Style: $Common.@DefaultInputFieldStyle;
+                    PlaceholderStyle: $Common.@DefaultInputFieldPlaceholderStyle;
+                    Background: $Common.@InputBoxBackground;
+                    Anchor: (Width: 80, Height: 32);
+                    Padding: (Horizontal: 10);
+                  }
+
+                  Label {
+                    Text: %client.mainMenu.worlds.settings.backups.minutes;
+                    Anchor: (Left: 10);
+                    Style: (
+                      FontSize: 16,
+                      TextColor: #6b7a8a,
+                      VerticalAlignment: Center
+                    );
+                  }
+                }
+
+                Group #BackupMaxCountRow {
+                  LayoutMode: Left;
+                  Anchor: (Height: 32, Bottom: 10);
+
+                  Label {
+                    Text: %client.mainMenu.worlds.settings.backups.maxCount;
+                    Anchor: (Right: 15);
+                    Style: (
+                      FontSize: 18,
+                      TextColor: #96a9be,
+                      VerticalAlignment: Center
+                    );
+                    TooltipTextSpans: %client.mainMenu.worlds.settings.backups.maxCount.tooltip;
+                    TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+                  }
+
+                  Group {
+                    FlexWeight: 1;
+                  }
+
+                  NumberField #BackupMaxCountInput {
+                    Format: (
+                      MaxDecimalPlaces: 0,
+                      Step: 1,
+                      MinValue: 1,
+                      MaxValue: 100
+                    );
+                    Style: $Common.@DefaultInputFieldStyle;
+                    PlaceholderStyle: $Common.@DefaultInputFieldPlaceholderStyle;
+                    Background: $Common.@InputBoxBackground;
+                    Anchor: (Width: 80, Height: 32);
+                    Padding: (Horizontal: 10);
+                  }
+                }
+
+                Group #BackupArchiveMaxCountRow {
+                  LayoutMode: Left;
+                  Anchor: (Height: 32, Bottom: 10);
+
+                  Label {
+                    Text: %client.mainMenu.worlds.settings.backups.archiveMaxCount;
+                    Anchor: (Right: 15);
+                    Style: (
+                      FontSize: 18,
+                      TextColor: #96a9be,
+                      VerticalAlignment: Center
+                    );
+                    TooltipTextSpans: %client.mainMenu.worlds.settings.backups.archiveMaxCount.tooltip;
+                    TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+                  }
+
+                  Group {
+                    FlexWeight: 1;
+                  }
+
+                  NumberField #BackupArchiveMaxCountInput {
+                    Format: (
+                      MaxDecimalPlaces: 0,
+                      Step: 1,
+                      MinValue: 1,
+                      MaxValue: 100
+                    );
+                    Style: $Common.@DefaultInputFieldStyle;
+                    PlaceholderStyle: $Common.@DefaultInputFieldPlaceholderStyle;
+                    Background: $Common.@InputBoxBackground;
+                    Anchor: (Width: 80, Height: 32);
+                    Padding: (Horizontal: 10);
+                  }
+                }
+              }
+            }
+
+            Group #AdvancedSettingsDivider {
+              Anchor: (Height: 2, Top: 20, Right: 4, Left: 4);
+              Background: (TexturePath: "../../Common/Divider.png", HorizontalBorder: 4);
+            }
+
             Group {
               LayoutMode: Top;
               Anchor: (Top: 15);
@@ -490,6 +653,37 @@ Group #WorldSettings {
                 );
                 TooltipTextSpans: %client.mainMenu.worlds.settings.skipModValidation.tooltip;
                 TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+              }
+            }
+
+            Group #StorageType {
+              LayoutMode: Top;
+              Anchor: (Top: 15);
+
+              Group {
+                LayoutMode: Left;
+                Anchor: (Height: 32, Bottom: 10);
+
+                Label {
+                  Text: %client.mainMenu.worlds.settings.storageType;
+                  Anchor: (Right: 15);
+                  Style: (
+                    FontSize: 18,
+                    TextColor: #96a9be,
+                    VerticalAlignment: Center
+                  );
+                  TooltipTextSpans: %client.mainMenu.worlds.settings.storageType.tooltip;
+                  TextTooltipStyle: $Common.@ButtonTextTooltipStyle;
+                }
+
+                Group {
+                  FlexWeight: 1;
+                }
+
+                DropdownBox #StorageTypeDropdown {
+                  Anchor: (Width: 180, Height: 32);
+                  Style: $Common.@DefaultDropdownBoxStyle;
+                }
               }
             }
           }

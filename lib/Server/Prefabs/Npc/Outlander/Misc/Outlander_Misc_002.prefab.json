@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "blockIdVersion": 8,
+  "blockIdVersion": 11,
   "anchorX": 0,
   "anchorY": 4,
   "anchorZ": 0,
@@ -3041,7 +3041,7 @@
       "x": -3,
       "y": 5,
       "z": 6,
-      "name": "*Wood_Deadwood_Fence_State_Definitions_Corner"
+      "name": "Wood_Deadwood_Fence"
     },
     {
       "x": -3,
@@ -3914,7 +3914,8 @@
       "x": -2,
       "y": 5,
       "z": 6,
-      "name": "Plant_Grass_Winter"
+      "name": "Plant_Grass_Winter_Short",
+      "support": 15
     },
     {
       "x": -2,
@@ -4792,21 +4793,7 @@
       "x": -1,
       "y": 5,
       "z": 6,
-      "name": "Bench_Trough",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": -1,
-              "Y": 1,
-              "Z": 6
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": -1,
@@ -5684,22 +5671,7 @@
       "x": 0,
       "y": 5,
       "z": 6,
-      "name": "Bench_Trough",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 0,
-              "Y": 5,
-              "Z": 6
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 0,
@@ -8397,21 +8369,7 @@
       "x": 3,
       "y": 5,
       "z": 6,
-      "name": "Bench_Trough",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 3,
-              "Y": 1,
-              "Z": 6
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 3,
@@ -9306,22 +9264,7 @@
       "x": 4,
       "y": 5,
       "z": 6,
-      "name": "Bench_Trough",
-      "components": {
-        "Components": {
-          "crafting": {
-            "Position": {
-              "X": 4,
-              "Y": 5,
-              "Z": 6
-            },
-            "TierLevel": 1,
-            "UpgradeItems": []
-          }
-        }
-      },
-      "filler": 1,
-      "rotation": 2
+      "name": "Empty"
     },
     {
       "x": 4,

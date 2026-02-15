@@ -2,7 +2,7 @@ package com.hypixel.hytale.server.core.modules.entity.hitboxcollision;
 
 import com.hypixel.hytale.assetstore.AssetUpdateQuery;
 import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
-import com.hypixel.hytale.protocol.Packet;
+import com.hypixel.hytale.protocol.ToClientPacket;
 import com.hypixel.hytale.protocol.UpdateType;
 import com.hypixel.hytale.protocol.packets.assets.UpdateHitboxCollisionConfig;
 import com.hypixel.hytale.server.core.asset.packet.AssetPacketGenerator;
@@ -19,7 +19,7 @@ public class HitboxCollisionConfigPacketGenerator
    }
 
    @Nonnull
-   public Packet generateInitPacket(
+   public ToClientPacket generateInitPacket(
       @Nonnull IndexedLookupTableAssetMap<String, HitboxCollisionConfig> assetMap, @Nonnull Map<String, HitboxCollisionConfig> assets
    ) {
       Int2ObjectMap<com.hypixel.hytale.protocol.HitboxCollisionConfig> hitboxCollisionConfigs = new Int2ObjectOpenHashMap<>();
@@ -32,7 +32,7 @@ public class HitboxCollisionConfigPacketGenerator
    }
 
    @Nonnull
-   public Packet generateUpdatePacket(
+   public ToClientPacket generateUpdatePacket(
       @Nonnull IndexedLookupTableAssetMap<String, HitboxCollisionConfig> assetMap,
       @Nonnull Map<String, HitboxCollisionConfig> loadedAssets,
       @Nonnull AssetUpdateQuery query
@@ -47,7 +47,7 @@ public class HitboxCollisionConfigPacketGenerator
    }
 
    @Nonnull
-   public Packet generateRemovePacket(
+   public ToClientPacket generateRemovePacket(
       @Nonnull IndexedLookupTableAssetMap<String, HitboxCollisionConfig> assetMap, @Nonnull Set<String> removed, @Nonnull AssetUpdateQuery query
    ) {
       Int2ObjectMap<com.hypixel.hytale.protocol.HitboxCollisionConfig> hitboxCollisionConfigs = new Int2ObjectOpenHashMap<>();

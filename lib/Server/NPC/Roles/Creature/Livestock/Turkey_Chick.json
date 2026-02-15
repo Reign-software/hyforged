@@ -7,25 +7,25 @@
       "Turkey_Chick",
       "Turkey"
     ],
-    "LovedItems": [
+    "AttractiveItemSet": [
       "Plant_Crop_Corn_Item"
     ],
+    "AttractiveItemSetParticles": "Want_Food_Corn",
     "DropList": "Drop_Turkey",
     "MaxHealth": 15,
     "MaxSpeed": 4,
-    "AlertedActionRange": 2,
+    "ViewRange": 12,
+    "ViewSector": 300,
+    "HearingRange": 7,
+    "AlertedRange": 14,
+    "AlertedActionRange": 5,
     "AbsoluteDetectionRange": 1,
-    "ChanceToTurnFriendly": 30,
-    "ChanceToTurnFriendlyWithAttractiveItem": 70,
-    "WeightGreet": 30,
-    "WeightFollowItem": 30,
-    "WeightFollow": 20,
-    "WeightIgnore": 20,
     "Timid": true,
+    "IsTameable": true,
+    "TameRoleChange": "Tamed_Turkey_Chick",
     "IsMemory": true,
-    "NameTranslationKey": {
-      "Compute": "NameTranslationKey"
-    }
+    "MemoriesNameOverride": "Turkey_Chick",
+    "NameTranslationKey": { "Compute": "NameTranslationKey" }
   },
   "Parameters": {
     "NameTranslationKey": {

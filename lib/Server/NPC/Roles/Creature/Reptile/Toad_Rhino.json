@@ -11,6 +11,7 @@
     "MaxSpeed": 8,
     "Attack": "Root_NPC_Toad_Rhino_Attack",
     "AttackDistance": 6,
+    "TargetRange": 6,
     "CombatBehaviorDistance": 8,
     "AlwaysSleepAtNight": false,
     "MaxHealth": 124,

@@ -33,7 +33,7 @@
         "RequiredTierLevel": 3
       }
     ],
-    "TimeSeconds": 4
+    "TimeSeconds": 2
   },
   "BlockType": {
     "Material": "Solid",
