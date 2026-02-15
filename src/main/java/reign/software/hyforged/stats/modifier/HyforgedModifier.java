@@ -316,7 +316,12 @@ public class HyforgedModifier extends Modifier {
     @Nonnull
     @Override
     public com.hypixel.hytale.protocol.Modifier toPacket() {
-        com.hypixel.hytale.protocol.Modifier packet = super.toPacket();
+        com.hypixel.hytale.protocol.Modifier packet = new com.hypixel.hytale.protocol.Modifier();
+
+        packet.target = switch (this.target) {
+            case MIN -> com.hypixel.hytale.protocol.ModifierTarget.Min;
+            case MAX -> com.hypixel.hytale.protocol.ModifierTarget.Max;
+        };
         
         // Map our StackType to Hytale's CalculationType for client display
         packet.calculationType = switch (stackType) {

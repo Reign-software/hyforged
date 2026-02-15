@@ -23,7 +23,7 @@ import reign.software.hyforged.affix.system.EffectAffixOnKillSystem;
 import reign.software.hyforged.affix.system.EquipmentAffixListener;
 import reign.software.hyforged.affix.system.LootAffixSystem;
 import reign.software.hyforged.affix.ui.CharacterStatsPage;
-import reign.software.hyforged.hub.ui.CharacterHubPage;
+import reign.software.hyforged.hud.HyforgedReticleUI;
 import reign.software.hyforged.combat.HyforgedAutoBlockSystem;
 import reign.software.hyforged.combat.HyforgedCriticalHitSystem;
 import reign.software.hyforged.combat.ailment.AilmentAccumulatorComponent;
@@ -82,6 +82,8 @@ import reign.software.hyforged.effect.HyforgedEffectAssetLoader;
 import reign.software.hyforged.passive.asset.PassiveTreeAssetLoader;
 import reign.software.hyforged.passive.system.ClassTreeStartingNodeSystem;
 import reign.software.hyforged.passive.system.PassiveTreeMigrationSystem;
+import reign.software.hyforged.system.HyforgedPlayerInitSystem;
+import reign.software.hyforged.hud.HyforgedHudManager;
 import reign.software.hyforged.progression.system.ProgressionNotificationSystem;
 import reign.software.hyforged.hub.resource.WelcomeMessagesConfigAssetLoader;
 import reign.software.hyforged.hub.system.WelcomeMessageSystem;
@@ -503,6 +505,55 @@ public class HyforgedPlugin extends JavaPlugin {
     private void registerSystems() {
         ComponentRegistryProxy<EntityStore> entityStoreRegistry = this.getEntityStoreRegistry();
 
+        // Install inbound event filter for reticle button actions
+        HyforgedReticleUI.install();
+        getLogger().at(Level.FINE).log("Installed HyforgedReticleUI");
+
+        // Mark players ready for HUD commands and send ready-dependent UI
+        getEventRegistry().registerGlobal(
+                com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent.class,
+                event -> {
+                    com.hypixel.hytale.component.Ref<EntityStore> ref = event.getPlayerRef();
+                    if (ref == null || !ref.isValid()) {
+                        return;
+                    }
+
+                    com.hypixel.hytale.component.Store<EntityStore> store = ref.getStore();
+                    store.getExternalData().getWorld().execute(() -> {
+                        if (!ref.isValid()) {
+                            return;
+                        }
+
+                        com.hypixel.hytale.server.core.entity.UUIDComponent uuidComponent =
+                                store.getComponent(ref, com.hypixel.hytale.server.core.entity.UUIDComponent.getComponentType());
+                        com.hypixel.hytale.server.core.universe.PlayerRef playerRef =
+                                store.getComponent(ref, com.hypixel.hytale.server.core.universe.PlayerRef.getComponentType());
+                        if (uuidComponent == null || playerRef == null) {
+                            return;
+                        }
+
+                        java.util.UUID uuid = uuidComponent.getUuid();
+                        HyforgedHudManager.markReady(uuid);
+                        HyforgedReticleUI.send(playerRef);
+                    });
+                }
+        );
+
+        // Register HUD and player cleanup on disconnect
+        getEventRegistry().register(
+                com.hypixel.hytale.server.core.event.events.player.PlayerDisconnectEvent.class,
+                event -> {
+                    com.hypixel.hytale.server.core.universe.PlayerRef playerRef = event.getPlayerRef();
+                    if (playerRef != null) {
+                        java.util.UUID uuid = playerRef.getUuid();
+                        HyforgedHudManager.remove(uuid);
+                        CombatLogHudSystem.clearPlayerState(uuid);
+                        CurrencyHudSystem.clearPlayerVaults(uuid);
+                    }
+                }
+        );
+        getLogger().at(Level.FINE).log("Registered HUD disconnect cleanup");
+
         // Initialize concentration service singleton
         ConcentrationService.get();
         getLogger().at(Level.FINE).log("Initialized ConcentrationService");
@@ -602,6 +653,11 @@ public class HyforgedPlugin extends JavaPlugin {
         // Initialize ClassLevelModifierSystem (event-driven, applies class level bonuses)
         new ClassLevelModifierSystem();
         getLogger().at(Level.FINE).log("Initialized ClassLevelModifierSystem");
+
+        // Ensure all player-scoped Hyforged components exist on connect.
+        // Must be registered BEFORE systems that read these components.
+        new HyforgedPlayerInitSystem();
+        getLogger().at(Level.FINE).log("Initialized HyforgedPlayerInitSystem");
 
         // Initialize ClassTreeStartingNodeSystem (auto-allocates class tree starting nodes)
         new ClassTreeStartingNodeSystem();
@@ -751,16 +807,6 @@ public class HyforgedPlugin extends JavaPlugin {
         );
 
         getLogger().at(Level.FINE).log("Registered PassiveTreePage custom UI interaction");
-
-        // Register CharacterHubPage for central navigation
-        OpenCustomUIInteraction.registerSimple(
-            this,
-            CharacterHubPage.class,
-            "CharacterHubPage",
-            CharacterHubPage::new
-        );
-
-        getLogger().at(Level.FINE).log("Registered CharacterHubPage custom UI interaction");
 
         // Register Point Book interaction for consuming point books
         this.getCodecRegistry(Interaction.CODEC).register(

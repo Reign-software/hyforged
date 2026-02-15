@@ -25,6 +25,5 @@ vault.breakDenied = You cannot break this vault - it belongs to another player.
 
 # Welcome Messages
 welcome.header = === Welcome to Hyforged! ===
-welcome.hubCommand =  - Open the Character Hub (stats, passives, resources)
 welcome.tipPrefix =   Tip: 
-welcome.tipSuffix =  is a shortcut for the hub!
+welcome.tipSuffix = !

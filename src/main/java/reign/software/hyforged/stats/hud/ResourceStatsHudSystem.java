@@ -14,39 +14,20 @@ import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.hud.HyforgedHud;
+import reign.software.hyforged.hud.HyforgedHudManager;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 
 import javax.annotation.Nonnull;
-import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
 
+/**
+ * Updates the resource stats section of the composite Hyforged HUD.
+ * Displays Concentration and Rage bar values.
+ */
 public class ResourceStatsHudSystem extends DelayedEntitySystem<EntityStore> {
 
-    private static final Logger LOGGER = Logger.getLogger(ResourceStatsHudSystem.class.getName());
-
-    /** Whether MultipleHUD is available at runtime */
-    private static final boolean MULTIPLE_HUD_AVAILABLE;
-
-    static {
-        boolean available = false;
-        try {
-            Class.forName("com.buuz135.mhud.MultipleHUD");
-            available = true;
-        } catch (ClassNotFoundException e) {
-            LOGGER.warning("MultipleHUD not available - resource stats HUD disabled");
-        }
-        MULTIPLE_HUD_AVAILABLE = available;
-    }
-
-    /** Unique identifier for this HUD in MultipleHUD */
-    public static final String HUD_ID = "hyforged:resource_stats";
-
     private static final float UPDATE_INTERVAL_SEC = 0.2f;
-
-    /** Per-player HUD instances for updates */
-    private static final Map<UUID, ResourceStatsHud> playerHuds = new ConcurrentHashMap<>();
 
     @Nonnull
     private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
@@ -115,36 +96,10 @@ public class ResourceStatsHudSystem extends DelayedEntitySystem<EntityStore> {
 
         boolean showConcentration = concentrationValue != null && concentrationValue.getMax() > 0.0f;
         boolean showRage = rageValue != null && rageValue.getMax() > 0.0f;
-        boolean shouldShowHud = true; // showConcentration || showRage;
 
-        // Skip if MultipleHUD is not available
-        if (!MULTIPLE_HUD_AVAILABLE) {
-            return;
-        }
-
-        com.buuz135.mhud.MultipleHUD multipleHUD = com.buuz135.mhud.MultipleHUD.getInstance();
-        ResourceStatsHud existingHud = playerHuds.get(playerUuid);
-
-        if (!shouldShowHud) {
-            // Hide HUD if visible
-            if (existingHud != null) {
-                multipleHUD.hideCustomHud(player, playerRef, HUD_ID);
-                playerHuds.remove(playerUuid);
-            }
-            stats.setLastHudShown(false);
-            stats.setLastHudConcentrationVisible(false);
-            stats.setLastHudRageVisible(false);
-            return;
-        }
-
-        // Create HUD if not exists
-        ResourceStatsHud resourceHud;
-        if (existingHud == null) {
-            resourceHud = new ResourceStatsHud(playerRef);
-            multipleHUD.setCustomHud(player, playerRef, HUD_ID, resourceHud);
-            playerHuds.put(playerUuid, resourceHud);
-        } else {
-            resourceHud = existingHud;
+        HyforgedHud hud = HyforgedHudManager.getOrCreate(playerUuid, player, playerRef);
+        if (hud == null) {
+            return; // Client not ready yet
         }
 
         int concentrationCurrent = concentrationValue != null ? Math.round(concentrationValue.get()) : 0;
@@ -165,7 +120,7 @@ public class ResourceStatsHudSystem extends DelayedEntitySystem<EntityStore> {
             return;
         }
 
-        resourceHud.updateValues(
+        hud.updateResourceStats(
                 showConcentration,
                 concentrationCurrent,
                 concentrationMax,

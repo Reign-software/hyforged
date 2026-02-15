@@ -204,8 +204,8 @@ public final class QualityAssetLoader {
             try {
                 QualityEligibilityRule rule = asset.toRule();
                 if (!weightRegistry.contains(rule.weightProfileId())) {
-                    LOGGER.log(Level.WARNING, "Quality eligibility rule {0} references missing profile: {1}",
-                            new Object[]{rule.id(), rule.weightProfileId()});
+                    LOGGER.warning(String.format("Quality eligibility rule %s references missing profile: %s",
+                            rule.id(), rule.weightProfileId()));
                     skipped++;
                     continue;
                 }

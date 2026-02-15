@@ -353,9 +353,9 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
         }
         boolean applied = false;
 
-        applied |= applyEntityStatModifiers(entityStatMap, effect);
-        applied |= applyStaticEffectModifiers(entityStatMap, effect);
-        applied |= applyHyforgedEffectModifiers(entityStatMap, effect.getId());
+        applied |= applyEntityStatModifiers(entityStatMap, statComponent, effect);
+        applied |= applyStaticEffectModifiers(entityStatMap, statComponent, effect);
+        applied |= applyHyforgedEffectModifiers(entityStatMap, statComponent, effect.getId());
 
         if (applied) {
             statComponent.markAllDirty();
@@ -385,9 +385,9 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
         }
         boolean removed = false;
 
-        removed |= removeEntityStatModifiers(entityStatMap, effect);
-        removed |= removeStaticEffectModifiers(entityStatMap, effect);
-        removed |= removeHyforgedEffectModifiers(entityStatMap, effect.getId());
+        removed |= removeEntityStatModifiers(entityStatMap, statComponent, effect);
+        removed |= removeStaticEffectModifiers(entityStatMap, statComponent, effect);
+        removed |= removeHyforgedEffectModifiers(entityStatMap, statComponent, effect.getId());
 
         if (removed) {
             statComponent.markAllDirty();
@@ -399,6 +399,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
 
     private boolean applyEntityStatModifiers(
             @Nonnull EntityStatMap entityStatMap,
+            @Nonnull HyforgedStatComponent statComponent,
             @Nonnull EntityEffect effect
     ) {
         Int2FloatMap entityStats = effect.getEntityStats();
@@ -427,8 +428,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
             String modifierKey = buildEntityModifierKey(effect.getId(), hyforgedStatIndex);
             HyforgedModifier modifier = buildEffectModifier(valueType, value, hyforgedStatIndex, effect.getId());
 
-            entityStatMap.putModifier(hyforgedStatIndex, modifierKey, modifier);
-            applied = true;
+            applied |= putModifier(entityStatMap, statComponent, hyforgedStatIndex, modifierKey, modifier);
 
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.fine("Applied effect modifier: " + modifierKey + " -> " + statId.fullId() + " = " + value);
@@ -440,6 +440,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
 
     private boolean applyStaticEffectModifiers(
             @Nonnull EntityStatMap entityStatMap,
+            @Nonnull HyforgedStatComponent statComponent,
             @Nonnull EntityEffect effect
     ) {
         Int2ObjectMap<StaticModifier[]> statModifiers = effect.getStatModifiers();
@@ -478,8 +479,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
                 }
 
                 String modifierKey = buildStaticModifierKey(effect.getId(), hyforgedStatIndex, staticModifier);
-                entityStatMap.putModifier(hyforgedStatIndex, modifierKey, modifier);
-                applied = true;
+                applied |= putModifier(entityStatMap, statComponent, hyforgedStatIndex, modifierKey, modifier);
 
                 if (LOGGER.isLoggable(Level.FINE)) {
                     LOGGER.fine("Applied static effect modifier: " + modifierKey + " -> " + statId.fullId());
@@ -492,6 +492,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
 
     private boolean removeEntityStatModifiers(
             @Nonnull EntityStatMap entityStatMap,
+            @Nonnull HyforgedStatComponent statComponent,
             @Nonnull EntityEffect effect
     ) {
         Int2FloatMap entityStats = effect.getEntityStats();
@@ -516,8 +517,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
             }
 
             String modifierKey = buildEntityModifierKey(effect.getId(), hyforgedStatIndex);
-            Modifier removedModifier = entityStatMap.removeModifier(hyforgedStatIndex, modifierKey);
-            if (removedModifier != null) {
+            if (removeModifier(entityStatMap, statComponent, hyforgedStatIndex, modifierKey, effect.getId())) {
                 removed = true;
                 if (LOGGER.isLoggable(Level.FINE)) {
                     LOGGER.fine("Removed effect modifier: " + modifierKey);
@@ -530,6 +530,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
 
     private boolean removeStaticEffectModifiers(
             @Nonnull EntityStatMap entityStatMap,
+            @Nonnull HyforgedStatComponent statComponent,
             @Nonnull EntityEffect effect
     ) {
         Int2ObjectMap<StaticModifier[]> statModifiers = effect.getStatModifiers();
@@ -563,8 +564,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
                 }
 
                 String modifierKey = buildStaticModifierKey(effect.getId(), hyforgedStatIndex, staticModifier);
-                Modifier removedModifier = entityStatMap.removeModifier(hyforgedStatIndex, modifierKey);
-                if (removedModifier != null) {
+                if (removeModifier(entityStatMap, statComponent, hyforgedStatIndex, modifierKey, effect.getId())) {
                     removed = true;
                     if (LOGGER.isLoggable(Level.FINE)) {
                         LOGGER.fine("Removed static effect modifier: " + modifierKey);
@@ -646,6 +646,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
 
     private boolean applyHyforgedEffectModifiers(
             @Nonnull EntityStatMap entityStatMap,
+            @Nonnull HyforgedStatComponent statComponent,
             @Nonnull String effectId
     ) {
         HyforgedEffectDefinition definition = HyforgedEffectRegistry.get().get(effectId);
@@ -699,8 +700,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
                     .build();
 
             String modifierKey = buildHyforgedModifierKey(effectId, statIndex, ordinal);
-            entityStatMap.putModifier(statIndex, modifierKey, modifier);
-            applied = true;
+            applied |= putModifier(entityStatMap, statComponent, statIndex, modifierKey, modifier);
             ordinal++;
         }
 
@@ -709,6 +709,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
 
     private boolean removeHyforgedEffectModifiers(
             @Nonnull EntityStatMap entityStatMap,
+            @Nonnull HyforgedStatComponent statComponent,
             @Nonnull String effectId
     ) {
         HyforgedEffectDefinition definition = HyforgedEffectRegistry.get().get(effectId);
@@ -752,8 +753,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
             }
 
             String modifierKey = buildHyforgedModifierKey(effectId, statIndex, ordinal);
-            Modifier removedModifier = entityStatMap.removeModifier(statIndex, modifierKey);
-            if (removedModifier != null) {
+            if (removeModifier(entityStatMap, statComponent, statIndex, modifierKey, effectId)) {
                 removed = true;
             }
             ordinal++;
@@ -780,6 +780,44 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
             @Nonnull StaticModifier modifier
     ) {
         return EFFECT_SOURCE_PREFIX + effectId + ":static:" + statIndex + ":" + modifier.getTarget() + ":" + modifier.getCalculationType();
+    }
+
+    private boolean putModifier(
+            @Nonnull EntityStatMap entityStatMap,
+            @Nonnull HyforgedStatComponent statComponent,
+            int statIndex,
+            @Nonnull String modifierKey,
+            @Nonnull HyforgedModifier modifier
+    ) {
+        if (StatAccessor.hasStatSlot(entityStatMap, statIndex)) {
+            entityStatMap.putModifier(statIndex, modifierKey, modifier);
+            return true;
+        }
+        return statComponent.upsertModifier(modifier);
+    }
+
+    private boolean removeModifier(
+            @Nonnull EntityStatMap entityStatMap,
+            @Nonnull HyforgedStatComponent statComponent,
+            int statIndex,
+            @Nonnull String modifierKey,
+            @Nonnull String effectId
+    ) {
+        boolean removed = false;
+
+        if (StatAccessor.hasStatSlot(entityStatMap, statIndex)) {
+            Modifier removedModifier = entityStatMap.removeModifier(statIndex, modifierKey);
+            removed |= removedModifier != null;
+        }
+
+        int componentRemoved = statComponent.removeModifiersIf(
+                modifier -> modifier.getSourceType() == HyforgedModifier.SourceType.EFFECT
+                        && effectId.equals(modifier.getSourceId())
+                        && modifier.getTargetStatIndex() == statIndex,
+                modifier -> {
+                }
+        );
+        return removed || componentRemoved > 0;
     }
 
     private int convertPercentToBps(float value) {

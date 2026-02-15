@@ -50,7 +50,7 @@ public final class PassiveTreeAssetLoader {
     public static final String TEMPLATES_PATH = "Hyforged/PassiveTrees/templates";
 
     /** Path for passive refund config */
-    public static final String CONFIG_PATH = "Hyforged/Config";
+    public static final String CONFIG_PATH = "Hyforged/Config/PassiveRefund";
 
     private static boolean initialized = false;
     

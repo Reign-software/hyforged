@@ -35,6 +35,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 import java.util.Set;
@@ -251,7 +252,7 @@ public class LootQualitySystem extends RefChangeSystem<EntityStore, ItemComponen
         double bestDistance = Double.MAX_VALUE;
 
         for (Ref<EntityStore> candidate : candidates) {
-            if (candidate == null || !candidate.isValid() || candidate.equals(itemRef)) {
+            if (candidate == null || !candidate.isValid() || Objects.equals(candidate, itemRef)) {
                 continue;
             }
 

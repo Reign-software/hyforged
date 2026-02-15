@@ -1,5 +1,4 @@
 {
-  "Id": "hyforged:npc_hostile",
   "Priority": 100,
   "Description": "Affix pool for all hostile NPCs",
   "AppliesTo": {

@@ -1,11 +1,10 @@
 # Hytale plugin
 This is a Hytale plugin project. Hytale plugins are used to extend the functionality of the Hytale server. Plugins can add new features, modify existing behavior, or integrate with other systems. Plugins are typically written in Java and packaged as JAR files that can be loaded by the Hytale server. The plugins are sent to the client at runtime so they are only needed on the server.
 
-- When you want to build the plugin, run the task build plugin
+- When you want to build the plugin, run the task `Build and Deploy Plugin`. This will build the plugin and copy it to the local Hytale plugins directory for testing.
 - The `.memory_bank` directory contains important context such as ADRs, requirements, and design decisions. Keep this up to date as you work on the project.
 - Hytale uses an Entity Component System (ECS) architecture. Very data driven. Do not hard code values.
 - Before implementing new features, review the ECS patterns and existing components in the Hytale server code.
-- Use `.doc` for looking up domain knowledge.
 - The source code for the Hytale server can be found in the `lib/hytale-server/src/main/java/com/hypixel` directory.
 - The games JSON that makes up all items, blocks, and other in-game assets can be found in the `lib/Server` directory. you can use this to look up item IDs, block IDs, and other in-game assets. Do not modify these files directly, they are for reference. We have our own data under `src/main/resources/Server/Hyforged`.
 - To update lib/ with the latest Hytale server, use the `update-server-lib` skill (`.github/skills/update-server-lib/`). This downloads the pre-release server, decompiles the JAR, and syncs assets.
@@ -21,6 +20,7 @@ This is a Hytale plugin project. Hytale plugins are used to extend the functiona
 - Any user-facing text must be localized via translation keys (e.g., `Message.translation(...)`) and added to language resources under `src/main/resources/Server/Languages/<locale>/*.lang` (filename becomes the key prefix). `src/main/resources/Server/Languages/fallback.lang` is only for locale fallback mappings (e.g., `en-GB = en-US`).
 
 ## .github/skills
+- There is a skill for the ENTIRE hytale APi. This includes all the ECS patterns, component types, systems, and other APIs. Use this skill to look up how to use the Hytale API effectively.
 - Evaluate skills when given a task or problem to solve.
 - Multiple skills may be required to complete a task or solve a problem effectively.
 - Skills should be applied in a context-aware manner, considering the specific requirements and constraints of the task.

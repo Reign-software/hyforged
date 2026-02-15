@@ -14,15 +14,18 @@ import java.util.logging.Logger;
  * Handles loading currency configuration from JSON assets.
  * <p>
  * Loads:
- * - Server/Hyforged/Config/SellValueConfig.json
- * - Server/Hyforged/Config/VaultUpgrades.json
+ * - Server/Hyforged/Config/SellValue/SellValueConfig.json
+ * - Server/Hyforged/Config/VaultUpgrades/VaultUpgrades.json
  */
 public final class CurrencyConfigAssetLoader {
 
     private static final Logger LOGGER = Logger.getLogger(CurrencyConfigAssetLoader.class.getName());
 
-    /** Path for currency config assets relative to asset root */
-    public static final String CONFIG_ASSET_PATH = "Hyforged/Config";
+    /** Path for sell value config assets relative to asset root */
+    public static final String SELL_VALUE_ASSET_PATH = "Hyforged/Config/SellValue";
+
+    /** Path for vault upgrades config assets relative to asset root */
+    public static final String VAULT_UPGRADES_ASSET_PATH = "Hyforged/Config/VaultUpgrades";
 
     private static boolean initialized = false;
 
@@ -75,14 +78,14 @@ public final class CurrencyConfigAssetLoader {
                                 SellValueConfigAsset.class,
                                 new IndexedLookupTableAssetMap<>(SellValueConfigAsset[]::new)
                             )
-                            .setPath(CONFIG_ASSET_PATH))
+                            .setPath(SELL_VALUE_ASSET_PATH))
                         .setReplaceOnRemove(key -> new SellValueConfigAsset()))
                     .setCodec(SellValueConfigAsset.CODEC))
                 .setKeyFunction(SellValueConfigAsset::getId))
             .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered SellValueConfigAsset store at path: " + CONFIG_ASSET_PATH);
+        LOGGER.fine("Registered SellValueConfigAsset store at path: " + SELL_VALUE_ASSET_PATH);
     }
 
     private static void registerVaultUpgradesAssetStore() {
@@ -95,14 +98,14 @@ public final class CurrencyConfigAssetLoader {
                                 VaultUpgradesConfigAsset.class,
                                 new IndexedLookupTableAssetMap<>(VaultUpgradesConfigAsset[]::new)
                             )
-                            .setPath(CONFIG_ASSET_PATH))
+                            .setPath(VAULT_UPGRADES_ASSET_PATH))
                         .setReplaceOnRemove(key -> new VaultUpgradesConfigAsset()))
                     .setCodec(VaultUpgradesConfigAsset.CODEC))
                 .setKeyFunction(VaultUpgradesConfigAsset::getId))
             .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered VaultUpgradesConfigAsset store at path: " + CONFIG_ASSET_PATH);
+        LOGGER.fine("Registered VaultUpgradesConfigAsset store at path: " + VAULT_UPGRADES_ASSET_PATH);
     }
 
     private static void onSellValueConfigLoaded(

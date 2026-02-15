@@ -9,6 +9,7 @@ import reign.software.hyforged.affix.model.AffixTierDefinition;
 import reign.software.hyforged.affix.model.AffixTierStat;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +25,10 @@ import java.util.Map;
  *   "Stats": {
  *     "hyforged:strength": { "MinValue": 45, "MaxValue": 55, "StackType": "FLAT" },
  *     "hyforged:max-health": { "MinValue": 100, "MaxValue": 150, "StackType": "FLAT" }
+ *   },
+ *   "Condition": {
+ *     "Type": "health_below_percent",
+ *     "Value": 30
  *   }
  * }
  * </pre>
@@ -36,6 +41,19 @@ public class AffixTierAsset {
      */
     private static final MapCodec<AffixTierStatAsset, Map<String, AffixTierStatAsset>> STATS_MAP_CODEC = 
             new MapCodec<>(AffixTierStatAsset.CODEC, HashMap::new);
+
+    /**
+     * Codec for an optional condition that must be met for this tier's stats to apply.
+     */
+    public static final BuilderCodec<ConditionAsset> CONDITION_CODEC = BuilderCodec.builder(
+                    ConditionAsset.class,
+                    ConditionAsset::new
+            )
+            .append(new KeyedCodec<>("Type", Codec.STRING), (asset, value) -> asset.type = value, asset -> asset.type)
+            .add()
+            .append(new KeyedCodec<>("Value", Codec.INTEGER), (asset, value) -> asset.value = value != null ? value : 0, asset -> asset.value)
+            .add()
+            .build();
 
     /**
      * Codec for a single tier definition.
@@ -76,6 +94,12 @@ public class AffixTierAsset {
                     asset -> asset.stats
             )
             .add()
+            .append(
+                    new KeyedCodec<>("Condition", CONDITION_CODEC),
+                    (asset, value) -> asset.condition = value,
+                    asset -> asset.condition
+            )
+            .add()
             .build();
 
     /**
@@ -88,6 +112,8 @@ public class AffixTierAsset {
     private int weight = -1; // -1 means compute from tier
     private boolean weightExplicitlySet = false;
     private Map<String, AffixTierStatAsset> stats = new HashMap<>();
+    @Nullable
+    private ConditionAsset condition = null;
 
     public AffixTierAsset() {
     }
@@ -138,5 +164,32 @@ public class AffixTierAsset {
 
     public Map<String, AffixTierStatAsset> getStats() {
         return stats;
+    }
+
+    @Nullable
+    public ConditionAsset getCondition() {
+        return condition;
+    }
+
+    /**
+     * Optional condition that must be met for this tier's stats to apply.
+     * For example, {@code "Type": "health_below_percent", "Value": 30} means
+     * stats only activate when the entity's health is below 30%.
+     */
+    public static class ConditionAsset {
+        private String type = "";
+        private int value = 0;
+
+        public ConditionAsset() {
+        }
+
+        @Nonnull
+        public String getType() {
+            return type != null ? type : "";
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 }

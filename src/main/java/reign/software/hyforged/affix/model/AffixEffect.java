@@ -40,7 +40,9 @@ public record AffixEffect(
     float damageScaling,
     @Nonnull String applyEffectId,
     float applyEffectDurationSeconds,
-    float spawnRadius
+    float spawnRadius,
+    boolean invulnerability,
+    float invulnerabilityDuration
 ) {
 
     public AffixEffect {
@@ -95,6 +97,9 @@ public record AffixEffect(
         }
         if (spawnRadius < 0) {
             spawnRadius = 0;
+        }
+        if (invulnerabilityDuration < 0) {
+            invulnerabilityDuration = 0;
         }
     }
 }

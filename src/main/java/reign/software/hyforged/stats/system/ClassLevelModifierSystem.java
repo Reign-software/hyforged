@@ -7,11 +7,13 @@ import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
+import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.progression.event.CharacterLevelUpEvent;
 import reign.software.hyforged.progression.event.ClassLevelUpEvent;
 import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
+import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
@@ -85,7 +87,11 @@ public class ClassLevelModifierSystem {
         Store<EntityStore> store = entityRef.getStore();
         
         EntityStatMap statMap = StatAccessor.getStatMap(store, entityRef);
-        if (statMap == null) {
+        HyforgedStatComponent statComponent = store.getComponent(
+            entityRef,
+            HyforgedPlugin.getInstance().getHyforgedStatComponentType()
+        );
+        if (statMap == null && statComponent == null) {
             LOGGER.fine("ClassLevelModifierSystem: Entity has no stat map");
             return;
         }
@@ -121,8 +127,11 @@ public class ClassLevelModifierSystem {
                     .permanent()
                     .build();
             
-            // putModifier returns the previous modifier or null - no failure case
-            statMap.putModifier(statIndex, sourceId, modifier);
+            if (statMap != null && StatAccessor.hasStatSlot(statMap, statIndex)) {
+                statMap.putModifier(statIndex, sourceId, modifier);
+            } else if (statComponent != null) {
+                statComponent.upsertModifier(modifier);
+            }
         }
     }
 

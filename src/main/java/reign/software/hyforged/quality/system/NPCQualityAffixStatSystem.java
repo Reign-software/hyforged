@@ -107,23 +107,26 @@ public class NPCQualityAffixStatSystem extends RefChangeSystem<EntityStore, Hyfo
     ) {
         EntityStatMap statMap = commandBuffer.getComponent(ref, statMapType);
         HyforgedStatComponent statComponent = commandBuffer.getComponent(ref, statComponentType);
+        int totalRemoved = 0;
+
         if (statMap != null) {
-            int removed = StatAccessor.removeAllModifiersByKeyPrefix(statMap, AFFIX_SOURCE_PREFIX);
-            if (removed > 0) {
-                LOGGER.log(Level.FINER, "Removed {0} NPC affix modifiers", removed);
-            }
-            return;
+            totalRemoved += StatAccessor.removeAllModifiersByKeyPrefix(statMap, AFFIX_SOURCE_PREFIX);
         }
+
         if (statComponent != null) {
             int removed = statComponent.removeModifiersIf(
                     modifier -> modifier.getSourceId().startsWith(AFFIX_SOURCE_PREFIX),
                     modifier -> {
                     }
             );
+            totalRemoved += removed;
             if (removed > 0) {
                 statComponent.markAllDirty();
-                LOGGER.log(Level.FINER, "Removed {0} NPC affix modifiers", removed);
             }
+        }
+
+        if (totalRemoved > 0) {
+            LOGGER.log(Level.FINER, "Removed {0} NPC affix modifiers", totalRemoved);
         }
     }
 
@@ -166,7 +169,7 @@ public class NPCQualityAffixStatSystem extends RefChangeSystem<EntityStore, Hyfo
                         .permanent()
                         .build();
 
-                if (statMap != null) {
+                if (statMap != null && StatAccessor.hasStatSlot(statMap, statIndex)) {
                     statMap.putModifier(statIndex, sourceId, modifier);
                 } else if (statComponent != null) {
                     statComponent.upsertModifier(modifier);

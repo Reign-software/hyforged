@@ -386,6 +386,10 @@ public final class ConcentrationService {
             return Math.max(0, maxConcentration);
         }
 
+        if (!StatAccessor.hasStatSlot(statMap, concentrationEntityStatIndex)) {
+            return Math.max(0, maxConcentration);
+        }
+
         EntityStatValue value = statMap.get(concentrationEntityStatIndex);
         if (value == null) {
             return Math.max(0, maxConcentration);
@@ -406,6 +410,10 @@ public final class ConcentrationService {
 
         EntityStatMap statMap = store.getComponent(entityRef, entityStatMapType);
         if (statMap == null) {
+            return;
+        }
+
+        if (!StatAccessor.hasStatSlot(statMap, concentrationEntityStatIndex)) {
             return;
         }
 

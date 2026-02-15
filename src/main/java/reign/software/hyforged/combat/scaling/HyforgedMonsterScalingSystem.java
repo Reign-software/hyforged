@@ -15,11 +15,14 @@ import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
+import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,6 +60,9 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
     private final ComponentType<EntityStore, NPCEntity> npcComponentType;
 
     @Nonnull
+    private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
+
+    @Nonnull
     private final ComponentType<EntityStore, TransformComponent> transformComponentType;
 
     @Nonnull
@@ -67,6 +73,7 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
         this.statMapType = EntityStatMap.getComponentType();
         this.levelComponentType = plugin.getMonsterLevelComponentType();
         this.npcComponentType = NPCEntity.getComponentType();
+        this.statComponentType = plugin.getHyforgedStatComponentType();
         this.transformComponentType = TransformComponent.getComponentType();
 
         // Query for NPCs that also have a transform (needed for position)
@@ -118,8 +125,9 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
 
         // Apply stat modifiers if entity has EntityStatMap
         EntityStatMap statMap = commandBuffer.getComponent(ref, statMapType);
-        if (statMap != null) {
-            applyLevelModifiers(statMap, level, roleName, scalingService);
+        HyforgedStatComponent statComponent = commandBuffer.getComponent(ref, statComponentType);
+        if (statMap != null || statComponent != null) {
+            applyLevelModifiers(statMap, statComponent, level, roleName, scalingService);
         }
     }
 
@@ -145,7 +153,8 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
      * @param scalingService The scaling service
      */
     private void applyLevelModifiers(
-            @Nonnull EntityStatMap statMap,
+            @Nullable EntityStatMap statMap,
+            @Nullable HyforgedStatComponent statComponent,
             int level,
             @Nonnull String roleName,
             @Nonnull MonsterScalingService scalingService
@@ -191,7 +200,11 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
             
             // Use unique source key per stat to avoid collisions
             String sourceKey = LEVEL_MODIFIER_SOURCE + ":" + statId.fullId();
-            statMap.putModifier(statIndex, sourceKey, modifier);
+            if (statMap != null && StatAccessor.hasStatSlot(statMap, statIndex)) {
+                statMap.putModifier(statIndex, sourceKey, modifier);
+            } else if (statComponent != null) {
+                statComponent.upsertModifier(modifier);
+            }
             
             LOGGER.log(Level.FINER, "Applied " + entry.getModifierType() + " modifier to stat '" + entry.getStatId() + "': " + modifierValue + " (level " + level + ")");
         }

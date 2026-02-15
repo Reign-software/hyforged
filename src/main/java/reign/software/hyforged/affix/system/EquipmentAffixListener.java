@@ -11,6 +11,7 @@ import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.affix.event.AffixModifiersAppliedEvent;
 import reign.software.hyforged.affix.model.HyforgedItemData;
 import reign.software.hyforged.affix.model.RolledAffix;
@@ -19,6 +20,7 @@ import reign.software.hyforged.affix.service.HyforgedItemDataService;
 import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
+import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
@@ -107,16 +109,16 @@ public class EquipmentAffixListener {
         }
         
         EntityStatMap entityStatMap = getEntityStatMap(entityRef);
-        if (entityStatMap == null) {
-            // Entity doesn't have stat map
+        HyforgedStatComponent statComponent = getHyforgedStatComponent(entityRef);
+        if (entityStatMap == null && statComponent == null) {
             return;
         }
         
         // Process the equipment change
         if (isArmorChange) {
-            processArmorChange(entity, entityStatMap, inventory);
+            processArmorChange(entity, entityStatMap, statComponent, inventory);
         } else if (isHotbarChange) {
-            processHotbarChange(entity, entityStatMap, inventory);
+            processHotbarChange(entity, entityStatMap, statComponent, inventory);
         }
 
         ActiveEffectInitializer.refreshFromEquipment(entityRef, inventory, entityRef.getStore());
@@ -132,20 +134,29 @@ public class EquipmentAffixListener {
         }
         return StatAccessor.getStatMap(ref.getStore(), ref);
     }
+
+    @Nullable
+    private HyforgedStatComponent getHyforgedStatComponent(@Nonnull Ref<EntityStore> ref) {
+        if (!ref.isValid()) {
+            return null;
+        }
+        return ref.getStore().getComponent(ref, HyforgedPlugin.getInstance().getHyforgedStatComponentType());
+    }
     
     /**
      * Process armor slot changes.
      */
     private void processArmorChange(
             @Nonnull LivingEntity entity,
-            @Nonnull EntityStatMap entityStatMap,
+            @Nullable EntityStatMap entityStatMap,
+            @Nullable HyforgedStatComponent statComponent,
             @Nonnull Inventory inventory
     ) {
         ItemContainer armorContainer = inventory.getArmor();
         
         // Re-sync all armor slot modifiers
         // First, remove all existing armor affix modifiers
-        removeArmorAffixModifiers(entityStatMap);
+        removeArmorAffixModifiers(entityStatMap, statComponent);
         
         // Then apply modifiers from current armor
         List<HyforgedModifier> appliedModifiers = new ArrayList<>();
@@ -157,7 +168,7 @@ public class EquipmentAffixListener {
             }
             
             List<HyforgedModifier> slotModifiers = applyAffixModifiersFromItem(
-                    entityStatMap, itemStack, "armor:" + slot);
+                    entityStatMap, statComponent, itemStack, "armor:" + slot);
             appliedModifiers.addAll(slotModifiers);
         }
         
@@ -173,11 +184,12 @@ public class EquipmentAffixListener {
      */
     private void processHotbarChange(
             @Nonnull LivingEntity entity,
-            @Nonnull EntityStatMap entityStatMap,
+            @Nullable EntityStatMap entityStatMap,
+            @Nullable HyforgedStatComponent statComponent,
             @Nonnull Inventory inventory
     ) {
         // Remove existing hand affix modifiers
-        removeHandAffixModifiers(entityStatMap);
+        removeHandAffixModifiers(entityStatMap, statComponent);
         
         // Apply modifiers from held item
         ItemStack heldItem = inventory.getItemInHand();
@@ -186,7 +198,7 @@ public class EquipmentAffixListener {
         }
         
         List<HyforgedModifier> appliedModifiers = applyAffixModifiersFromItem(
-                entityStatMap, heldItem, "hand");
+            entityStatMap, statComponent, heldItem, "hand");
         
         if (!appliedModifiers.isEmpty()) {
             emitModifiersAppliedEvent(entity, "hand", appliedModifiers);
@@ -196,9 +208,25 @@ public class EquipmentAffixListener {
     /**
      * Remove all armor-sourced affix modifiers.
      */
-    private void removeArmorAffixModifiers(@Nonnull EntityStatMap statMap) {
-        int removed = StatAccessor.removeAllModifiersByKeyPrefix(statMap, EQUIPMENT_SOURCE_PREFIX + "armor:");
+    private void removeArmorAffixModifiers(
+            @Nullable EntityStatMap statMap,
+            @Nullable HyforgedStatComponent statComponent
+    ) {
+        int removed = 0;
+        if (statMap != null) {
+            removed += StatAccessor.removeAllModifiersByKeyPrefix(statMap, EQUIPMENT_SOURCE_PREFIX + "armor:");
+        }
+        if (statComponent != null) {
+            removed += statComponent.removeModifiersIf(
+                    modifier -> modifier.getSourceId().startsWith(EQUIPMENT_SOURCE_PREFIX + "armor:"),
+                    modifier -> {
+                    }
+            );
+        }
         if (removed > 0) {
+            if (statComponent != null) {
+                statComponent.markAllDirty();
+            }
             LOGGER.log(Level.FINER, "Removed {0} armor affix modifiers", removed);
         }
     }
@@ -206,9 +234,25 @@ public class EquipmentAffixListener {
     /**
      * Remove all hand-sourced affix modifiers.
      */
-    private void removeHandAffixModifiers(@Nonnull EntityStatMap statMap) {
-        int removed = StatAccessor.removeAllModifiersByKeyPrefix(statMap, EQUIPMENT_SOURCE_PREFIX + "hand:");
+    private void removeHandAffixModifiers(
+            @Nullable EntityStatMap statMap,
+            @Nullable HyforgedStatComponent statComponent
+    ) {
+        int removed = 0;
+        if (statMap != null) {
+            removed += StatAccessor.removeAllModifiersByKeyPrefix(statMap, EQUIPMENT_SOURCE_PREFIX + "hand:");
+        }
+        if (statComponent != null) {
+            removed += statComponent.removeModifiersIf(
+                    modifier -> modifier.getSourceId().startsWith(EQUIPMENT_SOURCE_PREFIX + "hand:"),
+                    modifier -> {
+                    }
+            );
+        }
         if (removed > 0) {
+            if (statComponent != null) {
+                statComponent.markAllDirty();
+            }
             LOGGER.log(Level.FINER, "Removed {0} hand affix modifiers", removed);
         }
     }
@@ -223,10 +267,15 @@ public class EquipmentAffixListener {
      */
     @Nonnull
     private List<HyforgedModifier> applyAffixModifiersFromItem(
-            @Nonnull EntityStatMap statMap,
+            @Nullable EntityStatMap statMap,
+            @Nullable HyforgedStatComponent statComponent,
             @Nonnull ItemStack itemStack,
             @Nonnull String slotId
     ) {
+        if (statMap == null && statComponent == null) {
+            return List.of();
+        }
+
         HyforgedItemData itemData = HyforgedItemDataService.read(itemStack);
         if (!itemData.hasAffixes()) {
             return List.of();
@@ -264,10 +313,15 @@ public class EquipmentAffixListener {
                         .permanent()
                         .build();
                 
-                // Use putModifier with sourceId as the unique key
-                statMap.putModifier(statIndex, sourceId, modifier);
-                applied.add(modifier);
-                LOGGER.log(Level.FINE, "Applied affix modifier: {0} = {1} {2}", 
+                if (statMap != null && StatAccessor.hasStatSlot(statMap, statIndex)) {
+                    statMap.putModifier(statIndex, sourceId, modifier);
+                    applied.add(modifier);
+                } else if (statComponent != null) {
+                    statComponent.upsertModifier(modifier);
+                    applied.add(modifier);
+                }
+
+                LOGGER.log(Level.FINE, "Applied affix modifier: {0} = {1} {2}",
                         new Object[]{statIdStr, rolledStat.value(), rolledStat.stackType()});
             }
         }

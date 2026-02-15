@@ -27,7 +27,7 @@ public final class XPCurveAssetLoader {
     private static final Logger LOGGER = Logger.getLogger(XPCurveAssetLoader.class.getName());
 
     /** Path for XP curve assets relative to asset root */
-    public static final String XP_CURVE_ASSET_PATH = "Hyforged/Progression";
+    public static final String XP_CURVE_ASSET_PATH = "Hyforged/Progression/Curves";
 
     private static boolean initialized = false;
 

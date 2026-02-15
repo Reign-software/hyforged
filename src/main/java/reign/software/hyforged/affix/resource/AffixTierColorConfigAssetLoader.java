@@ -13,13 +13,13 @@ import java.util.logging.Logger;
 /**
  * Handles loading affix tier color configuration from JSON assets.
  * <p>
- * Loads: Server/Hyforged/GameplayConfigs/AffixTierColors.json
+ * Loads: Server/Hyforged/GameplayConfigs/AffixTierColors/AffixTierColors.json
  */
 public final class AffixTierColorConfigAssetLoader {
 
     private static final Logger LOGGER = Logger.getLogger(AffixTierColorConfigAssetLoader.class.getName());
 
-    public static final String CONFIG_ASSET_PATH = "Hyforged/GameplayConfigs";
+    public static final String CONFIG_ASSET_PATH = "Hyforged/GameplayConfigs/AffixTierColors";
     private static final String CONFIG_ID = "AffixTierColors";
 
     private static boolean initialized = false;

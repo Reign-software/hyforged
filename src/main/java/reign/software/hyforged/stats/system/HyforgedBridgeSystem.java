@@ -301,6 +301,10 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
             @Nonnull String modifierKey,
             int value
     ) {
+        if (!StatAccessor.hasStatSlot(entityStatMap, statIndex)) {
+            return;
+        }
+
         // Create a HyforgedModifier that adds to the MAX value
         // Using FLAT type since we're bridging the fully computed value
         HyforgedModifier modifier = HyforgedModifier.builder()

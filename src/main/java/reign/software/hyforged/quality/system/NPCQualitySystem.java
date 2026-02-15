@@ -30,6 +30,7 @@ import reign.software.hyforged.quality.model.NPCQualityRule;
 import reign.software.hyforged.quality.model.QualityWeightTable;
 import reign.software.hyforged.quality.registry.NPCQualityRegistry;
 import reign.software.hyforged.quality.service.NPCQualityService;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
@@ -190,7 +191,7 @@ public class NPCQualitySystem extends RefSystem<EntityStore> {
                     .permanent()
                     .build();
 
-            if (statMap != null) {
+            if (statMap != null && StatAccessor.hasStatSlot(statMap, statIndex)) {
                 String sourceKey = QUALITY_MODIFIER_SOURCE + ":" + statId.fullId();
                 statMap.putModifier(statIndex, sourceKey, modifier);
             } else if (statComponent != null) {

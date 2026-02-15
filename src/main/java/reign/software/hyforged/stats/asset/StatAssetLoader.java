@@ -5,6 +5,7 @@ import com.hypixel.hytale.assetstore.AssetStore;
 import com.hypixel.hytale.assetstore.event.LoadedAssetsEvent;
 import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
 import com.hypixel.hytale.server.core.asset.HytaleAssetStore;
+import com.hypixel.hytale.server.core.event.events.BootEvent;
 import reign.software.hyforged.stats.CategoryDefinition;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
@@ -75,6 +76,15 @@ public final class StatAssetLoader {
                 LoadedAssetsEvent.class,
                 StatDefinitionAsset.class,
                 StatAssetLoader::onStatAssetsLoaded
+        );
+
+        // Freeze the registry on BootEvent, which fires after all plugins have
+        // started and their asset packs have been loaded via AssetPackRegisterEvent.
+        // JAR-based plugins load assets during start0() (after LoadAssetEvent),
+        // so PRIORITY_LOAD_LATE is too early — assets aren't loaded yet at that point.
+        plugin.getEventRegistry().registerGlobal(
+                BootEvent.class,
+                StatAssetLoader::onBoot
         );
 
         initialized = true;
@@ -235,6 +245,18 @@ public final class StatAssetLoader {
         
         if (missingRefs > 0) {
             LOGGER.warning("Found " + missingRefs + " scaling rules with missing source stats");
+        }
+    }
+
+    /**
+     * Called on BootEvent, after all plugins have started and their asset packs
+     * have been loaded. Freezes the StatDefinitionRegistry so the evaluation
+     * order is available before the first world tick.
+     */
+    private static void onBoot(@Nonnull BootEvent event) {
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+        if (!registry.isFrozen()) {
+            registry.freeze();
         }
     }
 

@@ -6,6 +6,7 @@ import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.tick.DelayedEntitySystem;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
@@ -13,17 +14,15 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.combat.log.CombatEncounter;
 import reign.software.hyforged.combat.log.CombatEvent;
 import reign.software.hyforged.combat.log.CombatLogService;
+import reign.software.hyforged.hud.HyforgedHud;
+import reign.software.hyforged.hud.HyforgedHudManager;
 
 import javax.annotation.Nonnull;
 import java.util.*;
-import java.util.logging.Logger;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * System that manages the combat log HUD for all players.
- * <p>
- * Uses the MultipleHUD library to display the combat log alongside
- * other custom HUDs (like resource stats).
+ * Updates the combat log section of the composite Hyforged HUD.
  * <p>
  * Features:
  * <ul>
@@ -35,25 +34,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
 
-    private static final Logger LOGGER = Logger.getLogger(CombatLogHudSystem.class.getName());
-
-    /** Whether MultipleHUD is available at runtime */
-    private static final boolean MULTIPLE_HUD_AVAILABLE;
-
-    static {
-        boolean available = false;
-        try {
-            Class.forName("com.buuz135.mhud.MultipleHUD");
-            available = true;
-        } catch (ClassNotFoundException e) {
-            LOGGER.warning("MultipleHUD not available - combat log HUD disabled");
-        }
-        MULTIPLE_HUD_AVAILABLE = available;
-    }
-
-    /** Unique identifier for this HUD in MultipleHUD */
-    public static final String HUD_ID = "hyforged:combat_log";
-
     /** Update interval in seconds */
     private static final float UPDATE_INTERVAL_SEC = 0.2f;
 
@@ -62,9 +42,6 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
 
     /** Per-player HUD visibility state */
     private static final Map<UUID, Boolean> hudVisibility = new ConcurrentHashMap<>();
-
-    /** Per-player HUD instances for updates */
-    private static final Map<UUID, CombatLogHud> playerHuds = new ConcurrentHashMap<>();
 
     /** Per-player last event count (for dirty checking) */
     private final Map<UUID, Integer> lastEventCount = new ConcurrentHashMap<>();
@@ -114,19 +91,15 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
         UUID playerUuid = uuidComponent.getUuid();
         boolean shouldShow = isHudVisible(playerUuid);
 
-        // Skip if MultipleHUD is not available
-        if (!MULTIPLE_HUD_AVAILABLE) {
-            return;
+        HyforgedHud hud = HyforgedHudManager.getOrCreate(playerUuid, player, playerRef);
+        if (hud == null) {
+            return; // Client not ready yet
         }
 
-        com.buuz135.mhud.MultipleHUD multipleHUD = com.buuz135.mhud.MultipleHUD.getInstance();
-        CombatLogHud existingHud = playerHuds.get(playerUuid);
-
         if (!shouldShow) {
-            // Hide HUD if visible
-            if (existingHud != null) {
-                multipleHUD.hideCustomHud(player, playerRef, HUD_ID);
-                playerHuds.remove(playerUuid);
+            // Hide combat log section if it was visible
+            if (lastEventCount.containsKey(playerUuid)) {
+                hud.hideCombatLog();
                 lastEventCount.remove(playerUuid);
             }
             return;
@@ -140,17 +113,6 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
         int currentEventCount = events.size();
         Integer lastCount = lastEventCount.get(playerUuid);
         boolean needsUpdate = lastCount == null || lastCount != currentEventCount;
-
-        // Create HUD if not exists
-        CombatLogHud hud;
-        if (existingHud == null) {
-            hud = new CombatLogHud(playerRef);
-            multipleHUD.setCustomHud(player, playerRef, HUD_ID, hud);
-            playerHuds.put(playerUuid, hud);
-            needsUpdate = true;
-        } else {
-            hud = existingHud;
-        }
 
         if (!needsUpdate) {
             return;
@@ -170,8 +132,14 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
             }
         }
 
-        // Update HUD
-        hud.updateLog(events, dps, totalHits, totalCrits);
+        // Build formatted lines for the HUD
+        Message[] lines = new Message[events.size()];
+        for (int i = 0; i < events.size(); i++) {
+            lines[i] = CombatLogFormatter.formatEventMessage(events.get(events.size() - 1 - i));
+        }
+
+        String dpsText = dps >= 0 ? String.format("DPS: %.1f", dps) : "DPS: ----";
+        hud.updateCombatLog(lines, dpsText, "Hits: " + totalHits, "Crits: " + totalCrits);
         lastEventCount.put(playerUuid, currentEventCount);
     }
 
@@ -266,6 +234,5 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
      */
     public static void clearPlayerState(@Nonnull UUID playerUuid) {
         hudVisibility.remove(playerUuid);
-        playerHuds.remove(playerUuid);
     }
 }

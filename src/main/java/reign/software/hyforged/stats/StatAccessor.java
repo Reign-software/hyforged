@@ -153,6 +153,30 @@ public final class StatAccessor {
             int statIndex) {
         return (int) getStatValue(statMap, statIndex);
     }
+
+    /**
+     * Ensure a stat slot exists in EntityStatMap before mutating it.
+     * <p>
+     * Some entities can temporarily carry stale stat arrays (e.g. before map refresh).
+     * This helper refreshes the map once and re-checks the slot.
+     *
+     * @param statMap The entity stat map
+     * @param statIndex The stat index
+     * @return true if the slot exists and can be safely mutated
+     */
+    public static boolean hasStatSlot(
+            @Nonnull EntityStatMap statMap,
+            int statIndex
+    ) {
+        if (statIndex < 0) {
+            return false;
+        }
+        if (statMap.get(statIndex) != null) {
+            return true;
+        }
+        statMap.update();
+        return statMap.get(statIndex) != null;
+    }
     
     // ========== HYFORGED STAT VALUE ACCESS ==========
     
@@ -205,6 +229,9 @@ public final class StatAccessor {
         if (statMap == null) {
             return null;
         }
+        if (!hasStatSlot(statMap, statIndex)) {
+            return null;
+        }
         var previous = statMap.putModifier(statIndex, key, modifier);
         return previous instanceof HyforgedModifier hm ? hm : null;
     }
@@ -226,6 +253,9 @@ public final class StatAccessor {
             @Nonnull String key) {
         EntityStatMap statMap = store.getComponent(entityRef, getStatMapTypeInternal());
         if (statMap == null) {
+            return null;
+        }
+        if (!hasStatSlot(statMap, statIndex)) {
             return null;
         }
         var removed = statMap.removeModifier(statIndex, key);

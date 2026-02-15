@@ -1,0 +1,43 @@
+// Hyforged Reticle Buttons — injected into #ServerEvent anchor on the Reticle HUD.
+// Provides quick-access buttons for Character Stats, Passive Tree, and Concentration.
+
+Group #HyforgedButtons {
+  Anchor: (Top: 60, Height: 32, Width: 108);
+  LayoutMode: Left;
+
+  Button #StatsButton {
+    Anchor: (Width: 32, Height: 32, Horizontal: 2);
+    Background: #1a1a2e(0.75);
+    TooltipText: "Character Stats";
+
+    Label {
+      Text: "S";
+      Anchor: (Width: 32, Height: 32);
+      Style: (FontSize: 14, RenderBold: true, TextColor: #FFD700, Alignment: Center, VerticalAlignment: Center);
+    }
+  }
+
+  Button #PassiveTreeButton {
+    Anchor: (Width: 32, Height: 32, Horizontal: 2);
+    Background: #1a2e1a(0.75);
+    TooltipText: "Passive Tree";
+
+    Label {
+      Text: "P";
+      Anchor: (Width: 32, Height: 32);
+      Style: (FontSize: 14, RenderBold: true, TextColor: #90EE90, Alignment: Center, VerticalAlignment: Center);
+    }
+  }
+
+  Button #ConcentrationButton {
+    Anchor: (Width: 32, Height: 32, Horizontal: 2);
+    Background: #2e1a1a(0.75);
+    TooltipText: "Concentration";
+
+    Label {
+      Text: "C";
+      Anchor: (Width: 32, Height: 32);
+      Style: (FontSize: 14, RenderBold: true, TextColor: #87CEEB, Alignment: Center, VerticalAlignment: Center);
+    }
+  }
+}

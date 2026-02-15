@@ -158,6 +158,8 @@ public class AffixTriggeredEffectAsset {
             .add()
             .append(new KeyedCodec<>("Invulnerability", Codec.BOOLEAN), (asset, value) -> asset.invulnerability = value != null && value, asset -> asset.invulnerability)
             .add()
+            .append(new KeyedCodec<>("InvulnerabilityDuration", Codec.FLOAT), (asset, value) -> asset.invulnerabilityDuration = value != null ? value : 0f, asset -> asset.invulnerabilityDuration)
+            .add()
             .append(new KeyedCodec<>("StatId", Codec.STRING), (asset, value) -> asset.statId = value, asset -> asset.statId)
             .add()
             .append(new KeyedCodec<>("Amount", Codec.INTEGER), (asset, value) -> asset.amount = value != null ? value : 0, asset -> asset.amount)
@@ -295,6 +297,7 @@ public class AffixTriggeredEffectAsset {
                 private boolean inheritStats = false;
                 private float spawnRadius = 0f;
                 private boolean invulnerability = false;
+                private float invulnerabilityDuration = 0f;
         private String statId = "";
         private int amount = 0;
         private String stackType = "";
@@ -371,7 +374,9 @@ public class AffixTriggeredEffectAsset {
                                         damageScaling,
                                         resolvedApplyEffectId != null ? resolvedApplyEffectId : "",
                                         resolvedApplyEffectDuration,
-                                        spawnRadius
+                                        spawnRadius,
+                                        invulnerability,
+                                        invulnerabilityDuration
             );
         }
     }

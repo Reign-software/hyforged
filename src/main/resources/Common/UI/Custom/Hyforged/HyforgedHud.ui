@@ -1,0 +1,138 @@
+// Hyforged Composite HUD - Contains all HUD sections
+// Each section is toggled visible/invisible by the server.
+
+Group #HyforgedHud {
+    LayoutMode: Top;
+
+    // === Resource Stats Section (Concentration & Rage) ===
+    Group #ResourceStats {
+        LayoutMode: Top;
+        Visible: false;
+
+        Group #ConcentrationContainer {
+            LayoutMode: Top;
+            Label #ConcentrationLabel { Text: "Concentration"; }
+            ProgressBar #ConcentrationFill {
+                Value: 0.0;
+                Direction: Start;
+            }
+            Label #ConcentrationValue { Text: "0/0"; }
+        }
+
+        Group #RageContainer {
+            LayoutMode: Top;
+            Label #RageLabel { Text: "Rage"; }
+            ProgressBar #RageFill {
+                Value: 0.0;
+                Direction: Start;
+            }
+            Label #RageValue { Text: "0/0"; }
+        }
+    }
+
+    // === Currency Section (Tradebar balance) ===
+    Group #Currency {
+        LayoutMode: Top;
+        Visible: false;
+        Anchor: (Width: 180, Height: 80);
+        Padding: (Full: 5);
+
+        Group #InventorySection {
+            LayoutMode: Left;
+            Anchor: (Height: 20);
+
+            Label #InventoryIcon {
+                Text: "💰";
+                Style: (FontSize: 14);
+                Anchor: (Width: 25);
+            }
+
+            Label #InventoryLabel {
+                Text: "Inv: ";
+                Style: (FontSize: 12, TextColor: #AAAAAA);
+                Anchor: (Width: 35);
+            }
+
+            Label #InventoryBalance {
+                Text: "0";
+                Style: (FontSize: 12, TextColor: #FFD700);
+            }
+        }
+
+        Group #VaultSection {
+            LayoutMode: Left;
+            Anchor: (Height: 20);
+            Visible: false;
+
+            Label #VaultIcon {
+                Text: "🏦";
+                Style: (FontSize: 14);
+                Anchor: (Width: 25);
+            }
+
+            Label #VaultLabel {
+                Text: "Vault: ";
+                Style: (FontSize: 12, TextColor: #AAAAAA);
+                Anchor: (Width: 35);
+            }
+
+            Label #VaultBalance {
+                Text: "0";
+                Style: (FontSize: 12, TextColor: #FFD700);
+            }
+        }
+
+        Group #TotalSection {
+            LayoutMode: Left;
+            Anchor: (Height: 20);
+            Visible: false;
+
+            Label #TotalLabel {
+                Text: "Total: ";
+                Style: (FontSize: 12, TextColor: #AAAAAA);
+                Anchor: (Width: 60);
+            }
+
+            Label #TotalBalance {
+                Text: "0";
+                Style: (FontSize: 12, TextColor: #FFD700);
+            }
+        }
+    }
+
+    // === Combat Log Section ===
+    Group #CombatLog {
+        LayoutMode: Top;
+        Visible: false;
+        Anchor: (Left: 0, Width: 420);
+
+        Group #CombatLogHeader {
+            LayoutMode: Top;
+            Label #CombatLogTitle { Text: "Combat Log"; Style: (FontSize: 12, TextColor: #CCCCCC); }
+            Label #CombatLogToggle { Text: "[x]"; Style: (FontSize: 12, TextColor: #AAAAAA); }
+        }
+
+        Group #CombatLogList {
+            LayoutMode: Top;
+            Label #LogEntry0 { Text: ""; Style: (FontSize: 11); }
+            Label #LogEntry1 { Text: ""; Style: (FontSize: 11); }
+            Label #LogEntry2 { Text: ""; Style: (FontSize: 11); }
+            Label #LogEntry3 { Text: ""; Style: (FontSize: 11); }
+            Label #LogEntry4 { Text: ""; Style: (FontSize: 11); }
+            Label #LogEntry5 { Text: ""; Style: (FontSize: 11); }
+            Label #LogEntry6 { Text: ""; Style: (FontSize: 11); }
+            Label #LogEntry7 { Text: ""; Style: (FontSize: 11); }
+            Label #LogEntry8 { Text: ""; Style: (FontSize: 11); }
+            Label #LogEntry9 { Text: ""; Style: (FontSize: 11); }
+            Label #LogEntry10 { Text: ""; Style: (FontSize: 11); }
+            Label #LogEntry11 { Text: ""; Style: (FontSize: 11); }
+        }
+
+        Group #CombatLogFooter {
+            LayoutMode: Top;
+            Label #DpsLabel { Text: "DPS: ----"; Style: (FontSize: 11, TextColor: #FFD700); }
+            Label #HitsLabel { Text: "Hits: 0"; Style: (FontSize: 11, TextColor: #AAAAAA); }
+            Label #CritsLabel { Text: "Crits: 0"; Style: (FontSize: 11, TextColor: #FF4444); }
+        }
+    }
+}

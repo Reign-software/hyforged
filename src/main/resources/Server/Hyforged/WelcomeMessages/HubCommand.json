@@ -1,5 +1,4 @@
 {
-  "Id": "hyforged:welcome-hub-command",
   "Order": 1,
   "Enabled": true,
   "Segments": [

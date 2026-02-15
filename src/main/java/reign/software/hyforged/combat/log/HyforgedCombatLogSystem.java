@@ -16,8 +16,12 @@ import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.entity.UUIDComponent;
+import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
+import com.hypixel.hytale.server.core.modules.entity.component.DisplayNameComponent;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import reign.software.hyforged.combat.CombatMeta;
 import reign.software.hyforged.combat.HyforgedAutoBlockSystem;
 import reign.software.hyforged.combat.HyforgedCriticalHitSystem;
@@ -43,6 +47,15 @@ public class HyforgedCombatLogSystem extends DamageEventSystem {
     
     @Nonnull
     private final ComponentType<EntityStore, UUIDComponent> uuidComponentType;
+    
+    @Nonnull
+    private final ComponentType<EntityStore, Nameplate> nameplateComponentType;
+    
+    @Nonnull
+    private final ComponentType<EntityStore, DisplayNameComponent> displayNameComponentType;
+    
+    @Nonnull
+    private final ComponentType<EntityStore, NPCEntity> npcEntityComponentType;
 
     @Nonnull
     private final Query<EntityStore> query;
@@ -53,6 +66,9 @@ public class HyforgedCombatLogSystem extends DamageEventSystem {
     public HyforgedCombatLogSystem() {
         this.playerComponentType = Player.getComponentType();
         this.uuidComponentType = UUIDComponent.getComponentType();
+        this.nameplateComponentType = Nameplate.getComponentType();
+        this.displayNameComponentType = DisplayNameComponent.getComponentType();
+        this.npcEntityComponentType = NPCEntity.getComponentType();
         
         // Query for entities with UUIDComponent (all entities we can log)
         this.query = uuidComponentType;
@@ -173,6 +189,8 @@ public class HyforgedCombatLogSystem extends DamageEventSystem {
     
     /**
      * Get a display name for an entity.
+     * <p>
+     * Resolution order: Player name → Nameplate → DisplayNameComponent (raw) → NPCEntity role → UUID.
      */
     @Nonnull
     private String getEntityName(
@@ -189,6 +207,36 @@ public class HyforgedCombatLogSystem extends DamageEventSystem {
             }
         }
         
+        // Try Nameplate (has rendered display text)
+        Nameplate nameplate = archetypeChunk.getComponent(index, nameplateComponentType);
+        if (nameplate != null) {
+            String text = nameplate.getText();
+            if (text != null && !text.isEmpty()) {
+                return text;
+            }
+        }
+        
+        // Try DisplayNameComponent raw text (avoids translation key strings)
+        DisplayNameComponent displayNameComp = archetypeChunk.getComponent(index, displayNameComponentType);
+        if (displayNameComp != null) {
+            Message displayName = displayNameComp.getDisplayName();
+            if (displayName != null) {
+                String rawText = displayName.getRawText();
+                if (rawText != null && !rawText.isEmpty()) {
+                    return rawText;
+                }
+            }
+        }
+        
+        // Try NPC role name
+        NPCEntity npcEntity = archetypeChunk.getComponent(index, npcEntityComponentType);
+        if (npcEntity != null) {
+            String roleName = npcEntity.getRoleName();
+            if (roleName != null && !roleName.isEmpty()) {
+                return roleName;
+            }
+        }
+        
         // Fallback to UUID
         UUIDComponent uuid = archetypeChunk.getComponent(index, uuidComponentType);
         if (uuid != null) {
@@ -200,6 +248,8 @@ public class HyforgedCombatLogSystem extends DamageEventSystem {
     
     /**
      * Get a display name for an entity from a reference.
+     * <p>
+     * Resolution order: Player name → Nameplate → DisplayNameComponent (raw) → NPCEntity role → UUID.
      */
     @Nonnull
     private String getEntityNameFromRef(
@@ -212,6 +262,36 @@ public class HyforgedCombatLogSystem extends DamageEventSystem {
             String name = player.getDisplayName();
             if (name != null && !name.isEmpty()) {
                 return name;
+            }
+        }
+        
+        // Try Nameplate (has rendered display text)
+        Nameplate nameplate = store.getComponent(ref, nameplateComponentType);
+        if (nameplate != null) {
+            String text = nameplate.getText();
+            if (text != null && !text.isEmpty()) {
+                return text;
+            }
+        }
+        
+        // Try DisplayNameComponent raw text (avoids translation key strings)
+        DisplayNameComponent displayNameComp = store.getComponent(ref, displayNameComponentType);
+        if (displayNameComp != null) {
+            Message displayName = displayNameComp.getDisplayName();
+            if (displayName != null) {
+                String rawText = displayName.getRawText();
+                if (rawText != null && !rawText.isEmpty()) {
+                    return rawText;
+                }
+            }
+        }
+        
+        // Try NPC role name
+        NPCEntity npcEntity = store.getComponent(ref, npcEntityComponentType);
+        if (npcEntity != null) {
+            String roleName = npcEntity.getRoleName();
+            if (roleName != null && !roleName.isEmpty()) {
+                return roleName;
             }
         }
         

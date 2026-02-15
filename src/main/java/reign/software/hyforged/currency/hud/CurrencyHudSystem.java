@@ -17,6 +17,8 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.currency.component.TradebarVaultComponent;
 import reign.software.hyforged.currency.service.CurrencyService;
+import reign.software.hyforged.hud.HyforgedHud;
+import reign.software.hyforged.hud.HyforgedHudManager;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
@@ -27,35 +29,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 /**
- * ECS system that updates the Currency HUD for each player.
+ * Updates the currency section of the composite Hyforged HUD.
  * Displays Tradebar balance in inventory and vault.
  */
 public class CurrencyHudSystem extends DelayedEntitySystem<EntityStore> {
 
     private static final Logger LOGGER = Logger.getLogger(CurrencyHudSystem.class.getName());
 
-    /** Whether MultipleHUD is available at runtime */
-    private static final boolean MULTIPLE_HUD_AVAILABLE;
-
-    static {
-        boolean available = false;
-        try {
-            Class.forName("com.buuz135.mhud.MultipleHUD");
-            available = true;
-        } catch (ClassNotFoundException e) {
-            LOGGER.warning("MultipleHUD not available - currency HUD disabled");
-        }
-        MULTIPLE_HUD_AVAILABLE = available;
-    }
-
-    /** Unique identifier for this HUD in MultipleHUD */
-    public static final String HUD_ID = "hyforged:currency";
-
     /** Update interval in seconds - currency doesn't change rapidly */
     private static final float UPDATE_INTERVAL_SEC = 0.5f;
-
-    /** Per-player HUD instances for updates */
-    private static final Map<UUID, CurrencyHud> playerHuds = new ConcurrentHashMap<>();
 
     /** Cache of last values to avoid redundant updates */
     private static final Map<UUID, CurrencyHudCache> playerCache = new ConcurrentHashMap<>();
@@ -100,10 +82,6 @@ public class CurrencyHudSystem extends DelayedEntitySystem<EntityStore> {
             @Nonnull Store<EntityStore> store,
             @Nonnull CommandBuffer<EntityStore> commandBuffer
     ) {
-        if (!MULTIPLE_HUD_AVAILABLE) {
-            return;
-        }
-
         Player player = archetypeChunk.getComponent(index, playerComponentType);
         PlayerRef playerRef = archetypeChunk.getComponent(index, playerRefComponentType);
         UUIDComponent uuidComponent = archetypeChunk.getComponent(index, uuidComponentType);
@@ -132,7 +110,6 @@ public class CurrencyHudSystem extends DelayedEntitySystem<EntityStore> {
         
         Set<Ref<ChunkStore>> vaultRefs = playerVaultRefs.get(playerUuid);
         if (vaultRefs != null && !vaultRefs.isEmpty()) {
-            // Iterate over tracked vaults and sum balances
             Set<Ref<ChunkStore>> invalidRefs = new HashSet<>();
             ComponentType<ChunkStore, TradebarVaultComponent> vaultComponentType = 
                     HyforgedPlugin.getInstance().getTradebarVaultComponentType();
@@ -149,7 +126,6 @@ public class CurrencyHudSystem extends DelayedEntitySystem<EntityStore> {
                     continue;
                 }
                 
-                // Verify ownership still matches
                 if (!playerUuid.equals(vault.getOwnerUUID())) {
                     invalidRefs.add(vaultRef);
                     continue;
@@ -159,7 +135,6 @@ public class CurrencyHudSystem extends DelayedEntitySystem<EntityStore> {
                 hasVault = true;
             }
             
-            // Clean up invalid references
             if (!invalidRefs.isEmpty()) {
                 vaultRefs.removeAll(invalidRefs);
             }
@@ -175,39 +150,27 @@ public class CurrencyHudSystem extends DelayedEntitySystem<EntityStore> {
         // Only show HUD if player has any tradebars
         boolean shouldShowHud = inventoryBalance > 0 || hasVault;
 
-        com.buuz135.mhud.MultipleHUD multipleHUD = com.buuz135.mhud.MultipleHUD.getInstance();
-        CurrencyHud existingHud = playerHuds.get(playerUuid);
+        HyforgedHud hud = HyforgedHudManager.getOrCreate(playerUuid, player, playerRef);
+        if (hud == null) {
+            return; // Client not ready yet
+        }
 
         if (!shouldShowHud) {
-            // Hide HUD if visible
-            if (existingHud != null) {
-                multipleHUD.hideCustomHud(player, playerRef, HUD_ID);
-                playerHuds.remove(playerUuid);
+            if (cache != null) {
+                hud.hideCurrency();
                 playerCache.remove(playerUuid);
             }
             return;
         }
 
-        // Create HUD if not exists
-        CurrencyHud currencyHud;
-        if (existingHud == null) {
-            currencyHud = new CurrencyHud(playerRef);
-            multipleHUD.setCustomHud(player, playerRef, HUD_ID, currencyHud);
-            playerHuds.put(playerUuid, currencyHud);
-        } else {
-            currencyHud = existingHud;
-        }
-
-        // Only update if values changed
         if (needsUpdate) {
-            currencyHud.updateValues(inventoryBalance, vaultBalance, hasVault);
+            hud.updateCurrency(inventoryBalance, vaultBalance, hasVault);
             playerCache.put(playerUuid, new CurrencyHudCache(inventoryBalance, vaultBalance, hasVault));
         }
     }
 
     /**
      * Register a vault reference for HUD tracking.
-     * Called when a player interacts with their vault.
      *
      * @param playerUuid The player's UUID
      * @param vaultRef   The vault block reference
@@ -220,7 +183,6 @@ public class CurrencyHudSystem extends DelayedEntitySystem<EntityStore> {
 
     /**
      * Notify the system that a player has a vault, so it can be shown on the HUD.
-     * Called when a player interacts with their vault.
      *
      * @param playerUuid The player's UUID
      * @param vaultBalance The current vault balance
@@ -238,7 +200,6 @@ public class CurrencyHudSystem extends DelayedEntitySystem<EntityStore> {
 
     /**
      * Clear all tracked vaults for a player.
-     * Called when player logs out or when vaults need to be re-discovered.
      *
      * @param playerUuid The player's UUID
      */
@@ -247,8 +208,5 @@ public class CurrencyHudSystem extends DelayedEntitySystem<EntityStore> {
         playerCache.remove(playerUuid);
     }
 
-    /**
-     * Cache for last HUD values to avoid redundant updates.
-     */
     private record CurrencyHudCache(int inventoryBalance, int vaultBalance, boolean hasVault) {}
 }

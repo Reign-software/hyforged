@@ -23,7 +23,7 @@ public final class XPConfigAssetLoader {
     private static final Logger LOGGER = Logger.getLogger(XPConfigAssetLoader.class.getName());
 
     /** Path for XP config asset relative to asset root */
-    public static final String XP_CONFIG_ASSET_PATH = "Hyforged/Progression";
+    public static final String XP_CONFIG_ASSET_PATH = "Hyforged/Progression/XPConfig";
 
     /** Asset ID used for the config file */
     private static final String CONFIG_ID = "XPConfig";

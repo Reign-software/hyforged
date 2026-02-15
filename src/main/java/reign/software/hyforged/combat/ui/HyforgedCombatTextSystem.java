@@ -12,7 +12,6 @@ import com.hypixel.hytale.component.dependency.SystemDependency;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.protocol.CombatTextUpdate;
 import com.hypixel.hytale.protocol.ComponentUpdate;
-import com.hypixel.hytale.protocol.ComponentUpdateType;
 import com.hypixel.hytale.server.core.meta.MetaKey;
 import com.hypixel.hytale.server.core.modules.entity.EntityModule;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
@@ -190,15 +189,10 @@ public class HyforgedCombatTextSystem extends DamageEventSystem {
         Float hitAngleDeg = damage.getIfPresentMetaObject(Damage.HIT_ANGLE);
         
         // Create and queue the combat text update
-        ComponentUpdate update = new ComponentUpdate();
-        update.type = ComponentUpdateType.CombatText;
-        
-        CombatTextUpdate combatTextUpdate = new CombatTextUpdate();
-        combatTextUpdate.hitAngleDeg = hitAngleDeg == null ? 0.0F : hitAngleDeg;
-        combatTextUpdate.text = text;
-        update.combatTextUpdate = combatTextUpdate;
-        
-        entityViewer.queueUpdate(defenderRef, update);
+        // Note: At runtime CombatTextUpdate extends ComponentUpdate (polymorphic protocol),
+        // but the Maven API JAR flattens the hierarchy. Cast through Object to bridge.
+        CombatTextUpdate combatText = new CombatTextUpdate(hitAngleDeg == null ? 0.0F : hitAngleDeg, text);
+        entityViewer.queueUpdate(defenderRef, (ComponentUpdate) (Object) combatText);
         
         // Mark that we handled the combat text so EntityUIEvents doesn't duplicate it
         damage.putMetaObject(COMBAT_TEXT_HANDLED, true);

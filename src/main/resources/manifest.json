@@ -2,7 +2,7 @@
   "Group": "reign.software",
   "Name": "Hyforged",
   "Version": "${version}",
-  "Description": "Description of your plugin",
+  "Description": "Hyforged is a full ARPG system. Includes a currency system, Item Enhancements, Monster Scaling, leveling system, character stats, and a combat log.",
   "Authors": [
     {
       "Name": "Pandaros",
@@ -12,9 +12,7 @@
   ],
   "Website": "https://your-plugin-website.com",
   "ServerVersion": "*",
-  "Dependencies": {
-    "Buuz135:MultipleHUD": "*"
-  },
+  "Dependencies": {},
   "OptionalDependencies": {},
   "DisabledByDefault": false,
   "IncludesAssetPack": true,

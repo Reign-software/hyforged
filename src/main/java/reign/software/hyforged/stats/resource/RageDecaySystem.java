@@ -14,6 +14,7 @@ import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.modules.time.TimeResource;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import reign.software.hyforged.stats.StatAccessor;
 
 import javax.annotation.Nonnull;
 import java.time.Duration;
@@ -76,6 +77,10 @@ public class RageDecaySystem extends DelayedEntitySystem<EntityStore> {
         }
 
         if (rageStatIndex < 0) {
+            return;
+        }
+
+        if (!StatAccessor.hasStatSlot(statMap, rageStatIndex)) {
             return;
         }
 

@@ -44,6 +44,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -186,7 +187,7 @@ public class EffectAffixProcessor {
             @Nonnull ComponentAccessor<EntityStore> accessor,
             @Nullable Vector3d position
     ) {
-        if (!source.isValid() || !ally.isValid() || source.equals(ally)) {
+        if (!source.isValid() || !ally.isValid() || Objects.equals(source, ally)) {
             return;
         }
         HyforgedActiveEffectsComponent activeEffects = accessor.getComponent(source, activeEffectsType);

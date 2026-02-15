@@ -171,11 +171,9 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
             @Nonnull HyforgedStatComponent component,
             @Nullable EntityStatMap statMap) {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-        List<HyforgedModifier> allModifiers = statMap != null
-            ? StatAccessor.getAllHyforgedModifiers(statMap)
-            : component.getModifiers();
-        if (allModifiers.isEmpty()) {
-            allModifiers = component.getModifiers();
+        List<HyforgedModifier> allModifiers = new ArrayList<>(component.getModifiers());
+        if (statMap != null) {
+            allModifiers.addAll(StatAccessor.getAllHyforgedModifiers(statMap));
         }
         List<StatChange> changes = new ArrayList<>();
         

@@ -45,6 +45,7 @@ import reign.software.hyforged.affix.model.AffixEffect;
 import reign.software.hyforged.affix.model.AffixTriggeredEffect;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
+import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
@@ -52,6 +53,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -365,7 +367,7 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
                 if (targetRef == null || !targetRef.isValid()) {
                     continue;
                 }
-                if (effect.excludeSelf() && targetRef.equals(context.sourceRef())) {
+                if (effect.excludeSelf() && Objects.equals(targetRef, context.sourceRef())) {
                     continue;
                 }
                 applied |= applyEffectToTarget(entityEffect, duration, targetRef, accessor);
@@ -462,7 +464,7 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
             if (targetRef == null || !targetRef.isValid()) {
                 continue;
             }
-            if (effect.excludeSelf() && targetRef.equals(context.sourceRef())) {
+            if (effect.excludeSelf() && Objects.equals(targetRef, context.sourceRef())) {
                 continue;
             }
             Damage damage = new Damage(new Damage.EntitySource(context.sourceRef()), damageCauseIndex, damageAmount);
@@ -590,7 +592,7 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
                 .build();
 
         EntityStatMap statMap = store.getComponent(targetRef, EntityStatMap.getComponentType());
-        if (statMap != null) {
+        if (statMap != null && StatAccessor.hasStatSlot(statMap, statIndex)) {
             statMap.putModifier(statIndex, sourceKey, modifier);
             return true;
         }

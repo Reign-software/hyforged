@@ -13,13 +13,13 @@ import java.util.logging.Logger;
 /**
  * Handles loading the rage decay configuration from JSON assets.
  * <p>
- * Loads: Server/Hyforged/GameplayConfigs/RageDecay.json
+ * Loads: Server/Hyforged/GameplayConfigs/RageDecay/RageDecay.json
  */
 public final class RageDecayConfigAssetLoader {
 
     private static final Logger LOGGER = Logger.getLogger(RageDecayConfigAssetLoader.class.getName());
 
-    public static final String RAGE_DECAY_ASSET_PATH = "Hyforged/GameplayConfigs";
+    public static final String RAGE_DECAY_ASSET_PATH = "Hyforged/GameplayConfigs/RageDecay";
     private static final String CONFIG_ID = "RageDecay";
 
     private static boolean initialized = false;
