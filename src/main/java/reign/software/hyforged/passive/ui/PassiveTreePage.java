@@ -5,6 +5,7 @@ import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.protocol.packets.interface_.CustomPage;
 import com.hypixel.hytale.protocol.packets.interface_.CustomPageLifetime;
 import com.hypixel.hytale.protocol.packets.interface_.CustomUIEventBindingType;
 import com.hypixel.hytale.protocol.packets.interface_.Page;
@@ -857,13 +858,35 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
         String actionHint = isAllocated ? "Click to refund" : (canAllocate ? "Click to allocate" : "Locked");
         builder.set("#TooltipActionHint.Text", actionHint);
         
-        sendUpdate(builder, new UIEventBuilder(), false);
+        sendVisualOnlyUpdate(builder);
     }
     
     private void handleHideTooltip() {
         UICommandBuilder builder = new UICommandBuilder();
         builder.set("#TooltipOverlay.Visible", false);
-        sendUpdate(builder, new UIEventBuilder(), false);
+        sendVisualOnlyUpdate(builder);
+    }
+    
+    /**
+     * Send a visual-only UI update that does NOT increment the PageManager's
+     * acknowledgment counter. This prevents purely cosmetic updates (like tooltip
+     * show/hide) from blocking subsequent interactive events (clicks).
+     * <p>
+     * Only use this for updates that do NOT change event bindings or interactive elements.
+     */
+    private void sendVisualOnlyUpdate(@Nonnull UICommandBuilder commandBuilder) {
+        Ref<EntityStore> ref = playerRef.getReference();
+        if (ref == null || !ref.isValid()) return;
+        // Write the CustomPage packet directly, bypassing PageManager.updateCustomPage()
+        // which would increment customPageRequiredAcknowledgments and block Data events.
+        playerRef.getPacketHandler().write(new CustomPage(
+                this.getClass().getName(),
+                false,
+                false,
+                this.lifetime,
+                commandBuilder.getCommands(),
+                UIEventBuilder.EMPTY_EVENT_BINDING_ARRAY
+        ));
     }
     
     // ========== HELPERS ==========
