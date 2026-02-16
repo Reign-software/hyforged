@@ -6,7 +6,6 @@
   "DefaultValue": 50,
   "MinValue": 0,
   "MaxValue": 2147483647,
-  "IsRating": false,
   "Tags": {
     "Domain": [
       "resource"

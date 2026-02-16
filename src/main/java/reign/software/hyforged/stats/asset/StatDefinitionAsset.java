@@ -10,6 +10,7 @@ import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import reign.software.hyforged.affix.asset.AffixTierTemplateAsset;
 import reign.software.hyforged.affix.model.AffixTierTemplate;
+import reign.software.hyforged.stats.DisplayFormat;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.scaling.ScalingRule;
@@ -38,7 +39,7 @@ import java.util.Set;
  *   "DefaultValue": 10,                  // Default value
  *   "MinValue": 0,                       // Minimum value
  *   "MaxValue": 999,                     // Maximum value
- *   "IsRating": false,                   // Whether this is a rating stat
+ *   "DisplayFormat": "INTEGER",          // Display format (INTEGER, PERCENT_BPS, PERCENT, RATING, FLAT_BONUS, MULTIPLIER)
  *   "Tags": {                            // Tags using Hytale's hierarchical format
  *     "Domain": ["attributes"],          // Creates tags: Domain, attributes, Domain=attributes
  *     "Type": ["ability-score"]          // Creates tags: Type, ability-score, Type=ability-score
@@ -118,10 +119,10 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
             )
             .add()
             .appendInherited(
-                new KeyedCodec<>("IsRating", Codec.BOOLEAN),
-                (asset, value) -> asset.isRating = value != null && value,
-                asset -> asset.isRating,
-                (asset, parent) -> asset.isRating = parent.isRating
+                new KeyedCodec<>("DisplayFormat", Codec.STRING),
+                (asset, value) -> asset.displayFormat = DisplayFormat.fromString(value),
+                asset -> asset.displayFormat != null ? asset.displayFormat.name() : null,
+                (asset, parent) -> asset.displayFormat = parent.displayFormat
             )
             .add()
             .appendInherited(
@@ -181,7 +182,7 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
     private int defaultValue = 0;
     private int minValue = 0;
     private int maxValue = Integer.MAX_VALUE;
-    private boolean isRating = false;
+    private DisplayFormat displayFormat = null;
     private int ratingK = StatDefinition.DEFAULT_RATING_K;
     private ScalingRuleAsset[] scalingAssets = new ScalingRuleAsset[0];
     private AffixTierTemplateAsset affixTierTemplateAsset = null;
@@ -240,8 +241,9 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
         return maxValue;
     }
 
-    public boolean isRating() {
-        return isRating;
+    @Nullable
+    public DisplayFormat getDisplayFormat() {
+        return displayFormat;
     }
 
     /**
@@ -334,7 +336,7 @@ public class StatDefinitionAsset implements JsonAssetWithMap<String, IndexedLook
                 .description(description)
                 .defaultValue(defaultValue)
                 .bounds(minValue, maxValue)
-                .rating(isRating)
+                .displayFormat(displayFormat != null ? displayFormat : DisplayFormat.INTEGER)
                 .ratingK(ratingK)
                 .tags(getExpandedTags())
                 .scaling(scalingRules)

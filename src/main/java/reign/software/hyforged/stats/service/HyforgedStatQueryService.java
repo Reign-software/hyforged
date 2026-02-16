@@ -4,6 +4,7 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import reign.software.hyforged.stats.StatAccessor;
+import reign.software.hyforged.stats.DisplayFormat;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
@@ -201,7 +202,7 @@ public final class HyforgedStatQueryService {
             ));
         }
 
-        if (statDef.isRating()) {
+        if (statDef.displayFormat() == DisplayFormat.RATING) {
             int effectiveness = component.getEffectiveness(statIndex, targetLevel);
             builder.effectivenessBps(effectiveness);
         }

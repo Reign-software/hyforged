@@ -6,7 +6,7 @@
   "DefaultValue": 0,
   "MinValue": 0,
   "MaxValue": 10000,
-  "IsRating": false,
+  "DisplayFormat": "PERCENT_BPS",
   "Tags": {
     "Domain": [
       "offense"

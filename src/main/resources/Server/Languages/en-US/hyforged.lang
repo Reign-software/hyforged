@@ -25,7 +25,8 @@ vault.breakDenied = You cannot break this vault - it belongs to another player.
 
 # Welcome Messages
 welcome.header = === Welcome to Hyforged! ===
-welcome.tipPrefix =   Tip: 
+welcome.hubCommand = Open the Hyforged menu
+welcome.tipPrefix = Tip:
 welcome.tipSuffix = !
 
 # Inventory Buttons
@@ -41,7 +42,7 @@ inventory.button.options.short = Opts
 # Hub Page
 hub.title = Hyforged
 hub.subtitle = Select a system to manage
-hub.button.label = ⚔ Hyforged Menu
+hub.button.label = Hyforged Menu
 hub.tooltip = Open Hyforged Menu
 hub.button.stats = Character Stats
 hub.button.passiveTree = Passive Skill Tree
@@ -67,3 +68,32 @@ options.damageNumbers = Damage Numbers
 options.debugMode = Debug Mode
 options.qualityDebug = Quality Debug
 options.close = Close
+
+# Character Stats Page
+characterStats.title = Character Stats
+characterStats.equipment = Equipment
+characterStats.slot.empty = Slot {slot}: Empty
+
+# Character Stats - Column Headers
+characterStats.header.stat = Stat
+characterStats.header.base = Base
+characterStats.header.modifier = Modifier
+characterStats.header.effective = Effective
+
+# Character Stats - Category Names
+characterStats.category.ability-score = Primary Attributes
+characterStats.category.resource = Resources
+characterStats.category.offense = Offense
+characterStats.category.critical = Critical Strikes
+characterStats.category.defense = Defense
+characterStats.category.resistance = Resistances
+characterStats.category.recovery = Recovery
+characterStats.category.skill = Skill Levels
+characterStats.category.ailment = Ailments
+characterStats.category.minion = Minions
+characterStats.category.aura = Auras & Reservations
+characterStats.category.projectile = Projectiles
+characterStats.category.elemental = Elemental
+characterStats.category.flask = Flasks
+characterStats.category.loot = Loot & Experience
+characterStats.category.utility = Utility

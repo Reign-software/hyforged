@@ -6,7 +6,6 @@
   "DefaultValue": 0,
   "MinValue": 0,
   "MaxValue": 1000,
-  "IsRating": false,
   "Tags": {
     "Mechanic": [
       "minion"

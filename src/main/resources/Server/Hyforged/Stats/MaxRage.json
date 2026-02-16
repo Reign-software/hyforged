@@ -6,7 +6,6 @@
   "DefaultValue": 50,
   "MinValue": 0,
   "MaxValue": 1000,
-  "IsRating": false,
   "Tags": {
     "Resource": ["rage"],
     "Domain": [

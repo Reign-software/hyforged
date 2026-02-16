@@ -1,0 +1,14 @@
+// Category header row for CharacterStatsPage
+// Text is set dynamically via descendant selector
+// e.g. #StatCategories[n] #CategoryName.TextSpans
+
+Group #CategoryHeader {
+    LayoutMode: Top;
+    Anchor: (Height: 30);
+    Padding: (Top: 10);
+
+    Label #CategoryName {
+        Text: "";
+        Style: (FontSize: 16, RenderBold: true, TextColor: #DAA520);
+    }
+}

@@ -1,0 +1,38 @@
+// Stat table row for CharacterStatsPage
+// Each child label is set independently via descendant selectors
+// e.g. #StatCategories[n] #StatName.TextSpans
+
+Group #StatRow {
+    LayoutMode: Left;
+    Anchor: (Height: 22);
+
+    Label #StatName {
+        Text: "";
+        Anchor: (Width: 270);
+        Style: (FontSize: 13);
+    }
+
+    Label #BaseValue {
+        Text: "";
+        Anchor: (Width: 110);
+        Style: (FontSize: 13, HorizontalAlignment: End);
+    }
+
+    Label #ModValue {
+        Text: "";
+        Anchor: (Width: 130);
+        Style: (FontSize: 13, HorizontalAlignment: End);
+    }
+
+    Label #RangeValue {
+        Text: "";
+        Anchor: (Width: 140);
+        Style: (FontSize: 13, HorizontalAlignment: End, TextColor: #888888);
+    }
+
+    Label #TotalValue {
+        Text: "";
+        Anchor: (Width: 110);
+        Style: (FontSize: 13, HorizontalAlignment: End, RenderBold: true);
+    }
+}

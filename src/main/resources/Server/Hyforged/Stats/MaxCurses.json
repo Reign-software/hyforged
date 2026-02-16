@@ -6,7 +6,6 @@
   "DefaultValue": 1,
   "MinValue": 0,
   "MaxValue": 100,
-  "IsRating": false,
   "Tags": {
     "Domain": [
       "utility"

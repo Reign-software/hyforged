@@ -1,5 +1,6 @@
 package reign.software.hyforged.stats.breakdown;
 
+import reign.software.hyforged.stats.DisplayFormat;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
@@ -31,7 +32,7 @@ import java.util.Objects;
  * @param afterMore Value after applying all more modifiers
  * @param afterCap Value after applying caps
  * @param finalValue The final computed value
- * @param isRating Whether this stat uses rating-to-effectiveness conversion
+ * @param displayFormat The display format for this stat
  * @param effectivenessBps Effectiveness in basis points (if rating stat)
  */
 public record StatBreakdown(
@@ -48,7 +49,7 @@ public record StatBreakdown(
     int afterMore,
     int afterCap,
     int finalValue,
-    boolean isRating,
+    @Nonnull DisplayFormat displayFormat,
     int effectivenessBps
 ) {
     
@@ -117,7 +118,7 @@ public record StatBreakdown(
      */
     @Nullable
     public String getFormattedEffectiveness() {
-        if (!isRating) {
+        if (displayFormat != DisplayFormat.RATING) {
             return null;
         }
         double percent = effectivenessBps / 100.0;
@@ -148,7 +149,7 @@ public record StatBreakdown(
         private int afterMore = 0;
         private int afterCap = 0;
         private int finalValue = 0;
-        private boolean isRating = false;
+        private DisplayFormat displayFormat = DisplayFormat.INTEGER;
         private int effectivenessBps = 0;
         
         public Builder(@Nonnull StatId statId) {
@@ -158,7 +159,7 @@ public record StatBreakdown(
         public Builder from(@Nonnull StatDefinition statDef) {
             this.statId = statDef.id();
             this.displayName = statDef.displayName();
-            this.isRating = statDef.isRating();
+            this.displayFormat = statDef.displayFormat();
             return this;
         }
         
@@ -222,8 +223,8 @@ public record StatBreakdown(
             return this;
         }
         
-        public Builder isRating(boolean rating) {
-            this.isRating = rating;
+        public Builder displayFormat(@Nonnull DisplayFormat format) {
+            this.displayFormat = format;
             return this;
         }
         
@@ -236,7 +237,7 @@ public record StatBreakdown(
             return new StatBreakdown(
                 statId, displayName, baseValue, scalingContributions, scaledBase,
                 entries, flatTotal, afterFlat, increasedTotalBps, afterIncreased,
-                afterMore, afterCap, finalValue, isRating, effectivenessBps
+                afterMore, afterCap, finalValue, displayFormat, effectivenessBps
             );
         }
     }

@@ -4,6 +4,7 @@ import com.hypixel.hytale.component.Component;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
+import reign.software.hyforged.stats.DisplayFormat;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
@@ -707,7 +708,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
 
         int rating = getCachedValue(statIndex);
 
-        if (!statDef.isRating()) {
+        if (statDef.displayFormat() != DisplayFormat.RATING) {
             // Not a rating stat, return the cached value as-is
             return rating;
         }

@@ -11,7 +11,7 @@
     }
   ],
   "Website": "https://your-plugin-website.com",
-  "ServerVersion": "*",
+  "ServerVersion": "${hytale.server.version}",
   "Dependencies": {},
   "OptionalDependencies": {},
   "DisabledByDefault": false,

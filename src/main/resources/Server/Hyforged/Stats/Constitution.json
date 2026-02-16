@@ -6,7 +6,6 @@
   "DefaultValue": 10,
   "MinValue": 1,
   "MaxValue": 999,
-  "IsRating": false,
   "Tags": {
     "Type": [
       "ability-score"

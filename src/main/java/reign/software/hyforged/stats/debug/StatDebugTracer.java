@@ -148,7 +148,7 @@ public final class StatDebugTracer {
         StringBuilder sb = new StringBuilder();
         sb.append("\n========== STAT TRACE ==========\n");
         sb.append(String.format("Entity: %d | Stat: %s (index: %d)\n", entityIndex, statDef.id(), statIndex));
-        sb.append(String.format("Category: %s | Rating: %s\n", statDef.category(), statDef.isRating()));
+        sb.append(String.format("Category: %s | DisplayFormat: %s\n", statDef.category(), statDef.displayFormat()));
         
         // Get applicable modifiers
         List<HyforgedModifier> applicable = getApplicableModifiers(component, statIndex, statDef, registry);

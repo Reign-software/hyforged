@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.stats.DisplayFormat;
 import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
@@ -172,10 +173,10 @@ public class StatsDebugCommand extends CommandBase {
 
         String displayName = formatStatName(statId);
         String valueStr;
-        if (def.isRating()) {
+        if (def.displayFormat() == DisplayFormat.RATING) {
             // Show rating stats as percentage effectiveness at level 1
             valueStr = String.format("%d (rating)", value);
-        } else if (statId.name().contains("bps")) {
+        } else if (def.displayFormat() == DisplayFormat.PERCENT_BPS) {
             // Show basis points as percentage
             valueStr = String.format("%.1f%%", value / 100.0);
         } else {
@@ -234,7 +235,7 @@ public class StatsDebugCommand extends CommandBase {
         sb.append("▸ Definition\n");
         sb.append(String.format("  ID: %s\n", statId));
         sb.append(String.format("  Category: %s\n", def.category()));
-        sb.append(String.format("  Is Rating: %s\n", def.isRating()));
+        sb.append(String.format("  Display Format: %s\n", def.displayFormat()));
         sb.append(String.format("  Bounds: [%d, %d]\n", def.minValue(), def.maxValue()));
 
         // Base value

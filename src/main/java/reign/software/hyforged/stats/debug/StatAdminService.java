@@ -7,6 +7,7 @@ import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.stats.StatAccessor;
+import reign.software.hyforged.stats.DisplayFormat;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
@@ -214,7 +215,7 @@ public final class StatAdminService {
         sb.append(String.format("→ After Caps: %d\n", breakdown.afterCap()));
         sb.append(String.format("= Final Value: %d\n", breakdown.finalValue()));
         
-        if (breakdown.isRating()) {
+        if (breakdown.displayFormat() == DisplayFormat.RATING) {
             String effectiveness = breakdown.getFormattedEffectiveness();
             sb.append(String.format("\nRating Effectiveness: %s\n", 
                 effectiveness != null ? effectiveness : "N/A"));

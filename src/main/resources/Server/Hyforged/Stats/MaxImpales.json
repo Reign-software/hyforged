@@ -6,7 +6,6 @@
   "DefaultValue": 5,
   "MinValue": 0,
   "MaxValue": 100,
-  "IsRating": false,
   "Tags": {
     "Domain": [
       "offense"

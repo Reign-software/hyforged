@@ -6,7 +6,6 @@
   "DefaultValue": 0,
   "MinValue": 0,
   "MaxValue": 2147483647,
-  "IsRating": false,
   "Tags": {
     "Modifier": [
       "Flat"

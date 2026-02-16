@@ -1,12 +1,12 @@
 // Hyforged Character Stats Page UI
-// Populated by CharacterStatsPage.java
-// Uses Button elements for interactive clickable areas
+// Table-style layout with Base / Modifier / Effective columns
+// Categories and stats are populated dynamically by CharacterStatsPage.java
 
 $Common = "../Common.ui";
 
 Group #CharacterStatsPage {
     LayoutMode: Top;
-    Anchor: (Width: 700, Height: 600);
+    Anchor: (Width: 900, Height: 600);
     Background: $Common.@InputBoxBackground;
     Padding: (Full: 20);
 
@@ -14,98 +14,84 @@ Group #CharacterStatsPage {
     Group #Header {
         LayoutMode: Top;
         Anchor: (Height: 40);
-        Label #Title { 
-            Text: "Character Stats"; 
+        Label #Title {
+            Text: "Character Stats";
             Style: (FontSize: 24, Alignment: Center, RenderBold: true);
         }
     }
 
-    // Main Content
-    Group #Content {
-        LayoutMode: Top;
-        Padding: (Top: 10);
+    // Column Headers (static row above scrollable content)
+    Group #ColumnHeaders {
+        LayoutMode: Left;
+        Anchor: (Height: 22);
+        Padding: (Top: 6, Bottom: 4);
 
-        // Stats Column
-        Group #StatsColumn {
-            LayoutMode: Top;
-
-            // Stat Categories Container
-            Group #StatCategories {
-                LayoutMode: Top;
-
-                // Core Stats
-                Group #CoreStats {
-                    LayoutMode: Top;
-                    Padding: (Bottom: 10);
-                    Label #CoreStatsTitle { 
-                        Text: "Core Stats"; 
-                        Style: (FontSize: 16, RenderBold: true);
-                    }
-                    Label #Stat0 { Text: ""; Style: (FontSize: 12); }
-                    Label #Stat1 { Text: ""; Style: (FontSize: 12); }
-                    Label #Stat2 { Text: ""; Style: (FontSize: 12); }
-                    Label #Stat3 { Text: ""; Style: (FontSize: 12); }
-                    Label #Stat4 { Text: ""; Style: (FontSize: 12); }
-                }
-
-                // Offensive Stats
-                Group #OffensiveStats {
-                    LayoutMode: Top;
-                    Padding: (Bottom: 10);
-                    Label #OffensiveStatsTitle { 
-                        Text: "Offensive"; 
-                        Style: (FontSize: 16, RenderBold: true);
-                    }
-                    Label #Stat5 { Text: ""; Style: (FontSize: 12); }
-                    Label #Stat6 { Text: ""; Style: (FontSize: 12); }
-                    Label #Stat7 { Text: ""; Style: (FontSize: 12); }
-                    Label #Stat8 { Text: ""; Style: (FontSize: 12); }
-                    Label #Stat9 { Text: ""; Style: (FontSize: 12); }
-                }
-
-                // Defensive Stats
-                Group #DefensiveStats {
-                    LayoutMode: Top;
-                    Padding: (Bottom: 10);
-                    Label #DefensiveStatsTitle { 
-                        Text: "Defensive"; 
-                        Style: (FontSize: 16, RenderBold: true);
-                    }
-                    Label #Stat10 { Text: ""; Style: (FontSize: 12); }
-                    Label #Stat11 { Text: ""; Style: (FontSize: 12); }
-                    Label #Stat12 { Text: ""; Style: (FontSize: 12); }
-                    Label #Stat13 { Text: ""; Style: (FontSize: 12); }
-                    Label #Stat14 { Text: ""; Style: (FontSize: 12); }
-                }
-            }
+        Label #ColStat {
+            Text: "Stat";
+            Anchor: (Width: 270);
+            Style: (FontSize: 13, RenderBold: true, TextColor: #AAAAAA);
         }
 
-        // Equipment Column
+        Label #ColBase {
+            Text: "Base";
+            Anchor: (Width: 110);
+            Style: (FontSize: 13, RenderBold: true, HorizontalAlignment: End, TextColor: #AAAAAA);
+        }
+
+        Label #ColMod {
+            Text: "Modifier";
+            Anchor: (Width: 130);
+            Style: (FontSize: 13, RenderBold: true, HorizontalAlignment: End, TextColor: #AAAAAA);
+        }
+
+        Label #ColRange {
+            Text: "Range";
+            Anchor: (Width: 140);
+            Style: (FontSize: 13, RenderBold: true, HorizontalAlignment: End, TextColor: #AAAAAA);
+        }
+
+        Label #ColTotal {
+            Text: "Effective";
+            Anchor: (Width: 110);
+            Style: (FontSize: 13, RenderBold: true, HorizontalAlignment: End, TextColor: #AAAAAA);
+        }
+    }
+
+    // Main Content - Scrollable
+    Group #Content {
+        LayoutMode: TopScrolling;
+        ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+        Anchor: (Bottom: 60);
+
+        // Dynamic stat categories container - populated by Java
+        Group #StatCategories {
+            LayoutMode: Top;
+        }
+
+        // Equipment summary below stats
         Group #EquipmentColumn {
             LayoutMode: Top;
-            Padding: (Top: 10);
+            Padding: (Top: 14);
 
-            Label #EquipmentTitle { 
-                Text: "Equipment"; 
-                Style: (FontSize: 16, RenderBold: true);
+            Label #EquipmentTitle {
+                Text: "Equipment";
+                Style: (FontSize: 16, RenderBold: true, TextColor: #DAA520);
             }
 
-            // Armor Slots
             Group #ArmorSlots {
                 LayoutMode: Top;
-                Padding: (Top: 5);
-                Label #Armor0 { Text: ""; Style: (FontSize: 12); }
-                Label #Armor1 { Text: ""; Style: (FontSize: 12); }
-                Label #Armor2 { Text: ""; Style: (FontSize: 12); }
-                Label #Armor3 { Text: ""; Style: (FontSize: 12); }
+                Padding: (Top: 4);
+                Label #Armor0 { Text: ""; Style: (FontSize: 13); }
+                Label #Armor1 { Text: ""; Style: (FontSize: 13); }
+                Label #Armor2 { Text: ""; Style: (FontSize: 13); }
+                Label #Armor3 { Text: ""; Style: (FontSize: 13); }
             }
 
-            // Hand Slots
             Group #HandSlots {
                 LayoutMode: Top;
-                Padding: (Top: 5);
-                Label #Hand0 { Text: ""; Style: (FontSize: 12); }
-                Label #Hand1 { Text: ""; Style: (FontSize: 12); }
+                Padding: (Top: 4);
+                Label #Hand0 { Text: ""; Style: (FontSize: 13); }
+                Label #Hand1 { Text: ""; Style: (FontSize: 13); }
             }
         }
     }
@@ -113,15 +99,14 @@ Group #CharacterStatsPage {
     // Footer with Buttons
     Group #Footer {
         LayoutMode: Left;
-        Padding: (Top: 20);
-        Anchor: (Height: 50);
+        Anchor: (Bottom: 0, Height: 50);
 
         Button #PassiveTreeButton {
             Anchor: (Width: 120, Height: 40);
             Background: $Common.@InputBoxBackground;
             Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
             Padding: (Full: 8);
-            Label { Text: "[Passive Tree]"; Style: (FontSize: 12, Alignment: Center); }
+            Label { Text: "Passive Tree"; Style: (FontSize: 13, Alignment: Center); }
         }
 
         Button #RefreshButton {
@@ -129,7 +114,7 @@ Group #CharacterStatsPage {
             Background: $Common.@InputBoxBackground;
             Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
             Padding: (Full: 8);
-            Label { Text: "[Refresh]"; Style: (FontSize: 12, Alignment: Center); }
+            Label { Text: "Refresh"; Style: (FontSize: 13, Alignment: Center); }
         }
 
         Button #CloseButton {
@@ -137,7 +122,7 @@ Group #CharacterStatsPage {
             Background: $Common.@InputBoxBackground;
             Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
             Padding: (Full: 8);
-            Label { Text: "[Close]"; Style: (FontSize: 12, Alignment: Center); }
+            Label { Text: "Close"; Style: (FontSize: 13, Alignment: Center); }
         }
     }
 }

@@ -39,7 +39,6 @@ public record StatDefinition(
     @Nonnull String displayName,
     @Nonnull String description,
     boolean isAbilityScore,
-    boolean isRating,
     int ratingK,
     @Nonnull List<ScalingRule> scaling,
     int softCapBps,
@@ -127,7 +126,6 @@ public record StatDefinition(
         private String displayName = "";
         private String description = "";
         private boolean isAbilityScore = false;
-        private boolean isRating = false;
         private int ratingK = DEFAULT_RATING_K;
         private List<ScalingRule> scaling = Collections.emptyList();
         private int softCapBps = NO_CAP;
@@ -183,13 +181,7 @@ public record StatDefinition(
             return this;
         }
         
-        public Builder rating(boolean isRating) {
-            this.isRating = isRating;
-            if (isRating) {
-                this.displayFormat = DisplayFormat.RATING;
-            }
-            return this;
-        }
+
         
         /**
          * Set the diminishing-returns k constant for this rating stat.
@@ -299,7 +291,7 @@ public record StatDefinition(
             return new StatDefinition(
                 id, category, displayFormat, defaultValue,
                 minValue, maxValue, tags, displayName, description,
-                isAbilityScore, isRating, ratingK, scaling,
+                isAbilityScore, ratingK, scaling,
                 softCapBps, hardCapBps, softCapBonusStat
             );
         }

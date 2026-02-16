@@ -1,5 +1,6 @@
 package reign.software.hyforged.stats.engine;
 
+import reign.software.hyforged.stats.DisplayFormat;
 import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
@@ -175,7 +176,7 @@ public final class RatingConverter {
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         StatDefinition statDef = registry.getStat(statId);
         
-        if (statDef == null || !statDef.isRating()) {
+        if (statDef == null || statDef.displayFormat() != DisplayFormat.RATING) {
             // Not a rating stat, return raw value (or 0)
             return rating;
         }

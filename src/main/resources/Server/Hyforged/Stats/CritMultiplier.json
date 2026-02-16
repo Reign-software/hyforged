@@ -6,7 +6,7 @@
   "DefaultValue": 1500,
   "MinValue": -10000,
   "MaxValue": 10000,
-  "IsRating": false,
+  "DisplayFormat": "PERCENT_BPS",
   "Tags": {
     "Modifier": [
       "percent"
