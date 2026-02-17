@@ -15,7 +15,8 @@ set "DOWNLOAD_DIR=%HYTALE_DOWNLOADER_PATH%\downloads"
 REM Get workspace root (4 levels up from script location)
 set "SCRIPT_DIR=%~dp0"
 for %%I in ("%SCRIPT_DIR%\..\..\..\..\") do set "WORKSPACE_ROOT=%%~fI"
-set "LIB_DIR=%WORKSPACE_ROOT%lib"
+REM lib folder is a sibling of the repo (outside the git repo)
+for %%I in ("%WORKSPACE_ROOT%..\lib") do set "LIB_DIR=%%~fI"
 
 echo ============================================
 echo   Hytale Server Lib Updater
@@ -320,7 +321,7 @@ echo.
 echo Remember: Decompiled code may have errors - it's for reference only.
 echo.
 echo Next steps:
-echo   1. Review changes with: git diff lib/
+echo   1. Review changes in: %LIB_DIR%
 echo   2. Test your plugin with: Build and Deploy Plugin task
 echo.
 

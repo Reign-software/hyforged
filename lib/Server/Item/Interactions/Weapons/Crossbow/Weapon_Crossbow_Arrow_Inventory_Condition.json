@@ -1,7 +1,0 @@
-{
-  "Type": "ModifyInventory",
-  "ItemToRemove": {
-    "Id": "Weapon_Arrow_Crude",
-    "Quantity": 1
-  }
-}

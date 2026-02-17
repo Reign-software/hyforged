@@ -1,8 +1,0 @@
-@SectionContainer = Group {
-  LayoutMode: Left;
-  Anchor: (Bottom: 4);
-  Padding: (Full: 12);
-  Background: (TexturePath: "../../../../Common/OptionBackgroundPatch.png", Border: 16);
-};
-
-@SectionContainer #SectionContainer {}

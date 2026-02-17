@@ -1,8 +1,0 @@
-{
-  "Interactions": [
-    {
-     "Type": "ApplyEffect",
-     "EffectId": "Death"
-    }
-  ]
-}

@@ -172,6 +172,12 @@ public class EquipmentAffixListener {
             appliedModifiers.addAll(slotModifiers);
         }
         
+        // Always mark dirty after equipment change so cached values are recomputed,
+        // even if there were no prior modifiers to remove (first equip scenario)
+        if (statComponent != null && !appliedModifiers.isEmpty()) {
+            statComponent.markAllDirty();
+        }
+        
         if (!appliedModifiers.isEmpty()) {
             emitModifiersAppliedEvent(entity, "armor", appliedModifiers);
         }
@@ -199,6 +205,12 @@ public class EquipmentAffixListener {
         
         List<HyforgedModifier> appliedModifiers = applyAffixModifiersFromItem(
             entityStatMap, statComponent, heldItem, "hand");
+        
+        // Always mark dirty after equipment change so cached values are recomputed,
+        // even if there were no prior modifiers to remove (first equip scenario)
+        if (statComponent != null && !appliedModifiers.isEmpty()) {
+            statComponent.markAllDirty();
+        }
         
         if (!appliedModifiers.isEmpty()) {
             emitModifiersAppliedEvent(entity, "hand", appliedModifiers);
@@ -315,6 +327,10 @@ public class EquipmentAffixListener {
                 if (statMap != null && StatAccessor.hasStatSlot(statMap, statIndex)) {
                     statMap.putModifier(statIndex, sourceId, modifier);
                     applied.add(modifier);
+                    // Mark dirty so HyforgedStatComputeSystem recomputes cached values
+                    if (statComponent != null) {
+                        statComponent.markStatDirty(statIndex);
+                    }
                 } else if (statComponent != null) {
                     statComponent.upsertModifier(modifier);
                     applied.add(modifier);
