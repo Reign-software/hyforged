@@ -87,6 +87,13 @@ Group #HyforgedOptionsPage {
       #ToggleLabel {
       }
     }
+
+    @ToggleRow #ProgressionHudRow {
+      @Label = %hyforged.options.progressionHud;
+
+      #ToggleLabel {
+      }
+    }
   }
 
   // Separator

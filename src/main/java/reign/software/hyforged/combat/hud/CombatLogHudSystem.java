@@ -40,11 +40,23 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
     /** Maximum events to display in the log */
     private static final int MAX_DISPLAY_EVENTS = 12;
 
+    /** Maximum extra (non-combat) lines to keep per player */
+    private static final int MAX_EXTRA_LINES = 8;
+
     /** Per-player HUD visibility state */
     private static final Map<UUID, Boolean> hudVisibility = new ConcurrentHashMap<>();
 
+    /** Per-player extra messages (XP gains, etc.) — newest at the end */
+    private static final Map<UUID, Deque<Message>> extraLines = new ConcurrentHashMap<>();
+
+    /** Monotonic counter to detect extra-line changes */
+    private static final Map<UUID, Long> extraLineVersion = new ConcurrentHashMap<>();
+
     /** Per-player last event count (for dirty checking) */
     private final Map<UUID, Integer> lastEventCount = new ConcurrentHashMap<>();
+
+    /** Per-player last extra-line version seen */
+    private final Map<UUID, Long> lastExtraVersion = new ConcurrentHashMap<>();
 
     @Nonnull
     private final ComponentType<EntityStore, Player> playerComponentType;
@@ -111,8 +123,13 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
 
         // Check if update needed (dirty check)
         int currentEventCount = events.size();
+        long currentExtraVer = extraLineVersion.getOrDefault(playerUuid, 0L);
         Integer lastCount = lastEventCount.get(playerUuid);
-        boolean needsUpdate = lastCount == null || lastCount != currentEventCount;
+        Long lastExtraVer = lastExtraVersion.get(playerUuid);
+        boolean needsUpdate = lastCount == null
+                || lastCount != currentEventCount
+                || lastExtraVer == null
+                || lastExtraVer != currentExtraVer;
 
         if (!needsUpdate) {
             return;
@@ -132,15 +149,29 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
             }
         }
 
-        // Build formatted lines for the HUD
-        Message[] lines = new Message[events.size()];
+        // Build formatted lines for the HUD (combat events + extra lines)
+        List<Message> allLines = new ArrayList<>();
         for (int i = 0; i < events.size(); i++) {
-            lines[i] = CombatLogFormatter.formatEventMessage(events.get(events.size() - 1 - i));
+            allLines.add(CombatLogFormatter.formatEventMessage(events.get(events.size() - 1 - i)));
         }
+
+        // Append extra lines (XP gains, etc.)
+        Deque<Message> extras = extraLines.get(playerUuid);
+        if (extras != null && !extras.isEmpty()) {
+            allLines.addAll(extras);
+        }
+
+        // Trim to max display
+        if (allLines.size() > MAX_DISPLAY_EVENTS) {
+            allLines = allLines.subList(allLines.size() - MAX_DISPLAY_EVENTS, allLines.size());
+        }
+
+        Message[] lines = allLines.toArray(new Message[0]);
 
         String dpsText = dps >= 0 ? String.format("DPS: %.1f", dps) : "DPS: ----";
         hud.updateCombatLog(lines, dpsText, "Hits: " + totalHits, "Crits: " + totalCrits);
         lastEventCount.put(playerUuid, currentEventCount);
+        lastExtraVersion.put(playerUuid, currentExtraVer);
     }
 
     /**
@@ -234,5 +265,27 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
      */
     public static void clearPlayerState(@Nonnull UUID playerUuid) {
         hudVisibility.remove(playerUuid);
+        extraLines.remove(playerUuid);
+        extraLineVersion.remove(playerUuid);
+    }
+
+    // --- Extra lines management (XP gains, etc.) ---
+
+    /**
+     * Add an extra message line to a player's combat log display.
+     * Used for XP gain notifications and other non-combat events.
+     *
+     * @param playerUuid The player's UUID
+     * @param message    The formatted message to display
+     */
+    public static void addExtraLine(@Nonnull UUID playerUuid, @Nonnull Message message) {
+        Deque<Message> queue = extraLines.computeIfAbsent(playerUuid, k -> new ArrayDeque<>());
+        synchronized (queue) {
+            queue.addLast(message);
+            while (queue.size() > MAX_EXTRA_LINES) {
+                queue.pollFirst();
+            }
+        }
+        extraLineVersion.merge(playerUuid, 1L, Long::sum);
     }
 }

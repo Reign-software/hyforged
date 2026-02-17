@@ -20,7 +20,7 @@ import java.util.Set;
  * @param displayName The localized display name
  * @param description Description text for tooltips
  * @param abilityScores Map of stat ID to base value for ability scores
- * @param weaponTagFamilies Set of weapon tags that activate this class for XP (e.g., "weapon:sword")
+ * @param weaponTagFamilies Set of weapon tags that activate this class for XP (e.g., "Family=Sword")
  * @param levelRewards Map of level to ability score bonuses granted at that level
  */
 public record ClassDefinition(

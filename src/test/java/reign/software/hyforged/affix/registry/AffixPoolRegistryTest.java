@@ -20,7 +20,7 @@ class AffixPoolRegistryTest {
     }
 
     private AffixPool createPool(String id, int priority, Set<String> categories, Set<String> tags) {
-        return new AffixPool(id, priority,
+        return AffixPool.of(id, priority,
                 new AffixPool.AffixPoolAppliesTo(categories, tags),
                 List.of("prefix1"), List.of("suffix1"), List.of());
     }

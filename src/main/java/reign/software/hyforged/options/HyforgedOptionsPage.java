@@ -63,6 +63,7 @@ public class HyforgedOptionsPage extends InteractiveCustomUIPage<HyforgedOptions
         setToggleState(commandBuilder, "#CombatTextRow", opts.isCombatText());
         setToggleState(commandBuilder, "#XpNotificationsRow", opts.isXpNotifications());
         setToggleState(commandBuilder, "#DamageNumbersRow", opts.isDamageNumbers());
+        setToggleState(commandBuilder, "#ProgressionHudRow", opts.isProgressionHud());
 
         // Check admin permission
         boolean isAdmin = PermissionsModule.get().hasPermission(playerUuid, ADMIN_PERMISSION);
@@ -77,6 +78,7 @@ public class HyforgedOptionsPage extends InteractiveCustomUIPage<HyforgedOptions
         bindToggle(eventBuilder, "#CombatTextRow", "toggleCombatText");
         bindToggle(eventBuilder, "#XpNotificationsRow", "toggleXpNotifications");
         bindToggle(eventBuilder, "#DamageNumbersRow", "toggleDamageNumbers");
+        bindToggle(eventBuilder, "#ProgressionHudRow", "toggleProgressionHud");
 
         if (isAdmin) {
             bindToggle(eventBuilder, "#DebugModeRow", "toggleDebugMode");
@@ -118,6 +120,7 @@ public class HyforgedOptionsPage extends InteractiveCustomUIPage<HyforgedOptions
             case "toggleCombatText" -> opts.toggleCombatText();
             case "toggleXpNotifications" -> opts.toggleXpNotifications();
             case "toggleDamageNumbers" -> opts.toggleDamageNumbers();
+            case "toggleProgressionHud" -> opts.toggleProgressionHud();
             case "toggleDebugMode" -> {
                 if (PermissionsModule.get().hasPermission(playerUuid, ADMIN_PERMISSION)) {
                     opts.toggleDebugMode();

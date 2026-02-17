@@ -1,6 +1,5 @@
 package reign.software.hyforged.stats;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**

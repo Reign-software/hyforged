@@ -71,7 +71,7 @@ class LootAffixSystemTest {
     }
     
     private void registerTestPool() {
-        poolRegistry.register(new AffixPool(
+        poolRegistry.register(AffixPool.of(
                 "equipment_pool",
                 AffixPool.DEFAULT_PRIORITY,
                 new AffixPool.AffixPoolAppliesTo(Set.of("equipment"), Set.of("weapon")),

@@ -39,8 +39,6 @@ public class HyforgedPlayerInitSystem {
     private final ComponentType<EntityStore, PlayerSpellsComponent> playerSpellsComponentType;
     private final ComponentType<EntityStore, ConcentrationPriorityComponent> concentrationPriorityComponentType;
 
-    private EventRegistration<Void, PlayerConnectEvent> connectRegistration;
-
     public HyforgedPlayerInitSystem() {
         HyforgedPlugin plugin = HyforgedPlugin.getInstance();
         this.statComponentType = plugin.getHyforgedStatComponentType();
@@ -54,7 +52,7 @@ public class HyforgedPlayerInitSystem {
     }
 
     private void registerEventHandlers() {
-        connectRegistration = HytaleServer.get().getEventBus()
+        HytaleServer.get().getEventBus()
                 .register(PlayerConnectEvent.class, this::onPlayerConnect);
 
         LOGGER.info("HyforgedPlayerInitSystem: Registered player connect handler");

@@ -103,12 +103,7 @@ public final class AffixRollerService {
             return AffixRollResult.empty(context);
         }
         
-        int prefixCapacity = qualityRule.getCapacity("prefix");
-        int suffixCapacity = qualityRule.getCapacity("suffix");
-        int forgedCapacity = qualityRule.getCapacity("forged");
-        
-        LOGGER.log(Level.FINER, "Quality capacities - prefix: {0}, suffix: {1}, forged: {2}",
-                new Object[]{prefixCapacity, suffixCapacity, forgedCapacity});
+        LOGGER.log(Level.FINER, "Quality capacities: {0}", qualityRule.affixCapacity());
         
         // Step 2: Resolve affix pool for this item
         Set<String> categorySet = Set.of(context.itemCategories());
@@ -135,28 +130,28 @@ public final class AffixRollerService {
         Map<String, List<AffixDefinition>> byType = poolAffixes.stream()
                 .collect(Collectors.groupingBy(AffixDefinition::type));
         
-        List<AffixDefinition> prefixes = byType.getOrDefault("prefix", Collections.emptyList());
-        List<AffixDefinition> suffixes = byType.getOrDefault("suffix", Collections.emptyList());
-        List<AffixDefinition> forged = byType.getOrDefault("forged", Collections.emptyList());
-        
-        // Step 6: Roll affixes for each slot type
-        // Note: usedAffixIds is global (no duplicate affixes)
+        // Step 5: Roll affixes for each type that has capacity
+        // usedAffixIds is global (no duplicate affixes)
         // usedStats is also global to prevent same stat being rolled multiple times
         List<RolledAffix> rolledAffixes = new ArrayList<>();
         Set<String> usedAffixIds = new HashSet<>();
         Set<String> usedStats = new HashSet<>();
         
-        // Roll prefixes
-        AffixType prefixType = AffixTypeRegistry.get().get("prefix");
-        rollForType(prefixes, prefixCapacity, context, random, rolledAffixes, usedAffixIds, usedStats, prefixType);
+        // Collect all affix types present in either the pool or the quality rule
+        Set<String> allTypes = new HashSet<>(pool.getAllAffixTypes());
+        allTypes.addAll(qualityRule.affixCapacity().keySet());
         
-        // Roll suffixes
-        AffixType suffixType = AffixTypeRegistry.get().get("suffix");
-        rollForType(suffixes, suffixCapacity, context, random, rolledAffixes, usedAffixIds, usedStats, suffixType);
-        
-        // Roll forged (typically non-stackable)
-        AffixType forgedType = AffixTypeRegistry.get().get("forged");
-        rollForType(forged, forgedCapacity, context, random, rolledAffixes, usedAffixIds, usedStats, forgedType);
+        // Roll for each type that has both capacity and available affixes
+        for (String typeId : allTypes) {
+            int capacity = qualityRule.getCapacity(typeId);
+            List<AffixDefinition> available = byType.getOrDefault(typeId, Collections.emptyList());
+            AffixType affixType = AffixTypeRegistry.get().get(typeId);
+            
+            LOGGER.log(Level.FINER, "Type ''{0}'': capacity={1}, available={2}",
+                    new Object[]{typeId, capacity, available.size()});
+            
+            rollForType(available, capacity, context, random, rolledAffixes, usedAffixIds, usedStats, affixType);
+        }
         
         LOGGER.log(Level.FINE, "Rolled {0} affixes for item {1}: {2}", 
                 new Object[]{rolledAffixes.size(), context.itemId(), 
@@ -174,20 +169,22 @@ public final class AffixRollerService {
     
     /**
      * Resolve all affix definitions from a pool.
+     * Includes standard types (prefix/suffix/forged) AND custom types from the Affixes map.
      */
     private List<AffixDefinition> resolvePoolAffixes(@Nonnull AffixPool pool) {
         List<AffixDefinition> result = new ArrayList<>();
         
-        // Collect all affix IDs from all types
-        List<String> allAffixIds = new ArrayList<>();
-        allAffixIds.addAll(pool.prefixes());
-        allAffixIds.addAll(pool.suffixes());
-        allAffixIds.addAll(pool.forged());
-        
-        for (String affixId : allAffixIds) {
-            AffixDefinition def = affixRegistry.get(affixId);
-            if (def != null) {
-                result.add(def);
+        // Collect all affix IDs from all types in the unified map
+        for (Map.Entry<String, List<String>> entry : pool.affixesByType().entrySet()) {
+            for (String affixId : entry.getValue()) {
+                AffixDefinition def = affixRegistry.get(affixId);
+                if (def != null) {
+                    result.add(def);
+                } else {
+                    LOGGER.log(Level.WARNING, "Pool ''{0}'' references affix ''{1}'' (type ''{2}'') which does not exist in the registry. "
+                            + "Check that the pool ID matches the definition ''Id'' field exactly (case-sensitive).",
+                            new Object[]{pool.id(), affixId, entry.getKey()});
+                }
             }
         }
         return result;

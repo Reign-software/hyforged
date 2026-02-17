@@ -16,7 +16,7 @@ class TransactionTypeTest {
     void hasAllExpectedTypes() {
         TransactionType[] types = TransactionType.values();
 
-        assertEquals(7, types.length);
+        assertEquals(8, types.length);
         assertNotNull(TransactionType.valueOf("EARN"));
         assertNotNull(TransactionType.valueOf("SPEND"));
         assertNotNull(TransactionType.valueOf("VAULT_DEPOSIT"));
@@ -24,6 +24,7 @@ class TransactionTypeTest {
         assertNotNull(TransactionType.valueOf("SELL"));
         assertNotNull(TransactionType.valueOf("ADMIN_GRANT"));
         assertNotNull(TransactionType.valueOf("PASSIVE_REFUND"));
+        assertNotNull(TransactionType.valueOf("VAULT_UPGRADE"));
     }
 
     @Test

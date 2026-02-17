@@ -1,140 +1,211 @@
 // Hyforged Composite HUD - Contains all HUD sections
 // Each section is toggled visible/invisible by the server.
+// Root has no LayoutMode so children can position freely (top sections vs bottom bar).
 
 Group #HyforgedHud {
-    LayoutMode: Top;
 
-    // === Resource Stats Section (Concentration & Rage) ===
-    Group #ResourceStats {
+    // === Top-aligned sections (stacked top-down) ===
+    Group #TopSections {
         LayoutMode: Top;
-        Visible: false;
+        Anchor: (Top: 0, Left: 0, Right: 0);
 
-        Group #ConcentrationContainer {
+        // === Resource Stats Section (Concentration & Rage) ===
+        Group #ResourceStats {
             LayoutMode: Top;
-            Label #ConcentrationLabel { Text: "Concentration"; }
-            ProgressBar #ConcentrationFill {
-                Value: 0.0;
-                Direction: Start;
+            Visible: false;
+
+            Group #ConcentrationContainer {
+                LayoutMode: Top;
+                Label #ConcentrationLabel { Text: "Concentration"; }
+                ProgressBar #ConcentrationFill {
+                    Value: 0.0;
+                    Direction: Start;
+                }
+                Label #ConcentrationValue { Text: "0/0"; }
             }
-            Label #ConcentrationValue { Text: "0/0"; }
+
+            Group #RageContainer {
+                LayoutMode: Top;
+                Label #RageLabel { Text: "Rage"; }
+                ProgressBar #RageFill {
+                    Value: 0.0;
+                    Direction: Start;
+                }
+                Label #RageValue { Text: "0/0"; }
+            }
         }
 
-        Group #RageContainer {
+        // === Currency Section (Tradebar balance) ===
+        Group #Currency {
             LayoutMode: Top;
-            Label #RageLabel { Text: "Rage"; }
-            ProgressBar #RageFill {
-                Value: 0.0;
-                Direction: Start;
+            Visible: false;
+            Anchor: (Width: 180, Height: 80);
+            Padding: (Full: 5);
+
+            Group #InventorySection {
+                LayoutMode: Left;
+                Anchor: (Height: 20);
+
+                Label #InventoryIcon {
+                    Text: "💰";
+                    Style: (FontSize: 14);
+                    Anchor: (Width: 25);
+                }
+
+                Label #InventoryLabel {
+                    Text: "Inv: ";
+                    Style: (FontSize: 12, TextColor: #AAAAAA);
+                    Anchor: (Width: 35);
+                }
+
+                Label #InventoryBalance {
+                    Text: "0";
+                    Style: (FontSize: 12, TextColor: #FFD700);
+                }
             }
-            Label #RageValue { Text: "0/0"; }
+
+            Group #VaultSection {
+                LayoutMode: Left;
+                Anchor: (Height: 20);
+                Visible: false;
+
+                Label #VaultIcon {
+                    Text: "🏦";
+                    Style: (FontSize: 14);
+                    Anchor: (Width: 25);
+                }
+
+                Label #VaultLabel {
+                    Text: "Vault: ";
+                    Style: (FontSize: 12, TextColor: #AAAAAA);
+                    Anchor: (Width: 35);
+                }
+
+                Label #VaultBalance {
+                    Text: "0";
+                    Style: (FontSize: 12, TextColor: #FFD700);
+                }
+            }
+
+            Group #TotalSection {
+                LayoutMode: Left;
+                Anchor: (Height: 20);
+                Visible: false;
+
+                Label #TotalLabel {
+                    Text: "Total: ";
+                    Style: (FontSize: 12, TextColor: #AAAAAA);
+                    Anchor: (Width: 60);
+                }
+
+                Label #TotalBalance {
+                    Text: "0";
+                    Style: (FontSize: 12, TextColor: #FFD700);
+                }
+            }
+        }
+
+        // === Combat Log Section ===
+        Group #CombatLog {
+            LayoutMode: Top;
+            Visible: false;
+            Anchor: (Left: 0, Width: 420);
+            Background: #000000(0.55);
+            Padding: (Full: 6);
+
+            Group #CombatLogHeader {
+                LayoutMode: Top;
+            Label #CombatLogTitle { Text: "Combat Log"; Style: (FontSize: 14, TextColor: #CCCCCC); }
+            }
+
+            Group #CombatLogList {
+                LayoutMode: Top;
+                Label #LogEntry0 { Text: ""; Style: (FontSize: 14); }
+                Label #LogEntry1 { Text: ""; Style: (FontSize: 14); }
+                Label #LogEntry2 { Text: ""; Style: (FontSize: 14); }
+                Label #LogEntry3 { Text: ""; Style: (FontSize: 14); }
+                Label #LogEntry4 { Text: ""; Style: (FontSize: 14); }
+                Label #LogEntry5 { Text: ""; Style: (FontSize: 14); }
+                Label #LogEntry6 { Text: ""; Style: (FontSize: 14); }
+                Label #LogEntry7 { Text: ""; Style: (FontSize: 14); }
+                Label #LogEntry8 { Text: ""; Style: (FontSize: 14); }
+                Label #LogEntry9 { Text: ""; Style: (FontSize: 14); }
+                Label #LogEntry10 { Text: ""; Style: (FontSize: 14); }
+                Label #LogEntry11 { Text: ""; Style: (FontSize: 14); }
+            }
+
+            Group #CombatLogFooter {
+                LayoutMode: Top;
+            Label #DpsLabel { Text: "DPS: ----"; Style: (FontSize: 15, TextColor: #FFD700); }
+            Label #HitsLabel { Text: "Hits: 0"; Style: (FontSize: 15, TextColor: #AAAAAA); }
+            Label #CritsLabel { Text: "Crits: 0"; Style: (FontSize: 15, TextColor: #FF4444); }
+            }
         }
     }
 
-    // === Currency Section (Tradebar balance) ===
-    Group #Currency {
-        LayoutMode: Top;
+    // === Progression Section (Character Level, Class, EXP Bars) ===
+    // Positioned just above the HP/stamina bars, spans full hotbar width.
+    // Two bars: Character XP (blue) and Class XP (purple), with values overlaid.
+    Group #Progression {
         Visible: false;
-        Anchor: (Width: 180, Height: 80);
-        Padding: (Full: 5);
-
-        Group #InventorySection {
-            LayoutMode: Left;
-            Anchor: (Height: 20);
-
-            Label #InventoryIcon {
-                Text: "💰";
-                Style: (FontSize: 14);
-                Anchor: (Width: 25);
-            }
-
-            Label #InventoryLabel {
-                Text: "Inv: ";
-                Style: (FontSize: 12, TextColor: #AAAAAA);
-                Anchor: (Width: 35);
-            }
-
-            Label #InventoryBalance {
-                Text: "0";
-                Style: (FontSize: 12, TextColor: #FFD700);
-            }
-        }
-
-        Group #VaultSection {
-            LayoutMode: Left;
-            Anchor: (Height: 20);
-            Visible: false;
-
-            Label #VaultIcon {
-                Text: "🏦";
-                Style: (FontSize: 14);
-                Anchor: (Width: 25);
-            }
-
-            Label #VaultLabel {
-                Text: "Vault: ";
-                Style: (FontSize: 12, TextColor: #AAAAAA);
-                Anchor: (Width: 35);
-            }
-
-            Label #VaultBalance {
-                Text: "0";
-                Style: (FontSize: 12, TextColor: #FFD700);
-            }
-        }
-
-        Group #TotalSection {
-            LayoutMode: Left;
-            Anchor: (Height: 20);
-            Visible: false;
-
-            Label #TotalLabel {
-                Text: "Total: ";
-                Style: (FontSize: 12, TextColor: #AAAAAA);
-                Anchor: (Width: 60);
-            }
-
-            Label #TotalBalance {
-                Text: "0";
-                Style: (FontSize: 12, TextColor: #FFD700);
-            }
-        }
-    }
-
-    // === Combat Log Section ===
-    Group #CombatLog {
+        Anchor: (Bottom: 160, Width: 702, Height: 62);
         LayoutMode: Top;
-        Visible: false;
-        Anchor: (Left: 0, Width: 420);
-        Background: #000000(0.55);
-        Padding: (Full: 6);
+        Padding: (Horizontal: 4, Vertical: 3);
+        Background: PatchStyle(Color: #0e1218(0.85));
 
-        Group #CombatLogHeader {
-            LayoutMode: Top;
-            Label #CombatLogTitle { Text: "Combat Log"; Style: (FontSize: 12, TextColor: #CCCCCC); }
-            Label #CombatLogToggle { Text: "[x]"; Style: (FontSize: 12, TextColor: #AAAAAA); }
+        // Header row: character level + class name & level
+        Group #ProgressionInfo {
+            Anchor: (Height: 20);
+            LayoutMode: Left;
+
+            Label #CharLevelValue {
+                Text: "Lv 1";
+                Style: (FontSize: 16, RenderBold: true, TextColor: #FFD700);
+                Anchor: (Width: 70, Height: 20);
+            }
+
+            Label #ClassName {
+                Text: "";
+                Style: (FontSize: 15, TextColor: #8888CC);
+                Anchor: (Width: 300, Height: 20);
+            }
         }
 
-        Group #CombatLogList {
-            LayoutMode: Top;
-            Label #LogEntry0 { Text: ""; Style: (FontSize: 11); }
-            Label #LogEntry1 { Text: ""; Style: (FontSize: 11); }
-            Label #LogEntry2 { Text: ""; Style: (FontSize: 11); }
-            Label #LogEntry3 { Text: ""; Style: (FontSize: 11); }
-            Label #LogEntry4 { Text: ""; Style: (FontSize: 11); }
-            Label #LogEntry5 { Text: ""; Style: (FontSize: 11); }
-            Label #LogEntry6 { Text: ""; Style: (FontSize: 11); }
-            Label #LogEntry7 { Text: ""; Style: (FontSize: 11); }
-            Label #LogEntry8 { Text: ""; Style: (FontSize: 11); }
-            Label #LogEntry9 { Text: ""; Style: (FontSize: 11); }
-            Label #LogEntry10 { Text: ""; Style: (FontSize: 11); }
-            Label #LogEntry11 { Text: ""; Style: (FontSize: 11); }
+        // Character XP bar with overlaid text
+        Group #CharXpBarContainer {
+            Anchor: (Height: 18, Left: 0, Right: 0);
+
+            ProgressBar #ExpBarFill {
+                Anchor: (Top: 0, Bottom: 0, Left: 0, Right: 0);
+                Bar: PatchStyle(Color: #5b8dd9);
+                Background: PatchStyle(Color: #1a2030);
+                Value: 0.0;
+            }
+
+            Label #XpText {
+                Text: "0 / 0";
+                Style: (FontSize: 13, RenderBold: true, TextColor: #FFFFFF, HorizontalAlignment: Center);
+                Anchor: (Top: 0, Bottom: 0, Left: 0, Right: 0);
+            }
         }
 
-        Group #CombatLogFooter {
-            LayoutMode: Top;
-            Label #DpsLabel { Text: "DPS: ----"; Style: (FontSize: 11, TextColor: #FFD700); }
-            Label #HitsLabel { Text: "Hits: 0"; Style: (FontSize: 11, TextColor: #AAAAAA); }
-            Label #CritsLabel { Text: "Crits: 0"; Style: (FontSize: 11, TextColor: #FF4444); }
+        // Class XP bar with overlaid text (hidden when no class is active)
+        Group #ClassXpBarContainer {
+            Visible: false;
+            Anchor: (Height: 18, Left: 0, Right: 0);
+
+            ProgressBar #ClassExpBarFill {
+                Anchor: (Top: 0, Bottom: 0, Left: 0, Right: 0);
+                Bar: PatchStyle(Color: #8855cc);
+                Background: PatchStyle(Color: #1a1828);
+                Value: 0.0;
+            }
+
+            Label #ClassXpText {
+                Text: "0 / 0";
+                Style: (FontSize: 13, RenderBold: true, TextColor: #FFFFFF, HorizontalAlignment: Center);
+                Anchor: (Top: 0, Bottom: 0, Left: 0, Right: 0);
+            }
         }
     }
 }

@@ -8,6 +8,8 @@ import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.server.core.asset.type.model.config.Model;
 import com.hypixel.hytale.server.core.asset.type.model.config.ModelAsset;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
+import com.hypixel.hytale.server.core.modules.entity.component.DisplayNameComponent;
 import com.hypixel.hytale.server.core.modules.entity.component.ModelComponent;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
@@ -97,12 +99,19 @@ public class XPAwardOnKillSystem extends DeathSystems.OnDeathSystem {
         if (xpAmount <= 0) {
             return;
         }
-        
-        // Dispatch XP award event to the killer
-        XPAwardEvent xpEvent = XPAwardEvent.combat(xpAmount, victimRef);
+
+        // Resolve mob info for combat log display (must happen now while victim is still valid)
+        String mobDisplayName = resolveVictimDisplayName(victimRef, store);
+        int mobLevel = resolveEnemyLevel(victimRef, store);
+        String mobQuality = resolveEnemyQuality(victimRef, store);
+
+        // Dispatch XP award event to the killer with mob info
+        XPAwardEvent xpEvent = XPAwardEvent.combat(xpAmount, victimRef, mobDisplayName, mobLevel, mobQuality);
         commandBuffer.invoke(killerRef, xpEvent);
         
-        LOGGER.fine(String.format("Awarding %d combat XP to player for killing entity", xpAmount));
+        LOGGER.fine(String.format("Awarding %d combat XP to player for killing %s [%s] Lv.%d",
+                xpAmount, mobDisplayName != null ? mobDisplayName : "entity",
+                mobQuality != null ? mobQuality : "Common", mobLevel));
     }
     
     /**
@@ -137,6 +146,23 @@ public class XPAwardOnKillSystem extends DeathSystems.OnDeathSystem {
         }
 
         return ProgressionStatBridge.getCharacterLevel(victimRef, store);
+    }
+
+    /**
+     * Resolve the quality tier of the killed entity from its NPC quality component.
+     *
+     * @param victimRef the killed entity
+     * @param store the entity store
+     * @return quality ID (e.g., "Common", "Rare"), or null if not available
+     */
+    @Nullable
+    private String resolveEnemyQuality(@Nonnull Ref<EntityStore> victimRef, @Nonnull Store<EntityStore> store) {
+        HyforgedNPCQualityComponent quality = store.getComponent(victimRef,
+                HyforgedPlugin.getInstance().getNpcQualityComponentType());
+        if (quality != null && !quality.getQualityId().isBlank()) {
+            return quality.getQualityId();
+        }
+        return null;
     }
 
     @Nullable
@@ -208,5 +234,70 @@ public class XPAwardOnKillSystem extends DeathSystems.OnDeathSystem {
         }
 
         return null;
+    }
+
+    /**
+     * Resolve a display name for the killed entity for combat log.
+     * <p>
+     * Resolution priority:
+     * <ol>
+     *   <li>Nameplate text (includes quality, affixes, level if NPCNameplateSystem ran)</li>
+     *   <li>DisplayNameComponent raw text</li>
+     *   <li>NPC role name (formatted)</li>
+     * </ol>
+     *
+     * @param victimRef the killed entity
+     * @param store the entity store
+     * @return display name, or null if unresolvable
+     */
+    @Nullable
+    private String resolveVictimDisplayName(@Nonnull Ref<EntityStore> victimRef, @Nonnull Store<EntityStore> store) {
+        // Prefer DisplayNameComponent (clean base name without level/quality decorations)
+        DisplayNameComponent displayNameComp = store.getComponent(victimRef, DisplayNameComponent.getComponentType());
+        if (displayNameComp != null) {
+            com.hypixel.hytale.server.core.Message displayName = displayNameComp.getDisplayName();
+            if (displayName != null) {
+                String rawText = displayName.getRawText();
+                if (rawText != null && !rawText.isEmpty()) {
+                    return rawText;
+                }
+            }
+        }
+
+        // Try NPC role name
+        NPCEntity npcEntity = store.getComponent(victimRef, NPCEntity.getComponentType());
+        if (npcEntity != null) {
+            String roleName = npcEntity.getRoleName();
+            if (roleName != null && !roleName.isEmpty()) {
+                return roleName.replace('_', ' ');
+            }
+        }
+
+        // Fallback to nameplate, but strip level suffix and quality prefix
+        // (nameplate format: "Quality {Prefix} Name {Suffix} Lv.X")
+        Nameplate nameplate = store.getComponent(victimRef, Nameplate.getComponentType());
+        if (nameplate != null) {
+            String text = nameplate.getText();
+            if (text != null && !text.isEmpty()) {
+                return stripNameplateDecorations(text);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Strip level suffix and quality prefix from a nameplate string.
+     * <p>
+     * Nameplate format: {@code Quality {Prefix} Name {Suffix} Lv.X}
+     * Returns just: {@code {Prefix} Name {Suffix}}
+     */
+    @Nonnull
+    private static String stripNameplateDecorations(@Nonnull String nameplate) {
+        // Strip trailing " Lv.\d+"
+        String stripped = nameplate.replaceAll("\\s+Lv\\.\\d+$", "");
+        // Strip leading quality tag (e.g. "Rare ", "Epic ", or bracket format "[Rare] ")
+        stripped = stripped.replaceAll("^\\[\\w+]\\s*", "");
+        return stripped.isEmpty() ? nameplate : stripped;
     }
 }

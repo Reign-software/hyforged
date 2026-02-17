@@ -85,7 +85,7 @@ class AffixServiceTest {
     
     private void registerTestPools() {
         AffixPoolRegistry registry = AffixPoolRegistry.get();
-        registry.register(new AffixPool(
+        registry.register(AffixPool.of(
                 "test-pool",
                 100,  // priority
                 new AffixPool.AffixPoolAppliesTo(
@@ -234,7 +234,7 @@ class AffixServiceTest {
         void registerPoolShouldAddNewPool() {
             AffixService service = AffixService.get();
             
-            AffixPool newPool = new AffixPool(
+            AffixPool newPool = AffixPool.of(
                     "weapons-pool",
                     200,  // priority
                     new AffixPool.AffixPoolAppliesTo(

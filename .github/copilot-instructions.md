@@ -18,6 +18,8 @@ This is a Hytale plugin project. Hytale plugins are used to extend the functiona
 - There is a build and deploy task that will build the plugin and copy it to the local Hytale server plugins directory for testing. Use this to speed up your development workflow.
 - There should be no warnings or errors when compiling the plugin. (ignoring pom.xml warnings)
 - Any user-facing text must be localized via translation keys (e.g., `Message.translation(...)`) and added to language resources under `src/main/resources/Server/Languages/<locale>/*.lang` (filename becomes the key prefix). `src/main/resources/Server/Languages/fallback.lang` is only for locale fallback mappings (e.g., `en-GB = en-US`).
+- Options should be added to the `HyforgedOptionsPage` ui page whenever there is anything that is configurable by the user. This ensures a consistent user experience and makes it easy for users to find and change settings.
+- Hytale cannot render Unicode characters properly, so avoid using them in user-facing text. Use ASCII alternatives instead (e.g., "CRIT" instead of "✦").
 
 ## .github/skills
 - There is a skill for the ENTIRE hytale APi. This includes all the ECS patterns, component types, systems, and other APIs. Use this skill to look up how to use the Hytale API effectively.

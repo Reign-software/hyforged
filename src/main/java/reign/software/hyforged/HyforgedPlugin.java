@@ -31,9 +31,11 @@ import reign.software.hyforged.combat.ailment.AilmentLoader;
 import reign.software.hyforged.combat.ailment.HyforgedAilmentSystem;
 import reign.software.hyforged.combat.log.HyforgedCombatLogSystem;
 import reign.software.hyforged.combat.hud.CombatLogHudSystem;
+import reign.software.hyforged.combat.hud.PlayerDeathCombatLogSystem;
 import reign.software.hyforged.combat.HyforgedHitResolutionSystem;
 import reign.software.hyforged.combat.scaling.HyforgedMonsterScalingSystem;
 import reign.software.hyforged.combat.scaling.MonsterLevelComponent;
+import reign.software.hyforged.combat.scaling.NPCNameplateSystem;
 import reign.software.hyforged.combat.scaling.ScalingAssetLoader;
 import reign.software.hyforged.combat.ui.HyforgedCombatTextSystem;
 import reign.software.hyforged.progression.asset.XPCurveAssetLoader;
@@ -104,6 +106,7 @@ import reign.software.hyforged.currency.service.CurrencyService;
 import reign.software.hyforged.currency.component.TradebarVaultComponent;
 import reign.software.hyforged.currency.hud.CurrencyHudSystem;
 import reign.software.hyforged.currency.system.VaultBreakProtectionSystem;
+import reign.software.hyforged.progression.hud.ProgressionHudSystem;
 import reign.software.hyforged.currency.ui.MarketStallPage;
 import reign.software.hyforged.currency.ui.VaultPage;
 
@@ -555,6 +558,7 @@ public class HyforgedPlugin extends JavaPlugin {
                         HyforgedHudManager.remove(uuid);
                         CombatLogHudSystem.clearPlayerState(uuid);
                         CurrencyHudSystem.clearPlayerVaults(uuid);
+                        ProgressionHudSystem.clearCache(uuid);
                         reign.software.hyforged.options.HyforgedPlayerOptions.remove(uuid);
                     }
                 }
@@ -588,6 +592,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register NPCQualityAffixStatSystem (applies NPC affix stat modifiers)
         entityStoreRegistry.registerSystem(new NPCQualityAffixStatSystem());
         getLogger().at(Level.FINE).log("Registered NPCQualityAffixStatSystem");
+
+        // Register NPCNameplateSystem (sets NPC nameplate with quality, affixes, and level)
+        entityStoreRegistry.registerSystem(new NPCNameplateSystem());
+        getLogger().at(Level.FINE).log("Registered NPCNameplateSystem");
         
         // Register HyforgedStatComputeSystem (recomputes dirty stats)
         // NOTE: Must be registered before HyforgedEffectBridgeSystem (which depends on it)
@@ -617,6 +625,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register CurrencyHudSystem (custom HUD for Tradebar balance)
         entityStoreRegistry.registerSystem(new CurrencyHudSystem());
         getLogger().at(Level.FINE).log("Registered CurrencyHudSystem");
+
+        // Register ProgressionHudSystem (displays character level, class, XP bar)
+        entityStoreRegistry.registerSystem(new ProgressionHudSystem());
+        getLogger().at(Level.FINE).log("Registered ProgressionHudSystem");
 
         // Register VaultBreakProtectionSystem (prevents non-owners from breaking vaults)
         entityStoreRegistry.registerSystem(new VaultBreakProtectionSystem());
@@ -681,6 +693,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Initialize ProgressionNotificationSystem (sends level-up and passive allocation notifications)
         new ProgressionNotificationSystem();
         getLogger().at(Level.FINE).log("Initialized ProgressionNotificationSystem");
+
+        // Register XP gain → combat log listener (shows XP gains in the combat log HUD)
+        registerXpGainCombatLogListener();
+        getLogger().at(Level.FINE).log("Registered XP gain combat log listener");
         
         // Register LootAffixSystem (rolls affixes on item drops)
         // NOTE: Must be registered before LootQualitySystem (which depends on it)
@@ -728,7 +744,7 @@ public class HyforgedPlugin extends JavaPlugin {
         getLogger().at(Level.FINE).log("Registered HyforgedCombatTextSystem");
         
         // Register combat log system (runs in inspect group to record final damage)
-        entityStoreRegistry.registerSystem(new HyforgedCombatLogSystem());
+        entityStoreRegistry.registerSystem(new HyforgedCombatLogSystem(npcQualityComponentType));
         getLogger().at(Level.FINE).log("Registered HyforgedCombatLogSystem");
 
         // Clean up combat logs when players disconnect to prevent unbounded memory growth
@@ -756,6 +772,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register combat log HUD system (manages WoW-style combat log UI)
         entityStoreRegistry.registerSystem(new CombatLogHudSystem());
         getLogger().at(Level.FINE).log("Registered CombatLogHudSystem");
+        
+        // Register player death combat log system (logs death info to combat log)
+        entityStoreRegistry.registerSystem(new PlayerDeathCombatLogSystem());
+        getLogger().at(Level.FINE).log("Registered PlayerDeathCombatLogSystem");
         
         // Register ailment system (runs in inspect group after damage is applied)
         // Ailment definitions are loaded via AilmentLoader.initialize() in initializeStatDefinitions()
@@ -1014,5 +1034,68 @@ public class HyforgedPlugin extends JavaPlugin {
             throw new IllegalStateException("HyforgedPlugin not initialized");
         }
         return tradebarVaultComponentType;
+    }
+
+    /**
+     * Register a global event listener that feeds XP gain notifications into the combat log HUD.
+     */
+    private void registerXpGainCombatLogListener() {
+        getEventRegistry().registerGlobal(
+                reign.software.hyforged.progression.event.XPGainNotificationEvent.class,
+                event -> {
+                    com.hypixel.hytale.component.Ref<EntityStore> ref = event.entityRef();
+                    if (ref == null || !ref.isValid()) return;
+
+                    // Resolve player UUID from entity ref
+                    com.hypixel.hytale.server.core.entity.UUIDComponent uuidComp =
+                            ref.getStore().getComponent(ref, com.hypixel.hytale.server.core.entity.UUIDComponent.getComponentType());
+                    if (uuidComp == null) return;
+                    java.util.UUID playerUuid = uuidComp.getUuid();
+
+                    // Per-kill combat XP lines (with mob info) are now handled by XPAwardSystem.
+                    // This listener shows: non-combat character XP + class XP (all sources).
+                    boolean hasNonCombatSources =
+                            event.getXpFromSource(reign.software.hyforged.progression.xp.XPSource.DISCOVERY) > 0
+                            || event.getXpFromSource(reign.software.hyforged.progression.xp.XPSource.OBJECTIVE) > 0
+                            || event.getXpFromSource(reign.software.hyforged.progression.xp.XPSource.ADMIN) > 0;
+
+                    // Show character XP only if there's non-combat XP (combat XP is shown per-kill)
+                    boolean showCharXp = event.hasCharacterXp() && hasNonCombatSources;
+                    boolean showClassXp = event.hasClassXp();
+
+                    if (!showCharXp && !showClassXp) {
+                        return; // Combat char XP already shown per-kill with mob info
+                    }
+
+                    com.hypixel.hytale.server.core.Message line = com.hypixel.hytale.server.core.Message.raw("");
+
+                    // Non-combat character XP (blue) — only if there are non-combat sources
+                    if (showCharXp) {
+                        line.insert(com.hypixel.hytale.server.core.Message.raw("+" + formatXpShort(event.totalCharacterXp()) + " XP").color("#55AAFF"));
+                    }
+
+                    // Class XP (purple) — always aggregate from all sources
+                    if (showClassXp) {
+                        if (showCharXp) {
+                            line.insert(com.hypixel.hytale.server.core.Message.raw("  ").color("#AAAAAA"));
+                        }
+                        line.insert(com.hypixel.hytale.server.core.Message.raw("+" + formatXpShort(event.totalClassXp()) + " Class XP").color("#BB77FF"));
+                    }
+
+                    CombatLogHudSystem.addExtraLine(playerUuid, line);
+                }
+        );
+    }
+
+    /**
+     * Format XP value compactly for combat log display.
+     */
+    private static String formatXpShort(long value) {
+        if (value >= 1_000_000) {
+            return String.format("%.1fM", value / 1_000_000.0);
+        } else if (value >= 10_000) {
+            return String.format("%.1fK", value / 1_000.0);
+        }
+        return String.format("%,d", value);
     }
 }

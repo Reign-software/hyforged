@@ -8,7 +8,7 @@
     "Wisdom": 1,
     "Spirit": 1,
     "Luck": 1,
-    "WeaponTagFamilies": ["weapon:sword", "weapon:axe", "weapon:mace"],
+    "WeaponTagFamilies": ["Family=Sword", "Family=Axe", "Family=Mace"],
     "LevelRewards": [
         { "Level": 5, "Strength": 1 },
         { "Level": 10, "Strength": 1, "Constitution": 1 },

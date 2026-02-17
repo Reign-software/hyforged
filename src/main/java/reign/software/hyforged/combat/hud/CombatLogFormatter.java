@@ -1,9 +1,12 @@
 package reign.software.hyforged.combat.hud;
 
 import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.asset.type.item.config.ItemQuality;
+import com.hypixel.hytale.protocol.Color;
 import reign.software.hyforged.combat.log.CombatEvent;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Formats {@link CombatEvent} instances into rich-text {@link Message} objects
@@ -57,9 +60,9 @@ public final class CombatLogFormatter {
     @Nonnull
     private static Message formatMiss(@Nonnull CombatEvent event) {
         Message root = Message.raw("");
-        root.insert(coloredName(event.attackerName(), event.attackerUuid() != null));
+        root.insert(coloredNameWithQuality(event.attackerName(), event.attackerUuid() != null, event.attackerQuality()));
         root.insert(Message.raw("'s attack missed ").color(COLOR_MISS));
-        root.insert(coloredName(event.defenderName(), false));
+        root.insert(coloredNameWithQuality(event.defenderName(), false, event.defenderQuality()));
         return root;
     }
 
@@ -67,11 +70,11 @@ public final class CombatLogFormatter {
     private static Message formatBlock(@Nonnull CombatEvent event) {
         Message root = Message.raw("");
         if (event.autoBlocked()) {
-            root.insert(Message.raw("\u26E8 ").color(COLOR_BLOCK));
+            root.insert(Message.raw("BLOCK ").color(COLOR_BLOCK));
         }
-        root.insert(coloredName(event.defenderName(), false));
+        root.insert(coloredNameWithQuality(event.defenderName(), false, event.defenderQuality()));
         root.insert(Message.raw(" blocked ").color(COLOR_BLOCK));
-        root.insert(coloredName(event.attackerName(), event.attackerUuid() != null));
+        root.insert(coloredNameWithQuality(event.attackerName(), event.attackerUuid() != null, event.attackerQuality()));
         if (event.finalDamage() > 0) {
             String dmgColor = getDamageColor(event.damageCauseId());
             root.insert(Message.raw(" (" + Math.round(event.finalDamage()) + ")").color(dmgColor));
@@ -86,18 +89,18 @@ public final class CombatLogFormatter {
 
         // Crit prefix
         if (event.criticalHit()) {
-            root.insert(Message.raw("\u2726 ").color(COLOR_CRIT));
+            root.insert(Message.raw("CRIT ").color(COLOR_CRIT));
         }
 
         // Attacker name (green = player, red = creature)
         boolean attackerIsPlayer = isPlayerName(event);
-        root.insert(coloredName(event.attackerName(), attackerIsPlayer));
+        root.insert(coloredNameWithQuality(event.attackerName(), attackerIsPlayer, event.attackerQuality()));
 
         // Arrow separator
-        root.insert(Message.raw(" \u2192 ").color(COLOR_ARROW));
+        root.insert(Message.raw(" => ").color(COLOR_ARROW));
 
         // Defender name (opposite color)
-        root.insert(coloredName(event.defenderName(), !attackerIsPlayer));
+        root.insert(coloredNameWithQuality(event.defenderName(), !attackerIsPlayer, event.defenderQuality()));
 
         // Damage value
         root.insert(Message.raw(": ").color(COLOR_ARROW));
@@ -119,8 +122,51 @@ public final class CombatLogFormatter {
      */
     @Nonnull
     private static Message coloredName(@Nonnull String name, boolean isPlayer) {
-        String display = truncateName(name);
+        String display = displayName(name);
         return Message.raw(display).color(isPlayer ? COLOR_PLAYER : COLOR_CREATURE);
+    }
+
+    /**
+     * Returns a colored Message for an entity name, prepended with quality tag if present.
+     * For NPCs with quality: {@code [Epic] Eye_Void} where quality is tier-colored.
+     * For players or entities without quality: just the colored name.
+     */
+    @Nonnull
+    private static Message coloredNameWithQuality(@Nonnull String name, boolean isPlayer, @Nullable String quality) {
+        if (quality == null || quality.isEmpty() || isPlayer) {
+            return coloredName(name, isPlayer);
+        }
+        Message root = Message.raw("");
+        String qualityColor = resolveQualityColor(quality);
+        root.insert(Message.raw("[" + capitalizeFirst(quality) + "] ").color(qualityColor));
+        root.insert(coloredName(name, false));
+        return root;
+    }
+
+    /**
+     * Resolve the hex color for a quality tier from Hytale's ItemQuality asset registry.
+     */
+    @Nonnull
+    private static String resolveQualityColor(@Nonnull String qualityId) {
+        try {
+            ItemQuality quality = ItemQuality.getAssetMap().getAsset(qualityId);
+            if (quality != null && quality.getTextColor() != null) {
+                Color c = quality.getTextColor();
+                return String.format("#%02X%02X%02X",
+                        Byte.toUnsignedInt(c.red),
+                        Byte.toUnsignedInt(c.green),
+                        Byte.toUnsignedInt(c.blue));
+            }
+        } catch (Exception ignored) {
+            // Asset registry may not be ready
+        }
+        return "#CCCCCC";
+    }
+
+    @Nonnull
+    private static String capitalizeFirst(@Nonnull String text) {
+        if (text.isEmpty()) return text;
+        return Character.toUpperCase(text.charAt(0)) + text.substring(1);
     }
 
     /**
@@ -165,11 +211,13 @@ public final class CombatLogFormatter {
         return "(" + name + ")";
     }
 
+    /**
+     * Clean up an entity name for display: replace underscores with spaces.
+     */
     @Nonnull
-    private static String truncateName(@Nonnull String name) {
+    private static String displayName(@Nonnull String name) {
         if (name == null) return "???";
-        if (name.length() <= 16) return name;
-        return name.substring(0, 15) + "\u2026";
+        return name.replace('_', ' ');
     }
 
     /**
@@ -180,19 +228,19 @@ public final class CombatLogFormatter {
         StringBuilder sb = new StringBuilder();
 
         if (event.missed()) {
-            sb.append(truncateName(event.attackerName()));
+            sb.append(displayName(event.attackerName()));
             sb.append("'s attack missed ");
-            sb.append(truncateName(event.defenderName()));
+            sb.append(displayName(event.defenderName()));
             return sb.toString();
         }
 
         if (event.blocked() || event.autoBlocked()) {
             if (event.autoBlocked()) {
-                sb.append("\u26E8 ");
+                sb.append("BLOCK ");
             }
-            sb.append(truncateName(event.defenderName()));
+            sb.append(displayName(event.defenderName()));
             sb.append(" blocked ");
-            sb.append(truncateName(event.attackerName()));
+            sb.append(displayName(event.attackerName()));
             if (event.finalDamage() > 0) {
                 sb.append(" (").append(Math.round(event.finalDamage())).append(")");
             }
@@ -200,11 +248,11 @@ public final class CombatLogFormatter {
         }
 
         if (event.criticalHit()) {
-            sb.append("\u2726 ");
+            sb.append("CRIT ");
         }
-        sb.append(truncateName(event.attackerName()));
-        sb.append(" \u2192 ");
-        sb.append(truncateName(event.defenderName()));
+        sb.append(displayName(event.attackerName()));
+        sb.append(" => ");
+        sb.append(displayName(event.defenderName()));
         sb.append(": ");
         sb.append(Math.round(event.finalDamage()));
         sb.append(" ").append(formatDamageType(event.damageCauseId()));

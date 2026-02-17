@@ -35,7 +35,7 @@ import java.util.Set;
  *   "Strength": 5,
  *   "Constitution": 3,
  *   "Dexterity": 2,
- *   "WeaponTagFamilies": ["weapon:sword", "weapon:axe", "weapon:mace"],
+ *   "WeaponTagFamilies": ["Family=Sword", "Family=Axe", "Family=Mace"],
  *   "LevelRewards": [
  *     { "Level": 5, "Strength": 1 },
  *     { "Level": 10, "Strength": 1, "Constitution": 1 },

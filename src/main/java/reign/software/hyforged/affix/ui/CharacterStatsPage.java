@@ -526,8 +526,8 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
             return "-";
         }
         
-        String minStr = minUnbounded ? "\u221E" : formatValue(min, fmt);
-        String maxStr = maxUnbounded ? "\u221E" : formatValue(max, fmt);
+        String minStr = minUnbounded ? "--" : formatValue(min, fmt);
+        String maxStr = maxUnbounded ? "--" : formatValue(max, fmt);
         return minStr + " / " + maxStr;
     }
     

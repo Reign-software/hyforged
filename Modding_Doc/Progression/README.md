@@ -75,9 +75,9 @@ Classes define weapon-based specializations with ability score bonuses.
     "hyforged:wisdom": 4
   },
   "weaponTagFamilies": [
-    "weapon:sword",
-    "weapon:axe",
-    "weapon:hammer"
+    "Family=Sword",
+    "Family=Axe",
+    "Family=Hammer"
   ],
   "levelRewards": {
     "5": {
@@ -97,7 +97,7 @@ Classes define weapon-based specializations with ability score bonuses.
 | `displayName` | string | UI display name |
 | `description` | string | Tooltip description |
 | `abilityScores` | map | Base ability scores for this class |
-| `weaponTagFamilies` | array | Weapon tags that activate this class |
+| `weaponTagFamilies` | array | Weapon tags that activate this class (uses Hytale expanded tag format, e.g., `Family=Sword`) |
 | `levelRewards` | map | Ability bonuses granted at specific levels |
 
 ### Level Rewards

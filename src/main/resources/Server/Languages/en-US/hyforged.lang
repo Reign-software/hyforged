@@ -65,6 +65,7 @@ options.combatLogHud = Combat Log HUD
 options.combatText = Combat Text
 options.xpNotifications = XP Notifications
 options.damageNumbers = Damage Numbers
+options.progressionHud = Progression HUD
 options.debugMode = Debug Mode
 options.qualityDebug = Quality Debug
 options.close = Close
@@ -83,6 +84,9 @@ characterStats.header.effective = Effective
 # Character Stats - Category Names
 characterStats.category.ability-score = Primary Attributes
 characterStats.category.resource = Resources
+
+# Progression HUD
+progression.hud.classLevelPrefix = Lv 
 characterStats.category.offense = Offense
 characterStats.category.critical = Critical Strikes
 characterStats.category.defense = Defense

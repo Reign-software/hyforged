@@ -54,7 +54,13 @@ public record CombatEvent(
         int resistanceAppliedBps,
         
         /** Penetration applied (in bps) */
-        int penetrationAppliedBps
+        int penetrationAppliedBps,
+        
+        /** Quality tier of the attacker (e.g., "common", "rare"), null if unknown or player */
+        @Nullable String attackerQuality,
+        
+        /** Quality tier of the defender (e.g., "common", "rare"), null if unknown or player */
+        @Nullable String defenderQuality
 ) {
     /**
      * Builder for creating CombatEvent instances.
@@ -75,6 +81,8 @@ public record CombatEvent(
         private int critMultiplierBps;
         private int resistanceAppliedBps;
         private int penetrationAppliedBps;
+        private String attackerQuality;
+        private String defenderQuality;
         
         public Builder timestamp(long timestamp) {
             this.timestamp = timestamp;
@@ -151,6 +159,16 @@ public record CombatEvent(
             return this;
         }
         
+        public Builder attackerQuality(@Nullable String attackerQuality) {
+            this.attackerQuality = attackerQuality;
+            return this;
+        }
+        
+        public Builder defenderQuality(@Nullable String defenderQuality) {
+            this.defenderQuality = defenderQuality;
+            return this;
+        }
+        
         public CombatEvent build() {
             return new CombatEvent(
                     timestamp,
@@ -167,7 +185,9 @@ public record CombatEvent(
                     criticalHit,
                     critMultiplierBps,
                     resistanceAppliedBps,
-                    penetrationAppliedBps
+                    penetrationAppliedBps,
+                    attackerQuality,
+                    defenderQuality
             );
         }
     }

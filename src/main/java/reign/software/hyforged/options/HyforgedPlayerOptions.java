@@ -20,6 +20,7 @@ public final class HyforgedPlayerOptions {
     public static final boolean DEFAULT_COMBAT_TEXT = true;
     public static final boolean DEFAULT_XP_NOTIFICATIONS = true;
     public static final boolean DEFAULT_DAMAGE_NUMBERS = true;
+    public static final boolean DEFAULT_PROGRESSION_HUD = true;
     public static final boolean DEFAULT_DEBUG_MODE = false;
     public static final boolean DEFAULT_QUALITY_DEBUG = false;
 
@@ -52,6 +53,7 @@ public final class HyforgedPlayerOptions {
         private volatile boolean combatText = DEFAULT_COMBAT_TEXT;
         private volatile boolean xpNotifications = DEFAULT_XP_NOTIFICATIONS;
         private volatile boolean damageNumbers = DEFAULT_DAMAGE_NUMBERS;
+        private volatile boolean progressionHud = DEFAULT_PROGRESSION_HUD;
         private volatile boolean debugMode = DEFAULT_DEBUG_MODE;
         private volatile boolean qualityDebug = DEFAULT_QUALITY_DEBUG;
 
@@ -108,6 +110,19 @@ public final class HyforgedPlayerOptions {
         public boolean toggleDamageNumbers() {
             this.damageNumbers = !this.damageNumbers;
             return this.damageNumbers;
+        }
+
+        public boolean isProgressionHud() {
+            return progressionHud;
+        }
+
+        public void setProgressionHud(boolean value) {
+            this.progressionHud = value;
+        }
+
+        public boolean toggleProgressionHud() {
+            this.progressionHud = !this.progressionHud;
+            return this.progressionHud;
         }
 
         public boolean isDebugMode() {

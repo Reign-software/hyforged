@@ -2,7 +2,9 @@ package reign.software.hyforged.affix.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +16,7 @@ class AffixPoolTest {
 
     @Test
     void constructor_validInput_createsInstance() {
-        AffixPool pool = new AffixPool(
+        AffixPool pool = AffixPool.of(
                 "weapon-melee",
                 10,
                 new AffixPool.AffixPoolAppliesTo(Set.of("Items.Weapons"), Set.of("Type:Weapon")),
@@ -35,7 +37,7 @@ class AffixPoolTest {
         assertThrows(NullPointerException.class, () -> 
                 new AffixPool(null, 0, 
                         new AffixPool.AffixPoolAppliesTo(Set.of(), Set.of()),
-                        List.of(), List.of(), List.of()));
+                        Map.of()));
     }
 
     @Test
@@ -43,7 +45,7 @@ class AffixPoolTest {
         assertThrows(IllegalArgumentException.class, () -> 
                 new AffixPool("  ", 0, 
                         new AffixPool.AffixPoolAppliesTo(Set.of(), Set.of()),
-                        List.of(), List.of(), List.of()));
+                        Map.of()));
     }
 
     @Test
@@ -51,7 +53,7 @@ class AffixPoolTest {
         AffixPool pool = new AffixPool(
                 "test", 0,
                 new AffixPool.AffixPoolAppliesTo(Set.of(), Set.of()),
-                null, null, null
+                null
         );
         
         assertNotNull(pool.prefixes());
@@ -67,7 +69,7 @@ class AffixPoolTest {
         List<String> prefixes = new java.util.ArrayList<>();
         prefixes.add("sharp");
         
-        AffixPool pool = new AffixPool("test", 0,
+        AffixPool pool = AffixPool.of("test", 0,
                 new AffixPool.AffixPoolAppliesTo(Set.of(), Set.of()),
                 prefixes, List.of(), List.of());
         
@@ -80,7 +82,7 @@ class AffixPoolTest {
 
     @Test
     void getAffixesForType_knownTypes_returnsCorrectList() {
-        AffixPool pool = new AffixPool("test", 0,
+        AffixPool pool = AffixPool.of("test", 0,
                 new AffixPool.AffixPoolAppliesTo(Set.of(), Set.of()),
                 List.of("prefix1", "prefix2"),
                 List.of("suffix1"),
@@ -92,18 +94,35 @@ class AffixPoolTest {
     }
 
     @Test
-    void getAffixesForType_caseInsensitive() {
-        AffixPool pool = new AffixPool("test", 0,
+    void getAffixesForType_exactKeyMatch() {
+        AffixPool pool = AffixPool.of("test", 0,
                 new AffixPool.AffixPoolAppliesTo(Set.of(), Set.of()),
                 List.of("prefix1"), List.of(), List.of());
         
-        assertEquals(1, pool.getAffixesForType("PREFIX").size());
-        assertEquals(1, pool.getAffixesForType("Prefix").size());
+        // Exact key match works
+        assertEquals(1, pool.getAffixesForType("prefix").size());
+        // Different case does NOT match — types are data-driven and case-sensitive
+        assertTrue(pool.getAffixesForType("PREFIX").isEmpty());
+        assertTrue(pool.getAffixesForType("Prefix").isEmpty());
+    }
+
+    @Test
+    void getAffixesForType_customTypes() {
+        Map<String, List<String>> affixes = new HashMap<>();
+        affixes.put("npc", List.of("fast", "tough"));
+        affixes.put("npc_rare", List.of("fire-aura"));
+        AffixPool pool = new AffixPool("test", 0,
+                new AffixPool.AffixPoolAppliesTo(Set.of(), Set.of()),
+                affixes);
+        
+        assertEquals(2, pool.getAffixesForType("npc").size());
+        assertEquals(1, pool.getAffixesForType("npc_rare").size());
+        assertTrue(pool.getAffixesForType("prefix").isEmpty());
     }
 
     @Test
     void getAffixesForType_unknownType_returnsEmptyList() {
-        AffixPool pool = new AffixPool("test", 0,
+        AffixPool pool = AffixPool.of("test", 0,
                 new AffixPool.AffixPoolAppliesTo(Set.of(), Set.of()),
                 List.of("prefix1"), List.of(), List.of());
         
@@ -112,7 +131,7 @@ class AffixPoolTest {
 
     @Test
     void hasAffixesOfType_withAffixes_returnsTrue() {
-        AffixPool pool = new AffixPool("test", 0,
+        AffixPool pool = AffixPool.of("test", 0,
                 new AffixPool.AffixPoolAppliesTo(Set.of(), Set.of()),
                 List.of("prefix1"), List.of(), List.of());
         
@@ -123,7 +142,7 @@ class AffixPoolTest {
 
     @Test
     void appliesTo_matchingCategory_returnsTrue() {
-        AffixPool pool = new AffixPool("test", 0,
+        AffixPool pool = AffixPool.of("test", 0,
                 new AffixPool.AffixPoolAppliesTo(Set.of("Items.Weapons"), Set.of()),
                 List.of(), List.of(), List.of());
         
@@ -133,7 +152,7 @@ class AffixPoolTest {
 
     @Test
     void appliesTo_matchingTag_returnsTrue() {
-        AffixPool pool = new AffixPool("test", 0,
+        AffixPool pool = AffixPool.of("test", 0,
                 new AffixPool.AffixPoolAppliesTo(Set.of(), Set.of("Type:Weapon")),
                 List.of(), List.of(), List.of());
         
@@ -143,7 +162,7 @@ class AffixPoolTest {
 
     @Test
     void appliesTo_noConstraints_returnsFalse() {
-        AffixPool pool = new AffixPool("test", 0,
+        AffixPool pool = AffixPool.of("test", 0,
                 new AffixPool.AffixPoolAppliesTo(Set.of(), Set.of()),
                 List.of(), List.of(), List.of());
         
@@ -153,7 +172,7 @@ class AffixPoolTest {
 
     @Test
     void getTotalAffixCount_sumsAllTypes() {
-        AffixPool pool = new AffixPool("test", 0,
+        AffixPool pool = AffixPool.of("test", 0,
                 new AffixPool.AffixPoolAppliesTo(Set.of(), Set.of()),
                 List.of("p1", "p2", "p3"),
                 List.of("s1", "s2"),

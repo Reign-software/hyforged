@@ -184,13 +184,35 @@ public class AffixPoolAsset implements JsonAssetWithMap<String, IndexedLookupTab
             );
         }
 
+        // Build unified affixes-by-type map from all sources
+        Map<String, List<String>> allAffixes = new HashMap<>();
+
+        // Add standard types from Prefixes/Suffixes/Forged JSON fields
+        if (prefixes != null && prefixes.length > 0) {
+            allAffixes.put("prefix", toList(prefixes));
+        }
+        if (suffixes != null && suffixes.length > 0) {
+            allAffixes.put("suffix", toList(suffixes));
+        }
+        if (forged != null && forged.length > 0) {
+            allAffixes.put("forged", toList(forged));
+        }
+
+        // Add custom types from generic "Affixes" map (e.g., npc, npc_rare, npc_legendary)
+        if (affixes != null && !affixes.isEmpty()) {
+            for (Map.Entry<String, String[]> entry : affixes.entrySet()) {
+                List<String> ids = toList(entry.getValue());
+                if (!ids.isEmpty()) {
+                    allAffixes.put(entry.getKey(), ids);
+                }
+            }
+        }
+
         return new AffixPool(
                 id,
                 priority,
                 appliesToModel,
-                toList(prefixes),
-                toList(suffixes),
-                toList(forged)
+                allAffixes
         );
     }
 

@@ -8,7 +8,7 @@
     "Wisdom": 2,
     "Spirit": 1,
     "Luck": 1,
-    "WeaponTagFamilies": ["weapon:bow", "weapon:crossbow"],
+    "WeaponTagFamilies": ["Family=Bow", "Family=Crossbow"],
     "LevelRewards": [
         { "Level": 5, "Dexterity": 1 },
         { "Level": 10, "Dexterity": 1, "Wisdom": 1 },

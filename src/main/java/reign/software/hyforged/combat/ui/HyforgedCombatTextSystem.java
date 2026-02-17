@@ -58,8 +58,8 @@ public class HyforgedCombatTextSystem extends DamageEventSystem {
     private static final String COLOR_NORMAL = "";    // White for normal hits
     
     // Symbol prefixes
-    private static final String SYMBOL_CRIT = "✦ ";     // Sparkle for crit
-    private static final String SYMBOL_BLOCK = "⛨ ";   // Shield for block
+    private static final String SYMBOL_CRIT = "CRIT ";   // Crit prefix
+    private static final String SYMBOL_BLOCK = "BLOCK "; // Block prefix
     
     @Nonnull
     private final ComponentType<EntityStore, EntityTrackerSystems.Visible> visibleComponentType = 

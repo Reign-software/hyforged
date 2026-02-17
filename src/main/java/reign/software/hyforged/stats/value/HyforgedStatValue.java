@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Hyforged's extension of Hytale's EntityStatValue that implements ARPG-style modifier stacking.
@@ -40,6 +42,33 @@ import java.util.function.Consumer;
  * @see HyforgedModifier for ARPG-style modifiers
  */
 public class HyforgedStatValue extends EntityStatValue {
+
+    // ========== REFLECTION ACCESS TO PARENT PRIVATE FIELDS ==========
+    // EntityStatValue.min and .max are private. We need to update them
+    // after ARPG stacking so that maximizeStatValue() and set() clamping
+    // use the correct bounds.
+    
+    private static final java.lang.reflect.Field minField;
+    private static final java.lang.reflect.Field maxField;
+    private static final Logger LOGGER_INIT = Logger.getLogger(HyforgedStatValue.class.getName());
+    
+    static {
+        java.lang.reflect.Field tmpMin = null;
+        java.lang.reflect.Field tmpMax = null;
+        try {
+            tmpMin = EntityStatValue.class.getDeclaredField("min");
+            tmpMin.setAccessible(true);
+            tmpMax = EntityStatValue.class.getDeclaredField("max");
+            tmpMax.setAccessible(true);
+        } catch (NoSuchFieldException e) {
+            LOGGER_INIT.log(Level.SEVERE,
+                "Failed to find EntityStatValue.min/max fields. "
+                + "ARPG MAX/MIN modifier stacking will not function correctly. "
+                + "This likely means a Hytale server update changed EntityStatValue internals.", e);
+        }
+        minField = tmpMin;
+        maxField = tmpMax;
+    }
     
     /** Basis points representing 100% (10000 bps = 100%) */
     public static final int BPS_100_PERCENT = 10000;
@@ -268,56 +297,101 @@ public class HyforgedStatValue extends EntityStatValue {
     
     /**
      * Apply ARPG stacking logic for HyforgedModifier instances.
+     * <p>
+     * All Hytale modifiers target either MIN or MAX. HyforgedModifiers
+     * are excluded from super.computeModifiers() to control stacking order.
+     * This method applies them using ARPG stacking (FLAT → INCREASED → MORE → CAP)
+     * to the appropriate target (MAX or MIN), then reclamps the current value.
      */
     private void applyArpgStacking(@Nonnull EntityStatType asset) {
         Map<String, Modifier> modifiers = getModifiers();
         if (modifiers == null || modifiers.isEmpty()) {
-            // Just apply base bonus and return
+            // Just apply base bonus to MAX and return
             if (hyforgedBaseBonus != 0) {
-                float base = statDefinition != null ? asset.getInitialValue() : get();
-                float adjusted = base + hyforgedBaseBonus;
-                adjusted = clamp(adjusted, getMin(), getMax());
-                set(adjusted);
+                applyBaseBonusToMax();
             }
             return;
         }
         
-        // Collect HyforgedModifiers, grouped by StackType
-        List<HyforgedModifier> flatMods = new ArrayList<>();
-        List<HyforgedModifier> increasedMods = new ArrayList<>();
-        List<HyforgedModifier> moreMods = new ArrayList<>();
-        List<HyforgedModifier> capMods = new ArrayList<>();
+        // Collect HyforgedModifiers, grouped by target and StackType
+        List<HyforgedModifier> maxFlatMods = new ArrayList<>();
+        List<HyforgedModifier> maxIncreasedMods = new ArrayList<>();
+        List<HyforgedModifier> maxMoreMods = new ArrayList<>();
+        List<HyforgedModifier> maxCapMods = new ArrayList<>();
+        List<HyforgedModifier> minFlatMods = new ArrayList<>();
+        List<HyforgedModifier> minIncreasedMods = new ArrayList<>();
+        List<HyforgedModifier> minMoreMods = new ArrayList<>();
+        List<HyforgedModifier> minCapMods = new ArrayList<>();
         
         for (Modifier modifier : modifiers.values()) {
             if (modifier instanceof HyforgedModifier hm) {
+                boolean isMin = hm.getTarget() == Modifier.ModifierTarget.MIN;
                 switch (hm.getStackType()) {
-                    case FLAT -> flatMods.add(hm);
-                    case INCREASED -> increasedMods.add(hm);
-                    case MORE -> moreMods.add(hm);
-                    case CAP -> capMods.add(hm);
+                    case FLAT -> (isMin ? minFlatMods : maxFlatMods).add(hm);
+                    case INCREASED -> (isMin ? minIncreasedMods : maxIncreasedMods).add(hm);
+                    case MORE -> (isMin ? minMoreMods : maxMoreMods).add(hm);
+                    case CAP -> (isMin ? minCapMods : maxCapMods).add(hm);
                 }
             }
         }
         
-        // If no HyforgedModifiers, just apply base bonus
-        if (flatMods.isEmpty() && increasedMods.isEmpty() && moreMods.isEmpty() && capMods.isEmpty()) {
+        boolean hasMaxMods = !maxFlatMods.isEmpty() || !maxIncreasedMods.isEmpty()
+                || !maxMoreMods.isEmpty() || !maxCapMods.isEmpty();
+        boolean hasMinMods = !minFlatMods.isEmpty() || !minIncreasedMods.isEmpty()
+                || !minMoreMods.isEmpty() || !minCapMods.isEmpty();
+        
+        // If no HyforgedModifiers, just apply base bonus to MAX
+        if (!hasMaxMods && !hasMinMods) {
             if (hyforgedBaseBonus != 0) {
-                float base = statDefinition != null ? asset.getInitialValue() : get();
-                float adjusted = base + hyforgedBaseBonus;
-                adjusted = clamp(adjusted, getMin(), getMax());
-                set(adjusted);
+                applyBaseBonusToMax();
             }
             return;
         }
         
-        // Start with base value + base bonus
-        // For Hyforged-defined stats, prefer asset initial to avoid stacking drift
-        long current;
-        if (statDefinition != null) {
-            current = Math.round(asset.getInitialValue()) + (long) hyforgedBaseBonus;
-        } else {
-            current = (long) get() + hyforgedBaseBonus;
+        // ---- Apply ARPG stacking to MAX ----
+        if (hasMaxMods || hyforgedBaseBonus != 0) {
+            long maxValue = (long) Math.round(getMax()) + hyforgedBaseBonus;
+            maxValue = applyArpgStackingPipeline(maxValue,
+                    maxFlatMods, maxIncreasedMods, maxMoreMods, maxCapMods);
+            
+            // Apply soft/hard caps from StatDefinition if defined
+            if (statDefinition != null && statDefinition.hasCaps()) {
+                maxValue = applySoftHardCaps((int) maxValue);
+            }
+            
+            writeMax((float) maxValue);
         }
+        
+        // ---- Apply ARPG stacking to MIN ----
+        if (hasMinMods) {
+            long minValue = (long) Math.round(getMin());
+            minValue = applyArpgStackingPipeline(minValue,
+                    minFlatMods, minIncreasedMods, minMoreMods, minCapMods);
+            writeMin((float) minValue);
+        }
+        
+        // Reclamp current value to new [min, max] bounds
+        set(get());
+    }
+    
+    /**
+     * Apply ARPG stacking pipeline: FLAT → INCREASED → MORE → CAP.
+     * 
+     * @param base The starting value (current max or min)
+     * @param flatMods FLAT modifiers to sum
+     * @param increasedMods INCREASED modifiers to sum and apply as multiplier
+     * @param moreMods MORE modifiers to apply sequentially
+     * @param capMods CAP modifiers to clamp
+     * @return The stacked result
+     */
+    private long applyArpgStackingPipeline(
+            long base,
+            @Nonnull List<HyforgedModifier> flatMods,
+            @Nonnull List<HyforgedModifier> increasedMods,
+            @Nonnull List<HyforgedModifier> moreMods,
+            @Nonnull List<HyforgedModifier> capMods
+    ) {
+        long current = base;
         
         // Step 1: Sum all FLAT modifiers
         long flatSum = 0;
@@ -332,13 +406,11 @@ public class HyforgedStatValue extends EntityStatValue {
             increasedSum += mod.getAmount();
         }
         if (increasedSum != 0) {
-            // current * (1 + increasedSum/10000) = current * (10000 + increasedSum) / 10000
             current = (current * (BPS_100_PERCENT + increasedSum)) / BPS_100_PERCENT;
         }
         
         // Step 3: Apply each MORE modifier sequentially (multiplicative)
         for (HyforgedModifier mod : moreMods) {
-            // current * (1 + value/10000) = current * (10000 + value) / 10000
             current = (current * (BPS_100_PERCENT + mod.getAmount())) / BPS_100_PERCENT;
         }
         
@@ -348,20 +420,16 @@ public class HyforgedStatValue extends EntityStatValue {
         for (HyforgedModifier mod : capMods) {
             int capValue = mod.getAmount();
             if (capValue >= 0) {
-                // Max cap - take the lowest max cap
                 if (maxCap == null || capValue < maxCap) {
                     maxCap = capValue;
                 }
             } else {
-                // Min cap (negative value represents min) - take the highest min cap
                 int minVal = -capValue;
                 if (minCap == null || minVal > minCap) {
                     minCap = minVal;
                 }
             }
         }
-        
-        // Apply modifier caps
         if (minCap != null && current < minCap) {
             current = minCap;
         }
@@ -369,14 +437,44 @@ public class HyforgedStatValue extends EntityStatValue {
             current = maxCap;
         }
         
-        // Step 5: Apply soft/hard caps from StatDefinition if defined
-        if (statDefinition != null && statDefinition.hasCaps()) {
-            current = applySoftHardCaps((int) current);
+        return current;
+    }
+    
+    /**
+     * Apply the hyforgedBaseBonus to the MAX value.
+     * Used when there are no HyforgedModifiers but a base bonus exists.
+     */
+    private void applyBaseBonusToMax() {
+        float newMax = getMax() + hyforgedBaseBonus;
+        writeMax(newMax);
+        // Reclamp current value to new bounds
+        set(get());
+    }
+    
+    /**
+     * Write to the parent's private max field via reflection.
+     */
+    private void writeMax(float value) {
+        if (maxField != null) {
+            try {
+                maxField.setFloat(this, value);
+            } catch (IllegalAccessException e) {
+                // Should not happen since we called setAccessible
+            }
         }
-        
-        // Step 6: Final clamp to asset min/max
-        float finalValue = clamp(current, getMin(), getMax());
-        set(finalValue);
+    }
+    
+    /**
+     * Write to the parent's private min field via reflection.
+     */
+    private void writeMin(float value) {
+        if (minField != null) {
+            try {
+                minField.setFloat(this, value);
+            } catch (IllegalAccessException e) {
+                // Should not happen since we called setAccessible
+            }
+        }
     }
     
     /**
@@ -410,23 +508,7 @@ public class HyforgedStatValue extends EntityStatValue {
         return Math.min(value, effectiveCap);
     }
     
-    /**
-     * Clamp a long value to min/max bounds.
-     */
-    private static float clamp(long value, float min, float max) {
-        if (value < min) return min;
-        if (value > max) return max;
-        return (float) value;
-    }
 
-    /**
-     * Clamp a float value to min/max bounds.
-     */
-    private static float clamp(float value, float min, float max) {
-        if (value < min) return min;
-        if (value > max) return max;
-        return value;
-    }
     
     // ========== UTILITY METHODS ==========
     

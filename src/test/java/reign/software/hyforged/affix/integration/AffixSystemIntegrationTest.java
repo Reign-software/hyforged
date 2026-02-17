@@ -115,7 +115,7 @@ class AffixSystemIntegrationTest {
     }
     
     private void setUpTestPool() {
-        poolRegistry.register(new AffixPool(
+        poolRegistry.register(AffixPool.of(
                 "equipment-pool",
                 100,
                 new AffixPool.AffixPoolAppliesTo(Set.of("equipment"), Set.of()),

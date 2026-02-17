@@ -26,6 +26,7 @@ import reign.software.hyforged.combat.CombatMeta;
 import reign.software.hyforged.combat.HyforgedAutoBlockSystem;
 import reign.software.hyforged.combat.HyforgedCriticalHitSystem;
 import reign.software.hyforged.combat.HyforgedHitResolutionSystem;
+import reign.software.hyforged.quality.component.HyforgedNPCQualityComponent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -58,17 +59,23 @@ public class HyforgedCombatLogSystem extends DamageEventSystem {
     private final ComponentType<EntityStore, NPCEntity> npcEntityComponentType;
 
     @Nonnull
+    private final ComponentType<EntityStore, HyforgedNPCQualityComponent> qualityComponentType;
+
+    @Nonnull
     private final Query<EntityStore> query;
 
     @Nonnull
     private final Set<Dependency<EntityStore>> dependencies;
 
-    public HyforgedCombatLogSystem() {
+    public HyforgedCombatLogSystem(
+            @Nonnull ComponentType<EntityStore, HyforgedNPCQualityComponent> qualityComponentType
+    ) {
         this.playerComponentType = Player.getComponentType();
         this.uuidComponentType = UUIDComponent.getComponentType();
         this.nameplateComponentType = Nameplate.getComponentType();
         this.displayNameComponentType = DisplayNameComponent.getComponentType();
         this.npcEntityComponentType = NPCEntity.getComponentType();
+        this.qualityComponentType = qualityComponentType;
         
         // Query for entities with UUIDComponent (all entities we can log)
         this.query = uuidComponentType;
@@ -118,6 +125,12 @@ public class HyforgedCombatLogSystem extends DamageEventSystem {
                 .defenderUuid(defenderUuid.getUuid())
                 .defenderName(getEntityName(archetypeChunk, index, store));
         
+        // Defender quality (NPCs only)
+        HyforgedNPCQualityComponent defenderQualityComp = archetypeChunk.getComponent(index, qualityComponentType);
+        if (defenderQualityComp != null && !defenderQualityComp.getQualityId().isEmpty()) {
+            eventBuilder.defenderQuality(defenderQualityComp.getQualityId());
+        }
+        
         // Get damage info
         DamageCause damageCause = DamageCause.getAssetMap().getAsset(damage.getDamageCauseIndex());
         if (damageCause != null) {
@@ -164,6 +177,11 @@ public class HyforgedCombatLogSystem extends DamageEventSystem {
                     eventBuilder.attackerUuid(attackerUuidComp.getUuid());
                     eventBuilder.attackerName(getEntityNameFromRef(attackerRef, store));
                 }
+                // Attacker quality (NPCs only)
+                HyforgedNPCQualityComponent attackerQualityComp = store.getComponent(attackerRef, qualityComponentType);
+                if (attackerQualityComp != null && !attackerQualityComp.getQualityId().isEmpty()) {
+                    eventBuilder.attackerQuality(attackerQualityComp.getQualityId());
+                }
             }
         }
         
@@ -207,16 +225,7 @@ public class HyforgedCombatLogSystem extends DamageEventSystem {
             }
         }
         
-        // Try Nameplate (has rendered display text)
-        Nameplate nameplate = archetypeChunk.getComponent(index, nameplateComponentType);
-        if (nameplate != null) {
-            String text = nameplate.getText();
-            if (text != null && !text.isEmpty()) {
-                return text;
-            }
-        }
-        
-        // Try DisplayNameComponent raw text (avoids translation key strings)
+        // Prefer DisplayNameComponent (clean base name without level/quality decorations)
         DisplayNameComponent displayNameComp = archetypeChunk.getComponent(index, displayNameComponentType);
         if (displayNameComp != null) {
             Message displayName = displayNameComp.getDisplayName();
@@ -234,6 +243,15 @@ public class HyforgedCombatLogSystem extends DamageEventSystem {
             String roleName = npcEntity.getRoleName();
             if (roleName != null && !roleName.isEmpty()) {
                 return roleName;
+            }
+        }
+        
+        // Fallback to Nameplate, but strip level suffix and quality stars
+        Nameplate nameplate = archetypeChunk.getComponent(index, nameplateComponentType);
+        if (nameplate != null) {
+            String text = nameplate.getText();
+            if (text != null && !text.isEmpty()) {
+                return stripNameplateDecorations(text);
             }
         }
         
@@ -265,16 +283,7 @@ public class HyforgedCombatLogSystem extends DamageEventSystem {
             }
         }
         
-        // Try Nameplate (has rendered display text)
-        Nameplate nameplate = store.getComponent(ref, nameplateComponentType);
-        if (nameplate != null) {
-            String text = nameplate.getText();
-            if (text != null && !text.isEmpty()) {
-                return text;
-            }
-        }
-        
-        // Try DisplayNameComponent raw text (avoids translation key strings)
+        // Prefer DisplayNameComponent (clean base name without level/quality decorations)
         DisplayNameComponent displayNameComp = store.getComponent(ref, displayNameComponentType);
         if (displayNameComp != null) {
             Message displayName = displayNameComp.getDisplayName();
@@ -295,6 +304,15 @@ public class HyforgedCombatLogSystem extends DamageEventSystem {
             }
         }
         
+        // Fallback to Nameplate, but strip level suffix and quality stars
+        Nameplate nameplate = store.getComponent(ref, nameplateComponentType);
+        if (nameplate != null) {
+            String text = nameplate.getText();
+            if (text != null && !text.isEmpty()) {
+                return stripNameplateDecorations(text);
+            }
+        }
+        
         // Fallback to UUID
         UUIDComponent uuid = store.getComponent(ref, uuidComponentType);
         if (uuid != null) {
@@ -302,5 +320,20 @@ public class HyforgedCombatLogSystem extends DamageEventSystem {
         }
         
         return "Unknown";
+    }
+
+    /**
+     * Strip level suffix and quality prefix from a nameplate string.
+     * <p>
+     * Nameplate format: {@code Quality {Prefix} Name {Suffix} Lv.X}
+     * Returns just: {@code {Prefix} Name {Suffix}}
+     */
+    @Nonnull
+    private static String stripNameplateDecorations(@Nonnull String nameplate) {
+        // Strip trailing " Lv.\d+"
+        String stripped = nameplate.replaceAll("\\s+Lv\\.\\d+$", "");
+        // Strip leading quality tag (e.g. "Rare ", "Epic ", or bracket format "[Rare] ")
+        stripped = stripped.replaceAll("^\\[\\w+]\\s*", "");
+        return stripped.isEmpty() ? nameplate : stripped;
     }
 }

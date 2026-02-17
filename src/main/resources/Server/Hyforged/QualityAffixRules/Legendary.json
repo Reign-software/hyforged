@@ -3,6 +3,9 @@
   "AffixCapacity": {
     "prefix": 4,
     "suffix": 4,
-    "forged": 0
+    "forged": 0,
+    "npc": 2,
+    "npc_rare": 2,
+    "npc_legendary": 1
   }
 }

@@ -102,7 +102,7 @@ class AffixRollerServiceTest {
     }
     
     private void registerTestPool() {
-        poolRegistry.register(new AffixPool(
+        poolRegistry.register(AffixPool.of(
                 "test-weapons",
                 10,
                 new AffixPool.AffixPoolAppliesTo(

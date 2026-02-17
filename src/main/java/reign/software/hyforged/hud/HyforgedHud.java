@@ -133,7 +133,69 @@ public class HyforgedHud extends CustomUIHud {
         update(false, b);
     }
 
+    // ── Progression Section ──────────────────────────────────────────
+
+    /**
+     * Update the progression section (character level, class, XP bar).
+     *
+     * @param charLevel       Current character level
+     * @param className       Display name of the active class (empty string if none)
+     * @param classLevel      Level in the active class
+     * @param xpProgress      XP earned toward the next character level
+     * @param xpToNext        Total XP required for the next character level
+     * @param classXpProgress XP earned toward the next class level
+     * @param classXpToNext   Total XP required for the next class level
+     */
+    public void updateProgression(int charLevel,
+                                  @Nonnull String className,
+                                  int classLevel,
+                                  long xpProgress,
+                                  long xpToNext,
+                                  long classXpProgress,
+                                  long classXpToNext) {
+        UICommandBuilder b = new UICommandBuilder();
+        b.set("#Progression.Visible", true);
+
+        // "Lv 5"
+        b.set("#CharLevelValue.Text", "Lv " + charLevel);
+
+        // Class name with level: "Warrior Lv 1" or empty
+        if (className != null && !className.isEmpty() && classLevel > 0) {
+            b.set("#ClassName.Text", className + " Lv " + classLevel);
+        } else {
+            b.set("#ClassName.Text", "");
+        }
+
+        // Character XP bar + overlaid text
+        b.set("#XpText.Text", formatXp(xpProgress) + " / " + formatXp(xpToNext));
+        b.set("#ExpBarFill.Value", computeFillRatio(xpProgress, xpToNext));
+
+        // Class XP bar (visible only when a class is active)
+        boolean hasClass = className != null && !className.isEmpty() && classLevel > 0;
+        b.set("#ClassXpBarContainer.Visible", hasClass);
+        if (hasClass) {
+            b.set("#ClassXpText.Text", formatXp(classXpProgress) + " / " + formatXp(classXpToNext));
+            b.set("#ClassExpBarFill.Value", computeFillRatio(classXpProgress, classXpToNext));
+        }
+
+        update(false, b);
+    }
+
+    /**
+     * Hide the progression section entirely.
+     */
+    public void hideProgression() {
+        UICommandBuilder b = new UICommandBuilder();
+        b.set("#Progression.Visible", false);
+        update(false, b);
+    }
+
     // ── Utilities ───────────────────────────────────────────────────
+
+    private static float computeFillRatio(long current, long max) {
+        if (max <= 0) return 0.0f;
+        return Math.max(0.0f, Math.min(1.0f, (float) current / (float) max));
+    }
 
     private static float computeFillRatio(int current, int max) {
         if (max <= 0) return 0.0f;
@@ -142,6 +204,16 @@ public class HyforgedHud extends CustomUIHud {
 
     @Nonnull
     private static String formatNumber(int value) {
+        return String.format("%,d", value);
+    }
+
+    @Nonnull
+    private static String formatXp(long value) {
+        if (value >= 1_000_000) {
+            return String.format("%.1fM", value / 1_000_000.0);
+        } else if (value >= 10_000) {
+            return String.format("%.1fK", value / 1_000.0);
+        }
         return String.format("%,d", value);
     }
 }

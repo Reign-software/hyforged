@@ -148,7 +148,7 @@ public class CombatLogCommand extends AbstractPlayerCommand {
         // Source
         String attackerName = event.attackerName() != null ? event.attackerName() : "Unknown";
         sb.append("").append(attackerName);
-        sb.append(" → ");
+        sb.append(" => ");
         
         // Target
         String defenderName = event.defenderName() != null ? event.defenderName() : "Unknown";

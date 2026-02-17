@@ -92,7 +92,7 @@ public final class ProgressionCodec {
             )
             .add()
             .append(
-                    new KeyedCodec<>("ClassXPs", Codec.LONG_ARRAY),
+                    new KeyedCodec<>("ClassXPs", TolerantLongArrayCodec.INSTANCE),
                     (component, xps) -> {
                         if (xps != null) {
                             component.setTempClassXps(xps);

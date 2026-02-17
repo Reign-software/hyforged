@@ -8,7 +8,7 @@
     "Wisdom": 3,
     "Spirit": 2,
     "Luck": 1,
-    "WeaponTagFamilies": ["weapon:staff", "weapon:wand"],
+    "WeaponTagFamilies": ["Family=Staff", "Family=Wand"],
     "LevelRewards": [
         { "Level": 5, "Intelligence": 1 },
         { "Level": 10, "Intelligence": 1, "Wisdom": 1 },

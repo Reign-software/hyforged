@@ -8,8 +8,13 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.EntityEventSystem;
 import com.hypixel.hytale.server.core.HytaleServer;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.asset.type.item.config.ItemQuality;
+import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.protocol.Color;
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.combat.hud.CombatLogHudSystem;
 import reign.software.hyforged.progression.CharacterProgression;
 import reign.software.hyforged.progression.ClassProgression;
 import reign.software.hyforged.progression.component.ProgressionComponent;
@@ -23,6 +28,7 @@ import reign.software.hyforged.stats.asset.ClassDefinitionRegistry;
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,10 +48,12 @@ public class XPAwardSystem extends EntityEventSystem<EntityStore, XPAwardEvent> 
     private static final Logger LOGGER = Logger.getLogger(XPAwardSystem.class.getName());
     
     private final ComponentType<EntityStore, ProgressionComponent> progressionComponentType;
+    private final ComponentType<EntityStore, UUIDComponent> uuidComponentType;
     
     public XPAwardSystem() {
         super(XPAwardEvent.class);
         this.progressionComponentType = HyforgedPlugin.getInstance().getProgressionComponentType();
+        this.uuidComponentType = UUIDComponent.getComponentType();
     }
     
     @Nonnull
@@ -120,6 +128,11 @@ public class XPAwardSystem extends EntityEventSystem<EntityStore, XPAwardEvent> 
                     activeClassId
             );
         }
+
+        // ========== PER-KILL COMBAT LOG WITH MOB INFO ==========
+        if (event.getSource() == XPSource.COMBAT && event.getSourceDisplayName() != null) {
+            addCombatKillXpLine(archetypeChunk, index, event, charXpAmount);
+        }
         
         // ========== AUDIT LOGGING ==========
         if (charXpAmount > 0 || (activeClassId != null && classXpAmount > 0)) {
@@ -130,6 +143,81 @@ public class XPAwardSystem extends EntityEventSystem<EntityStore, XPAwardEvent> 
                     activeClassId != null ? classXpAmount : 0,
                     activeClassId != null ? activeClassId : "none"));
         }
+    }
+
+    /**
+     * Add a per-kill combat log line with mob info when XP is gained from a combat kill.
+     * <p>
+     * Format: {@code +{xp} XP ([Quality] {mobName} Lv.{level})} with quality colored by tier.
+     */
+    private void addCombatKillXpLine(
+            @Nonnull ArchetypeChunk<EntityStore> archetypeChunk,
+            int index,
+            @Nonnull XPAwardEvent event,
+            long charXpAmount
+    ) {
+        UUIDComponent uuidComp = archetypeChunk.getComponent(index, uuidComponentType);
+        if (uuidComp == null) {
+            return;
+        }
+        UUID playerUuid = uuidComp.getUuid();
+
+        Message line = Message.raw("");
+
+        // XP amount in blue
+        line.insert(Message.raw("+" + charXpAmount + " XP").color("#55AAFF"));
+
+        // Mob info in parentheses
+        String mobName = event.getSourceDisplayName();
+        int mobLevel = event.getSourceLevel();
+        String quality = event.getSourceQuality();
+        if (mobName != null) {
+            line.insert(Message.raw(" (").color("#888888"));
+
+            // Quality tag with tier-appropriate color
+            if (quality != null && !quality.isBlank() && !"Common".equalsIgnoreCase(quality)) {
+                String qualityColor = resolveQualityColor(quality);
+                line.insert(Message.raw("[" + capitalizeFirst(quality) + "] ").color(qualityColor));
+            }
+
+            line.insert(Message.raw(mobName).color("#FF6666"));
+            if (mobLevel > 0) {
+                line.insert(Message.raw(" Lv." + mobLevel).color("#CCCCCC"));
+            }
+            line.insert(Message.raw(")").color("#888888"));
+        }
+
+        CombatLogHudSystem.addExtraLine(playerUuid, line);
+    }
+
+    /**
+     * Resolve the hex color for a quality tier from Hytale's ItemQuality asset registry.
+     * Falls back to a gray color if the quality is not found.
+     */
+    @Nonnull
+    private static String resolveQualityColor(@Nonnull String qualityId) {
+        try {
+            ItemQuality quality = ItemQuality.getAssetMap().getAsset(qualityId);
+            if (quality != null && quality.getTextColor() != null) {
+                Color c = quality.getTextColor();
+                return String.format("#%02X%02X%02X",
+                        Byte.toUnsignedInt(c.red),
+                        Byte.toUnsignedInt(c.green),
+                        Byte.toUnsignedInt(c.blue));
+            }
+        } catch (Exception ignored) {
+            // Asset registry may not be ready
+        }
+        return "#CCCCCC";
+    }
+
+    /**
+     * Capitalize the first letter of a string.
+     */
+    @Nonnull
+    private static String capitalizeFirst(@Nonnull String text) {
+        if (text.isEmpty()) return text;
+        return Character.toUpperCase(text.charAt(0)) + text.substring(1);
     }
     
     /**
