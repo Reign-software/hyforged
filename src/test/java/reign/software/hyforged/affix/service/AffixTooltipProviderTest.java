@@ -62,21 +62,27 @@ class AffixTooltipProviderTest {
             "prefix",
             AffixType.DisplayNamePosition.BEFORE,
             "{name} (T{tier})",
-            true
+            true,
+            "Affixes",
+            "#bca57a"
         ));
 
         registry.register(new AffixType(
             "suffix",
             AffixType.DisplayNamePosition.AFTER,
             "{name} (T{tier})",
-            true
+            true,
+            "Affixes",
+            "#bca57a"
         ));
 
         registry.register(new AffixType(
             "forged",
             AffixType.DisplayNamePosition.NONE,
             "{name} (T{tier})",
-            false
+            false,
+            "Forged Properties",
+            "#cc8800"
         ));
     }
 

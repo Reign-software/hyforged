@@ -6,15 +6,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
  * Central registry for affix pools.
  * <p>
  * Affix pools define which affixes can appear on which item types. Pools are
- * loaded from JSON at {@code Server/Hyforged/AffixPools/*.json}.
+ * loaded from JSON at {@code Server/Hyforged/Affixes/Pools/*.json}.
  * <p>
  * Pool Resolution: When multiple pools match an item, the pool with the highest
  * priority is selected. Ties are resolved by lexicographic pool ID order.
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  */
 public final class AffixPoolRegistry {
     
-    private static final Logger LOGGER = Logger.getLogger(AffixPoolRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static AffixPoolRegistry instance;
     
     private final Map<String, AffixPool> poolsById = new ConcurrentHashMap<>();
@@ -74,14 +74,13 @@ public final class AffixPoolRegistry {
         
         String id = pool.id();
         if (poolsById.containsKey(id)) {
-            LOGGER.log(Level.WARNING, "Affix pool ''{0}'' is being overridden by a later definition", id);
+            LOGGER.atWarning().log("Affix pool '%s' is being overridden by a later definition", id);
         }
         
         poolsById.put(id, pool);
         sortDirty = true;
         
-        LOGGER.log(Level.FINE, "Registered affix pool: {0} (priority={1}, affixes={2})", 
-            new Object[]{id, pool.priority(), pool.getTotalAffixCount()});
+        LOGGER.at(Level.FINE).log("Registered affix pool: %s (priority=%s, affixes=%s)", id, pool.priority(), pool.getTotalAffixCount());
     }
     
     /**
@@ -179,7 +178,7 @@ public final class AffixPoolRegistry {
     public synchronized void freeze() {
         ensureSorted();
         frozen = true;
-        LOGGER.log(Level.INFO, "AffixPoolRegistry frozen with {0} pools", poolsById.size());
+        LOGGER.atInfo().log("AffixPoolRegistry frozen with %s pools", poolsById.size());
     }
     
     /**

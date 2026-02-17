@@ -6,7 +6,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
+import java.util.logging.Level;
+
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Registry for node icon templates.
@@ -16,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class NodeIconTemplateRegistry {
     
-    private static final Logger LOGGER = Logger.getLogger(NodeIconTemplateRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final NodeIconTemplateRegistry INSTANCE = new NodeIconTemplateRegistry();
     
     private final Map<String, NodeIconTemplate> templates = new ConcurrentHashMap<>();
@@ -39,7 +41,7 @@ public class NodeIconTemplateRegistry {
      */
     public void register(@Nonnull NodeIconTemplate template) {
         templates.put(template.id(), template);
-        LOGGER.fine(() -> "Registered node icon template: " + template.id());
+        LOGGER.at(Level.FINE).log("Registered node icon template: %s", template.id());
     }
     
     /**

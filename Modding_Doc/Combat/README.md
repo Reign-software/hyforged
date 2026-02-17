@@ -73,7 +73,7 @@ The Hyforged Combat System extends Hytale's damage pipeline with ARPG-style mech
 
 ### Damage Type Extensions
 
-Define resistance and penetration mappings in `Server/Hyforged/Damage/`:
+Define resistance and penetration mappings in `Server/Hyforged/Stats/Damage/`:
 
 ```json
 {

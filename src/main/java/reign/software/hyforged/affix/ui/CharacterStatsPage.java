@@ -48,7 +48,7 @@ import java.util.TreeMap;
  *   <li>Equipment slot display with affix contribution summaries</li>
  * </ul>
  * <p>
- * Categories are fully data-driven from JSON definitions in Server/Hyforged/Categories/.
+ * Categories are fully data-driven from JSON definitions in Server/Hyforged/Stats/Categories/.
  * Stats with the "ability-score" tag type are grouped as "Primary Attributes" and displayed
  * first. All other categories are sorted by their {@link CategoryDefinition#sortOrder()},
  * then alphabetically by display name. Category names are localized via translation keys.

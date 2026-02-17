@@ -4,7 +4,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+
+import java.util.logging.Level;
 
 /**
  * Registry for ailment definitions.
@@ -14,7 +16,7 @@ import java.util.logging.Logger;
  */
 public final class AilmentRegistry {
     
-    private static final Logger LOGGER = Logger.getLogger(AilmentRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final AilmentRegistry INSTANCE = new AilmentRegistry();
     
     /** Ailments by ID */
@@ -54,7 +56,7 @@ public final class AilmentRegistry {
         ailmentsById.put(ailment.id(), ailment);
         ailmentsByElement.put(ailment.elementTag(), ailment);
         
-        LOGGER.fine("Registered ailment: " + ailment.id() + " for element " + ailment.elementTag());
+        LOGGER.at(Level.FINE).log("Registered ailment: %s for element %s", ailment.id(), ailment.elementTag());
     }
     
     /**

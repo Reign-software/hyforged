@@ -25,7 +25,8 @@ import reign.software.hyforged.util.MessageColors;
 
 import javax.annotation.Nonnull;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Interaction for consuming a Point Book item.
@@ -47,7 +48,7 @@ import java.util.logging.Logger;
  */
 public class PointBookInteraction extends SimpleInstantInteraction {
 
-    private static final Logger LOGGER = Logger.getLogger(PointBookInteraction.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /**
      * Interaction type ID for codec registration.
@@ -98,7 +99,7 @@ public class PointBookInteraction extends SimpleInstantInteraction {
         // Get PassiveTreeComponent
         PassiveTreeComponent passiveComponent = getPassiveTreeComponent(entityRef, commandBuffer);
         if (passiveComponent == null) {
-            LOGGER.log(Level.WARNING, "Player has no PassiveTreeComponent, cannot use Point Book");
+            LOGGER.atWarning().log("Player has no PassiveTreeComponent, cannot use Point Book");
             context.getState().state = InteractionState.Failed;
             return;
         }
@@ -110,7 +111,7 @@ public class PointBookInteraction extends SimpleInstantInteraction {
         // Check if at cap
         if (currentBookPoints >= maxBookPoints) {
             // At cap - fail the interaction (preserves the item)
-            LOGGER.log(Level.FINE, "Player tried to use Point Book but is at max ({0})", maxBookPoints);
+            LOGGER.at(Level.FINE).log("Player tried to use Point Book but is at max (%s)", maxBookPoints);
             context.getState().state = InteractionState.Failed;
             player.sendMessage(
                     Message.translation("hyforged.passive.pointBook.maxReached")
@@ -122,7 +123,7 @@ public class PointBookInteraction extends SimpleInstantInteraction {
 
         // Grant the point
         int newTotal = passiveComponent.addBookPoint();
-        LOGGER.log(Level.FINE, "Player used Point Book. Book points: {0}/{1}", new Object[]{newTotal, maxBookPoints});
+        LOGGER.at(Level.FINE).log("Player used Point Book. Book points: %s/%s", newTotal, maxBookPoints);
 
         // Consume the item (reduce held item by 1)
         consumeHeldItem(context);
@@ -189,7 +190,7 @@ public class PointBookInteraction extends SimpleInstantInteraction {
     private void applyConsumeEffects(@Nonnull Ref<EntityStore> entityRef, @Nonnull CommandBuffer<EntityStore> commandBuffer) {
         EntityEffect effect = EntityEffect.getAssetMap().getAsset(CONSUME_EFFECT_ID);
         if (effect == null) {
-            LOGGER.log(Level.FINE, "Point Book consume effect not found: {0}", CONSUME_EFFECT_ID);
+            LOGGER.at(Level.FINE).log("Point Book consume effect not found: %s", CONSUME_EFFECT_ID);
             return;
         }
 

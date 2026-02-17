@@ -11,7 +11,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+
+import java.util.logging.Level;
 
 /**
  * Service for calculating monster levels and retrieving scaling configurations.
@@ -28,7 +30,7 @@ import java.util.logging.Logger;
  */
 public final class MonsterScalingService {
 
-    private static final Logger LOGGER = Logger.getLogger(MonsterScalingService.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static volatile MonsterScalingService INSTANCE;
 
@@ -132,7 +134,7 @@ public final class MonsterScalingService {
      */
     public void registerRegionOverride(@Nonnull RegionScalingOverride override) {
         regionOverrides.put(override.id(), override);
-        LOGGER.fine("Registered region override: " + override.id() + " for pattern: " + override.regionPattern());
+        LOGGER.at(Level.FINE).log("Registered region override: %s for pattern: %s", override.id(), override.regionPattern());
     }
     
     /**
@@ -180,10 +182,10 @@ public final class MonsterScalingService {
         for (String roleName : asset.getAppliesTo()) {
             MonsterScalingConfigAsset existing = roleScalingMap.put(roleName, asset);
             if (existing != null) {
-                LOGGER.warning("Overwriting scaling config for NPC role '" + roleName 
-                    + "': was " + existing.getId() + ", now " + asset.getId());
+                LOGGER.atWarning().log("Overwriting scaling config for NPC role '%s': was %s, now %s",
+                    roleName, existing.getId(), asset.getId());
             }
-            LOGGER.fine("Registered scaling config for NPC role: " + roleName);
+            LOGGER.at(Level.FINE).log("Registered scaling config for NPC role: %s", roleName);
         }
     }
 

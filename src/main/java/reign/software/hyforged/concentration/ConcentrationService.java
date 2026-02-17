@@ -19,15 +19,15 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Objects;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Service for registering and managing concentrated abilities per entity.
  */
 public final class ConcentrationService {
 
-    private static final Logger LOGGER = Logger.getLogger(ConcentrationService.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final StatId MAX_CONCENTRATION_STAT = StatId.hyforged("concentration");
 
     private static ConcentrationService instance;
@@ -224,10 +224,10 @@ public final class ConcentrationService {
             component.setCurrentConcentration(newCurrent);
             syncCurrentToStatMap(store, entityRef, newCurrent);
 
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.fine(String.format(
-                        "Concentration loss applied: entity=%s damageLoss=%d current=%d max=%d",
-                        entityRef, lossAmount, newCurrent, maxConcentration));
+            if (LOGGER.at(Level.FINE).isEnabled()) {
+                LOGGER.at(Level.FINE).log(
+                        "Concentration loss applied: entity=%s damageLoss=%s current=%s max=%s",
+                        entityRef, lossAmount, newCurrent, maxConcentration);
             }
         }
 
@@ -465,7 +465,7 @@ public final class ConcentrationService {
             if (ability.onDisable() != null) {
                 ability.onDisable().run();
             }
-            LOGGER.log(Level.INFO, "Disabled concentration ability {0}", ability.abilityId());
+            LOGGER.atInfo().log("Disabled concentration ability %s", ability.abilityId());
         }
     }
 
@@ -493,7 +493,7 @@ public final class ConcentrationService {
             if (ability.onEnable() != null) {
                 ability.onEnable().run();
             }
-            LOGGER.log(Level.INFO, "Re-enabled concentration ability {0}", ability.abilityId());
+            LOGGER.atInfo().log("Re-enabled concentration ability %s", ability.abilityId());
         }
     }
 

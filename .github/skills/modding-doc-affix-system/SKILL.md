@@ -11,8 +11,8 @@ This skill provides step-by-step guidance for implementing affix features in Hyf
 
 | Task | Approach |
 |------|----------|
-| Add a new affix | JSON in `src/main/resources/Server/Hyforged/Affixes/<Type>/` |
-| Create affix pool | JSON in `src/main/resources/Server/Hyforged/AffixPools/` |
+| Add a new affix | JSON in `src/main/resources/Server/Hyforged/Affixes/Definitions/<Type>/` |
+| Create affix pool | JSON in `src/main/resources/Server/Hyforged/Affixes/Pools/` |
 | Custom affix at runtime | `AffixService.get().registerAffix(...)` |
 | Roll affixes on item | `AffixService.get().rollAffixes(item)` |
 | Query item affixes | `AffixService.get().getAffixes(item)` |
@@ -119,7 +119,7 @@ Use this for data-driven affixes that don't require custom logic.
 
 **Step 1: Create the affix definition file**
 
-Location: `src/main/resources/Server/Hyforged/Affixes/<Type>/<AffixName>.json`
+Location: `src/main/resources/Server/Hyforged/Affixes/Definitions/<Type>/<AffixName>.json`
 
 Organize by affix type:
 - `Prefix/` - Descriptive adjectives (e.g., "Sturdy", "Vicious", "Flaming")
@@ -194,7 +194,7 @@ Organize by affix type:
 
 **Step 2: Add to an affix pool**
 
-Edit or create `src/main/resources/Server/Hyforged/AffixPools/<PoolName>.json`:
+Edit or create `src/main/resources/Server/Hyforged/Affixes/Pools/<PoolName>.json`:
 
 ```json
 {
@@ -237,7 +237,7 @@ Determine what items this pool applies to:
 
 **Step 2: Create pool file**
 
-Location: `src/main/resources/Server/Hyforged/AffixPools/<PoolName>.json`
+Location: `src/main/resources/Server/Hyforged/Affixes/Pools/<PoolName>.json`
 
 ```json
 {
@@ -394,7 +394,7 @@ ItemStack clean = service.clearAffixes(item);
 
 Override affix capacity for a quality tier:
 
-Location: `src/main/resources/Server/Hyforged/QualityAffixRules/<Quality>.json`
+Location: `src/main/resources/Server/Hyforged/Quality/AffixRules/<Quality>.json`
 
 ```json
 {

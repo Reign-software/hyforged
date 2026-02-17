@@ -23,8 +23,8 @@ import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import java.util.Set;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * ECS System for bridging Hyforged stat values to Hytale's EntityStatMap.
@@ -37,7 +37,7 @@ import java.util.logging.Logger;
  */
 public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
 
-    private static final Logger LOGGER = Logger.getLogger(HyforgedBridgeSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     @Nonnull
     private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
@@ -300,9 +300,7 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
     }
 
     private void logBridge(@Nonnull String statName, int newValue, int oldValue) {
-        if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.fine(String.format("Bridged %s: %d -> %d", statName, oldValue, newValue));
-        }
+        LOGGER.at(Level.FINE).log("Bridged %s: %d -> %d", statName, oldValue, newValue);
     }
 
     /**

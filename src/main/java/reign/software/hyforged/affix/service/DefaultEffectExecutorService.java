@@ -55,15 +55,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Default implementation for executing triggered affix effects.
  */
 public class DefaultEffectExecutorService implements EffectExecutorService {
 
-    private static final Logger LOGGER = Logger.getLogger(DefaultEffectExecutorService.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     @Override
     public boolean execute(@Nonnull AffixTriggeredEffect triggeredEffect, @Nonnull EffectContext context) {
@@ -78,7 +78,7 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
             case "run_interaction" -> runInteraction(effect, context);
             case "modify_stat" -> modifyStat(effect, context);
             default -> {
-                LOGGER.log(Level.FINE, "Unknown effect type: {0}", effect.type());
+                LOGGER.at(Level.FINE).log("Unknown effect type: %s", effect.type());
                 yield false;
             }
         };
@@ -309,7 +309,7 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
 
         IPrefabBuffer prefab = PrefabBufferUtil.getCached(PrefabStore.get().getAssetPrefabsPath().resolve(effect.prefabPath()));
         if (prefab == null) {
-            LOGGER.log(Level.FINE, "Prefab not found: {0}", effect.prefabPath());
+            LOGGER.at(Level.FINE).log("Prefab not found: %s", effect.prefabPath());
             return false;
         }
 
@@ -349,7 +349,7 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
         ComponentAccessor<EntityStore> accessor = context.accessor();
         EntityEffect entityEffect = EntityEffect.getAssetMap().getAsset(effectId);
         if (entityEffect == null) {
-            LOGGER.log(Level.FINE, "EntityEffect not found: {0}", effectId);
+            LOGGER.at(Level.FINE).log("EntityEffect not found: %s", effectId);
             return false;
         }
 
@@ -451,7 +451,7 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
         if (!applyEffectId.isBlank()) {
             applyEffect = EntityEffect.getAssetMap().getAsset(applyEffectId);
             if (applyEffect == null) {
-                LOGGER.log(Level.FINE, "EntityEffect not found: {0}", applyEffectId);
+                LOGGER.at(Level.FINE).log("EntityEffect not found: %s", applyEffectId);
             }
         }
         float applyDuration = effect.applyEffectDurationSeconds() > 0f
@@ -495,7 +495,7 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
             return false;
         }
         if (!(context.accessor() instanceof CommandBuffer<?> commandBuffer)) {
-            LOGGER.fine("Interaction execution requires CommandBuffer context");
+            LOGGER.at(Level.FINE).log("Interaction execution requires CommandBuffer context");
             return false;
         }
 
@@ -514,7 +514,7 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
         InteractionType interactionType = parseInteractionType(effect.interactionType());
         RootInteraction root = RootInteraction.getAssetMap().getAsset(effect.interactionId());
         if (root == null) {
-            LOGGER.log(Level.FINE, "RootInteraction not found: {0}", effect.interactionId());
+            LOGGER.at(Level.FINE).log("RootInteraction not found: %s", effect.interactionId());
             return false;
         }
 
@@ -566,7 +566,7 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
         StatId statId = StatId.parse(statIdValue);
         int statIndex = StatDefinitionRegistry.get().getIndex(statId);
         if (statIndex < 0) {
-            LOGGER.log(Level.FINE, "Unknown stat for modify_stat: {0}", statIdValue);
+            LOGGER.at(Level.FINE).log("Unknown stat for modify_stat: %s", statIdValue);
             return false;
         }
 
@@ -689,7 +689,7 @@ public class DefaultEffectExecutorService implements EffectExecutorService {
         }
         int index = DamageCause.getAssetMap().getIndex(damageCauseId);
         if (index == Integer.MIN_VALUE) {
-            LOGGER.log(Level.FINE, "Unknown damage cause: {0}", damageCauseId);
+            LOGGER.at(Level.FINE).log("Unknown damage cause: %s", damageCauseId);
         }
         return index;
     }

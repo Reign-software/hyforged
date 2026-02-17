@@ -26,8 +26,8 @@ import javax.annotation.Nonnull;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Set;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Injects a Hyforged Menu button into the Map page via an
@@ -43,7 +43,7 @@ import java.util.logging.Logger;
  */
 public final class HyforgedReticleUI {
 
-    private static final Logger LOGGER = Logger.getLogger(HyforgedReticleUI.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Anchor ID for the Map page's built-in server content anchor. */
     public static final String ANCHOR_ID = "MapServerContent";
@@ -98,7 +98,7 @@ public final class HyforgedReticleUI {
     public static void install() {
         inboundFilter = HyforgedReticleUI::filterInbound;
         PacketAdapters.registerInbound(inboundFilter);
-        LOGGER.info("[Hyforged] Installed Map anchor inbound event filter");
+        LOGGER.atInfo().log("[Hyforged] Installed Map anchor inbound event filter");
     }
 
     /**
@@ -120,7 +120,7 @@ public final class HyforgedReticleUI {
      * @param playerRef The player to inject the button for
      */
     public static void send(@Nonnull PlayerRef playerRef) {
-        LOGGER.log(Level.FINE, "[Hyforged] Building Map anchor button for {0}", playerRef.getUsername());
+        LOGGER.at(Level.FINE).log("[Hyforged] Building Map anchor button for %s", playerRef.getUsername());
 
         UICommandBuilder commandBuilder = new UICommandBuilder();
         commandBuilder.append(UI_FILE);
@@ -162,7 +162,7 @@ public final class HyforgedReticleUI {
             return false; // Not our event — let it pass through
         }
 
-        LOGGER.log(Level.FINE, "[Hyforged] Received reticle button event: {0}", action);
+        LOGGER.at(Level.FINE).log("[Hyforged] Received reticle button event: %s", action);
 
         // Resolve player from the packet handler
         var auth = packetHandler.getAuth();
@@ -207,9 +207,9 @@ public final class HyforgedReticleUI {
 
         if (ACTION_OPEN_HUB.equals(action)) {
             player.getPageManager().openCustomPage(ref, store, new HyforgedHubPage(playerRef));
-            LOGGER.log(Level.FINE, "[Hyforged] Opened Hyforged Hub from Map anchor");
+            LOGGER.at(Level.FINE).log("[Hyforged] Opened Hyforged Hub from Map anchor");
         } else {
-            LOGGER.warning("[Hyforged] Unknown anchor action: " + action);
+            LOGGER.atWarning().log("[Hyforged] Unknown anchor action: %s", action);
         }
     }
 
@@ -237,18 +237,18 @@ public final class HyforgedReticleUI {
                                          CustomUIEventBinding[] eventBindings) {
         try {
             Object packet = UPDATE_ANCHOR_CTOR.newInstance(anchorId, clear, commands, eventBindings);
-            LOGGER.log(Level.FINE, "[Hyforged] Sending UpdateAnchorUI: anchor={0}, clear={1}, commands={2}, events={3}",
-                    new Object[]{anchorId, clear,
-                            commands != null ? commands.length : 0,
-                            eventBindings != null ? eventBindings.length : 0});
+            LOGGER.at(Level.FINE).log("[Hyforged] Sending UpdateAnchorUI: anchor=%s, clear=%s, commands=%s, events=%s",
+                    anchorId, clear,
+                    commands != null ? commands.length : 0,
+                    eventBindings != null ? eventBindings.length : 0);
             WRITE_NO_CACHE.invoke(handler, packet);
-            LOGGER.log(Level.FINE, "[Hyforged] UpdateAnchorUI sent successfully");
+            LOGGER.at(Level.FINE).log("[Hyforged] UpdateAnchorUI sent successfully");
         } catch (Exception e) {
-            LOGGER.warning("[Hyforged] Failed to send UpdateAnchorUI: " + e.getClass().getName()
-                    + " - " + e.getMessage());
+            LOGGER.atWarning().log("[Hyforged] Failed to send UpdateAnchorUI: %s - %s",
+                    e.getClass().getName(), e.getMessage());
             if (e.getCause() != null) {
-                LOGGER.warning("[Hyforged]   Caused by: " + e.getCause().getClass().getName()
-                        + " - " + e.getCause().getMessage());
+                LOGGER.atWarning().log("[Hyforged]   Caused by: %s - %s",
+                        e.getCause().getClass().getName(), e.getCause().getMessage());
             }
         }
     }

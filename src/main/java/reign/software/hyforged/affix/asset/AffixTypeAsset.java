@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
  * JSON asset definition for affix types.
  * <p>
  * Affix types define how affixes behave and are displayed.
- * Loaded from {@code Server/Hyforged/AffixTypes/*.json}.
+ * Loaded from {@code Server/Hyforged/Affixes/Types/*.json}.
  * <p>
  * JSON Schema:
  * <pre>
@@ -24,7 +24,9 @@ import javax.annotation.Nonnull;
  *   "Id": "prefix",
  *   "DisplayNamePosition": "before",  // "before", "after", or "none"
  *   "DisplayFormat": "{name}",        // Template for tooltip display
- *   "Stackable": true                 // Whether multiple affixes of this type can coexist
+ *   "Stackable": true,                // Whether multiple affixes of this type can coexist
+ *   "HudSectionName": "Affixes",      // Section header in the HUD (types sharing name are grouped)
+ *   "HudColor": "#bca57a"             // Hex color for HUD lines and header
  * }
  * </pre>
  */
@@ -67,6 +69,18 @@ public class AffixTypeAsset implements JsonAssetWithMap<String, IndexedLookupTab
                     asset -> asset.stackable
             )
             .add()
+            .append(
+                    new KeyedCodec<>("HudSectionName", Codec.STRING),
+                    (asset, value) -> asset.hudSectionName = value != null ? value : asset.id,
+                    asset -> asset.hudSectionName
+            )
+            .add()
+            .append(
+                    new KeyedCodec<>("HudColor", Codec.STRING),
+                    (asset, value) -> asset.hudColor = value != null ? value : AffixType.DEFAULT_HUD_COLOR,
+                    asset -> asset.hudColor
+            )
+            .add()
             .build();
 
     private static AssetStore<String, AffixTypeAsset, IndexedLookupTableAssetMap<String, AffixTypeAsset>> ASSET_STORE;
@@ -79,6 +93,8 @@ public class AffixTypeAsset implements JsonAssetWithMap<String, IndexedLookupTab
     private String displayNamePosition = "none";
     private String displayFormat = "{name}";
     private boolean stackable = true;
+    private String hudSectionName = "";
+    private String hudColor = AffixType.DEFAULT_HUD_COLOR;
 
     public AffixTypeAsset() {
     }
@@ -115,7 +131,9 @@ public class AffixTypeAsset implements JsonAssetWithMap<String, IndexedLookupTab
                 id,
                 AffixType.DisplayNamePosition.fromJson(displayNamePosition),
                 displayFormat,
-                stackable
+                stackable,
+                hudSectionName.isBlank() ? id : hudSectionName,
+                hudColor
         );
     }
 

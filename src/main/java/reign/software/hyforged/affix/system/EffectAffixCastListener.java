@@ -12,8 +12,7 @@ import reign.software.hyforged.affix.service.EffectAffixProcessor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Listens for player interactions to trigger on-cast affix effects.
@@ -21,7 +20,7 @@ import java.util.logging.Logger;
 @SuppressWarnings("deprecation")
 public class EffectAffixCastListener {
 
-    private static final Logger LOGGER = Logger.getLogger(EffectAffixCastListener.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private EventRegistration<String, PlayerInteractEvent> globalRegistration;
 
@@ -35,7 +34,7 @@ public class EffectAffixCastListener {
     public void register() {
         globalRegistration = HytaleServer.get().getEventBus()
                 .registerGlobal((short) 0, PlayerInteractEvent.class, this::onInteract);
-        LOGGER.log(Level.INFO, "EffectAffixCastListener registered for player interactions");
+        LOGGER.atInfo().log("EffectAffixCastListener registered for player interactions");
     }
 
     public void unregister() {

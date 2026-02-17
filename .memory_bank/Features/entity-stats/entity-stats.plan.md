@@ -77,7 +77,7 @@
 - **Objective**: Create minimal class definition infrastructure for player ability score initialization (FR-2)
 
 ### Steps
-- [x] 3.1 Create `Server/Hyforged/Classes/` directory
+- [x] 3.1 Create `Server/Hyforged/Stats/Classes/` directory
 - [x] 3.2 Create `ClassDefinitionAsset` record:
   - `id` — class identifier (e.g., "hyforged:warrior")
   - `displayName` — localized display name
@@ -134,7 +134,7 @@
 - **Objective**: Create data-driven NPC stat template system (FR-1, FR-9)
 
 ### Steps
-- [x] 5.1 Create `Server/Hyforged/NPCStats/` directory
+- [x] 5.1 Create `Server/Hyforged/Stats/NPCTemplates/` directory
 - [x] 5.2 Design `NPCStatTemplateAsset` schema:
   - `id` — template identifier
   - `parent` — optional parent template ID for inheritance
@@ -202,7 +202,7 @@
 - **Objective**: Add new damage types for ARPG stats (FR-7)
 
 ### Steps
-- [x] 7.1 Create `Server/Hyforged/Damage/` directory
+- [x] 7.1 Create `Server/Hyforged/Stats/Damage/` directory
 - [x] 7.2 Create damage type JSON assets:
   - `Chaos.json` — Parent: Physical, color: #AA00FF
   - `Bleed.json` — Parent: Physical, color: #8B0000

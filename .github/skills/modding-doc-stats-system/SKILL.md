@@ -11,8 +11,8 @@ This skill provides step-by-step guidance for implementing stat features in Hyfo
 
 | Task | Approach |
 |------|----------|
-| Add a new stat | JSON in `src/main/resources/Server/Hyforged/Stats/` |
-| Define NPC stat template | JSON in `src/main/resources/Server/Hyforged/NPCStats/` |
+| Add a new stat | JSON in `src/main/resources/Server/Hyforged/Stats/Definitions/` |
+| Define NPC stat template | JSON in `src/main/resources/Server/Hyforged/Stats/NPCTemplates/` |
 | Add modifier at runtime | `stats.addModifier(StatModifier.flat(...))` |
 | Query stat value | `stats.getTotalValue(statIndex)` |
 | Target stats by tag | `StatModifier.Builder.targetTag("elemental")` |
@@ -47,7 +47,7 @@ Use this for data-driven stats that don't require custom logic.
 
 **Step 1: Create the stat definition file**
 
-Location: `src/main/resources/Server/Hyforged/Stats/<StatName>.json`
+Location: `src/main/resources/Server/Hyforged/Stats/Definitions/<StatName>.json`
 
 ```json
 {
@@ -309,7 +309,7 @@ Data-driven NPC stat configuration with inheritance.
 
 **Step 1: Create the template file**
 
-Location: `src/main/resources/Server/Hyforged/NPCStats/<TemplateName>.json`
+Location: `src/main/resources/Server/Hyforged/Stats/NPCTemplates/<TemplateName>.json`
 
 ```json
 {
@@ -350,7 +350,7 @@ Map<StatId, Integer> stats = registry.resolveStats("yourmod:goblin", 5);
 
 Link damage types to resistance stats.
 
-**Location:** `src/main/resources/Server/Hyforged/Damage/<DamageCause>.json`
+**Location:** `src/main/resources/Server/Hyforged/Stats/Damage/<DamageCause>.json`
 
 ```json
 {

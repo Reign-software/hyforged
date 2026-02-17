@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Defines a pool of affixes that can appear on specific item/entity types.
  * <p>
- * Affix pools are loaded from JSON at {@code Server/Hyforged/AffixPools/*.json}.
+ * Affix pools are loaded from JSON at {@code Server/Hyforged/Affixes/Pools/*.json}.
  * Each pool maps a set of categories/tags to lists of eligible affixes
  * organized by type. Types are fully data-driven (defined in AffixTypes/*.json)
  * and not hardcoded.

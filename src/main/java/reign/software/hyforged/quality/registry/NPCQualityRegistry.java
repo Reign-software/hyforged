@@ -5,18 +5,18 @@ import reign.software.hyforged.quality.model.QualityWeightTable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Registry for NPC quality rules.
  */
 public final class NPCQualityRegistry {
 
-    private static final Logger LOGGER = Logger.getLogger(NPCQualityRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static NPCQualityRegistry instance;
 
     private final Map<String, NPCQualityRule> rulesById = new ConcurrentHashMap<>();
@@ -43,7 +43,7 @@ public final class NPCQualityRegistry {
             throw new IllegalStateException("Registry is frozen, cannot register new NPC quality rules");
         }
         if (rulesById.containsKey(rule.id())) {
-            LOGGER.log(Level.WARNING, "NPC quality rule ''{0}'' overridden by later definition", rule.id());
+            LOGGER.atWarning().log("NPC quality rule '%s' overridden by later definition", rule.id());
         }
         rulesById.put(rule.id(), rule);
         tablesById.put(rule.id(), QualityWeightTable.fromWeights(rule.weights()));

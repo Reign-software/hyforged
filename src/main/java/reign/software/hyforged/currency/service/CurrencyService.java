@@ -27,8 +27,8 @@ import reign.software.hyforged.quality.service.HyforgedQualityService;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.UUID;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Service for managing Tradebar currency operations.
@@ -43,7 +43,7 @@ import java.util.logging.Logger;
  */
 public final class CurrencyService {
 
-    private static final Logger LOGGER = Logger.getLogger(CurrencyService.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** The Tradebar item ID */
     public static final String TRADEBAR_ITEM_ID = "hyforged:tradebar";
@@ -55,7 +55,7 @@ public final class CurrencyService {
 
     private CurrencyService() {
         // Initialize
-        LOGGER.info("CurrencyService initialized");
+        LOGGER.atInfo().log("CurrencyService initialized");
     }
 
     /**
@@ -79,32 +79,32 @@ public final class CurrencyService {
      */
     public int getBalance(@Nonnull Ref<EntityStore> player) {
         if (!player.isValid()) {
-            LOGGER.fine("getBalance: Invalid player reference");
+            LOGGER.at(Level.FINE).log("getBalance: Invalid player reference");
             return 0;
         }
         
         Player playerComponent = player.getStore().getComponent(player, Player.getComponentType());
         if (playerComponent == null) {
-            LOGGER.fine("getBalance: No Player component found");
+            LOGGER.at(Level.FINE).log("getBalance: No Player component found");
             return 0;
         }
         
         Inventory inventory = playerComponent.getInventory();
         if (inventory == null) {
-            LOGGER.fine("getBalance: No inventory found");
+            LOGGER.at(Level.FINE).log("getBalance: No inventory found");
             return 0;
         }
         
         CombinedItemContainer container = inventory.getCombinedHotbarFirst();
         if (container == null) {
-            LOGGER.fine("getBalance: No combined container found");
+            LOGGER.at(Level.FINE).log("getBalance: No combined container found");
             return 0;
         }
         
         // Count all Tradebar items in inventory
         int total = container.countItemStacks(stack -> isTradebar(stack));
         
-        LOGGER.fine("getBalance: Player has " + total + " Tradebars");
+        LOGGER.at(Level.FINE).log("getBalance: Player has %s Tradebars", total);
         return total;
     }
 
@@ -166,7 +166,7 @@ public final class CurrencyService {
 
         int currentBalance = getBalance(player);
         if (currentBalance < amount) {
-            LOGGER.fine("Deduct failed: insufficient balance (" + currentBalance + " < " + amount + ")");
+            LOGGER.at(Level.FINE).log("Deduct failed: insufficient balance (%s < %s)", currentBalance, amount);
             return TransactionResult.failure(TransactionResult.REASON_INSUFFICIENT_BALANCE, currentBalance);
         }
 
@@ -184,7 +184,7 @@ public final class CurrencyService {
             logTransaction(playerUUID, transactionId, TransactionType.SPEND, amount, currentBalance, balanceAfter, reason);
         }
         
-        LOGGER.log(Level.FINE, "Deduct: {0} Tradebars deducted for reason: {1}", new Object[]{amount, reason});
+        LOGGER.at(Level.FINE).log("Deduct: %s Tradebars deducted for reason: %s", amount, reason);
         
         return TransactionResult.success(transactionId, currentBalance, balanceAfter);
     }
@@ -247,7 +247,7 @@ public final class CurrencyService {
             logTransaction(playerUUID, transactionId, TransactionType.EARN, addedAmount, balanceBefore, balanceAfter, reason);
         }
         
-        LOGGER.log(Level.FINE, "Deposit: {0} Tradebars deposited for reason: {1}", new Object[]{addedAmount, reason});
+        LOGGER.at(Level.FINE).log("Deposit: %s Tradebars deposited for reason: %s", addedAmount, reason);
         
         // If we couldn't add all, return partial success info in the transaction ID
         if (addedAmount < amount) {
@@ -316,7 +316,7 @@ public final class CurrencyService {
         logTransaction(playerUUID, transactionId, TransactionType.VAULT_DEPOSIT, deposited,
                 inventoryBalance, inventoryBalance - deposited, "vault_deposit");
 
-        LOGGER.log(Level.FINE, "VaultDeposit: {0} Tradebars deposited into vault", deposited);
+        LOGGER.at(Level.FINE).log("VaultDeposit: %s Tradebars deposited into vault", deposited);
         return TransactionResult.success(transactionId, inventoryBalance, inventoryBalance - deposited);
     }
 
@@ -372,7 +372,7 @@ public final class CurrencyService {
         logTransaction(playerUUID, transactionId, TransactionType.VAULT_WITHDRAW, withdrawn,
                 inventoryBalanceBefore, inventoryBalanceBefore + withdrawn, "vault_withdraw");
 
-        LOGGER.log(Level.FINE, "VaultWithdraw: {0} Tradebars withdrawn from vault", withdrawn);
+        LOGGER.at(Level.FINE).log("VaultWithdraw: %s Tradebars withdrawn from vault", withdrawn);
         return TransactionResult.success(transactionId, inventoryBalanceBefore, inventoryBalanceBefore + withdrawn);
     }
 
@@ -410,8 +410,8 @@ public final class CurrencyService {
 
         int sellValue = SellValueConfig.get().calculateSellValue(rarity, affixCount, avgAffixTier, overrideValue);
         
-        LOGGER.log(Level.FINE, "calculateSellValue: {0} with rarity {1}, {2} affixes, avg tier {3} = {4} Tradebars",
-                new Object[]{item.getItemId(), rarity, affixCount, avgAffixTier, sellValue});
+        LOGGER.at(Level.FINE).log("calculateSellValue: %s with rarity %s, %s affixes, avg tier %s = %s Tradebars",
+                item.getItemId(), rarity, affixCount, avgAffixTier, sellValue);
         
         return sellValue;
     }
@@ -515,7 +515,7 @@ public final class CurrencyService {
 
             return blockEntityRef.getStore().getComponent(blockEntityRef, vaultComponentType);
         } catch (Exception e) {
-            LOGGER.log(Level.WARNING, "Error getting vault component at " + vaultPos + ": " + e.getMessage(), e);
+            LOGGER.atWarning().withCause(e).log("Error getting vault component at %s", vaultPos);
             return null;
         }
     }

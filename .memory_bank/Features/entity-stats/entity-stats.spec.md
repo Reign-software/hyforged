@@ -18,7 +18,7 @@ This feature extends the existing `HyforgedStatComponent` implementation to supp
 
 ## Goals
 - Provide a single source of truth for any entity's current stats via `HyforgedStatComponent`.
-- Support data-driven NPC stat templates in JSON (`Server/Hyforged/NPCStats/`).
+- Support data-driven NPC stat templates in JSON (`Server/Hyforged/Stats/NPCTemplates/`).
 - Enable level-based scaling formulas for NPC stats (e.g., `baseHealth + level * healthPerLevel`). Note: NPC level scaling is independent of player level mechanics.
 - Initialize player ability scores automatically based on class (default value = 1 for all stats).
 - **Player stats do NOT scale with character level**. Character level grants passive points and is used for combat rating calculations.
@@ -44,7 +44,7 @@ This feature extends the existing `HyforgedStatComponent` implementation to supp
 ## Functional Requirements
 
 ### FR-1: NPC Stat Templates
-- NPC stat templates are JSON assets in `Server/Hyforged/NPCStats/`.
+- NPC stat templates are JSON assets in `Server/Hyforged/Stats/NPCTemplates/`.
 - Templates follow Hytale's `Type: "Abstract"` / `Parameters` / `Compute` pattern.
 - Templates support:
   - Base stat values (e.g., `"MaxHealth": 100`).
@@ -64,7 +64,7 @@ This feature extends the existing `HyforgedStatComponent` implementation to supp
   - Class defines base ability score allocation (e.g., Warrior: STR 5, CON 3, DEX 2, others 1).
   - Additional points come from items, buffs, passives, and level-up bonuses.
 - Player-allocated points are persisted; computed stats are not persisted.
-- Class definitions are JSON assets in `Server/Hyforged/Classes/`.
+- Class definitions are JSON assets in `Server/Hyforged/Stats/Classes/`.
 
 ### FR-3: Source Aggregation
 - Modifiers are aggregated in the following source order:
@@ -119,7 +119,7 @@ This feature extends the existing `HyforgedStatComponent` implementation to supp
 
 ### FR-7: Damage Type Extensions
 - **Use Hytale's base damage types** where they exist (Physical, Fire, Ice, Poison, Elemental, etc.).
-- **Add new damage types** to `Server/Hyforged/Damage/` only for types not in base Hytale:
+- **Add new damage types** to `Server/Hyforged/Stats/Damage/` only for types not in base Hytale:
   - `Chaos.json` — non-elemental magic damage that bypasses resistances differently
   - `Bleed.json` — physical damage over time
   - `Lightning.json` — explicit lightning damage (Hytale has Ice but not explicit Lightning)
@@ -141,7 +141,7 @@ This feature extends the existing `HyforgedStatComponent` implementation to supp
 - Event registration via `plugin.getEventRegistry().register(StatChangedEvent.class, ...)`.
 
 ### FR-9: NPC Template Asset Loader
-- Register `NPCStatTemplateAsset` store at `Server/Hyforged/NPCStats/`.
+- Register `NPCStatTemplateAsset` store at `Server/Hyforged/Stats/NPCTemplates/`.
 - Load templates on asset load event.
 - Validate template inheritance and scaling formula syntax.
 - Provide API to resolve template by ID and apply to entity.
@@ -160,9 +160,9 @@ This feature extends the existing `HyforgedStatComponent` implementation to supp
 - Event-based architecture allows plugins to react to stat changes.
 
 ### NFR-3: Data-Driven Moddability
-- NPC stat templates: `Server/<ModName>/NPCStats/*.json`
-- Class definitions: `Server/<ModName>/Classes/*.json`
-- Damage types: `Server/<ModName>/Damage/*.json`
+- NPC stat templates: `Server/<ModName>/Stats/NPCTemplates/*.json`
+- Class definitions: `Server/<ModName>/Stats/Classes/*.json`
+- Damage types: `Server/<ModName>/Stats/Damage/*.json`
 - Asset conflict resolution: first definition wins (core Hyforged loads first).
 
 ### NFR-4: Observability
@@ -178,9 +178,9 @@ This feature extends the existing `HyforgedStatComponent` implementation to supp
 - **Hytale Entity Stats** — `EntityStatMap` for bridge system
 
 ## Data/Schema Impact
-- New asset type: `NPCStatTemplateAsset` at `Server/Hyforged/NPCStats/`
-- New asset type: `ClassDefinitionAsset` at `Server/Hyforged/Classes/` (placeholder for Class System)
-- New damage type assets at `Server/Hyforged/Damage/`
+- New asset type: `NPCStatTemplateAsset` at `Server/Hyforged/Stats/NPCTemplates/`
+- New asset type: `ClassDefinitionAsset` at `Server/Hyforged/Stats/Classes/` (placeholder for Class System)
+- New damage type assets at `Server/Hyforged/Stats/Damage/`
 - `HyforgedStatComponent` schema unchanged (v2)
 
 ### NPC Stat Template Schema

@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Defines affix capacity rules for a specific Quality tier.
  * <p>
- * Quality affix rules are loaded from JSON at {@code Server/Hyforged/QualityAffixRules/*.json}.
+ * Quality affix rules are loaded from JSON at {@code Server/Hyforged/Quality/AffixRules/*.json}.
  * Each rule specifies how many affixes of each type an item of that quality can have.
  * <p>
  * This is pure immutable data following ECS principles.

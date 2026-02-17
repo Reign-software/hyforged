@@ -24,14 +24,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Utility for rebuilding active triggered effects from affix sources.
  */
 public final class ActiveEffectInitializer {
 
-    private static final Logger LOGGER = Logger.getLogger(ActiveEffectInitializer.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     public static final String SOURCE_EQUIPMENT = "equipment";
     public static final String SOURCE_NPC_QUALITY = "npc_quality";
@@ -183,8 +183,8 @@ public final class ActiveEffectInitializer {
             }
         }
 
-        if (LOGGER.isLoggable(Level.FINER) && !nextStates.isEmpty()) {
-            LOGGER.finer("Active effects rebuilt: " + nextStates.size());
+        if (LOGGER.at(Level.FINER).isEnabled() && !nextStates.isEmpty()) {
+            LOGGER.at(Level.FINER).log("Active effects rebuilt: %s", nextStates.size());
         }
 
         return nextStates;

@@ -11,7 +11,8 @@ import reign.software.hyforged.passive.service.RefundResult;
 
 import javax.annotation.Nonnull;
 import java.util.*;
-import java.util.logging.Logger;
+
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Handles migration of passive tree allocations when tree definitions change.
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class PassiveTreeMigrationService {
 
-    private static final Logger LOGGER = Logger.getLogger(PassiveTreeMigrationService.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static PassiveTreeMigrationService instance;
 
@@ -137,7 +138,7 @@ public class PassiveTreeMigrationService {
             return MigrationResult.noMigration();
         }
 
-        LOGGER.info("Migrating tree " + treeId + " from version " + storedVersion + " to " + currentVersion);
+        LOGGER.atInfo().log("Migrating tree %s from version %s to %s", treeId, storedVersion, currentVersion);
 
         // Find nodes that no longer exist
         Set<String> allocatedNodes = tree.isGeneralTree()

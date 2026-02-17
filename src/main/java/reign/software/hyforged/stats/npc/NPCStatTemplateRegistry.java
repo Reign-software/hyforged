@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+import java.util.logging.Level;
 
 /**
  * Singleton registry for NPC stat templates.
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
  */
 public final class NPCStatTemplateRegistry {
 
-    private static final Logger LOGGER = Logger.getLogger(NPCStatTemplateRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Default base template ID */
     public static final String BASE_TEMPLATE_ID = "hyforged:base";
@@ -64,7 +65,7 @@ public final class NPCStatTemplateRegistry {
     public void registerUnresolved(@Nonnull NPCStatTemplate template) {
         unresolvedTemplates.put(template.id(), template);
         inheritanceResolved = false;
-        LOGGER.fine("Registered unresolved NPC template: " + template.id());
+        LOGGER.at(Level.FINE).log("Registered unresolved NPC template: %s", template.id());
     }
 
     /**
@@ -88,7 +89,7 @@ public final class NPCStatTemplateRegistry {
         }
         
         inheritanceResolved = true;
-        LOGGER.info("Resolved inheritance for " + templates.size() + " NPC templates");
+        LOGGER.atInfo().log("Resolved inheritance for %s NPC templates", templates.size());
     }
 
     /**
@@ -101,7 +102,7 @@ public final class NPCStatTemplateRegistry {
     ) {
         // Check for circular reference
         if (visited.contains(template.id())) {
-            LOGGER.severe("Circular inheritance detected for NPC template: " + template.id());
+            LOGGER.atSevere().log("Circular inheritance detected for NPC template: %s", template.id());
             return null;
         }
         visited.add(template.id());
@@ -114,7 +115,7 @@ public final class NPCStatTemplateRegistry {
         // Find parent
         NPCStatTemplate parent = unresolvedTemplates.get(template.parentId());
         if (parent == null) {
-            LOGGER.warning("NPC template '" + template.id() + "' references unknown parent: " + template.parentId());
+            LOGGER.atWarning().log("NPC template '%s' references unknown parent: %s", template.id(), template.parentId());
             // Return template without parent resolution
             return template;
         }

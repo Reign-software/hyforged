@@ -2,8 +2,11 @@ package reign.software.hyforged.hud;
 
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.player.hud.CustomUIHud;
+import com.hypixel.hytale.server.core.ui.Anchor;
+import com.hypixel.hytale.server.core.ui.Value;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import reign.software.hyforged.affix.service.AffixTooltipProvider;
 
 import javax.annotation.Nonnull;
 
@@ -190,6 +193,94 @@ public class HyforgedHud extends CustomUIHud {
         update(false, b);
     }
 
+    // ── Item Affix Display Section ─────────────────────────────────
+
+    /** Selector for the container that holds dynamically appended affix lines */
+    private static final String AFFIX_LINES_CONTAINER = "#AffixLinesContainer";
+
+    /**
+     * Update the item affix display section with the held item's affixes.
+     * <p>
+     * Clears the lines container and appends inline Labels for each section
+     * header and affix line. Only creates exactly as many elements as needed,
+     * driven entirely by the data-driven affix types and their tooltip content.
+     *
+     * @param itemName       Display name of the item
+     * @param tooltipContent The structured tooltip content from AffixTooltipProvider
+     */
+    /** Approximate heights for computing the tooltip box size dynamically */
+    private static final int ITEM_NAME_HEIGHT = 20;      // header label + pad
+    private static final int SEPARATOR_HEIGHT = 4;        // 1px line + spacing
+    private static final int SECTION_HEADER_HEIGHT = 18;  // section name row
+    private static final int AFFIX_LINE_HEIGHT = 16;      // single stat line
+    private static final int VERTICAL_PADDING = 12;       // top + bottom pad
+
+    public void updateItemAffixes(
+            @Nonnull String itemName,
+            @Nonnull AffixTooltipProvider.TooltipContent tooltipContent
+    ) {
+        UICommandBuilder b = new UICommandBuilder();
+        b.set("#AffixItemName.Text", itemName);
+
+        // Clear previous lines and rebuild from current affix data
+        b.clear(AFFIX_LINES_CONTAINER);
+
+        int totalLines = 0;
+        int totalHeaders = 0;
+
+        for (AffixTooltipProvider.TooltipSection section : tooltipContent.sections()) {
+            if (section.lines().isEmpty()) {
+                continue;
+            }
+
+            totalHeaders++;
+
+            // Section header — bold, section color
+            String headerUI = String.format(
+                "Label { Padding: (Top: 2); Text: \"%s\"; Style: (FontSize: 12, RenderBold: true, TextColor: %s); }",
+                escapeUI(section.sectionName()), section.hudColor()
+            );
+            b.appendInline(AFFIX_LINES_CONTAINER, headerUI);
+
+            // Content lines — each affix stat line
+            for (AffixTooltipProvider.TooltipLine line : section.lines()) {
+                String color = (line.color() != null && !line.color().isBlank())
+                        ? line.color()
+                        : section.hudColor();
+                String lineUI = String.format(
+                    "Label { Text: \"%s\"; Style: (FontSize: 11, TextColor: %s, Wrap: true); }",
+                    escapeUI(line.text()), color
+                );
+                b.appendInline(AFFIX_LINES_CONTAINER, lineUI);
+                totalLines++;
+            }
+        }
+
+        // Compute a tight height for the tooltip box so it only wraps the content
+        int height = VERTICAL_PADDING + ITEM_NAME_HEIGHT + SEPARATOR_HEIGHT
+                + (totalHeaders * SECTION_HEADER_HEIGHT)
+                + (totalLines * AFFIX_LINE_HEIGHT);
+        Anchor anchor = new Anchor();
+        anchor.setBottom(Value.of(224));
+        anchor.setLeft(Value.of(355));
+        anchor.setWidth(Value.of(280));
+        anchor.setHeight(Value.of(height));
+        b.setObject("#ItemAffixes.Anchor", anchor);
+        b.set("#ItemAffixes.Visible", true);
+
+        update(false, b);
+    }
+
+    /**
+     * Hide the item affix section entirely and clear dynamically appended lines.
+     */
+    public void hideItemAffixes() {
+        UICommandBuilder b = new UICommandBuilder();
+        b.set("#ItemAffixes.Visible", false);
+        b.clear(AFFIX_LINES_CONTAINER);
+        update(false, b);
+    }
+
     // ── Utilities ───────────────────────────────────────────────────
 
     private static float computeFillRatio(long current, long max) {
@@ -215,5 +306,14 @@ public class HyforgedHud extends CustomUIHud {
             return String.format("%.1fK", value / 1_000.0);
         }
         return String.format("%,d", value);
+    }
+
+    /**
+     * Escape a string for safe embedding inside an inline .ui {@code Text: "...";} attribute.
+     * Replaces backslashes and double-quotes so they don't break the markup parser.
+     */
+    @Nonnull
+    private static String escapeUI(@Nonnull String text) {
+        return text.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 }

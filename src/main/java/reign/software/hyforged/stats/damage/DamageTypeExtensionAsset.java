@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
  * This allows Hyforged to define additional data for damage types without modifying
  * Hytale's core DamageCause assets. The ID should match the Hytale DamageCause ID.
  * <p>
- * JSON Schema (place in Server/Hyforged/Damage/):
+ * JSON Schema (place in Server/Hyforged/Stats/Damage/):
  * <pre>
  * {
  *   "Id": "Fire",                                    // Must match DamageCause ID

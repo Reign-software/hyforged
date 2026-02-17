@@ -17,10 +17,11 @@ import reign.software.hyforged.quality.service.HyforgedQualityService;
 import reign.software.hyforged.quality.service.QualityContextBuilder;
 import reign.software.hyforged.quality.service.QualityRollerService;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
 import java.util.Random;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Debug command to roll quality on the held item.
@@ -29,7 +30,7 @@ import java.util.logging.Logger;
  */
 public class QualityRollCommand extends AbstractPlayerCommand {
 
-    private static final Logger LOGGER = Logger.getLogger(QualityRollCommand.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Could not find player component.");
     private static final Message MESSAGE_NO_ITEM = Message.raw("You must hold an item in your main hand.");
     private static final Message MESSAGE_NOT_ELIGIBLE = Message.raw("Item is not eligible for quality rolling.");
@@ -138,7 +139,7 @@ public class QualityRollCommand extends AbstractPlayerCommand {
         }
         context.sendMessage(Message.raw("" + originalQuality + " → " + rolledQuality));
 
-        LOGGER.log(Level.FINE, "Quality roll completed for item {0} (seed: {1})",
-                new Object[]{heldItem.getItemId(), seed});
+        LOGGER.at(Level.FINE).log("Quality roll completed for item %s (seed: %s)",
+                heldItem.getItemId(), seed);
     }
 }

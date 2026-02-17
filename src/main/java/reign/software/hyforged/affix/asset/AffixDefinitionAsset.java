@@ -20,7 +20,7 @@ import java.util.List;
  * JSON asset definition for affixes.
  * <p>
  * Affixes define stat modifiers that can be rolled on items.
- * Loaded from {@code Server/Hyforged/Affixes/<Type>/*.json}.
+ * Loaded from {@code Server/Hyforged/Affixes/Definitions/<Type>/*.json}.
  * <p>
  * Each tier contains its own Stats map with per-stat value ranges.
  * <p>

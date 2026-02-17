@@ -781,4 +781,4 @@ public void applyBerserkBuff(HyforgedStatComponent stats, long currentTick) {
 
 - [Stats System Architecture](../../.memory_bank/Features/hyforged-stats-system/) — Internal design docs
 - [Core Stats Source](../../src/main/java/reign/software/hyforged/stats/CoreStats.java) — Built-in stat constants
-- [Stat Definitions](../../src/main/resources/Server/Hyforged/Stats/) — JSON examples
+- [Stat Definitions](../../src/main/resources/Server/Hyforged/Stats/Definitions/) — JSON examples

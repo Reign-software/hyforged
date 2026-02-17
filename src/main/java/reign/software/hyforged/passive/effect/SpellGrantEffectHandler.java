@@ -8,7 +8,9 @@ import reign.software.hyforged.passive.model.PassiveNode;
 import reign.software.hyforged.passive.model.PassiveNodeEffect;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import java.util.logging.Level;
+
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Effect handler for spell-grant type passive node effects.
@@ -29,7 +31,7 @@ import java.util.logging.Logger;
  */
 public final class SpellGrantEffectHandler implements PassiveEffectHandler {
 
-    private static final Logger LOGGER = Logger.getLogger(SpellGrantEffectHandler.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /**
      * Effect type identifier.
@@ -53,18 +55,18 @@ public final class SpellGrantEffectHandler implements PassiveEffectHandler {
     public void apply(@Nonnull Ref<EntityStore> entityRef, @Nonnull PassiveNode node, @Nonnull PassiveNodeEffect effect) {
         PlayerSpellsComponent spellsComponent = entityRef.getStore().getComponent(entityRef, spellsComponentType);
         if (spellsComponent == null) {
-            LOGGER.warning("Entity has no PlayerSpellsComponent, cannot grant spell from node: " + node.id());
+            LOGGER.atWarning().log("Entity has no PlayerSpellsComponent, cannot grant spell from node: %s", node.id());
             return;
         }
 
         String spellId = effect.getString("SpellId");
         if (spellId == null) {
-            LOGGER.warning("spell-grant effect missing 'SpellId' field on node: " + node.id());
+            LOGGER.atWarning().log("spell-grant effect missing 'SpellId' field on node: %s", node.id());
             return;
         }
 
         spellsComponent.grantSpell(spellId, node.id());
-        LOGGER.fine(() -> "Granted spell: " + spellId + " from node " + node.id());
+        LOGGER.at(Level.FINE).log("Granted spell: %s from node %s", spellId, node.id());
     }
 
     @Override
@@ -80,7 +82,7 @@ public final class SpellGrantEffectHandler implements PassiveEffectHandler {
         }
 
         spellsComponent.revokeSpell(spellId, node.id());
-        LOGGER.fine(() -> "Revoked spell grant: " + spellId + " from node " + node.id());
+        LOGGER.at(Level.FINE).log("Revoked spell grant: %s from node %s", spellId, node.id());
     }
 
     @Override

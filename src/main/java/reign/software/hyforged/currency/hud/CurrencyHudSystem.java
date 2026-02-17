@@ -26,7 +26,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+
+import java.util.logging.Level;
 
 /**
  * Updates the currency section of the composite Hyforged HUD.
@@ -34,7 +36,7 @@ import java.util.logging.Logger;
  */
 public class CurrencyHudSystem extends DelayedEntitySystem<EntityStore> {
 
-    private static final Logger LOGGER = Logger.getLogger(CurrencyHudSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Update interval in seconds - currency doesn't change rapidly */
     private static final float UPDATE_INTERVAL_SEC = 0.5f;
@@ -178,7 +180,7 @@ public class CurrencyHudSystem extends DelayedEntitySystem<EntityStore> {
     public static void registerVaultAccess(@Nonnull UUID playerUuid, @Nonnull Ref<ChunkStore> vaultRef) {
         playerVaultRefs.computeIfAbsent(playerUuid, k -> ConcurrentHashMap.newKeySet())
                 .add(vaultRef);
-        LOGGER.fine(() -> "Registered vault access for player " + playerUuid);
+        LOGGER.at(Level.FINE).log("Registered vault access for player %s", playerUuid);
     }
 
     /**

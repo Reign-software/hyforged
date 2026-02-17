@@ -1,18 +1,19 @@
 package reign.software.hyforged.quality.service;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Metrics collection for quality rolling.
  */
 public final class QualityMetrics {
 
-    private static final Logger LOGGER = Logger.getLogger(QualityMetrics.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final QualityMetrics INSTANCE = new QualityMetrics();
 
     private final AtomicLong rollAttempts = new AtomicLong(0);
@@ -31,7 +32,7 @@ public final class QualityMetrics {
     public void recordRollAttempt(@Nonnull String sourceType) {
         rollAttempts.incrementAndGet();
         rollsBySourceType.computeIfAbsent(sourceType, key -> new AtomicLong(0)).incrementAndGet();
-        LOGGER.log(Level.FINEST, "Quality roll attempt recorded for source: {0}", sourceType);
+        LOGGER.at(Level.FINEST).log("Quality roll attempt recorded for source: %s", sourceType);
     }
 
     public void recordRollSuccess(@Nonnull String qualityId) {
@@ -66,6 +67,6 @@ public final class QualityMetrics {
         rollSuccesses.set(0);
         rollsByQuality.clear();
         rollsBySourceType.clear();
-        LOGGER.log(Level.FINE, "Quality metrics reset");
+        LOGGER.at(Level.FINE).log("Quality metrics reset");
     }
 }

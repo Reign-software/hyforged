@@ -12,7 +12,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+import java.util.logging.Level;
 
 /**
  * Central registry for stat and category definitions.
@@ -28,7 +29,7 @@ import java.util.logging.Logger;
  */
 public final class StatDefinitionRegistry {
     
-    private static final Logger LOGGER = Logger.getLogger(StatDefinitionRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static StatDefinitionRegistry instance;
     
     private final Map<String, StatDefinition> statsByFullId = new ConcurrentHashMap<>();
@@ -121,7 +122,7 @@ public final class StatDefinitionRegistry {
         // Check if any already-registered stats depend on this newly registered stat
         resolvePendingDependencies(stat.id(), index);
         
-        LOGGER.fine("Registered stat: " + fullId + " at index " + index);
+        LOGGER.at(Level.FINE).log("Registered stat: %s at index %s", fullId, index);
         return index;
     }
     
@@ -168,7 +169,7 @@ public final class StatDefinitionRegistry {
         }
         
         categoriesById.put(id, category);
-        LOGGER.fine("Registered category: " + id);
+        LOGGER.at(Level.FINE).log("Registered category: %s", id);
     }
     
     /**
@@ -181,8 +182,8 @@ public final class StatDefinitionRegistry {
         validateDependencies();
         buildEvaluationOrder();
         this.frozen = true;
-        LOGGER.info("StatDefinitionRegistry frozen with " + statsByIndex.size() + " stats, " + 
-                tagIndexToStatIndices.size() + " unique tags, and " + categoriesById.size() + " categories");
+        LOGGER.atInfo().log("StatDefinitionRegistry frozen with %s stats, %s unique tags, and %s categories",
+                statsByIndex.size(), tagIndexToStatIndices.size(), categoriesById.size());
     }
     
     /**
@@ -266,7 +267,7 @@ public final class StatDefinitionRegistry {
         }
         
         evaluationOrder = result;
-        LOGGER.fine("Built evaluation order for " + n + " stats");
+        LOGGER.at(Level.FINE).log("Built evaluation order for %s stats", n);
     }
     
     /**

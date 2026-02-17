@@ -173,7 +173,7 @@ public class HyforgedDamageReductionSystem extends DamageEventSystem {
     /**
      * Get the resistance value and caps for a damage type using the data-driven registry.
      * <p>
-     * The mapping is defined in Server/Hyforged/Damage/*.json files, where each
+     * The mapping is defined in Server/Hyforged/Stats/Damage/*.json files, where each
      * damage type extension specifies which resistance stat applies via
      * "HyforgedResistanceStat". The registry handles inheritance automatically.
      * <p>

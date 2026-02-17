@@ -25,12 +25,13 @@ import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.asset.ClassDefinition;
 import reign.software.hyforged.stats.asset.ClassDefinitionRegistry;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * ECS event system that processes XP awards from any source.
@@ -45,7 +46,7 @@ import java.util.logging.Logger;
  */
 public class XPAwardSystem extends EntityEventSystem<EntityStore, XPAwardEvent> {
     
-    private static final Logger LOGGER = Logger.getLogger(XPAwardSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     private final ComponentType<EntityStore, ProgressionComponent> progressionComponentType;
     private final ComponentType<EntityStore, UUIDComponent> uuidComponentType;
@@ -110,9 +111,9 @@ public class XPAwardSystem extends EntityEventSystem<EntityStore, XPAwardEvent> 
                 // Check for class level-up and emit event
                 checkClassLevelUp(progression, activeClassId, classData, oldClassLevel, entityRef);
                 
-                if (LOGGER.isLoggable(Level.FINE)) {
-                    LOGGER.fine(String.format("Awarded %d class XP to class '%s' for entity %s",
-                            classXpAmount, activeClassId, entityRef));
+                if (LOGGER.at(Level.FINE).isEnabled()) {
+                    LOGGER.at(Level.FINE).log("Awarded %d class XP to class '%s' for entity %s",
+                            classXpAmount, activeClassId, entityRef);
                 }
             }
         }
@@ -136,12 +137,12 @@ public class XPAwardSystem extends EntityEventSystem<EntityStore, XPAwardEvent> 
         
         // ========== AUDIT LOGGING ==========
         if (charXpAmount > 0 || (activeClassId != null && classXpAmount > 0)) {
-            LOGGER.info(String.format("XP Award: entity=%s, source=%s, charXP=%d, classXP=%d, class=%s",
+            LOGGER.atInfo().log("XP Award: entity=%s, source=%s, charXP=%d, classXP=%d, class=%s",
                     entityRef,
                     event.getSourceDescription(),
                     charXpAmount,
                     activeClassId != null ? classXpAmount : 0,
-                    activeClassId != null ? activeClassId : "none"));
+                    activeClassId != null ? activeClassId : "none");
         }
     }
 
@@ -249,8 +250,8 @@ public class XPAwardSystem extends EntityEventSystem<EntityStore, XPAwardEvent> 
         if (!levelsGained.isEmpty()) {
             int passivePoints = LevelUpProcessor.calculatePassivePointsForLevels(levelsGained);
             
-            LOGGER.info(String.format("Character level-up: %d -> %d, +%d passive points",
-                    oldLevel, newLevel, passivePoints));
+            LOGGER.atInfo().log("Character level-up: %d -> %d, +%d passive points",
+                    oldLevel, newLevel, passivePoints);
             
             // Emit level-up event
             CharacterLevelUpEvent event = new CharacterLevelUpEvent(
@@ -315,8 +316,8 @@ public class XPAwardSystem extends EntityEventSystem<EntityStore, XPAwardEvent> 
             // Calculate ability bonuses from ClassDefinition.levelRewards
             Map<String, Integer> abilityBonuses = calculateAbilityBonusesForLevels(classId, levelsGained);
             
-            LOGGER.info(String.format("Class level-up: %s %d -> %d, +%d class passive points, bonuses=%s",
-                    classId, oldLevel, newLevel, classPassivePoints, abilityBonuses));
+            LOGGER.atInfo().log("Class level-up: %s %d -> %d, +%d class passive points, bonuses=%s",
+                    classId, oldLevel, newLevel, classPassivePoints, abilityBonuses);
             
             // Emit level-up event
             ClassLevelUpEvent event = new ClassLevelUpEvent(

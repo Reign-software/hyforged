@@ -28,15 +28,15 @@ import reign.software.hyforged.stats.StatId;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Set;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Applies concentration loss when damage is taken below the threshold.
  */
 public class HyforgedConcentrationDisruptionSystem extends DamageEventSystem {
 
-    private static final Logger LOGGER = Logger.getLogger(HyforgedConcentrationDisruptionSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static final StatId LOSS_THRESHOLD_STAT = StatId.hyforged("concentration-loss-threshold-bps");
     private static final StatId LOSS_REDUCTION_STAT = StatId.hyforged("concentration-loss-reduction-bps");
@@ -144,10 +144,10 @@ public class HyforgedConcentrationDisruptionSystem extends DamageEventSystem {
         Ref<EntityStore> defenderRef = archetypeChunk.getReferenceTo(index);
         ConcentrationService.get().applyConcentrationLoss(defenderRef, effectiveLoss);
 
-        if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.fine(String.format(
-                    "Concentration disrupted: entity=%s damage=%.2f loss=%d threshold=%d",
-                    defenderRef, damage.getAmount(), effectiveLoss, thresholdBps));
+        if (LOGGER.at(Level.FINE).isEnabled()) {
+            LOGGER.at(Level.FINE).log(
+                    "Concentration disrupted: entity=%s damage=%s loss=%s threshold=%s",
+                    defenderRef, damage.getAmount(), effectiveLoss, thresholdBps);
         }
     }
 

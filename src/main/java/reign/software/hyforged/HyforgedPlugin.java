@@ -22,6 +22,7 @@ import reign.software.hyforged.affix.system.EffectAffixDamageTriggerSystem;
 import reign.software.hyforged.affix.system.EffectAffixIntervalSystem;
 import reign.software.hyforged.affix.system.EffectAffixOnKillSystem;
 import reign.software.hyforged.affix.system.EquipmentAffixListener;
+import reign.software.hyforged.affix.hud.ItemAffixHudSystem;
 import reign.software.hyforged.affix.system.LootAffixSystem;
 import reign.software.hyforged.affix.ui.CharacterStatsPage;
 import reign.software.hyforged.hud.HyforgedReticleUI;
@@ -259,12 +260,12 @@ public class HyforgedPlugin extends JavaPlugin {
     /**
      * Initialize stat and tag definitions from data-driven assets.
      * <p>
-     * Stats and tags are defined in JSON files in Server/Hyforged/Stats/ and Server/Hyforged/Tags/.
+     * Stats and tags are defined in JSON files in Server/Hyforged/Stats/Definitions/ and Server/Hyforged/Tags/.
      * This approach follows Hytale's data-driven pattern rather than hardcoding definitions in Java.
      */
     private void initializeStatDefinitions() {
         // Initialize asset loader for stat and tag definitions
-        // Assets are loaded from Server/Hyforged/Stats/ and Server/Hyforged/Tags/
+        // Assets are loaded from Server/Hyforged/Stats/Definitions/ and Server/Hyforged/Tags/
         // The StatAssetLoader handles registration with StatDefinitionRegistry
         StatAssetLoader.initialize(this);
         
@@ -560,6 +561,7 @@ public class HyforgedPlugin extends JavaPlugin {
                         CombatLogHudSystem.clearPlayerState(uuid);
                         CurrencyHudSystem.clearPlayerVaults(uuid);
                         ProgressionHudSystem.clearCache(uuid);
+                        ItemAffixHudSystem.clearCache(uuid);
                         reign.software.hyforged.options.HyforgedPlayerOptions.remove(uuid);
                     }
                 }
@@ -630,6 +632,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register ProgressionHudSystem (displays character level, class, XP bar)
         entityStoreRegistry.registerSystem(new ProgressionHudSystem());
         getLogger().at(Level.FINE).log("Registered ProgressionHudSystem");
+
+        // Register ItemAffixHudSystem (shows affix info for held item)
+        entityStoreRegistry.registerSystem(new ItemAffixHudSystem());
+        getLogger().at(Level.FINE).log("Registered ItemAffixHudSystem");
 
         // Register VaultBreakProtectionSystem (prevents non-owners from breaking vaults)
         entityStoreRegistry.registerSystem(new VaultBreakProtectionSystem());

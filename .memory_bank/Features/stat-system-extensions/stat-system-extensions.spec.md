@@ -210,7 +210,7 @@ public class HyforgedEffectService {
 - `reign.software.hyforged.stats` — StatDefinition, StackingEngine extensions
 - `reign.software.hyforged.stats.system` — New HyforgedEffectBridgeSystem
 - `reign.software.hyforged.stats.service` — New HyforgedEffectService
-- `src/main/resources/Server/Hyforged/Stats/` — Combat stat definitions with caps
+- `src/main/resources/Server/Hyforged/Stats/Definitions/` — Combat stat definitions with caps
 
 ## Required Codebase/Architecture Changes
 
@@ -225,7 +225,7 @@ public class HyforgedEffectService {
 - `HyforgedEffectBridgeSystem.java` — ECS system for effect → stat bridging
 - `EffectBridgeComponent.java` — Pure data component for tracking effect state
 - `HyforgedEffectService.java` — Utility for applying effects with duration scaling
-- `src/main/resources/Server/Hyforged/Stats/CombatCaps.json` — Combat stat cap definitions
+- `src/main/resources/Server/Hyforged/Stats/Definitions/CombatCaps.json` — Combat stat cap definitions
 
 ### New JSON Assets
 - Effect duration stat definition

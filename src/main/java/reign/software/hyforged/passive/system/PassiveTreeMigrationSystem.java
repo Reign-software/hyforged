@@ -16,7 +16,9 @@ import reign.software.hyforged.passive.migration.PassiveTreeMigrationService;
 import reign.software.hyforged.util.MessageColors;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import java.util.logging.Level;
+
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * System that runs passive tree migrations when a player connects.
@@ -27,7 +29,7 @@ import java.util.logging.Logger;
  */
 public class PassiveTreeMigrationSystem {
 
-    private static final Logger LOGGER = Logger.getLogger(PassiveTreeMigrationSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private EventRegistration<Void, PlayerConnectEvent> connectRegistration;
 
@@ -39,7 +41,7 @@ public class PassiveTreeMigrationSystem {
         connectRegistration = HytaleServer.get().getEventBus()
                 .register(PlayerConnectEvent.class, this::onPlayerConnect);
         
-        LOGGER.info("PassiveTreeMigrationSystem: Registered player connect event handler");
+        LOGGER.atInfo().log("PassiveTreeMigrationSystem: Registered player connect event handler");
     }
 
     /**
@@ -63,13 +65,13 @@ public class PassiveTreeMigrationSystem {
         // Get the passive tree component
         var componentType = HyforgedPlugin.getInstance().getPassiveTreeComponentType();
         if (componentType == null) {
-            LOGGER.fine("PassiveTreeMigrationSystem: Component type not available");
+            LOGGER.at(Level.FINE).log("PassiveTreeMigrationSystem: Component type not available");
             return;
         }
         
         PassiveTreeComponent passiveComponent = holder.getComponent(componentType);
         if (passiveComponent == null) {
-            LOGGER.fine(() -> "Player " + playerRef.getUsername() + " has no passive tree component");
+            LOGGER.at(Level.FINE).log("Player %s has no passive tree component", playerRef.getUsername());
             return;
         }
         
@@ -78,11 +80,11 @@ public class PassiveTreeMigrationSystem {
                 PassiveTreeMigrationService.get().checkAndMigrate(entityRef, passiveComponent);
         
         if (result.migrationsPerformed()) {
-            LOGGER.info(() -> String.format(
+            LOGGER.atInfo().log(
                     "PassiveTreeMigrationSystem: Migrated %d trees for player %s, refunded %d nodes",
                     result.treesMigrated().size(),
                     playerRef.getUsername(),
-                    result.totalNodesRefunded()));
+                    result.totalNodesRefunded());
             
             // Send migration messages to player
             for (Message message : result.messages()) {

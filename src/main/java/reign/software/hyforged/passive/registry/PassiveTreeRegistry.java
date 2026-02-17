@@ -8,7 +8,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
+import java.util.logging.Level;
+
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Central registry for passive tree definitions.
@@ -23,7 +25,7 @@ import java.util.logging.Logger;
  */
 public final class PassiveTreeRegistry {
 
-    private static final Logger LOGGER = Logger.getLogger(PassiveTreeRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static PassiveTreeRegistry instance;
 
     /** The general passive tree (only one allowed) */
@@ -94,7 +96,7 @@ public final class PassiveTreeRegistry {
                         "Existing: " + generalTree.getId() + ", New: " + treeId);
             }
             generalTree = tree;
-            LOGGER.info("Registered general passive tree: " + treeId);
+            LOGGER.atInfo().log("Registered general passive tree: %s", treeId);
         } else if (tree.isClassTree()) {
             String classId = tree.getClassId();
             if (classId == null || classId.isBlank()) {
@@ -104,7 +106,7 @@ public final class PassiveTreeRegistry {
                 throw new IllegalStateException("Class tree already registered for class: " + classId);
             }
             classTreesByClassId.put(classId, tree);
-            LOGGER.info("Registered class passive tree: " + treeId + " for class: " + classId);
+            LOGGER.atInfo().log("Registered class passive tree: %s for class: %s", treeId, classId);
         }
 
         // Index all nodes
@@ -113,9 +115,8 @@ public final class PassiveTreeRegistry {
             PassiveNode node = entry.getValue();
 
             if (nodeIndex.containsKey(nodeId)) {
-                LOGGER.warning("Duplicate node ID across trees: " + nodeId +
-                        " (existing: " + nodeIndex.get(nodeId).treeId() +
-                        ", new: " + treeId + ")");
+                LOGGER.atWarning().log("Duplicate node ID across trees: %s (existing: %s, new: %s)",
+                        nodeId, nodeIndex.get(nodeId).treeId(), treeId);
             } else {
                 nodeIndex.put(nodeId, new NodeReference(treeId, node));
             }
@@ -135,8 +136,8 @@ public final class PassiveTreeRegistry {
         }
 
         if (this.refundConfig != null) {
-            LOGGER.warning("Overwriting existing refund config: " + this.refundConfig.getId() +
-                    " with: " + config.getId());
+            LOGGER.atWarning().log("Overwriting existing refund config: %s with: %s",
+                    this.refundConfig.getId(), config.getId());
         }
 
         this.refundConfig = config;
@@ -151,8 +152,8 @@ public final class PassiveTreeRegistry {
         }
 
         frozen = true;
-        LOGGER.info("PassiveTreeRegistry frozen with " + treesById.size() + " trees, " +
-                nodeIndex.size() + " nodes");
+        LOGGER.atInfo().log("PassiveTreeRegistry frozen with %s trees, %s nodes",
+                treesById.size(), nodeIndex.size());
     }
 
     /**
@@ -367,7 +368,7 @@ public final class PassiveTreeRegistry {
         // Index the new node
         nodeIndex.put(node.id(), new NodeReference(treeId, node));
 
-        LOGGER.fine("Added node " + node.id() + " to tree " + treeId);
+        LOGGER.at(Level.FINE).log("Added node %s to tree %s", node.id(), treeId);
     }
 
     /**
@@ -403,7 +404,7 @@ public final class PassiveTreeRegistry {
 
         // Check if connection already exists
         if (existingTree.areAdjacent(fromNodeId, toNodeId)) {
-            LOGGER.fine("Connection already exists between " + fromNodeId + " and " + toNodeId);
+            LOGGER.at(Level.FINE).log("Connection already exists between %s and %s", fromNodeId, toNodeId);
             return;
         }
 
@@ -422,7 +423,7 @@ public final class PassiveTreeRegistry {
         // Replace in registry
         replaceTree(existingTree, newTree);
 
-        LOGGER.fine("Added connection from " + fromNodeId + " to " + toNodeId + " in tree " + treeId);
+        LOGGER.at(Level.FINE).log("Added connection from %s to %s in tree %s", fromNodeId, toNodeId, treeId);
     }
 
     /**

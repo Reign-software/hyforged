@@ -24,8 +24,8 @@ import reign.software.hyforged.stats.modifier.HyforgedModifier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * System that assigns monster levels based on distance from world spawn.
@@ -45,7 +45,7 @@ import java.util.logging.Logger;
  */
 public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
 
-    private static final Logger LOGGER = Logger.getLogger(HyforgedMonsterScalingSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Source ID for level-based stat modifiers */
     private static final String LEVEL_MODIFIER_SOURCE = "hyforged:monster_level";
@@ -118,7 +118,7 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
         MonsterScalingService scalingService = MonsterScalingService.get();
         int level = scalingService.calculateMonsterLevel(world, position);
 
-        LOGGER.log(Level.FINE, "Assigning level " + level + " to NPC '" + roleName + "' at (" + position.getX() + ", " + position.getY() + ", " + position.getZ() + ")");
+        LOGGER.at(Level.FINE).log("Assigning level %s to NPC '%s' at (%s, %s, %s)", level, roleName, position.getX(), position.getY(), position.getZ());
 
         // Add MonsterLevelComponent
         commandBuffer.putComponent(ref, levelComponentType, new MonsterLevelComponent(level));
@@ -163,7 +163,7 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
         List<ScaledStatEntry> scaledStats = scalingService.getScaledStats(roleName);
         
         if (scaledStats.isEmpty()) {
-            LOGGER.log(Level.FINE, "No scaled stats configured for NPC '" + roleName + "'");
+            LOGGER.at(Level.FINE).log("No scaled stats configured for NPC '%s'", roleName);
             return;
         }
 
@@ -176,7 +176,7 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
             int statIndex = registry.getIndex(statId);
             
             if (statIndex < 0) {
-                LOGGER.log(Level.WARNING, "Unknown stat '" + entry.getStatId() + "' in scaling config for NPC '" + roleName + "'");
+                LOGGER.atWarning().log("Unknown stat '%s' in scaling config for NPC '%s'", entry.getStatId(), roleName);
                 continue;
             }
 
@@ -206,7 +206,7 @@ public class HyforgedMonsterScalingSystem extends RefSystem<EntityStore> {
                 statComponent.upsertModifier(modifier);
             }
             
-            LOGGER.log(Level.FINER, "Applied " + entry.getModifierType() + " modifier to stat '" + entry.getStatId() + "': " + modifierValue + " (level " + level + ")");
+            LOGGER.at(Level.FINER).log("Applied %s modifier to stat '%s': %s (level %s)", entry.getModifierType(), entry.getStatId(), modifierValue, level);
         }
         // EntityStatMap auto-recomputes, no need to mark dirty
     }

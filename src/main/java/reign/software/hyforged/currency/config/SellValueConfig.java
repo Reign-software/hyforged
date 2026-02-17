@@ -1,7 +1,7 @@
 package reign.software.hyforged.currency.config;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Configuration for sell value calculation.
@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class SellValueConfig {
 
-    private static final Logger LOGGER = Logger.getLogger(SellValueConfig.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static SellValueConfig instance;
 
@@ -51,8 +51,7 @@ public class SellValueConfig {
         config.baseValue = asset.getBaseValue();
         config.minSellValue = asset.getMinSellValue();
 
-        LOGGER.info("Applied SellValueConfig: baseValue=" + config.baseValue + 
-                    ", minSellValue=" + config.minSellValue);
+        LOGGER.atInfo().log("Applied SellValueConfig: baseValue=%s, minSellValue=%s", config.baseValue, config.minSellValue);
     }
 
     public int getBaseValue() {

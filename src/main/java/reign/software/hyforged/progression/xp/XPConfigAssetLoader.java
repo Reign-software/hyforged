@@ -7,8 +7,10 @@ import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
 import com.hypixel.hytale.server.core.asset.HytaleAssetStore;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * Handles loading the XP configuration from JSON assets.
@@ -20,7 +22,7 @@ import java.util.logging.Logger;
  */
 public final class XPConfigAssetLoader {
 
-    private static final Logger LOGGER = Logger.getLogger(XPConfigAssetLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Path for XP config asset relative to asset root */
     public static final String XP_CONFIG_ASSET_PATH = "Hyforged/Progression/XPConfig";
@@ -42,11 +44,11 @@ public final class XPConfigAssetLoader {
      */
     public static void initialize(@Nonnull JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("XPConfigAssetLoader already initialized");
+            LOGGER.atWarning().log("XPConfigAssetLoader already initialized");
             return;
         }
 
-        LOGGER.info("Initializing XP config asset loading...");
+        LOGGER.atInfo().log("Initializing XP config asset loading...");
 
         // Register XP config asset store
         registerXPConfigAssetStore();
@@ -59,7 +61,7 @@ public final class XPConfigAssetLoader {
         );
 
         initialized = true;
-        LOGGER.info("XP config asset loading initialized");
+        LOGGER.atInfo().log("XP config asset loading initialized");
     }
 
     /**
@@ -82,7 +84,7 @@ public final class XPConfigAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered XPConfigAsset store at path: " + XP_CONFIG_ASSET_PATH);
+        LOGGER.at(Level.FINE).log("Registered XPConfigAsset store at path: %s", XP_CONFIG_ASSET_PATH);
     }
 
     /**
@@ -93,16 +95,16 @@ public final class XPConfigAssetLoader {
     private static void onXPConfigAssetsLoaded(
             LoadedAssetsEvent<String, XPConfigAsset, IndexedLookupTableAssetMap<String, XPConfigAsset>> event
     ) {
-        LOGGER.info("Loading XP configuration from assets...");
+        LOGGER.atInfo().log("Loading XP configuration from assets...");
 
         // Look for our config asset in loaded assets
         for (XPConfigAsset configAsset : event.getLoadedAssets().values()) {
-            LOGGER.info("Found XP configuration asset, applying...");
+            LOGGER.atInfo().log("Found XP configuration asset, applying...");
             XPConfig.get().applyFromAsset(configAsset);
-            LOGGER.info("XP configuration loaded successfully");
+            LOGGER.atInfo().log("XP configuration loaded successfully");
             return;
         }
         
-        LOGGER.warning("XPConfig.json not found, using default values");
+        LOGGER.atWarning().log("XPConfig.json not found, using default values");
     }
 }

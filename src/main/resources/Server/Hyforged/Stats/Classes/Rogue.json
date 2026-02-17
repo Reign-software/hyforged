@@ -1,0 +1,18 @@
+{
+    "DisplayName": "Rogue",
+    "Description": "A nimble and stealthy combatant who excels with daggers.",
+    "Strength": 2,
+    "Dexterity": 5,
+    "Intelligence": 1,
+    "Constitution": 2,
+    "Wisdom": 1,
+    "Spirit": 1,
+    "Luck": 4,
+    "WeaponTagFamilies": ["Family=Dagger"],
+    "LevelRewards": [
+        { "Level": 5, "Dexterity": 1 },
+        { "Level": 10, "Dexterity": 1, "Luck": 1 },
+        { "Level": 15, "Dexterity": 2 },
+        { "Level": 20, "Dexterity": 2, "Luck": 2 }
+    ]
+}

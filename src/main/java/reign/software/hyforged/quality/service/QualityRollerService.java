@@ -15,6 +15,8 @@ import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -26,14 +28,13 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Service for rolling item quality based on context and configured weights.
  */
 public final class QualityRollerService {
 
-    private static final Logger LOGGER = Logger.getLogger(QualityRollerService.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static final QualityModifierConfig FALLBACK_MODIFIERS = new QualityModifierConfig(
             "fallback",
@@ -78,18 +79,13 @@ public final class QualityRollerService {
         Objects.requireNonNull(context, "context cannot be null");
         Objects.requireNonNull(random, "random cannot be null");
 
-        if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.log(
-                Level.FINE,
-                "Rolling quality for item {0} (sourceType={1}, sourceLevel={2}, npcQuality={3})",
-                new Object[]{
-                    context.itemId(),
-                    normalizeSourceType(context.sourceType()),
-                    context.sourceLevel(),
-                    context.npcQuality()
-                }
-            );
-        }
+        LOGGER.at(Level.FINE).log(
+            "Rolling quality for item %s (sourceType=%s, sourceLevel=%s, npcQuality=%s)",
+            context.itemId(),
+            normalizeSourceType(context.sourceType()),
+            context.sourceLevel(),
+            context.npcQuality()
+        );
 
         QualityEligibilityRule rule = eligibilityRegistry.resolve(context);
         if (rule == null) {
@@ -98,7 +94,7 @@ public final class QualityRollerService {
 
         QualityWeightProfile profile = weightRegistry.get(rule.weightProfileId());
         if (profile == null) {
-            LOGGER.log(Level.FINE, "Missing quality weight profile: {0}", rule.weightProfileId());
+            LOGGER.at(Level.FINE).log("Missing quality weight profile: %s", rule.weightProfileId());
             return null;
         }
 
@@ -107,16 +103,12 @@ public final class QualityRollerService {
             return null;
         }
 
-        if (LOGGER.isLoggable(Level.FINER)) {
-            LOGGER.log(Level.FINER, "Base quality weights for profile {0}: {1}", new Object[]{profile.id(), weights});
-        }
+        LOGGER.at(Level.FINER).log("Base quality weights for profile %s: %s", profile.id(), weights);
 
         QualityModifierConfig modifiers = resolveModifiers(rule);
         applyModifiers(weights, modifiers, context);
 
-        if (LOGGER.isLoggable(Level.FINER)) {
-            LOGGER.log(Level.FINER, "Quality weights after modifiers: {0}", weights);
-        }
+        LOGGER.at(Level.FINER).log("Quality weights after modifiers: %s", weights);
 
         QualityMetrics.get().recordRollAttempt(normalizeSourceType(context.sourceType()));
 
@@ -124,9 +116,7 @@ public final class QualityRollerService {
         String rolled = table.roll(random);
         if (rolled != null) {
             QualityMetrics.get().recordRollSuccess(rolled);
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.log(Level.FINE, "Rolled quality {0} for item {1}", new Object[]{rolled, context.itemId()});
-            }
+            LOGGER.at(Level.FINE).log("Rolled quality %s for item %s", rolled, context.itemId());
         }
         return rolled;
     }
@@ -214,13 +204,10 @@ public final class QualityRollerService {
             return;
         }
 
-        if (LOGGER.isLoggable(Level.FINER)) {
-            LOGGER.log(
-                    Level.FINER,
-                    "Applying level scaling (level={0}, curve={1}, multiplier={2})",
-                    new Object[]{level, config.curveId(), curveMultiplier}
-            );
-        }
+        LOGGER.at(Level.FINER).log(
+                "Applying level scaling (level=%s, curve=%s, multiplier=%s)",
+                level, config.curveId(), curveMultiplier
+        );
 
         for (Map.Entry<String, Double> entry : config.qualityBonusPerLevel().entrySet()) {
             String quality = entry.getKey();
@@ -238,9 +225,7 @@ public final class QualityRollerService {
             }
             int current = weights.getOrDefault(quality, 0);
             weights.put(quality, Math.max(0, current + bonus));
-            if (LOGGER.isLoggable(Level.FINEST)) {
-                LOGGER.log(Level.FINEST, "Level scaling bonus applied: {0} +{1}", new Object[]{quality, bonus});
-            }
+                LOGGER.at(Level.FINEST).log("Level scaling bonus applied: %s +%s", quality, bonus);
         }
     }
 
@@ -298,15 +283,11 @@ public final class QualityRollerService {
                 int current = weights.getOrDefault(quality, 0);
                 weights.put(quality, current + share);
                 remainingBonus -= share;
-                if (LOGGER.isLoggable(Level.FINEST)) {
-                    LOGGER.log(Level.FINEST, "Item rarity bonus applied: {0} +{1}", new Object[]{quality, share});
-                }
+                    LOGGER.at(Level.FINEST).log("Item rarity bonus applied: %s +%s", quality, share);
             }
         }
 
-        if (LOGGER.isLoggable(Level.FINER)) {
-            LOGGER.log(Level.FINER, "Applied item rarity bonus total={0} (statId={1})", new Object[]{resolvedBonus, config.statId()});
-        }
+        LOGGER.at(Level.FINER).log("Applied item rarity bonus total=%s (statId=%s)", resolvedBonus, config.statId());
     }
 
     private void applyNpcQualityBonus(
@@ -329,9 +310,7 @@ public final class QualityRollerService {
             return;
         }
 
-        if (LOGGER.isLoggable(Level.FINER)) {
-            LOGGER.log(Level.FINER, "Applying NPC quality bonus for tier {0}", npcQuality);
-        }
+        LOGGER.at(Level.FINER).log("Applying NPC quality bonus for tier %s", npcQuality);
 
         for (Map.Entry<String, Integer> entry : config.bonusPerTier().entrySet()) {
             String quality = entry.getKey();
@@ -348,9 +327,7 @@ public final class QualityRollerService {
             }
             int current = weights.getOrDefault(quality, 0);
             weights.put(quality, Math.max(0, current + bonus));
-            if (LOGGER.isLoggable(Level.FINEST)) {
-                LOGGER.log(Level.FINEST, "NPC quality bonus applied: {0} +{1}", new Object[]{quality, bonus});
-            }
+                LOGGER.at(Level.FINEST).log("NPC quality bonus applied: %s +%s", quality, bonus);
         }
     }
 
@@ -386,7 +363,7 @@ public final class QualityRollerService {
         int index = ResponseCurve.getAssetMap().getIndex(curveId);
         ResponseCurve curve = ResponseCurve.getAssetMap().getAsset(index);
         if (curve == null) {
-            LOGGER.log(Level.FINE, "Missing response curve for quality scaling: {0}", curveId);
+            LOGGER.at(Level.FINE).log("Missing response curve for quality scaling: %s", curveId);
             return 1.0;
         }
 
@@ -395,7 +372,7 @@ public final class QualityRollerService {
         try {
             value = curve.computeY(normalized);
         } catch (Exception e) {
-            LOGGER.log(Level.FINE, "Failed to compute response curve for quality scaling", e);
+            LOGGER.at(Level.FINE).withCause(e).log("Failed to compute response curve for quality scaling");
             return 1.0;
         }
 

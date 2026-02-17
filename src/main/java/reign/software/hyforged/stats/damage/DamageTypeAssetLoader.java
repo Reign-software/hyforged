@@ -7,8 +7,8 @@ import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
 import com.hypixel.hytale.server.core.asset.HytaleAssetStore;
 
 import javax.annotation.Nonnull;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Handles loading damage type extension assets from JSON.
@@ -16,15 +16,15 @@ import java.util.logging.Logger;
  * This class registers an asset store for {@link DamageTypeExtensionAsset}
  * and loads them into the {@link DamageTypeExtensionRegistry} on asset load events.
  * <p>
- * Extensions are loaded from Server/Hyforged/Damage/ and provide Hyforged-specific
+ * Extensions are loaded from Server/Hyforged/Stats/Damage/ and provide Hyforged-specific
  * data for Hytale's DamageCause assets (resistance stats, penetration stats).
  */
 public final class DamageTypeAssetLoader {
 
-    private static final Logger LOGGER = Logger.getLogger(DamageTypeAssetLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Path for damage type extension assets relative to asset root */
-    public static final String DAMAGE_TYPE_ASSET_PATH = "Hyforged/Damage";
+    public static final String DAMAGE_TYPE_ASSET_PATH = "Hyforged/Stats/Damage";
 
     private static boolean initialized = false;
 
@@ -38,11 +38,11 @@ public final class DamageTypeAssetLoader {
      */
     public static void initialize(@Nonnull com.hypixel.hytale.server.core.plugin.JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("DamageTypeAssetLoader already initialized");
+            LOGGER.atWarning().log("DamageTypeAssetLoader already initialized");
             return;
         }
 
-        LOGGER.info("Initializing Hyforged damage type extension loading...");
+        LOGGER.atInfo().log("Initializing Hyforged damage type extension loading...");
 
         // Register damage type extension asset store
         registerDamageTypeAssetStore();
@@ -55,7 +55,7 @@ public final class DamageTypeAssetLoader {
         );
 
         initialized = true;
-        LOGGER.info("Hyforged damage type extension loading initialized");
+        LOGGER.atInfo().log("Hyforged damage type extension loading initialized");
     }
 
     /**
@@ -78,7 +78,7 @@ public final class DamageTypeAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered DamageTypeExtensionAsset store at path: " + DAMAGE_TYPE_ASSET_PATH);
+        LOGGER.at(Level.FINE).log("Registered DamageTypeExtensionAsset store at path: %s", DAMAGE_TYPE_ASSET_PATH);
     }
 
     /**
@@ -87,7 +87,7 @@ public final class DamageTypeAssetLoader {
     private static void onDamageTypeAssetsLoaded(
             LoadedAssetsEvent<String, DamageTypeExtensionAsset, IndexedLookupTableAssetMap<String, DamageTypeExtensionAsset>> event
     ) {
-        LOGGER.info("Loading damage type extensions from assets...");
+        LOGGER.atInfo().log("Loading damage type extensions from assets...");
 
         DamageTypeExtensionRegistry registry = DamageTypeExtensionRegistry.get();
         
@@ -104,16 +104,15 @@ public final class DamageTypeAssetLoader {
                 DamageTypeExtension extension = DamageTypeExtension.fromAsset(asset);
                 registry.register(id, extension);
                 loaded++;
-                LOGGER.fine("Loaded damage type extension: " + id + 
-                           " -> resistance: " + asset.getResistanceStat() +
-                           ", penetration: " + asset.getPenetrationStat());
+                LOGGER.at(Level.FINE).log("Loaded damage type extension: %s -> resistance: %s, penetration: %s",
+                           id, asset.getResistanceStat(), asset.getPenetrationStat());
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to load damage type extension: " + id, e);
+                LOGGER.atWarning().withCause(e).log("Failed to load damage type extension: %s", id);
                 skipped++;
             }
         }
 
-        LOGGER.info("Loaded " + loaded + " damage type extensions from assets (" + skipped + " skipped)");
+        LOGGER.atInfo().log("Loaded %s damage type extensions from assets (%s skipped)", loaded, skipped);
     }
 
     /**

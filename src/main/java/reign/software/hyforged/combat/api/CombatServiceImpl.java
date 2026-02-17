@@ -30,8 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Implementation of the {@link CombatService} API.
@@ -41,7 +40,7 @@ import java.util.logging.Logger;
  */
 public final class CombatServiceImpl implements CombatService {
 
-    private static final Logger LOGGER = Logger.getLogger(CombatServiceImpl.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     private static final CombatServiceImpl INSTANCE = new CombatServiceImpl();
 
@@ -140,7 +139,7 @@ public final class CombatServiceImpl implements CombatService {
         for (DamageSpec.DamageEntry entry : spec.getDamageEntries()) {
             DamageCause cause = getDamageCause(entry.damageCauseId());
             if (cause == null) {
-                LOGGER.warning("Unknown damage cause: " + entry.damageCauseId());
+                LOGGER.atWarning().log("Unknown damage cause: %s", entry.damageCauseId());
                 continue;
             }
 
@@ -582,7 +581,7 @@ public final class CombatServiceImpl implements CombatService {
     private int getStatIndex(@Nonnull StatDefinitionRegistry registry, @Nonnull String statId) {
         int index = registry.getIndex(statId);
         if (index < 0) {
-            LOGGER.log(Level.WARNING, "Combat stat not found: " + statId);
+            LOGGER.atWarning().log("Combat stat not found: %s", statId);
         }
         return index;
     }

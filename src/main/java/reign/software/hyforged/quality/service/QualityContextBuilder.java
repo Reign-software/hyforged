@@ -12,18 +12,19 @@ import reign.software.hyforged.quality.component.HyforgedNPCQualityComponent;
 import reign.software.hyforged.quality.model.QualityRollContext;
 import reign.software.hyforged.stats.bridge.ProgressionStatBridge;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Builds QualityRollContext from item and entity references.
  */
 public final class QualityContextBuilder {
 
-    private static final Logger LOGGER = Logger.getLogger(QualityContextBuilder.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private QualityContextBuilder() {}
 
@@ -51,7 +52,7 @@ public final class QualityContextBuilder {
 
         Item item = itemStack.getItem();
         if (item == null || item == Item.UNKNOWN) {
-            LOGGER.log(Level.FINE, "Unknown item type for quality context: {0}", itemId);
+            LOGGER.at(Level.FINE).log("Unknown item type for quality context: %s", itemId);
             return null;
         }
 

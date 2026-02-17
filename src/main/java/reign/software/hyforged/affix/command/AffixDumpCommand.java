@@ -17,7 +17,7 @@ import reign.software.hyforged.affix.model.RolledAffix;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Debug command to dump all affixes on a player's equipped items.
@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  */
 public class AffixDumpCommand extends AbstractPlayerCommand {
     
-    private static final Logger LOGGER = Logger.getLogger(AffixDumpCommand.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Could not find player component.");
     private static final Message MESSAGE_NO_AFFIXES = Message.raw("No affixes found on equipped items.");
     
@@ -95,7 +95,7 @@ public class AffixDumpCommand extends AbstractPlayerCommand {
             context.sendMessage(MESSAGE_NO_AFFIXES);
         }
         
-        LOGGER.log(Level.FINE, "Affix dump completed for player");
+        LOGGER.at(Level.FINE).log("Affix dump completed for player");
     }
     
     /**

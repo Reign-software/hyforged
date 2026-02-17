@@ -6,7 +6,7 @@ import java.util.Objects;
 /**
  * Definition of a category that groups related stats for UI organization.
  * <p>
- * Categories are data-driven and loaded from JSON assets in Server/Hyforged/Categories/.
+ * Categories are data-driven and loaded from JSON assets in Server/Hyforged/Stats/Categories/.
  * This follows the same pattern as tags, allowing mods to define custom categories.
  * <p>
  * This is pure immutable data - no behavior, following ECS principles.

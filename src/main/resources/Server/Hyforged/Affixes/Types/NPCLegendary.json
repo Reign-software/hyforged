@@ -2,5 +2,7 @@
   "Id": "npc_legendary",
   "DisplayNamePosition": "before",
   "DisplayFormat": "{name}",
-  "Stackable": false
+  "Stackable": false,
+  "HudSectionName": "Legendary Properties",
+  "HudColor": "#FF8C00"
 }

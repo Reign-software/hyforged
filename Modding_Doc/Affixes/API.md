@@ -189,7 +189,9 @@ AffixType enchantType = new AffixType(
     "enchant",                                  // Type ID
     AffixType.DisplayNamePosition.NONE,         // Use NONE (PoE-style tooltip display)
     "[T{tier}] {name}",                         // Tooltip format (optional)
-    false                                        // Not stackable (one per item)
+    false,                                       // Not stackable (one per item)
+    "enchant",                                   // HUD section name
+    "#bca57a"                                    // HUD color
 );
 
 service.registerType(enchantType);
@@ -311,7 +313,7 @@ HytaleServer.getEventBus().subscribe(AffixModifiersAppliedEvent.class, event -> 
 
 Affixes can be defined in JSON files under `Server/Hyforged/`:
 
-### Affix Definition (`Server/Hyforged/Affixes/Prefix/Sturdy.json`)
+### Affix Definition (`Server/Hyforged/Affixes/Definitions/Prefix/Sturdy.json`)
 
 ```json
 {
@@ -340,7 +342,7 @@ Affixes can be defined in JSON files under `Server/Hyforged/`:
 }
 ```
 
-### Multi-Stat Affix (`Server/Hyforged/Affixes/Suffix/OfTheTitan.json`)
+### Multi-Stat Affix (`Server/Hyforged/Affixes/Definitions/Suffix/OfTheTitan.json`)
 
 ```json
 {
@@ -362,7 +364,7 @@ Affixes can be defined in JSON files under `Server/Hyforged/`:
 }
 ```
 
-### Affix Type (`Server/Hyforged/AffixTypes/Prefix.json`)
+### Affix Type (`Server/Hyforged/Affixes/Types/Prefix.json`)
 
 ```json
 {
@@ -377,7 +379,7 @@ Affixes can be defined in JSON files under `Server/Hyforged/`:
 > categorize affixes for tooltip sectioning (regular vs forged). Use `"none"` for 
 > all new types. Affixes are displayed in PoE-style in the tooltip, not in item names.
 
-### Quality Rules (`Server/Hyforged/QualityAffixRules/Rare.json`)
+### Quality Rules (`Server/Hyforged/Quality/AffixRules/Rare.json`)
 
 ```json
 {
@@ -390,7 +392,7 @@ Affixes can be defined in JSON files under `Server/Hyforged/`:
 }
 ```
 
-### Affix Pool (`Server/Hyforged/AffixPools/Armor.json`)
+### Affix Pool (`Server/Hyforged/Affixes/Pools/Armor.json`)
 
 ```json
 {

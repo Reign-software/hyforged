@@ -2,5 +2,7 @@
   "Id": "npc_rare",
   "DisplayNamePosition": "before",
   "DisplayFormat": "{name}",
-  "Stackable": true
+  "Stackable": true,
+  "HudSectionName": "Rare Properties",
+  "HudColor": "#FFD700"
 }

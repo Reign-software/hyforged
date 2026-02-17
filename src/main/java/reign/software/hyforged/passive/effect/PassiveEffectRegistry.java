@@ -4,7 +4,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
+
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Registry for passive effect handlers.
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
  */
 public final class PassiveEffectRegistry {
     
-    private static final Logger LOGGER = Logger.getLogger(PassiveEffectRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     private static PassiveEffectRegistry instance;
     
@@ -53,7 +54,7 @@ public final class PassiveEffectRegistry {
             throw new IllegalStateException("Handler already registered for effect type: " + effectType);
         }
         handlers.put(effectType, handler);
-        LOGGER.info("Registered passive effect handler for type: " + effectType);
+        LOGGER.atInfo().log("Registered passive effect handler for type: %s", effectType);
     }
     
     /**
@@ -64,7 +65,7 @@ public final class PassiveEffectRegistry {
      */
     public void registerOrReplace(@Nonnull String effectType, @Nonnull PassiveEffectHandler handler) {
         handlers.put(effectType, handler);
-        LOGGER.info("Registered passive effect handler for type: " + effectType);
+        LOGGER.atInfo().log("Registered passive effect handler for type: %s", effectType);
     }
     
     /**

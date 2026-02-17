@@ -13,8 +13,8 @@ import reign.software.hyforged.stats.StatDefinitionRegistry;
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Handles loading stat and category definitions from JSON assets.
@@ -33,13 +33,13 @@ import java.util.logging.Logger;
  */
 public final class StatAssetLoader {
 
-    private static final Logger LOGGER = Logger.getLogger(StatAssetLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Path for stat definition assets relative to asset root */
-    public static final String STAT_ASSET_PATH = "Hyforged/Stats";
+    public static final String STAT_ASSET_PATH = "Hyforged/Stats/Definitions";
 
     /** Path for category definition assets relative to asset root */
-    public static final String CATEGORY_ASSET_PATH = "Hyforged/Categories";
+    public static final String CATEGORY_ASSET_PATH = "Hyforged/Stats/Categories";
 
     private static boolean initialized = false;
 
@@ -53,11 +53,11 @@ public final class StatAssetLoader {
      */
     public static void initialize(@Nonnull com.hypixel.hytale.server.core.plugin.JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("StatAssetLoader already initialized");
+            LOGGER.atWarning().log("StatAssetLoader already initialized");
             return;
         }
 
-        LOGGER.info("Initializing Hyforged stat asset loading...");
+        LOGGER.atInfo().log("Initializing Hyforged stat asset loading...");
 
         // Register category definition asset store (must load first)
         registerCategoryAssetStore();
@@ -88,7 +88,7 @@ public final class StatAssetLoader {
         );
 
         initialized = true;
-        LOGGER.info("Hyforged stat asset loading initialized");
+        LOGGER.atInfo().log("Hyforged stat asset loading initialized");
     }
 
     /**
@@ -111,7 +111,7 @@ public final class StatAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered CategoryDefinitionAsset store at path: " + CATEGORY_ASSET_PATH);
+        LOGGER.at(Level.FINE).log("Registered CategoryDefinitionAsset store at path: %s", CATEGORY_ASSET_PATH);
     }
 
     /**
@@ -134,7 +134,7 @@ public final class StatAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered StatDefinitionAsset store at path: " + STAT_ASSET_PATH);
+        LOGGER.at(Level.FINE).log("Registered StatDefinitionAsset store at path: %s", STAT_ASSET_PATH);
     }
 
     /**
@@ -143,7 +143,7 @@ public final class StatAssetLoader {
     private static void onCategoryAssetsLoaded(
             LoadedAssetsEvent<String, CategoryDefinitionAsset, IndexedLookupTableAssetMap<String, CategoryDefinitionAsset>> event
     ) {
-        LOGGER.info("Loading category definitions from assets...");
+        LOGGER.atInfo().log("Loading category definitions from assets...");
 
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         Map<String, String> conflicts = new HashMap<>();
@@ -164,19 +164,19 @@ public final class StatAssetLoader {
                 CategoryDefinition categoryDef = asset.toCategoryDefinition();
                 registry.registerCategory(categoryDef);
                 loaded++;
-                LOGGER.fine("Loaded category definition: " + id);
+                LOGGER.at(Level.FINE).log("Loaded category definition: %s", id);
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to load category definition: " + id, e);
+                LOGGER.atWarning().withCause(e).log("Failed to load category definition: %s", id);
                 skipped++;
             }
         }
 
         // Log conflicts as errors (per Phase 9 requirement)
         for (Map.Entry<String, String> entry : conflicts.entrySet()) {
-            LOGGER.severe("Category definition conflict: " + entry.getKey() + " - " + entry.getValue());
+            LOGGER.atSevere().log("Category definition conflict: %s - %s", entry.getKey(), entry.getValue());
         }
 
-        LOGGER.info("Loaded " + loaded + " category definitions from assets (" + skipped + " skipped)");
+        LOGGER.atInfo().log("Loaded %s category definitions from assets (%s skipped)", loaded, skipped);
     }
 
     /**
@@ -185,7 +185,7 @@ public final class StatAssetLoader {
     private static void onStatAssetsLoaded(
             LoadedAssetsEvent<String, StatDefinitionAsset, IndexedLookupTableAssetMap<String, StatDefinitionAsset>> event
     ) {
-        LOGGER.info("Loading stat definitions from assets...");
+        LOGGER.atInfo().log("Loading stat definitions from assets...");
 
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
         Map<String, String> conflicts = new HashMap<>();
@@ -206,19 +206,19 @@ public final class StatAssetLoader {
                 StatDefinition statDef = asset.toStatDefinition();
                 registry.registerStat(statDef);
                 loaded++;
-                LOGGER.fine("Loaded stat definition: " + id);
+                LOGGER.at(Level.FINE).log("Loaded stat definition: %s", id);
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to load stat definition: " + id, e);
+                LOGGER.atWarning().withCause(e).log("Failed to load stat definition: %s", id);
                 skipped++;
             }
         }
 
         // Log conflicts as errors (per Phase 9 requirement)
         for (Map.Entry<String, String> entry : conflicts.entrySet()) {
-            LOGGER.severe("Stat definition conflict: " + entry.getKey() + " - " + entry.getValue());
+            LOGGER.atSevere().log("Stat definition conflict: %s - %s", entry.getKey(), entry.getValue());
         }
 
-        LOGGER.info("Loaded " + loaded + " stat definitions from assets (" + skipped + " skipped)");
+        LOGGER.atInfo().log("Loaded %s stat definitions from assets (%s skipped)", loaded, skipped);
         
         // Validate scaling rules now that all stats are loaded
         validateScalingRules(registry);
@@ -237,14 +237,14 @@ public final class StatAssetLoader {
             for (var rule : stat.scaling()) {
                 String sourceId = rule.source().toString();
                 if (!registry.hasStat(sourceId)) {
-                    LOGGER.warning("Stat '" + stat.id() + "' has scaling rule referencing missing stat: " + sourceId);
+                    LOGGER.atWarning().log("Stat '%s' has scaling rule referencing missing stat: %s", stat.id(), sourceId);
                     missingRefs++;
                 }
             }
         }
         
         if (missingRefs > 0) {
-            LOGGER.warning("Found " + missingRefs + " scaling rules with missing source stats");
+            LOGGER.atWarning().log("Found %s scaling rules with missing source stats", missingRefs);
         }
     }
 

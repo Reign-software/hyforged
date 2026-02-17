@@ -2,7 +2,7 @@ package reign.software.hyforged.currency.config;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Configuration for vault upgrade tiers.
@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  */
 public class VaultUpgradesConfig {
 
-    private static final Logger LOGGER = Logger.getLogger(VaultUpgradesConfig.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static VaultUpgradesConfig instance;
 
@@ -42,7 +42,7 @@ public class VaultUpgradesConfig {
         VaultUpgradesConfig config = get();
         config.asset = asset;
 
-        LOGGER.info("Applied VaultUpgradesConfig: " + asset.getMaxTier() + " tiers loaded");
+        LOGGER.atInfo().log("Applied VaultUpgradesConfig: %s tiers loaded", asset.getMaxTier());
     }
 
     /**

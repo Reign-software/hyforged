@@ -25,7 +25,7 @@ import java.util.Set;
  * JSON asset definition for affix pools.
  * <p>
  * Affix pools define which affixes can appear on which item types.
- * Loaded from {@code Server/Hyforged/AffixPools/*.json}.
+ * Loaded from {@code Server/Hyforged/Affixes/Pools/*.json}.
  * <p>
  * JSON Schema:
  * <pre>

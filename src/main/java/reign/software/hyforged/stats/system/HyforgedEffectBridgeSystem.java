@@ -39,8 +39,8 @@ import reign.software.hyforged.stats.modifier.HyforgedModifier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Set;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * ECS System for bridging Hytale EntityEffect stat modifiers into Hyforged stats.
@@ -66,7 +66,7 @@ import java.util.logging.Logger;
  */
 public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore> {
 
-    private static final Logger LOGGER = Logger.getLogger(HyforgedEffectBridgeSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /**
      * Source ID prefix for effect-based modifiers.
@@ -379,7 +379,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
         EntityEffect effect = getEntityEffect(effectIndex);
         if (effect == null) {
             // Effect asset not found, cannot determine which stats to clean up
-            LOGGER.warning("Cannot remove modifiers for unknown effect index: " + effectIndex);
+            LOGGER.atWarning().log("Cannot remove modifiers for unknown effect index: %s", effectIndex);
             statComponent.markAllDirty();
             return;
         }
@@ -391,9 +391,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
 
         if (removed) {
             statComponent.markAllDirty();
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.fine("Removed modifiers from effect: " + effect.getId());
-            }
+            LOGGER.at(Level.FINE).log("Removed modifiers from effect: %s", effect.getId());
         }
     }
 
@@ -430,9 +428,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
 
             applied |= putModifier(entityStatMap, statComponent, hyforgedStatIndex, modifierKey, modifier);
 
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.fine("Applied effect modifier: " + modifierKey + " -> " + statId.fullId() + " = " + value);
-            }
+            LOGGER.at(Level.FINE).log("Applied effect modifier: %s -> %s = %s", modifierKey, statId.fullId(), value);
         }
 
         return applied;
@@ -481,9 +477,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
                 String modifierKey = buildStaticModifierKey(effect.getId(), hyforgedStatIndex, staticModifier);
                 applied |= putModifier(entityStatMap, statComponent, hyforgedStatIndex, modifierKey, modifier);
 
-                if (LOGGER.isLoggable(Level.FINE)) {
-                    LOGGER.fine("Applied static effect modifier: " + modifierKey + " -> " + statId.fullId());
-                }
+                LOGGER.at(Level.FINE).log("Applied static effect modifier: %s -> %s", modifierKey, statId.fullId());
             }
         }
 
@@ -519,9 +513,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
             String modifierKey = buildEntityModifierKey(effect.getId(), hyforgedStatIndex);
             if (removeModifier(entityStatMap, statComponent, hyforgedStatIndex, modifierKey, effect.getId())) {
                 removed = true;
-                if (LOGGER.isLoggable(Level.FINE)) {
-                    LOGGER.fine("Removed effect modifier: " + modifierKey);
-                }
+                LOGGER.at(Level.FINE).log("Removed effect modifier: %s", modifierKey);
             }
         }
 
@@ -566,9 +558,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
                 String modifierKey = buildStaticModifierKey(effect.getId(), hyforgedStatIndex, staticModifier);
                 if (removeModifier(entityStatMap, statComponent, hyforgedStatIndex, modifierKey, effect.getId())) {
                     removed = true;
-                    if (LOGGER.isLoggable(Level.FINE)) {
-                        LOGGER.fine("Removed static effect modifier: " + modifierKey);
-                    }
+                    LOGGER.at(Level.FINE).log("Removed static effect modifier: %s", modifierKey);
                 }
             }
         }
@@ -587,7 +577,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
         try {
             return EntityEffect.getAssetMap().getAsset(effectIndex);
         } catch (Exception e) {
-            LOGGER.warning("Failed to get EntityEffect at index " + effectIndex + ": " + e.getMessage());
+            LOGGER.atWarning().log("Failed to get EntityEffect at index %s: %s", effectIndex, e.getMessage());
             return null;
         }
     }
@@ -675,7 +665,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
                 try {
                     statId = StatId.parse(specStatId);
                 } catch (IllegalArgumentException e) {
-                    LOGGER.log(Level.FINER, "Skipping unparseable stat ID in effect spec: {0}", specStatId);
+                    LOGGER.at(Level.FINER).log("Skipping unparseable stat ID in effect spec: %s", specStatId);
                     ordinal++;
                     continue;
                 }
@@ -738,7 +728,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
                 try {
                     statId = StatId.parse(specStatId);
                 } catch (IllegalArgumentException e) {
-                    LOGGER.log(Level.FINER, "Skipping unparseable stat ID in effect removal: {0}", specStatId);
+                    LOGGER.at(Level.FINER).log("Skipping unparseable stat ID in effect removal: %s", specStatId);
                     ordinal++;
                     continue;
                 }
@@ -862,7 +852,7 @@ public class HyforgedEffectBridgeSystem extends EntityTickingSystem<EntityStore>
                     return direct;
                 }
             } catch (IllegalArgumentException e) {
-                LOGGER.log(Level.FINER, "Skipping unparseable Hytale stat ID for mapping: {0}", hytaleStatId);
+                LOGGER.at(Level.FINER).log("Skipping unparseable Hytale stat ID for mapping: %s", hytaleStatId);
                 // Fall through to hyforged namespace mapping
             }
         }

@@ -21,7 +21,8 @@ import reign.software.hyforged.stats.component.HyforgedStatComponent;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+import java.util.logging.Level;
 
 /**
  * ECS System for initializing entities with HyforgedStatComponent.
@@ -38,7 +39,7 @@ import java.util.logging.Logger;
  */
 public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
 
-    private static final Logger LOGGER = Logger.getLogger(HyforgedStatInitSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     @Nonnull
     private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
@@ -160,7 +161,7 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
         String classId = getPlayerClass(entityRef, commandBuffer);
         ClassDefinition classDef = classRegistry.getOrDefault(classId);
         
-        LOGGER.fine("Initializing ability scores for entity with class: " + classDef.id());
+        LOGGER.at(Level.FINE).log("Initializing ability scores for entity with class: %s", classDef.id());
         
         // Get ability scores from class definition
         Map<StatId, Integer> abilityScores = classDef.abilityScores();

@@ -262,9 +262,9 @@ public class HyforgedConcentrationDisruptionSystem extends DamageEventSystem {
 ## Data/Schema Impact
 
 ### New Stat Definitions
-- `Server/Hyforged/Stats/ConcentrationRegenRate.json`
-- `Server/Hyforged/Stats/ConcentrationLossReduction.json`
-- `Server/Hyforged/Stats/ConcentrationLossThreshold.json`
+- `Server/Hyforged/Stats/Definitions/ConcentrationRegenRate.json`
+- `Server/Hyforged/Stats/Definitions/ConcentrationLossReduction.json`
+- `Server/Hyforged/Stats/Definitions/ConcentrationLossThreshold.json`
 
 ### New Effect Definitions
 - `Server/Hyforged/Effects/Buffs/FocusedMind.json`
@@ -281,11 +281,11 @@ public class HyforgedConcentrationDisruptionSystem extends DamageEventSystem {
   - `ConcentrationPriority` (int, optional override)
 
 ### New Affix Definitions
-- `Server/Hyforged/Affixes/Prefix/OfClarity.json`
-- `Server/Hyforged/Affixes/Prefix/OfResolve.json`
-- `Server/Hyforged/Affixes/Prefix/Steadfast.json`
-- `Server/Hyforged/Affixes/Forged/MentalBastion.json`
-- `Server/Hyforged/Affixes/Forged/UnshakeableFocus.json`
+- `Server/Hyforged/Affixes/Definitions/Prefix/OfClarity.json`
+- `Server/Hyforged/Affixes/Definitions/Prefix/OfResolve.json`
+- `Server/Hyforged/Affixes/Definitions/Prefix/Steadfast.json`
+- `Server/Hyforged/Affixes/Definitions/Forged/MentalBastion.json`
+- `Server/Hyforged/Affixes/Definitions/Forged/UnshakeableFocus.json`
 
 ### Component Changes
 - New `ConcentrationPriorityComponent` for storing ability priority queue per entity
@@ -341,9 +341,9 @@ public class HyforgedConcentrationDisruptionSystem extends DamageEventSystem {
 - `reign.software.hyforged.combat` — damage event integration for concentration loss
 - `reign.software.hyforged.concentration` — new service and components (proposed)
 - `reign.software.hyforged.affix` — new affix definitions
-- `Server/Hyforged/Stats/` — new stat JSON files
+- `Server/Hyforged/Stats/Definitions/` — new stat JSON files
 - `Server/Hyforged/Effects/` — new buff/debuff JSON files
-- `Server/Hyforged/Affixes/` — new affix JSON files
+- `Server/Hyforged/Affixes/Definitions/` — new affix JSON files
 - UI components — priority queue display and reordering
 
 ## Required Codebase/Architecture Changes (High-Level)
@@ -376,9 +376,9 @@ public class HyforgedConcentrationDisruptionSystem extends DamageEventSystem {
   - `tickRegeneration(entityRef)` — called by regen system
 
 ### New Stats (JSON)
-- `Server/Hyforged/Stats/ConcentrationRegenRate.json`
-- `Server/Hyforged/Stats/ConcentrationLossReduction.json`
-- `Server/Hyforged/Stats/ConcentrationLossThreshold.json`
+- `Server/Hyforged/Stats/Definitions/ConcentrationRegenRate.json`
+- `Server/Hyforged/Stats/Definitions/ConcentrationLossReduction.json`
+- `Server/Hyforged/Stats/Definitions/ConcentrationLossThreshold.json`
 
 ### New Effects (JSON)
 - `Server/Hyforged/Effects/Buffs/FocusedMind.json`
@@ -391,11 +391,11 @@ public class HyforgedConcentrationDisruptionSystem extends DamageEventSystem {
 - `Server/Hyforged/Effects/Debuffs/BrainRot.json`
 
 ### New Affixes (JSON)
-- `Server/Hyforged/Affixes/Prefix/OfClarity.json`
-- `Server/Hyforged/Affixes/Prefix/OfResolve.json`
-- `Server/Hyforged/Affixes/Prefix/Steadfast.json`
-- `Server/Hyforged/Affixes/Forged/MentalBastion.json`
-- `Server/Hyforged/Affixes/Forged/UnshakeableFocus.json`
+- `Server/Hyforged/Affixes/Definitions/Prefix/OfClarity.json`
+- `Server/Hyforged/Affixes/Definitions/Prefix/OfResolve.json`
+- `Server/Hyforged/Affixes/Definitions/Prefix/Steadfast.json`
+- `Server/Hyforged/Affixes/Definitions/Forged/MentalBastion.json`
+- `Server/Hyforged/Affixes/Definitions/Forged/UnshakeableFocus.json`
 
 ### Plugin Registration (HyforgedPlugin.java)
 - Register `ConcentrationPriorityComponent` with `EntityStoreRegistry`

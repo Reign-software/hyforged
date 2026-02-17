@@ -22,8 +22,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * ECS system that hooks into item entity creation to roll affixes on eligible items.
@@ -45,7 +45,7 @@ import java.util.logging.Logger;
  */
 public class LootAffixSystem extends RefChangeSystem<EntityStore, ItemComponent> {
     
-    private static final Logger LOGGER = Logger.getLogger(LootAffixSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     private final AffixRollerService rollerService;
     private final AffixPoolRegistry poolRegistry;
@@ -101,7 +101,7 @@ public class LootAffixSystem extends RefChangeSystem<EntityStore, ItemComponent>
         // Check if already has affixes (skip to prevent double-rolling)
         HyforgedItemData existingData = HyforgedItemDataService.read(itemStack);
         if (existingData.hasAffixes()) {
-            LOGGER.log(Level.FINER, "Item {0} already has affixes, skipping", itemStack.getItemId());
+            LOGGER.at(Level.FINER).log("Item %s already has affixes, skipping", itemStack.getItemId());
             return;
         }
         
@@ -115,7 +115,7 @@ public class LootAffixSystem extends RefChangeSystem<EntityStore, ItemComponent>
         Set<String> categories = Set.of(context.itemCategories());
         Set<String> tags = Set.of(context.itemTags());
         if (poolRegistry.resolve(categories, tags) == null) {
-            LOGGER.log(Level.FINER, "No affix pool found for item {0}", itemStack.getItemId());
+            LOGGER.at(Level.FINER).log("No affix pool found for item %s", itemStack.getItemId());
             return;
         }
         
@@ -128,7 +128,7 @@ public class LootAffixSystem extends RefChangeSystem<EntityStore, ItemComponent>
             
             // Check if event was cancelled
             if (event != null && event.isCancelled()) {
-                LOGGER.log(Level.FINE, "Affix rolling cancelled for item {0}", itemStack.getItemId());
+                LOGGER.at(Level.FINE).log("Affix rolling cancelled for item %s", itemStack.getItemId());
                 return;
             }
             
@@ -140,8 +140,7 @@ public class LootAffixSystem extends RefChangeSystem<EntityStore, ItemComponent>
             ItemStack updatedStack = HyforgedItemDataService.write(itemStack, itemData);
             itemComponent.setItemStack(updatedStack);
             
-            LOGGER.log(Level.FINE, "Applied {0} affixes to item {1}", 
-                    new Object[]{effectiveAffixes.size(), itemStack.getItemId()});
+            LOGGER.at(Level.FINE).log("Applied %s affixes to item %s", effectiveAffixes.size(), itemStack.getItemId());
         }
     }
     
@@ -171,7 +170,7 @@ public class LootAffixSystem extends RefChangeSystem<EntityStore, ItemComponent>
             dispatcher.dispatch(event);
             return event;
         } catch (Exception e) {
-            LOGGER.log(Level.WARNING, "Failed to emit AffixesRolledEvent for item " + context.itemId(), e);
+            LOGGER.atWarning().withCause(e).log("Failed to emit AffixesRolledEvent for item %s", context.itemId());
             return null;
         }
     }

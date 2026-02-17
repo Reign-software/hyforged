@@ -10,7 +10,7 @@ import reign.software.hyforged.hub.resource.WelcomeMessagesConfigAsset;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * System that sends welcome messages to players when they connect.
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class WelcomeMessageSystem {
 
-    private static final Logger LOGGER = Logger.getLogger(WelcomeMessageSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static final List<Message> welcomeMessages = new ArrayList<>();
     
@@ -49,7 +49,7 @@ public class WelcomeMessageSystem {
             }
         }
 
-        LOGGER.info("WelcomeMessageSystem: Loaded " + welcomeMessages.size() + " welcome messages");
+        LOGGER.atInfo().log("WelcomeMessageSystem: Loaded %s welcome messages", welcomeMessages.size());
     }
 
     /**
@@ -92,7 +92,7 @@ public class WelcomeMessageSystem {
         connectRegistration = HytaleServer.get().getEventBus()
                 .register(PlayerConnectEvent.class, this::onPlayerConnect);
 
-        LOGGER.info("WelcomeMessageSystem: Registered player connect event handler");
+        LOGGER.atInfo().log("WelcomeMessageSystem: Registered player connect event handler");
     }
 
     /**

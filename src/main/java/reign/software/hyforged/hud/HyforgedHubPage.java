@@ -22,7 +22,7 @@ import reign.software.hyforged.passive.ui.PassiveTreePage;
 
 import javax.annotation.Nonnull;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Central hub page for navigating to all Hyforged systems.
@@ -39,7 +39,7 @@ import java.util.logging.Logger;
  */
 public class HyforgedHubPage extends InteractiveCustomUIPage<HyforgedHubPage.PageEventData> {
 
-    private static final Logger LOGGER = Logger.getLogger(HyforgedHubPage.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final String PAGE_UI_FILE = "Hyforged/HyforgedHubPage.ui";
 
     private static final String ACTION_OPEN_STATS = "openStats";
@@ -99,21 +99,21 @@ public class HyforgedHubPage extends InteractiveCustomUIPage<HyforgedHubPage.Pag
 
             case ACTION_OPEN_STATS -> {
                 player.getPageManager().openCustomPage(ref, store, new CharacterStatsPage(playerRef));
-                LOGGER.log(Level.FINE, "[Hyforged] Hub → Character Stats");
+                LOGGER.at(Level.FINE).log("[Hyforged] Hub -> Character Stats");
             }
             case ACTION_OPEN_PASSIVE_TREE -> {
                 player.getPageManager().openCustomPage(ref, store, new PassiveTreePage(playerRef, null));
-                LOGGER.log(Level.FINE, "[Hyforged] Hub → Passive Tree");
+                LOGGER.at(Level.FINE).log("[Hyforged] Hub -> Passive Tree");
             }
             case ACTION_OPEN_CONCENTRATION -> {
                 player.getPageManager().openCustomPage(ref, store, new ConcentrationPriorityPage(playerRef));
-                LOGGER.log(Level.FINE, "[Hyforged] Hub → Concentration Priority");
+                LOGGER.at(Level.FINE).log("[Hyforged] Hub -> Concentration Priority");
             }
             case ACTION_OPEN_OPTIONS -> {
                 player.getPageManager().openCustomPage(ref, store, new HyforgedOptionsPage(playerRef));
-                LOGGER.log(Level.FINE, "[Hyforged] Hub → Options");
+                LOGGER.at(Level.FINE).log("[Hyforged] Hub -> Options");
             }
-            default -> LOGGER.log(Level.FINE, "[Hyforged] Hub received unknown action: {0}", action);
+            default -> LOGGER.at(Level.FINE).log("[Hyforged] Hub received unknown action: %s", action);
         }
     }
 

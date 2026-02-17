@@ -6,15 +6,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
  * Central registry for affix definitions.
  * <p>
  * Affix definitions describe the affixes that can be rolled on items and are
- * loaded from JSON at {@code Server/Hyforged/Affixes/*.json}.
+ * loaded from JSON at {@code Server/Hyforged/Affixes/Definitions/*.json}.
  * <p>
  * This is a singleton registry loaded at startup, NOT an ECS component.
  * <p>
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  */
 public final class AffixDefinitionRegistry {
     
-    private static final Logger LOGGER = Logger.getLogger(AffixDefinitionRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static AffixDefinitionRegistry instance;
     
     private final Map<String, AffixDefinition> affixesById = new ConcurrentHashMap<>();
@@ -74,7 +74,7 @@ public final class AffixDefinitionRegistry {
         // Check for duplicate and log warning
         AffixDefinition existing = affixesById.get(id);
         if (existing != null) {
-            LOGGER.log(Level.WARNING, "Affix ''{0}'' is being overridden by a later definition", id);
+            LOGGER.atWarning().log("Affix '%s' is being overridden by a later definition", id);
             
             // Remove from old indexes
             affixesByType.computeIfPresent(existing.type(), (k, v) -> {
@@ -100,8 +100,7 @@ public final class AffixDefinitionRegistry {
             affixesByStat.computeIfAbsent(statId, k -> ConcurrentHashMap.newKeySet()).add(id);
         }
         
-        LOGGER.log(Level.FINE, "Registered affix: {0} (type={1}, stats={2})", 
-            new Object[]{id, affix.type(), affix.getStatIds()});
+        LOGGER.at(Level.FINE).log("Registered affix: %s (type=%s, stats=%s)", id, affix.type(), affix.getStatIds());
     }
     
     /**
@@ -202,7 +201,7 @@ public final class AffixDefinitionRegistry {
      */
     public synchronized void freeze() {
         frozen = true;
-        LOGGER.log(Level.INFO, "AffixDefinitionRegistry frozen with {0} affixes", affixesById.size());
+        LOGGER.atInfo().log("AffixDefinitionRegistry frozen with %s affixes", affixesById.size());
     }
     
     /**

@@ -10,8 +10,8 @@ import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Handles loading class definitions from JSON assets.
@@ -28,10 +28,10 @@ import java.util.logging.Logger;
  */
 public final class ClassAssetLoader {
 
-    private static final Logger LOGGER = Logger.getLogger(ClassAssetLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Path for class definition assets relative to asset root */
-    public static final String CLASS_ASSET_PATH = "Hyforged/Classes";
+    public static final String CLASS_ASSET_PATH = "Hyforged/Stats/Classes";
 
     private static boolean initialized = false;
 
@@ -45,11 +45,11 @@ public final class ClassAssetLoader {
      */
     public static void initialize(@Nonnull JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("ClassAssetLoader already initialized");
+            LOGGER.atWarning().log("ClassAssetLoader already initialized");
             return;
         }
 
-        LOGGER.info("Initializing Hyforged class asset loading...");
+        LOGGER.atInfo().log("Initializing Hyforged class asset loading...");
 
         // Register class definition asset store
         registerClassAssetStore();
@@ -62,7 +62,7 @@ public final class ClassAssetLoader {
         );
 
         initialized = true;
-        LOGGER.info("Hyforged class asset loading initialized");
+        LOGGER.atInfo().log("Hyforged class asset loading initialized");
     }
 
     /**
@@ -85,7 +85,7 @@ public final class ClassAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered ClassDefinitionAsset store at path: " + CLASS_ASSET_PATH);
+        LOGGER.at(Level.FINE).log("Registered ClassDefinitionAsset store at path: %s", CLASS_ASSET_PATH);
     }
 
     /**
@@ -94,7 +94,7 @@ public final class ClassAssetLoader {
     private static void onClassAssetsLoaded(
             LoadedAssetsEvent<String, ClassDefinitionAsset, IndexedLookupTableAssetMap<String, ClassDefinitionAsset>> event
     ) {
-        LOGGER.info("Loading class definitions from assets...");
+        LOGGER.atInfo().log("Loading class definitions from assets...");
 
         ClassDefinitionRegistry registry = ClassDefinitionRegistry.get();
         Map<String, String> conflicts = new HashMap<>();
@@ -115,19 +115,19 @@ public final class ClassAssetLoader {
                 ClassDefinition classDef = asset.toClassDefinition();
                 registry.register(classDef);
                 loaded++;
-                LOGGER.fine("Loaded class definition: " + id);
+                LOGGER.at(Level.FINE).log("Loaded class definition: %s", id);
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to load class definition: " + id, e);
+                LOGGER.atWarning().withCause(e).log("Failed to load class definition: %s", id);
                 skipped++;
             }
         }
 
         // Log conflicts as errors
         for (Map.Entry<String, String> entry : conflicts.entrySet()) {
-            LOGGER.severe("Class definition conflict: " + entry.getKey() + " - " + entry.getValue());
+            LOGGER.atSevere().log("Class definition conflict: %s - %s", entry.getKey(), entry.getValue());
         }
 
-        LOGGER.info("Loaded " + loaded + " class definitions from assets (" + skipped + " skipped)");
+        LOGGER.atInfo().log("Loaded %s class definitions from assets (%s skipped)", loaded, skipped);
     }
 
     /**

@@ -37,7 +37,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+import java.util.logging.Level;
 
 /**
  * ECS System for initializing NPC entities with stats from templates.
@@ -51,7 +52,7 @@ import java.util.logging.Logger;
  */
 public class NPCStatInitSystem extends RefSystem<EntityStore> {
 
-    private static final Logger LOGGER = Logger.getLogger(NPCStatInitSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     @Nonnull
     private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
@@ -118,7 +119,7 @@ public class NPCStatInitSystem extends RefSystem<EntityStore> {
         // Determine NPC level
         int level = determineNPCLevel(ref, store, commandBuffer);
         
-        LOGGER.fine("Initializing NPC stats from template: " + templateId + " at level " + level);
+        LOGGER.at(Level.FINE).log("Initializing NPC stats from template: %s at level %s", templateId, level);
         
         // Apply template stats
         applyTemplateStats(statComponent, templateId, level);
@@ -288,13 +289,13 @@ public class NPCStatInitSystem extends RefSystem<EntityStore> {
     ) {
         AffixDefinition definition = resolveAffixDefinition(modifierId);
         if (definition == null) {
-            LOGGER.fine("Unknown modifier id in NPC template pool '" + poolName + "': " + modifierId);
+            LOGGER.at(Level.FINE).log("Unknown modifier id in NPC template pool '%s': %s", poolName, modifierId);
             return;
         }
 
         AffixTierDefinition tier = selectTierForLevel(definition, level);
         if (tier == null) {
-            LOGGER.fine("No eligible tiers for modifier '" + definition.id() + "' at level " + level);
+            LOGGER.at(Level.FINE).log("No eligible tiers for modifier '%s' at level %s", definition.id(), level);
             return;
         }
 
@@ -304,7 +305,7 @@ public class NPCStatInitSystem extends RefSystem<EntityStore> {
             StatId statId = tierStat.statId();
             int statIndex = statRegistry.getIndex(statId);
             if (statIndex < 0) {
-                LOGGER.fine("Unknown stat for modifier '" + definition.id() + "': " + statId.fullId());
+                LOGGER.at(Level.FINE).log("Unknown stat for modifier '%s': %s", definition.id(), statId.fullId());
                 continue;
             }
 

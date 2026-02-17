@@ -420,7 +420,7 @@ Create prefix and forged affix JSON files for the new concentration stats.
 | Unshakeable Focus | "Forged: +10-12% Threshold, +15-20% Regen Rate" |
 
 ### Steps
-- [x] **6.1** Create `Server/Hyforged/Affixes/Prefix/OfClarity.json`
+- [x] **6.1** Create `Server/Hyforged/Affixes/Definitions/Prefix/OfClarity.json`
   - ID: `hyforged:of-clarity`
   - Type: prefix
   - DisplayName: "of Clarity"
@@ -432,7 +432,7 @@ Create prefix and forged affix JSON files for the new concentration stats.
     - T4: ItemLevel 15, MinValue 250, MaxValue 500 (2.5-5%)
     - T5: ItemLevel 1, MinValue 100, MaxValue 250 (1-2.5%)
 
-- [x] **6.2** Create `Server/Hyforged/Affixes/Prefix/OfResolve.json`
+- [x] **6.2** Create `Server/Hyforged/Affixes/Definitions/Prefix/OfResolve.json`
   - ID: `hyforged:of-resolve`
   - Type: prefix
   - DisplayName: "of Resolve"
@@ -444,7 +444,7 @@ Create prefix and forged affix JSON files for the new concentration stats.
     - T4: ItemLevel 15, MinValue 200, MaxValue 400 (2-4%)
     - T5: ItemLevel 1, MinValue 80, MaxValue 200 (0.8-2%)
 
-- [x] **6.3** Create `Server/Hyforged/Affixes/Prefix/Steadfast.json`
+- [x] **6.3** Create `Server/Hyforged/Affixes/Definitions/Prefix/Steadfast.json`
   - ID: `hyforged:steadfast`
   - Type: prefix
   - DisplayName: "Steadfast"
@@ -456,7 +456,7 @@ Create prefix and forged affix JSON files for the new concentration stats.
     - T4: ItemLevel 15, MinValue 100, MaxValue 200 (1-2%)
     - T5: ItemLevel 1, MinValue 50, MaxValue 100 (0.5-1%)
 
-- [x] **6.4** Create `Server/Hyforged/Affixes/Forged/MentalBastion.json`
+- [x] **6.4** Create `Server/Hyforged/Affixes/Definitions/Forged/MentalBastion.json`
   - ID: `hyforged:mental-bastion`
   - Type: forged
   - DisplayName: "Mental Bastion"
@@ -472,7 +472,7 @@ Create prefix and forged affix JSON files for the new concentration stats.
       - `concentration-loss-reduction-bps`: 800-1400 MORE
       - `concentration-regen-rate-bps`: 400-700 INCREASED
 
-- [x] **6.5** Create `Server/Hyforged/Affixes/Forged/UnshakeableFocus.json`
+- [x] **6.5** Create `Server/Hyforged/Affixes/Definitions/Forged/UnshakeableFocus.json`
   - ID: `hyforged:unshakeable-focus`
   - Type: forged
   - DisplayName: "Unshakeable Focus"
@@ -496,11 +496,11 @@ Create prefix and forged affix JSON files for the new concentration stats.
 - [x] Affixes can be rolled on items and apply stat modifiers
 
 ### Files Created
-- `src/main/resources/Server/Hyforged/Affixes/Prefix/OfClarity.json`
-- `src/main/resources/Server/Hyforged/Affixes/Prefix/OfResolve.json`
-- `src/main/resources/Server/Hyforged/Affixes/Prefix/Steadfast.json`
-- `src/main/resources/Server/Hyforged/Affixes/Forged/MentalBastion.json`
-- `src/main/resources/Server/Hyforged/Affixes/Forged/UnshakeableFocus.json`
+- `src/main/resources/Server/Hyforged/Affixes/Definitions/Prefix/OfClarity.json`
+- `src/main/resources/Server/Hyforged/Affixes/Definitions/Prefix/OfResolve.json`
+- `src/main/resources/Server/Hyforged/Affixes/Definitions/Prefix/Steadfast.json`
+- `src/main/resources/Server/Hyforged/Affixes/Definitions/Forged/MentalBastion.json`
+- `src/main/resources/Server/Hyforged/Affixes/Definitions/Forged/UnshakeableFocus.json`
 
 ---
 

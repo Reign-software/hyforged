@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * System for triggering ailments based on accumulated elemental damage.
@@ -43,7 +43,7 @@ import java.util.logging.Logger;
  */
 public class HyforgedAilmentSystem extends DamageEventSystem {
     
-    private static final Logger LOGGER = Logger.getLogger(HyforgedAilmentSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     /** Stat ID for effect duration scaling */
     private static final StatId EFFECT_DURATION_STAT = StatId.hyforged("effect-duration-bps");
@@ -181,8 +181,8 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
         // Get the entity effect
         EntityEffect entityEffect = EntityEffect.getAssetMap().getAsset(ailment.entityEffectId());
         if (entityEffect == null) {
-            LOGGER.log(Level.WARNING, "EntityEffect not found for ailment: " + ailment.id() + 
-                    " (effectId: " + ailment.entityEffectId() + ")");
+            LOGGER.atWarning().log("EntityEffect not found for ailment: %s (effectId: %s)",
+                    ailment.id(), ailment.entityEffectId());
             return;
         }
         
@@ -202,8 +202,8 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
         );
         
         if (applied) {
-            LOGGER.log(Level.FINE, "Applied ailment " + ailment.displayName() + 
-                    " (duration: " + duration + "s)");
+            LOGGER.at(Level.FINE).log("Applied ailment %s (duration: %ss)",
+                    ailment.displayName(), duration);
         }
     }
     

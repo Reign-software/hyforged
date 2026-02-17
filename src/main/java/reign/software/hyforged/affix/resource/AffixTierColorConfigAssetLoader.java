@@ -7,19 +7,21 @@ import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
 import com.hypixel.hytale.server.core.asset.HytaleAssetStore;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * Handles loading affix tier color configuration from JSON assets.
  * <p>
- * Loads: Server/Hyforged/GameplayConfigs/AffixTierColors/AffixTierColors.json
+ * Loads: Server/Hyforged/Config/AffixTierColors/AffixTierColors.json
  */
 public final class AffixTierColorConfigAssetLoader {
 
-    private static final Logger LOGGER = Logger.getLogger(AffixTierColorConfigAssetLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
-    public static final String CONFIG_ASSET_PATH = "Hyforged/GameplayConfigs/AffixTierColors";
+    public static final String CONFIG_ASSET_PATH = "Hyforged/Config/AffixTierColors";
     private static final String CONFIG_ID = "AffixTierColors";
 
     private static boolean initialized = false;
@@ -29,7 +31,7 @@ public final class AffixTierColorConfigAssetLoader {
 
     public static void initialize(@Nonnull JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("AffixTierColorConfigAssetLoader already initialized");
+            LOGGER.atWarning().log("AffixTierColorConfigAssetLoader already initialized");
             return;
         }
 
@@ -42,7 +44,7 @@ public final class AffixTierColorConfigAssetLoader {
         );
 
         initialized = true;
-        LOGGER.info("Affix tier color config asset loading initialized");
+        LOGGER.atInfo().log("Affix tier color config asset loading initialized");
     }
 
     private static void registerConfigAssetStore() {
@@ -62,20 +64,20 @@ public final class AffixTierColorConfigAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered AffixTierColorConfigAsset store at path: " + CONFIG_ASSET_PATH);
+        LOGGER.at(Level.FINE).log("Registered AffixTierColorConfigAsset store at path: %s", CONFIG_ASSET_PATH);
     }
 
     private static void onAssetsLoaded(
             LoadedAssetsEvent<String, AffixTierColorConfigAsset, IndexedLookupTableAssetMap<String, AffixTierColorConfigAsset>> event
     ) {
-        LOGGER.info("Loading affix tier color configuration from assets...");
+        LOGGER.atInfo().log("Loading affix tier color configuration from assets...");
 
         for (AffixTierColorConfigAsset asset : event.getLoadedAssets().values()) {
             AffixTierColorConfig.get().applyFromAsset(asset);
-            LOGGER.info("Affix tier color configuration loaded successfully");
+            LOGGER.atInfo().log("Affix tier color configuration loaded successfully");
             return;
         }
 
-        LOGGER.warning("AffixTierColors.json not found, using default tooltip colors");
+        LOGGER.atWarning().log("AffixTierColors.json not found, using default tooltip colors");
     }
 }

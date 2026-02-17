@@ -25,7 +25,9 @@ import reign.software.hyforged.util.MessageColors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.UUID;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+
+import java.util.logging.Level;
 
 /**
  * ECS system that prevents non-owners from breaking Tradebar Vault blocks.
@@ -33,7 +35,7 @@ import java.util.logging.Logger;
  */
 public class VaultBreakProtectionSystem extends EntityEventSystem<EntityStore, BreakBlockEvent> {
 
-    private static final Logger LOGGER = Logger.getLogger(VaultBreakProtectionSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     /** The block type identifier for Tradebar Vault */
     private static final String VAULT_BLOCK_TYPE_ID = "hyforged:Tradebar_Vault";
@@ -92,7 +94,7 @@ public class VaultBreakProtectionSystem extends EntityEventSystem<EntityStore, B
         
         if (vaultComponent == null) {
             // No vault component - allow break (shouldn't happen, but safe fallback)
-            LOGGER.warning("Vault block at " + targetBlock + " has no vault component");
+            LOGGER.atWarning().log("Vault block at %s has no vault component", targetBlock);
             return;
         }
 
@@ -113,7 +115,7 @@ public class VaultBreakProtectionSystem extends EntityEventSystem<EntityStore, B
                 Message.translation("hyforged.vault.breakDenied").color(MessageColors.ERROR)
             );
             
-            LOGGER.fine("Blocked non-owner " + breakerUUID + " from breaking vault owned by " + ownerUUID);
+            LOGGER.at(Level.FINE).log("Blocked non-owner %s from breaking vault owned by %s", breakerUUID, ownerUUID);
         }
         // Owner is breaking their own vault - allow (drops handled by block definition)
     }
@@ -143,7 +145,7 @@ public class VaultBreakProtectionSystem extends EntityEventSystem<EntityStore, B
             
             return blockEntityRef.getStore().getComponent(blockEntityRef, vaultComponentType);
         } catch (Exception e) {
-            LOGGER.warning("Error getting vault component at " + blockPos + ": " + e.getMessage());
+            LOGGER.atWarning().log("Error getting vault component at %s: %s", blockPos, e.getMessage());
             return null;
         }
     }

@@ -56,9 +56,9 @@ class AffixSystemIntegrationTest {
     }
     
     private void setUpTestTypes() {
-        typeRegistry.register(new AffixType("prefix", AffixType.DisplayNamePosition.BEFORE, "{name}", true));
-        typeRegistry.register(new AffixType("suffix", AffixType.DisplayNamePosition.AFTER, "{name}", true));
-        typeRegistry.register(new AffixType("forged", AffixType.DisplayNamePosition.NONE, "{name}", false));
+        typeRegistry.register(new AffixType("prefix", AffixType.DisplayNamePosition.BEFORE, "{name}", true, "Affixes", "#bca57a"));
+        typeRegistry.register(new AffixType("suffix", AffixType.DisplayNamePosition.AFTER, "{name}", true, "Affixes", "#bca57a"));
+        typeRegistry.register(new AffixType("forged", AffixType.DisplayNamePosition.NONE, "{name}", false, "Forged Properties", "#cc8800"));
     }
     
     private void setUpTestAffixes() {

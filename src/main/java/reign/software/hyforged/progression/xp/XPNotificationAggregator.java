@@ -10,6 +10,8 @@ import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.progression.event.XPGainNotificationEvent;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -17,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * ECS ticking system that aggregates XP gains and dispatches notifications.
@@ -37,7 +38,7 @@ import java.util.logging.Logger;
  */
 public class XPNotificationAggregator extends TickingSystem<EntityStore> {
     
-    private static final Logger LOGGER = Logger.getLogger(XPNotificationAggregator.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     // Resource type reference for the aggregation resource
     private static ResourceType<EntityStore, AggregationResource> resourceType;
@@ -110,9 +111,9 @@ public class XPNotificationAggregator extends TickingSystem<EntityStore> {
                         .dispatchFor(XPGainNotificationEvent.class)
                         .dispatch(event);
                 
-                if (LOGGER.isLoggable(Level.FINE)) {
-                    LOGGER.fine(String.format("Dispatched XP notification: entity=%s, charXP=%d, classXP=%d",
-                            entityRef, pending.totalCharacterXp, pending.totalClassXp));
+                if (LOGGER.at(Level.FINE).isEnabled()) {
+                    LOGGER.at(Level.FINE).log("Dispatched XP notification: entity=%s, charXP=%d, classXP=%d",
+                            entityRef, pending.totalCharacterXp, pending.totalClassXp);
                 }
             }
         }

@@ -12,8 +12,9 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.progression.component.ProgressionComponent;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
 
 /**
  * ECS event system that awards discovery XP when a player discovers a new zone.
@@ -25,7 +26,7 @@ import java.util.logging.Logger;
  */
 public class DiscoveryXPSystem extends EntityEventSystem<EntityStore, DiscoverZoneEvent.Display> {
     
-    private static final Logger LOGGER = Logger.getLogger(DiscoveryXPSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     private final ComponentType<EntityStore, ProgressionComponent> progressionComponentType;
     
@@ -73,8 +74,8 @@ public class DiscoveryXPSystem extends EntityEventSystem<EntityStore, DiscoverZo
         String regionName = discoveryInfo.regionName();
         String sourceId = String.format("discovery:%s/%s", regionName, zoneName);
         
-        LOGGER.info(String.format("Awarding discovery XP: %d for zone %s (major=%b)", 
-                xpAmount, sourceId, isMajor));
+        LOGGER.atInfo().log("Awarding discovery XP: %d for zone %s (major=%b)", 
+                xpAmount, sourceId, isMajor);
         
         // Create and dispatch XP award event
         XPAwardEvent xpAward = new XPAwardEvent(xpAmount, XPSource.DISCOVERY, sourceId);

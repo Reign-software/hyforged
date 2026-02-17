@@ -27,10 +27,12 @@ import reign.software.hyforged.quality.model.NPCQualityRule;
 import reign.software.hyforged.quality.registry.NPCQualityRegistry;
 import reign.software.hyforged.stats.bridge.ProgressionStatBridge;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
-import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * System that awards XP to players when they kill entities.
@@ -43,7 +45,7 @@ import java.util.logging.Logger;
  */
 public class XPAwardOnKillSystem extends DeathSystems.OnDeathSystem {
     
-    private static final Logger LOGGER = Logger.getLogger(XPAwardOnKillSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     public XPAwardOnKillSystem() {
         super();
@@ -109,9 +111,9 @@ public class XPAwardOnKillSystem extends DeathSystems.OnDeathSystem {
         XPAwardEvent xpEvent = XPAwardEvent.combat(xpAmount, victimRef, mobDisplayName, mobLevel, mobQuality);
         commandBuffer.invoke(killerRef, xpEvent);
         
-        LOGGER.fine(String.format("Awarding %d combat XP to player for killing %s [%s] Lv.%d",
+        LOGGER.at(Level.FINE).log("Awarding %d combat XP to player for killing %s [%s] Lv.%d",
                 xpAmount, mobDisplayName != null ? mobDisplayName : "entity",
-                mobQuality != null ? mobQuality : "Common", mobLevel));
+                mobQuality != null ? mobQuality : "Common", mobLevel);
     }
     
     /**

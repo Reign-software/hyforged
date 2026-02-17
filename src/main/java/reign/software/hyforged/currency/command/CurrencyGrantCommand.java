@@ -15,7 +15,7 @@ import reign.software.hyforged.currency.service.CurrencyService;
 import reign.software.hyforged.currency.service.TransactionResult;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Command to grant Tradebars to a player (admin command).
@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class CurrencyGrantCommand extends CommandBase {
 
-    private static final Logger LOGGER = Logger.getLogger(CurrencyGrantCommand.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in a world.");
     private static final Message MESSAGE_INVALID_AMOUNT = Message.raw("Amount must be positive.");
@@ -88,15 +88,15 @@ public class CurrencyGrantCommand extends CommandBase {
             
             if (!result.success()) {
                 context.sendMessage(MESSAGE_GRANT_FAILED);
-                LOGGER.warning(String.format("[AUDIT] Admin %s failed to grant %d Tradebars to %s: %s",
-                        adminName, amount, playerName, result.failureReason()));
+                LOGGER.atWarning().log("[AUDIT] Admin %s failed to grant %d Tradebars to %s: %s",
+                        adminName, amount, playerName, result.failureReason());
                 return;
             }
 
             int newBalance = CurrencyService.get().getBalance(ref);
 
-            LOGGER.info(String.format("[AUDIT] Admin %s granted %d Tradebars to %s (was: %d, now: %d)",
-                    adminName, amount, playerName, oldBalance, newBalance));
+            LOGGER.atInfo().log("[AUDIT] Admin %s granted %d Tradebars to %s (was: %d, now: %d)",
+                    adminName, amount, playerName, oldBalance, newBalance);
 
             context.sendMessage(Message.raw(String.format(
                     "Granted %,d Tradebars to %s. Balance: %,d → %,d",

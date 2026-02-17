@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+import java.util.logging.Level;
 
 /**
  * Registry for character class definitions.
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
  */
 public final class ClassDefinitionRegistry {
 
-    private static final Logger LOGGER = Logger.getLogger(ClassDefinitionRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     private static final ClassDefinitionRegistry INSTANCE = new ClassDefinitionRegistry();
     
@@ -49,10 +50,10 @@ public final class ClassDefinitionRegistry {
     public void register(@Nonnull ClassDefinition classDef) {
         String id = classDef.id();
         if (classes.containsKey(id)) {
-            LOGGER.warning("Duplicate class definition ID: " + id + " - overwriting");
+            LOGGER.atWarning().log("Duplicate class definition ID: %s - overwriting", id);
         }
         classes.put(id, classDef);
-        LOGGER.fine("Registered class definition: " + id);
+        LOGGER.at(Level.FINE).log("Registered class definition: %s", id);
     }
 
     /**
@@ -80,7 +81,7 @@ public final class ClassDefinitionRegistry {
         }
         if (classDef == null) {
             // Emergency fallback - create an empty default
-            LOGGER.warning("No default class definition found, using empty fallback");
+            LOGGER.atWarning().log("No default class definition found, using empty fallback");
             return new ClassDefinition(
                 DEFAULT_CLASS_ID,
                 "Default",
@@ -130,12 +131,12 @@ public final class ClassDefinitionRegistry {
         if (matches.size() > 1) {
             // Sort alphabetically for deterministic selection
             matches.sort((a, b) -> a.id().compareTo(b.id()));
-            LOGGER.warning(String.format(
+            LOGGER.atWarning().log(
                 "Multiple classes match weapon tags %s: %s. Using first alphabetically: %s",
                 weaponTags, 
                 matches.stream().map(ClassDefinition::id).toList(),
                 matches.get(0).id()
-            ));
+            );
         }
         
         return matches.get(0);

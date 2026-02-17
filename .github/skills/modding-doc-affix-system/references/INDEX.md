@@ -13,10 +13,10 @@ This directory contains references to the canonical documentation for the Hyforg
 
 | Schema Type | Path Pattern |
 |-------------|--------------|
-| Affix Definitions | `src/main/resources/Server/Hyforged/Affixes/*.json` |
-| Affix Pools | `src/main/resources/Server/Hyforged/AffixPools/*.json` |
-| Quality Rules | `src/main/resources/Server/Hyforged/QualityAffixRules/*.json` |
-| Affix Types | `src/main/resources/Server/Hyforged/AffixTypes/*.json` |
+| Affix Definitions | `src/main/resources/Server/Hyforged/Affixes/Definitions/*.json` |
+| Affix Pools | `src/main/resources/Server/Hyforged/Affixes/Pools/*.json` |
+| Quality Rules | `src/main/resources/Server/Hyforged/Quality/AffixRules/*.json` |
+| Affix Types | `src/main/resources/Server/Hyforged/Affixes/Types/*.json` |
 
 ## Source Code Locations
 

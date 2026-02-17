@@ -10,14 +10,14 @@ import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffec
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Handles loading Hyforged effect assets from JSON.
  */
 public final class HyforgedEffectAssetLoader {
 
-    private static final Logger LOGGER = Logger.getLogger(HyforgedEffectAssetLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Path for Hyforged effect assets relative to asset root */
     public static final String HYFORGED_EFFECT_PATH = "Hyforged/Effects";
@@ -34,11 +34,11 @@ public final class HyforgedEffectAssetLoader {
      */
     public static void initialize(@Nonnull com.hypixel.hytale.server.core.plugin.JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("HyforgedEffectAssetLoader already initialized");
+            LOGGER.atWarning().log("HyforgedEffectAssetLoader already initialized");
             return;
         }
 
-        LOGGER.info("Initializing Hyforged effect loading...");
+        LOGGER.atInfo().log("Initializing Hyforged effect loading...");
 
         registerHyforgedEffectAssetStore();
 
@@ -49,7 +49,7 @@ public final class HyforgedEffectAssetLoader {
         );
 
         initialized = true;
-        LOGGER.info("Hyforged effect loading initialized");
+        LOGGER.atInfo().log("Hyforged effect loading initialized");
     }
 
     private static void registerHyforgedEffectAssetStore() {
@@ -70,13 +70,13 @@ public final class HyforgedEffectAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered HyforgedEffectAsset store at path: " + HYFORGED_EFFECT_PATH);
+        LOGGER.at(Level.FINE).log("Registered HyforgedEffectAsset store at path: %s", HYFORGED_EFFECT_PATH);
     }
 
     private static void onHyforgedEffectAssetsLoaded(
             LoadedAssetsEvent<String, HyforgedEffectAsset, IndexedLookupTableAssetMap<String, HyforgedEffectAsset>> event
     ) {
-        LOGGER.info("Loading Hyforged effects from assets...");
+        LOGGER.atInfo().log("Loading Hyforged effects from assets...");
 
         HyforgedEffectRegistry registry = HyforgedEffectRegistry.get();
         registry.clear();
@@ -101,12 +101,12 @@ public final class HyforgedEffectAssetLoader {
                 );
                 loaded++;
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to register Hyforged effect: " + asset.getId(), e);
+                LOGGER.atWarning().withCause(e).log("Failed to register Hyforged effect: %s", asset.getId());
                 errors++;
             }
         }
 
-        LOGGER.info("Loaded " + loaded + " Hyforged effects" + (errors > 0 ? " (" + errors + " errors)" : ""));
+        LOGGER.atInfo().log("Loaded %s Hyforged effects%s", loaded, (errors > 0 ? " (" + errors + " errors)" : ""));
     }
 
     public static boolean isInitialized() {

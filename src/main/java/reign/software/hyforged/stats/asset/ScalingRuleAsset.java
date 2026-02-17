@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * JSON asset representation of a scaling rule for deserialization.
@@ -51,7 +51,7 @@ import java.util.logging.Logger;
  */
 public class ScalingRuleAsset {
     
-    private static final Logger LOGGER = Logger.getLogger(ScalingRuleAsset.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     // Common fields
     private String type;
@@ -164,12 +164,12 @@ public class ScalingRuleAsset {
         
         // Validate common required fields
         if (type == null || type.isEmpty()) {
-            LOGGER.warning("Scaling rule for stat '" + contextStatId + "' has no Type - skipping");
+            LOGGER.atWarning().log("Scaling rule for stat '%s' has no Type - skipping", contextStatId);
             return Optional.empty();
         }
         
         if (source == null || source.isEmpty()) {
-            LOGGER.warning("Scaling rule for stat '" + contextStatId + "' has no Source - skipping");
+            LOGGER.atWarning().log("Scaling rule for stat '%s' has no Source - skipping", contextStatId);
             return Optional.empty();
         }
         
@@ -178,8 +178,8 @@ public class ScalingRuleAsset {
         try {
             sourceStatId = StatId.parse(source);
         } catch (IllegalArgumentException e) {
-            LOGGER.warning("Invalid source stat ID '" + source + "' in scaling rule for stat '" + 
-                    contextStatId + "': " + e.getMessage() + " - skipping");
+            LOGGER.atWarning().log("Invalid source stat ID '%s' in scaling rule for stat '%s': %s - skipping",
+                    source, contextStatId, e.getMessage());
             return Optional.empty();
         }
         
@@ -192,7 +192,7 @@ public class ScalingRuleAsset {
             case ThresholdScaling.TYPE -> toThresholdScaling(sourceStatId, contextStatId);
             case DiminishingScaling.TYPE -> toDiminishingScaling(sourceStatId, contextStatId);
             default -> {
-                LOGGER.warning("Unknown scaling rule type '" + type + "' for stat '" + contextStatId + "' - skipping");
+                LOGGER.atWarning().log("Unknown scaling rule type '%s' for stat '%s' - skipping", type, contextStatId);
                 yield Optional.empty();
             }
         };
@@ -201,16 +201,16 @@ public class ScalingRuleAsset {
     @Nonnull
     private Optional<ScalingRule> toLinearScaling(@Nonnull StatId sourceStatId, @Nonnull String contextStatId) {
         if (ratio == null) {
-            LOGGER.warning("Linear scaling rule for stat '" + contextStatId + 
-                    "' missing required field 'Ratio' - skipping");
+            LOGGER.atWarning().log("Linear scaling rule for stat '%s' missing required field 'Ratio' - skipping",
+                    contextStatId);
             return Optional.empty();
         }
         
         try {
             return Optional.of(new LinearScaling(sourceStatId, ratio));
         } catch (IllegalArgumentException e) {
-            LOGGER.warning("Invalid linear scaling rule for stat '" + contextStatId + 
-                    "': " + e.getMessage() + " - skipping");
+            LOGGER.atWarning().log("Invalid linear scaling rule for stat '%s': %s - skipping",
+                    contextStatId, e.getMessage());
             return Optional.empty();
         }
     }
@@ -218,22 +218,22 @@ public class ScalingRuleAsset {
     @Nonnull
     private Optional<ScalingRule> toThresholdScaling(@Nonnull StatId sourceStatId, @Nonnull String contextStatId) {
         if (perPoints == null) {
-            LOGGER.warning("Threshold scaling rule for stat '" + contextStatId + 
-                    "' missing required field 'PerPoints' - skipping");
+            LOGGER.atWarning().log("Threshold scaling rule for stat '%s' missing required field 'PerPoints' - skipping",
+                    contextStatId);
             return Optional.empty();
         }
         
         if (bonusBps == null) {
-            LOGGER.warning("Threshold scaling rule for stat '" + contextStatId + 
-                    "' missing required field 'BonusBps' - skipping");
+            LOGGER.atWarning().log("Threshold scaling rule for stat '%s' missing required field 'BonusBps' - skipping",
+                    contextStatId);
             return Optional.empty();
         }
         
         try {
             return Optional.of(new ThresholdScaling(sourceStatId, perPoints, bonusBps));
         } catch (IllegalArgumentException e) {
-            LOGGER.warning("Invalid threshold scaling rule for stat '" + contextStatId + 
-                    "': " + e.getMessage() + " - skipping");
+            LOGGER.atWarning().log("Invalid threshold scaling rule for stat '%s': %s - skipping",
+                    contextStatId, e.getMessage());
             return Optional.empty();
         }
     }
@@ -241,8 +241,8 @@ public class ScalingRuleAsset {
     @Nonnull
     private Optional<ScalingRule> toDiminishingScaling(@Nonnull StatId sourceStatId, @Nonnull String contextStatId) {
         if (capBps == null) {
-            LOGGER.warning("Diminishing scaling rule for stat '" + contextStatId + 
-                    "' missing required field 'CapBps' - skipping");
+            LOGGER.atWarning().log("Diminishing scaling rule for stat '%s' missing required field 'CapBps' - skipping",
+                    contextStatId);
             return Optional.empty();
         }
         
@@ -253,8 +253,8 @@ public class ScalingRuleAsset {
         try {
             return Optional.of(new DiminishingScaling(sourceStatId, curveToUse, scaleToUse, capBps));
         } catch (IllegalArgumentException e) {
-            LOGGER.warning("Invalid diminishing scaling rule for stat '" + contextStatId + 
-                    "': " + e.getMessage() + " - skipping");
+            LOGGER.atWarning().log("Invalid diminishing scaling rule for stat '%s': %s - skipping",
+                    contextStatId, e.getMessage());
             return Optional.empty();
         }
     }

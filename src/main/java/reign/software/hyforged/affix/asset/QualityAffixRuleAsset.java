@@ -19,7 +19,7 @@ import java.util.Map;
  * JSON asset definition for quality affix capacity rules.
  * <p>
  * Defines how many affixes of each type an item can have based on its quality.
- * Loaded from {@code Server/Hyforged/QualityAffixRules/*.json}.
+ * Loaded from {@code Server/Hyforged/Quality/AffixRules/*.json}.
  * <p>
  * JSON Schema:
  * <pre>

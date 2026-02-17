@@ -15,8 +15,9 @@ import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.progression.ClassProgression;
 import reign.software.hyforged.progression.component.ProgressionComponent;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
 
 /**
  * Command to set class level for a player.
@@ -25,7 +26,7 @@ import java.util.logging.Logger;
  */
 public class ClassLevelSetCommand extends CommandBase {
 
-    private static final Logger LOGGER = Logger.getLogger(ClassLevelSetCommand.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in a world.");
     private static final Message MESSAGE_NO_COMPONENT = Message.raw("Player does not have a progression component.");
@@ -109,8 +110,8 @@ public class ClassLevelSetCommand extends CommandBase {
             progression.markDirty();
 
             // Audit log
-            LOGGER.info(String.format("[AUDIT] Admin %s set class level for player %s class %s from %d to %d",
-                    adminName, playerName, classId, oldLevel, level));
+            LOGGER.atInfo().log("[AUDIT] Admin %s set class level for player %s class %s from %d to %d",
+                    adminName, playerName, classId, oldLevel, level);
 
             context.sendMessage(Message.raw(String.format(
                     "Set class level for %s's class %s from %d to %d.",

@@ -10,7 +10,9 @@ import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import java.util.logging.Level;
+
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Effect handler for stat-modifier type passive node effects.
@@ -34,7 +36,7 @@ import java.util.logging.Logger;
  */
 public final class StatModifierEffectHandler implements PassiveEffectHandler {
 
-    private static final Logger LOGGER = Logger.getLogger(StatModifierEffectHandler.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /**
      * Effect type identifier.
@@ -58,13 +60,13 @@ public final class StatModifierEffectHandler implements PassiveEffectHandler {
     public void apply(@Nonnull Ref<EntityStore> entityRef, @Nonnull PassiveNode node, @Nonnull PassiveNodeEffect effect) {
         HyforgedStatComponent statComponent = entityRef.getStore().getComponent(entityRef, statComponentType);
         if (statComponent == null) {
-            LOGGER.warning("Entity has no HyforgedStatComponent, cannot apply stat modifier from node: " + node.id());
+            LOGGER.atWarning().log("Entity has no HyforgedStatComponent, cannot apply stat modifier from node: %s", node.id());
             return;
         }
 
         String statId = effect.getString("Stat");
         if (statId == null) {
-            LOGGER.warning("stat-modifier effect missing 'Stat' field on node: " + node.id());
+            LOGGER.atWarning().log("stat-modifier effect missing 'Stat' field on node: %s", node.id());
             return;
         }
 
@@ -75,7 +77,7 @@ public final class StatModifierEffectHandler implements PassiveEffectHandler {
         // Resolve stat index
         int statIndex = StatDefinitionRegistry.get().getIndex(statId);
         if (statIndex < 0) {
-            LOGGER.warning("Unknown stat ID: " + statId + " in passive node: " + node.id());
+            LOGGER.atWarning().log("Unknown stat ID: %s in passive node: %s", statId, node.id());
             return;
         }
 
@@ -89,9 +91,9 @@ public final class StatModifierEffectHandler implements PassiveEffectHandler {
                 .build();
 
         if (statComponent.addModifier(modifier)) {
-            LOGGER.fine(() -> "Applied stat modifier: " + statId + " = " + value + " (" + stackType + ") from node " + node.id());
+            LOGGER.at(Level.FINE).log("Applied stat modifier: %s = %s (%s) from node %s", statId, value, stackType, node.id());
         } else {
-            LOGGER.warning("Failed to add modifier for node: " + node.id() + " - possibly at max capacity");
+            LOGGER.atWarning().log("Failed to add modifier for node: %s - possibly at max capacity", node.id());
         }
     }
 
@@ -104,7 +106,7 @@ public final class StatModifierEffectHandler implements PassiveEffectHandler {
 
         // Remove all modifiers with this node as source
         if (statComponent.removeModifiersBySource(node.id())) {
-            LOGGER.fine(() -> "Removed stat modifiers from node: " + node.id());
+            LOGGER.at(Level.FINE).log("Removed stat modifiers from node: %s", node.id());
         }
     }
 
@@ -153,7 +155,7 @@ public final class StatModifierEffectHandler implements PassiveEffectHandler {
         try {
             return HyforgedModifier.StackType.valueOf(stackTypeStr.toUpperCase());
         } catch (IllegalArgumentException e) {
-            LOGGER.warning("Unknown StackType: " + stackTypeStr + ", defaulting to FLAT");
+            LOGGER.atWarning().log("Unknown StackType: %s, defaulting to FLAT", stackTypeStr);
             return HyforgedModifier.StackType.FLAT;
         }
     }

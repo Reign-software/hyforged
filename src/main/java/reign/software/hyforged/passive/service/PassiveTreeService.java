@@ -22,7 +22,9 @@ import reign.software.hyforged.progression.component.ProgressionComponent;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
-import java.util.logging.Logger;
+import java.util.logging.Level;
+
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Service for passive tree operations.
@@ -36,7 +38,7 @@ import java.util.logging.Logger;
  */
 public final class PassiveTreeService {
 
-    private static final Logger LOGGER = Logger.getLogger(PassiveTreeService.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static PassiveTreeService instance;
 
@@ -533,7 +535,7 @@ public final class PassiveTreeService {
         if (totalCost > 0) {
             int balance = CurrencyService.get().getBalance(entityRef);
             if (balance < totalCost) {
-                LOGGER.fine("Refund failed: insufficient Tradebars (" + balance + " < " + totalCost + ")");
+                LOGGER.at(Level.FINE).log("Refund failed: insufficient Tradebars (%s < %s)", balance, totalCost);
                 return RefundResult.failure(RefundResult.REASON_INSUFFICIENT_TRADEBARS);
             }
 
@@ -544,10 +546,10 @@ public final class PassiveTreeService {
                 "passive_refund:" + treeId + ":" + nodeId
             );
             if (!txResult.success()) {
-                LOGGER.warning("Refund failed: Tradebar deduction failed - " + txResult.failureReason());
+                LOGGER.atWarning().log("Refund failed: Tradebar deduction failed - %s", txResult.failureReason());
                 return RefundResult.failure(RefundResult.REASON_INSUFFICIENT_TRADEBARS);
             }
-            LOGGER.fine("Deducted " + totalCost + " Tradebars for refund (tx: " + txResult.transactionId() + ")");
+            LOGGER.at(Level.FINE).log("Deducted %s Tradebars for refund (tx: %s)", totalCost, txResult.transactionId());
         }
 
         // Remove effects and deallocate nodes
@@ -571,7 +573,7 @@ public final class PassiveTreeService {
         }
 
         int pointsReturned = refundedList.size();
-        LOGGER.fine("Refunded " + pointsReturned + " nodes from tree " + treeId + " for cost " + totalCost);
+        LOGGER.at(Level.FINE).log("Refunded %s nodes from tree %s for cost %s", pointsReturned, treeId, totalCost);
 
         // Emit refund event
         PassiveNodeRefundedEvent event = new PassiveNodeRefundedEvent(
@@ -620,7 +622,7 @@ public final class PassiveTreeService {
         if (totalCost > 0) {
             int balance = CurrencyService.get().getBalance(entityRef);
             if (balance < totalCost) {
-                LOGGER.fine("Respec failed: insufficient Tradebars (" + balance + " < " + totalCost + ")");
+                LOGGER.at(Level.FINE).log("Respec failed: insufficient Tradebars (%s < %s)", balance, totalCost);
                 return RefundResult.failure(RefundResult.REASON_INSUFFICIENT_TRADEBARS);
             }
 
@@ -631,10 +633,10 @@ public final class PassiveTreeService {
                 "passive_respec:" + treeId
             );
             if (!txResult.success()) {
-                LOGGER.warning("Respec failed: Tradebar deduction failed - " + txResult.failureReason());
+                LOGGER.atWarning().log("Respec failed: Tradebar deduction failed - %s", txResult.failureReason());
                 return RefundResult.failure(RefundResult.REASON_INSUFFICIENT_TRADEBARS);
             }
-            LOGGER.fine("Deducted " + totalCost + " Tradebars for respec (tx: " + txResult.transactionId() + ")");
+            LOGGER.at(Level.FINE).log("Deducted %s Tradebars for respec (tx: %s)", totalCost, txResult.transactionId());
         }
 
         // Remove effects and deallocate all nodes
@@ -658,7 +660,7 @@ public final class PassiveTreeService {
         }
 
         int pointsReturned = refundedList.size();
-        LOGGER.fine("Full respec of tree " + treeId + ": refunded " + pointsReturned + " nodes for cost " + totalCost);
+        LOGGER.at(Level.FINE).log("Full respec of tree %s: refunded %s nodes for cost %s", treeId, pointsReturned, totalCost);
 
         // Emit respec event
         PassiveTreeRespecEvent event = new PassiveTreeRespecEvent(
@@ -750,7 +752,7 @@ public final class PassiveTreeService {
             component.setGeneralStartingNode(null);
         }
 
-        LOGGER.fine("Free refund of " + refundedList.size() + " nodes from tree " + treeId);
+        LOGGER.at(Level.FINE).log("Free refund of %s nodes from tree %s", refundedList.size(), treeId);
 
         return RefundResult.successFree(refundedList, refundedList.size());
     }
@@ -843,7 +845,7 @@ public final class PassiveTreeService {
         if (handler != null) {
             handler.apply(entityRef, node, effect);
         } else {
-            LOGGER.warning("No handler registered for effect type: " + effect.type() + " on node " + node.id());
+            LOGGER.atWarning().log("No handler registered for effect type: %s on node %s", effect.type(), node.id());
         }
     }
 

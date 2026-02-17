@@ -15,8 +15,10 @@ import reign.software.hyforged.progression.xp.XPAwardEvent;
 import reign.software.hyforged.progression.xp.XPConfig;
 import reign.software.hyforged.progression.xp.XPSource;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * Objective completion handler that awards XP to players when an objective is completed.
@@ -28,7 +30,7 @@ import java.util.logging.Logger;
  */
 public class XPAwardCompletion extends ObjectiveCompletion {
     
-    private static final Logger LOGGER = Logger.getLogger(XPAwardCompletion.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     public XPAwardCompletion(@Nonnull XPAwardCompletionAsset asset) {
         super(asset);
@@ -53,13 +55,13 @@ public class XPAwardCompletion extends ObjectiveCompletion {
         String objectiveId = objective.getObjectiveId();
         String sourceId = String.format("objective:%s", objectiveId);
         
-        LOGGER.info(String.format("Awarding objective XP: %d for objective %s (tier=%s)",
-                xpAmount, objectiveId, xpAsset.getTier()));
+        LOGGER.atInfo().log("Awarding objective XP: %d for objective %s (tier=%s)",
+                xpAmount, objectiveId, xpAsset.getTier());
         
         // Get the world and store for dispatching events
         World world = Universe.get().getWorld(objective.getWorldUUID());
         if (world == null) {
-            LOGGER.warning("Cannot award objective XP - world not found: " + objective.getWorldUUID());
+            LOGGER.atWarning().log("Cannot award objective XP - world not found: %s", objective.getWorldUUID());
             return;
         }
         
@@ -86,8 +88,8 @@ public class XPAwardCompletion extends ObjectiveCompletion {
             
             PlayerRef playerRef = componentAccessor.getComponent(participantRef, PlayerRef.getComponentType());
             if (playerRef != null) {
-                LOGGER.fine(String.format("Awarded %d XP to player %s for objective completion",
-                        finalXpAmount, playerRef.getUuid()));
+                LOGGER.at(Level.FINE).log("Awarded %d XP to player %s for objective completion",
+                        finalXpAmount, playerRef.getUuid());
             }
         });
     }

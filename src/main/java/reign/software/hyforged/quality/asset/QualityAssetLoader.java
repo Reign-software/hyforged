@@ -15,21 +15,21 @@ import reign.software.hyforged.quality.registry.QualityEligibilityRegistry;
 import reign.software.hyforged.quality.registry.QualityModifierRegistry;
 import reign.software.hyforged.quality.registry.QualityWeightRegistry;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Handles loading quality-related assets from JSON files.
  */
 public final class QualityAssetLoader {
 
-    private static final Logger LOGGER = Logger.getLogger(QualityAssetLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
-    public static final String QUALITY_WEIGHTS_PATH = "Hyforged/QualityWeights";
-    public static final String QUALITY_ELIGIBILITY_PATH = "Hyforged/QualityEligibility";
-    public static final String QUALITY_MODIFIERS_PATH = "Hyforged/QualityModifiers";
-    public static final String NPC_QUALITY_PATH = "Hyforged/NPCQuality";
+    public static final String QUALITY_WEIGHTS_PATH = "Hyforged/Quality/Weights";
+    public static final String QUALITY_ELIGIBILITY_PATH = "Hyforged/Quality/Eligibility";
+    public static final String QUALITY_MODIFIERS_PATH = "Hyforged/Quality/Modifiers";
+    public static final String NPC_QUALITY_PATH = "Hyforged/Quality/NPCRules";
 
     private static boolean initialized = false;
 
@@ -37,7 +37,7 @@ public final class QualityAssetLoader {
 
     public static void initialize(@Nonnull JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("QualityAssetLoader already initialized");
+            LOGGER.atWarning().log("QualityAssetLoader already initialized");
             return;
         }
 
@@ -71,7 +71,7 @@ public final class QualityAssetLoader {
         );
 
         initialized = true;
-        LOGGER.info("Hyforged quality asset loading initialized");
+        LOGGER.atInfo().log("Hyforged quality asset loading initialized");
     }
 
     private static void registerQualityWeightAssetStore() {
@@ -163,12 +163,12 @@ public final class QualityAssetLoader {
                 registry.register(profile);
                 loaded++;
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to load quality weight profile: " + asset.getId(), e);
+                LOGGER.atWarning().withCause(e).log("Failed to load quality weight profile: %s", asset.getId());
                 failed++;
             }
         }
 
-        LOGGER.info(String.format("Loaded %d quality weight profiles (%d failed)", loaded, failed));
+        LOGGER.atInfo().log("Loaded %d quality weight profiles (%d failed)", loaded, failed);
     }
 
     private static void onQualityModifierAssetsLoaded(
@@ -184,12 +184,12 @@ public final class QualityAssetLoader {
                 registry.register(config);
                 loaded++;
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to load quality modifier config: " + asset.getId(), e);
+                LOGGER.atWarning().withCause(e).log("Failed to load quality modifier config: %s", asset.getId());
                 failed++;
             }
         }
 
-        LOGGER.info(String.format("Loaded %d quality modifier configs (%d failed)", loaded, failed));
+        LOGGER.atInfo().log("Loaded %d quality modifier configs (%d failed)", loaded, failed);
     }
 
     private static void onQualityEligibilityAssetsLoaded(
@@ -204,20 +204,20 @@ public final class QualityAssetLoader {
             try {
                 QualityEligibilityRule rule = asset.toRule();
                 if (!weightRegistry.contains(rule.weightProfileId())) {
-                    LOGGER.warning(String.format("Quality eligibility rule %s references missing profile: %s",
-                            rule.id(), rule.weightProfileId()));
+                    LOGGER.atWarning().log("Quality eligibility rule %s references missing profile: %s",
+                            rule.id(), rule.weightProfileId());
                     skipped++;
                     continue;
                 }
                 registry.register(rule);
                 loaded++;
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to load quality eligibility rule: " + asset.getId(), e);
+                LOGGER.atWarning().withCause(e).log("Failed to load quality eligibility rule: %s", asset.getId());
                 skipped++;
             }
         }
 
-        LOGGER.info(String.format("Loaded %d quality eligibility rules (%d skipped)", loaded, skipped));
+        LOGGER.atInfo().log("Loaded %d quality eligibility rules (%d skipped)", loaded, skipped);
     }
 
     private static void onNpcQualityAssetsLoaded(
@@ -233,11 +233,11 @@ public final class QualityAssetLoader {
                 registry.register(rule);
                 loaded++;
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to load NPC quality rule: " + asset.getId(), e);
+                LOGGER.atWarning().withCause(e).log("Failed to load NPC quality rule: %s", asset.getId());
                 failed++;
             }
         }
 
-        LOGGER.info(String.format("Loaded %d NPC quality rules (%d failed)", loaded, failed));
+        LOGGER.atInfo().log("Loaded %d NPC quality rules (%d failed)", loaded, failed);
     }
 }

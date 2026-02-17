@@ -106,7 +106,7 @@ This spec also covers **Triggered Effect Affixes** (procs) - affixes that trigge
 ## Functional Requirements
 
 ### FR-1: Quality Weight Configuration
-- Quality weight profiles are defined in JSON at `Server/Hyforged/QualityWeights/`.
+- Quality weight profiles are defined in JSON at `Server/Hyforged/Quality/Weights/`.
 - Each profile has a unique ID and defines weights for quality tiers.
 - Profiles are **referenced by ID** from eligibility configs (FR-2) - no implicit matching.
 - Format:
@@ -129,7 +129,7 @@ This spec also covers **Triggered Effect Affixes** (procs) - affixes that trigge
 - Weight profiles have no item matching logic - they are pure data referenced by eligibility configs.
 
 ### FR-2: Item Eligibility Configuration
-- Define which items are eligible for random quality in JSON at `Server/Hyforged/QualityEligibility/`.
+- Define which items are eligible for random quality in JSON at `Server/Hyforged/Quality/Eligibility/`.
 - Each eligibility config **explicitly references** a weight profile by ID.
 - Eligibility rules match items by:
   - Categories (e.g., `"Items.Weapons"`, `"Items.Armor"`)
@@ -258,7 +258,7 @@ public class HyforgedQualityService {
 - **Two-tier configuration**: Default global config + per-source overrides.
 
 #### Default Modifier Config
-- Global defaults defined in `Server/Hyforged/QualityModifiers/Default.json`:
+- Global defaults defined in `Server/Hyforged/Quality/Modifiers/Default.json`:
   ```json
   {
     "id": "default",
@@ -401,7 +401,7 @@ public class NPCQualitySystem extends HolderSystem<EntityStore> {
   - Can have affixes that modify their stats.
 
 ### FR-9: NPC Quality Configuration
-- NPC quality rules defined in JSON at `Server/Hyforged/NPCQuality/`.
+- NPC quality rules defined in JSON at `Server/Hyforged/Quality/NPCRules/`.
 - Configuration:
   ```json
   {
@@ -489,9 +489,9 @@ public class NPCQualitySystem extends HolderSystem<EntityStore> {
 ### New JSON Asset Types
 | Path | Description |
 |------|-------------|
-| `Server/Hyforged/QualityWeights/*.json` | Quality weight distributions |
-| `Server/Hyforged/QualityEligibility/*.json` | Item eligibility rules |
-| `Server/Hyforged/NPCQuality/*.json` | NPC quality spawn rules |
+| `Server/Hyforged/Quality/Weights/*.json` | Quality weight distributions |
+| `Server/Hyforged/Quality/Eligibility/*.json` | Item eligibility rules |
+| `Server/Hyforged/Quality/NPCRules/*.json` | NPC quality spawn rules |
 
 ### Existing Impact
 - No changes to base Hytale JSON formats.
@@ -654,7 +654,7 @@ class NPCQualityAssignedEvent {
   - **Players**: Affixes come from equipped items (`RolledAffix` in `ItemStack` metadata)
   - **NPCs/Mobs**: Affixes come from `HyforgedNPCQualityComponent.affixes` (rolled at spawn)
   - Trigger systems process all entities with `HyforgedActiveEffectsComponent` uniformly
-- Extended affix definition format in `Server/Hyforged/Affixes/`:
+- Extended affix definition format in `Server/Hyforged/Affixes/Definitions/`:
   ```json
   {
     "id": "hyforged:blazing_wrath",

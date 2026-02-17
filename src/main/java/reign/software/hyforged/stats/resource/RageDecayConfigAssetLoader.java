@@ -8,18 +8,19 @@ import com.hypixel.hytale.server.core.asset.HytaleAssetStore;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+import java.util.logging.Level;
 
 /**
  * Handles loading the rage decay configuration from JSON assets.
  * <p>
- * Loads: Server/Hyforged/GameplayConfigs/RageDecay/RageDecay.json
+ * Loads: Server/Hyforged/Config/RageDecay/RageDecay.json
  */
 public final class RageDecayConfigAssetLoader {
 
-    private static final Logger LOGGER = Logger.getLogger(RageDecayConfigAssetLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
-    public static final String RAGE_DECAY_ASSET_PATH = "Hyforged/GameplayConfigs/RageDecay";
+    public static final String RAGE_DECAY_ASSET_PATH = "Hyforged/Config/RageDecay";
     private static final String CONFIG_ID = "RageDecay";
 
     private static boolean initialized = false;
@@ -30,7 +31,7 @@ public final class RageDecayConfigAssetLoader {
 
     public static void initialize(@Nonnull JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("RageDecayConfigAssetLoader already initialized");
+            LOGGER.atWarning().log("RageDecayConfigAssetLoader already initialized");
             return;
         }
 
@@ -43,7 +44,7 @@ public final class RageDecayConfigAssetLoader {
         );
 
         initialized = true;
-        LOGGER.info("Rage decay config asset loading initialized");
+        LOGGER.atInfo().log("Rage decay config asset loading initialized");
     }
 
     private static void registerRageDecayConfigAssetStore() {
@@ -63,20 +64,20 @@ public final class RageDecayConfigAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered RageDecayConfigAsset store at path: " + RAGE_DECAY_ASSET_PATH);
+        LOGGER.at(Level.FINE).log("Registered RageDecayConfigAsset store at path: %s", RAGE_DECAY_ASSET_PATH);
     }
 
     private static void onRageDecayConfigAssetsLoaded(
             LoadedAssetsEvent<String, RageDecayConfigAsset, IndexedLookupTableAssetMap<String, RageDecayConfigAsset>> event
     ) {
-        LOGGER.info("Loading rage decay configuration from assets...");
+        LOGGER.atInfo().log("Loading rage decay configuration from assets...");
 
         for (RageDecayConfigAsset configAsset : event.getLoadedAssets().values()) {
             RageDecayConfig.get().applyFromAsset(configAsset);
-            LOGGER.info("Rage decay configuration loaded successfully");
+            LOGGER.atInfo().log("Rage decay configuration loaded successfully");
             return;
         }
 
-        LOGGER.warning("RageDecay.json not found, using default values");
+        LOGGER.atWarning().log("RageDecay.json not found, using default values");
     }
 }

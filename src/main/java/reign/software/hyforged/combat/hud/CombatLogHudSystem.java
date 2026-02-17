@@ -52,8 +52,8 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
     /** Monotonic counter to detect extra-line changes */
     private static final Map<UUID, Long> extraLineVersion = new ConcurrentHashMap<>();
 
-    /** Per-player last event count (for dirty checking) */
-    private final Map<UUID, Integer> lastEventCount = new ConcurrentHashMap<>();
+    /** Per-player last total event count across encounters (for dirty checking) */
+    private final Map<UUID, Integer> lastTotalEventCount = new ConcurrentHashMap<>();
 
     /** Per-player last extra-line version seen */
     private final Map<UUID, Long> lastExtraVersion = new ConcurrentHashMap<>();
@@ -110,24 +110,31 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
 
         if (!shouldShow) {
             // Hide combat log section if it was visible
-            if (lastEventCount.containsKey(playerUuid)) {
+            if (lastTotalEventCount.containsKey(playerUuid)) {
                 hud.hideCombatLog();
-                lastEventCount.remove(playerUuid);
+                lastTotalEventCount.remove(playerUuid);
             }
             return;
         }
 
         // Get combat data
         CombatEncounter currentEncounter = CombatLogService.get().getCurrentEncounter(playerUuid);
-        List<CombatEvent> events = gatherRecentEvents(playerUuid);
+        List<CombatEncounter> encounters = CombatLogService.get().getRecentEncounters(playerUuid);
+        
+        // Count total events across all encounters (stable dirty signal that grows monotonically)
+        int totalEventCount = 0;
+        for (CombatEncounter enc : encounters) {
+            totalEventCount += enc.getEventCount();
+        }
+        
+        List<CombatEvent> events = gatherRecentEvents(encounters);
 
         // Check if update needed (dirty check)
-        int currentEventCount = events.size();
         long currentExtraVer = extraLineVersion.getOrDefault(playerUuid, 0L);
-        Integer lastCount = lastEventCount.get(playerUuid);
+        Integer lastCount = lastTotalEventCount.get(playerUuid);
         Long lastExtraVer = lastExtraVersion.get(playerUuid);
         boolean needsUpdate = lastCount == null
-                || lastCount != currentEventCount
+                || lastCount != totalEventCount
                 || lastExtraVer == null
                 || lastExtraVer != currentExtraVer;
 
@@ -170,7 +177,7 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
 
         String dpsText = dps >= 0 ? String.format("DPS: %.1f", dps) : "DPS: ----";
         hud.updateCombatLog(lines, dpsText, "Hits: " + totalHits, "Crits: " + totalCrits);
-        lastEventCount.put(playerUuid, currentEventCount);
+        lastTotalEventCount.put(playerUuid, totalEventCount);
         lastExtraVersion.put(playerUuid, currentExtraVer);
     }
 
@@ -178,9 +185,8 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
      * Gather recent combat events for display (across all encounters).
      */
     @Nonnull
-    private List<CombatEvent> gatherRecentEvents(@Nonnull UUID playerUuid) {
+    private List<CombatEvent> gatherRecentEvents(@Nonnull List<CombatEncounter> encounters) {
         List<CombatEvent> result = new ArrayList<>();
-        List<CombatEncounter> encounters = CombatLogService.get().getRecentEncounters(playerUuid);
 
         for (CombatEncounter encounter : encounters) {
             result.addAll(encounter.getEvents());

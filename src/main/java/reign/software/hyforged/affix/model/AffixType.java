@@ -7,7 +7,7 @@ import java.util.Objects;
  * Defines the type of an affix (e.g., prefix, suffix, forged).
  * <p>
  * Affix types are fully data-driven and loaded from JSON at
- * {@code Server/Hyforged/AffixTypes/*.json}.
+ * {@code Server/Hyforged/Affixes/Types/*.json}.
  * <p>
  * This is pure immutable data following ECS principles.
  *
@@ -15,12 +15,16 @@ import java.util.Objects;
  * @param displayNamePosition Where the affix name appears relative to item name: "before", "after", or "none"
  * @param displayFormat Template for tooltip display (e.g., "{name} (T{tier})")
  * @param stackable Whether multiple affixes of this type can coexist on an item
+ * @param hudSectionName Section header text when displaying this type in the HUD (types sharing the same name are grouped)
+ * @param hudColor Hex color for this type's lines and header in the HUD (e.g., "#bca57a")
  */
 public record AffixType(
     @Nonnull String id,
     @Nonnull DisplayNamePosition displayNamePosition,
     @Nonnull String displayFormat,
-    boolean stackable
+    boolean stackable,
+    @Nonnull String hudSectionName,
+    @Nonnull String hudColor
 ) {
     
     /**
@@ -62,13 +66,24 @@ public record AffixType(
         }
     }
     
+    /** Default HUD color used when none is specified in JSON */
+    public static final String DEFAULT_HUD_COLOR = "#bca57a";
+
     public AffixType {
         Objects.requireNonNull(id, "id cannot be null");
         Objects.requireNonNull(displayNamePosition, "displayNamePosition cannot be null");
         Objects.requireNonNull(displayFormat, "displayFormat cannot be null");
+        Objects.requireNonNull(hudSectionName, "hudSectionName cannot be null");
+        Objects.requireNonNull(hudColor, "hudColor cannot be null");
         
         if (id.isBlank()) {
             throw new IllegalArgumentException("id cannot be blank");
+        }
+        if (hudSectionName.isBlank()) {
+            hudSectionName = id; // Fallback to type ID
+        }
+        if (hudColor.isBlank()) {
+            hudColor = DEFAULT_HUD_COLOR;
         }
     }
     

@@ -1,12 +1,13 @@
 package reign.software.hyforged.progression.asset;
 
+import com.hypixel.hytale.logger.HytaleLogger;
 import reign.software.hyforged.progression.XPCurve;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * Registry for XP curve definitions.
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
  */
 public final class XPCurveRegistry {
 
-    private static final Logger LOGGER = Logger.getLogger(XPCurveRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     private static final XPCurveRegistry INSTANCE = new XPCurveRegistry();
     
@@ -54,7 +55,7 @@ public final class XPCurveRegistry {
     public void register(@Nonnull XPCurve curve) {
         String id = curve.id();
         if (curves.containsKey(id)) {
-            LOGGER.warning("Duplicate XP curve ID: " + id + " - overwriting");
+            LOGGER.atWarning().log("Duplicate XP curve ID: %s - overwriting", id);
         }
         curves.put(id, curve);
         
@@ -65,7 +66,7 @@ public final class XPCurveRegistry {
             classCurve = curve;
         }
         
-        LOGGER.fine("Registered XP curve: " + id);
+        LOGGER.at(Level.FINE).log("Registered XP curve: %s", id);
     }
 
     /**
@@ -93,7 +94,7 @@ public final class XPCurveRegistry {
         }
         if (curve == null) {
             // Return default curve
-            LOGGER.warning("No character XP curve configured, using defaults");
+            LOGGER.atWarning().log("No character XP curve configured, using defaults");
             curve = new XPCurve(
                 CHARACTER_CURVE_ID,
                 XPCurve.CurveType.CHARACTER,
@@ -119,7 +120,7 @@ public final class XPCurveRegistry {
         }
         if (curve == null) {
             // Return default curve
-            LOGGER.warning("No class XP curve configured, using defaults");
+            LOGGER.atWarning().log("No class XP curve configured, using defaults");
             curve = new XPCurve(
                 CLASS_CURVE_ID,
                 XPCurve.CurveType.CLASS,

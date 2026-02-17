@@ -7,7 +7,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+import java.util.logging.Level;
 
 /**
  * Registry for Hyforged damage type extensions.
@@ -16,12 +17,12 @@ import java.util.logging.Logger;
  * which resistance stat should reduce the damage. It follows ECS principles by
  * having the damage type entity define its resistance relationship.
  * <p>
- * Extensions are loaded from JSON files in Server/Hyforged/Damage/ and registered
+ * Extensions are loaded from JSON files in Server/Hyforged/Stats/Damage/ and registered
  * by {@link DamageTypeAssetLoader}.
  */
 public final class DamageTypeExtensionRegistry {
 
-    private static final Logger LOGGER = Logger.getLogger(DamageTypeExtensionRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static final DamageTypeExtensionRegistry INSTANCE = new DamageTypeExtensionRegistry();
 
@@ -52,7 +53,7 @@ public final class DamageTypeExtensionRegistry {
      */
     public void register(@Nonnull String damageTypeId, @Nonnull DamageTypeExtension extension) {
         if (extensions.containsKey(damageTypeId)) {
-            LOGGER.warning("Duplicate damage type extension for: " + damageTypeId + " (ignoring duplicate)");
+            LOGGER.atWarning().log("Duplicate damage type extension for: %s (ignoring duplicate)", damageTypeId);
             return;
         }
         extensions.put(damageTypeId, extension);
@@ -60,7 +61,7 @@ public final class DamageTypeExtensionRegistry {
         resolvedResistances.clear();
         resolvedPenetrations.clear();
         resolvedElementTags.clear();
-        LOGGER.fine("Registered damage type extension: " + damageTypeId);
+        LOGGER.at(Level.FINE).log("Registered damage type extension: %s", damageTypeId);
     }
 
     /**
@@ -230,7 +231,7 @@ public final class DamageTypeExtensionRegistry {
         resolvedResistances.clear();
         resolvedPenetrations.clear();
         resolvedElementTags.clear();
-        LOGGER.fine("Cleared damage type extension registry");
+        LOGGER.at(Level.FINE).log("Cleared damage type extension registry");
     }
 
     /**

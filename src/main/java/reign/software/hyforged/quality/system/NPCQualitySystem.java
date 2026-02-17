@@ -39,6 +39,8 @@ import reign.software.hyforged.stats.npc.NPCStatInitSystem;
 import reign.software.hyforged.stats.npc.NPCStatTemplate;
 import reign.software.hyforged.stats.npc.NPCStatTemplateRegistry;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
@@ -46,14 +48,13 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Assigns NPC quality tiers on spawn and applies stat scaling.
  */
 public class NPCQualitySystem extends RefSystem<EntityStore> {
 
-    private static final Logger LOGGER = Logger.getLogger(NPCQualitySystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final String QUALITY_MODIFIER_SOURCE = "hyforged:npc_quality";
 
     private final ComponentType<EntityStore, NPCEntity> npcComponentType;
@@ -109,13 +110,13 @@ public class NPCQualitySystem extends RefSystem<EntityStore> {
 
         NPCQualityRule rule = NPCQualityRegistry.get().resolveRuleForRole(npcEntity.getRoleName());
         if (rule == null) {
-            LOGGER.log(Level.FINE, "No NPC quality rule available; skipping quality assignment");
+            LOGGER.at(Level.FINE).log("No NPC quality rule available; skipping quality assignment");
             return;
         }
 
         QualityWeightTable table = NPCQualityRegistry.get().getTable(rule.id());
         if (table == null) {
-            LOGGER.log(Level.WARNING, "Missing NPC quality weight table for rule {0}", rule.id());
+            LOGGER.atWarning().log("Missing NPC quality weight table for rule %s", rule.id());
             return;
         }
 
@@ -177,7 +178,7 @@ public class NPCQualitySystem extends RefSystem<EntityStore> {
         for (StatId statId : template.stats().keySet()) {
             int statIndex = registry.getIndex(statId);
             if (statIndex < 0) {
-                LOGGER.log(Level.FINE, "Unknown stat '{0}' in NPC template '{1}'", new Object[]{statId.fullId(), template.id()});
+                LOGGER.at(Level.FINE).log("Unknown stat '%s' in NPC template '%s'", statId.fullId(), template.id());
                 continue;
             }
 
@@ -277,7 +278,7 @@ public class NPCQualitySystem extends RefSystem<EntityStore> {
                     HytaleServer.get().getEventBus().dispatchFor(NPCQualityAssignedEvent.class);
             dispatcher.dispatch(new NPCQualityAssignedEvent(ref, qualityId, ruleId, affixes));
         } catch (Exception e) {
-            LOGGER.log(Level.WARNING, "Failed to emit NPCQualityAssignedEvent", e);
+            LOGGER.atWarning().withCause(e).log("Failed to emit NPCQualityAssignedEvent");
         }
     }
 }

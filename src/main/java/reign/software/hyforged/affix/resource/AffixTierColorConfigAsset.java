@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Asset class for loading affix tier color configuration from JSON.
  * <p>
- * Loaded from: Server/Hyforged/GameplayConfigs/AffixTierColors.json
+ * Loaded from: Server/Hyforged/Config/AffixTierColors.json
  */
 public class AffixTierColorConfigAsset implements JsonAssetWithMap<String, IndexedLookupTableAssetMap<String, AffixTierColorConfigAsset>> {
 

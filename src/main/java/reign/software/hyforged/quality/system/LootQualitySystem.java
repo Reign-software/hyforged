@@ -31,6 +31,8 @@ import reign.software.hyforged.quality.service.HyforgedQualityService;
 import reign.software.hyforged.quality.service.QualityContextBuilder;
 import reign.software.hyforged.quality.service.QualityRollerService;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -40,14 +42,13 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * ECS system that rolls item quality on new item drops before affixes are applied.
  */
 public class LootQualitySystem extends RefChangeSystem<EntityStore, ItemComponent> {
 
-    private static final Logger LOGGER = Logger.getLogger(LootQualitySystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final float SOURCE_SEARCH_RADIUS = 8.0f;
     private static final String META_SOURCE_UUID = "hyforged.loot.sourceUuid";
     private static final String META_PLAYER_UUID = "hyforged.loot.playerUuid";
@@ -129,7 +130,7 @@ public class LootQualitySystem extends RefChangeSystem<EntityStore, ItemComponen
 
         QualityRolledEvent event = emitQualityRolledEvent(context, originalQuality, rolledQuality, seed);
         if (event != null && event.isCancelled()) {
-            LOGGER.log(Level.FINE, "Quality roll cancelled for item {0}", itemStack.getItemId());
+            LOGGER.at(Level.FINE).log("Quality roll cancelled for item %s", itemStack.getItemId());
             return;
         }
 
@@ -167,7 +168,7 @@ public class LootQualitySystem extends RefChangeSystem<EntityStore, ItemComponen
             dispatcher.dispatch(event);
             return event;
         } catch (Exception e) {
-            LOGGER.log(Level.WARNING, "Failed to emit QualityRolledEvent for item " + context.itemId(), e);
+            LOGGER.atWarning().withCause(e).log("Failed to emit QualityRolledEvent for item %s", context.itemId());
             return null;
         }
     }

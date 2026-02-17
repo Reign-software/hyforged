@@ -106,9 +106,9 @@ class ConcentrationAssetLoadingTest {
                 ensureStatDefinitionStore();
 
         loadAssets(store,
-                "Server/Hyforged/Stats/ConcentrationRegenRate.json",
-                "Server/Hyforged/Stats/ConcentrationLossReduction.json",
-                "Server/Hyforged/Stats/ConcentrationLossThreshold.json"
+                "Server/Hyforged/Stats/Definitions/ConcentrationRegenRate.json",
+                "Server/Hyforged/Stats/Definitions/ConcentrationLossReduction.json",
+                "Server/Hyforged/Stats/Definitions/ConcentrationLossThreshold.json"
         );
 
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
@@ -239,11 +239,11 @@ class ConcentrationAssetLoadingTest {
                 ensureAffixDefinitionStore();
 
         loadAssets(affixStore,
-                "Server/Hyforged/Affixes/Prefix/OfClarity.json",
-                "Server/Hyforged/Affixes/Prefix/OfResolve.json",
-                "Server/Hyforged/Affixes/Prefix/Steadfast.json",
-                "Server/Hyforged/Affixes/Forged/MentalBastion.json",
-                "Server/Hyforged/Affixes/Forged/UnshakeableFocus.json"
+                "Server/Hyforged/Affixes/Definitions/Prefix/OfClarity.json",
+                "Server/Hyforged/Affixes/Definitions/Prefix/OfResolve.json",
+                "Server/Hyforged/Affixes/Definitions/Prefix/Steadfast.json",
+                "Server/Hyforged/Affixes/Definitions/Forged/MentalBastion.json",
+                "Server/Hyforged/Affixes/Definitions/Forged/UnshakeableFocus.json"
         );
 
         AffixDefinitionRegistry affixRegistry = AffixDefinitionRegistry.get();
@@ -286,8 +286,8 @@ class ConcentrationAssetLoadingTest {
         AssetStore<String, AffixPoolAsset, IndexedLookupTableAssetMap<String, AffixPoolAsset>> poolStore =
                 ensureAffixPoolStore();
         loadAssets(poolStore,
-                "Server/Hyforged/AffixPools/WeaponMelee.json",
-                "Server/Hyforged/AffixPools/Armor.json"
+                "Server/Hyforged/Affixes/Pools/WeaponMelee.json",
+                "Server/Hyforged/Affixes/Pools/Armor.json"
         );
 
         AffixPoolRegistry poolRegistry = AffixPoolRegistry.get();
@@ -320,11 +320,11 @@ class ConcentrationAssetLoadingTest {
                                 ensureAffixDefinitionStore();
 
                 loadAssets(affixStore,
-                                "Server/Hyforged/Affixes/Prefix/OfClarity.json",
-                                "Server/Hyforged/Affixes/Prefix/OfResolve.json",
-                                "Server/Hyforged/Affixes/Prefix/Steadfast.json",
-                                "Server/Hyforged/Affixes/Forged/MentalBastion.json",
-                                "Server/Hyforged/Affixes/Forged/UnshakeableFocus.json"
+                                "Server/Hyforged/Affixes/Definitions/Prefix/OfClarity.json",
+                                "Server/Hyforged/Affixes/Definitions/Prefix/OfResolve.json",
+                                "Server/Hyforged/Affixes/Definitions/Prefix/Steadfast.json",
+                                "Server/Hyforged/Affixes/Definitions/Forged/MentalBastion.json",
+                                "Server/Hyforged/Affixes/Definitions/Forged/UnshakeableFocus.json"
                 );
 
                 AffixDefinitionRegistry affixRegistry = AffixDefinitionRegistry.get();

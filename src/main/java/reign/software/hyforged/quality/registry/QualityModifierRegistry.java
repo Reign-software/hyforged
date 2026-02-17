@@ -4,18 +4,18 @@ import reign.software.hyforged.quality.model.QualityModifierConfig;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Registry for quality modifier configs.
  */
 public final class QualityModifierRegistry {
 
-    private static final Logger LOGGER = Logger.getLogger(QualityModifierRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static QualityModifierRegistry instance;
 
     private final Map<String, QualityModifierConfig> configsById = new ConcurrentHashMap<>();
@@ -41,7 +41,7 @@ public final class QualityModifierRegistry {
             throw new IllegalStateException("Registry is frozen, cannot register new configs");
         }
         if (configsById.containsKey(config.id())) {
-            LOGGER.log(Level.WARNING, "Quality modifier config ''{0}'' overridden by later definition", config.id());
+            LOGGER.atWarning().log("Quality modifier config '%s' overridden by later definition", config.id());
         }
         configsById.put(config.id(), config);
     }

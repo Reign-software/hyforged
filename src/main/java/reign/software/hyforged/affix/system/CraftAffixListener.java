@@ -18,8 +18,8 @@ import reign.software.hyforged.affix.service.*;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Event listener that rolls affixes on items entering player inventory without affixes.
@@ -42,7 +42,7 @@ import java.util.logging.Logger;
  */
 public class CraftAffixListener {
 
-    private static final Logger LOGGER = Logger.getLogger(CraftAffixListener.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private final AffixRollerService rollerService;
     private final AffixPoolRegistry poolRegistry;
@@ -74,7 +74,7 @@ public class CraftAffixListener {
         registration = HytaleServer.get().getEventBus()
                 .registerGlobal((short) 0, LivingEntityInventoryChangeEvent.class, this::onInventoryChange);
 
-        LOGGER.log(Level.INFO, "CraftAffixListener registered for inventory change events");
+        LOGGER.atInfo().log("CraftAffixListener registered for inventory change events");
     }
 
     /**
@@ -162,7 +162,7 @@ public class CraftAffixListener {
                 AffixesRolledEvent rolledEvent = emitAffixesRolledEvent(context, result);
 
                 if (rolledEvent != null && rolledEvent.isCancelled()) {
-                    LOGGER.log(Level.FINE, "Affix rolling cancelled for item {0}", itemStack.getItemId());
+                    LOGGER.at(Level.FINE).log("Affix rolling cancelled for item %s", itemStack.getItemId());
                     continue;
                 }
 
@@ -175,8 +175,7 @@ public class CraftAffixListener {
                 ItemStack updatedStack = HyforgedItemDataService.write(itemStack, itemData);
                 container.setItemStackForSlot(slot, updatedStack);
 
-                LOGGER.log(Level.FINE, "Applied {0} affixes to item {1} in slot {2}",
-                        new Object[]{effectiveAffixes.size(), itemStack.getItemId(), slot});
+                LOGGER.at(Level.FINE).log("Applied %s affixes to item %s in slot %s", effectiveAffixes.size(), itemStack.getItemId(), slot);
             }
         }
     }
@@ -205,7 +204,7 @@ public class CraftAffixListener {
             dispatcher.dispatch(event);
             return event;
         } catch (Exception e) {
-            LOGGER.log(Level.WARNING, "Failed to emit AffixesRolledEvent for item " + context.itemId(), e);
+            LOGGER.atWarning().withCause(e).log("Failed to emit AffixesRolledEvent for item %s", context.itemId());
             return null;
         }
     }

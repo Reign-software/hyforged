@@ -8,8 +8,8 @@ import reign.software.hyforged.affix.service.*;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Public API facade for the Hyforged Affix System.
@@ -49,7 +49,7 @@ import java.util.logging.Logger;
  */
 public final class AffixService {
     
-    private static final Logger LOGGER = Logger.getLogger(AffixService.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static AffixService instance;
     
     private final AffixRollerService rollerService;
@@ -224,7 +224,7 @@ public final class AffixService {
         // Build context from item
         AffixRollContext context = buildContextFromItem(itemStack);
         if (context == null) {
-            LOGGER.log(Level.FINE, "Item not eligible for affixes: {0}", itemStack.getItemId());
+            LOGGER.at(Level.FINE).log("Item not eligible for affixes: %s", itemStack.getItemId());
             return itemStack;
         }
         
@@ -359,13 +359,13 @@ public final class AffixService {
     private RolledAffix rollFromSpec(@Nonnull AffixSpec spec, @Nonnull Random random) {
         AffixDefinition definition = affixRegistry.get(spec.affixId());
         if (definition == null) {
-            LOGGER.log(Level.WARNING, "Unknown affix ID in spec: {0}", spec.affixId());
+            LOGGER.atWarning().log("Unknown affix ID in spec: %s", spec.affixId());
             throw new IllegalArgumentException("Unknown affix ID: " + spec.affixId());
         }
         
         List<AffixTierDefinition> tiers = definition.tiers();
         if (tiers.isEmpty()) {
-            LOGGER.log(Level.WARNING, "Affix has no tiers: {0}", spec.affixId());
+            LOGGER.atWarning().log("Affix has no tiers: %s", spec.affixId());
             return null;
         }
         
@@ -381,7 +381,7 @@ public final class AffixService {
         // Find tier definition
         AffixTierDefinition tierDef = findTier(tiers, tier);
         if (tierDef == null) {
-            LOGGER.log(Level.WARNING, "Tier {0} not found for affix: {1}", new Object[]{tier, spec.affixId()});
+            LOGGER.atWarning().log("Tier %s not found for affix: %s", tier, spec.affixId());
             // Fall back to first tier
             tierDef = tiers.get(0);
             tier = tierDef.tier();
@@ -465,7 +465,7 @@ public final class AffixService {
     public void registerAffix(@Nonnull AffixDefinition affix) {
         Objects.requireNonNull(affix, "affix cannot be null");
         affixRegistry.register(affix);
-        LOGGER.log(Level.INFO, "Registered affix via API: {0}", affix.id());
+        LOGGER.atInfo().log("Registered affix via API: %s", affix.id());
     }
     
     /**
@@ -479,7 +479,7 @@ public final class AffixService {
     public void registerPool(@Nonnull AffixPool pool) {
         Objects.requireNonNull(pool, "pool cannot be null");
         poolRegistry.register(pool);
-        LOGGER.log(Level.INFO, "Registered affix pool via API: {0}", pool.id());
+        LOGGER.atInfo().log("Registered affix pool via API: %s", pool.id());
     }
     
     /**
@@ -493,7 +493,7 @@ public final class AffixService {
     public void registerType(@Nonnull AffixType type) {
         Objects.requireNonNull(type, "type cannot be null");
         typeRegistry.register(type);
-        LOGGER.log(Level.INFO, "Registered affix type via API: {0}", type.id());
+        LOGGER.atInfo().log("Registered affix type via API: %s", type.id());
     }
     
     /**
@@ -507,7 +507,7 @@ public final class AffixService {
     public void registerQualityRule(@Nonnull QualityAffixRule rule) {
         Objects.requireNonNull(rule, "rule cannot be null");
         qualityRegistry.register(rule);
-        LOGGER.log(Level.INFO, "Registered quality affix rule via API: {0}", rule.quality());
+        LOGGER.atInfo().log("Registered quality affix rule via API: %s", rule.quality());
     }
     
     // =========================================================================

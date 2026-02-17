@@ -18,7 +18,8 @@ import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+import java.util.logging.Level;
 
 /**
  * System that applies stat modifiers from class level-ups.
@@ -33,7 +34,7 @@ import java.util.logging.Logger;
  */
 public class ClassLevelModifierSystem {
 
-    private static final Logger LOGGER = Logger.getLogger(ClassLevelModifierSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     /**
      * Modifier source ID prefix for class level bonuses.
@@ -57,7 +58,7 @@ public class ClassLevelModifierSystem {
         characterLevelRegistration = HytaleServer.get().getEventBus()
                 .register(CharacterLevelUpEvent.class, this::onCharacterLevelUp);
         
-        LOGGER.info("ClassLevelModifierSystem: Registered level-up event handlers");
+        LOGGER.atInfo().log("ClassLevelModifierSystem: Registered level-up event handlers");
     }
 
     /**
@@ -75,13 +76,13 @@ public class ClassLevelModifierSystem {
         String classId = event.classId();
         int newLevel = event.newLevel();
         
-        LOGGER.fine(() -> String.format(
+        LOGGER.at(Level.FINE).log(
                 "ClassLevelModifierSystem: Applying %d ability bonuses for %s level %d",
-                abilityBonuses.size(), classId, newLevel));
+                abilityBonuses.size(), classId, newLevel);
         
         // Get store from ref - verify entity is still valid
         if (!entityRef.isValid()) {
-            LOGGER.warning("ClassLevelModifierSystem: Invalid entity ref for level-up");
+            LOGGER.atWarning().log("ClassLevelModifierSystem: Invalid entity ref for level-up");
             return;
         }
         Store<EntityStore> store = entityRef.getStore();
@@ -92,7 +93,7 @@ public class ClassLevelModifierSystem {
             HyforgedPlugin.getInstance().getHyforgedStatComponentType()
         );
         if (statMap == null && statComponent == null) {
-            LOGGER.fine("ClassLevelModifierSystem: Entity has no stat map");
+            LOGGER.at(Level.FINE).log("ClassLevelModifierSystem: Entity has no stat map");
             return;
         }
         
@@ -110,9 +111,9 @@ public class ClassLevelModifierSystem {
             StatId statId = StatId.parse(abilityId);
             int statIndex = registry.getIndex(statId);
             if (statIndex < 0) {
-                LOGGER.warning(() -> String.format(
+                LOGGER.atWarning().log(
                         "ClassLevelModifierSystem: Unknown ability stat '%s' for class %s",
-                        abilityId, classId));
+                        abilityId, classId);
                 continue;
             }
             
@@ -152,9 +153,9 @@ public class ClassLevelModifierSystem {
         // The character level is used for combat effectiveness calculations
         // via the ProgressionStatBridge
         
-        LOGGER.fine(() -> String.format(
+        LOGGER.at(Level.FINE).log(
                 "ClassLevelModifierSystem: Character level-up to %d (no bonuses applied)",
-                event.newLevel()));
+                event.newLevel());
         
         // Note: EntityStatMap auto-recomputes values when accessed,
         // so no explicit dirty marking is needed for effectiveness calculations

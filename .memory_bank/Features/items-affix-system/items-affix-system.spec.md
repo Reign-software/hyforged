@@ -59,7 +59,7 @@ Extend items with an ARPG-style affix system (prefixes, suffixes, and forged aff
 ## Functional Requirements
 
 ### FR-1: Affix Type Definitions
-- Affix types are fully data-driven and defined in JSON at `Server/Hyforged/AffixTypes/`.
+- Affix types are fully data-driven and defined in JSON at `Server/Hyforged/Affixes/Types/`.
 - One file per affix type (e.g., `Prefix.json`, `Suffix.json`, `Forged.json`).
 - Hyforged ships default types; other plugins can add new types via additional JSON files.
 - Registry behavior on duplicate type IDs: accept the latest entry by load order and log at WARN to highlight overrides.
@@ -79,7 +79,7 @@ Extend items with an ARPG-style affix system (prefixes, suffixes, and forged aff
   ```
 
 ### FR-2: Quality Affix Capacity
-- Affix capacities per Quality are defined in JSON at `Server/Hyforged/QualityAffixRules/`.
+- Affix capacities per Quality are defined in JSON at `Server/Hyforged/Quality/AffixRules/`.
 - One file per Quality tier (e.g., `Common.json`, `Rare.json`, `Legendary.json`).
 - Mirrors Hytale's pattern (`Server/Item/Qualities/`) for consistency.
 - Hyforged ships default rules; servers can override or extend with custom Quality rules.
@@ -117,7 +117,7 @@ Extend items with an ARPG-style affix system (prefixes, suffixes, and forged aff
 - Non-equipment Qualities (Junk, Tool, Technical, Template, Debug, Developer) have no rules file (treated as 0 capacity).
 
 ### FR-3: Affix Definitions
-- Affixes are defined in JSON at `Server/Hyforged/Affixes/`.
+- Affixes are defined in JSON at `Server/Hyforged/Affixes/Definitions/`.
 - Each affix definition includes:
   - `id`: Unique identifier (e.g., `"sturdy"`, `"of-the-bear"`)
   - `type`: Affix type reference (`"prefix"`, `"suffix"`, `"forged"`)
@@ -151,7 +151,7 @@ Extend items with an ARPG-style affix system (prefixes, suffixes, and forged aff
 ```
 
 ### FR-4: Affix Tier Templates in Stat Definitions
-- Stat definitions (`Server/Hyforged/Stats/`) can include affix tier templates.
+- Stat definitions (`Server/Hyforged/Stats/Definitions/`) can include affix tier templates.
 - This allows stats to define default tier progressions reusable across affixes.
 - Affix definitions may reference the stat template; explicit affix tiers override template values.
 - Format (optional extension to stat definition):
@@ -169,7 +169,7 @@ Extend items with an ARPG-style affix system (prefixes, suffixes, and forged aff
 
 ### FR-5: Affix Pools per Item Type
 - Affix pools define which affixes can appear on which item types.
-- Pools are defined in JSON at `Server/Hyforged/AffixPools/`.
+- Pools are defined in JSON at `Server/Hyforged/Affixes/Pools/`.
 - Pools can be referenced by item category or tag pattern.
 - Registry behavior on duplicate pool IDs: accept the latest entry by load order and log at WARN to highlight overrides.
 - Format:
@@ -316,10 +316,10 @@ Extend items with an ARPG-style affix system (prefixes, suffixes, and forged aff
 ### New JSON Asset Types
 | Path | Description |
 |------|-------------|
-| `Server/Hyforged/AffixTypes/*.json` | Affix type definitions (one per type) |
-| `Server/Hyforged/Affixes/*.json` | Individual affix definitions (one per affix) |
-| `Server/Hyforged/AffixPools/*.json` | Affix pools per item type (one per pool) |
-| `Server/Hyforged/QualityAffixRules/*.json` | Capacity rules per Quality (one per Quality tier) |
+| `Server/Hyforged/Affixes/Types/*.json` | Affix type definitions (one per type) |
+| `Server/Hyforged/Affixes/Definitions/*.json` | Individual affix definitions (one per affix) |
+| `Server/Hyforged/Affixes/Pools/*.json` | Affix pools per item type (one per pool) |
+| `Server/Hyforged/Quality/AffixRules/*.json` | Capacity rules per Quality (one per Quality tier) |
 
 ### ItemStack Metadata Extension
 - New `"Hyforged"` key in `ItemStack.metadata` containing affix array.

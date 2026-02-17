@@ -12,8 +12,10 @@ import com.hypixel.hytale.server.core.util.NotificationUtil;
 import reign.software.hyforged.progression.event.LevelUpNotificationEvent;
 import reign.software.hyforged.util.MessageColors;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * System that sends in-game notifications for level-up events.
@@ -26,7 +28,7 @@ import java.util.logging.Logger;
  */
 public class ProgressionNotificationSystem {
 
-    private static final Logger LOGGER = Logger.getLogger(ProgressionNotificationSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     // Icons for notifications
     private static final String ICON_LEVEL_UP = "Item_ScribblesAndNotes_Paper_Scroll";
@@ -41,7 +43,7 @@ public class ProgressionNotificationSystem {
         levelUpRegistration = HytaleServer.get().getEventBus()
                 .register(LevelUpNotificationEvent.class, this::onLevelUp);
         
-        LOGGER.info("ProgressionNotificationSystem: Registered notification event handlers");
+        LOGGER.atInfo().log("ProgressionNotificationSystem: Registered notification event handlers");
     }
 
     /**
@@ -106,9 +108,8 @@ public class ProgressionNotificationSystem {
                 ICON_LEVEL_UP
         );
         
-        LOGGER.fine(() -> String.format(
-                "Sent level-up notification: type=%s, level=%d, rewards=%d",
-                event.levelType(), event.newLevel(), event.rewardsGranted()));
+        LOGGER.at(Level.FINE).log("Sent level-up notification: type=%s, level=%d, rewards=%d",
+                event.levelType(), event.newLevel(), event.rewardsGranted());
     }
 
     /**
@@ -118,6 +119,6 @@ public class ProgressionNotificationSystem {
         if (levelUpRegistration != null) {
             levelUpRegistration.unregister();
         }
-        LOGGER.info("ProgressionNotificationSystem: Unregistered event handlers");
+        LOGGER.atInfo().log("ProgressionNotificationSystem: Unregistered event handlers");
     }
 }

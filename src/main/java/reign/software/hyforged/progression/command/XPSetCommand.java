@@ -14,8 +14,9 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.progression.component.ProgressionComponent;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
 
 /**
  * Command to set character XP for a player.
@@ -24,7 +25,7 @@ import java.util.logging.Logger;
  */
 public class XPSetCommand extends CommandBase {
 
-    private static final Logger LOGGER = Logger.getLogger(XPSetCommand.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Player not found or not in a world.");
     private static final Message MESSAGE_NO_COMPONENT = Message.raw("Player does not have a progression component.");
@@ -98,8 +99,8 @@ public class XPSetCommand extends CommandBase {
             progression.setCharacterXp(amount);
 
             // Audit log
-            LOGGER.info(String.format("[AUDIT] Admin %s set XP for player %s from %d to %d",
-                    adminName, playerName, oldXp, amount));
+            LOGGER.atInfo().log("[AUDIT] Admin %s set XP for player %s from %d to %d",
+                    adminName, playerName, oldXp, amount);
 
             context.sendMessage(Message.raw(String.format(
                     "Set XP for %s from %d to %d.",

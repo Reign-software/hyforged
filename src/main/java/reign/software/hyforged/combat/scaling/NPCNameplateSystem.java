@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Sets NPC nameplates to display name, quality, affixes, and level.
@@ -56,7 +56,7 @@ import java.util.logging.Logger;
  */
 public class NPCNameplateSystem extends RefChangeSystem<EntityStore, HyforgedNPCQualityComponent> {
 
-    private static final Logger LOGGER = Logger.getLogger(NPCNameplateSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     @Nonnull
     private final ComponentType<EntityStore, HyforgedNPCQualityComponent> qualityComponentType;
@@ -181,8 +181,8 @@ public class NPCNameplateSystem extends RefChangeSystem<EntityStore, HyforgedNPC
         String nameplateText = buildNameplateText(qualityId, baseName, affixes, level);
         commandBuffer.putComponent(ref, nameplateComponentType, new Nameplate(nameplateText));
 
-        LOGGER.log(Level.FINE, "Set nameplate for NPC ''{0}'': {1}",
-                new Object[]{npcEntity.getRoleName(), nameplateText});
+        LOGGER.at(Level.FINE).log("Set nameplate for NPC '%s': %s",
+                npcEntity.getRoleName(), nameplateText);
     }
 
     /**

@@ -10,14 +10,16 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+
+import java.util.logging.Level;
 
 /**
  * Service for selling items at Market Stalls.
  */
 public class MarketStallService {
 
-    private static final Logger LOGGER = Logger.getLogger(MarketStallService.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static MarketStallService instance;
 
@@ -117,7 +119,7 @@ public class MarketStallService {
             );
         }
 
-        LOGGER.fine("Sold items for " + finalTotalValue + " Tradebars to player");
+        LOGGER.at(Level.FINE).log("Sold items for %s Tradebars to player", finalTotalValue);
 
         return SellResult.success(finalTotalValue, sellInfo);
     }

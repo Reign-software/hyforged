@@ -2,5 +2,7 @@
   "Id": "forged",
   "DisplayNamePosition": "none",
   "DisplayFormat": "{name} (T{tier})",
-  "Stackable": false
+  "Stackable": false,
+  "HudSectionName": "Forged Properties",
+  "HudColor": "#cc8800"
 }

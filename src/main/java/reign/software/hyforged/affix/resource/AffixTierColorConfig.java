@@ -4,15 +4,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Runtime config for affix tier color mapping.
  */
 public final class AffixTierColorConfig {
 
-    private static final Logger LOGGER = Logger.getLogger(AffixTierColorConfig.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final AffixTierColorConfig INSTANCE = new AffixTierColorConfig();
 
     private String defaultColor = "";
@@ -75,7 +76,7 @@ public final class AffixTierColorConfig {
                     result.put(tier, color);
                 }
             } catch (NumberFormatException ex) {
-                LOGGER.log(Level.FINE, "Invalid affix tier color key: {0}", key);
+                LOGGER.at(Level.FINE).log("Invalid affix tier color key: %s", key);
             }
         }
         return result;

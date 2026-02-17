@@ -1,9 +1,10 @@
 package reign.software.hyforged.progression.xp;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * Configuration holder for XP scaling values.
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class XPConfig {
     
-    private static final Logger LOGGER = Logger.getLogger(XPConfig.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     private static XPConfig instance;
     
@@ -62,7 +63,7 @@ public class XPConfig {
         objectiveTierXp.put("major", 100L);
         objectiveTierXp.put("legendary", 250L);
         
-        LOGGER.info("XPConfig initialized with defaults");
+        LOGGER.atInfo().log("XPConfig initialized with defaults");
     }
     
     /**
@@ -83,7 +84,7 @@ public class XPConfig {
      * @param asset the loaded asset
      */
     public void applyFromAsset(@Nonnull XPConfigAsset asset) {
-        LOGGER.info("Applying XP configuration from loaded asset...");
+        LOGGER.atInfo().log("Applying XP configuration from loaded asset...");
         
         // Combat
         this.combatBaseXp = asset.getCombatBaseXp();
@@ -104,7 +105,7 @@ public class XPConfig {
         this.maxCharacterLevel = asset.getMaxCharacterLevel();
         this.maxClassLevel = asset.getMaxClassLevel();
         
-        LOGGER.info("XP configuration applied from asset");
+        LOGGER.atInfo().log("XP configuration applied from asset");
     }
     
     // ========== ACCESSORS ==========

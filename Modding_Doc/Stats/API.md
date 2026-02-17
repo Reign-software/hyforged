@@ -397,7 +397,7 @@ public class InCombatCondition implements ModifierCondition {
 
 ### JSON Schema
 
-Create templates in `Server/Hyforged/NPCStats/`:
+Create templates in `Server/Hyforged/Stats/NPCTemplates/`:
 
 ```json
 {
@@ -456,7 +456,7 @@ Map<StatId, Integer> stats = registry.resolveStats("hyforged:goblin", 5);
 
 ### JSON Schema
 
-Create classes in `Server/Hyforged/Classes/`:
+Create classes in `Server/Hyforged/Stats/Classes/`:
 
 ```json
 {
@@ -494,7 +494,7 @@ Map<StatId, Integer> abilityScores = classDef.abilityScores();
 
 ### Custom Damage Types
 
-Hyforged uses a fully data-driven system for damage type extensions. Create JSON files in `Server/Hyforged/Damage/` to define which resistance stat applies to each damage type. The file name must match the Hytale `DamageCause` ID (e.g., `Fire.json` for Fire damage).
+Hyforged uses a fully data-driven system for damage type extensions. Create JSON files in `Server/Hyforged/Stats/Damage/` to define which resistance stat applies to each damage type. The file name must match the Hytale `DamageCause` ID (e.g., `Fire.json` for Fire damage).
 
 ```json
 {

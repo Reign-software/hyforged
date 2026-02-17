@@ -24,8 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Utility class for generating tooltip content for items with affixes.
@@ -44,7 +43,7 @@ import java.util.logging.Logger;
  * </ul>
  * <p>
  * Tier colors (for client-side rendering) are data-driven via
- * {@code Server/Hyforged/GameplayConfigs/AffixTierColors.json}.
+ * {@code Server/Hyforged/Config/AffixTierColors.json}.
  * <p>
  * Forged affixes are displayed in a separate section with a different header.
  * <p>
@@ -57,7 +56,7 @@ import java.util.logging.Logger;
  */
 public final class AffixTooltipProvider {
 
-    private static final Logger LOGGER = Logger.getLogger(AffixTooltipProvider.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     // ======= SECTION HEADERS =======
     /** Header for the affixes section */
@@ -135,60 +134,115 @@ public final class AffixTooltipProvider {
     }
 
     /**
-     * Represents the complete tooltip content for an item's affixes.
+     * Represents a grouped section of tooltip lines, driven by AffixType HUD settings.
+     * <p>
+     * Types sharing the same {@code hudSectionName} are merged into one section.
      *
-     * @param regularAffixes Lines for regular affixes (prefix/suffix)
-     * @param forgedAffixes  Lines for forged affixes
+     * @param sectionName The display name for this section (from AffixType.hudSectionName)
+     * @param hudColor    The hex color for this section's header and lines
+     * @param lines       The tooltip lines in this section
+     */
+    public record TooltipSection(
+        @Nonnull String sectionName,
+        @Nonnull String hudColor,
+        @Nonnull List<TooltipLine> lines
+    ) {
+        public TooltipSection {
+            Objects.requireNonNull(sectionName, "sectionName cannot be null");
+            Objects.requireNonNull(hudColor, "hudColor cannot be null");
+            lines = List.copyOf(lines);
+        }
+    }
+
+    /**
+     * Represents the complete tooltip content for an item's affixes.
+     * <p>
+     * Content is organized into data-driven sections, each corresponding to a
+     * HUD section name defined in AffixType JSON. Types sharing the same
+     * {@code HudSectionName} are grouped into a single section.
+     *
+     * @param sections Ordered list of tooltip sections (grouped by AffixType.hudSectionName)
      */
     public record TooltipContent(
-        @Nonnull List<TooltipLine> regularAffixes,
-        @Nonnull List<TooltipLine> forgedAffixes
+        @Nonnull List<TooltipSection> sections
     ) {
         public TooltipContent {
-            regularAffixes = List.copyOf(regularAffixes);
-            forgedAffixes = List.copyOf(forgedAffixes);
+            sections = List.copyOf(sections);
+        }
+
+        /**
+         * Backward-compatible constructor from regular/forged split.
+         */
+        public TooltipContent(@Nonnull List<TooltipLine> regularAffixes, @Nonnull List<TooltipLine> forgedAffixes) {
+            this(buildLegacySections(regularAffixes, forgedAffixes));
+        }
+
+        private static List<TooltipSection> buildLegacySections(List<TooltipLine> regular, List<TooltipLine> forged) {
+            List<TooltipSection> result = new ArrayList<>();
+            if (!regular.isEmpty()) {
+                result.add(new TooltipSection(AFFIXES_SECTION_HEADER, AffixType.DEFAULT_HUD_COLOR, regular));
+            }
+            if (!forged.isEmpty()) {
+                result.add(new TooltipSection(FORGED_SECTION_HEADER, "#cc8800", forged));
+            }
+            return result;
         }
 
         /**
          * Check if there is any tooltip content.
          */
         public boolean hasContent() {
-            return !regularAffixes.isEmpty() || !forgedAffixes.isEmpty();
+            return sections.stream().anyMatch(s -> !s.lines().isEmpty());
         }
 
         /**
-         * Check if there are regular (non-forged) affixes.
+         * Backward-compat: get lines from all non-"Forged Properties" sections.
+         */
+        public List<TooltipLine> regularAffixes() {
+            return sections.stream()
+                .filter(s -> !FORGED_SECTION_HEADER.equals(s.sectionName()))
+                .flatMap(s -> s.lines().stream())
+                .toList();
+        }
+
+        /**
+         * Backward-compat: get lines from the "Forged Properties" section.
+         */
+        public List<TooltipLine> forgedAffixes() {
+            return sections.stream()
+                .filter(s -> FORGED_SECTION_HEADER.equals(s.sectionName()))
+                .flatMap(s -> s.lines().stream())
+                .toList();
+        }
+
+        /**
+         * Backward-compat: check if there are regular (non-forged) affixes.
          */
         public boolean hasRegularAffixes() {
-            return !regularAffixes.isEmpty();
+            return !regularAffixes().isEmpty();
         }
 
         /**
-         * Check if there are forged affixes.
+         * Backward-compat: check if there are forged affixes.
          */
         public boolean hasForgedAffixes() {
-            return !forgedAffixes.isEmpty();
+            return !forgedAffixes().isEmpty();
         }
 
         /**
-         * Get all lines combined (regular affixes section, then forged section).
+         * Get all lines combined with section headers inserted.
          *
          * @return Combined list of all tooltip lines with section headers
          */
         @Nonnull
         public List<TooltipLine> getAllLines() {
             List<TooltipLine> result = new ArrayList<>();
-
-            if (!regularAffixes.isEmpty()) {
-                result.add(TooltipLine.header(AFFIXES_SECTION_HEADER));
-                result.addAll(regularAffixes);
+            for (TooltipSection section : sections) {
+                if (!section.lines().isEmpty()) {
+                    result.add(TooltipLine.header(section.sectionName()));
+                    result.addAll(section.lines());
+                }
             }
-
-            if (!forgedAffixes.isEmpty()) {
-                result.add(TooltipLine.header(FORGED_SECTION_HEADER));
-                result.addAll(forgedAffixes);
-            }
-
             return result;
         }
 
@@ -207,7 +261,7 @@ public final class AffixTooltipProvider {
         /**
          * Empty tooltip content.
          */
-        public static final TooltipContent EMPTY = new TooltipContent(List.of(), List.of());
+        public static final TooltipContent EMPTY = new TooltipContent(List.of());
     }
 
     /**
@@ -229,6 +283,10 @@ public final class AffixTooltipProvider {
 
     /**
      * Generate tooltip content from a list of affixes.
+     * <p>
+     * Groups affix lines into sections based on each AffixType's {@code hudSectionName}.
+     * Types sharing the same section name are merged. Section ordering follows first
+     * encounter order of each section name.
      *
      * @param affixes The list of rolled affixes
      * @return The structured tooltip content
@@ -245,8 +303,8 @@ public final class AffixTooltipProvider {
         AffixTypeRegistry typeRegistry = AffixTypeRegistry.get();
         StatDefinitionRegistry statRegistry = StatDefinitionRegistry.get();
 
-        List<TooltipLine> regularLines = new ArrayList<>();
-        List<TooltipLine> forgedLines = new ArrayList<>();
+        // LinkedHashMap preserves insertion order (first-seen section name wins ordering)
+        java.util.LinkedHashMap<String, SectionAccumulator> sectionMap = new java.util.LinkedHashMap<>();
 
         for (RolledAffix affix : affixes) {
             List<TooltipLine> lines = generateAffixLines(affix, affixRegistry, typeRegistry, statRegistry);
@@ -254,21 +312,46 @@ public final class AffixTooltipProvider {
                 continue;
             }
 
-            // Determine if this is a forged affix
+            // Resolve HUD section from affix type
+            String sectionName = AFFIXES_SECTION_HEADER;
+            String sectionColor = AffixType.DEFAULT_HUD_COLOR;
+
             AffixDefinition definition = affixRegistry.get(affix.affixId());
             if (definition != null) {
                 AffixType type = typeRegistry.get(definition.type());
-                if (type != null && type.displayNamePosition() == AffixType.DisplayNamePosition.NONE) {
-                    forgedLines.addAll(lines);
-                } else {
-                    regularLines.addAll(lines);
+                if (type != null) {
+                    sectionName = type.hudSectionName();
+                    sectionColor = type.hudColor();
                 }
-            } else {
-                regularLines.addAll(lines); // Default to regular if unknown
             }
+
+            final String resolvedSection = sectionName;
+            final String resolvedColor = sectionColor;
+            SectionAccumulator acc = sectionMap.computeIfAbsent(
+                    resolvedSection, k -> new SectionAccumulator(k, resolvedColor));
+            acc.lines.addAll(lines);
         }
 
-        return new TooltipContent(regularLines, forgedLines);
+        List<TooltipSection> sections = sectionMap.values().stream()
+                .filter(acc -> !acc.lines.isEmpty())
+                .map(acc -> new TooltipSection(acc.sectionName, acc.hudColor, acc.lines))
+                .toList();
+
+        return new TooltipContent(sections);
+    }
+
+    /**
+     * Mutable accumulator used during tooltip generation to collect lines per section.
+     */
+    private static final class SectionAccumulator {
+        final String sectionName;
+        final String hudColor;
+        final List<TooltipLine> lines = new ArrayList<>();
+
+        SectionAccumulator(String sectionName, String hudColor) {
+            this.sectionName = sectionName;
+            this.hudColor = hudColor;
+        }
     }
 
     /**
@@ -294,7 +377,7 @@ public final class AffixTooltipProvider {
         // Look up affix definition
         AffixDefinition definition = affixRegistry.get(affix.affixId());
         if (definition == null) {
-            LOGGER.log(Level.WARNING, "Unknown affix for tooltip: {0}", affix.affixId());
+            LOGGER.atWarning().log("Unknown affix for tooltip: %s", affix.affixId());
             return List.of();
         }
 

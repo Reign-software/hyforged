@@ -6,7 +6,8 @@ import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+import java.util.logging.Level;
 
 /**
  * Handles schema version migrations for HyforgedStatComponent data.
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
  */
 public final class StatDataMigrator {
 
-    private static final Logger LOGGER = Logger.getLogger(StatDataMigrator.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /**
      * Default base value for ability scores.
@@ -47,10 +48,10 @@ public final class StatDataMigrator {
             return; // No migration needed
         }
 
-        LOGGER.info(() -> String.format(
+        LOGGER.atInfo().log(
                 "Migrating HyforgedStatComponent from version %d to %d",
                 fromVersion, toVersion
-        ));
+        );
 
         // Apply migrations incrementally
         int currentVersion = fromVersion;
@@ -69,10 +70,10 @@ public final class StatDataMigrator {
             case 1 -> migrateV1ToV2(component);
             default -> {
                 // Unknown version, try to continue
-                LOGGER.warning(() -> String.format(
+                LOGGER.atWarning().log(
                         "Unknown schema version %d, attempting to continue",
                         fromVersion
-                ));
+                );
                 yield fromVersion + 1;
             }
         };
@@ -86,7 +87,7 @@ public final class StatDataMigrator {
      */
     private static int migrateV0ToV1(@Nonnull HyforgedStatComponent component) {
         // V0 -> V1: Just ensure data exists, nothing special to migrate
-        LOGGER.fine("V0->V1 migration complete (minimal changes)");
+        LOGGER.at(Level.FINE).log("V0->V1 migration complete (minimal changes)");
         return 1;
     }
 
@@ -113,7 +114,7 @@ public final class StatDataMigrator {
             }
         }
         
-        LOGGER.fine("V1->V2 migration complete (baseValues map now used)");
+        LOGGER.at(Level.FINE).log("V1->V2 migration complete (baseValues map now used)");
         return 2;
     }
 
@@ -150,7 +151,7 @@ public final class StatDataMigrator {
         }
         
         if (wasRepaired) {
-            LOGGER.warning("Repaired invalid ability score base values");
+            LOGGER.atWarning().log("Repaired invalid ability score base values");
         }
 
         // Mark all stats dirty to ensure recomputation after load

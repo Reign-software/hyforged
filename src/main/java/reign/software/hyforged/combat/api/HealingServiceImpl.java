@@ -17,8 +17,8 @@ import reign.software.hyforged.stats.StatId;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.UUID;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Implementation of the {@link HealingService} API.
@@ -36,7 +36,7 @@ import java.util.logging.Logger;
  */
 public final class HealingServiceImpl implements HealingService {
 
-    private static final Logger LOGGER = Logger.getLogger(HealingServiceImpl.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     private static final HealingServiceImpl INSTANCE = new HealingServiceImpl();
 
@@ -145,7 +145,7 @@ public final class HealingServiceImpl implements HealingService {
         }
 
         if (accessor == null) {
-            LOGGER.warning("No valid accessor provided for healing");
+            LOGGER.atWarning().log("No valid accessor provided for healing");
             return HealingResult.invalidTarget();
         }
 
@@ -353,17 +353,17 @@ public final class HealingServiceImpl implements HealingService {
         
         healingEffectivenessIndex = registry.getIndex(HEALING_EFFECTIVENESS);
         if (healingEffectivenessIndex < 0) {
-            LOGGER.log(Level.FINE, "Healing effectiveness stat not found: " + HEALING_EFFECTIVENESS);
+            LOGGER.at(Level.FINE).log("Healing effectiveness stat not found: %s", HEALING_EFFECTIVENESS);
         }
 
         healingReceivedIndex = registry.getIndex(HEALING_RECEIVED);
         if (healingReceivedIndex < 0) {
-            LOGGER.log(Level.FINE, "Healing received stat not found: " + HEALING_RECEIVED);
+            LOGGER.at(Level.FINE).log("Healing received stat not found: %s", HEALING_RECEIVED);
         }
 
         lifeRecoveryRateIndex = registry.getIndex(LIFE_RECOVERY_RATE);
         if (lifeRecoveryRateIndex < 0) {
-            LOGGER.log(Level.FINE, "Life recovery rate stat not found: " + LIFE_RECOVERY_RATE);
+            LOGGER.at(Level.FINE).log("Life recovery rate stat not found: %s", LIFE_RECOVERY_RATE);
         }
 
         indicesCached = true;

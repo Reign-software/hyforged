@@ -166,6 +166,11 @@ Group #PassiveTreePage {
             Group #NodesCanvas {
                 Anchor: (Full: 0);
             }
+
+            // Tooltip layer (rendered on top of nodes, positioned at node location)
+            Group #TooltipCanvas {
+                Anchor: (Full: 0);
+            }
         }
     }
 
@@ -204,49 +209,8 @@ Group #PassiveTreePage {
         }
     }
 
-    // ========== TOOLTIP OVERLAY ==========
-    Group #TooltipOverlay {
-        Visible: false;
-        Anchor: (Right: 20, Top: 80, Width: 260);
-        Background: PatchStyle(Color: #1a1a1e, Border: 1);
-        LayoutMode: Top;
-        Padding: (Full: 10);
-
-        Label #TooltipName {
-            Text: "Node Name";
-            Style: (FontSize: 14, RenderBold: true);
-        }
-
-        Label #TooltipType {
-            Text: "Notable";
-            Style: (FontSize: 10, TextColor: #c0a040);
-            Padding: (Top: 2);
-        }
-
-        Label #TooltipStatus {
-            Text: "AVAILABLE";
-            Style: (FontSize: 9, TextColor: #4CAF50);
-            Padding: (Top: 4);
-        }
-
-        Label #TooltipDescription {
-            Text: "";
-            Style: (FontSize: 10, TextColor: #aaaaaa);
-            Padding: (Top: 6);
-        }
-
-        Label #TooltipEffects {
-            Text: "";
-            Style: (FontSize: 10);
-            Padding: (Top: 6);
-        }
-
-        Label #TooltipActionHint {
-            Text: "Click to allocate";
-            Style: (FontSize: 9, TextColor: #666666);
-            Padding: (Top: 8);
-        }
-    }
+    // Tooltip is built dynamically via appendInline into #TooltipCanvas
+    // (inside #TreeCanvas) so it appears at the hovered node's position.
 
     // ========== CONFIRMATION OVERLAY ==========
     Group #ConfirmationOverlay {

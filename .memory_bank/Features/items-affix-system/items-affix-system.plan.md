@@ -24,27 +24,27 @@ Establish the foundational data structures for affix types, definitions, pools, 
 - [x] **1.1** Remove or refactor placeholder `reign.software.hyforged.stats.affix` package (AffixMetadata, AffixRoller, AffixTier) to align with new spec
 - [x] **1.2** Create `AffixType` record in `reign.software.hyforged.affix.model` — represents type definitions (prefix, suffix, forged)
   - Fields: `id`, `displayNamePosition`, `displayFormat`, `stackable`
-- [x] **1.3** Create `AffixTypeAsset` with `AssetBuilderCodec` for loading from `Server/Hyforged/AffixTypes/*.json`
+- [x] **1.3** Create `AffixTypeAsset` with `AssetBuilderCodec` for loading from `Server/Hyforged/Affixes/Types/*.json`
 - [x] **1.4** Create `AffixTypeRegistry` singleton for storing and querying loaded affix types
 - [x] **1.4a** Define duplicate ID policy for registries (latest by load order + WARN log)
 - [x] **1.5** Create `AffixTypeLoader` to register asset store and handle `LoadedAssetsEvent`
-- [x] **1.6** Create default JSON files: `Prefix.json`, `Suffix.json`, `Forged.json` in `src/main/resources/Server/Hyforged/AffixTypes/`
+- [x] **1.6** Create default JSON files: `Prefix.json`, `Suffix.json`, `Forged.json` in `src/main/resources/Server/Hyforged/Affixes/Types/`
 - [x] **1.7** Create `QualityAffixRule` record — capacity per affix type for a Quality tier
   - Fields: `quality`, `affixCapacity` (Map<String, Integer>)
-- [x] **1.8** Create `QualityAffixRuleAsset` with codec for loading from `Server/Hyforged/QualityAffixRules/*.json`
+- [x] **1.8** Create `QualityAffixRuleAsset` with codec for loading from `Server/Hyforged/Quality/AffixRules/*.json`
 - [x] **1.9** Create `QualityAffixRuleRegistry` for storing and querying capacity rules by Quality
 - [x] **1.10** Create `QualityAffixRuleLoader` for asset registration and loading
-- [x] **1.11** Create default JSON files for each equipment Quality (Common, Uncommon, Rare, Epic, Legendary) in `src/main/resources/Server/Hyforged/QualityAffixRules/`
+- [x] **1.11** Create default JSON files for each equipment Quality (Common, Uncommon, Rare, Epic, Legendary) in `src/main/resources/Server/Hyforged/Quality/AffixRules/`
 - [x] **1.12** Create `AffixDefinition` record — full affix spec with eligibility, tiers, and stat reference
   - Fields: `id`, `type`, `displayName`, `statId`, `modifierType`, `tiers`, `eligibility`, `weight`
 - [x] **1.13** Create `AffixTierDefinition` record for tier data (tier number, minValue, maxValue, itemLevelReq)
 - [x] **1.14** Create `AffixEligibility` record (itemCategories, itemTags, excludeTags, minQuality, maxQuality)
-- [x] **1.15** Create `AffixDefinitionAsset` with codec for loading from `Server/Hyforged/Affixes/*.json`
+- [x] **1.15** Create `AffixDefinitionAsset` with codec for loading from `Server/Hyforged/Affixes/Definitions/*.json`
 - [x] **1.16** Create `AffixDefinitionRegistry` singleton for affix lookup by ID, type, and eligibility
 - [x] **1.17** Create `AffixDefinitionLoader` for asset loading
 - [x] **1.18** Create sample affix JSON files (`Sturdy.json`, `OfTheBear.json`, `Sharp.json`) for testing
 - [x] **1.19** Create `AffixPool` record — maps item categories/tags to eligible affixes
-- [x] **1.20** Create `AffixPoolAsset` with codec for loading from `Server/Hyforged/AffixPools/*.json`
+- [x] **1.20** Create `AffixPoolAsset` with codec for loading from `Server/Hyforged/Affixes/Pools/*.json`
 - [x] **1.21** Create `AffixPoolRegistry` for pool lookup by item type/tags
 - [x] **1.22** Create `AffixPoolLoader` for asset loading
 - [x] **1.23** Create sample pool JSON files (`WeaponMelee.json`, `Armor.json`) for testing

@@ -46,15 +46,14 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Processes triggered effect affixes for various trigger types.
  */
 public class EffectAffixProcessor {
 
-    private static final Logger LOGGER = Logger.getLogger(EffectAffixProcessor.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private final ComponentType<EntityStore, HyforgedActiveEffectsComponent> activeEffectsType;
     private final AffixDefinitionRegistry affixRegistry;
@@ -513,7 +512,7 @@ public class EffectAffixProcessor {
             HytaleServer.get().getEventBus().dispatchFor(EffectAffixTriggeredEvent.class).dispatch(event);
             return !event.isCancelled();
         } catch (Exception e) {
-            LOGGER.log(Level.WARNING, "Failed to dispatch EffectAffixTriggeredEvent", e);
+            LOGGER.atWarning().withCause(e).log("Failed to dispatch EffectAffixTriggeredEvent");
             return true;
         }
     }
@@ -528,7 +527,7 @@ public class EffectAffixProcessor {
             EffectAffixExecutedEvent event = new EffectAffixExecutedEvent(source, affixId, effectType, target);
             HytaleServer.get().getEventBus().dispatchFor(EffectAffixExecutedEvent.class).dispatch(event);
         } catch (Exception e) {
-            LOGGER.log(Level.WARNING, "Failed to dispatch EffectAffixExecutedEvent", e);
+            LOGGER.atWarning().withCause(e).log("Failed to dispatch EffectAffixExecutedEvent");
         }
     }
 

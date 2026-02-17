@@ -7,11 +7,12 @@ import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
 import com.hypixel.hytale.server.core.asset.HytaleAssetStore;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Handles loading XP curves from JSON assets.
@@ -24,7 +25,7 @@ import java.util.logging.Logger;
  */
 public final class XPCurveAssetLoader {
 
-    private static final Logger LOGGER = Logger.getLogger(XPCurveAssetLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Path for XP curve assets relative to asset root */
     public static final String XP_CURVE_ASSET_PATH = "Hyforged/Progression/Curves";
@@ -43,11 +44,11 @@ public final class XPCurveAssetLoader {
      */
     public static void initialize(@Nonnull JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("XPCurveAssetLoader already initialized");
+            LOGGER.atWarning().log("XPCurveAssetLoader already initialized");
             return;
         }
 
-        LOGGER.info("Initializing Hyforged XP curve asset loading...");
+        LOGGER.atInfo().log("Initializing Hyforged XP curve asset loading...");
 
         // Register XP curve asset store
         registerXPCurveAssetStore();
@@ -60,7 +61,7 @@ public final class XPCurveAssetLoader {
         );
 
         initialized = true;
-        LOGGER.info("Hyforged XP curve asset loading initialized");
+        LOGGER.atInfo().log("Hyforged XP curve asset loading initialized");
     }
 
     /**
@@ -83,7 +84,7 @@ public final class XPCurveAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered XPCurveAsset store at path: " + XP_CURVE_ASSET_PATH);
+        LOGGER.at(Level.FINE).log("Registered XPCurveAsset store at path: %s", XP_CURVE_ASSET_PATH);
     }
 
     /**
@@ -94,7 +95,7 @@ public final class XPCurveAssetLoader {
     private static void onXPCurveAssetsLoaded(
             LoadedAssetsEvent<String, XPCurveAsset, IndexedLookupTableAssetMap<String, XPCurveAsset>> event
     ) {
-        LOGGER.info("Loading XP curves from assets...");
+        LOGGER.atInfo().log("Loading XP curves from assets...");
 
         XPCurveRegistry registry = XPCurveRegistry.get();
         Map<String, String> conflicts = new HashMap<>();
@@ -108,9 +109,8 @@ public final class XPCurveAssetLoader {
             if (registry.contains(id)) {
                 String existingSource = "previous load";
                 conflicts.put(id, existingSource);
-                LOGGER.log(Level.WARNING,
-                        "XP curve conflict: ''{0}'' already registered by {1}, skipping",
-                        new Object[]{id, existingSource});
+                LOGGER.atWarning().log("XP curve conflict: '%s' already registered by %s, skipping",
+                        id, existingSource);
                 skipped++;
                 continue;
             }
@@ -119,22 +119,20 @@ public final class XPCurveAssetLoader {
             try {
                 registry.register(asset.toXPCurve());
                 loaded++;
-                LOGGER.fine("Loaded XP curve: " + id);
+                LOGGER.at(Level.FINE).log("Loaded XP curve: %s", id);
             } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Failed to load XP curve: " + id, e);
+                LOGGER.atSevere().withCause(e).log("Failed to load XP curve: %s", id);
                 skipped++;
             }
         }
 
         // Log summary
-        LOGGER.info(String.format(
-                "XP curve loading complete: %d loaded, %d skipped, %d conflicts",
-                loaded, skipped, conflicts.size()
-        ));
+        LOGGER.atInfo().log("XP curve loading complete: %d loaded, %d skipped, %d conflicts",
+                loaded, skipped, conflicts.size());
 
         // Log conflicts at debug level
         if (!conflicts.isEmpty()) {
-            LOGGER.fine("XP curve conflicts: " + conflicts);
+            LOGGER.at(Level.FINE).log("XP curve conflicts: %s", conflicts);
         }
     }
 }

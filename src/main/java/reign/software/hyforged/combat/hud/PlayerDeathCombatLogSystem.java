@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.UUID;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Adds a death entry to the player's combat log when they die.
@@ -40,7 +40,7 @@ import java.util.logging.Logger;
  */
 public class PlayerDeathCombatLogSystem extends DeathSystems.OnDeathSystem {
 
-    private static final Logger LOGGER = Logger.getLogger(PlayerDeathCombatLogSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     public PlayerDeathCombatLogSystem() {
         super();
@@ -72,7 +72,7 @@ public class PlayerDeathCombatLogSystem extends DeathSystems.OnDeathSystem {
 
         CombatLogHudSystem.addExtraLine(playerUuid, line);
 
-        LOGGER.log(Level.FINE, "Added death entry to combat log for player {0}", playerUuid);
+        LOGGER.at(Level.FINE).log("Added death entry to combat log for player %s", playerUuid);
     }
 
     /**

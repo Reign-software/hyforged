@@ -840,7 +840,7 @@ PassiveTrees/
 
 ## Dependencies
 
-- Stats folder (`Server/Hyforged/Stats/`) - Provides valid stat IDs
+- Stats folder (`Server/Hyforged/Stats/Definitions/`) - Provides valid stat IDs
 - Multi-file asset loading (PassiveTreeAsset) - Must support trees/, nodes/, layouts/ structure
 - PassiveTreeService - Must load and merge multi-file structure
 

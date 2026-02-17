@@ -206,7 +206,7 @@ Update the core stat JSON definitions to use the new scaling model.
 ### Files to Create/Modify
 | File | Action |
 |------|--------|
-| `src/main/resources/Server/Hyforged/Stats/*.json` | Modify |
+| `src/main/resources/Server/Hyforged/Stats/Definitions/*.json` | Modify |
 
 ### Exit Criteria
 - [ ] Build passes.

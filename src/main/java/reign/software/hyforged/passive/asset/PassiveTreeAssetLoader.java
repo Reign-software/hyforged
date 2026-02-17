@@ -15,7 +15,8 @@ import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Handles loading passive tree assets from JSON files.
@@ -35,7 +36,7 @@ import java.util.logging.Logger;
  */
 public final class PassiveTreeAssetLoader {
 
-    private static final Logger LOGGER = Logger.getLogger(PassiveTreeAssetLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Path for tree definitions */
     public static final String TREE_PATH = "Hyforged/PassiveTrees/trees";
@@ -79,11 +80,11 @@ public final class PassiveTreeAssetLoader {
      */
     public static void initialize(@Nonnull JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("PassiveTreeAssetLoader already initialized");
+            LOGGER.atWarning().log("PassiveTreeAssetLoader already initialized");
             return;
         }
 
-        LOGGER.info("Initializing Hyforged passive tree asset loading (multi-file structure)...");
+        LOGGER.atInfo().log("Initializing Hyforged passive tree asset loading (multi-file structure)...");
 
         // Register all asset stores
         registerRefundConfigAssetStore();
@@ -131,7 +132,7 @@ public final class PassiveTreeAssetLoader {
         );
 
         initialized = true;
-        LOGGER.info("Hyforged passive tree asset loading initialized");
+        LOGGER.atInfo().log("Hyforged passive tree asset loading initialized");
     }
 
     // ========== Asset Store Registration ==========
@@ -153,7 +154,7 @@ public final class PassiveTreeAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered NodeTemplateFileAsset store at path: " + NODES_PATH);
+        LOGGER.at(Level.FINE).log("Registered NodeTemplateFileAsset store at path: %s", NODES_PATH);
     }
 
     private static void registerPassiveTreeAssetStore() {
@@ -173,7 +174,7 @@ public final class PassiveTreeAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered PassiveTreeAsset store at path: " + TREE_PATH);
+        LOGGER.at(Level.FINE).log("Registered PassiveTreeAsset store at path: %s", TREE_PATH);
     }
 
     private static void registerLayoutAssetStore() {
@@ -193,7 +194,7 @@ public final class PassiveTreeAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered TreeLayoutAsset store at path: " + LAYOUTS_PATH);
+        LOGGER.at(Level.FINE).log("Registered TreeLayoutAsset store at path: %s", LAYOUTS_PATH);
     }
 
     private static void registerRefundConfigAssetStore() {
@@ -213,7 +214,7 @@ public final class PassiveTreeAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered PassiveRefundConfigAsset store at path: " + CONFIG_PATH);
+        LOGGER.at(Level.FINE).log("Registered PassiveRefundConfigAsset store at path: %s", CONFIG_PATH);
     }
 
     private static void registerVisualTemplateAssetStore() {
@@ -233,7 +234,7 @@ public final class PassiveTreeAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered NodeVisualTemplateAsset store at path: " + TEMPLATES_PATH);
+        LOGGER.at(Level.FINE).log("Registered NodeVisualTemplateAsset store at path: %s", TEMPLATES_PATH);
     }
 
     private static void registerIconTemplateAssetStore() {
@@ -253,7 +254,7 @@ public final class PassiveTreeAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered NodeIconTemplateAsset store at path: " + TEMPLATES_PATH);
+        LOGGER.at(Level.FINE).log("Registered NodeIconTemplateAsset store at path: %s", TEMPLATES_PATH);
     }
 
     // ========== Event Handlers ==========
@@ -264,7 +265,7 @@ public final class PassiveTreeAssetLoader {
     private static void onVisualTemplatesLoaded(
             LoadedAssetsEvent<String, NodeVisualTemplateAsset, IndexedLookupTableAssetMap<String, NodeVisualTemplateAsset>> event
     ) {
-        LOGGER.info("Loading node visual templates...");
+        LOGGER.atInfo().log("Loading node visual templates...");
         NodeVisualTemplateRegistry registry = NodeVisualTemplateRegistry.get();
         int count = 0;
 
@@ -283,7 +284,7 @@ public final class PassiveTreeAssetLoader {
             }
         }
 
-        LOGGER.info("Loaded " + count + " node visual templates");
+        LOGGER.atInfo().log("Loaded %s node visual templates", count);
     }
 
     /**
@@ -292,7 +293,7 @@ public final class PassiveTreeAssetLoader {
     private static void onIconTemplatesLoaded(
             LoadedAssetsEvent<String, NodeIconTemplateAsset, IndexedLookupTableAssetMap<String, NodeIconTemplateAsset>> event
     ) {
-        LOGGER.info("Loading node icon templates...");
+        LOGGER.atInfo().log("Loading node icon templates...");
         NodeIconTemplateRegistry registry = NodeIconTemplateRegistry.get();
         int count = 0;
 
@@ -306,7 +307,7 @@ public final class PassiveTreeAssetLoader {
             }
         }
 
-        LOGGER.info("Loaded " + count + " node icon templates");
+        LOGGER.atInfo().log("Loaded %s node icon templates", count);
     }
 
     /**
@@ -315,7 +316,7 @@ public final class PassiveTreeAssetLoader {
     private static void onRefundConfigAssetsLoaded(
             LoadedAssetsEvent<String, PassiveRefundConfigAsset, IndexedLookupTableAssetMap<String, PassiveRefundConfigAsset>> event
     ) {
-        LOGGER.info("Loading passive refund configuration...");
+        LOGGER.atInfo().log("Loading passive refund configuration...");
 
         PassiveTreeRegistry registry = PassiveTreeRegistry.get();
         PassiveRefundConfigAsset selected = null;
@@ -326,22 +327,21 @@ public final class PassiveTreeAssetLoader {
                     selected = asset;
                 }
             } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Failed to evaluate refund config: " + asset.getId(), e);
+                LOGGER.atSevere().withCause(e).log("Failed to evaluate refund config: %s", asset.getId());
             }
         }
 
         if (selected != null) {
             try {
                 registry.setRefundConfig(selected);
-                LOGGER.fine("Loaded refund config: " + selected.getId() +
-                        " (BaseCost=" + selected.getBaseCost() +
-                        ", LevelMult=" + selected.getLevelMultiplier() + ")");
-                LOGGER.info("Loaded refund config: " + selected.getId());
+                LOGGER.at(Level.FINE).log("Loaded refund config: %s (BaseCost=%s, LevelMult=%s)",
+                        selected.getId(), selected.getBaseCost(), selected.getLevelMultiplier());
+                LOGGER.atInfo().log("Loaded refund config: %s", selected.getId());
             } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Failed to load refund config: " + selected.getId(), e);
+                LOGGER.atSevere().withCause(e).log("Failed to load refund config: %s", selected.getId());
             }
         } else {
-            LOGGER.warning("No refund config assets found in Hyforged/Config");
+            LOGGER.atWarning().log("No refund config assets found in Hyforged/Config");
         }
     }
 
@@ -351,7 +351,7 @@ public final class PassiveTreeAssetLoader {
     private static void onNodeTemplatesLoaded(
             LoadedAssetsEvent<String, NodeTemplateFileAsset, IndexedLookupTableAssetMap<String, NodeTemplateFileAsset>> event
     ) {
-        LOGGER.info("Loading passive node templates...");
+        LOGGER.atInfo().log("Loading passive node templates...");
 
         int loaded = 0;
         int skipped = 0;
@@ -361,18 +361,18 @@ public final class PassiveTreeAssetLoader {
                 String nodeId = template.getId();
 
                 if (nodeTemplates.containsKey(nodeId)) {
-                    LOGGER.warning("Duplicate node template ID '" + nodeId + "' - skipping");
+                    LOGGER.atWarning().log("Duplicate node template ID '%s' - skipping", nodeId);
                     skipped++;
                     continue;
                 }
 
                 nodeTemplates.put(nodeId, template);
                 loaded++;
-                LOGGER.fine("Registered node template: " + nodeId);
+                LOGGER.at(Level.FINE).log("Registered node template: %s", nodeId);
             }
         }
 
-        LOGGER.info("Loaded " + loaded + " node templates" +
+        LOGGER.atInfo().log("Loaded %s node templates%s", loaded,
                 (skipped > 0 ? " (" + skipped + " skipped due to duplicates)" : ""));
         
         nodeTemplatesLoaded = true;
@@ -385,7 +385,7 @@ public final class PassiveTreeAssetLoader {
     private static void onPassiveTreeAssetsLoaded(
             LoadedAssetsEvent<String, PassiveTreeAsset, IndexedLookupTableAssetMap<String, PassiveTreeAsset>> event
     ) {
-        LOGGER.info("Loading passive tree definitions...");
+        LOGGER.atInfo().log("Loading passive tree definitions...");
 
         PassiveTreeRegistry registry = PassiveTreeRegistry.get();
         int loaded = 0;
@@ -396,7 +396,7 @@ public final class PassiveTreeAssetLoader {
 
             // Check for conflicts
             if (registry.hasTree(id)) {
-                LOGGER.warning("Duplicate passive tree ID '" + id + "' - skipping");
+                LOGGER.atWarning().log("Duplicate passive tree ID '%s' - skipping", id);
                 skipped++;
                 continue;
             }
@@ -412,14 +412,14 @@ public final class PassiveTreeAssetLoader {
                 registry.register(tree);
                 loaded++;
 
-                LOGGER.fine("Registered passive tree: " + id + " (type=" + asset.getTreeType() + ")");
+                LOGGER.at(Level.FINE).log("Registered passive tree: %s (type=%s)", id, asset.getTreeType());
             } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Failed to load passive tree: " + id, e);
+                LOGGER.atSevere().withCause(e).log("Failed to load passive tree: %s", id);
                 skipped++;
             }
         }
 
-        LOGGER.info("Loaded " + loaded + " passive trees" +
+        LOGGER.atInfo().log("Loaded %s passive trees%s", loaded,
                 (skipped > 0 ? " (" + skipped + " skipped due to errors/conflicts)" : ""));
 
         // Mark trees as loaded and try to process pending layouts
@@ -435,11 +435,11 @@ public final class PassiveTreeAssetLoader {
      */
     private static synchronized void tryProcessPendingLayouts() {
         if (!nodeTemplatesLoaded) {
-            LOGGER.fine("Waiting for node templates to load before processing layouts");
+            LOGGER.at(Level.FINE).log("Waiting for node templates to load before processing layouts");
             return;
         }
         if (!treesLoaded) {
-            LOGGER.fine("Waiting for trees to load before processing layouts");
+            LOGGER.at(Level.FINE).log("Waiting for trees to load before processing layouts");
             return;
         }
         
@@ -456,7 +456,7 @@ public final class PassiveTreeAssetLoader {
     private static void onLayoutsLoaded(
             LoadedAssetsEvent<String, TreeLayoutAsset, IndexedLookupTableAssetMap<String, TreeLayoutAsset>> event
     ) {
-        LOGGER.info("Loading passive tree layouts...");
+        LOGGER.atInfo().log("Loading passive tree layouts...");
 
         PassiveTreeRegistry registry = PassiveTreeRegistry.get();
         List<TreeLayoutAsset> validLayouts = new ArrayList<>();
@@ -468,7 +468,7 @@ public final class PassiveTreeAssetLoader {
 
             // Check if tree exists
             if (!registry.hasTree(treeId)) {
-                LOGGER.fine("Deferring layout for tree '" + treeId + "' (tree not yet loaded)");
+                LOGGER.at(Level.FINE).log("Deferring layout for tree '%s' (tree not yet loaded)", treeId);
                 pendingLayouts.add(layout);
                 deferred++;
                 continue;
@@ -478,7 +478,7 @@ public final class PassiveTreeAssetLoader {
                 applyLayoutPlacements(layout);
                 validLayouts.add(layout);
             } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Failed to apply layout placements: " + layout.getId(), e);
+                LOGGER.atSevere().withCause(e).log("Failed to apply layout placements: %s", layout.getId());
             }
         }
 
@@ -487,11 +487,11 @@ public final class PassiveTreeAssetLoader {
             try {
                 applyLayoutConnections(layout);
             } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Failed to apply layout connections: " + layout.getId(), e);
+                LOGGER.atSevere().withCause(e).log("Failed to apply layout connections: %s", layout.getId());
             }
         }
 
-        LOGGER.info("Applied " + validLayouts.size() + " layouts" +
+        LOGGER.atInfo().log("Applied %s layouts%s", validLayouts.size(),
                 (deferred > 0 ? " (" + deferred + " deferred)" : ""));
     }
 
@@ -505,7 +505,7 @@ public final class PassiveTreeAssetLoader {
             return;
         }
 
-        LOGGER.info("Processing " + pendingLayouts.size() + " deferred layouts...");
+        LOGGER.atInfo().log("Processing %s deferred layouts...", pendingLayouts.size());
 
         PassiveTreeRegistry registry = PassiveTreeRegistry.get();
         List<TreeLayoutAsset> stillPending = new ArrayList<>();
@@ -517,7 +517,7 @@ public final class PassiveTreeAssetLoader {
             String treeId = layout.getTreeId();
 
             if (!registry.hasTree(treeId)) {
-                LOGGER.warning("Layout references unknown tree: " + treeId);
+                LOGGER.atWarning().log("Layout references unknown tree: %s", treeId);
                 stillPending.add(layout);
                 continue;
             }
@@ -527,7 +527,7 @@ public final class PassiveTreeAssetLoader {
                 validLayouts.add(layout);
                 processed++;
             } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Failed to apply deferred layout placements: " + layout.getId(), e);
+                LOGGER.atSevere().withCause(e).log("Failed to apply deferred layout placements: %s", layout.getId());
             }
         }
 
@@ -536,14 +536,14 @@ public final class PassiveTreeAssetLoader {
             try {
                 applyLayoutConnections(layout);
             } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Failed to apply deferred layout connections: " + layout.getId(), e);
+                LOGGER.atSevere().withCause(e).log("Failed to apply deferred layout connections: %s", layout.getId());
             }
         }
 
         pendingLayouts.clear();
         pendingLayouts.addAll(stillPending);
 
-        LOGGER.info("Processed " + processed + " deferred layouts" +
+        LOGGER.atInfo().log("Processed %s deferred layouts%s", processed,
                 (!stillPending.isEmpty() ? " (" + stillPending.size() + " failed)" : ""));
     }
 
@@ -579,7 +579,7 @@ public final class PassiveTreeAssetLoader {
             // Check if node already exists (refetch tree to get latest state)
             tree = registry.getTree(treeId);
             if (tree.getNode(effectiveId) != null) {
-                LOGGER.fine("Node already exists in tree: " + effectiveId);
+                LOGGER.at(Level.FINE).log("Node already exists in tree: %s", effectiveId);
                 continue;
             }
 
@@ -589,7 +589,7 @@ public final class PassiveTreeAssetLoader {
             try {
                 registry.addNode(treeId, node);
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to add node " + effectiveId + " to tree " + treeId, e);
+                LOGGER.atWarning().withCause(e).log("Failed to add node %s to tree %s", effectiveId, treeId);
             }
         }
 
@@ -626,9 +626,9 @@ public final class PassiveTreeAssetLoader {
                 // Update registry
                 registry.replaceTree(tree, updatedTree);
                 tree = updatedTree;
-                LOGGER.info("Added starting node '" + startingNodeId + "' to tree '" + treeId + "'. Total starting nodes: " + tree.getStartingNodeIds().size());
+                LOGGER.atInfo().log("Added starting node '%s' to tree '%s'. Total starting nodes: %s", startingNodeId, treeId, tree.getStartingNodeIds().size());
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to add starting node " + startingNodeId, e);
+                LOGGER.atWarning().withCause(e).log("Failed to add starting node %s", startingNodeId);
             }
         }
 
@@ -639,7 +639,7 @@ public final class PassiveTreeAssetLoader {
             
             for (TextLabelAsset labelAsset : labelAssets) {
                 if (labelAsset.getPosition() == null) {
-                    LOGGER.warning("Text label missing position: " + labelAsset.getText());
+                    LOGGER.atWarning().log("Text label missing position: %s", labelAsset.getText());
                     continue;
                 }
                 
@@ -671,10 +671,10 @@ public final class PassiveTreeAssetLoader {
             
             registry.replaceTree(tree, updatedTree);
             tree = updatedTree;
-            LOGGER.fine("Added " + labelAssets.size() + " text labels to tree " + treeId);
+            LOGGER.at(Level.FINE).log("Added %s text labels to tree %s", labelAssets.size(), treeId);
         }
 
-        LOGGER.fine("Applied placements from layout " + layout.getId() + " to tree " + treeId);
+        LOGGER.at(Level.FINE).log("Applied placements from layout %s to tree %s", layout.getId(), treeId);
     }
 
     /**
@@ -692,11 +692,11 @@ public final class PassiveTreeAssetLoader {
             try {
                 registry.addConnection(treeId, fromId, toId);
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to add connection " + fromId + " -> " + toId, e);
+                LOGGER.atWarning().withCause(e).log("Failed to add connection %s -> %s", fromId, toId);
             }
         }
 
-        LOGGER.fine("Applied connections from layout " + layout.getId() + " to tree " + treeId);
+        LOGGER.at(Level.FINE).log("Applied connections from layout %s to tree %s", layout.getId(), treeId);
     }
     
     /**

@@ -6,20 +6,20 @@ import reign.software.hyforged.quality.model.QualityRollContext;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Registry for quality eligibility rules.
  */
 public final class QualityEligibilityRegistry {
 
-    private static final Logger LOGGER = Logger.getLogger(QualityEligibilityRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static QualityEligibilityRegistry instance;
 
     private final Map<String, QualityEligibilityRule> rulesById = new ConcurrentHashMap<>();
@@ -47,7 +47,7 @@ public final class QualityEligibilityRegistry {
             throw new IllegalStateException("Registry is frozen, cannot register new rules");
         }
         if (rulesById.containsKey(rule.id())) {
-            LOGGER.log(Level.WARNING, "Quality eligibility rule ''{0}'' overridden by later definition", rule.id());
+            LOGGER.atWarning().log("Quality eligibility rule '%s' overridden by later definition", rule.id());
         }
         rulesById.put(rule.id(), rule);
         sortDirty = true;

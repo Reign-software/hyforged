@@ -8,7 +8,8 @@ import com.hypixel.hytale.server.core.asset.HytaleAssetStore;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+import java.util.logging.Level;
 
 /**
  * Handles loading currency configuration from JSON assets.
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
  */
 public final class CurrencyConfigAssetLoader {
 
-    private static final Logger LOGGER = Logger.getLogger(CurrencyConfigAssetLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Path for sell value config assets relative to asset root */
     public static final String SELL_VALUE_ASSET_PATH = "Hyforged/Config/SellValue";
@@ -41,11 +42,11 @@ public final class CurrencyConfigAssetLoader {
      */
     public static void initialize(@Nonnull JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("CurrencyConfigAssetLoader already initialized");
+            LOGGER.atWarning().log("CurrencyConfigAssetLoader already initialized");
             return;
         }
 
-        LOGGER.info("Initializing currency config asset loading...");
+        LOGGER.atInfo().log("Initializing currency config asset loading...");
 
         // Register asset stores
         registerSellValueConfigAssetStore();
@@ -65,7 +66,7 @@ public final class CurrencyConfigAssetLoader {
         );
 
         initialized = true;
-        LOGGER.info("Currency config asset loading initialized");
+        LOGGER.atInfo().log("Currency config asset loading initialized");
     }
 
     private static void registerSellValueConfigAssetStore() {
@@ -85,7 +86,7 @@ public final class CurrencyConfigAssetLoader {
             .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered SellValueConfigAsset store at path: " + SELL_VALUE_ASSET_PATH);
+        LOGGER.at(Level.FINE).log("Registered SellValueConfigAsset store at path: %s", SELL_VALUE_ASSET_PATH);
     }
 
     private static void registerVaultUpgradesAssetStore() {
@@ -105,16 +106,16 @@ public final class CurrencyConfigAssetLoader {
             .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered VaultUpgradesConfigAsset store at path: " + VAULT_UPGRADES_ASSET_PATH);
+        LOGGER.at(Level.FINE).log("Registered VaultUpgradesConfigAsset store at path: %s", VAULT_UPGRADES_ASSET_PATH);
     }
 
     private static void onSellValueConfigLoaded(
         LoadedAssetsEvent<String, SellValueConfigAsset, IndexedLookupTableAssetMap<String, SellValueConfigAsset>> event
     ) {
-        LOGGER.info("Loading sell value configuration from assets...");
+        LOGGER.atInfo().log("Loading sell value configuration from assets...");
 
         for (SellValueConfigAsset asset : event.getLoadedAssets().values()) {
-            LOGGER.info("Found SellValueConfig asset: " + asset.getId());
+            LOGGER.atInfo().log("Found SellValueConfig asset: %s", asset.getId());
             SellValueConfig.apply(asset);
         }
     }
@@ -122,10 +123,10 @@ public final class CurrencyConfigAssetLoader {
     private static void onVaultUpgradesLoaded(
         LoadedAssetsEvent<String, VaultUpgradesConfigAsset, IndexedLookupTableAssetMap<String, VaultUpgradesConfigAsset>> event
     ) {
-        LOGGER.info("Loading vault upgrades configuration from assets...");
+        LOGGER.atInfo().log("Loading vault upgrades configuration from assets...");
 
         for (VaultUpgradesConfigAsset asset : event.getLoadedAssets().values()) {
-            LOGGER.info("Found VaultUpgradesConfig asset: " + asset.getId());
+            LOGGER.atInfo().log("Found VaultUpgradesConfig asset: %s", asset.getId());
             VaultUpgradesConfig.apply(asset);
         }
     }

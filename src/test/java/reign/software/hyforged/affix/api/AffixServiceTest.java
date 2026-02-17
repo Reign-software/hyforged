@@ -35,9 +35,9 @@ class AffixServiceTest {
     
     private void registerTestTypes() {
         AffixTypeRegistry registry = AffixTypeRegistry.get();
-        registry.register(new AffixType("prefix", AffixType.DisplayNamePosition.BEFORE, "{name}", true));
-        registry.register(new AffixType("suffix", AffixType.DisplayNamePosition.AFTER, "{name}", true));
-        registry.register(new AffixType("forged", AffixType.DisplayNamePosition.NONE, "{name}", false));
+        registry.register(new AffixType("prefix", AffixType.DisplayNamePosition.BEFORE, "{name}", true, "Affixes", "#bca57a"));
+        registry.register(new AffixType("suffix", AffixType.DisplayNamePosition.AFTER, "{name}", true, "Affixes", "#bca57a"));
+        registry.register(new AffixType("forged", AffixType.DisplayNamePosition.NONE, "{name}", false, "Forged Properties", "#cc8800"));
     }
     
     private void registerTestAffixes() {
@@ -261,7 +261,9 @@ class AffixServiceTest {
                     "enchant",
                     AffixType.DisplayNamePosition.NONE,
                     "Enchanted: {name}",
-                    true
+                    true,
+                    "enchant",
+                    "#bca57a"
             );
             
             service.registerType(newType);

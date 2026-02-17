@@ -5,10 +5,12 @@ import reign.software.hyforged.progression.ClassProgression;
 import reign.software.hyforged.progression.XPCurve;
 import reign.software.hyforged.progression.asset.XPCurveRegistry;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * Utility class for processing level-ups from XP gains.
@@ -22,7 +24,7 @@ import java.util.logging.Logger;
  */
 public final class LevelUpProcessor {
     
-    private static final Logger LOGGER = Logger.getLogger(LevelUpProcessor.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     private LevelUpProcessor() {
         // Utility class
@@ -63,8 +65,8 @@ public final class LevelUpProcessor {
             currentLevel++;
             levelsGained.add(currentLevel);
             
-            LOGGER.fine(String.format("Character level-up: %d -> %d (XP: %d/%d)",
-                    currentLevel - 1, currentLevel, newXp, xpForNext));
+            LOGGER.at(Level.FINE).log("Character level-up: %d -> %d (XP: %d/%d)",
+                    currentLevel - 1, currentLevel, newXp, xpForNext);
         }
         
         return new LevelUpResult(levelsGained, oldLevel, currentLevel, newXp);
@@ -106,8 +108,8 @@ public final class LevelUpProcessor {
             currentLevel++;
             levelsGained.add(currentLevel);
             
-            LOGGER.fine(String.format("Class level-up: %s %d -> %d (XP: %d/%d)",
-                    classId, currentLevel - 1, currentLevel, newXp, xpForNext));
+            LOGGER.at(Level.FINE).log("Class level-up: %s %d -> %d (XP: %d/%d)",
+                    classId, currentLevel - 1, currentLevel, newXp, xpForNext);
         }
         
         return new LevelUpResult(levelsGained, oldLevel, currentLevel, newXp);

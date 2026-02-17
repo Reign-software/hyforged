@@ -23,12 +23,14 @@ import reign.software.hyforged.progression.event.ActiveClassChangedEvent;
 import reign.software.hyforged.stats.asset.ClassDefinition;
 import reign.software.hyforged.stats.asset.ClassDefinitionRegistry;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * ECS System that resolves the active class from the player's main-hand weapon tags.
@@ -46,7 +48,7 @@ import java.util.logging.Logger;
  */
 public class ActiveClassResolutionSystem extends EntityTickingSystem<EntityStore> {
 
-    private static final Logger LOGGER = Logger.getLogger(ActiveClassResolutionSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     @Nonnull
     private final ComponentType<EntityStore, ProgressionComponent> progressionComponentType;
@@ -119,10 +121,10 @@ public class ActiveClassResolutionSystem extends EntityTickingSystem<EntityStore
             Ref<EntityStore> entityRef = archetypeChunk.getReferenceTo(index);
             emitClassChangedEvent(entityRef, previousClassId, newClassId);
             
-            LOGGER.fine(String.format(
+            LOGGER.at(Level.FINE).log(
                 "Active class changed for player: %s -> %s (weapon tags: %s)",
                 previousClassId, newClassId, weaponTags
-            ));
+            );
         }
     }
     
@@ -187,7 +189,7 @@ public class ActiveClassResolutionSystem extends EntityTickingSystem<EntityStore
                 dispatcher.dispatch(event);
             }
         } catch (Exception e) {
-            LOGGER.warning("Failed to emit ActiveClassChangedEvent: " + e.getMessage());
+            LOGGER.atWarning().withCause(e).log("Failed to emit ActiveClassChangedEvent");
         }
     }
 }

@@ -6,14 +6,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Central registry for affix type definitions.
  * <p>
  * Affix types define how affixes behave (prefix, suffix, forged, etc.) and are
- * loaded from JSON at {@code Server/Hyforged/AffixTypes/*.json}.
+ * loaded from JSON at {@code Server/Hyforged/Affixes/Types/*.json}.
  * <p>
  * This is a singleton registry loaded at startup, NOT an ECS component.
  * <p>
@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public final class AffixTypeRegistry {
     
-    private static final Logger LOGGER = Logger.getLogger(AffixTypeRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static AffixTypeRegistry instance;
     
     private final Map<String, AffixType> typesById = new ConcurrentHashMap<>();
@@ -65,11 +65,11 @@ public final class AffixTypeRegistry {
         
         String id = type.id();
         if (typesById.containsKey(id)) {
-            LOGGER.log(Level.WARNING, "Affix type ''{0}'' is being overridden by a later definition", id);
+            LOGGER.atWarning().log("Affix type '%s' is being overridden by a later definition", id);
         }
         
         typesById.put(id, type);
-        LOGGER.log(Level.FINE, "Registered affix type: {0}", id);
+        LOGGER.at(Level.FINE).log("Registered affix type: %s", id);
     }
     
     /**
@@ -126,7 +126,7 @@ public final class AffixTypeRegistry {
      */
     public synchronized void freeze() {
         frozen = true;
-        LOGGER.log(Level.INFO, "AffixTypeRegistry frozen with {0} types", typesById.size());
+        LOGGER.atInfo().log("AffixTypeRegistry frozen with %s types", typesById.size());
     }
     
     /**

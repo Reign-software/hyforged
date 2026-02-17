@@ -16,7 +16,9 @@ import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.concentration.ConcentrationPriorityComponent;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+
+import java.util.logging.Level;
 
 /**
  * Ensures all player-scoped Hyforged components exist when a player connects.
@@ -30,7 +32,7 @@ import java.util.logging.Logger;
  */
 public class HyforgedPlayerInitSystem {
 
-    private static final Logger LOGGER = Logger.getLogger(HyforgedPlayerInitSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
     private final ComponentType<EntityStore, ProgressionComponent> progressionComponentType;
@@ -55,7 +57,7 @@ public class HyforgedPlayerInitSystem {
         HytaleServer.get().getEventBus()
                 .register(PlayerConnectEvent.class, this::onPlayerConnect);
 
-        LOGGER.info("HyforgedPlayerInitSystem: Registered player connect handler");
+        LOGGER.atInfo().log("HyforgedPlayerInitSystem: Registered player connect handler");
     }
 
     private void onPlayerConnect(@Nonnull PlayerConnectEvent event) {
@@ -71,7 +73,7 @@ public class HyforgedPlayerInitSystem {
         holder.ensureComponent(playerSpellsComponentType);
         holder.ensureComponent(concentrationPriorityComponentType);
 
-        LOGGER.fine(() -> "Ensured Hyforged components for player " +
+        LOGGER.at(Level.FINE).log("Ensured Hyforged components for player %s",
                 (event.getPlayerRef() != null ? event.getPlayerRef().getUsername() : "unknown"));
     }
 }

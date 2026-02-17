@@ -8,8 +8,8 @@ import com.hypixel.hytale.server.core.asset.HytaleAssetStore;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 
 import javax.annotation.Nonnull;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Handles loading scaling-related assets from JSON files.
@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public final class ScalingAssetLoader {
 
-    private static final Logger LOGGER = Logger.getLogger(ScalingAssetLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Path for world scaling config assets */
     public static final String WORLD_SCALING_PATH = "Hyforged/Combat/WorldScaling";
@@ -46,11 +46,11 @@ public final class ScalingAssetLoader {
      */
     public static void initialize(@Nonnull JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("ScalingAssetLoader already initialized");
+            LOGGER.atWarning().log("ScalingAssetLoader already initialized");
             return;
         }
 
-        LOGGER.info("Initializing Hyforged scaling asset loading...");
+        LOGGER.atInfo().log("Initializing Hyforged scaling asset loading...");
 
         // Register asset stores
         registerWorldScalingAssetStore();
@@ -70,7 +70,7 @@ public final class ScalingAssetLoader {
         );
 
         initialized = true;
-        LOGGER.info("Hyforged scaling asset loading initialized");
+        LOGGER.atInfo().log("Hyforged scaling asset loading initialized");
     }
 
     // ========== Asset Store Registration ==========
@@ -92,7 +92,7 @@ public final class ScalingAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered WorldScalingConfigAsset store at path: " + WORLD_SCALING_PATH);
+        LOGGER.at(Level.FINE).log("Registered WorldScalingConfigAsset store at path: %s", WORLD_SCALING_PATH);
     }
 
     private static void registerMonsterScalingAssetStore() {
@@ -112,7 +112,7 @@ public final class ScalingAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered MonsterScalingConfigAsset store at path: " + MONSTER_SCALING_PATH);
+        LOGGER.at(Level.FINE).log("Registered MonsterScalingConfigAsset store at path: %s", MONSTER_SCALING_PATH);
     }
 
     // ========== Asset Load Event Handlers ==========
@@ -120,7 +120,7 @@ public final class ScalingAssetLoader {
     private static void onWorldScalingAssetsLoaded(
             LoadedAssetsEvent<String, WorldScalingConfigAsset, IndexedLookupTableAssetMap<String, WorldScalingConfigAsset>> event
     ) {
-        LOGGER.info("Loading world scaling configurations from assets...");
+        LOGGER.atInfo().log("Loading world scaling configurations from assets...");
 
         MonsterScalingService service = MonsterScalingService.get();
         int loaded = 0;
@@ -132,23 +132,23 @@ public final class ScalingAssetLoader {
                 // Use the first one found (or could use naming convention like "default-scaling")
                 if (loaded == 0 || asset.getId().contains("default")) {
                     service.setActiveConfig(config);
-                    LOGGER.info("Set active world scaling config: " + config.id());
+                    LOGGER.atInfo().log("Set active world scaling config: %s", config.id());
                 }
                 
                 loaded++;
-                LOGGER.fine("Loaded world scaling config: " + config.id());
+                LOGGER.at(Level.FINE).log("Loaded world scaling config: %s", config.id());
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to load world scaling config: " + asset.getId(), e);
+                LOGGER.atWarning().withCause(e).log("Failed to load world scaling config: %s", asset.getId());
             }
         }
 
-        LOGGER.info(String.format("Loaded %d world scaling configurations", loaded));
+        LOGGER.atInfo().log("Loaded %s world scaling configurations", loaded);
     }
 
     private static void onMonsterScalingAssetsLoaded(
             LoadedAssetsEvent<String, MonsterScalingConfigAsset, IndexedLookupTableAssetMap<String, MonsterScalingConfigAsset>> event
     ) {
-        LOGGER.info("Loading monster scaling configurations from assets...");
+        LOGGER.atInfo().log("Loading monster scaling configurations from assets...");
 
         MonsterScalingService service = MonsterScalingService.get();
         int loaded = 0;
@@ -159,15 +159,15 @@ public final class ScalingAssetLoader {
                 service.registerScalingConfig(asset);
                 rolesRegistered += asset.getAppliesTo().size();
                 loaded++;
-                LOGGER.fine("Loaded monster scaling config: " + asset.getId() 
-                        + " (applies to " + asset.getAppliesTo().size() + " roles)");
+                LOGGER.at(Level.FINE).log("Loaded monster scaling config: %s (applies to %s roles)",
+                        asset.getId(), asset.getAppliesTo().size());
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to load monster scaling config: " + asset.getId(), e);
+                LOGGER.atWarning().withCause(e).log("Failed to load monster scaling config: %s", asset.getId());
             }
         }
 
-        LOGGER.info(String.format("Loaded %d monster scaling configurations (%d NPC roles registered)", 
-                loaded, rolesRegistered));
+        LOGGER.atInfo().log("Loaded %s monster scaling configurations (%s NPC roles registered)",
+                loaded, rolesRegistered);
     }
 
     /**

@@ -10,8 +10,8 @@ import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Handles loading NPC stat templates from JSON assets.
@@ -24,10 +24,10 @@ import java.util.logging.Logger;
  */
 public final class NPCStatTemplateLoader {
 
-    private static final Logger LOGGER = Logger.getLogger(NPCStatTemplateLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Path for NPC stat template assets relative to asset root */
-    public static final String NPC_STATS_ASSET_PATH = "Hyforged/NPCStats";
+    public static final String NPC_STATS_ASSET_PATH = "Hyforged/Stats/NPCTemplates";
 
     private static boolean initialized = false;
 
@@ -41,11 +41,11 @@ public final class NPCStatTemplateLoader {
      */
     public static void initialize(@Nonnull JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("NPCStatTemplateLoader already initialized");
+            LOGGER.atWarning().log("NPCStatTemplateLoader already initialized");
             return;
         }
 
-        LOGGER.info("Initializing Hyforged NPC stat template loading...");
+        LOGGER.atInfo().log("Initializing Hyforged NPC stat template loading...");
 
         // Register NPC stat template asset store
         registerNPCStatTemplateAssetStore();
@@ -58,7 +58,7 @@ public final class NPCStatTemplateLoader {
         );
 
         initialized = true;
-        LOGGER.info("Hyforged NPC stat template loading initialized");
+        LOGGER.atInfo().log("Hyforged NPC stat template loading initialized");
     }
 
     /**
@@ -81,7 +81,7 @@ public final class NPCStatTemplateLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered NPCStatTemplateAsset store at path: " + NPC_STATS_ASSET_PATH);
+        LOGGER.at(Level.FINE).log("Registered NPCStatTemplateAsset store at path: %s", NPC_STATS_ASSET_PATH);
     }
 
     /**
@@ -90,7 +90,7 @@ public final class NPCStatTemplateLoader {
     private static void onNPCTemplateAssetsLoaded(
             LoadedAssetsEvent<String, NPCStatTemplateAsset, IndexedLookupTableAssetMap<String, NPCStatTemplateAsset>> event
     ) {
-        LOGGER.info("Loading NPC stat templates from assets...");
+        LOGGER.atInfo().log("Loading NPC stat templates from assets...");
 
         NPCStatTemplateRegistry registry = NPCStatTemplateRegistry.get();
         Map<String, String> conflicts = new HashMap<>();
@@ -111,22 +111,22 @@ public final class NPCStatTemplateLoader {
                 NPCStatTemplate template = asset.toTemplate();
                 registry.registerUnresolved(template);
                 loaded++;
-                LOGGER.fine("Loaded NPC stat template: " + id);
+                LOGGER.at(Level.FINE).log("Loaded NPC stat template: %s", id);
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to load NPC stat template: " + id, e);
+                LOGGER.atWarning().withCause(e).log("Failed to load NPC stat template: %s", id);
                 skipped++;
             }
         }
 
         // Log conflicts as errors
         for (Map.Entry<String, String> entry : conflicts.entrySet()) {
-            LOGGER.severe("NPC stat template conflict: " + entry.getKey() + " - " + entry.getValue());
+            LOGGER.atSevere().log("NPC stat template conflict: %s - %s", entry.getKey(), entry.getValue());
         }
 
         // Resolve inheritance after all templates are loaded
         registry.resolveInheritance();
 
-        LOGGER.info("Loaded " + loaded + " NPC stat templates from assets (" + skipped + " skipped)");
+        LOGGER.atInfo().log("Loaded %s NPC stat templates from assets (%s skipped)", loaded, skipped);
     }
 
     /**

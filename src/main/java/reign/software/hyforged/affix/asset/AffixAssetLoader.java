@@ -16,35 +16,35 @@ import reign.software.hyforged.affix.registry.AffixTypeRegistry;
 import reign.software.hyforged.affix.registry.QualityAffixRuleRegistry;
 
 import javax.annotation.Nonnull;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Handles loading affix-related assets from JSON files.
  * <p>
  * Registers asset stores for:
- * - AffixTypeAsset (Server/Hyforged/AffixTypes/)
- * - QualityAffixRuleAsset (Server/Hyforged/QualityAffixRules/)
- * - AffixDefinitionAsset (Server/Hyforged/Affixes/)
- * - AffixPoolAsset (Server/Hyforged/AffixPools/)
+ * - AffixTypeAsset (Server/Hyforged/Affixes/Types/)
+ * - QualityAffixRuleAsset (Server/Hyforged/Quality/AffixRules/)
+ * - AffixDefinitionAsset (Server/Hyforged/Affixes/Definitions/)
+ * - AffixPoolAsset (Server/Hyforged/Affixes/Pools/)
  * <p>
  * Assets are loaded into their respective registries when LoadedAssetsEvent fires.
  */
 public final class AffixAssetLoader {
 
-    private static final Logger LOGGER = Logger.getLogger(AffixAssetLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Path for affix type assets */
-    public static final String AFFIX_TYPE_PATH = "Hyforged/AffixTypes";
+    public static final String AFFIX_TYPE_PATH = "Hyforged/Affixes/Types";
 
     /** Path for quality affix rule assets */
-    public static final String QUALITY_RULE_PATH = "Hyforged/QualityAffixRules";
+    public static final String QUALITY_RULE_PATH = "Hyforged/Quality/AffixRules";
 
     /** Path for affix definition assets */
-    public static final String AFFIX_DEFINITION_PATH = "Hyforged/Affixes";
+    public static final String AFFIX_DEFINITION_PATH = "Hyforged/Affixes/Definitions";
 
     /** Path for affix pool assets */
-    public static final String AFFIX_POOL_PATH = "Hyforged/AffixPools";
+    public static final String AFFIX_POOL_PATH = "Hyforged/Affixes/Pools";
 
     private static boolean initialized = false;
 
@@ -58,11 +58,11 @@ public final class AffixAssetLoader {
      */
     public static void initialize(@Nonnull JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("AffixAssetLoader already initialized");
+            LOGGER.atWarning().log("AffixAssetLoader already initialized");
             return;
         }
 
-        LOGGER.info("Initializing Hyforged affix asset loading...");
+        LOGGER.atInfo().log("Initializing Hyforged affix asset loading...");
 
         // Register all asset stores
         registerAffixTypeAssetStore();
@@ -96,7 +96,7 @@ public final class AffixAssetLoader {
         );
 
         initialized = true;
-        LOGGER.info("Hyforged affix asset loading initialized");
+        LOGGER.atInfo().log("Hyforged affix asset loading initialized");
     }
 
     // ========== Asset Store Registration ==========
@@ -118,7 +118,7 @@ public final class AffixAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered AffixTypeAsset store at path: " + AFFIX_TYPE_PATH);
+        LOGGER.at(Level.FINE).log("Registered AffixTypeAsset store at path: %s", AFFIX_TYPE_PATH);
     }
 
     private static void registerQualityRuleAssetStore() {
@@ -138,7 +138,7 @@ public final class AffixAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered QualityAffixRuleAsset store at path: " + QUALITY_RULE_PATH);
+        LOGGER.at(Level.FINE).log("Registered QualityAffixRuleAsset store at path: %s", QUALITY_RULE_PATH);
     }
 
     private static void registerAffixDefinitionAssetStore() {
@@ -158,7 +158,7 @@ public final class AffixAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered AffixDefinitionAsset store at path: " + AFFIX_DEFINITION_PATH);
+        LOGGER.at(Level.FINE).log("Registered AffixDefinitionAsset store at path: %s", AFFIX_DEFINITION_PATH);
     }
 
     private static void registerAffixPoolAssetStore() {
@@ -178,7 +178,7 @@ public final class AffixAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered AffixPoolAsset store at path: " + AFFIX_POOL_PATH);
+        LOGGER.at(Level.FINE).log("Registered AffixPoolAsset store at path: %s", AFFIX_POOL_PATH);
     }
 
     // ========== Asset Load Event Handlers ==========
@@ -186,7 +186,7 @@ public final class AffixAssetLoader {
     private static void onAffixTypeAssetsLoaded(
             LoadedAssetsEvent<String, AffixTypeAsset, IndexedLookupTableAssetMap<String, AffixTypeAsset>> event
     ) {
-        LOGGER.info("Loading affix type definitions from assets...");
+        LOGGER.atInfo().log("Loading affix type definitions from assets...");
 
         AffixTypeRegistry registry = AffixTypeRegistry.get();
         int loaded = 0;
@@ -197,20 +197,20 @@ public final class AffixAssetLoader {
                 AffixType type = asset.toAffixType();
                 registry.register(type);
                 loaded++;
-                LOGGER.fine("Loaded affix type: " + type.id());
+                LOGGER.at(Level.FINE).log("Loaded affix type: %s", type.id());
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to load affix type: " + asset.getId(), e);
+                LOGGER.atWarning().withCause(e).log("Failed to load affix type: %s", asset.getId());
                 failed++;
             }
         }
 
-        LOGGER.info(String.format("Loaded %d affix types (%d failed)", loaded, failed));
+        LOGGER.atInfo().log("Loaded %s affix types (%s failed)", loaded, failed);
     }
 
     private static void onQualityRuleAssetsLoaded(
             LoadedAssetsEvent<String, QualityAffixRuleAsset, IndexedLookupTableAssetMap<String, QualityAffixRuleAsset>> event
     ) {
-        LOGGER.info("Loading quality affix rules from assets...");
+        LOGGER.atInfo().log("Loading quality affix rules from assets...");
 
         QualityAffixRuleRegistry registry = QualityAffixRuleRegistry.get();
         int loaded = 0;
@@ -221,20 +221,20 @@ public final class AffixAssetLoader {
                 QualityAffixRule rule = asset.toQualityAffixRule();
                 registry.register(rule);
                 loaded++;
-                LOGGER.fine("Loaded quality affix rule: " + rule.quality());
+                LOGGER.at(Level.FINE).log("Loaded quality affix rule: %s", rule.quality());
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to load quality affix rule: " + asset.getId(), e);
+                LOGGER.atWarning().withCause(e).log("Failed to load quality affix rule: %s", asset.getId());
                 failed++;
             }
         }
 
-        LOGGER.info(String.format("Loaded %d quality affix rules (%d failed)", loaded, failed));
+        LOGGER.atInfo().log("Loaded %s quality affix rules (%s failed)", loaded, failed);
     }
 
     private static void onAffixDefinitionAssetsLoaded(
             LoadedAssetsEvent<String, AffixDefinitionAsset, IndexedLookupTableAssetMap<String, AffixDefinitionAsset>> event
     ) {
-        LOGGER.info("Loading affix definitions from assets...");
+        LOGGER.atInfo().log("Loading affix definitions from assets...");
 
         AffixDefinitionRegistry registry = AffixDefinitionRegistry.get();
         int loaded = 0;
@@ -245,20 +245,20 @@ public final class AffixAssetLoader {
                 AffixDefinition affix = asset.toAffixDefinition();
                 registry.register(affix);
                 loaded++;
-                LOGGER.fine("Loaded affix: " + affix.id());
+                LOGGER.at(Level.FINE).log("Loaded affix: %s", affix.id());
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to load affix: " + asset.getId(), e);
+                LOGGER.atWarning().withCause(e).log("Failed to load affix: %s", asset.getId());
                 failed++;
             }
         }
 
-        LOGGER.info(String.format("Loaded %d affixes (%d failed)", loaded, failed));
+        LOGGER.atInfo().log("Loaded %s affixes (%s failed)", loaded, failed);
     }
 
     private static void onAffixPoolAssetsLoaded(
             LoadedAssetsEvent<String, AffixPoolAsset, IndexedLookupTableAssetMap<String, AffixPoolAsset>> event
     ) {
-        LOGGER.info("Loading affix pools from assets...");
+        LOGGER.atInfo().log("Loading affix pools from assets...");
 
         AffixPoolRegistry registry = AffixPoolRegistry.get();
         int loaded = 0;
@@ -269,13 +269,13 @@ public final class AffixAssetLoader {
                 AffixPool pool = asset.toAffixPool();
                 registry.register(pool);
                 loaded++;
-                LOGGER.fine("Loaded affix pool: " + pool.id());
+                LOGGER.at(Level.FINE).log("Loaded affix pool: %s", pool.id());
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to load affix pool: " + asset.getId(), e);
+                LOGGER.atWarning().withCause(e).log("Failed to load affix pool: %s", asset.getId());
                 failed++;
             }
         }
 
-        LOGGER.info(String.format("Loaded %d affix pools (%d failed)", loaded, failed));
+        LOGGER.atInfo().log("Loaded %s affix pools (%s failed)", loaded, failed);
     }
 }

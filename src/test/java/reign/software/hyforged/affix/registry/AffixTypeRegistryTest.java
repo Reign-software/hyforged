@@ -29,7 +29,7 @@ class AffixTypeRegistryTest {
     @Test
     void register_newType_addsToRegistry() {
         AffixType type = new AffixType("prefix", 
-                AffixType.DisplayNamePosition.BEFORE, "{affix} {item}", true);
+                AffixType.DisplayNamePosition.BEFORE, "{affix} {item}", true, "Affixes", "#bca57a");
         
         AffixTypeRegistry.get().register(type);
         
@@ -39,9 +39,9 @@ class AffixTypeRegistryTest {
     @Test
     void register_duplicateId_replacesExisting() {
         AffixType type1 = new AffixType("test", 
-                AffixType.DisplayNamePosition.BEFORE, "{affix} {item}", true);
+                AffixType.DisplayNamePosition.BEFORE, "{affix} {item}", true, "test", "#bca57a");
         AffixType type2 = new AffixType("test", 
-                AffixType.DisplayNamePosition.AFTER, "{item} {affix}", false);
+                AffixType.DisplayNamePosition.AFTER, "{item} {affix}", false, "test", "#bca57a");
         
         AffixTypeRegistry.get().register(type1);
         AffixTypeRegistry.get().register(type2);
@@ -55,7 +55,7 @@ class AffixTypeRegistryTest {
     @Test
     void get_existingId_returnsType() {
         AffixType type = new AffixType("suffix", 
-                AffixType.DisplayNamePosition.AFTER, "{item} {affix}", true);
+                AffixType.DisplayNamePosition.AFTER, "{item} {affix}", true, "Affixes", "#bca57a");
         AffixTypeRegistry.get().register(type);
         
         AffixType result = AffixTypeRegistry.get().get("suffix");
@@ -74,7 +74,7 @@ class AffixTypeRegistryTest {
     @Test
     void contains_existingId_returnsTrue() {
         AffixTypeRegistry.get().register(
-                new AffixType("forged", AffixType.DisplayNamePosition.NONE, "", false));
+                new AffixType("forged", AffixType.DisplayNamePosition.NONE, "", false, "Forged Properties", "#cc8800"));
         
         assertTrue(AffixTypeRegistry.get().contains("forged"));
     }
@@ -87,11 +87,11 @@ class AffixTypeRegistryTest {
     @Test
     void getAll_returnsAllRegistered() {
         AffixTypeRegistry.get().register(
-                new AffixType("type1", AffixType.DisplayNamePosition.BEFORE, "", true));
+                new AffixType("type1", AffixType.DisplayNamePosition.BEFORE, "", true, "type1", "#bca57a"));
         AffixTypeRegistry.get().register(
-                new AffixType("type2", AffixType.DisplayNamePosition.AFTER, "", true));
+                new AffixType("type2", AffixType.DisplayNamePosition.AFTER, "", true, "type2", "#bca57a"));
         AffixTypeRegistry.get().register(
-                new AffixType("type3", AffixType.DisplayNamePosition.NONE, "", false));
+                new AffixType("type3", AffixType.DisplayNamePosition.NONE, "", false, "type3", "#bca57a"));
         
         Collection<AffixType> all = AffixTypeRegistry.get().getAll();
         
@@ -101,12 +101,12 @@ class AffixTypeRegistryTest {
     @Test
     void getAll_returnsUnmodifiableCollection() {
         AffixTypeRegistry.get().register(
-                new AffixType("test", AffixType.DisplayNamePosition.BEFORE, "", true));
+                new AffixType("test", AffixType.DisplayNamePosition.BEFORE, "", true, "test", "#bca57a"));
         
         Collection<AffixType> all = AffixTypeRegistry.get().getAll();
         
         assertThrows(UnsupportedOperationException.class, () -> 
-                all.add(new AffixType("new", AffixType.DisplayNamePosition.BEFORE, "", true)));
+                all.add(new AffixType("new", AffixType.DisplayNamePosition.BEFORE, "", true, "new", "#bca57a")));
     }
 
     @Test
@@ -114,7 +114,7 @@ class AffixTypeRegistryTest {
         assertEquals(0, AffixTypeRegistry.get().size());
         
         AffixTypeRegistry.get().register(
-                new AffixType("test", AffixType.DisplayNamePosition.BEFORE, "", true));
+                new AffixType("test", AffixType.DisplayNamePosition.BEFORE, "", true, "test", "#bca57a"));
         
         assertEquals(1, AffixTypeRegistry.get().size());
     }
@@ -122,9 +122,9 @@ class AffixTypeRegistryTest {
     @Test
     void reset_createsNewRegistry() {
         AffixTypeRegistry.get().register(
-                new AffixType("test1", AffixType.DisplayNamePosition.BEFORE, "", true));
+                new AffixType("test1", AffixType.DisplayNamePosition.BEFORE, "", true, "test1", "#bca57a"));
         AffixTypeRegistry.get().register(
-                new AffixType("test2", AffixType.DisplayNamePosition.AFTER, "", false));
+                new AffixType("test2", AffixType.DisplayNamePosition.AFTER, "", false, "test2", "#bca57a"));
         
         AffixTypeRegistry.reset();
         

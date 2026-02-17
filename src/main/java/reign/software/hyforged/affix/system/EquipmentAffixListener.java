@@ -28,8 +28,8 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Event listener that applies affix stat modifiers when equipment changes.
@@ -47,7 +47,7 @@ import java.util.logging.Logger;
  */
 public class EquipmentAffixListener {
     
-    private static final Logger LOGGER = Logger.getLogger(EquipmentAffixListener.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     /** Prefix for equipment-sourced modifier IDs */
     public static final String EQUIPMENT_SOURCE_PREFIX = "equipment:";
@@ -61,7 +61,7 @@ public class EquipmentAffixListener {
         globalRegistration = HytaleServer.get().getEventBus()
                 .registerGlobal((short) 0, LivingEntityInventoryChangeEvent.class, this::onInventoryChange);
         
-        LOGGER.log(Level.INFO, "EquipmentAffixListener registered for inventory changes");
+        LOGGER.atInfo().log("EquipmentAffixListener registered for inventory changes");
     }
     
     /**
@@ -227,7 +227,7 @@ public class EquipmentAffixListener {
             if (statComponent != null) {
                 statComponent.markAllDirty();
             }
-            LOGGER.log(Level.FINER, "Removed {0} armor affix modifiers", removed);
+            LOGGER.at(Level.FINER).log("Removed %s armor affix modifiers", removed);
         }
     }
     
@@ -253,7 +253,7 @@ public class EquipmentAffixListener {
             if (statComponent != null) {
                 statComponent.markAllDirty();
             }
-            LOGGER.log(Level.FINER, "Removed {0} hand affix modifiers", removed);
+            LOGGER.at(Level.FINER).log("Removed %s hand affix modifiers", removed);
         }
     }
     
@@ -296,8 +296,7 @@ public class EquipmentAffixListener {
                 StatId statId = StatId.parse(statIdStr);
                 int statIndex = registry.getIndex(statId);
                 if (statIndex < 0) {
-                    LOGGER.log(Level.WARNING, "Unknown stat for affix {0}: {1}", 
-                            new Object[]{affix.affixId(), statIdStr});
+                    LOGGER.atWarning().log("Unknown stat for affix %s: %s", affix.affixId(), statIdStr);
                     continue;
                 }
                 
@@ -321,8 +320,7 @@ public class EquipmentAffixListener {
                     applied.add(modifier);
                 }
 
-                LOGGER.log(Level.FINE, "Applied affix modifier: {0} = {1} {2}",
-                        new Object[]{statIdStr, rolledStat.value(), rolledStat.stackType()});
+                LOGGER.at(Level.FINE).log("Applied affix modifier: %s = %s %s", statIdStr, rolledStat.value(), rolledStat.stackType());
             }
         }
         
@@ -343,7 +341,7 @@ public class EquipmentAffixListener {
             
             dispatcher.dispatch(new AffixModifiersAppliedEvent(entity, slotType, modifiers));
         } catch (Exception e) {
-            LOGGER.log(Level.WARNING, "Failed to emit AffixModifiersAppliedEvent", e);
+            LOGGER.atWarning().withCause(e).log("Failed to emit AffixModifiersAppliedEvent");
         }
     }
 }

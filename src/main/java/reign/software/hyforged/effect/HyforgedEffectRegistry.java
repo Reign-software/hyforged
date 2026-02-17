@@ -6,14 +6,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Registry for Hyforged effect definitions keyed by Hytale EntityEffect ID.
  */
 public final class HyforgedEffectRegistry {
 
-    private static final Logger LOGGER = Logger.getLogger(HyforgedEffectRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final HyforgedEffectRegistry INSTANCE = new HyforgedEffectRegistry();
 
     private final Map<String, HyforgedEffectDefinition> definitions = new HashMap<>();
@@ -38,7 +38,7 @@ public final class HyforgedEffectRegistry {
             @Nullable Integer concentrationPriority
     ) {
         if (definitions.containsKey(effectId)) {
-            LOGGER.warning("Duplicate Hyforged effect definition for: " + effectId + " (ignoring duplicate)");
+            LOGGER.atWarning().log("Duplicate Hyforged effect definition for: %s (ignoring duplicate)", effectId);
             return;
         }
         definitions.put(effectId, new HyforgedEffectDefinition(

@@ -7,21 +7,21 @@ import reign.software.hyforged.quality.model.QualityWeightTable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Registry for quality weight profiles.
  */
 public final class QualityWeightRegistry {
 
-    private static final Logger LOGGER = Logger.getLogger(QualityWeightRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final Set<String> EXCLUDED_QUALITIES = Set.of(
             "Junk",
             "Tool",
@@ -60,7 +60,7 @@ public final class QualityWeightRegistry {
         }
 
         if (profilesById.containsKey(profile.id())) {
-            LOGGER.log(Level.WARNING, "Quality weight profile ''{0}'' overridden by later definition", profile.id());
+            LOGGER.atWarning().log("Quality weight profile '%s' overridden by later definition", profile.id());
         }
 
         validateProfile(profile);
@@ -103,14 +103,14 @@ public final class QualityWeightRegistry {
         Set<String> equipmentQualities = getEquipmentEligibleQualities();
         for (String quality : profile.weights().keySet()) {
             if (!equipmentQualities.contains(quality)) {
-                LOGGER.log(Level.WARNING, "Quality weight profile {0} references non-equipment quality: {1}",
-                        new Object[]{profile.id(), quality});
+                LOGGER.atWarning().log("Quality weight profile %s references non-equipment quality: %s",
+                        profile.id(), quality);
             }
         }
         for (String quality : profile.eligibleQualities()) {
             if (!equipmentQualities.contains(quality)) {
-                LOGGER.log(Level.WARNING, "Quality weight profile {0} has invalid eligible quality: {1}",
-                        new Object[]{profile.id(), quality});
+                LOGGER.atWarning().log("Quality weight profile %s has invalid eligible quality: %s",
+                        profile.id(), quality);
             }
         }
     }

@@ -76,7 +76,7 @@ Implement a Path-of-Exile-scale passive tree system with two distinct tree types
 - Defined in `Server/Hyforged/PassiveTrees/classes/<class-id>.json`.
 - Each class tree has a single central starting node (auto-allocated on first class level).
 - Trees are smaller and focused (50-150 nodes typical).
-- Trees are tied to class identity defined in `Server/Hyforged/Classes/`.
+- Trees are tied to class identity defined in `Server/Hyforged/Stats/Classes/`.
 
 #### FR-1.3: Tree Schema
 ```json

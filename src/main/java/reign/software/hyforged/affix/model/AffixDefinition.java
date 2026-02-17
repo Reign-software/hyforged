@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Complete definition of an affix that can be rolled on items.
  * <p>
- * Affix definitions are loaded from JSON at {@code Server/Hyforged/Affixes/<Type>/*.json}.
+ * Affix definitions are loaded from JSON at {@code Server/Hyforged/Affixes/Definitions/<Type>/*.json}.
  * Each tier specifies the stat modifiers it grants with their value ranges.
  * <p>
  * Pool targeting is handled by {@link AffixPool}, allowing the same affix

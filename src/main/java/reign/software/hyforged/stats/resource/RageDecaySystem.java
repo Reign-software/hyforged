@@ -19,12 +19,12 @@ import reign.software.hyforged.stats.StatAccessor;
 import javax.annotation.Nonnull;
 import java.time.Duration;
 import java.time.Instant;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class RageDecaySystem extends DelayedEntitySystem<EntityStore> {
 
-    private static final Logger LOGGER = Logger.getLogger(RageDecaySystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final float UPDATE_INTERVAL_SEC = 0.2f;
 
     @Nonnull
@@ -112,9 +112,7 @@ public class RageDecaySystem extends DelayedEntitySystem<EntityStore> {
         float newValue = Math.max(0.0f, current - decayAmount);
         if (newValue != current) {
             statMap.setStatValue(rageStatIndex, newValue);
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.fine(String.format("Rage decay applied: %.2f -> %.2f (dt=%.2f)", current, newValue, dt));
-            }
+            LOGGER.at(Level.FINE).log("Rage decay applied: %.2f -> %.2f (dt=%.2f)", current, newValue, dt);
         }
     }
 }

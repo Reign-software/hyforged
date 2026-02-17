@@ -9,7 +9,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+
+import java.util.logging.Level;
 
 /**
  * Manages the single {@link HyforgedHud} instance per player.
@@ -28,7 +30,7 @@ import java.util.logging.Logger;
  */
 public final class HyforgedHudManager {
 
-    private static final Logger LOGGER = Logger.getLogger(HyforgedHudManager.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Players whose clients have fully loaded (PlayerReadyEvent received) */
     private static final Set<UUID> readyPlayers = ConcurrentHashMap.newKeySet();
@@ -46,7 +48,7 @@ public final class HyforgedHudManager {
      */
     public static void markReady(@Nonnull UUID playerUuid) {
         readyPlayers.add(playerUuid);
-        LOGGER.fine(() -> "Player ready for HUD: " + playerUuid);
+        LOGGER.at(Level.FINE).log("Player ready for HUD: %s", playerUuid);
     }
 
     /**
@@ -91,7 +93,7 @@ public final class HyforgedHudManager {
         hud = new HyforgedHud(playerRef);
         player.getHudManager().setCustomHud(playerRef, hud);
         playerHuds.put(playerUuid, hud);
-        LOGGER.fine(() -> "Created HyforgedHud for player " + playerUuid);
+        LOGGER.at(Level.FINE).log("Created HyforgedHud for player %s", playerUuid);
         return hud;
     }
 
@@ -114,6 +116,6 @@ public final class HyforgedHudManager {
     public static void remove(@Nonnull UUID playerUuid) {
         readyPlayers.remove(playerUuid);
         playerHuds.remove(playerUuid);
-        LOGGER.fine(() -> "Removed HyforgedHud for player " + playerUuid);
+        LOGGER.at(Level.FINE).log("Removed HyforgedHud for player %s", playerUuid);
     }
 }

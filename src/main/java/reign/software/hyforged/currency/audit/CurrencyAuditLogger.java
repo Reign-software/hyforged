@@ -17,8 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Audit logger for currency transactions.
@@ -33,7 +32,7 @@ import java.util.logging.Logger;
  */
 public final class CurrencyAuditLogger {
 
-    private static final Logger LOGGER = Logger.getLogger(CurrencyAuditLogger.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static final String LOG_DIR = "logs/hyforged";
     private static final String LOG_FILE_PREFIX = "currency_audit";
@@ -152,7 +151,7 @@ public final class CurrencyAuditLogger {
             checkLogRotation();
             
             if (writer == null) {
-                LOGGER.warning("Audit log writer not available");
+                LOGGER.atWarning().log("Audit log writer not available");
                 return;
             }
             
@@ -215,10 +214,10 @@ public final class CurrencyAuditLogger {
             Path logDir = Paths.get(LOG_DIR);
             if (!Files.exists(logDir)) {
                 Files.createDirectories(logDir);
-                LOGGER.info("Created currency audit log directory: " + LOG_DIR);
+                LOGGER.atInfo().log("Created currency audit log directory: %s", LOG_DIR);
             }
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Failed to create audit log directory", e);
+            LOGGER.atSevere().withCause(e).log("Failed to create audit log directory");
         }
     }
 
@@ -230,9 +229,9 @@ public final class CurrencyAuditLogger {
                 Path logPath = Paths.get(LOG_DIR, filename);
                 
                 writer = new PrintWriter(new BufferedWriter(new FileWriter(logPath.toFile(), true)));
-                LOGGER.info("Opened currency audit log: " + logPath);
+                LOGGER.atInfo().log("Opened currency audit log: %s", logPath);
             } catch (IOException e) {
-                LOGGER.log(Level.SEVERE, "Failed to open audit log file", e);
+                LOGGER.atSevere().withCause(e).log("Failed to open audit log file");
             }
         }
     }

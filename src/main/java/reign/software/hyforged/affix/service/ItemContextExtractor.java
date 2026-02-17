@@ -11,8 +11,8 @@ import javax.annotation.Nullable;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Utility class for extracting affix-relevant context from ItemStack instances.
@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public final class ItemContextExtractor {
     
-    private static final Logger LOGGER = Logger.getLogger(ItemContextExtractor.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     private static final String DEFAULT_QUALITY = "Common";
     private static final int DEFAULT_ITEM_LEVEL = 1;
@@ -55,7 +55,7 @@ public final class ItemContextExtractor {
         // Get the Item asset configuration
         Item item = itemStack.getItem();
         if (item == null || item == Item.UNKNOWN) {
-            LOGGER.log(Level.FINE, "Unknown item type: {0}", itemId);
+            LOGGER.at(Level.FINE).log("Unknown item type: %s", itemId);
             return null;
         }
         
@@ -73,7 +73,7 @@ public final class ItemContextExtractor {
         
         // Check if item is eligible for affixes (needs at least some way to match pools)
         if (categories.length == 0 && tags.length == 0) {
-            LOGGER.log(Level.FINER, "Item {0} has no categories or tags for pool matching", itemId);
+            LOGGER.at(Level.FINER).log("Item %s has no categories or tags for pool matching", itemId);
             return null;
         }
         
@@ -97,7 +97,7 @@ public final class ItemContextExtractor {
                 }
             }
         } catch (Exception e) {
-            LOGGER.log(Level.FINE, "Could not extract quality from item", e);
+            LOGGER.at(Level.FINE).withCause(e).log("Could not extract quality from item");
         }
         return DEFAULT_QUALITY;
     }
@@ -113,7 +113,7 @@ public final class ItemContextExtractor {
             int level = item.getItemLevel();
             return level > 0 ? level : DEFAULT_ITEM_LEVEL;
         } catch (Exception e) {
-            LOGGER.log(Level.FINE, "Could not extract item level", e);
+            LOGGER.at(Level.FINE).withCause(e).log("Could not extract item level");
             return DEFAULT_ITEM_LEVEL;
         }
     }
@@ -130,7 +130,7 @@ public final class ItemContextExtractor {
             String[] categories = item.getCategories();
             return categories != null ? categories : EMPTY_STRING_ARRAY;
         } catch (Exception e) {
-            LOGGER.log(Level.FINE, "Could not extract categories", e);
+            LOGGER.at(Level.FINE).withCause(e).log("Could not extract categories");
             return EMPTY_STRING_ARRAY;
         }
     }
@@ -163,7 +163,7 @@ public final class ItemContextExtractor {
             Set<String> expandedTags = expandRawTags(rawTags);
             return expandedTags.toArray(EMPTY_STRING_ARRAY);
         } catch (Exception e) {
-            LOGGER.log(Level.FINE, "Could not extract tags from item", e);
+            LOGGER.at(Level.FINE).withCause(e).log("Could not extract tags from item");
             return EMPTY_STRING_ARRAY;
         }
     }

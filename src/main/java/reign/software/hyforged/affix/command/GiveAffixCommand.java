@@ -21,7 +21,7 @@ import reign.software.hyforged.affix.model.RolledAffix;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Debug command to add a specific affix to the held item.
@@ -32,7 +32,7 @@ import java.util.logging.Logger;
  */
 public class GiveAffixCommand extends AbstractPlayerCommand {
     
-    private static final Logger LOGGER = Logger.getLogger(GiveAffixCommand.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Could not find player component.");
     private static final Message MESSAGE_NO_ITEM = Message.raw("You must hold an item in your main hand.");
     
@@ -135,6 +135,6 @@ public class GiveAffixCommand extends AbstractPlayerCommand {
             context.sendMessage(Message.raw(" - " + affix.affixId() + tierInfo + " (" + statsInfo + ")"));
         }
         
-        LOGGER.log(Level.FINE, "Added affix {0} tier {1} to held item", new Object[]{affixId, tier});
+        LOGGER.at(Level.FINE).log("Added affix %s tier %s to held item", affixId, tier);
     }
 }

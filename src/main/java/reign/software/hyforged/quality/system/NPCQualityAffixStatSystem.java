@@ -20,19 +20,20 @@ import reign.software.hyforged.stats.StatId;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Applies NPC affix stat modifiers when NPC quality components are assigned or updated.
  */
 public class NPCQualityAffixStatSystem extends RefChangeSystem<EntityStore, HyforgedNPCQualityComponent> {
 
-    private static final Logger LOGGER = Logger.getLogger(NPCQualityAffixStatSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final String AFFIX_SOURCE_PREFIX = "hyforged:npc_affix:";
 
     private final ComponentType<EntityStore, HyforgedNPCQualityComponent> qualityComponentType;
@@ -126,7 +127,7 @@ public class NPCQualityAffixStatSystem extends RefChangeSystem<EntityStore, Hyfo
         }
 
         if (totalRemoved > 0) {
-            LOGGER.log(Level.FINER, "Removed {0} NPC affix modifiers", totalRemoved);
+            LOGGER.at(Level.FINER).log("Removed %d NPC affix modifiers", totalRemoved);
         }
     }
 
@@ -154,7 +155,7 @@ public class NPCQualityAffixStatSystem extends RefChangeSystem<EntityStore, Hyfo
                 StatId statId = StatId.parse(statIdStr);
                 int statIndex = registry.getIndex(statId);
                 if (statIndex < 0) {
-                    LOGGER.log(Level.WARNING, "Unknown stat for NPC affix {0}: {1}", new Object[]{affix.affixId(), statIdStr});
+                    LOGGER.atWarning().log("Unknown stat for NPC affix %s: %s", affix.affixId(), statIdStr);
                     continue;
                 }
 

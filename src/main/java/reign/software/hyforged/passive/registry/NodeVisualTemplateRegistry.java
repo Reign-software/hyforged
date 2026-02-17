@@ -6,7 +6,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
+import java.util.logging.Level;
+
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Registry for node visual templates (frames).
@@ -18,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class NodeVisualTemplateRegistry {
     
-    private static final Logger LOGGER = Logger.getLogger(NodeVisualTemplateRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final NodeVisualTemplateRegistry INSTANCE = new NodeVisualTemplateRegistry();
     
     private final Map<String, NodeVisualTemplate> templates = new ConcurrentHashMap<>();
@@ -42,7 +44,7 @@ public class NodeVisualTemplateRegistry {
      */
     public void register(@Nonnull NodeVisualTemplate template) {
         templates.put(template.id(), template);
-        LOGGER.fine(() -> "Registered node visual template: " + template.id());
+        LOGGER.at(Level.FINE).log("Registered node visual template: %s", template.id());
     }
     
     /**
@@ -53,7 +55,7 @@ public class NodeVisualTemplateRegistry {
      */
     public void setTypeDefault(@Nonnull String nodeType, @Nonnull String templateId) {
         typeDefaults.put(nodeType.toLowerCase(), templateId);
-        LOGGER.fine(() -> "Set type default: " + nodeType + " -> " + templateId);
+        LOGGER.at(Level.FINE).log("Set type default: %s -> %s", nodeType, templateId);
     }
     
     /**
@@ -83,7 +85,7 @@ public class NodeVisualTemplateRegistry {
             if (template != null) {
                 return template;
             }
-            LOGGER.warning("Node visual template not found: " + id + ", falling back to type default");
+            LOGGER.atWarning().log("Node visual template not found: %s, falling back to type default", id);
         }
         
         // Fall back to starting node template
@@ -99,7 +101,7 @@ public class NodeVisualTemplateRegistry {
         }
         
         // Final fallback - generate a placeholder template
-        LOGGER.warning("No template found for type: " + effectiveType + ", using fallback");
+        LOGGER.atWarning().log("No template found for type: %s, using fallback", effectiveType);
         return NodeVisualTemplate.fallback(effectiveType);
     }
     

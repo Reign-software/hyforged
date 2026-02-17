@@ -13,7 +13,9 @@ import reign.software.hyforged.progression.event.ClassLevelUpEvent;
 
 import javax.annotation.Nonnull;
 import java.util.Set;
-import java.util.logging.Logger;
+import java.util.logging.Level;
+
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * System that auto-allocates class tree starting nodes when a class is first leveled.
@@ -25,7 +27,7 @@ import java.util.logging.Logger;
  */
 public class ClassTreeStartingNodeSystem {
 
-    private static final Logger LOGGER = Logger.getLogger(ClassTreeStartingNodeSystem.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private EventRegistration<Void, ClassLevelUpEvent> classLevelRegistration;
 
@@ -37,7 +39,7 @@ public class ClassTreeStartingNodeSystem {
         classLevelRegistration = HytaleServer.get().getEventBus()
                 .register(ClassLevelUpEvent.class, this::onClassLevelUp);
         
-        LOGGER.info("ClassTreeStartingNodeSystem: Registered class level-up event handler");
+        LOGGER.atInfo().log("ClassTreeStartingNodeSystem: Registered class level-up event handler");
     }
 
     /**
@@ -54,25 +56,25 @@ public class ClassTreeStartingNodeSystem {
         String classId = event.classId();
         Ref<EntityStore> entityRef = event.entityRef();
 
-        LOGGER.fine(() -> String.format(
+        LOGGER.at(Level.FINE).log(
                 "ClassTreeStartingNodeSystem: Player gained first level in class %s, auto-allocating starting node",
-                classId));
+                classId);
 
         // Get the class tree
         PassiveTree classTree = PassiveTreeRegistry.get().getClassTree(classId);
         if (classTree == null) {
-            LOGGER.warning(() -> String.format(
+            LOGGER.atWarning().log(
                     "ClassTreeStartingNodeSystem: No passive tree found for class %s",
-                    classId));
+                    classId);
             return;
         }
 
         // Get the starting node(s)
         Set<String> startingNodes = classTree.getStartingNodeIds();
         if (startingNodes.isEmpty()) {
-            LOGGER.warning(() -> String.format(
+            LOGGER.atWarning().log(
                     "ClassTreeStartingNodeSystem: Class tree %s has no starting nodes defined",
-                    classId));
+                    classId);
             return;
         }
 
@@ -84,13 +86,13 @@ public class ClassTreeStartingNodeSystem {
         AllocationResult result = service.allocateNode(entityRef, classTree.getId(), startingNodeId);
 
         if (result.success()) {
-            LOGGER.info(() -> String.format(
+            LOGGER.atInfo().log(
                     "ClassTreeStartingNodeSystem: Auto-allocated starting node %s for class %s",
-                    startingNodeId, classId));
+                    startingNodeId, classId);
         } else {
-            LOGGER.warning(() -> String.format(
+            LOGGER.atWarning().log(
                     "ClassTreeStartingNodeSystem: Failed to auto-allocate starting node %s for class %s: %s",
-                    startingNodeId, classId, result.reason()));
+                    startingNodeId, classId, result.reason());
         }
     }
 

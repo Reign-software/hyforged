@@ -10,7 +10,9 @@ import reign.software.hyforged.passive.model.PassiveNodeEffect;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.logging.Level;
+
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Effect handler for mastery-choice type passive node effects.
@@ -50,7 +52,7 @@ import java.util.logging.Logger;
  */
 public final class MasteryChoiceEffectHandler implements PassiveEffectHandler {
 
-    private static final Logger LOGGER = Logger.getLogger(MasteryChoiceEffectHandler.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /**
      * Effect type identifier.
@@ -74,13 +76,13 @@ public final class MasteryChoiceEffectHandler implements PassiveEffectHandler {
     public void apply(@Nonnull Ref<EntityStore> entityRef, @Nonnull PassiveNode node, @Nonnull PassiveNodeEffect effect) {
         PassiveTreeComponent passiveComponent = entityRef.getStore().getComponent(entityRef, passiveTreeComponentType);
         if (passiveComponent == null) {
-            LOGGER.warning("Entity has no PassiveTreeComponent, cannot handle mastery choice from node: " + node.id());
+            LOGGER.atWarning().log("Entity has no PassiveTreeComponent, cannot handle mastery choice from node: %s", node.id());
             return;
         }
 
         List<?> choices = effect.getList("Choices");
         if (choices.isEmpty()) {
-            LOGGER.warning("mastery-choice effect has no 'Choices' field on node: " + node.id());
+            LOGGER.atWarning().log("mastery-choice effect has no 'Choices' field on node: %s", node.id());
             return;
         }
 
@@ -91,7 +93,7 @@ public final class MasteryChoiceEffectHandler implements PassiveEffectHandler {
             // No choice made yet - mark as pending choice
             // The UI system will detect this and prompt the player
             passiveComponent.markMasteryPending(node.id());
-            LOGGER.fine(() -> "Mastery node pending choice: " + node.id());
+            LOGGER.at(Level.FINE).log("Mastery node pending choice: %s", node.id());
             return;
         }
 
@@ -116,7 +118,7 @@ public final class MasteryChoiceEffectHandler implements PassiveEffectHandler {
     ) {
         Object chosenOption = findOption(choices, chosenOptionId);
         if (chosenOption == null) {
-            LOGGER.warning("Chosen option not found: " + chosenOptionId + " on node " + node.id());
+            LOGGER.atWarning().log("Chosen option not found: %s on node %s", chosenOptionId, node.id());
             return;
         }
 
@@ -130,11 +132,11 @@ public final class MasteryChoiceEffectHandler implements PassiveEffectHandler {
             if (handler != null) {
                 handler.apply(entityRef, node, subEffect);
             } else {
-                LOGGER.warning("No handler for mastery sub-effect type: " + subEffect.type());
+                LOGGER.atWarning().log("No handler for mastery sub-effect type: %s", subEffect.type());
             }
         }
         
-        LOGGER.fine(() -> "Applied mastery choice: " + chosenOptionId + " on node " + node.id());
+        LOGGER.at(Level.FINE).log("Applied mastery choice: %s on node %s", chosenOptionId, node.id());
     }
 
     @Override
@@ -165,7 +167,7 @@ public final class MasteryChoiceEffectHandler implements PassiveEffectHandler {
         
         // Clear the choice and pending state
         passiveComponent.clearMasteryChoice(node.id());
-        LOGGER.fine(() -> "Removed mastery node: " + node.id());
+        LOGGER.at(Level.FINE).log("Removed mastery node: %s", node.id());
     }
 
     @Override

@@ -24,8 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Command to view recent currency transactions for a player.
@@ -36,7 +35,7 @@ import java.util.logging.Logger;
  */
 public class CurrencyAuditCommand extends CommandBase {
 
-    private static final Logger LOGGER = Logger.getLogger(CurrencyAuditCommand.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static final String LOG_DIR = "logs/hyforged";
     private static final String LOG_FILE_PREFIX = "currency_audit";
@@ -145,7 +144,7 @@ public class CurrencyAuditCommand extends CommandBase {
                     }
                 }
             } catch (IOException e) {
-                LOGGER.log(Level.WARNING, "Failed to read audit log: " + logPath, e);
+                LOGGER.atWarning().withCause(e).log("Failed to read audit log: %s", logPath);
             }
         }
 

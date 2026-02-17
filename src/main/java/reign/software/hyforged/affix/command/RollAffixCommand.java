@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Debug command to roll affixes on the held item.
@@ -31,7 +31,7 @@ import java.util.logging.Logger;
  */
 public class RollAffixCommand extends AbstractPlayerCommand {
     
-    private static final Logger LOGGER = Logger.getLogger(RollAffixCommand.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final Message MESSAGE_PLAYER_NOT_FOUND = Message.raw("Could not find player component.");
     private static final Message MESSAGE_NO_ITEM = Message.raw("You must hold an item in your main hand.");
     private static final Message MESSAGE_NO_AFFIXES_ROLLED = Message.raw("No affixes were rolled for this item (may not be eligible).");
@@ -115,7 +115,7 @@ public class RollAffixCommand extends AbstractPlayerCommand {
         // Check if anything was rolled
         if (afterAffixes.isEmpty()) {
             context.sendMessage(MESSAGE_NO_AFFIXES_ROLLED);
-            LOGGER.log(Level.FINE, "No affixes rolled for item (seed: {0})", seed);
+            LOGGER.at(Level.FINE).log("No affixes rolled for item (seed: %s)", seed);
             return;
         }
         
@@ -135,7 +135,7 @@ public class RollAffixCommand extends AbstractPlayerCommand {
             context.sendMessage(Message.raw(" - " + affix.affixId() + tierInfo + " (" + statsInfo + ")"));
         }
         
-        LOGGER.log(Level.FINE, "Rolled {0} affixes on held item (seed: {1})", 
-                new Object[]{afterAffixes.size(), seed});
+        LOGGER.at(Level.FINE).log("Rolled %s affixes on held item (seed: %s)", 
+                afterAffixes.size(), seed);
     }
 }

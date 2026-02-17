@@ -3,10 +3,11 @@ package reign.software.hyforged.affix.service;
 import reign.software.hyforged.affix.model.*;
 import reign.software.hyforged.affix.registry.*;
 
+import com.hypixel.hytale.logger.HytaleLogger;
+
 import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
  */
 public final class AffixRollerService {
     
-    private static final Logger LOGGER = Logger.getLogger(AffixRollerService.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     private final AffixDefinitionRegistry affixRegistry;
     private final AffixPoolRegistry poolRegistry;
@@ -90,8 +91,8 @@ public final class AffixRollerService {
         Objects.requireNonNull(context, "context cannot be null");
         Objects.requireNonNull(random, "random cannot be null");
         
-        LOGGER.log(Level.FINE, "Rolling affixes for item: {0}, quality: {1}, level: {2}",
-                new Object[]{context.itemId(), context.quality(), context.itemLevel()});
+        LOGGER.at(Level.FINE).log("Rolling affixes for item: %s, quality: %s, level: %s",
+                context.itemId(), context.quality(), context.itemLevel());
         
         // Record metrics
         AffixMetrics.get().recordRollAttempt(context.quality());
@@ -99,32 +100,32 @@ public final class AffixRollerService {
         // Step 1: Get quality rules to determine capacity
         QualityAffixRule qualityRule = qualityRegistry.getOrEmpty(context.quality());
         if (!qualityRule.allowsAnyAffixes()) {
-            LOGGER.log(Level.FINE, "No affix rules found for quality: {0}", context.quality());
+            LOGGER.at(Level.FINE).log("No affix rules found for quality: %s", context.quality());
             return AffixRollResult.empty(context);
         }
         
-        LOGGER.log(Level.FINER, "Quality capacities: {0}", qualityRule.affixCapacity());
+        LOGGER.at(Level.FINER).log("Quality capacities: %s", qualityRule.affixCapacity());
         
         // Step 2: Resolve affix pool for this item
         Set<String> categorySet = Set.of(context.itemCategories());
         Set<String> tagSet = Set.of(context.itemTags());
         AffixPool pool = poolRegistry.resolve(categorySet, tagSet);
         if (pool == null) {
-            LOGGER.log(Level.FINE, "No affix pool found for item: {0} (categories: {1}, tags: {2})", 
-                    new Object[]{context.itemId(), categorySet, tagSet});
+            LOGGER.at(Level.FINE).log("No affix pool found for item: %s (categories: %s, tags: %s)",
+                    context.itemId(), categorySet, tagSet);
             return AffixRollResult.empty(context);
         }
         
-        LOGGER.log(Level.FINE, "Using affix pool: {0}", pool.id());
+        LOGGER.at(Level.FINE).log("Using affix pool: %s", pool.id());
         
         // Step 3: Get all affix definitions referenced in the pool
         List<AffixDefinition> poolAffixes = resolvePoolAffixes(pool);
         if (poolAffixes.isEmpty()) {
-            LOGGER.log(Level.FINE, "Pool '{0}' has no valid affixes", pool.id());
+            LOGGER.at(Level.FINE).log("Pool '%s' has no valid affixes", pool.id());
             return AffixRollResult.empty(context);
         }
         
-        LOGGER.log(Level.FINER, "Pool contains {0} affix definitions", poolAffixes.size());
+        LOGGER.at(Level.FINER).log("Pool contains %d affix definitions", poolAffixes.size());
         
         // Step 4: Separate by type
         Map<String, List<AffixDefinition>> byType = poolAffixes.stream()
@@ -147,15 +148,15 @@ public final class AffixRollerService {
             List<AffixDefinition> available = byType.getOrDefault(typeId, Collections.emptyList());
             AffixType affixType = AffixTypeRegistry.get().get(typeId);
             
-            LOGGER.log(Level.FINER, "Type ''{0}'': capacity={1}, available={2}",
-                    new Object[]{typeId, capacity, available.size()});
+            LOGGER.at(Level.FINER).log("Type '%s': capacity=%d, available=%d",
+                    typeId, capacity, available.size());
             
             rollForType(available, capacity, context, random, rolledAffixes, usedAffixIds, usedStats, affixType);
         }
         
-        LOGGER.log(Level.FINE, "Rolled {0} affixes for item {1}: {2}", 
-                new Object[]{rolledAffixes.size(), context.itemId(), 
-                        rolledAffixes.stream().map(RolledAffix::affixId).collect(Collectors.joining(", "))});
+        LOGGER.at(Level.FINE).log("Rolled %d affixes for item %s: %s",
+                rolledAffixes.size(), context.itemId(),
+                        rolledAffixes.stream().map(RolledAffix::affixId).collect(Collectors.joining(", ")));
         
         // Record success metrics
         if (rolledAffixes.isEmpty()) {
@@ -181,9 +182,9 @@ public final class AffixRollerService {
                 if (def != null) {
                     result.add(def);
                 } else {
-                    LOGGER.log(Level.WARNING, "Pool ''{0}'' references affix ''{1}'' (type ''{2}'') which does not exist in the registry. "
-                            + "Check that the pool ID matches the definition ''Id'' field exactly (case-sensitive).",
-                            new Object[]{pool.id(), affixId, entry.getKey()});
+                    LOGGER.atWarning().log("Pool '%s' references affix '%s' (type '%s') which does not exist in the registry. "
+                            + "Check that the pool ID matches the definition 'Id' field exactly (case-sensitive).",
+                            pool.id(), affixId, entry.getKey());
                 }
             }
         }
@@ -207,15 +208,15 @@ public final class AffixRollerService {
             AffixType affixType
     ) {
         if (available.isEmpty() || capacity <= 0) {
-            LOGGER.log(Level.FINEST, "Skipping roll - available: {0}, capacity: {1}", 
-                    new Object[]{available.size(), capacity});
+            LOGGER.at(Level.FINEST).log("Skipping roll - available: %d, capacity: %d",
+                    available.size(), capacity);
             return;
         }
         
         String type = available.isEmpty() ? "unknown" : available.get(0).type();
         boolean isStackable = affixType != null && affixType.stackable();
-        LOGGER.log(Level.FINER, "Rolling {0} {1} slots from {2} candidates (stackable: {3})", 
-                new Object[]{capacity, type, available.size(), isStackable});
+        LOGGER.at(Level.FINER).log("Rolling %d %s slots from %d candidates (stackable: %b)",
+                capacity, type, available.size(), isStackable);
         
         for (int i = 0; i < capacity; i++) {
             // Filter out already used affixes and affixes that share stats with already-used ones
@@ -225,7 +226,7 @@ public final class AffixRollerService {
                     .collect(Collectors.toList());
             
             if (candidates.isEmpty()) {
-                LOGGER.log(Level.FINEST, "No more candidates for slot {0}", i);
+                LOGGER.at(Level.FINEST).log("No more candidates for slot %d", i);
                 break;
             }
             
@@ -235,23 +236,23 @@ public final class AffixRollerService {
                 break;
             }
             
-            LOGGER.log(Level.FINEST, "Selected affix: {0} (weight: {1})", 
-                    new Object[]{selected.id(), selected.weight()});
+            LOGGER.at(Level.FINEST).log("Selected affix: %s (weight: %d)",
+                    selected.id(), selected.weight());
             
             // Roll tier
             AffixTierDefinition tier = rollTier(selected, context, random);
             if (tier == null) {
                 // No eligible tiers for this item level
-                LOGGER.log(Level.FINEST, "No eligible tiers for affix {0} at level {1}", 
-                        new Object[]{selected.id(), context.itemLevel()});
+                LOGGER.at(Level.FINEST).log("No eligible tiers for affix %s at level %d",
+                        selected.id(), context.itemLevel());
                 continue;
             }
             
             // Roll values for each stat in the tier
             Map<String, RolledAffix.RolledStat> rolledStats = rollAllStats(tier, random);
             
-            LOGGER.log(Level.FINEST, "Rolled {0} tier {1} with {2} stats", 
-                    new Object[]{selected.id(), tier.tier(), rolledStats.size()});
+            LOGGER.at(Level.FINEST).log("Rolled %s tier %d with %d stats",
+                    selected.id(), tier.tier(), rolledStats.size());
             
             // Create rolled affix
             RolledAffix rolled = RolledAffix.from(selected, tier.tier(), rolledStats);

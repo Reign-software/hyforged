@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Hyforged's extension of Hytale's EntityStatValue that implements ARPG-style modifier stacking.
@@ -50,7 +49,7 @@ public class HyforgedStatValue extends EntityStatValue {
     
     private static final java.lang.reflect.Field minField;
     private static final java.lang.reflect.Field maxField;
-    private static final Logger LOGGER_INIT = Logger.getLogger(HyforgedStatValue.class.getName());
+    private static final HytaleLogger LOGGER_INIT = HytaleLogger.forEnclosingClass();
     
     static {
         java.lang.reflect.Field tmpMin = null;
@@ -61,10 +60,10 @@ public class HyforgedStatValue extends EntityStatValue {
             tmpMax = EntityStatValue.class.getDeclaredField("max");
             tmpMax.setAccessible(true);
         } catch (NoSuchFieldException e) {
-            LOGGER_INIT.log(Level.SEVERE,
+            LOGGER_INIT.atSevere().withCause(e).log(
                 "Failed to find EntityStatValue.min/max fields. "
                 + "ARPG MAX/MIN modifier stacking will not function correctly. "
-                + "This likely means a Hytale server update changed EntityStatValue internals.", e);
+                + "This likely means a Hytale server update changed EntityStatValue internals.");
         }
         minField = tmpMin;
         maxField = tmpMax;

@@ -31,8 +31,10 @@ import com.hypixel.hytale.server.core.Message;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
-import java.util.logging.Logger;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
+
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Passive Tree UI page using native Hytale UI.
@@ -50,7 +52,7 @@ import java.util.stream.Collectors;
  */
 public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.PageEventData> {
     
-    private static final Logger LOGGER = Logger.getLogger(PassiveTreePage.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     /** UI file path for the passive tree page layout */
     private static final String PAGE_UI_FILE = "Hyforged/PassiveTreePage.ui";
@@ -77,6 +79,10 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
     /** Tracks rendered node IDs to element IDs for event binding */
     @Nonnull
     private Map<String, String> renderedNodeElementIds = new LinkedHashMap<>();
+    
+    /** Tracks rendered node IDs to their canvas screen positions [x, y, size] */
+    @Nonnull
+    private Map<String, int[]> nodeScreenPositions = new HashMap<>();
     
     /**
      * Create a new PassiveTreePage for the general tree.
@@ -114,7 +120,7 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
         PassiveTree tree = PassiveTreeRegistry.get().getTree(activeTreeId);
         
         if (tree == null) {
-            LOGGER.warning("Cannot show passive tree page - tree not found: " + activeTreeId);
+            LOGGER.atWarning().log("Cannot show passive tree page - tree not found: %s", activeTreeId);
             return;
         }
         
@@ -149,10 +155,10 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
         // Add node events for rendered nodes
         addNodeEvents(eventBuilder, tree, allocatedNodes, reachableNodes);
         
-        LOGGER.fine(() -> String.format(
+        LOGGER.at(Level.FINE).log(
             "PassiveTreePage built: tree=%s, available=%d, allocated=%d, nodes=%d",
             activeTreeId, availablePoints, allocatedCount, renderedNodeElementIds.size()
-        ));
+        );
     }
     
     /**
@@ -222,8 +228,10 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
     ) {
         // Clear previous renders - clear the child containers, not TreeArea
         renderedNodeElementIds.clear();
+        nodeScreenPositions.clear();
         commandBuilder.clear("#ConnectionsCanvas");
         commandBuilder.clear("#NodesCanvas");
+        commandBuilder.clear("#TooltipCanvas");
         
         Set<String> startingNodes = tree.getStartingNodeIds();
         
@@ -395,6 +403,7 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
             commandBuilder.appendInline("#NodesCanvas", nodeUI);
             
             renderedNodeElementIds.put(node.id(), elementId);
+            nodeScreenPositions.put(node.id(), new int[]{ screenX, screenY, nodeSize });
             nodeIndex++;
         }
     }
@@ -634,7 +643,7 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
             case "hideTooltip" -> handleHideTooltip();
             case "confirmCancel" -> handleConfirmCancel();
             case "confirmAccept" -> handleConfirmAccept(ref, store);
-            default -> LOGGER.fine("Unknown action: " + action);
+            default -> LOGGER.at(Level.FINE).log("Unknown action: %s", action);
         }
     }
     
@@ -653,10 +662,10 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
         String activeTreeId = getActiveTreeId();
         var result = PassiveTreeService.get().allocateNode(ref, activeTreeId, nodeId);
         if (result.success()) {
-            LOGGER.info("Allocation successful for: " + nodeId);
+            LOGGER.atInfo().log("Allocation successful for: %s", nodeId);
             rebuild();
         } else {
-            LOGGER.warning("Allocation failed for " + nodeId + ": " + result.reason());
+            LOGGER.atWarning().log("Allocation failed for %s: %s", nodeId, result.reason());
         }
     }
     
@@ -666,10 +675,10 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
         String activeTreeId = getActiveTreeId();
         var result = PassiveTreeService.get().refundNode(ref, activeTreeId, nodeId);
         if (result.success()) {
-            LOGGER.info("Refund successful for: " + nodeId);
+            LOGGER.atInfo().log("Refund successful for: %s", nodeId);
             rebuild();
         } else {
-            LOGGER.warning("Refund failed for " + nodeId + ": " + result.reason());
+            LOGGER.atWarning().log("Refund failed for %s: %s", nodeId, result.reason());
         }
     }
     
@@ -692,9 +701,9 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
         String activeTreeId = getActiveTreeId();
         var result = PassiveTreeService.get().refundAll(ref, activeTreeId);
         if (result.success()) {
-            LOGGER.fine("Respec completed: " + result.pointsReturned() + " points returned");
+            LOGGER.at(Level.FINE).log("Respec completed: %s points returned", result.pointsReturned());
         } else {
-            LOGGER.warning("Respec failed: " + result.reason());
+            LOGGER.atWarning().log("Respec failed: %s", result.reason());
         }
         rebuild();
     }
@@ -705,10 +714,10 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
         String activeTreeId = getActiveTreeId();
         var result = PassiveTreeService.get().allocateNode(ref, activeTreeId, nodeId);
         if (result.success()) {
-            LOGGER.fine("Selected starting region: " + nodeId);
+            LOGGER.at(Level.FINE).log("Selected starting region: %s", nodeId);
             rebuild();
         } else {
-            LOGGER.warning("Failed to select starting region: " + result.reason());
+            LOGGER.atWarning().log("Failed to select starting region: %s", result.reason());
         }
     }
     
@@ -752,8 +761,10 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
         
         // Clear and re-render the canvas containers
         renderedNodeElementIds.clear();
+        nodeScreenPositions.clear();
         commandBuilder.clear("#ConnectionsCanvas");
         commandBuilder.clear("#NodesCanvas");
+        commandBuilder.clear("#TooltipCanvas");
         
         // Sort nodes
         List<PassiveNode> sortedNodes = tree.getNodes().values().stream()
@@ -818,7 +829,7 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
     
     private void handleSwitchClass(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
         // TODO: Show class tree selection overlay
-        LOGGER.fine("Class tree selection requested");
+        LOGGER.at(Level.FINE).log("Class tree selection requested");
     }
     
     private void handleShowTooltip(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nullable String nodeId) {
@@ -837,32 +848,103 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
         boolean isStarting = tree.getStartingNodeIds().contains(nodeId);
         boolean canAllocate = isStarting || reachableNodes.contains(nodeId);
         
-        UICommandBuilder builder = new UICommandBuilder();
-        builder.set("#TooltipOverlay.Visible", true);
-        builder.set("#TooltipName.Text", node.name());
-        builder.set("#TooltipType.Text", formatNodeType(node.type()));
-        
+        // Determine tooltip content
+        String nameText = node.name();
+        String typeText = formatNodeType(node.type());
         String status = isAllocated ? "ALLOCATED" : (canAllocate ? "AVAILABLE" : "LOCKED");
-        builder.set("#TooltipStatus.Text", status);
-        builder.set("#TooltipDescription.Text", node.description() != null ? node.description() : "");
+        String statusColor = isAllocated ? "#4CAF50" : (canAllocate ? "#4CAF50" : "#666666");
+        String descText = node.description() != null ? node.description() : "";
         
-        // Build effects text
-        StringBuilder effectsText = new StringBuilder();
+        List<String> effectLines = new ArrayList<>();
         for (PassiveNodeEffect effect : node.effects()) {
-            if (effectsText.length() > 0) effectsText.append("\n");
-            effectsText.append("• ").append(formatEffectText(effect));
+            effectLines.add(formatEffectText(effect));
         }
-        builder.set("#TooltipEffects.Text", effectsText.toString());
         
         String actionHint = isAllocated ? "Click to refund" : (canAllocate ? "Click to allocate" : "Locked");
-        builder.set("#TooltipActionHint.Text", actionHint);
+        
+        // Compute tooltip height based on content
+        int tooltipWidth = 220;
+        int lineHeight = 14;
+        int padding = 10;
+        int height = padding * 2;  // top + bottom padding
+        height += 18;              // name
+        height += 4 + lineHeight;  // type + spacing
+        height += 4 + 13;         // status + spacing
+        if (!descText.isEmpty()) {
+            int descLines = Math.max(1, (descText.length() * 10) / (tooltipWidth - padding * 2) + 1);
+            height += 6 + descLines * lineHeight;  // description + spacing
+        }
+        if (!effectLines.isEmpty()) {
+            height += 6 + effectLines.size() * lineHeight;  // effects + spacing
+        }
+        height += 8 + 13;  // action hint + spacing
+        
+        // Position tooltip near the hovered node
+        int tooltipX = 10;
+        int tooltipY = 80;
+        int[] pos = nodeScreenPositions.get(nodeId);
+        if (pos != null) {
+            int nodeScreenX = pos[0];
+            int nodeScreenY = pos[1];
+            int nodeSize = pos[2];
+            // Place tooltip to the right of the node
+            tooltipX = nodeScreenX + nodeSize / 2 + 8;
+            tooltipY = nodeScreenY - height / 2;
+            // If tooltip would go off the right edge of the canvas, place it to the left
+            if (tooltipX + tooltipWidth > VIEWPORT_WIDTH - 10) {
+                tooltipX = nodeScreenX - nodeSize / 2 - tooltipWidth - 8;
+            }
+            // Clamp vertical position
+            if (tooltipY < 5) tooltipY = 5;
+        }
+        
+        // Build tooltip inline using LayoutMode: Top for auto-stacking content
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format(
+            "Group #Tooltip { Anchor: (Left: %d, Top: %d, Width: %d, Height: %d); " +
+            "Background: PatchStyle(Color: #1a1a1eee, Border: 1); LayoutMode: Top; Padding: (Full: %d); ",
+            tooltipX, tooltipY, tooltipWidth, height, padding
+        ));
+        sb.append(String.format(
+            "Label { Text: \"%s\"; Style: (FontSize: 14, RenderBold: true); } ",
+            nameText.replace("\"", "\\\"")
+        ));
+        sb.append(String.format(
+            "Label { Text: \"%s\"; Style: (FontSize: 10, TextColor: #c0a040); Padding: (Top: 4); } ",
+            typeText
+        ));
+        sb.append(String.format(
+            "Label { Text: \"%s\"; Style: (FontSize: 9, TextColor: %s); Padding: (Top: 4); } ",
+            status, statusColor
+        ));
+        if (!descText.isEmpty()) {
+            sb.append(String.format(
+                "Label { Text: \"%s\"; Style: (FontSize: 10, TextColor: #aaaaaa); Padding: (Top: 6); } ",
+                descText.replace("\"", "\\\"")
+            ));
+        }
+        for (String effectLine : effectLines) {
+            sb.append(String.format(
+                "Label { Text: \"%s\"; Style: (FontSize: 10); Padding: (Top: 2); } ",
+                ("  " + effectLine).replace("\"", "\\\"")
+            ));
+        }
+        sb.append(String.format(
+            "Label { Text: \"%s\"; Style: (FontSize: 9, TextColor: #666666); Padding: (Top: 8); } ",
+            actionHint
+        ));
+        sb.append("}");
+        
+        UICommandBuilder builder = new UICommandBuilder();
+        builder.clear("#TooltipCanvas");
+        builder.appendInline("#TooltipCanvas", sb.toString());
         
         sendUpdate(builder, new UIEventBuilder(), false);
     }
     
     private void handleHideTooltip() {
         UICommandBuilder builder = new UICommandBuilder();
-        builder.set("#TooltipOverlay.Visible", false);
+        builder.clear("#TooltipCanvas");
         sendUpdate(builder, new UIEventBuilder(), false);
     }
     

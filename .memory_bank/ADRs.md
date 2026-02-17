@@ -135,7 +135,7 @@
 - The modding documentation specifies `src/main/resources/Server/` for server-side data.
 
 #### Decision
-- Convert all stat and tag definitions to JSON assets in `Server/Hyforged/Stats/` and `Server/Hyforged/Tags/`.
+- Convert all stat and tag definitions to JSON assets in `Server/Hyforged/Stats/Definitions/` and `Server/Hyforged/Tags/`.
 - Register `StatDefinitionAsset` and `TagDefinitionAsset` with Hytale's `AssetRegistry`.
 - Use `StatAssetLoader` to handle asset loading and registration with `StatDefinitionRegistry`.
 - Simplify `CoreStats.java` and `CoreTags.java` to contain only constant IDs for compile-time references.
@@ -160,7 +160,7 @@
 	- Rejected: Compile-time references useful for type safety in code.
 
 #### Links
-- Stats path: `src/main/resources/Server/Hyforged/Stats/`
+- Stats path: `src/main/resources/Server/Hyforged/Stats/Definitions/`
 - Tags path: `src/main/resources/Server/Hyforged/Tags/`
 - Loader: `reign.software.hyforged.stats.asset.StatAssetLoader`
 - Related ADR: ADR-0001 (Hybrid approach)
@@ -273,7 +273,7 @@
 #### Decision
 - Remove the `StatCategory` Java enum.
 - Create `CategoryDefinition` record and `CategoryDefinitionAsset` for JSON loading.
-- Categories defined in JSON files in `Server/Hyforged/Categories/`.
+- Categories defined in JSON files in `Server/Hyforged/Stats/Categories/`.
 - Stats reference categories by string ID (e.g., `"ability-score"`, `"offense"`).
 - `CoreCategories` class provides compile-time constants for common category IDs.
 - `StatDefinitionRegistry` tracks categories and provides lookup by category.
@@ -295,7 +295,7 @@
 	- Rejected: Categories serve a different purpose (UI grouping vs stat grouping).
 
 #### Links
-- Categories path: `src/main/resources/Server/Hyforged/Categories/`
+- Categories path: `src/main/resources/Server/Hyforged/Stats/Categories/`
 - Constants: `reign.software.hyforged.stats.CoreCategories`
 - Definition: `reign.software.hyforged.stats.CategoryDefinition`
 - Related ADR: ADR-0003 (Data-driven stats/tags)
@@ -427,7 +427,7 @@
 - User questioned: "With the way ECS works, would the mapping be on the damage type entity itself?"
 
 #### Decision
-- **Create damage type extension assets** (`Server/Hyforged/Damage/*.json`) that extend Hytale's `DamageCause` without modifying it.
+- **Create damage type extension assets** (`Server/Hyforged/Stats/Damage/*.json`) that extend Hytale's `DamageCause` without modifying it.
 - Each extension specifies which resistance stat applies to that damage type via `HyforgedResistanceStat`.
 - **New components**:
   - `DamageTypeExtensionAsset`: JSON asset for loading extensions
@@ -465,11 +465,11 @@
 - New: `reign.software.hyforged.stats.damage.DamageTypeAssetLoader`
 - Modified: `reign.software.hyforged.stats.bridge.HyforgedDamageReductionSystem`
 - Modified: `reign.software.hyforged.HyforgedPlugin` (initialize loader)
-- New: `Server/Hyforged/Damage/Fire.json`, `Ice.json`, `Physical.json`, `Poison.json`, `Elemental.json`
+- New: `Server/Hyforged/Stats/Damage/Fire.json`, `Ice.json`, `Physical.json`, `Poison.json`, `Elemental.json`
 
 #### Links
 - Related ADR: ADR-0006 (Hyforged damage system replacement)
-- Asset path: `Server/Hyforged/Damage/`
+- Asset path: `Server/Hyforged/Stats/Damage/`
 
 ---
 

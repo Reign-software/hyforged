@@ -6,15 +6,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Central registry for quality-based affix capacity rules.
  * <p>
  * Quality affix rules define how many affixes of each type an item can have
  * based on its quality tier. Rules are loaded from JSON at
- * {@code Server/Hyforged/QualityAffixRules/*.json}.
+ * {@code Server/Hyforged/Quality/AffixRules/*.json}.
  * <p>
  * This is a singleton registry loaded at startup, NOT an ECS component.
  * <p>
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public final class QualityAffixRuleRegistry {
     
-    private static final Logger LOGGER = Logger.getLogger(QualityAffixRuleRegistry.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static QualityAffixRuleRegistry instance;
     
     private final Map<String, QualityAffixRule> rulesByQuality = new ConcurrentHashMap<>();
@@ -88,12 +88,11 @@ public final class QualityAffixRuleRegistry {
         
         String quality = rule.quality();
         if (rulesByQuality.containsKey(quality)) {
-            LOGGER.log(Level.WARNING, "Quality affix rule for ''{0}'' is being overridden by a later definition", quality);
+            LOGGER.atWarning().log("Quality affix rule for '%s' is being overridden by a later definition", quality);
         }
         
         rulesByQuality.put(quality, rule);
-        LOGGER.log(Level.FINE, "Registered quality affix rule: {0} (totalCapacity={1})", 
-            new Object[]{quality, rule.getTotalCapacity()});
+        LOGGER.at(Level.FINE).log("Registered quality affix rule: %s (totalCapacity=%s)", quality, rule.getTotalCapacity());
     }
     
     /**
@@ -190,7 +189,7 @@ public final class QualityAffixRuleRegistry {
      */
     public synchronized void freeze() {
         frozen = true;
-        LOGGER.log(Level.INFO, "QualityAffixRuleRegistry frozen with {0} rules", rulesByQuality.size());
+        LOGGER.atInfo().log("QualityAffixRuleRegistry frozen with %s rules", rulesByQuality.size());
     }
     
     /**

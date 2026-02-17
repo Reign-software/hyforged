@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Metrics collection stubs for affix system observability.
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public final class AffixMetrics {
     
-    private static final Logger LOGGER = Logger.getLogger(AffixMetrics.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final AffixMetrics INSTANCE = new AffixMetrics();
     
     // Rolling metrics
@@ -57,7 +57,7 @@ public final class AffixMetrics {
         rollAttempts.incrementAndGet();
         rollsByQuality.computeIfAbsent(quality, k -> new AtomicLong(0)).incrementAndGet();
         
-        LOGGER.log(Level.FINEST, "Roll attempt recorded for quality: {0}", quality);
+        LOGGER.at(Level.FINEST).log("Roll attempt recorded for quality: %s", quality);
     }
     
     /**
@@ -77,7 +77,7 @@ public final class AffixMetrics {
             rollsByType.computeIfAbsent(affix.type(), k -> new AtomicLong(0)).incrementAndGet();
         }
         
-        LOGGER.log(Level.FINEST, "Roll success recorded: {0} affixes", affixes.size());
+        LOGGER.at(Level.FINEST).log("Roll success recorded: %s affixes", affixes.size());
     }
     
     /**
@@ -86,7 +86,7 @@ public final class AffixMetrics {
     public void recordRollFailure() {
         rollFailures.incrementAndGet();
         
-        LOGGER.log(Level.FINEST, "Roll failure recorded");
+        LOGGER.at(Level.FINEST).log("Roll failure recorded");
     }
     
     // =========================================================================
@@ -181,7 +181,7 @@ public final class AffixMetrics {
         rollsByTier.clear();
         rollsByType.clear();
         
-        LOGGER.log(Level.FINE, "Metrics reset");
+        LOGGER.at(Level.FINE).log("Metrics reset");
     }
     
     /**

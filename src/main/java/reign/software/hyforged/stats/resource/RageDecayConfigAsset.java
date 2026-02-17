@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 /**
  * Asset class for loading rage decay configuration from JSON.
  * <p>
- * Loaded from: Server/Hyforged/GameplayConfigs/RageDecay.json
+ * Loaded from: Server/Hyforged/Config/RageDecay.json
  */
 public class RageDecayConfigAsset implements JsonAssetWithMap<String, IndexedLookupTableAssetMap<String, RageDecayConfigAsset>> {
 

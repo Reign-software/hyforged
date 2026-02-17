@@ -7,8 +7,8 @@ import com.hypixel.hytale.assetstore.map.IndexedLookupTableAssetMap;
 import com.hypixel.hytale.server.core.asset.HytaleAssetStore;
 
 import javax.annotation.Nonnull;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Handles loading ailment assets from JSON via Hytale's asset system.
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public final class AilmentLoader {
     
-    private static final Logger LOGGER = Logger.getLogger(AilmentLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     /** Path for ailment assets relative to asset root */
     public static final String AILMENT_ASSET_PATH = "Hyforged/Combat/Ailments";
@@ -38,11 +38,11 @@ public final class AilmentLoader {
      */
     public static void initialize(@Nonnull com.hypixel.hytale.server.core.plugin.JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("AilmentLoader already initialized");
+            LOGGER.atWarning().log("AilmentLoader already initialized");
             return;
         }
         
-        LOGGER.info("Initializing Hyforged ailment loading...");
+        LOGGER.atInfo().log("Initializing Hyforged ailment loading...");
         
         // Register ailment asset store
         registerAilmentAssetStore();
@@ -55,7 +55,7 @@ public final class AilmentLoader {
         );
         
         initialized = true;
-        LOGGER.info("Hyforged ailment loading initialized");
+        LOGGER.atInfo().log("Hyforged ailment loading initialized");
     }
     
     /**
@@ -78,7 +78,7 @@ public final class AilmentLoader {
                         .build();
         
         AssetRegistry.register(store);
-        LOGGER.fine("Registered AilmentAsset store at path: " + AILMENT_ASSET_PATH);
+        LOGGER.at(Level.FINE).log("Registered AilmentAsset store at path: %s", AILMENT_ASSET_PATH);
     }
     
     /**
@@ -87,7 +87,7 @@ public final class AilmentLoader {
     private static void onAilmentAssetsLoaded(
             LoadedAssetsEvent<String, AilmentAsset, IndexedLookupTableAssetMap<String, AilmentAsset>> event
     ) {
-        LOGGER.info("Loading ailment definitions from assets...");
+        LOGGER.atInfo().log("Loading ailment definitions from assets...");
         
         AilmentRegistry registry = AilmentRegistry.get();
         
@@ -102,17 +102,15 @@ public final class AilmentLoader {
                 AilmentDefinition definition = asset.toDefinition();
                 registry.register(definition);
                 loaded++;
-                LOGGER.fine("Loaded ailment: " + definition.id() + 
-                        " (element: " + definition.elementTag() + 
-                        ", effect: " + definition.entityEffectId() + ")");
+                LOGGER.at(Level.FINE).log("Loaded ailment: %s (element: %s, effect: %s)",
+                        definition.id(), definition.elementTag(), definition.entityEffectId());
             } catch (Exception e) {
-                LOGGER.log(Level.WARNING, "Failed to register ailment: " + asset.getId(), e);
+                LOGGER.atWarning().withCause(e).log("Failed to register ailment: %s", asset.getId());
                 errors++;
             }
         }
         
-        LOGGER.info("Loaded " + loaded + " ailment definitions" + 
-                (errors > 0 ? " (" + errors + " errors)" : ""));
+        LOGGER.atInfo().log("Loaded %s ailment definitions%s", loaded, (errors > 0 ? " (" + errors + " errors)" : ""));
     }
     
     /**

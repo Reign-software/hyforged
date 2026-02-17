@@ -15,7 +15,9 @@ class AffixTypeTest {
                 "prefix",
                 AffixType.DisplayNamePosition.BEFORE,
                 "{name}",
-                true
+                true,
+                "Affixes",
+                "#bca57a"
         );
         
         assertEquals("prefix", type.id());
@@ -27,38 +29,38 @@ class AffixTypeTest {
     @Test
     void constructor_nullId_throwsException() {
         assertThrows(NullPointerException.class, () -> 
-            new AffixType(null, AffixType.DisplayNamePosition.BEFORE, "{name}", true));
+            new AffixType(null, AffixType.DisplayNamePosition.BEFORE, "{name}", true, "Affixes", "#bca57a"));
     }
 
     @Test
     void constructor_blankId_throwsException() {
         assertThrows(IllegalArgumentException.class, () -> 
-            new AffixType("  ", AffixType.DisplayNamePosition.BEFORE, "{name}", true));
+            new AffixType("  ", AffixType.DisplayNamePosition.BEFORE, "{name}", true, "Affixes", "#bca57a"));
     }
 
     @Test
     void constructor_nullPosition_throwsException() {
         assertThrows(NullPointerException.class, () -> 
-            new AffixType("prefix", null, "{name}", true));
+            new AffixType("prefix", null, "{name}", true, "Affixes", "#bca57a"));
     }
 
     @Test
     void isPrefix_beforePosition_returnsTrue() {
-        AffixType type = new AffixType("test", AffixType.DisplayNamePosition.BEFORE, "{name}", true);
+        AffixType type = new AffixType("test", AffixType.DisplayNamePosition.BEFORE, "{name}", true, "test", "#bca57a");
         assertTrue(type.isPrefix());
         assertFalse(type.isSuffix());
     }
 
     @Test
     void isSuffix_afterPosition_returnsTrue() {
-        AffixType type = new AffixType("test", AffixType.DisplayNamePosition.AFTER, "{name}", true);
+        AffixType type = new AffixType("test", AffixType.DisplayNamePosition.AFTER, "{name}", true, "test", "#bca57a");
         assertFalse(type.isPrefix());
         assertTrue(type.isSuffix());
     }
 
     @Test
     void formatDisplay_replacesPlaceholders() {
-        AffixType type = new AffixType("test", AffixType.DisplayNamePosition.BEFORE, "[T{tier}] {name}", true);
+        AffixType type = new AffixType("test", AffixType.DisplayNamePosition.BEFORE, "[T{tier}] {name}", true, "test", "#bca57a");
         String result = type.formatDisplay("Sturdy", 2);
         assertEquals("[T2] Sturdy", result);
     }

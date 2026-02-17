@@ -12,7 +12,8 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Logger;
+import com.hypixel.hytale.logger.HytaleLogger;
+import java.util.logging.Level;
 
 /**
  * Handles loading welcome message assets from JSON files.
@@ -23,7 +24,7 @@ import java.util.logging.Logger;
  */
 public final class WelcomeMessagesConfigAssetLoader {
 
-    private static final Logger LOGGER = Logger.getLogger(WelcomeMessagesConfigAssetLoader.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     public static final String ASSET_PATH = "Hyforged/WelcomeMessages";
 
@@ -34,7 +35,7 @@ public final class WelcomeMessagesConfigAssetLoader {
 
     public static void initialize(@Nonnull JavaPlugin plugin) {
         if (initialized) {
-            LOGGER.warning("WelcomeMessagesConfigAssetLoader already initialized");
+            LOGGER.atWarning().log("WelcomeMessagesConfigAssetLoader already initialized");
             return;
         }
 
@@ -47,7 +48,7 @@ public final class WelcomeMessagesConfigAssetLoader {
         );
 
         initialized = true;
-        LOGGER.info("Welcome messages asset loading initialized");
+        LOGGER.atInfo().log("Welcome messages asset loading initialized");
     }
 
     private static void registerAssetStore() {
@@ -67,13 +68,13 @@ public final class WelcomeMessagesConfigAssetLoader {
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.fine("Registered WelcomeMessagesConfigAsset store at path: " + ASSET_PATH);
+        LOGGER.at(Level.FINE).log("Registered WelcomeMessagesConfigAsset store at path: %s", ASSET_PATH);
     }
 
     private static void onAssetsLoaded(
             LoadedAssetsEvent<String, WelcomeMessagesConfigAsset, IndexedLookupTableAssetMap<String, WelcomeMessagesConfigAsset>> event
     ) {
-        LOGGER.info("Loading welcome messages from assets...");
+        LOGGER.atInfo().log("Loading welcome messages from assets...");
 
         List<WelcomeMessagesConfigAsset> messages = new ArrayList<>();
         for (WelcomeMessagesConfigAsset asset : event.getLoadedAssets().values()) {
@@ -86,6 +87,6 @@ public final class WelcomeMessagesConfigAssetLoader {
         messages.sort(Comparator.comparingInt(WelcomeMessagesConfigAsset::getOrder));
 
         WelcomeMessageSystem.applyConfig(messages);
-        LOGGER.info("Welcome messages loaded: " + messages.size() + " messages");
+        LOGGER.atInfo().log("Welcome messages loaded: %s messages", messages.size());
     }
 }

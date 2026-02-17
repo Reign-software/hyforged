@@ -17,8 +17,8 @@ import reign.software.hyforged.stats.component.HyforgedStatComponent;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
+import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * ECS System that installs HyforgedStatValue instances into EntityStatMap.
@@ -42,7 +42,7 @@ import java.util.logging.Logger;
  */
 public class HyforgedStatValueInstaller extends RefSystem<EntityStore> {
     
-    private static final Logger LOGGER = Logger.getLogger(HyforgedStatValueInstaller.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     
     /**
      * Reflection field for accessing EntityStatMap.values array.
@@ -55,9 +55,9 @@ public class HyforgedStatValueInstaller extends RefSystem<EntityStore> {
             valuesField = EntityStatMap.class.getDeclaredField("values");
             valuesField.setAccessible(true);
         } catch (NoSuchFieldException e) {
-            LOGGER.log(Level.SEVERE, "Failed to find EntityStatMap.values field. "
+            LOGGER.atSevere().withCause(e).log("Failed to find EntityStatMap.values field. "
                     + "This is CRITICAL — the ARPG stat pipeline will not function. "
-                    + "This likely means a Hytale server update changed EntityStatMap internals.", e);
+                    + "This likely means a Hytale server update changed EntityStatMap internals.");
             throw new ExceptionInInitializerError(
                     "Hyforged requires access to EntityStatMap.values field but it was not found. "
                     + "The Hytale server version may be incompatible.");
@@ -165,11 +165,11 @@ public class HyforgedStatValueInstaller extends RefSystem<EntityStore> {
             
             if (swapped > 0) {
                 final int swappedCount = swapped;
-                LOGGER.fine(() -> "Installed " + swappedCount + " HyforgedStatValues");
+                LOGGER.at(Level.FINE).log("Installed %s HyforgedStatValues", swappedCount);
             }
             
         } catch (IllegalAccessException e) {
-            LOGGER.log(Level.SEVERE, "Failed to access EntityStatMap.values", e);
+            LOGGER.atSevere().withCause(e).log("Failed to access EntityStatMap.values");
         }
     }
     
@@ -213,7 +213,7 @@ public class HyforgedStatValueInstaller extends RefSystem<EntityStore> {
                 values[i] = hyforgedValue;
             }
         } catch (IllegalAccessException e) {
-            LOGGER.log(Level.SEVERE, "Failed to reinstall HyforgedStatValues", e);
+            LOGGER.atSevere().withCause(e).log("Failed to reinstall HyforgedStatValues");
         }
     }
     
@@ -267,7 +267,7 @@ public class HyforgedStatValueInstaller extends RefSystem<EntityStore> {
                     values[index] = hyforgedValue;
                 }
             } catch (IllegalAccessException e) {
-                LOGGER.log(Level.WARNING, "Failed to swap single HyforgedStatValue", e);
+                LOGGER.atWarning().withCause(e).log("Failed to swap single HyforgedStatValue");
             }
         }
         

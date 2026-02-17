@@ -8,7 +8,9 @@ import reign.software.hyforged.passive.model.PassiveNode;
 import reign.software.hyforged.passive.model.PassiveNodeEffect;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import java.util.logging.Level;
+
+import com.hypixel.hytale.logger.HytaleLogger;
 
 /**
  * Effect handler for unlock-flag type passive node effects.
@@ -30,7 +32,7 @@ import java.util.logging.Logger;
  */
 public final class UnlockFlagEffectHandler implements PassiveEffectHandler {
 
-    private static final Logger LOGGER = Logger.getLogger(UnlockFlagEffectHandler.class.getName());
+    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /**
      * Effect type identifier.
@@ -54,18 +56,18 @@ public final class UnlockFlagEffectHandler implements PassiveEffectHandler {
     public void apply(@Nonnull Ref<EntityStore> entityRef, @Nonnull PassiveNode node, @Nonnull PassiveNodeEffect effect) {
         PlayerUnlocksComponent unlocksComponent = entityRef.getStore().getComponent(entityRef, unlocksComponentType);
         if (unlocksComponent == null) {
-            LOGGER.warning("Entity has no PlayerUnlocksComponent, cannot set unlock flag from node: " + node.id());
+            LOGGER.atWarning().log("Entity has no PlayerUnlocksComponent, cannot set unlock flag from node: %s", node.id());
             return;
         }
 
         String flagId = effect.getString("FlagId");
         if (flagId == null) {
-            LOGGER.warning("unlock-flag effect missing 'FlagId' field on node: " + node.id());
+            LOGGER.atWarning().log("unlock-flag effect missing 'FlagId' field on node: %s", node.id());
             return;
         }
 
         unlocksComponent.enableFlag(flagId, node.id());
-        LOGGER.fine(() -> "Enabled unlock flag: " + flagId + " from node " + node.id());
+        LOGGER.at(Level.FINE).log("Enabled unlock flag: %s from node %s", flagId, node.id());
     }
 
     @Override
@@ -81,7 +83,7 @@ public final class UnlockFlagEffectHandler implements PassiveEffectHandler {
         }
 
         unlocksComponent.disableFlag(flagId, node.id());
-        LOGGER.fine(() -> "Disabled unlock flag source: " + flagId + " from node " + node.id());
+        LOGGER.at(Level.FINE).log("Disabled unlock flag source: %s from node %s", flagId, node.id());
     }
 
     @Override

@@ -18,16 +18,16 @@ Hyforged extends Hytale's base item quality system with:
 
 | Task | Location |
 |------|----------|
-| Configure quality weights | `Server/Hyforged/QualityWeights/*.json` |
-| Configure eligibility rules | `Server/Hyforged/QualityEligibility/*.json` |
-| Configure modifiers | `Server/Hyforged/QualityModifiers/*.json` |
-| Configure NPC quality | `Server/Hyforged/NPCQuality/*.json` |
+| Configure quality weights | `Server/Hyforged/Quality/Weights/*.json` |
+| Configure eligibility rules | `Server/Hyforged/Quality/Eligibility/*.json` |
+| Configure modifiers | `Server/Hyforged/Quality/Modifiers/*.json` |
+| Configure NPC quality | `Server/Hyforged/Quality/NPCRules/*.json` |
 
 ## Quality Weight Profiles
 
 Weight profiles define the probability distribution for rolling quality tiers.
 
-**Location:** `src/main/resources/Server/Hyforged/QualityWeights/<ProfileName>.json`
+**Location:** `src/main/resources/Server/Hyforged/Quality/Weights/<ProfileName>.json`
 
 ### Schema
 
@@ -73,7 +73,7 @@ Total weight = sum of all weights. Probability of each quality = weight / total.
 
 Eligibility rules determine which items receive random quality and which weight profile to use.
 
-**Location:** `src/main/resources/Server/Hyforged/QualityEligibility/<RuleName>.json`
+**Location:** `src/main/resources/Server/Hyforged/Quality/Eligibility/<RuleName>.json`
 
 ### Schema
 
@@ -124,7 +124,7 @@ Rules are checked in descending priority order. The first matching rule is used.
 
 Modifiers adjust quality weights based on contextual factors.
 
-**Location:** `src/main/resources/Server/Hyforged/QualityModifiers/<ModifierName>.json`
+**Location:** `src/main/resources/Server/Hyforged/Quality/Modifiers/<ModifierName>.json`
 
 ### Schema
 
@@ -184,7 +184,7 @@ Applies weight bonuses when the loot source is a quality NPC.
 
 NPCs can spawn with quality tiers that affect their stats and loot.
 
-**Location:** `src/main/resources/Server/Hyforged/NPCQuality/<RuleName>.json`
+**Location:** `src/main/resources/Server/Hyforged/Quality/NPCRules/<RuleName>.json`
 
 ### Schema
 
