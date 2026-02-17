@@ -69,11 +69,11 @@ Item quality determines how many affixes can roll:
 
 | Quality | Prefixes | Suffixes | Forged |
 |---------|----------|----------|--------|
-| Common | 0 | 0 | 0 |
-| Uncommon | 1 | 0 | 0 |
-| Rare | 1 | 1 | 0 |
-| Epic | 2 | 1 | 0 |
-| Legendary | 2 | 2 | 1 |
+| Common | 1 | 0 | 0 |
+| Uncommon | 1 | 1 | 0 |
+| Rare | 2 | 2 | 0 |
+| Epic | 3 | 3 | 0 |
+| Legendary | 4 | 4 | 0 |
 
 > **Note:** Hyforged can override item quality via metadata for rolls and systems. The default Hytale UI
 > still displays the base item quality from the asset, so visuals may not reflect the effective quality.

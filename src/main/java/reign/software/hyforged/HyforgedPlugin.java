@@ -16,6 +16,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.affix.asset.AffixAssetLoader;
 import reign.software.hyforged.affix.component.HyforgedActiveEffectsComponent;
 import reign.software.hyforged.affix.resource.AffixTierColorConfigAssetLoader;
+import reign.software.hyforged.affix.system.CraftAffixListener;
 import reign.software.hyforged.affix.system.EffectAffixCastListener;
 import reign.software.hyforged.affix.system.EffectAffixDamageTriggerSystem;
 import reign.software.hyforged.affix.system.EffectAffixIntervalSystem;
@@ -707,6 +708,11 @@ public class HyforgedPlugin extends JavaPlugin {
         entityStoreRegistry.registerSystem(new LootQualitySystem());
         getLogger().at(Level.FINE).log("Registered LootQualitySystem");
         
+        // Register CraftAffixListener (rolls affixes on crafted items)
+        CraftAffixListener craftAffixListener = new CraftAffixListener();
+        craftAffixListener.register();
+        getLogger().at(Level.FINE).log("Registered CraftAffixListener");
+
         // Register EquipmentAffixListener (applies affix modifiers on equipment change)
         EquipmentAffixListener equipmentAffixListener = new EquipmentAffixListener();
         equipmentAffixListener.register();
