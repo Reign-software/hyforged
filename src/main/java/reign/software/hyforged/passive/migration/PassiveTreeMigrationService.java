@@ -87,24 +87,23 @@ public class PassiveTreeMigrationService {
             }
         }
 
-        // Check class trees
-        for (Map.Entry<String, Integer> entry : passiveComponent.getAllTreeVersions().entrySet()) {
-            String treeId = entry.getKey();
-            if (treeId.equals(generalTree != null ? generalTree.getId() : null)) {
-                continue; // Already checked general tree
+        // Check class trees based on actual allocations (not version map), so legacy
+        // saves without TreeVersions still get validated and migrated.
+        for (String classId : passiveComponent.getClassIdsWithAllocations()) {
+            if (passiveComponent.getClassAllocatedCount(classId) <= 0) {
+                continue;
             }
 
-            PassiveTree classTree = PassiveTreeRegistry.get().getTree(treeId);
-            if (classTree != null) {
-                String classId = classTree.getClassId();
-                if (classId != null && passiveComponent.getClassAllocatedCount(classId) > 0) {
-                    MigrationResult classResult = migrateTree(entityRef, passiveComponent, classTree);
-                    if (classResult.migrationsPerformed()) {
-                        treesMigrated.add(treeId);
-                        totalNodesRefunded += classResult.totalNodesRefunded();
-                        messages.addAll(classResult.messages());
-                    }
-                }
+            PassiveTree classTree = PassiveTreeRegistry.get().getClassTree(classId);
+            if (classTree == null) {
+                continue;
+            }
+
+            MigrationResult classResult = migrateTree(entityRef, passiveComponent, classTree);
+            if (classResult.migrationsPerformed()) {
+                treesMigrated.add(classTree.getId());
+                totalNodesRefunded += classResult.totalNodesRefunded();
+                messages.addAll(classResult.messages());
             }
         }
 
@@ -127,23 +126,13 @@ public class PassiveTreeMigrationService {
         int storedVersion = passiveComponent.getTreeVersion(treeId);
         int currentVersion = tree.getVersion();
 
-        // No migration needed if versions match
-        if (storedVersion == currentVersion) {
-            return MigrationResult.noMigration();
-        }
-
-        // If no stored version, this is first load - just update version
-        if (storedVersion == 0) {
-            passiveComponent.setTreeVersion(treeId, currentVersion);
-            return MigrationResult.noMigration();
-        }
-
-        LOGGER.atInfo().log("Migrating tree %s from version %s to %s", treeId, storedVersion, currentVersion);
-
-        // Find nodes that no longer exist
+        // Find allocated nodes that no longer exist in the current tree definition.
+        // This handles stale IDs from legacy layouts even when versions match.
         Set<String> allocatedNodes = tree.isGeneralTree()
                 ? passiveComponent.getGeneralAllocatedNodes()
-                : passiveComponent.getClassAllocatedNodes(tree.getClassId());
+                : (tree.getClassId() != null
+                    ? passiveComponent.getClassAllocatedNodes(tree.getClassId())
+                    : Collections.emptySet());
 
         Set<String> removedNodes = new HashSet<>();
         for (String nodeId : allocatedNodes) {
@@ -152,11 +141,22 @@ public class PassiveTreeMigrationService {
             }
         }
 
+        // If nothing to refund, just keep version tracking up to date.
         if (removedNodes.isEmpty()) {
-            // No nodes removed, just update version
-            passiveComponent.setTreeVersion(treeId, currentVersion);
+            if (storedVersion != currentVersion) {
+                LOGGER.atInfo().log("Updating tree version for %s: %s -> %s", treeId, storedVersion, currentVersion);
+                passiveComponent.setTreeVersion(treeId, currentVersion);
+            }
             return MigrationResult.noMigration();
         }
+
+        LOGGER.atInfo().log(
+                "Migrating tree %s (version %s -> %s), refunding %s invalid nodes",
+                treeId,
+                storedVersion,
+                currentVersion,
+                removedNodes.size()
+        );
 
         // Refund removed nodes without cost
         RefundResult refundResult = PassiveTreeService.get().refundNodesFree(entityRef, treeId, removedNodes);

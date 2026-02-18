@@ -26,7 +26,7 @@
 
 ## Business Rules
 - Player level cap is 100 and must be clearly shown in UI.
-- Character level does not grant ability scores; ability scores come from class progression.
+- Character level ability-score rewards are optional and data-driven via `hyforged:default` level rewards.
 - Character level grants 1 general passive point per level (100 total at cap).
 - Each class level grants 1 passive point.
 - Passive point refunds require Tradebars.
@@ -40,6 +40,7 @@
 - Combat System consumes effective stats to compute outcomes (damage/healing/mitigation).
 - Currency (Tradebars) is a shared dependency for enchanting, passive refunds, and trading.
 - Trading/Marketplace operates on server-authoritative item and currency state.
+- Passive trees depend on node-ID stability; when layouts change, allocations must be validated and migrated so effects remain consistent after reconnect/restart.
 
 ## Assumptions
 - The base game provides item definitions and rarity concepts that can be reused and extended.

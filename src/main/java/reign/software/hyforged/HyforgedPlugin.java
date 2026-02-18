@@ -85,6 +85,7 @@ import reign.software.hyforged.stats.value.HyforgedStatValueInstaller;
 import reign.software.hyforged.effect.HyforgedEffectAssetLoader;
 import reign.software.hyforged.passive.asset.PassiveTreeAssetLoader;
 import reign.software.hyforged.passive.system.ClassTreeStartingNodeSystem;
+import reign.software.hyforged.passive.system.PassiveEffectRestoreSystem;
 import reign.software.hyforged.passive.system.PassiveTreeMigrationSystem;
 import reign.software.hyforged.system.HyforgedPlayerInitSystem;
 import reign.software.hyforged.hud.HyforgedHudManager;
@@ -579,6 +580,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register HyforgedStatValueInstaller (swaps EntityStatValue → HyforgedStatValue for ARPG stacking)
         entityStoreRegistry.registerSystem(new HyforgedStatValueInstaller());
         getLogger().at(Level.FINE).log("Registered HyforgedStatValueInstaller");
+
+        // Register PassiveEffectRestoreSystem (re-applies passive tree modifiers on entity load)
+        entityStoreRegistry.registerSystem(new PassiveEffectRestoreSystem());
+        getLogger().at(Level.FINE).log("Registered PassiveEffectRestoreSystem");
 
         // Register monster scaling system (assigns levels to NPCs based on spawn distance)
         entityStoreRegistry.registerSystem(new HyforgedMonsterScalingSystem());

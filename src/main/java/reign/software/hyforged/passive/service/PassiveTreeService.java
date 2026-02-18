@@ -820,6 +820,53 @@ public final class PassiveTreeService {
     // ========== EFFECTS ==========
 
     /**
+     * Restore effects for all allocated passive nodes on an entity.
+     * <p>
+     * Called on entity load (login) to re-apply passive modifiers that are
+     * not persisted with the stat component. Iterates all allocated nodes
+     * in the general tree and all class trees.
+     *
+     * @param entityRef The entity reference
+     * @param passiveComponent The passive tree component with allocation data
+     * @return The total number of node effects restored
+     */
+    public int restoreAllEffects(
+            @Nonnull Ref<EntityStore> entityRef,
+            @Nonnull PassiveTreeComponent passiveComponent
+    ) {
+        int restored = 0;
+
+        // Restore general tree effects
+        PassiveTree generalTree = getGeneralTree();
+        if (generalTree != null) {
+            for (String nodeId : passiveComponent.getGeneralAllocatedNodes()) {
+                PassiveNode node = generalTree.getNode(nodeId);
+                if (node != null) {
+                    applyNodeEffects(entityRef, node);
+                    restored++;
+                }
+            }
+        }
+
+        // Restore class tree effects
+        for (String classId : passiveComponent.getClassIdsWithAllocations()) {
+            PassiveTree classTree = getClassTree(classId);
+            if (classTree == null) {
+                continue;
+            }
+            for (String nodeId : passiveComponent.getClassAllocatedNodes(classId)) {
+                PassiveNode node = classTree.getNode(nodeId);
+                if (node != null) {
+                    applyNodeEffects(entityRef, node);
+                    restored++;
+                }
+            }
+        }
+
+        return restored;
+    }
+
+    /**
      * Apply node effects when allocated.
      */
     private void applyNodeEffects(@Nonnull Ref<EntityStore> entityRef, @Nonnull PassiveNode node) {

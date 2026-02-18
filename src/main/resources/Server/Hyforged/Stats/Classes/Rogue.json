@@ -10,9 +10,25 @@
     "Luck": 4,
     "WeaponTagFamilies": ["Family=Dagger"],
     "LevelRewards": [
+        { "Level": 1, "Dexterity": 1 },
+        { "Level": 2, "Luck": 1 },
+        { "Level": 3, "Dexterity": 1 },
+        { "Level": 4, "Constitution": 1 },
         { "Level": 5, "Dexterity": 1 },
+        { "Level": 6, "Dexterity": 1 },
+        { "Level": 7, "Luck": 1 },
+        { "Level": 8, "Dexterity": 1 },
+        { "Level": 9, "Strength": 1 },
         { "Level": 10, "Dexterity": 1, "Luck": 1 },
-        { "Level": 15, "Dexterity": 2 },
-        { "Level": 20, "Dexterity": 2, "Luck": 2 }
+        { "Level": 11, "Dexterity": 1 },
+        { "Level": 12, "Constitution": 1 },
+        { "Level": 13, "Dexterity": 1 },
+        { "Level": 14, "Luck": 1 },
+        { "Level": 15, "Dexterity": 1 },
+        { "Level": 16, "Dexterity": 1, "Luck": 1 },
+        { "Level": 17, "Dexterity": 1 },
+        { "Level": 18, "Strength": 1 },
+        { "Level": 19, "Luck": 1 },
+        { "Level": 20, "Dexterity": 1, "Luck": 2 }
     ]
 }

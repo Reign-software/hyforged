@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.passive.component.PassiveTreeComponent;
 import reign.software.hyforged.passive.migration.PassiveTreeMigrationService;
+import reign.software.hyforged.passive.service.PassiveTreeService;
 import reign.software.hyforged.util.MessageColors;
 
 import javax.annotation.Nonnull;
@@ -90,6 +91,18 @@ public class PassiveTreeMigrationSystem {
             for (Message message : result.messages()) {
                 sendPlayerMessage(entityRef, message);
             }
+        }
+
+        // Always restore passive effects on connect as a final consistency pass.
+        // This guarantees passive stats/spells/unlocks are reapplied even if ECS
+        // add-order timing skips the RefSystem-based restore path.
+        int restored = PassiveTreeService.get().restoreAllEffects(entityRef, passiveComponent);
+        if (restored > 0) {
+            LOGGER.at(Level.FINE).log(
+                    "PassiveTreeMigrationSystem: Restored %d passive nodes for player %s",
+                    restored,
+                    playerRef.getUsername()
+            );
         }
     }
 

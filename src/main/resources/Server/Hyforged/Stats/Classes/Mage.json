@@ -10,9 +10,25 @@
     "Luck": 1,
     "WeaponTagFamilies": ["Family=Staff", "Family=Wand"],
     "LevelRewards": [
+        { "Level": 1, "Intelligence": 1 },
+        { "Level": 2, "Wisdom": 1 },
+        { "Level": 3, "Intelligence": 1 },
+        { "Level": 4, "Spirit": 1 },
         { "Level": 5, "Intelligence": 1 },
+        { "Level": 6, "Intelligence": 1 },
+        { "Level": 7, "Wisdom": 1 },
+        { "Level": 8, "Intelligence": 1 },
+        { "Level": 9, "Spirit": 1 },
         { "Level": 10, "Intelligence": 1, "Wisdom": 1 },
-        { "Level": 15, "Intelligence": 2, "Spirit": 1 },
-        { "Level": 20, "Intelligence": 2, "Wisdom": 1, "Spirit": 1 }
+        { "Level": 11, "Intelligence": 1 },
+        { "Level": 12, "Spirit": 1 },
+        { "Level": 13, "Intelligence": 1 },
+        { "Level": 14, "Wisdom": 1 },
+        { "Level": 15, "Intelligence": 1, "Spirit": 1 },
+        { "Level": 16, "Intelligence": 1 },
+        { "Level": 17, "Wisdom": 1 },
+        { "Level": 18, "Intelligence": 1 },
+        { "Level": 19, "Spirit": 1 },
+        { "Level": 20, "Intelligence": 1, "Wisdom": 1, "Spirit": 1 }
     ]
 }

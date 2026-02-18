@@ -34,29 +34,31 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
 
+    /**
+     * A timestamped log line combining messages from any source (combat, XP, death, etc.).
+     */
+    public record TimestampedLine(long timestamp, @Nonnull Message message) {}
+
     /** Update interval in seconds */
     private static final float UPDATE_INTERVAL_SEC = 0.2f;
 
-    /** Maximum events to display in the log */
-    private static final int MAX_DISPLAY_EVENTS = 12;
+    /** Maximum lines to display in the log (combat + extra combined) */
+    private static final int MAX_DISPLAY_LINES = 12;
 
-    /** Maximum extra (non-combat) lines to keep per player */
-    private static final int MAX_EXTRA_LINES = 8;
+    /** Maximum total lines to retain per player before trimming */
+    private static final int MAX_RETAINED_LINES = 50;
 
     /** Per-player HUD visibility state */
     private static final Map<UUID, Boolean> hudVisibility = new ConcurrentHashMap<>();
 
-    /** Per-player extra messages (XP gains, etc.) — newest at the end */
-    private static final Map<UUID, Deque<Message>> extraLines = new ConcurrentHashMap<>();
+    /** Per-player unified log lines (combat + extra), sorted chronologically — newest at end */
+    private static final Map<UUID, List<TimestampedLine>> unifiedLines = new ConcurrentHashMap<>();
 
-    /** Monotonic counter to detect extra-line changes */
-    private static final Map<UUID, Long> extraLineVersion = new ConcurrentHashMap<>();
+    /** Monotonic counter to detect any line changes */
+    private static final Map<UUID, Long> lineVersion = new ConcurrentHashMap<>();
 
-    /** Per-player last total event count across encounters (for dirty checking) */
-    private final Map<UUID, Integer> lastTotalEventCount = new ConcurrentHashMap<>();
-
-    /** Per-player last extra-line version seen */
-    private final Map<UUID, Long> lastExtraVersion = new ConcurrentHashMap<>();
+    /** Per-player last version seen (for dirty checking) */
+    private final Map<UUID, Long> lastVersion = new ConcurrentHashMap<>();
 
     @Nonnull
     private final ComponentType<EntityStore, Player> playerComponentType;
@@ -110,44 +112,63 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
 
         if (!shouldShow) {
             // Hide combat log section if it was visible
-            if (lastTotalEventCount.containsKey(playerUuid)) {
+            if (lastVersion.containsKey(playerUuid)) {
                 hud.hideCombatLog();
-                lastTotalEventCount.remove(playerUuid);
+                lastVersion.remove(playerUuid);
             }
             return;
         }
 
-        // Get combat data
+        // Get combat data from CombatLogService
         CombatEncounter currentEncounter = CombatLogService.get().getCurrentEncounter(playerUuid);
         List<CombatEncounter> encounters = CombatLogService.get().getRecentEncounters(playerUuid);
-        
-        // Count total events across all encounters (stable dirty signal that grows monotonically)
-        int totalEventCount = 0;
+
+        // Count total combat events (grows monotonically) for dirty checking
+        int totalCombatEvents = 0;
         for (CombatEncounter enc : encounters) {
-            totalEventCount += enc.getEventCount();
+            totalCombatEvents += enc.getEventCount();
         }
-        
-        List<CombatEvent> events = gatherRecentEvents(encounters);
 
-        // Check if update needed (dirty check)
-        long currentExtraVer = extraLineVersion.getOrDefault(playerUuid, 0L);
-        Integer lastCount = lastTotalEventCount.get(playerUuid);
-        Long lastExtraVer = lastExtraVersion.get(playerUuid);
-        boolean needsUpdate = lastCount == null
-                || lastCount != totalEventCount
-                || lastExtraVer == null
-                || lastExtraVer != currentExtraVer;
-
-        if (!needsUpdate) {
+        // Dirty check: combine combat event count + extra line version
+        long extraVer = lineVersion.getOrDefault(playerUuid, 0L);
+        long combinedVersion = ((long) totalCombatEvents << 32) | (extraVer & 0xFFFFFFFFL);
+        Long prevVersion = lastVersion.get(playerUuid);
+        if (prevVersion != null && prevVersion == combinedVersion) {
             return;
         }
 
-        // Calculate stats
+        // Build unified timeline: combat events + extra lines
+        List<TimestampedLine> timeline = new ArrayList<>();
+
+        // Add formatted combat events
+        for (CombatEncounter enc : encounters) {
+            for (CombatEvent event : enc.getEvents()) {
+                timeline.add(new TimestampedLine(event.timestamp(), CombatLogFormatter.formatEventMessage(event)));
+            }
+        }
+
+        // Add extra lines (XP, death, etc.)
+        List<TimestampedLine> extras = unifiedLines.get(playerUuid);
+        if (extras != null) {
+            synchronized (extras) {
+                timeline.addAll(extras);
+            }
+        }
+
+        // Sort chronologically (oldest first at top, newest at bottom)
+        timeline.sort(Comparator.comparingLong(TimestampedLine::timestamp));
+
+        // Keep only the most recent lines
+        if (timeline.size() > MAX_DISPLAY_LINES) {
+            timeline = timeline.subList(timeline.size() - MAX_DISPLAY_LINES, timeline.size());
+        }
+
+        // Calculate stats from combat events only
+        List<CombatEvent> combatEvents = gatherRecentEvents(encounters);
         float dps = calculateDps(currentEncounter);
         int totalHits = 0;
         int totalCrits = 0;
-
-        for (CombatEvent event : events) {
+        for (CombatEvent event : combatEvents) {
             if (!event.missed()) {
                 totalHits++;
                 if (event.criticalHit()) {
@@ -156,33 +177,22 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
             }
         }
 
-        // Build formatted lines for the HUD (combat events + extra lines)
-        List<Message> allLines = new ArrayList<>();
-        for (int i = 0; i < events.size(); i++) {
-            allLines.add(CombatLogFormatter.formatEventMessage(events.get(events.size() - 1 - i)));
+        // Push to HUD
+        Message[] lines = new Message[timeline.size()];
+        for (int i = 0; i < timeline.size(); i++) {
+            lines[i] = timeline.get(i).message();
         }
-
-        // Append extra lines (XP gains, etc.)
-        Deque<Message> extras = extraLines.get(playerUuid);
-        if (extras != null && !extras.isEmpty()) {
-            allLines.addAll(extras);
-        }
-
-        // Trim to max display
-        if (allLines.size() > MAX_DISPLAY_EVENTS) {
-            allLines = allLines.subList(allLines.size() - MAX_DISPLAY_EVENTS, allLines.size());
-        }
-
-        Message[] lines = allLines.toArray(new Message[0]);
 
         String dpsText = dps >= 0 ? String.format("DPS: %.1f", dps) : "DPS: ----";
         hud.updateCombatLog(lines, dpsText, "Hits: " + totalHits, "Crits: " + totalCrits);
-        lastTotalEventCount.put(playerUuid, totalEventCount);
-        lastExtraVersion.put(playerUuid, currentExtraVer);
+        lastVersion.put(playerUuid, combinedVersion);
     }
 
     /**
      * Gather recent combat events for display (across all encounters).
+     */
+    /**
+     * Gather recent combat events for stats calculation (hits, crits, DPS).
      */
     @Nonnull
     private List<CombatEvent> gatherRecentEvents(@Nonnull List<CombatEncounter> encounters) {
@@ -190,17 +200,12 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
 
         for (CombatEncounter encounter : encounters) {
             result.addAll(encounter.getEvents());
-            if (result.size() >= MAX_DISPLAY_EVENTS) {
-                break;
-            }
         }
 
-        // Sort by timestamp (newest last for bottom-to-top display)
         result.sort(Comparator.comparingLong(CombatEvent::timestamp));
 
-        // Limit to max entries
-        if (result.size() > MAX_DISPLAY_EVENTS) {
-            result = new ArrayList<>(result.subList(result.size() - MAX_DISPLAY_EVENTS, result.size()));
+        if (result.size() > MAX_DISPLAY_LINES) {
+            result = new ArrayList<>(result.subList(result.size() - MAX_DISPLAY_LINES, result.size()));
         }
 
         return result;
@@ -271,8 +276,8 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
      */
     public static void clearPlayerState(@Nonnull UUID playerUuid) {
         hudVisibility.remove(playerUuid);
-        extraLines.remove(playerUuid);
-        extraLineVersion.remove(playerUuid);
+        unifiedLines.remove(playerUuid);
+        lineVersion.remove(playerUuid);
     }
 
     // --- Extra lines management (XP gains, etc.) ---
@@ -285,13 +290,13 @@ public class CombatLogHudSystem extends DelayedEntitySystem<EntityStore> {
      * @param message    The formatted message to display
      */
     public static void addExtraLine(@Nonnull UUID playerUuid, @Nonnull Message message) {
-        Deque<Message> queue = extraLines.computeIfAbsent(playerUuid, k -> new ArrayDeque<>());
-        synchronized (queue) {
-            queue.addLast(message);
-            while (queue.size() > MAX_EXTRA_LINES) {
-                queue.pollFirst();
+        List<TimestampedLine> lines = unifiedLines.computeIfAbsent(playerUuid, k -> new ArrayList<>());
+        synchronized (lines) {
+            lines.add(new TimestampedLine(System.currentTimeMillis(), message));
+            while (lines.size() > MAX_RETAINED_LINES) {
+                lines.remove(0);
             }
         }
-        extraLineVersion.merge(playerUuid, 1L, Long::sum);
+        lineVersion.merge(playerUuid, 1L, Long::sum);
     }
 }
