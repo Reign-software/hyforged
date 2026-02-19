@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/MaxArmor.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:armor-rating-flat", "StackType": "Flat", "Amount": 1000 },
+    { "StatId": "hyforged:armor-rating", "StackType": "Flat", "Amount": 1000 },
     { "StatId": "hyforged:physical-damage-taken-bps", "StackType": "More", "Amount": -3000 },
     { "StatId": "hyforged:critical-damage-taken-bps", "StackType": "Increased", "Amount": -2500 }
   ]

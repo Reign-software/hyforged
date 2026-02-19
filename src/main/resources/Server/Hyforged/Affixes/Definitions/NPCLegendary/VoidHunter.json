@@ -1,0 +1,19 @@
+{
+  "Id": "hyforged:npc_void_hunter",
+  "Type": "npc_legendary",
+  "DisplayName": "Void Hunter",
+  "Description": "Fast, lethal, and self-sustaining",
+  "Weight": 47,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 40,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:crit-multiplier-bps": { "MinValue": 2200, "MaxValue": 3600, "StackType": "More" },
+        "hyforged:movement-speed-bps": { "MinValue": 900, "MaxValue": 1500, "StackType": "Flat" },
+        "hyforged:life-leech-bps": { "MinValue": 900, "MaxValue": 1500, "StackType": "Flat" }
+      }
+    }
+  ]
+}

@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Axe.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:axe-skill-levels-flat", "StackType": "Flat", "Amount": 3 },
+    { "StatId": "hyforged:axe-skill-levels", "StackType": "Flat", "Amount": 3 },
     { "StatId": "hyforged:crit-multiplier-bps", "StackType": "Increased", "Amount": 2500 }
   ]
 }

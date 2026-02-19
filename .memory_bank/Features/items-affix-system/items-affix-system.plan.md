@@ -304,6 +304,7 @@ Display affix information in item tooltips with proper formatting and tier color
 - Created `AffixTooltipProvider` utility class in `reign.software.hyforged.affix.service`
 - Implemented `TooltipLine` record with text, color, and isHeader fields
 - Implemented `TooltipContent` record separating regularAffixes and forgedAffixes sections
+- Added a server-side tooltip metadata bridge payload on affixed items for client UI consumption
 - Defined tier colors: T1=#FFD700 (gold), T2=#9932CC (purple), T3=#4169E1 (blue), T4=#32CD32 (green), T5=#FFFFFF (white)
 - Format for affix lines: `"[T{tier}] {affixName}: +{value} {statName}"`
 - Handles FLAT values as integers, INCREASED/MORE as percentages (divide by 100)
@@ -679,6 +680,12 @@ Notes:
 - [ ] Network sync of affix metadata to clients
 - [ ] Debug commands execute without errors
 - [ ] Visual inspection of tooltips and character screen
+
+### Maintenance Updates
+- 2026-02-18: Expanded armor affix coverage with specialized family pools (cloth, leather, diving, heavy metal, tribal) plus a broader fallback armor pool.
+- 2026-02-18: Added new defensive/core-attribute affix definitions to increase variation and support common stat themes (critical support, leech support, defenses, luck, spirit, constitution).
+- 2026-02-18: Normalized pool matching to family tags for specialized armor pools to avoid broad unintended matches from OR-based applies-to semantics.
+- 2026-02-18: Item tooltip panel now appends an aggregated `Hyforged Stats` section so rolled affix values are visible as combined stat totals.
 
 ---
 

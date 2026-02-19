@@ -7,6 +7,6 @@
   },
   "HyforgedModifiers": [
     { "StatId": "hyforged:two-handed-damage-bps", "StackType": "Increased", "Amount": 4000 },
-    { "StatId": "hyforged:attack-power-flat", "StackType": "Flat", "Amount": 50 }
+    { "StatId": "hyforged:attack-power", "StackType": "Flat", "Amount": 50 }
   ]
 }

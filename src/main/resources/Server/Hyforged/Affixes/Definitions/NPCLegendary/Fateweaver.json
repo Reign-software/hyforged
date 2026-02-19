@@ -1,0 +1,19 @@
+{
+  "Id": "hyforged:npc_fateweaver",
+  "Type": "npc_legendary",
+  "DisplayName": "Fateweaver",
+  "Description": "Luck and critical power woven together",
+  "Weight": 42,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 40,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:luck": { "MinValue": 35, "MaxValue": 55, "StackType": "Flat" },
+        "hyforged:crit-chance-bps": { "MinValue": 1000, "MaxValue": 1800, "StackType": "Flat" },
+        "hyforged:damage-increased-bps": { "MinValue": 1800, "MaxValue": 2800, "StackType": "More" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "Priority": 120,
+  "Description": "Affix pool for leather armor families",
+  "AppliesTo": {
+    "Categories": [],
+    "Tags": [
+      "Family=Leather"
+    ]
+  },
+  "Prefixes": [
+    "hyforged:evasive",
+    "hyforged:veilwoven",
+    "hyforged:dodging",
+    "hyforged:nimble",
+    "hyforged:sprinters",
+    "hyforged:swift",
+    "hyforged:quickened",
+    "hyforged:hunters",
+    "hyforged:ruthless",
+    "hyforged:siphoning",
+    "sturdy",
+    "hyforged:bastioned",
+    "hyforged:rugged",
+    "hyforged:warding",
+    "hyforged:regenerating",
+    "hyforged:fireproof",
+    "hyforged:frozen",
+    "hyforged:insulated",
+    "hyforged:grounded"
+  ],
+  "Suffixes": [
+    "hyforged:of-the-fox",
+    "hyforged:of-the-hunter",
+    "hyforged:of-the-serpent",
+    "hyforged:of-the-spirit",
+    "hyforged:of-the-ox",
+    "hyforged:of-the-shadow",
+    "hyforged:of-the-dervish",
+    "hyforged:of-the-wind",
+    "hyforged:of-the-leech",
+    "hyforged:of-accuracy",
+    "hyforged:of-devastation",
+    "hyforged:of-fortification",
+    "hyforged:of-the-rampart",
+    "hyforged:of-vitality",
+    "hyforged:of-regeneration",
+    "hyforged:of-endurance"
+  ],
+  "Forged": [
+    "hyforged:corrupted-aegis",
+    "hyforged:corrupted-agility",
+    "hyforged:corrupted-evasion",
+    "hyforged:corrupted-velocity",
+    "hyforged:corrupted-swiftness",
+    "hyforged:corrupted-siphon",
+    "hyforged:corrupted-vampirism",
+    "hyforged:corrupted-vitality",
+    "hyforged:corrupted-ward-fire",
+    "hyforged:corrupted-ward-cold",
+    "hyforged:corrupted-ward-lightning",
+    "hyforged:corrupted-ward-chaos"
+  ]
+}

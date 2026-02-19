@@ -1,0 +1,19 @@
+{
+  "Id": "hyforged:npc_aegis_prime",
+  "Type": "npc_legendary",
+  "DisplayName": "Aegis Prime",
+  "Description": "Towering defense and constitution",
+  "Weight": 45,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 40,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 900, "MaxValue": 1400, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 700, "MaxValue": 1200, "StackType": "Flat" },
+        "hyforged:constitution": { "MinValue": 35, "MaxValue": 55, "StackType": "Flat" }
+      }
+    }
+  ]
+}

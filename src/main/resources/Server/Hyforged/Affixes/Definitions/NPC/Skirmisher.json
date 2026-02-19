@@ -1,0 +1,33 @@
+{
+  "Id": "hyforged:npc_skirmisher",
+  "Type": "npc",
+  "DisplayName": "Skirmisher",
+  "Description": "Improved evasion rating",
+  "Weight": 70,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 1,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:evasion-rating": { "MinValue": 120, "MaxValue": 260, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 25,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:evasion-rating": { "MinValue": 260, "MaxValue": 520, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 50,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:evasion-rating": { "MinValue": 520, "MaxValue": 900, "StackType": "Flat" }
+      }
+    }
+  ]
+}

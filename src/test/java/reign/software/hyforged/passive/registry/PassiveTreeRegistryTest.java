@@ -232,4 +232,112 @@ class PassiveTreeRegistryTest {
             assertTrue(cost >= 0);
         }
     }
+
+    @Nested
+    @DisplayName("Extensibility API")
+    class ExtensibilityApiTests {
+
+        @Test
+        @DisplayName("addNode preserves text labels")
+        void addNodePreservesTextLabels() {
+            String treeId = "hyforged:general-with-labels";
+            PassiveNode startNode = PassiveNode.builder("start")
+                    .type(PassiveNodeType.MINOR)
+                    .name("Start")
+                    .description("Starting point")
+                    .position(0, 0)
+                    .build();
+
+            PassiveNode existingNode = PassiveNode.builder("node-1")
+                    .type(PassiveNodeType.MINOR)
+                    .name("Node 1")
+                    .description("Existing node")
+                    .position(20, 0)
+                    .build();
+
+            TextLabel label = TextLabel.regionHeader("STRENGTH", -200, -30, "strength", "#FFCC00");
+
+            PassiveTree treeWithLabels = new PassiveTree(
+                    treeId,
+                    PassiveTreeType.GENERAL,
+                    null,
+                    Set.of("start"),
+                    Map.of(
+                            "start", startNode,
+                            "node-1", existingNode
+                    ),
+                    List.of(new PassiveConnection("start", "node-1")),
+                    List.of(label),
+                    1
+            );
+
+            registry.register(treeWithLabels);
+
+            PassiveNode newNode = PassiveNode.builder("node-2")
+                    .type(PassiveNodeType.MINOR)
+                    .name("Node 2")
+                    .description("New node")
+                    .position(40, 0)
+                    .build();
+
+            registry.addNode(treeId, newNode);
+
+            PassiveTree updated = registry.getTree(treeId);
+            assertNotNull(updated);
+            assertEquals(1, updated.getTextLabels().size());
+            assertEquals("STRENGTH", updated.getTextLabels().get(0).text());
+        }
+
+        @Test
+        @DisplayName("addConnection preserves text labels")
+        void addConnectionPreservesTextLabels() {
+            String treeId = "hyforged:general-with-labels-2";
+            PassiveNode startNode = PassiveNode.builder("start")
+                    .type(PassiveNodeType.MINOR)
+                    .name("Start")
+                    .description("Starting point")
+                    .position(0, 0)
+                    .build();
+
+            PassiveNode node1 = PassiveNode.builder("node-1")
+                    .type(PassiveNodeType.MINOR)
+                    .name("Node 1")
+                    .description("Node one")
+                    .position(20, 0)
+                    .build();
+
+            PassiveNode node2 = PassiveNode.builder("node-2")
+                    .type(PassiveNodeType.MINOR)
+                    .name("Node 2")
+                    .description("Node two")
+                    .position(40, 0)
+                    .build();
+
+            TextLabel label = TextLabel.regionHeader("DEXTERITY", -70, -30, "dexterity", "#6BCB77");
+
+            PassiveTree treeWithLabels = new PassiveTree(
+                    treeId,
+                    PassiveTreeType.GENERAL,
+                    null,
+                    Set.of("start"),
+                    Map.of(
+                            "start", startNode,
+                            "node-1", node1,
+                            "node-2", node2
+                    ),
+                    List.of(new PassiveConnection("start", "node-1")),
+                    List.of(label),
+                    1
+            );
+
+            registry.register(treeWithLabels);
+
+            registry.addConnection(treeId, "node-1", "node-2");
+
+            PassiveTree updated = registry.getTree(treeId);
+            assertNotNull(updated);
+            assertEquals(1, updated.getTextLabels().size());
+            assertEquals("DEXTERITY", updated.getTextLabels().get(0).text());
+        }
+    }
 }

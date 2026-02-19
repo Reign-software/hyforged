@@ -8,7 +8,12 @@
 		}
 	],
 	"settings": {
+		"java.autobuild.enabled": false,
 		"java.configuration.updateBuildConfiguration": "automatic",
+		"java.import.exclusions": [
+			"**/hytale-server/**",
+			"../lib/**"
+		],
 		"java.compile.nullAnalysis.mode": "disabled",
 		"java.debug.settings.onBuildFailureProceed": true
 	}

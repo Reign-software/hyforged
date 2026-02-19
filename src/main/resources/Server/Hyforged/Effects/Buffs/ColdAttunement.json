@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/ColdSkill.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:cold-skill-levels-flat", "StackType": "Flat", "Amount": 2 },
+    { "StatId": "hyforged:cold-skill-levels", "StackType": "Flat", "Amount": 2 },
     { "StatId": "hyforged:cold-damage-increased-bps", "StackType": "Increased", "Amount": 3000 },
     { "StatId": "hyforged:cold-penetration-bps", "StackType": "Flat", "Amount": 1500 }
   ]

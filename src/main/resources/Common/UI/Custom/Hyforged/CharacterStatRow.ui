@@ -2,6 +2,8 @@
 // Each child label is set independently via descendant selectors
 // e.g. #StatCategories[n] #StatName.TextSpans
 
+$Common = "../Common.ui";
+
 Group #StatRow {
     LayoutMode: Left;
     Anchor: (Height: 22);
@@ -18,10 +20,16 @@ Group #StatRow {
         Style: (FontSize: 13, HorizontalAlignment: End);
     }
 
-    Label #ModValue {
-        Text: "";
-        Anchor: (Width: 130);
-        Style: (FontSize: 13, HorizontalAlignment: End);
+    Button #ModValue {
+        Anchor: (Width: 130, Height: 22);
+        Background: #00000000;
+        Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
+
+        Label #ModValueLabel {
+            Text: "";
+            Anchor: (Left: 0, Right: 0, Top: 0, Bottom: 0);
+            Style: (FontSize: 13, HorizontalAlignment: End);
+        }
     }
 
     Label #RangeValue {
@@ -35,4 +43,5 @@ Group #StatRow {
         Anchor: (Width: 110);
         Style: (FontSize: 13, HorizontalAlignment: End, RenderBold: true);
     }
+
 }

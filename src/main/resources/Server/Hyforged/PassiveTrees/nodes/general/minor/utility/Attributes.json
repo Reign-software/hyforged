@@ -20,6 +20,26 @@
       ]
     },
     {
+      "Id": "hyforged:minor-spirit-1",
+      "Type": "minor",
+      "Name": "Guided Soul",
+      "Description": "+1 Spirit\n+1 Mana Regen",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:spirit", "Value": 1 },
+        { "Type": "stat-modifier", "Stat": "hyforged:mana-regen-flat", "Value": 1 }
+      ]
+    },
+    {
+      "Id": "hyforged:minor-constitution-1",
+      "Type": "minor",
+      "Name": "Steadfast",
+      "Description": "+1 Constitution\n+4 Max Health",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:constitution", "Value": 1 },
+        { "Type": "stat-modifier", "Stat": "hyforged:max-health-flat", "Value": 4 }
+      ]
+    },
+    {
       "Id": "hyforged:minor-intelligence-1",
       "Type": "minor",
       "Name": "Insightful",

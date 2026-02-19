@@ -1,0 +1,86 @@
+{
+  "Id": "hyforged:of-safeguarding",
+  "Type": "suffix",
+  "DisplayName": "of Safeguarding",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 76,
+      "Weight": 34,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 900, "MaxValue": 1200, "StackType": "Flat" },
+        "hyforged:cold-resistance-bps": { "MinValue": 900, "MaxValue": 1200, "StackType": "Flat" },
+        "hyforged:lightning-resistance-bps": { "MinValue": 900, "MaxValue": 1200, "StackType": "Flat" },
+        "hyforged:chaos-resistance-bps": { "MinValue": 700, "MaxValue": 1000, "StackType": "Flat" },
+        "hyforged:spirit": { "MinValue": 12, "MaxValue": 16, "StackType": "Flat" },
+        "hyforged:luck": { "MinValue": 12, "MaxValue": 16, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 60,
+      "Weight": 52,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 650, "MaxValue": 900, "StackType": "Flat" },
+        "hyforged:cold-resistance-bps": { "MinValue": 650, "MaxValue": 900, "StackType": "Flat" },
+        "hyforged:lightning-resistance-bps": { "MinValue": 650, "MaxValue": 900, "StackType": "Flat" },
+        "hyforged:chaos-resistance-bps": { "MinValue": 500, "MaxValue": 700, "StackType": "Flat" },
+        "hyforged:spirit": { "MinValue": 9, "MaxValue": 12, "StackType": "Flat" },
+        "hyforged:luck": { "MinValue": 9, "MaxValue": 12, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 46,
+      "Weight": 72,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 450, "MaxValue": 650, "StackType": "Flat" },
+        "hyforged:cold-resistance-bps": { "MinValue": 450, "MaxValue": 650, "StackType": "Flat" },
+        "hyforged:lightning-resistance-bps": { "MinValue": 450, "MaxValue": 650, "StackType": "Flat" },
+        "hyforged:chaos-resistance-bps": { "MinValue": 320, "MaxValue": 500, "StackType": "Flat" },
+        "hyforged:spirit": { "MinValue": 6, "MaxValue": 9, "StackType": "Flat" },
+        "hyforged:luck": { "MinValue": 6, "MaxValue": 9, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 30,
+      "Weight": 94,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 280, "MaxValue": 450, "StackType": "Flat" },
+        "hyforged:cold-resistance-bps": { "MinValue": 280, "MaxValue": 450, "StackType": "Flat" },
+        "hyforged:lightning-resistance-bps": { "MinValue": 280, "MaxValue": 450, "StackType": "Flat" },
+        "hyforged:chaos-resistance-bps": { "MinValue": 180, "MaxValue": 320, "StackType": "Flat" },
+        "hyforged:spirit": { "MinValue": 4, "MaxValue": 6, "StackType": "Flat" },
+        "hyforged:luck": { "MinValue": 4, "MaxValue": 6, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 14,
+      "Weight": 118,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 120, "MaxValue": 280, "StackType": "Flat" },
+        "hyforged:cold-resistance-bps": { "MinValue": 120, "MaxValue": 280, "StackType": "Flat" },
+        "hyforged:lightning-resistance-bps": { "MinValue": 120, "MaxValue": 280, "StackType": "Flat" },
+        "hyforged:chaos-resistance-bps": { "MinValue": 70, "MaxValue": 180, "StackType": "Flat" },
+        "hyforged:spirit": { "MinValue": 2, "MaxValue": 4, "StackType": "Flat" },
+        "hyforged:luck": { "MinValue": 2, "MaxValue": 4, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 1,
+      "Weight": 142,
+      "Stats": {
+        "hyforged:fire-resistance-bps": { "MinValue": 30, "MaxValue": 120, "StackType": "Flat" },
+        "hyforged:cold-resistance-bps": { "MinValue": 30, "MaxValue": 120, "StackType": "Flat" },
+        "hyforged:lightning-resistance-bps": { "MinValue": 30, "MaxValue": 120, "StackType": "Flat" },
+        "hyforged:chaos-resistance-bps": { "MinValue": 20, "MaxValue": 70, "StackType": "Flat" },
+        "hyforged:spirit": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" },
+        "hyforged:luck": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" }
+      }
+    }
+  ]
+}

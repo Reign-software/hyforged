@@ -1,0 +1,62 @@
+{
+  "Id": "hyforged:veilwoven",
+  "Type": "prefix",
+  "DisplayName": "Veilwoven",
+  "Weight": 68,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 72,
+      "Weight": 32,
+      "Stats": {
+        "hyforged:evasion-rating": { "MinValue": 300, "MaxValue": 380, "StackType": "Flat" },
+        "hyforged:spirit": { "MinValue": 20, "MaxValue": 26, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 56,
+      "Weight": 48,
+      "Stats": {
+        "hyforged:evasion-rating": { "MinValue": 230, "MaxValue": 300, "StackType": "Flat" },
+        "hyforged:spirit": { "MinValue": 15, "MaxValue": 20, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 42,
+      "Weight": 66,
+      "Stats": {
+        "hyforged:evasion-rating": { "MinValue": 165, "MaxValue": 230, "StackType": "Flat" },
+        "hyforged:spirit": { "MinValue": 11, "MaxValue": 15, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 28,
+      "Weight": 84,
+      "Stats": {
+        "hyforged:evasion-rating": { "MinValue": 110, "MaxValue": 165, "StackType": "Flat" },
+        "hyforged:spirit": { "MinValue": 7, "MaxValue": 11, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 14,
+      "Weight": 104,
+      "Stats": {
+        "hyforged:evasion-rating": { "MinValue": 65, "MaxValue": 110, "StackType": "Flat" },
+        "hyforged:spirit": { "MinValue": 4, "MaxValue": 7, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 1,
+      "Weight": 126,
+      "Stats": {
+        "hyforged:evasion-rating": { "MinValue": 25, "MaxValue": 65, "StackType": "Flat" },
+        "hyforged:spirit": { "MinValue": 1, "MaxValue": 4, "StackType": "Flat" }
+      }
+    }
+  ]
+}

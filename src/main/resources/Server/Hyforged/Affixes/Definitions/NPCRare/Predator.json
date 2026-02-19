@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:npc_predator",
+  "Type": "npc_rare",
+  "DisplayName": "Predator",
+  "Description": "Fast and leech-heavy hunter",
+  "Weight": 64,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 10,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:life-leech-bps": { "MinValue": 450, "MaxValue": 900, "StackType": "Flat" },
+        "hyforged:movement-speed-bps": { "MinValue": 300, "MaxValue": 700, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 35,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:life-leech-bps": { "MinValue": 900, "MaxValue": 1600, "StackType": "Flat" },
+        "hyforged:movement-speed-bps": { "MinValue": 700, "MaxValue": 1200, "StackType": "Flat" }
+      }
+    }
+  ]
+}

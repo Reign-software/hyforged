@@ -1,0 +1,38 @@
+{
+  "Id": "hyforged:corrupted-bulwark",
+  "Type": "forged",
+  "DisplayName": "Corrupted Bulwark",
+  "Weight": 26,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 80,
+      "Weight": 28,
+      "Stats": {
+        "hyforged:max-health": { "MinValue": 160, "MaxValue": 220, "StackType": "Flat" },
+        "hyforged:constitution": { "MinValue": 18, "MaxValue": 24, "StackType": "Flat" },
+        "hyforged:spirit": { "MinValue": 18, "MaxValue": 24, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 60,
+      "Weight": 52,
+      "Stats": {
+        "hyforged:max-health": { "MinValue": 120, "MaxValue": 160, "StackType": "Flat" },
+        "hyforged:constitution": { "MinValue": 13, "MaxValue": 18, "StackType": "Flat" },
+        "hyforged:spirit": { "MinValue": 13, "MaxValue": 18, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 40,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:max-health": { "MinValue": 80, "MaxValue": 120, "StackType": "Flat" },
+        "hyforged:constitution": { "MinValue": 8, "MaxValue": 13, "StackType": "Flat" },
+        "hyforged:spirit": { "MinValue": 8, "MaxValue": 13, "StackType": "Flat" }
+      }
+    }
+  ]
+}

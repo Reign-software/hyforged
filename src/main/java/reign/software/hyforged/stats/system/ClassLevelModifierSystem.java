@@ -6,6 +6,7 @@ import com.hypixel.hytale.component.Holder;
 import com.hypixel.hytale.event.EventRegistration;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.event.events.player.PlayerConnectEvent;
+import com.hypixel.hytale.server.core.event.events.player.PlayerReadyEvent;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
@@ -57,6 +58,8 @@ public class ClassLevelModifierSystem {
     private EventRegistration<Void, CharacterLevelUpEvent> characterLevelRegistration;
     @SuppressWarnings("unused")
     private EventRegistration<Void, PlayerConnectEvent> playerConnectRegistration;
+    @SuppressWarnings("unused")
+    private EventRegistration<String, PlayerReadyEvent> playerReadyRegistration;
 
     private final com.hypixel.hytale.component.ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
     private final com.hypixel.hytale.component.ComponentType<EntityStore, ProgressionComponent> progressionComponentType;
@@ -78,6 +81,9 @@ public class ClassLevelModifierSystem {
 
         playerConnectRegistration = HytaleServer.get().getEventBus()
             .register(PlayerConnectEvent.class, this::onPlayerConnect);
+
+        playerReadyRegistration = HytaleServer.get().getEventBus()
+                .registerGlobal(PlayerReadyEvent.class, this::onPlayerReady);
         
         LOGGER.atInfo().log("ClassLevelModifierSystem: Registered level-up event handlers");
     }
@@ -107,16 +113,59 @@ public class ClassLevelModifierSystem {
 
         Store<EntityStore> store = entityRef.getStore();
         EntityStatMap statMap = StatAccessor.getStatMap(store, entityRef);
+        int totalApplied = reapplyProgressionLevelBonuses(entityRef, progression, statComponent, statMap);
+        if (totalApplied > 0) {
+            LOGGER.at(Level.FINE).log(
+                "ClassLevelModifierSystem: Reapplied %d progression-level modifiers on connect for %s",
+                totalApplied,
+                event.getPlayerRef().getUsername()
+            );
+        }
+    }
 
-        // Clear existing progression-level modifiers before rebuilding from progression.
+    /**
+     * Rebuild class-level and character-level modifiers once the player is fully ready.
+     * This catches cases where progression data is finalized after connect.
+     */
+    private void onPlayerReady(@Nonnull PlayerReadyEvent event) {
+        Ref<EntityStore> entityRef = event.getPlayerRef();
+        if (entityRef == null || !entityRef.isValid()) {
+            return;
+        }
+
+        Store<EntityStore> store = entityRef.getStore();
+        HyforgedStatComponent statComponent = store.getComponent(entityRef, statComponentType);
+        ProgressionComponent progression = store.getComponent(entityRef, progressionComponentType);
+        if (statComponent == null || progression == null) {
+            return;
+        }
+
+        EntityStatMap statMap = StatAccessor.getStatMap(store, entityRef);
+        int totalApplied = reapplyProgressionLevelBonuses(entityRef, progression, statComponent, statMap);
+        if (totalApplied > 0) {
+            LOGGER.at(Level.FINE).log(
+                    "ClassLevelModifierSystem: Reapplied %d progression-level modifiers on ready",
+                    totalApplied
+            );
+        }
+    }
+
+    private int reapplyProgressionLevelBonuses(
+            @Nonnull Ref<EntityStore> entityRef,
+            @Nonnull ProgressionComponent progression,
+            @Nonnull HyforgedStatComponent statComponent,
+            EntityStatMap statMap
+    ) {
         if (statMap != null) {
             StatAccessor.removeAllModifiersByKeyPrefix(statMap, CLASS_LEVEL_SOURCE_PREFIX);
             StatAccessor.removeAllModifiersByKeyPrefix(statMap, CHARACTER_LEVEL_SOURCE_PREFIX);
         }
+
         int removedComponentModifiers = statComponent.removeModifiersIf(
                 modifier -> modifier.getSourceType() == HyforgedModifier.SourceType.CLASS
-                && (modifier.getSourceId().startsWith(CLASS_LEVEL_SOURCE_PREFIX)
-                || modifier.getSourceId().startsWith(CHARACTER_LEVEL_SOURCE_PREFIX)),
+                        && modifier.getSourceId() != null
+                        && (modifier.getSourceId().startsWith(CLASS_LEVEL_SOURCE_PREFIX)
+                        || modifier.getSourceId().startsWith(CHARACTER_LEVEL_SOURCE_PREFIX)),
                 modifier -> {
                 }
         );
@@ -126,16 +175,7 @@ public class ClassLevelModifierSystem {
 
         int classApplied = reapplyClassLevelBonuses(entityRef, progression, statComponent, statMap);
         int characterApplied = reapplyCharacterLevelBonuses(entityRef, progression, statComponent, statMap);
-        int totalApplied = classApplied + characterApplied;
-        if (totalApplied > 0) {
-            LOGGER.at(Level.FINE).log(
-                "ClassLevelModifierSystem: Reapplied %d progression-level modifiers (class=%d, character=%d) for %s",
-                totalApplied,
-                classApplied,
-                characterApplied,
-                    event.getPlayerRef().getUsername()
-            );
-        }
+        return classApplied + characterApplied;
     }
 
     /**

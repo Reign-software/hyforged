@@ -1,0 +1,61 @@
+{
+  "Priority": 123,
+  "Description": "Affix pool for tribal and exotic armor families",
+  "AppliesTo": {
+    "Categories": [],
+    "Tags": [
+      "Family=Kweebec",
+      "Family=Trooper",
+      "Family=Trork"
+    ]
+  },
+  "Prefixes": [
+    "sturdy",
+    "hyforged:evasive",
+    "hyforged:swift",
+    "hyforged:hunters",
+    "hyforged:arcane",
+    "hyforged:bastioned",
+    "hyforged:rugged",
+    "hyforged:precise",
+    "hyforged:siphoning",
+    "hyforged:warding",
+    "hyforged:regenerating",
+    "hyforged:fireproof",
+    "hyforged:frozen",
+    "hyforged:insulated",
+    "hyforged:grounded",
+    "hyforged:sanctified"
+  ],
+  "Suffixes": [
+    "hyforged:of-the-hunter",
+    "hyforged:of-the-fox",
+    "hyforged:of-the-dervish",
+    "hyforged:of-the-serpent",
+    "hyforged:of-the-ox",
+    "hyforged:of-accuracy",
+    "hyforged:of-devastation",
+    "hyforged:of-the-leech",
+    "hyforged:of-the-warrior",
+    "hyforged:of-fortification",
+    "hyforged:of-vitality",
+    "hyforged:of-regeneration",
+    "hyforged:of-endurance",
+    "hyforged:of-the-wind",
+    "hyforged:of-the-spirit"
+  ],
+  "Forged": [
+    "hyforged:corrupted-aegis",
+    "hyforged:corrupted-agility",
+    "hyforged:corrupted-evasion",
+    "hyforged:corrupted-velocity",
+    "hyforged:corrupted-swiftness",
+    "hyforged:corrupted-fury",
+    "hyforged:corrupted-might",
+    "hyforged:corrupted-vitality",
+    "hyforged:corrupted-ward-fire",
+    "hyforged:corrupted-ward-cold",
+    "hyforged:corrupted-ward-lightning",
+    "hyforged:corrupted-ward-chaos"
+  ]
+}

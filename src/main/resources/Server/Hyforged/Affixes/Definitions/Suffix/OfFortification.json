@@ -1,0 +1,62 @@
+{
+  "Id": "hyforged:of-fortification",
+  "Type": "suffix",
+  "DisplayName": "of Fortification",
+  "Weight": 68,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 72,
+      "Weight": 34,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 260, "MaxValue": 340, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 170, "MaxValue": 230, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 56,
+      "Weight": 52,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 200, "MaxValue": 260, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 120, "MaxValue": 170, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 42,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 145, "MaxValue": 200, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 80, "MaxValue": 120, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 28,
+      "Weight": 90,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 95, "MaxValue": 145, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 50, "MaxValue": 80, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 14,
+      "Weight": 112,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 55, "MaxValue": 95, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 25, "MaxValue": 50, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 1,
+      "Weight": 134,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 20, "MaxValue": 55, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 8, "MaxValue": 25, "StackType": "Flat" }
+      }
+    }
+  ]
+}

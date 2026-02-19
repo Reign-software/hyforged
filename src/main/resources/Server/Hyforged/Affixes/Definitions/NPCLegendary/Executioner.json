@@ -10,8 +10,8 @@
       "ItemLevelReq": 35,
       "Weight": 100,
       "Stats": {
-        "hyforged:damage-bps": { "MinValue": 1000, "MaxValue": 1500, "StackType": "More" },
-        "hyforged:critical-damage-bps": { "MinValue": 1500, "MaxValue": 2500, "StackType": "More" }
+        "hyforged:damage-increased-bps": { "MinValue": 1000, "MaxValue": 1500, "StackType": "More" },
+        "hyforged:crit-multiplier-bps": { "MinValue": 1500, "MaxValue": 2500, "StackType": "More" }
       }
     }
   ],
@@ -23,7 +23,7 @@
         "TargetSelf": true,
         "Duration": 0,
         "StatModifiers": {
-          "hyforged:damage-bps": 10000
+          "hyforged:damage-increased-bps": 10000
         }
       },
       "StackBehavior": "shared",

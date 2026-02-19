@@ -1,5 +1,17 @@
 {
+    "java.autobuild.enabled": false,
     "java.configuration.updateBuildConfiguration": "automatic",
+    "java.import.exclusions": [
+        "**/hytale-server/**",
+        "../lib/**"
+    ],
     "java.compile.nullAnalysis.mode": "disabled",
-    "java.debug.settings.onBuildFailureProceed": true
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.test.config": {
+        "name": "hyforged-tests",
+        "vmArgs": [
+            "-Djava.util.logging.manager=com.hypixel.hytale.logger.backend.HytaleLogManager"
+        ]
+    },
+    "java.test.defaultConfig": "hyforged-tests"
 }

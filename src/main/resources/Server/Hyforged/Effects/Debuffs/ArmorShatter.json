@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/ArmorBreak.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:armor-rating-flat", "StackType": "Increased", "Amount": -4000 },
+    { "StatId": "hyforged:armor-rating", "StackType": "Increased", "Amount": -4000 },
     { "StatId": "hyforged:physical-resistance-bps", "StackType": "Flat", "Amount": -2000 }
   ]
 }

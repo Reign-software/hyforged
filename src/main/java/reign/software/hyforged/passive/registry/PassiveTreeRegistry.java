@@ -357,6 +357,7 @@ public final class PassiveTreeRegistry {
                 .addStartingNodes(existingTree.getStartingNodeIds())
                 .addNodes(existingTree.getNodes().values())
                 .addConnections(existingTree.getConnections())
+                .addTextLabels(existingTree.getTextLabels())
                 .version(existingTree.getVersion() + 1)
                 .addNode(node);
 
@@ -415,6 +416,7 @@ public final class PassiveTreeRegistry {
                 .addStartingNodes(existingTree.getStartingNodeIds())
                 .addNodes(existingTree.getNodes().values())
                 .addConnections(existingTree.getConnections())
+                .addTextLabels(existingTree.getTextLabels())
                 .version(existingTree.getVersion() + 1)
                 .addConnection(fromNodeId, toNodeId);
 

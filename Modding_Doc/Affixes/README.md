@@ -338,7 +338,14 @@ Available in-game commands (requires op):
 
 ## Tooltip Display
 
-Affixes are automatically shown in item tooltips:
+Hyforged writes affix tooltip payloads into item metadata so tooltip-capable UI code can display rolled affixes:
+
+- `Hyforged.AffixTooltipLines` - string array of tooltip lines
+- `Hyforged.AffixTooltipSummary` - newline-joined summary string
+
+The Hyforged item panel also appends a `Hyforged Stats` section that shows aggregated stat totals from all rolled affixes (for example, total `+Health`, `+Damage`, `+Crit`, etc.).
+
+Example rendered content:
 
 ```
 Sturdy Iron Chestplate of the Bear
@@ -348,6 +355,8 @@ Sturdy Iron Chestplate of the Bear
 ```
 
 Forged affixes are displayed in a separate section with special formatting.
+
+Note: vanilla Hytale tooltip rendering remains client-driven. Full native tooltip integration still requires client-side UI modding to read these metadata keys.
 
 ## Best Practices
 

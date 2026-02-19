@@ -5,7 +5,7 @@
 $Common = "../Common.ui";
 
 Group #CharacterStatsPage {
-    LayoutMode: Top;
+    LayoutMode: Full;
     Anchor: (Width: 900, Height: 600);
     Background: $Common.@InputBoxBackground;
     Padding: (Full: 20);
@@ -13,7 +13,7 @@ Group #CharacterStatsPage {
     // Header
     Group #Header {
         LayoutMode: Top;
-        Anchor: (Height: 40);
+        Anchor: (Top: 0, Height: 40);
         Label #Title {
             Text: "Character Stats";
             Style: (FontSize: 24, Alignment: Center, RenderBold: true);
@@ -23,7 +23,7 @@ Group #CharacterStatsPage {
     // Column Headers (static row above scrollable content)
     Group #ColumnHeaders {
         LayoutMode: Left;
-        Anchor: (Height: 22);
+        Anchor: (Top: 46, Height: 22);
         Padding: (Top: 6, Bottom: 4);
 
         Label #ColStat {
@@ -61,7 +61,7 @@ Group #CharacterStatsPage {
     Group #Content {
         LayoutMode: TopScrolling;
         ScrollbarStyle: $Common.@DefaultScrollbarStyle;
-        Anchor: (Bottom: 60);
+        Anchor: (Top: 72, Bottom: 60);
 
         // Dynamic stat categories container - populated by Java
         Group #StatCategories {
@@ -96,10 +96,22 @@ Group #CharacterStatsPage {
         }
     }
 
+    Group #ModifierTooltip {
+        Visible: false;
+        Anchor: (Left: 350, Top: 78, Width: 500, Height: 118);
+        Padding: (Horizontal: 8, Vertical: 6);
+        Background: PatchStyle(Color: #0e1218(0.95), Border: 1);
+
+        Label #ModifierTooltipText {
+            Text: "";
+            Style: (FontSize: 11, Wrap: true, TextColor: #DDDDDD);
+        }
+    }
+
     // Footer with Buttons
     Group #Footer {
         LayoutMode: Left;
-        Anchor: (Bottom: 0, Height: 50);
+        Anchor: (Left: 0, Right: 0, Bottom: 0, Height: 50);
 
         Button #PassiveTreeButton {
             Anchor: (Width: 120, Height: 40);
@@ -125,4 +137,5 @@ Group #CharacterStatsPage {
             Label { Text: "Close"; Style: (FontSize: 13, Alignment: Center); }
         }
     }
+
 }

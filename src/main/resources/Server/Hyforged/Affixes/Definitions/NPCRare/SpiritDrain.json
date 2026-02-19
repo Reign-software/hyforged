@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:npc_spirit_drain",
+  "Type": "npc_rare",
+  "DisplayName": "Spirit Drain",
+  "Description": "Drains life through spirit power",
+  "Weight": 56,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 10,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:spirit": { "MinValue": 18, "MaxValue": 30, "StackType": "Flat" },
+        "hyforged:life-leech-bps": { "MinValue": 350, "MaxValue": 700, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 35,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:spirit": { "MinValue": 30, "MaxValue": 48, "StackType": "Flat" },
+        "hyforged:life-leech-bps": { "MinValue": 700, "MaxValue": 1300, "StackType": "Flat" }
+      }
+    }
+  ]
+}

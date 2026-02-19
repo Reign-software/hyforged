@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/FireSkill.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:fire-skill-levels-flat", "StackType": "Flat", "Amount": 2 },
+    { "StatId": "hyforged:fire-skill-levels", "StackType": "Flat", "Amount": 2 },
     { "StatId": "hyforged:fire-damage-increased-bps", "StackType": "Increased", "Amount": 3000 },
     { "StatId": "hyforged:fire-penetration-bps", "StackType": "Flat", "Amount": 1500 }
   ]

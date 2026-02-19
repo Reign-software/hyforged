@@ -1,0 +1,38 @@
+{
+  "Id": "hyforged:corrupted-aegis",
+  "Type": "forged",
+  "DisplayName": "Corrupted Aegis",
+  "Weight": 30,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 80,
+      "Weight": 26,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 650, "MaxValue": 820, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 350, "MaxValue": 450, "StackType": "Flat" },
+        "hyforged:luck": { "MinValue": 14, "MaxValue": 18, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 60,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 480, "MaxValue": 650, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 250, "MaxValue": 350, "StackType": "Flat" },
+        "hyforged:luck": { "MinValue": 10, "MaxValue": 14, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 40,
+      "Weight": 78,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 320, "MaxValue": 480, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 160, "MaxValue": 250, "StackType": "Flat" },
+        "hyforged:luck": { "MinValue": 6, "MaxValue": 10, "StackType": "Flat" }
+      }
+    }
+  ]
+}

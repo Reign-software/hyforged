@@ -21,6 +21,8 @@ import reign.software.hyforged.stats.modifier.HyforgedModifier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -63,6 +65,8 @@ public final class AffixTooltipProvider {
     public static final String AFFIXES_SECTION_HEADER = "Affixes";
     /** Header for the forged affixes section */
     public static final String FORGED_SECTION_HEADER = "Forged Properties";
+    /** Header for the aggregated Hyforged stat totals section */
+    public static final String HYFORGED_STATS_SECTION_HEADER = "Hyforged Stats";
     /** Label for quality line */
     public static final String QUALITY_LABEL = "Quality";
 
@@ -201,6 +205,7 @@ public final class AffixTooltipProvider {
         public List<TooltipLine> regularAffixes() {
             return sections.stream()
                 .filter(s -> !FORGED_SECTION_HEADER.equals(s.sectionName()))
+                .filter(s -> !HYFORGED_STATS_SECTION_HEADER.equals(s.sectionName()))
                 .flatMap(s -> s.lines().stream())
                 .toList();
         }
@@ -337,7 +342,89 @@ public final class AffixTooltipProvider {
                 .map(acc -> new TooltipSection(acc.sectionName, acc.hudColor, acc.lines))
                 .toList();
 
+        List<TooltipLine> statSummaryLines = buildHyforgedStatSummaryLines(affixes, affixRegistry, statRegistry);
+        if (!statSummaryLines.isEmpty()) {
+            List<TooltipSection> withStats = new ArrayList<>(sections);
+            withStats.add(new TooltipSection(
+                    HYFORGED_STATS_SECTION_HEADER,
+                    AffixType.DEFAULT_HUD_COLOR,
+                    statSummaryLines
+            ));
+            return new TooltipContent(withStats);
+        }
+
         return new TooltipContent(sections);
+    }
+
+    /**
+     * Build aggregated stat totals from all rolled affix stats.
+     * <p>
+     * This section surfaces net Hyforged stat values directly on the item panel,
+     * separate from roll/tier lines.
+     */
+    @Nonnull
+    private static List<TooltipLine> buildHyforgedStatSummaryLines(
+            @Nonnull List<RolledAffix> affixes,
+            @Nonnull AffixDefinitionRegistry affixRegistry,
+            @Nonnull StatDefinitionRegistry statRegistry
+    ) {
+        if (affixes.isEmpty()) {
+            return List.of();
+        }
+
+        Map<StatAggregateKey, Integer> totals = new HashMap<>();
+        for (RolledAffix affix : affixes) {
+            if (affixRegistry.get(affix.affixId()) == null) {
+                continue;
+            }
+            for (Map.Entry<String, RolledAffix.RolledStat> statEntry : affix.rolledStats().entrySet()) {
+                RolledAffix.RolledStat rolledStat = statEntry.getValue();
+                if (rolledStat == null) {
+                    continue;
+                }
+
+                StatAggregateKey key = new StatAggregateKey(statEntry.getKey(), rolledStat.stackType());
+                totals.merge(key, rolledStat.value(), Integer::sum);
+            }
+        }
+
+        if (totals.isEmpty()) {
+            return List.of();
+        }
+
+        List<Map.Entry<StatAggregateKey, Integer>> sorted = totals.entrySet().stream()
+                .filter(entry -> entry.getValue() != 0)
+                .sorted(Comparator
+                        .comparing((Map.Entry<StatAggregateKey, Integer> entry) ->
+                                getStatDisplayName(entry.getKey().statId(), statRegistry), String.CASE_INSENSITIVE_ORDER)
+                        .thenComparing(entry -> entry.getKey().stackType().name()))
+                .toList();
+
+        if (sorted.isEmpty()) {
+            return List.of();
+        }
+
+        List<TooltipLine> result = new ArrayList<>(sorted.size());
+        for (Map.Entry<StatAggregateKey, Integer> entry : sorted) {
+            String statName = getStatDisplayName(entry.getKey().statId(), statRegistry);
+            String valueText = formatValue(entry.getValue(), entry.getKey().stackType());
+            result.add(TooltipLine.content(valueText + " " + statName));
+        }
+
+        return result;
+    }
+
+    /**
+     * Aggregation key for combining rolled stat values by stat + stack type.
+     */
+    private record StatAggregateKey(
+            @Nonnull String statId,
+            @Nonnull HyforgedModifier.StackType stackType
+    ) {
+        public StatAggregateKey {
+            Objects.requireNonNull(statId, "statId cannot be null");
+            Objects.requireNonNull(stackType, "stackType cannot be null");
+        }
     }
 
     /**
@@ -383,6 +470,7 @@ public final class AffixTooltipProvider {
 
         // Get the tier definition to access roll ranges
         AffixTierDefinition tierDef = definition.getTier(affix.tier()).orElse(null);
+        String affixDisplayName = definition.displayName();
 
         String color = getTierColor(affix.tier());
         List<TooltipLine> lines = new ArrayList<>();
@@ -413,6 +501,7 @@ public final class AffixTooltipProvider {
                 minValue,
                 maxValue
             );
+            text = prependAffixName(affixDisplayName, text);
             
             if (color != null && !color.isBlank()) {
                 lines.add(TooltipLine.content(text, color));
@@ -422,6 +511,14 @@ public final class AffixTooltipProvider {
         }
         
         return lines;
+    }
+
+    @Nonnull
+    private static String prependAffixName(@Nullable String affixDisplayName, @Nonnull String line) {
+        if (affixDisplayName == null || affixDisplayName.isBlank()) {
+            return line;
+        }
+        return affixDisplayName + ": " + line;
     }
 
     /**

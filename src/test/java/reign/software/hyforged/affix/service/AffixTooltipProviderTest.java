@@ -496,7 +496,7 @@ class AffixTooltipProviderTest {
             assertEquals(1, content.regularAffixes().size());
 
             TooltipLine line = content.regularAffixes().get(0);
-            assertEquals("[T1] +75 Health (50-100)", line.text());
+            assertEquals("Sturdy: [T1] +75 Health (50-100)", line.text());
             assertEquals(AffixTooltipProvider.getTierColor(1), line.color());
         }
 
@@ -508,7 +508,7 @@ class AffixTooltipProviderTest {
 
             assertTrue(content.hasRegularAffixes());
             assertEquals(1, content.regularAffixes().size());
-            assertEquals("[T1] +7 Critical Chance (5-10)", content.regularAffixes().get(0).text());
+            assertEquals("of Precision: [T1] +7 Critical Chance (5-10)", content.regularAffixes().get(0).text());
         }
 
         @Test
@@ -520,7 +520,7 @@ class AffixTooltipProviderTest {
             assertFalse(content.hasRegularAffixes());
             assertTrue(content.hasForgedAffixes());
             assertEquals(1, content.forgedAffixes().size());
-            assertEquals("[T1] +20 Quality (10-25)", content.forgedAffixes().get(0).text());
+            assertEquals("Masterwork: [T1] +20 Quality (10-25)", content.forgedAffixes().get(0).text());
         }
 
         @Test
@@ -538,13 +538,33 @@ class AffixTooltipProviderTest {
             assertEquals(1, content.forgedAffixes().size());
         }
 
+            @Test
+            @DisplayName("Tooltip includes aggregated Hyforged stats section")
+            void tooltipIncludesAggregatedStatsSection() {
+                RolledAffix first = createAffix("sturdy", 1, 50);
+                RolledAffix second = createAffix("sharp", 1, 15);
+
+                TooltipContent content = AffixTooltipProvider.generateTooltip(List.of(first, second));
+
+                assertTrue(content.sections().stream()
+                    .anyMatch(section -> AffixTooltipProvider.HYFORGED_STATS_SECTION_HEADER.equals(section.sectionName())));
+
+                var statsSection = content.sections().stream()
+                    .filter(section -> AffixTooltipProvider.HYFORGED_STATS_SECTION_HEADER.equals(section.sectionName()))
+                    .findFirst()
+                    .orElseThrow();
+
+                assertTrue(statsSection.lines().stream().anyMatch(line -> line.text().contains("Health")));
+                assertTrue(statsSection.lines().stream().anyMatch(line -> line.text().contains("Physical Damage")));
+            }
+
         @Test
         @DisplayName("Percentage modifier formats correctly")
         void percentageModifierFormatsCorrectly() {
             RolledAffix affix = createAffix("of-speed", 1, 1750); // 17.5%
             TooltipContent content = AffixTooltipProvider.generateTooltip(List.of(affix));
 
-            assertEquals("[T1] +17.5% Movement Speed (15%-20%)", content.regularAffixes().get(0).text());
+            assertEquals("of Speed: [T1] +17.5% Movement Speed (15%-20%)", content.regularAffixes().get(0).text());
         }
 
         @Test
@@ -588,7 +608,7 @@ class AffixTooltipProviderTest {
 
             String summary = AffixTooltipProvider.generateTextSummary(itemData);
             assertTrue(summary.contains("Affixes"));
-            assertTrue(summary.contains("[T1] +75 Health (50-100)"));
+            assertTrue(summary.contains("Sturdy: [T1] +75 Health (50-100)"));
         }
 
         @Test
@@ -601,7 +621,7 @@ class AffixTooltipProviderTest {
 
             String summary = AffixTooltipProvider.generateTextSummary(itemData);
             String[] lines = summary.split("\n");
-            assertEquals(3, lines.length); // header + 2 affixes
+            assertEquals(6, lines.length); // affix header + 2 affixes + stats header + 2 stats
         }
 
         @Test

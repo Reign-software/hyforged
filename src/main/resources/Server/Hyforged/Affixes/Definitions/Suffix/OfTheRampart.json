@@ -1,0 +1,62 @@
+{
+  "Id": "hyforged:of-the-rampart",
+  "Type": "suffix",
+  "DisplayName": "of the Rampart",
+  "Weight": 64,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 70,
+      "Weight": 36,
+      "Stats": {
+        "hyforged:physical-resistance-bps": { "MinValue": 1800, "MaxValue": 2300, "StackType": "Flat" },
+        "hyforged:magic-resistance-bps": { "MinValue": 1800, "MaxValue": 2300, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 54,
+      "Weight": 54,
+      "Stats": {
+        "hyforged:physical-resistance-bps": { "MinValue": 1300, "MaxValue": 1800, "StackType": "Flat" },
+        "hyforged:magic-resistance-bps": { "MinValue": 1300, "MaxValue": 1800, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 40,
+      "Weight": 74,
+      "Stats": {
+        "hyforged:physical-resistance-bps": { "MinValue": 900, "MaxValue": 1300, "StackType": "Flat" },
+        "hyforged:magic-resistance-bps": { "MinValue": 900, "MaxValue": 1300, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 26,
+      "Weight": 96,
+      "Stats": {
+        "hyforged:physical-resistance-bps": { "MinValue": 550, "MaxValue": 900, "StackType": "Flat" },
+        "hyforged:magic-resistance-bps": { "MinValue": 550, "MaxValue": 900, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 12,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:physical-resistance-bps": { "MinValue": 250, "MaxValue": 550, "StackType": "Flat" },
+        "hyforged:magic-resistance-bps": { "MinValue": 250, "MaxValue": 550, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 1,
+      "Weight": 144,
+      "Stats": {
+        "hyforged:physical-resistance-bps": { "MinValue": 80, "MaxValue": 250, "StackType": "Flat" },
+        "hyforged:magic-resistance-bps": { "MinValue": 80, "MaxValue": 250, "StackType": "Flat" }
+      }
+    }
+  ]
+}

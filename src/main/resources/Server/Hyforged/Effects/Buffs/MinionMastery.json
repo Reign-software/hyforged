@@ -9,6 +9,6 @@
     { "StatId": "hyforged:minion-damage-bps", "StackType": "Increased", "Amount": 3000 },
     { "StatId": "hyforged:minion-life-bps", "StackType": "Increased", "Amount": 2500 },
     { "StatId": "hyforged:minion-speed-bps", "StackType": "Increased", "Amount": 2000 },
-    { "StatId": "hyforged:max-minions-flat", "StackType": "Flat", "Amount": 2 }
+    { "StatId": "hyforged:max-minions", "StackType": "Flat", "Amount": 2 }
   ]
 }

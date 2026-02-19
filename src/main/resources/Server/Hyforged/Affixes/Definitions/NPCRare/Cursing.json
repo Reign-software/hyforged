@@ -26,7 +26,7 @@
         "EffectId": "hyforged:curse_of_weakness",
         "Duration": 8.0,
         "StatModifiers": {
-          "hyforged:damage-bps": -1500,
+          "hyforged:damage-increased-bps": -1500,
           "hyforged:physical-resistance-bps": -1000
         }
       },

@@ -28,7 +28,7 @@
             "Position": { "X": 0, "Y": -20 },
             "Region": "defense",
             "Effects": [
-                { "Type": "stat-modifier", "Stat": "hyforged:flat-armor", "Value": 10 }
+                { "Type": "stat-modifier", "Stat": "hyforged:armor-rating", "Value": 10 }
             ]
         },
         {
@@ -40,8 +40,8 @@
             "Position": { "X": 20, "Y": -40 },
             "Region": "offense",
             "Effects": [
-                { "Type": "stat-modifier", "Stat": "hyforged:melee-damage-increase", "Value": 1500 },
-                { "Type": "stat-modifier", "Stat": "hyforged:attack-speed-increase", "Value": 500 }
+                { "Type": "stat-modifier", "Stat": "hyforged:melee-damage-increased-bps", "Value": 1500 },
+                { "Type": "stat-modifier", "Stat": "hyforged:attack-speed-bps", "Value": 500 }
             ],
             "Requirements": {
                 "AllocatedNodes": 2
@@ -71,8 +71,8 @@
                 {
                     "Type": "mastery-choice",
                     "Choices": [
-                        { "Type": "stat-modifier", "Stat": "hyforged:attack-damage-increase", "Value": 2000 },
-                        { "Type": "stat-modifier", "Stat": "hyforged:life-leech", "Value": 500 }
+                        { "Type": "stat-modifier", "Stat": "hyforged:attack-damage-increased-bps", "Value": 2000 },
+                        { "Type": "stat-modifier", "Stat": "hyforged:life-leech-bps", "Value": 500 }
                     ]
                 }
             ],

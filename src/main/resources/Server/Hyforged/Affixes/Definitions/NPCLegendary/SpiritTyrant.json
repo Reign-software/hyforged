@@ -1,0 +1,19 @@
+{
+  "Id": "hyforged:npc_spirit_tyrant",
+  "Type": "npc_legendary",
+  "DisplayName": "Spirit Tyrant",
+  "Description": "Spirit-fueled offense and regeneration",
+  "Weight": 44,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 40,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:spirit": { "MinValue": 35, "MaxValue": 55, "StackType": "Flat" },
+        "hyforged:damage-increased-bps": { "MinValue": 1800, "MaxValue": 2800, "StackType": "More" },
+        "hyforged:health-regen-flat": { "MinValue": 45, "MaxValue": 75, "StackType": "Flat" }
+      }
+    }
+  ]
+}

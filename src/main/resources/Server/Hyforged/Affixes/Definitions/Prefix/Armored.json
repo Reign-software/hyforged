@@ -9,7 +9,7 @@
       "ItemLevelReq": 78,
       "Weight": 28,
       "Stats": {
-        "hyforged:armor-rating-flat": { "MinValue": 450, "MaxValue": 550, "StackType": "Flat" }
+        "hyforged:armor-rating": { "MinValue": 450, "MaxValue": 550, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 64,
       "Weight": 42,
       "Stats": {
-        "hyforged:armor-rating-flat": { "MinValue": 350, "MaxValue": 450, "StackType": "Flat" }
+        "hyforged:armor-rating": { "MinValue": 350, "MaxValue": 450, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 50,
       "Weight": 56,
       "Stats": {
-        "hyforged:armor-rating-flat": { "MinValue": 260, "MaxValue": 350, "StackType": "Flat" }
+        "hyforged:armor-rating": { "MinValue": 260, "MaxValue": 350, "StackType": "Flat" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 38,
       "Weight": 72,
       "Stats": {
-        "hyforged:armor-rating-flat": { "MinValue": 180, "MaxValue": 260, "StackType": "Flat" }
+        "hyforged:armor-rating": { "MinValue": 180, "MaxValue": 260, "StackType": "Flat" }
       }
     },
     {
@@ -41,7 +41,7 @@
       "ItemLevelReq": 26,
       "Weight": 88,
       "Stats": {
-        "hyforged:armor-rating-flat": { "MinValue": 115, "MaxValue": 180, "StackType": "Flat" }
+        "hyforged:armor-rating": { "MinValue": 115, "MaxValue": 180, "StackType": "Flat" }
       }
     },
     {
@@ -49,7 +49,7 @@
       "ItemLevelReq": 14,
       "Weight": 104,
       "Stats": {
-        "hyforged:armor-rating-flat": { "MinValue": 65, "MaxValue": 115, "StackType": "Flat" }
+        "hyforged:armor-rating": { "MinValue": 65, "MaxValue": 115, "StackType": "Flat" }
       }
     },
     {
@@ -57,7 +57,7 @@
       "ItemLevelReq": 1,
       "Weight": 125,
       "Stats": {
-        "hyforged:armor-rating-flat": { "MinValue": 25, "MaxValue": 65, "StackType": "Flat" }
+        "hyforged:armor-rating": { "MinValue": 25, "MaxValue": 65, "StackType": "Flat" }
       }
     }
   ]

@@ -8,6 +8,6 @@
   "HyforgedModifiers": [
     { "StatId": "hyforged:luck", "StackType": "Flat", "Amount": -30 },
     { "StatId": "hyforged:crit-chance-bps", "StackType": "Flat", "Amount": -2000 },
-    { "StatId": "hyforged:item-rarity-bps", "StackType": "Increased", "Amount": -3000 }
+    { "StatId": "hyforged:item-rarity-increased-bps", "StackType": "Increased", "Amount": -3000 }
   ]
 }

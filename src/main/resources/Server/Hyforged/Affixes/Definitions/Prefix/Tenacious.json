@@ -1,0 +1,62 @@
+{
+  "Id": "hyforged:tenacious",
+  "Type": "prefix",
+  "DisplayName": "Tenacious",
+  "Weight": 65,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 68,
+      "Weight": 36,
+      "Stats": {
+        "hyforged:constitution": { "MinValue": 34, "MaxValue": 42, "StackType": "Flat" },
+        "hyforged:health-regen-flat": { "MinValue": 12, "MaxValue": 16, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 52,
+      "Weight": 52,
+      "Stats": {
+        "hyforged:constitution": { "MinValue": 26, "MaxValue": 34, "StackType": "Flat" },
+        "hyforged:health-regen-flat": { "MinValue": 8, "MaxValue": 12, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 38,
+      "Weight": 72,
+      "Stats": {
+        "hyforged:constitution": { "MinValue": 18, "MaxValue": 26, "StackType": "Flat" },
+        "hyforged:health-regen-flat": { "MinValue": 5, "MaxValue": 8, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 24,
+      "Weight": 92,
+      "Stats": {
+        "hyforged:constitution": { "MinValue": 12, "MaxValue": 18, "StackType": "Flat" },
+        "hyforged:health-regen-flat": { "MinValue": 3, "MaxValue": 5, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 12,
+      "Weight": 112,
+      "Stats": {
+        "hyforged:constitution": { "MinValue": 6, "MaxValue": 12, "StackType": "Flat" },
+        "hyforged:health-regen-flat": { "MinValue": 2, "MaxValue": 3, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 1,
+      "Weight": 132,
+      "Stats": {
+        "hyforged:constitution": { "MinValue": 3, "MaxValue": 6, "StackType": "Flat" },
+        "hyforged:health-regen-flat": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" }
+      }
+    }
+  ]
+}

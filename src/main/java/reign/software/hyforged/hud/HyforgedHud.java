@@ -209,11 +209,11 @@ public class HyforgedHud extends CustomUIHud {
      * @param tooltipContent The structured tooltip content from AffixTooltipProvider
      */
     /** Approximate heights for computing the tooltip box size dynamically */
-    private static final int ITEM_NAME_HEIGHT = 20;      // header label + pad
+    private static final int ITEM_NAME_HEIGHT = 24;      // header label + pad
     private static final int SEPARATOR_HEIGHT = 4;        // 1px line + spacing
-    private static final int SECTION_HEADER_HEIGHT = 18;  // section name row
-    private static final int AFFIX_LINE_HEIGHT = 16;      // single stat line
-    private static final int VERTICAL_PADDING = 12;       // top + bottom pad
+    private static final int SECTION_HEADER_HEIGHT = 22;  // section name row
+    private static final int AFFIX_LINE_HEIGHT = 19;      // single stat line
+    private static final int VERTICAL_PADDING = 16;       // top + bottom pad
 
     public void updateItemAffixes(
             @Nonnull String itemName,
@@ -237,7 +237,7 @@ public class HyforgedHud extends CustomUIHud {
 
             // Section header — bold, section color
             String headerUI = String.format(
-                "Label { Padding: (Top: 2); Text: \"%s\"; Style: (FontSize: 12, RenderBold: true, TextColor: %s); }",
+                "Label { Padding: (Top: 3); Text: \"%s\"; Style: (FontSize: 16, RenderBold: true, TextColor: %s); }",
                 escapeUI(section.sectionName()), section.hudColor()
             );
             b.appendInline(AFFIX_LINES_CONTAINER, headerUI);
@@ -248,7 +248,7 @@ public class HyforgedHud extends CustomUIHud {
                         ? line.color()
                         : section.hudColor();
                 String lineUI = String.format(
-                    "Label { Text: \"%s\"; Style: (FontSize: 11, TextColor: %s, Wrap: true); }",
+                    "Label { Text: \"%s\"; Style: (FontSize: 14, TextColor: %s, Wrap: true); }",
                     escapeUI(line.text()), color
                 );
                 b.appendInline(AFFIX_LINES_CONTAINER, lineUI);
@@ -262,8 +262,7 @@ public class HyforgedHud extends CustomUIHud {
                 + (totalLines * AFFIX_LINE_HEIGHT);
         Anchor anchor = new Anchor();
         anchor.setBottom(Value.of(224));
-        anchor.setLeft(Value.of(355));
-        anchor.setWidth(Value.of(280));
+        anchor.setWidth(Value.of(702));
         anchor.setHeight(Value.of(height));
         b.setObject("#ItemAffixes.Anchor", anchor);
         b.set("#ItemAffixes.Visible", true);

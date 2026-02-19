@@ -7,6 +7,6 @@
   },
   "HyforgedModifiers": [
     { "StatId": "hyforged:cold-resistance-bps", "StackType": "Flat", "Amount": 4000 },
-    { "StatId": "hyforged:max-cold-resistance-bps", "StackType": "Flat", "Amount": 500 }
+    { "StatId": "hyforged:maximum-resistance-cold-bps", "StackType": "Flat", "Amount": 500 }
   ]
 }

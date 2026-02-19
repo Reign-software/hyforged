@@ -38,6 +38,16 @@ public class QualityWeightProfileAsset implements JsonAssetWithMap<String, Index
                     asset -> asset.data
             )
             .append(
+                    new KeyedCodec<>("Id", Codec.STRING),
+                    (asset, value) -> {
+                        if (value != null && !value.isBlank()) {
+                            asset.id = value;
+                        }
+                    },
+                    asset -> asset.id
+            )
+            .add()
+            .append(
                     new KeyedCodec<>("Description", Codec.STRING),
                     (asset, value) -> asset.description = value != null ? value : "",
                     asset -> asset.description

@@ -8,8 +8,10 @@ import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.tick.DelayedEntitySystem;
 import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.entity.entities.player.pages.CustomUIPage;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import reign.software.hyforged.affix.ui.CharacterStatsPage;
 import reign.software.hyforged.HyforgedPlugin;
 import reign.software.hyforged.hud.HyforgedHud;
 import reign.software.hyforged.hud.HyforgedHudManager;
@@ -92,6 +94,13 @@ public class ProgressionHudSystem extends DelayedEntitySystem<EntityStore> {
             return; // Client not ready yet
         }
 
+        // Suppress progression bar while Character Stats page is open.
+        if (isCharacterStatsPageOpen(player)) {
+            hud.hideProgression();
+            playerCache.remove(playerUuid);
+            return;
+        }
+
         // Respect the player's option toggle
         boolean enabled = HyforgedPlayerOptions.get(playerUuid).isProgressionHud();
         if (!enabled) {
@@ -150,6 +159,11 @@ public class ProgressionHudSystem extends DelayedEntitySystem<EntityStore> {
 
         hud.updateProgression(charLevel, className, classLevel, xpProgress, xpToNext, classXpProgress, classXpToNext);
         playerCache.put(playerUuid, new ProgressionHudCache(charLevel, className, classLevel, xpProgress, xpToNext, classXpProgress, classXpToNext));
+    }
+
+    private static boolean isCharacterStatsPageOpen(@Nonnull Player player) {
+        CustomUIPage customPage = player.getPageManager().getCustomPage();
+        return customPage instanceof CharacterStatsPage;
     }
 
     /**

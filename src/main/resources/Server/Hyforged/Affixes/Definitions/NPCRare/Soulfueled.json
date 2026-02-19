@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:npc_soulfueled",
+  "Type": "npc_rare",
+  "DisplayName": "Soulfueled",
+  "Description": "Spirit empowers regeneration",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 10,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:spirit": { "MinValue": 16, "MaxValue": 28, "StackType": "Flat" },
+        "hyforged:health-regen-flat": { "MinValue": 15, "MaxValue": 30, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 35,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:spirit": { "MinValue": 28, "MaxValue": 45, "StackType": "Flat" },
+        "hyforged:health-regen-flat": { "MinValue": 30, "MaxValue": 55, "StackType": "Flat" }
+      }
+    }
+  ]
+}

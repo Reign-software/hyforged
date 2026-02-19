@@ -1,0 +1,19 @@
+{
+  "Id": "hyforged:npc_iron_colossus",
+  "Type": "npc_legendary",
+  "DisplayName": "Iron Colossus",
+  "Description": "Massive constitution and physical defense",
+  "Weight": 43,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 40,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:constitution": { "MinValue": 38, "MaxValue": 60, "StackType": "Flat" },
+        "hyforged:armor-rating": { "MinValue": 1000, "MaxValue": 1600, "StackType": "Flat" },
+        "hyforged:physical-resistance-bps": { "MinValue": 1500, "MaxValue": 2500, "StackType": "More" }
+      }
+    }
+  ]
+}

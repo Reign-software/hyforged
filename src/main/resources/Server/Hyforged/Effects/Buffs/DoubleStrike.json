@@ -6,6 +6,6 @@
     "StatusEffectIcon": "UI/StatusEffects/DoubleDamage.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:double-damage-chance-bps", "StackType": "Flat", "Amount": 3500 }
+    { "StatId": "hyforged:chance-to-deal-double-damage-bps", "StackType": "Flat", "Amount": 3500 }
   ]
 }

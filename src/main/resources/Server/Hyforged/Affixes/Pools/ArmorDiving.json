@@ -1,0 +1,52 @@
+{
+  "Priority": 125,
+  "Description": "Affix pool for diving armor family",
+  "AppliesTo": {
+    "Categories": [],
+    "Tags": [
+      "Family=Diving"
+    ]
+  },
+  "Prefixes": [
+    "sturdy",
+    "hyforged:aegisbound",
+    "hyforged:bastioned",
+    "hyforged:hardened",
+    "hyforged:rugged",
+    "hyforged:siphoning",
+    "hyforged:warding",
+    "hyforged:regenerating",
+    "hyforged:swift",
+    "hyforged:quickened",
+    "hyforged:fireproof",
+    "hyforged:frozen",
+    "hyforged:insulated",
+    "hyforged:grounded",
+    "hyforged:sanctified"
+  ],
+  "Suffixes": [
+    "hyforged:of-fortification",
+    "hyforged:of-the-rampart",
+    "hyforged:of-safeguarding",
+    "hyforged:of-endurance",
+    "hyforged:of-vitality",
+    "hyforged:of-regeneration",
+    "hyforged:of-the-ox",
+    "hyforged:of-the-spirit",
+    "hyforged:of-the-serpent",
+    "hyforged:of-the-leech",
+    "hyforged:of-the-fortress",
+    "hyforged:of-the-wind"
+  ],
+  "Forged": [
+    "hyforged:corrupted-aegis",
+    "hyforged:corrupted-bulwark",
+    "hyforged:corrupted-vitality",
+    "hyforged:corrupted-regeneration",
+    "hyforged:corrupted-swiftness",
+    "hyforged:corrupted-ward-fire",
+    "hyforged:corrupted-ward-cold",
+    "hyforged:corrupted-ward-lightning",
+    "hyforged:corrupted-ward-chaos"
+  ]
+}

@@ -7,6 +7,6 @@
   },
   "HyforgedModifiers": [
     { "StatId": "hyforged:damage-taken-bps", "StackType": "Increased", "Amount": 2500 },
-    { "StatId": "hyforged:stun-threshold-flat", "StackType": "Increased", "Amount": -2000 }
+    { "StatId": "hyforged:stun-threshold-bps", "StackType": "Increased", "Amount": -2000 }
   ]
 }

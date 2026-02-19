@@ -1,0 +1,33 @@
+{
+  "Id": "hyforged:npc_bulwark",
+  "Type": "npc",
+  "DisplayName": "Bulwark",
+  "Description": "Improved block chance",
+  "Weight": 75,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 1,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:block-chance-bps": { "MinValue": 180, "MaxValue": 320, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 25,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:block-chance-bps": { "MinValue": 320, "MaxValue": 600, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 50,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:block-chance-bps": { "MinValue": 600, "MaxValue": 1000, "StackType": "Flat" }
+      }
+    }
+  ]
+}

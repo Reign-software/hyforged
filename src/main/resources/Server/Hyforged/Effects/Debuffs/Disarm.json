@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Disarm.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:attack-power-flat", "StackType": "Increased", "Amount": -5000 },
+    { "StatId": "hyforged:attack-power", "StackType": "Increased", "Amount": -5000 },
     { "StatId": "hyforged:melee-damage-increased-bps", "StackType": "Increased", "Amount": -4000 }
   ]
 }

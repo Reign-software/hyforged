@@ -41,22 +41,22 @@ import com.hypixel.hytale.logger.HytaleLogger;
  * already been committed (it was queued first by HyforgedMonsterScalingSystem), so
  * both level and quality data are readable.
  * <p>
- * Nameplate format: {@code {Prefix} Name {Suffix} Lv.X} or {@code [Quality] {Prefix} Name {Suffix} Lv.X}
+ * Nameplate format: {@code {Quality} Name Lv.X - AffixOne, AffixTwo}
  * <p>
  * Quality is shown in brackets for non-Common tiers. Common mobs show no quality tag.
  * <p>
  * Examples:
  * <ul>
  *   <li>{@code Skeleton Lv.5} (Common — no tag)</li>
- *   <li>{@code [Uncommon] Skeleton Lv.8}</li>
- *   <li>{@code [Rare] Burning Skeleton Lv.15}</li>
- *   <li>{@code [Epic] Burning Skeleton of Thunder Lv.22}</li>
- *   <li>{@code [Legendary] Blazing Skeleton of Destruction Lv.30}</li>
+ *   <li>{@code Rare Skeleton Lv.15}</li>
+ *   <li>{@code Rare Skeleton Lv.15 - Armored, Regenerating}</li>
+ *   <li>{@code Legendary Skeleton Lv.30 - Vortex, Undying, Soul Linked}</li>
  * </ul>
  */
 public class NPCNameplateSystem extends RefChangeSystem<EntityStore, HyforgedNPCQualityComponent> {
 
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
+     private static final String NAMEPLATE_AFFIX_SEPARATOR = " - ";
 
     @Nonnull
     private final ComponentType<EntityStore, HyforgedNPCQualityComponent> qualityComponentType;
@@ -222,9 +222,9 @@ public class NPCNameplateSystem extends RefChangeSystem<EntityStore, HyforgedNPC
     }
 
     /**
-     * Build the full nameplate text string.
-     * <p>
-     * Format: {@code [Quality] {Prefix} Name {Suffix} Lv.X}
+    * Build the full nameplate text string.
+    * <p>
+    * Format: {@code {Quality} Name Lv.X - AffixOne, AffixTwo, ...}
      *
      * @param qualityId the NPC's quality tier (e.g., "Common", "Rare", "Epic"), or null for none
      * @param baseName  the base NPC name
@@ -239,45 +239,37 @@ public class NPCNameplateSystem extends RefChangeSystem<EntityStore, HyforgedNPC
             @Nonnull List<RolledAffix> affixes,
             int level
     ) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder primaryLine = new StringBuilder();
 
         // Quality tag
         if (qualityId != null && !qualityId.isBlank()) {
-            sb.append(capitalizeFirst(qualityId)).append(" ");
-        }
-
-        // Affix prefix(es) - affixes with type "prefix"
-        String prefixText = resolveAffixDisplayNames(affixes, "prefix");
-        if (!prefixText.isEmpty()) {
-            sb.append(prefixText).append(' ');
+            primaryLine.append(capitalizeFirst(qualityId)).append(" ");
         }
 
         // Base name
-        sb.append(baseName);
-
-        // Affix suffix(es) - affixes with type "suffix"
-        String suffixText = resolveAffixDisplayNames(affixes, "suffix");
-        if (!suffixText.isEmpty()) {
-            sb.append(' ').append(suffixText);
-        }
+        primaryLine.append(baseName);
 
         // Level
         if (level > 0) {
-            sb.append(" Lv.").append(level);
+            primaryLine.append(" Lv.").append(level);
         }
 
-        return sb.toString();
+        String affixLine = resolveAffixDisplayNames(affixes);
+        if (affixLine.isEmpty()) {
+            return primaryLine.toString();
+        }
+
+        return primaryLine.append(NAMEPLATE_AFFIX_SEPARATOR).append(affixLine).toString();
     }
 
     /**
-     * Resolve display names for affixes of a given type.
+     * Resolve display names for all rolled affixes.
      *
      * @param affixes the rolled affixes
-     * @param type    "prefix" or "suffix"
-     * @return space-separated display names, or empty string
+     * @return comma-separated display names, or empty string
      */
     @Nonnull
-    private static String resolveAffixDisplayNames(@Nonnull List<RolledAffix> affixes, @Nonnull String type) {
+    private static String resolveAffixDisplayNames(@Nonnull List<RolledAffix> affixes) {
         if (affixes.isEmpty()) {
             return "";
         }
@@ -286,10 +278,6 @@ public class NPCNameplateSystem extends RefChangeSystem<EntityStore, HyforgedNPC
         StringBuilder sb = new StringBuilder();
 
         for (RolledAffix affix : affixes) {
-            if (!type.equalsIgnoreCase(affix.type())) {
-                continue;
-            }
-
             AffixDefinition definition = registry.get(affix.affixId());
             if (definition == null) {
                 continue;
@@ -301,7 +289,7 @@ public class NPCNameplateSystem extends RefChangeSystem<EntityStore, HyforgedNPC
             }
 
             if (!sb.isEmpty()) {
-                sb.append(' ');
+                sb.append(", ");
             }
             sb.append(displayName);
         }

@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:npc_lucky_strike",
+  "Type": "npc_rare",
+  "DisplayName": "Lucky Strike",
+  "Description": "Luck amplifies critical chance",
+  "Weight": 58,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 10,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:luck": { "MinValue": 16, "MaxValue": 28, "StackType": "Flat" },
+        "hyforged:crit-chance-bps": { "MinValue": 450, "MaxValue": 900, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 35,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:luck": { "MinValue": 28, "MaxValue": 45, "StackType": "Flat" },
+        "hyforged:crit-chance-bps": { "MinValue": 900, "MaxValue": 1600, "StackType": "Flat" }
+      }
+    }
+  ]
+}

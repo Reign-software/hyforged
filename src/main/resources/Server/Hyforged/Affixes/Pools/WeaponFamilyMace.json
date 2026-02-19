@@ -1,0 +1,54 @@
+{
+    "Priority": 300,
+    "Description": "Mace-family weapon affix pool",
+    "AppliesTo": {
+        "Categories": [],
+        "Tags": [
+            "Family=Mace"
+        ]
+    },
+    "Prefixes": [
+        "hyforged:heavy",
+        "hyforged:brutish",
+        "hyforged:blocking",
+        "hyforged:hardened",
+        "hyforged:armored",
+        "hyforged:stalwart",
+        "hyforged:rugged",
+        "hyforged:tenacious",
+        "hyforged:vicious",
+        "hyforged:fortunate",
+        "hyforged:spirited",
+        "hyforged:of-clarity",
+        "hyforged:of-resolve",
+        "hyforged:steadfast"
+    ],
+    "Suffixes": [
+        "of-the-bear",
+        "hyforged:of-the-warrior",
+        "hyforged:of-the-fortress",
+        "hyforged:of-the-champion",
+        "hyforged:of-vitality",
+        "hyforged:of-endurance",
+        "hyforged:of-devastation",
+        "hyforged:of-the-ox",
+        "hyforged:of-the-spirit",
+        "hyforged:of-the-serpent",
+        "hyforged:of-conviction",
+        "hyforged:of-tenacity"
+    ],
+    "Forged": [
+        "hyforged:corrupted-fury",
+        "hyforged:corrupted-might",
+        "hyforged:corrupted-fortress",
+        "hyforged:corrupted-vitality",
+        "hyforged:corrupted-ward-fire",
+        "hyforged:corrupted-ward-cold",
+        "hyforged:corrupted-ward-lightning",
+        "hyforged:corrupted-fortune",
+        "hyforged:corrupted-spirit",
+        "hyforged:corrupted-tenacity",
+        "hyforged:mental-bastion",
+        "hyforged:unshakeable-focus"
+    ]
+}

@@ -7,6 +7,6 @@
   },
   "HyforgedModifiers": [
     { "StatId": "hyforged:max-health-flat", "StackType": "Increased", "Amount": 3000 },
-    { "StatId": "hyforged:health-regen-bps", "StackType": "Increased", "Amount": 5000 }
+    { "StatId": "hyforged:health-regen-percent-bps", "StackType": "Increased", "Amount": 5000 }
   ]
 }

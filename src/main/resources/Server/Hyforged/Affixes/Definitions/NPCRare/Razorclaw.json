@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:npc_razorclaw",
+  "Type": "npc_rare",
+  "DisplayName": "Razorclaw",
+  "Description": "High critical lethality",
+  "Weight": 68,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 10,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:crit-chance-bps": { "MinValue": 450, "MaxValue": 900, "StackType": "Flat" },
+        "hyforged:crit-multiplier-bps": { "MinValue": 1200, "MaxValue": 2000, "StackType": "More" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 35,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:crit-chance-bps": { "MinValue": 900, "MaxValue": 1600, "StackType": "Flat" },
+        "hyforged:crit-multiplier-bps": { "MinValue": 2000, "MaxValue": 3200, "StackType": "More" }
+      }
+    }
+  ]
+}

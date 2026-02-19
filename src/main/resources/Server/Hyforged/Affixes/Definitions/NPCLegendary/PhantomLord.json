@@ -1,0 +1,19 @@
+{
+  "Id": "hyforged:npc_phantom_lord",
+  "Type": "npc_legendary",
+  "DisplayName": "Phantom Lord",
+  "Description": "Extreme evasiveness and precision",
+  "Weight": 46,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 40,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:evasion-bps": { "MinValue": 2200, "MaxValue": 3600, "StackType": "More" },
+        "hyforged:dodge-chance-bps": { "MinValue": 700, "MaxValue": 1200, "StackType": "Flat" },
+        "hyforged:crit-chance-bps": { "MinValue": 700, "MaxValue": 1200, "StackType": "Flat" }
+      }
+    }
+  ]
+}

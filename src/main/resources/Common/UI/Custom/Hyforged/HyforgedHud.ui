@@ -143,34 +143,39 @@ Group #HyforgedHud {
         }
     }
 
-    // === Item Affix Tooltip (compact popup just above XP bar, right side) ===
+    // === Item Affix Tooltip (compact popup just above XP bar, left aligned) ===
     // Appears briefly when switching to an item with affixes, then auto-hides.
     // Height is set dynamically by the server to fit content exactly.
-    // Positioned so its bottom-right sits just above the right end of the XP bar.
+    // Positioned so its left edge aligns with the left side of the XP bar.
     Group #ItemAffixes {
         Visible: false;
-        Anchor: (Bottom: 224, Left: 0, Right: 0, Width: 280, Height: 50);
-        LayoutMode: Top;
-        Padding: (Horizontal: 8, Vertical: 6);
-        Background: PatchStyle(Color: #0e1218(0.92));
+        Anchor: (Bottom: 224, Width: 702, Height: 50);
 
-        // Item name header
-        Label #AffixItemName {
-            Text: "";
-            Style: (FontSize: 13, RenderBold: true, TextColor: #bca57a, Wrap: true);
-        }
-
-        // Separator line
-        Group #AffixSeparator {
-            Anchor: (Height: 1, Left: 0, Right: 0, Top: 2);
-            Background: (Color: #25262c);
-        }
-
-        // Container for dynamically appended affix lines.
-        // Cleared and repopulated by the server based on held item data.
-        Group #AffixLinesContainer {
+        Group #AffixPanel {
             LayoutMode: Top;
+            Anchor: (Left: 0, Width: 500, Top: 0, Bottom: 0);
+            Padding: (Horizontal: 10, Vertical: 8);
+            Background: PatchStyle(Color: #0e1218(0.92));
+
+            // Item name header
+            Label #AffixItemName {
+                Text: "";
+                Style: (FontSize: 16, RenderBold: true, TextColor: #bca57a, Wrap: true);
+            }
+
+            // Separator line
+            Group #AffixSeparator {
+                Anchor: (Height: 1, Left: 0, Right: 0, Top: 2);
+                Background: (Color: #25262c);
+            }
+
+            // Container for dynamically appended affix lines.
+            // Cleared and repopulated by the server based on held item data.
+            Group #AffixLinesContainer {
+                LayoutMode: Top;
+            }
         }
+
     }
 
     // === Progression Section (Character Level, Class, EXP Bars) ===

@@ -1,0 +1,33 @@
+{
+  "Id": "hyforged:npc_lucky",
+  "Type": "npc",
+  "DisplayName": "Lucky",
+  "Description": "Improved luck",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 1,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:luck": { "MinValue": 6, "MaxValue": 14, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 25,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:luck": { "MinValue": 14, "MaxValue": 24, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 50,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:luck": { "MinValue": 24, "MaxValue": 38, "StackType": "Flat" }
+      }
+    }
+  ]
+}

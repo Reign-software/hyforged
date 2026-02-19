@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:npc_titanblood",
+  "Type": "npc_rare",
+  "DisplayName": "Titanblood",
+  "Description": "Constitution and vitality surge",
+  "Weight": 62,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 10,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:constitution": { "MinValue": 16, "MaxValue": 30, "StackType": "Flat" },
+        "hyforged:max-health-flat": { "MinValue": 1200, "MaxValue": 2200, "StackType": "More" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 35,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:constitution": { "MinValue": 30, "MaxValue": 50, "StackType": "Flat" },
+        "hyforged:max-health-flat": { "MinValue": 2200, "MaxValue": 3600, "StackType": "More" }
+      }
+    }
+  ]
+}

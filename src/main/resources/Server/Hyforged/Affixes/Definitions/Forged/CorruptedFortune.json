@@ -1,0 +1,35 @@
+{
+  "Id": "hyforged:corrupted-fortune",
+  "Type": "forged",
+  "DisplayName": "Corrupted Fortune",
+  "Weight": 25,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 75,
+      "Weight": 30,
+      "Stats": {
+        "hyforged:luck": { "MinValue": 60, "MaxValue": 75, "StackType": "Flat" },
+        "hyforged:crit-chance-bps": { "MinValue": 450, "MaxValue": 650, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 55,
+      "Weight": 55,
+      "Stats": {
+        "hyforged:luck": { "MinValue": 45, "MaxValue": 60, "StackType": "Flat" },
+        "hyforged:crit-chance-bps": { "MinValue": 350, "MaxValue": 450, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 35,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:luck": { "MinValue": 30, "MaxValue": 45, "StackType": "Flat" },
+        "hyforged:crit-chance-bps": { "MinValue": 250, "MaxValue": 350, "StackType": "Flat" }
+      }
+    }
+  ]
+}

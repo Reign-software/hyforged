@@ -296,10 +296,13 @@ public class XPAwardOnKillSystem extends DeathSystems.OnDeathSystem {
      */
     @Nonnull
     private static String stripNameplateDecorations(@Nonnull String nameplate) {
+        String primaryLine = nameplate.split("\\R", 2)[0].trim();
+        primaryLine = primaryLine.replaceAll("(\\s+Lv\\.\\d+).*$", "$1");
+
         // Strip trailing " Lv.\d+"
-        String stripped = nameplate.replaceAll("\\s+Lv\\.\\d+$", "");
+        String stripped = primaryLine.replaceAll("\\s+Lv\\.\\d+$", "");
         // Strip leading quality tag (e.g. "Rare ", "Epic ", or bracket format "[Rare] ")
         stripped = stripped.replaceAll("^\\[\\w+]\\s*", "");
-        return stripped.isEmpty() ? nameplate : stripped;
+        return stripped.isEmpty() ? primaryLine : stripped;
     }
 }

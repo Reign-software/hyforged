@@ -1,10 +1,67 @@
 {
-  "Priority": 10,
-  "AppliesTo": {
-    "Categories": ["Items.Weapons"],
-    "Tags": ["Type:Weapon"]
-  },
-  "Prefixes": ["sharp", "hyforged:of-clarity", "hyforged:of-resolve", "hyforged:steadfast"],
-  "Suffixes": ["of-the-bear"],
-  "Forged": ["hyforged:mental-bastion", "hyforged:unshakeable-focus"]
+    "Priority": 100,
+    "Description": "Fallback weapon affix pool for weapons without a specific family pool",
+    "AppliesTo": {
+        "Categories": [
+            "Items.Weapons"
+        ],
+        "Tags": [
+            "Type:Weapon"
+        ]
+    },
+    "Prefixes": [
+        "sharp",
+        "hyforged:vicious",
+        "hyforged:deadly",
+        "hyforged:precise",
+        "hyforged:ruthless",
+        "hyforged:cruel",
+        "hyforged:swift",
+        "hyforged:fervent",
+        "hyforged:heavy",
+        "hyforged:hunters",
+        "hyforged:arcane",
+        "hyforged:penetrating",
+        "hyforged:siphoning",
+        "hyforged:mana-siphoning",
+        "hyforged:rugged",
+        "hyforged:tenacious",
+        "hyforged:fortunate",
+        "hyforged:spirited",
+        "hyforged:of-clarity",
+        "hyforged:of-resolve",
+        "hyforged:steadfast"
+    ],
+    "Suffixes": [
+        "of-the-bear",
+        "hyforged:of-accuracy",
+        "hyforged:of-devastation",
+        "hyforged:of-slaying",
+        "hyforged:of-vitality",
+        "hyforged:of-the-wind",
+        "hyforged:of-the-leech",
+        "hyforged:of-the-spirit",
+        "hyforged:of-the-serpent",
+        "hyforged:of-the-ox",
+        "hyforged:of-the-magi",
+        "hyforged:of-the-void",
+        "hyforged:of-fortune",
+        "hyforged:of-conviction",
+        "hyforged:of-tenacity"
+    ],
+    "Forged": [
+        "hyforged:mental-bastion",
+        "hyforged:unshakeable-focus",
+        "hyforged:corrupted-precision",
+        "hyforged:corrupted-devastation",
+        "hyforged:corrupted-vampirism",
+        "hyforged:corrupted-siphon",
+        "hyforged:corrupted-ward-fire",
+        "hyforged:corrupted-ward-cold",
+        "hyforged:corrupted-ward-lightning",
+        "hyforged:corrupted-ward-chaos",
+        "hyforged:corrupted-fortune",
+        "hyforged:corrupted-spirit",
+        "hyforged:corrupted-tenacity"
+    ]
 }

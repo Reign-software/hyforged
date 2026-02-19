@@ -7,7 +7,7 @@
   },
   "HyforgedModifiers": [
     { "StatId": "hyforged:melee-damage-increased-bps", "StackType": "Increased", "Amount": 3000 },
-    { "StatId": "hyforged:attack-power-flat", "StackType": "Flat", "Amount": 40 },
+    { "StatId": "hyforged:attack-power", "StackType": "Flat", "Amount": 40 },
     { "StatId": "hyforged:stun-duration-bps", "StackType": "Increased", "Amount": 2000 }
   ]
 }

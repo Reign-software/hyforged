@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:npc_iron_wall",
+  "Type": "npc_rare",
+  "DisplayName": "Iron Wall",
+  "Description": "Heavy armor and stronger blocking",
+  "Weight": 65,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 10,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 300, "MaxValue": 550, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 220, "MaxValue": 420, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 35,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 550, "MaxValue": 900, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 420, "MaxValue": 750, "StackType": "Flat" }
+      }
+    }
+  ]
+}

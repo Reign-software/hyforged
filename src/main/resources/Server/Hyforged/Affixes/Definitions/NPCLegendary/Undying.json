@@ -10,7 +10,7 @@
       "ItemLevelReq": 40,
       "Weight": 100,
       "Stats": {
-        "hyforged:max-health-bps": { "MinValue": 2000, "MaxValue": 3000, "StackType": "More" }
+        "hyforged:max-health-flat": { "MinValue": 2000, "MaxValue": 3000, "StackType": "More" }
       }
     }
   ],

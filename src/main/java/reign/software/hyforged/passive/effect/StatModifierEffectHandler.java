@@ -5,11 +5,13 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import reign.software.hyforged.passive.model.PassiveNode;
 import reign.software.hyforged.passive.model.PassiveNodeEffect;
+import reign.software.hyforged.stats.StatDefinition;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.logging.Level;
 
 import com.hypixel.hytale.logger.HytaleLogger;
@@ -43,6 +45,9 @@ public final class StatModifierEffectHandler implements PassiveEffectHandler {
      */
     public static final String EFFECT_TYPE = "stat-modifier";
 
+    /** Prefix for expanded stat tags that indicate this stat should apply to another target tag. */
+    private static final String APPLIES_TO_TAG_PREFIX = "AppliesTo=";
+
     private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
 
     /**
@@ -74,21 +79,42 @@ public final class StatModifierEffectHandler implements PassiveEffectHandler {
         String stackTypeStr = effect.getString("StackType");
         HyforgedModifier.StackType stackType = parseStackType(stackTypeStr);
 
+        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
+
         // Resolve stat index
-        int statIndex = StatDefinitionRegistry.get().getIndex(statId);
+        int statIndex = registry.getIndex(statId);
         if (statIndex < 0) {
             LOGGER.atWarning().log("Unknown stat ID: %s in passive node: %s", statId, node.id());
             return;
         }
 
+        StatDefinition definition = registry.getStat(statId);
+
         // Create modifier with source = node ID for tracking
-        HyforgedModifier modifier = HyforgedModifier.builder()
+        HyforgedModifier.Builder modifierBuilder = HyforgedModifier.builder()
                 .stackType(stackType)
                 .amount(value)
                 .sourceType(HyforgedModifier.SourceType.PASSIVE)
-                .sourceId(node.id())
-                .targetStat(statIndex)
-                .build();
+                .sourceId(node.id());
+
+        String appliesToTag = resolveAppliesToTag(definition);
+        if (appliesToTag != null && !appliesToTag.isBlank()) {
+            int tagIndex = registry.getTagIndex(appliesToTag);
+            if (tagIndex != Integer.MIN_VALUE) {
+                modifierBuilder.targetTag(tagIndex);
+            } else {
+                LOGGER.atWarning().log(
+                        "Unknown AppliesTo tag '%s' on stat %s; falling back to direct stat target",
+                        appliesToTag,
+                        statId
+                );
+                modifierBuilder.targetStat(statIndex);
+            }
+        } else {
+            modifierBuilder.targetStat(statIndex);
+        }
+
+        HyforgedModifier modifier = modifierBuilder.build();
 
         if (statComponent.addModifier(modifier)) {
             LOGGER.at(Level.FINE).log("Applied stat modifier: %s = %s (%s) from node %s", statId, value, stackType, node.id());
@@ -158,5 +184,20 @@ public final class StatModifierEffectHandler implements PassiveEffectHandler {
             LOGGER.atWarning().log("Unknown StackType: %s, defaulting to FLAT", stackTypeStr);
             return HyforgedModifier.StackType.FLAT;
         }
+    }
+
+    @Nullable
+    private String resolveAppliesToTag(@Nullable StatDefinition definition) {
+        if (definition == null || definition.tags().isEmpty()) {
+            return null;
+        }
+
+        for (String tag : definition.tags()) {
+            if (tag != null && tag.startsWith(APPLIES_TO_TAG_PREFIX) && tag.length() > APPLIES_TO_TAG_PREFIX.length()) {
+                return tag.substring(APPLIES_TO_TAG_PREFIX.length());
+            }
+        }
+
+        return null;
     }
 }

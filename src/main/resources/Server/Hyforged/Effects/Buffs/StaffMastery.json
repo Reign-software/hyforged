@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Staff.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:staff-skill-levels-flat", "StackType": "Flat", "Amount": 3 },
+    { "StatId": "hyforged:staff-skill-levels", "StackType": "Flat", "Amount": 3 },
     { "StatId": "hyforged:spell-damage-increased-bps", "StackType": "Increased", "Amount": 2000 }
   ]
 }

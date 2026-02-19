@@ -63,6 +63,9 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
     // Layout constants matching HyUI version
     private static final float COORD_SCALE = 1.5f;  // Scale tree coords to pixels
     private static final int VIEWPORT_WIDTH = 900;  // Fixed tree area width in pixels
+    private static final int TOOLTIP_WIDTH = 320;
+    private static final int TOOLTIP_LINE_HEIGHT = 16;
+    private static final int TOOLTIP_PADDING = 12;
     
     /** The tree being viewed (null for general tree) */
     @Nullable
@@ -854,30 +857,35 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
         String status = isAllocated ? "ALLOCATED" : (canAllocate ? "AVAILABLE" : "LOCKED");
         String statusColor = isAllocated ? "#4CAF50" : (canAllocate ? "#4CAF50" : "#666666");
         String descText = node.description() != null ? node.description() : "";
+        String nameTextUi = escapeUiText(nameText);
+        String typeTextUi = escapeUiText(typeText);
+        String statusUi = escapeUiText(status);
+        String descTextUi = escapeUiText(descText);
         
         List<String> effectLines = new ArrayList<>();
         for (PassiveNodeEffect effect : node.effects()) {
-            effectLines.add(formatEffectText(effect));
+            effectLines.add(escapeUiText(formatEffectText(effect)));
         }
         
         String actionHint = isAllocated ? "Click to refund" : (canAllocate ? "Click to allocate" : "Locked");
+        String actionHintUi = escapeUiText(actionHint);
         
         // Compute tooltip height based on content
-        int tooltipWidth = 220;
-        int lineHeight = 14;
-        int padding = 10;
+        int tooltipWidth = TOOLTIP_WIDTH;
+        int lineHeight = TOOLTIP_LINE_HEIGHT;
+        int padding = TOOLTIP_PADDING;
         int height = padding * 2;  // top + bottom padding
-        height += 18;              // name
+        height += 20;              // name
         height += 4 + lineHeight;  // type + spacing
-        height += 4 + 13;         // status + spacing
-        if (!descText.isEmpty()) {
-            int descLines = Math.max(1, (descText.length() * 10) / (tooltipWidth - padding * 2) + 1);
+        height += 4 + lineHeight;  // status + spacing
+        if (!descTextUi.isEmpty()) {
+            int descLines = estimateWrappedLineCount(descText, tooltipWidth - padding * 2);
             height += 6 + descLines * lineHeight;  // description + spacing
         }
         if (!effectLines.isEmpty()) {
             height += 6 + effectLines.size() * lineHeight;  // effects + spacing
         }
-        height += 8 + 13;  // action hint + spacing
+        height += 8 + lineHeight;  // action hint + spacing
         
         // Position tooltip near the hovered node
         int tooltipX = 10;
@@ -894,6 +902,9 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
             if (tooltipX + tooltipWidth > VIEWPORT_WIDTH - 10) {
                 tooltipX = nodeScreenX - nodeSize / 2 - tooltipWidth - 8;
             }
+            if (tooltipX < 5) {
+                tooltipX = 5;
+            }
             // Clamp vertical position
             if (tooltipY < 5) tooltipY = 5;
         }
@@ -907,31 +918,31 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
         ));
         sb.append(String.format(
             "Label { Text: \"%s\"; Style: (FontSize: 14, RenderBold: true); } ",
-            nameText.replace("\"", "\\\"")
+            nameTextUi
         ));
         sb.append(String.format(
             "Label { Text: \"%s\"; Style: (FontSize: 10, TextColor: #c0a040); Padding: (Top: 4); } ",
-            typeText
+            typeTextUi
         ));
         sb.append(String.format(
             "Label { Text: \"%s\"; Style: (FontSize: 9, TextColor: %s); Padding: (Top: 4); } ",
-            status, statusColor
+            statusUi, statusColor
         ));
-        if (!descText.isEmpty()) {
+        if (!descTextUi.isEmpty()) {
             sb.append(String.format(
                 "Label { Text: \"%s\"; Style: (FontSize: 10, TextColor: #aaaaaa); Padding: (Top: 6); } ",
-                descText.replace("\"", "\\\"")
+                descTextUi
             ));
         }
         for (String effectLine : effectLines) {
             sb.append(String.format(
                 "Label { Text: \"%s\"; Style: (FontSize: 10); Padding: (Top: 2); } ",
-                ("  " + effectLine).replace("\"", "\\\"")
+                "  " + effectLine
             ));
         }
         sb.append(String.format(
-            "Label { Text: \"%s\"; Style: (FontSize: 9, TextColor: #666666); Padding: (Top: 8); } ",
-            actionHint
+            "Label { Text: \"%s\"; Style: (FontSize: 10, TextColor: #666666); Padding: (Top: 8); } ",
+            actionHintUi
         ));
         sb.append("}");
         
@@ -1025,6 +1036,34 @@ public class PassiveTreePage extends InteractiveCustomUIPage<PassiveTreePage.Pag
                    .replace("-", " ")
                    .replaceAll("([a-z])([A-Z])", "$1 $2")
                    .trim();
+    }
+
+    private int estimateWrappedLineCount(@Nonnull String text, int contentWidth) {
+        int charsPerLine = Math.max(18, contentWidth / 7);
+        int totalLines = 0;
+
+        String[] explicitLines = text.split("\\n");
+        for (String explicitLine : explicitLines) {
+            int length = explicitLine != null ? explicitLine.length() : 0;
+            totalLines += Math.max(1, (length + charsPerLine - 1) / charsPerLine);
+        }
+
+        return Math.max(1, totalLines);
+    }
+
+    @Nonnull
+    private String escapeUiText(@Nullable String text) {
+        if (text == null || text.isEmpty()) {
+            return "";
+        }
+
+        return text
+                .replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\r\n", " ")
+                .replace("\n", " ")
+                .replace("\r", " ")
+                .replace("\t", " ");
     }
     
     // ========== PAGE EVENT DATA ==========

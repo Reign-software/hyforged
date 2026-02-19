@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:npc_aegis",
+  "Type": "npc_rare",
+  "DisplayName": "Aegis",
+  "Description": "Balanced defensive reinforcement",
+  "Weight": 60,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 10,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:block-chance-bps": { "MinValue": 260, "MaxValue": 500, "StackType": "Flat" },
+        "hyforged:physical-resistance-bps": { "MinValue": 400, "MaxValue": 900, "StackType": "More" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 35,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:block-chance-bps": { "MinValue": 500, "MaxValue": 850, "StackType": "Flat" },
+        "hyforged:physical-resistance-bps": { "MinValue": 900, "MaxValue": 1600, "StackType": "More" }
+      }
+    }
+  ]
+}

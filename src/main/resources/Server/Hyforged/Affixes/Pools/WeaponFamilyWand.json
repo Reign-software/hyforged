@@ -1,0 +1,58 @@
+{
+    "Priority": 300,
+    "Description": "Wand-family weapon affix pool",
+    "AppliesTo": {
+        "Categories": [],
+        "Tags": [
+            "Family=Wand"
+        ]
+    },
+    "Prefixes": [
+        "hyforged:arcane",
+        "hyforged:channelers",
+        "hyforged:quickened",
+        "hyforged:attuned",
+        "hyforged:deadly",
+        "hyforged:precise",
+        "hyforged:flaming",
+        "hyforged:frozen",
+        "hyforged:shocking",
+        "hyforged:spirited",
+        "hyforged:fortunate",
+        "hyforged:tenacious",
+        "hyforged:mana-siphoning",
+        "hyforged:of-clarity",
+        "hyforged:of-resolve",
+        "hyforged:steadfast"
+    ],
+    "Suffixes": [
+        "hyforged:of-sorcery",
+        "hyforged:of-the-archmage",
+        "hyforged:of-the-mind",
+        "hyforged:of-the-magi",
+        "hyforged:of-accuracy",
+        "hyforged:of-devastation",
+        "hyforged:of-flames",
+        "hyforged:of-ice",
+        "hyforged:of-storms",
+        "hyforged:of-the-spirit",
+        "hyforged:of-the-serpent",
+        "hyforged:of-fortune",
+        "hyforged:of-conviction"
+    ],
+    "Forged": [
+        "hyforged:corrupted-arcana",
+        "hyforged:corrupted-celerity",
+        "hyforged:corrupted-essence",
+        "hyforged:corrupted-intellect",
+        "hyforged:corrupted-inferno",
+        "hyforged:corrupted-glacier",
+        "hyforged:corrupted-tempest",
+        "hyforged:corrupted-void",
+        "hyforged:corrupted-fortune",
+        "hyforged:corrupted-spirit",
+        "hyforged:corrupted-tenacity",
+        "hyforged:mental-bastion",
+        "hyforged:unshakeable-focus"
+    ]
+}

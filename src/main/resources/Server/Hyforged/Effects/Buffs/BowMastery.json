@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Bow.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:bow-skill-levels-flat", "StackType": "Flat", "Amount": 3 },
+    { "StatId": "hyforged:bow-skill-levels", "StackType": "Flat", "Amount": 3 },
     { "StatId": "hyforged:projectile-damage-bps", "StackType": "Increased", "Amount": 2000 }
   ]
 }

@@ -1,4 +1,5 @@
 {
+  "Id": "Default",
   "Description": "Global default quality weights for equipment",
   "Weights": {
     "Common": 500,

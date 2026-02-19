@@ -204,6 +204,14 @@ service.registerType(enchantType);
 > ```
 > The `DisplayNamePosition` field exists for categorization (regular vs forged affixes)
 > but item names are NOT modified by affixes.
+>
+> Server bridge metadata keys:
+> - `Hyforged.AffixTooltipLines` (string array)
+> - `Hyforged.AffixTooltipSummary` (newline string)
+>
+> Native tooltip rendering is client-owned; client UI must read these keys to append Hyforged affix lines in the vanilla item tooltip.
+>
+> Hyforged's custom item panel also renders an aggregated `Hyforged Stats` section built from rolled affix values (combined by stat and stack type).
 
 ## Data Structures
 

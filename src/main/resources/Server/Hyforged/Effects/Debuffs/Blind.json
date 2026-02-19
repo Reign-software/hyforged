@@ -6,7 +6,6 @@
     "StatusEffectIcon": "UI/StatusEffects/Blind.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:accuracy-rating-bps", "StackType": "Increased", "Amount": -5000 },
     { "StatId": "hyforged:crit-chance-bps", "StackType": "Flat", "Amount": -2000 }
   ]
 }

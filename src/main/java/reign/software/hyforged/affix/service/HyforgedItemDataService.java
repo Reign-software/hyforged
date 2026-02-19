@@ -71,11 +71,13 @@ public final class HyforgedItemDataService {
      */
     @Nonnull
     public static ItemStack write(@Nonnull ItemStack itemStack, @Nonnull HyforgedItemData data) {
-        return itemStack.withMetadata(
+        ItemStack withHyforgedData = itemStack.withMetadata(
                 HyforgedItemData.METADATA_KEY,
                 HyforgedItemData.CODEC,
                 data.toAsset()
         );
+
+        return AffixTooltipMetadataBridge.writeFromItemData(withHyforgedData, data);
     }
     
     /**

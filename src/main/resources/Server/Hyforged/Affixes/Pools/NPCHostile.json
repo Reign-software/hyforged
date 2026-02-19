@@ -16,7 +16,15 @@
       "hyforged:npc_shockproof",
       "hyforged:npc_regenerating",
       "hyforged:npc_accurate",
-      "hyforged:npc_brutal"
+      "hyforged:npc_brutal",
+      "hyforged:npc_bulwark",
+      "hyforged:npc_nimble",
+      "hyforged:npc_skirmisher",
+      "hyforged:npc_leeching",
+      "hyforged:npc_fortified",
+      "hyforged:npc_lucky",
+      "hyforged:npc_spiritual",
+      "hyforged:npc_stalwart"
     ],
     "npc_rare": [
       "hyforged:npc_vampiric",
@@ -36,7 +44,17 @@
       "hyforged:npc_arcane_barrage",
       "hyforged:npc_cursing",
       "hyforged:npc_ground_slam",
-      "hyforged:npc_avenger"
+      "hyforged:npc_avenger",
+      "hyforged:npc_bloodthirsty",
+      "hyforged:npc_iron_wall",
+      "hyforged:npc_ghostwalk",
+      "hyforged:npc_lucky_strike",
+      "hyforged:npc_soulfueled",
+      "hyforged:npc_titanblood",
+      "hyforged:npc_razorclaw",
+      "hyforged:npc_predator",
+      "hyforged:npc_aegis",
+      "hyforged:npc_spirit_drain"
     ],
     "npc_legendary": [
       "hyforged:npc_soul_link",
@@ -48,7 +66,15 @@
       "hyforged:npc_illusionist",
       "hyforged:npc_vortex",
       "hyforged:npc_executioner",
-      "hyforged:npc_plaguebearer"
+      "hyforged:npc_plaguebearer",
+      "hyforged:npc_ravager",
+      "hyforged:npc_aegis_prime",
+      "hyforged:npc_phantom_lord",
+      "hyforged:npc_fateweaver",
+      "hyforged:npc_spirit_tyrant",
+      "hyforged:npc_blood_overlord",
+      "hyforged:npc_iron_colossus",
+      "hyforged:npc_void_hunter"
     ]
   }
 }

@@ -6,7 +6,7 @@
     "StatusEffectIcon": "UI/StatusEffects/Stagger.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:stun-threshold-flat", "StackType": "Increased", "Amount": -4000 },
+    { "StatId": "hyforged:stun-threshold-bps", "StackType": "Increased", "Amount": -4000 },
     { "StatId": "hyforged:stun-avoidance-bps", "StackType": "Flat", "Amount": -3000 }
   ]
 }

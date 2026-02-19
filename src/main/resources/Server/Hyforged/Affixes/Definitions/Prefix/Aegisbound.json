@@ -1,0 +1,62 @@
+{
+  "Id": "hyforged:aegisbound",
+  "Type": "prefix",
+  "DisplayName": "Aegisbound",
+  "Weight": 75,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 78,
+      "Weight": 28,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 260, "MaxValue": 320, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 180, "MaxValue": 240, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 62,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 200, "MaxValue": 260, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 130, "MaxValue": 180, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 48,
+      "Weight": 62,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 150, "MaxValue": 200, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 90, "MaxValue": 130, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 34,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 105, "MaxValue": 150, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 60, "MaxValue": 90, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 20,
+      "Weight": 98,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 65, "MaxValue": 105, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 30, "MaxValue": 60, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 8,
+      "Weight": 118,
+      "Stats": {
+        "hyforged:armor-rating": { "MinValue": 30, "MaxValue": 65, "StackType": "Flat" },
+        "hyforged:block-chance-bps": { "MinValue": 10, "MaxValue": 30, "StackType": "Flat" }
+      }
+    }
+  ]
+}

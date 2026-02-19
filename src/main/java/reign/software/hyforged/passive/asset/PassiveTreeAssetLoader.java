@@ -47,8 +47,11 @@ public final class PassiveTreeAssetLoader {
     /** Path for layout files */
     public static final String LAYOUTS_PATH = "Hyforged/PassiveTrees/layouts";
 
-    /** Path for visual/icon templates */
-    public static final String TEMPLATES_PATH = "Hyforged/PassiveTrees/templates";
+    /** Path for frame visual templates */
+    public static final String FRAME_TEMPLATES_PATH = "Hyforged/PassiveTrees/templates/frames";
+
+    /** Path for icon templates */
+    public static final String ICON_TEMPLATES_PATH = "Hyforged/PassiveTrees/templates/icons";
 
     /** Path for passive refund config */
     public static final String CONFIG_PATH = "Hyforged/Config/PassiveRefund";
@@ -227,14 +230,14 @@ public final class PassiveTreeAssetLoader {
                                                         NodeVisualTemplateAsset.class,
                                                         new IndexedLookupTableAssetMap<>(NodeVisualTemplateAsset[]::new)
                                                 )
-                                                        .setPath(TEMPLATES_PATH))
+                                                        .setPath(FRAME_TEMPLATES_PATH))
                                                 .setReplaceOnRemove(key -> new NodeVisualTemplateAsset()))
                                         .setCodec(NodeVisualTemplateAsset.CODEC))
                                 .setKeyFunction(asset -> "frame-templates"))  // Single config file
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.at(Level.FINE).log("Registered NodeVisualTemplateAsset store at path: %s", TEMPLATES_PATH);
+                                LOGGER.at(Level.FINE).log("Registered NodeVisualTemplateAsset store at path: %s", FRAME_TEMPLATES_PATH);
     }
 
     private static void registerIconTemplateAssetStore() {
@@ -247,14 +250,14 @@ public final class PassiveTreeAssetLoader {
                                                         NodeIconTemplateAsset.class,
                                                         new IndexedLookupTableAssetMap<>(NodeIconTemplateAsset[]::new)
                                                 )
-                                                        .setPath(TEMPLATES_PATH))
+                                                        .setPath(ICON_TEMPLATES_PATH))
                                                 .setReplaceOnRemove(key -> new NodeIconTemplateAsset()))
                                         .setCodec(NodeIconTemplateAsset.CODEC))
                                 .setKeyFunction(asset -> "icon-templates"))  // Single config file
                         .build();
 
         AssetRegistry.register(store);
-        LOGGER.at(Level.FINE).log("Registered NodeIconTemplateAsset store at path: %s", TEMPLATES_PATH);
+                                LOGGER.at(Level.FINE).log("Registered NodeIconTemplateAsset store at path: %s", ICON_TEMPLATES_PATH);
     }
 
     // ========== Event Handlers ==========

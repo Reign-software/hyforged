@@ -29,13 +29,18 @@ import reign.software.hyforged.stats.component.HyforgedStatComponent;
 import reign.software.hyforged.stats.engine.ScalingEngine;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 import reign.software.hyforged.passive.ui.PassiveTreePage;
+import reign.software.hyforged.util.MessageColors;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -90,7 +95,34 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
     
     /** Translation key for empty equipment slot */
     private static final String EMPTY_SLOT_TRANSLATION_KEY = "hyforged.characterStats.slot.empty";
-    
+
+    /** Maximum modifier source lines shown in the custom tooltip */
+    private static final int MAX_TOOLTIP_LINES = 8;
+
+    /** Maximum characters per modifier source line in the custom tooltip */
+    private static final int MAX_TOOLTIP_LINE_CHARS = 140;
+
+    /** Source ID prefix for class-level progression modifiers */
+    private static final String CLASS_LEVEL_SOURCE_PREFIX = "class-level:";
+
+    /** Source ID prefix for character-level progression modifiers */
+    private static final String CHARACTER_LEVEL_SOURCE_PREFIX = "character-level:";
+
+    /** UI action key for showing a modifier tooltip */
+    private static final String ACTION_SHOW_MODIFIER_TOOLTIP = "showModifierTooltip";
+
+    /** UI action key for hiding a modifier tooltip */
+    private static final String ACTION_HIDE_MODIFIER_TOOLTIP = "hideModifierTooltip";
+
+    /** Selector of the currently visible modifier tooltip row */
+    @Nullable
+    private String activeModifierTooltipTarget;
+
+    /** Prebuilt modifier tooltip text by row selector. */
+    @Nonnull
+    private final Map<String, Message> modifierTooltipByRowSelector = new HashMap<>();
+
+
     /**
      * Create a new CharacterStatsPage for a player.
      *
@@ -107,7 +139,10 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
             @Nonnull UIEventBuilder eventBuilder,
             @Nonnull Store<EntityStore> store
     ) {
+        this.activeModifierTooltipTarget = null;
+        this.modifierTooltipByRowSelector.clear();
         commandBuilder.append(PAGE_UI_FILE);
+        commandBuilder.set("#ModifierTooltip.Visible", false);
         
         // Set localized title
         commandBuilder.set("#Title.TextSpans", Message.translation(TITLE_TRANSLATION_KEY));
@@ -117,39 +152,41 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
         commandBuilder.set("#ColBase.TextSpans", Message.translation(HEADER_TRANSLATION_PREFIX + "base"));
         commandBuilder.set("#ColMod.TextSpans", Message.translation(HEADER_TRANSLATION_PREFIX + "modifier"));
         commandBuilder.set("#ColTotal.TextSpans", Message.translation(HEADER_TRANSLATION_PREFIX + "effective"));
+
+        // Add footer button events first to ensure they are preserved even with many row bindings
+        bindFooterButtons(eventBuilder);
         
         // Get the stat component for this entity
         HyforgedStatComponent statComponent = getStatComponent(ref, store);
         EntityStatMap statMap = StatAccessor.getStatMap(store, ref);
         
         // Build stat categories dynamically
-        buildStatCategories(commandBuilder, statComponent, statMap);
+        buildStatCategories(commandBuilder, eventBuilder, statComponent, statMap);
         
         // Build equipment affix summary
         buildEquipmentSummary(commandBuilder, ref, store);
-        
-        // Add close button event
+    }
+
+        private void bindFooterButtons(@Nonnull UIEventBuilder eventBuilder) {
         eventBuilder.addEventBinding(
-                CustomUIEventBindingType.Activating,
-                "#CloseButton",
-                EventData.of("Action", "close"),
-                false
+            CustomUIEventBindingType.Activating,
+            "#CloseButton",
+            EventData.of("Action", "close"),
+            false
         );
-        
-        // Add refresh button event
+
         eventBuilder.addEventBinding(
-                CustomUIEventBindingType.Activating,
-                "#RefreshButton",
-                EventData.of("Action", "refresh"),
-                false
+            CustomUIEventBindingType.Activating,
+            "#RefreshButton",
+            EventData.of("Action", "refresh"),
+            false
         );
-        
-        // Add passive tree button event
+
         eventBuilder.addEventBinding(
-                CustomUIEventBindingType.Activating,
-                "#PassiveTreeButton",
-                EventData.of("Action", "openPassiveTree"),
-                false
+            CustomUIEventBindingType.Activating,
+            "#PassiveTreeButton",
+            EventData.of("Action", "openPassiveTree"),
+            false
         );
     }
     
@@ -177,6 +214,7 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
      */
     private void buildStatCategories(
             UICommandBuilder commandBuilder,
+            UIEventBuilder eventBuilder,
             @Nullable HyforgedStatComponent statComponent,
             @Nullable EntityStatMap statMap
     ) {
@@ -203,8 +241,8 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
             int modifierTotal = effectiveValue - baseValue;
             
             List<ModifierBreakdown> breakdown = new ArrayList<>();
-            if (statMap != null) {
-                breakdown = getModifierBreakdown(statMap, i);
+            if (statComponent != null || statMap != null) {
+                breakdown = getModifierBreakdown(statComponent, statMap, i, registry);
             }
             
             StatEntry entry = new StatEntry(statDef, i, baseValue, effectiveValue, modifierTotal, breakdown);
@@ -249,7 +287,7 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
                     e -> e.definition().displayName(), String.CASE_INSENSITIVE_ORDER));
             
             // Build the category group from template files
-            elementIndex = buildCategoryGroup(commandBuilder, categoryId, stats, registry, elementIndex);
+            elementIndex = buildCategoryGroup(commandBuilder, eventBuilder, categoryId, stats, registry, elementIndex);
         }
     }
     
@@ -266,6 +304,7 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
      */
     private int buildCategoryGroup(
             UICommandBuilder commandBuilder,
+            UIEventBuilder eventBuilder,
             String categoryId,
             List<StatEntry> stats,
             StatDefinitionRegistry registry,
@@ -288,6 +327,10 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
             // Set stat name
             commandBuilder.set(rowSelector + " #StatName.TextSpans",
                     Message.raw(stat.definition().displayName()));
+            String statDescriptionTooltip = buildStatDescriptionTooltip(stat.definition());
+            if (!statDescriptionTooltip.isEmpty()) {
+                commandBuilder.set(rowSelector + " #StatName.TooltipText", statDescriptionTooltip);
+            }
             
             // Set base value
             String baseStr = formatValue(stat.baseValue(), stat.definition().displayFormat());
@@ -298,10 +341,15 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
             if (stat.modifierTotal() != 0) {
                 String modStr = formatModifierValue(stat.modifierTotal(), stat.definition().displayFormat());
                 String modColor = stat.modifierTotal() > 0 ? "#60d394" : "#d36c6c";
-                commandBuilder.set(rowSelector + " #ModValue.TextSpans",
+                commandBuilder.set(rowSelector + " #ModValueLabel.TextSpans",
                         Message.raw(modStr).color(modColor));
+                Message modifierTooltipMessage = buildModifierSourcesTooltipMessage(stat);
+                if (modifierTooltipMessage != null) {
+                    modifierTooltipByRowSelector.put(rowSelector, modifierTooltipMessage);
+                    bindModifierTooltipEvents(eventBuilder, rowSelector);
+                }
             } else {
-                commandBuilder.set(rowSelector + " #ModValue.TextSpans",
+                commandBuilder.set(rowSelector + " #ModValueLabel.TextSpans",
                         Message.raw("-").color("#666666"));
             }
             
@@ -320,6 +368,29 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
         
         return elementIndex;
     }
+
+        private void bindModifierTooltipEvents(@Nonnull UIEventBuilder eventBuilder, @Nonnull String rowSelector) {
+        EventData showData = new EventData()
+            .append(PageEventData.KEY_ACTION, ACTION_SHOW_MODIFIER_TOOLTIP)
+            .append(PageEventData.KEY_TOOLTIP_TARGET, rowSelector);
+        EventData hideData = new EventData()
+            .append(PageEventData.KEY_ACTION, ACTION_HIDE_MODIFIER_TOOLTIP)
+            .append(PageEventData.KEY_TOOLTIP_TARGET, rowSelector);
+
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.MouseEntered,
+            rowSelector + " #ModValue",
+            showData,
+            false
+        );
+
+        eventBuilder.addEventBinding(
+            CustomUIEventBindingType.MouseExited,
+            rowSelector + " #ModValue",
+            hideData,
+            false
+        );
+        }
     
     /**
      * Compute the display base value for a stat.
@@ -439,21 +510,30 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
     /**
      * Get modifier breakdown for a stat.
      */
-    private List<ModifierBreakdown> getModifierBreakdown(EntityStatMap statMap, int statIndex) {
+    private List<ModifierBreakdown> getModifierBreakdown(
+            @Nullable HyforgedStatComponent statComponent,
+            @Nullable EntityStatMap statMap,
+            int statIndex,
+            @Nonnull StatDefinitionRegistry registry
+    ) {
         List<ModifierBreakdown> breakdown = new ArrayList<>();
 
-        StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-        for (HyforgedModifier modifier : StatAccessor.getAllHyforgedModifiers(statMap)) {
+        List<HyforgedModifier> allModifiers = new ArrayList<>();
+        if (statComponent != null) {
+            allModifiers.addAll(statComponent.getModifiers());
+            for (var conditionalModifier : statComponent.getConditionalModifiers()) {
+                allModifiers.add(conditionalModifier.modifier());
+            }
+        }
+        if (statMap != null) {
+            allModifiers.addAll(StatAccessor.getAllHyforgedModifiers(statMap));
+        }
+
+        Set<String> seen = new HashSet<>();
+        for (HyforgedModifier modifier : allModifiers) {
             if (modifier.getTargetStatIndex() == statIndex) {
-                breakdown.add(new ModifierBreakdown(
-                        modifier.getSourceId(),
-                        modifier.getSourceType(),
-                        modifier.getAmount(),
-                        modifier.getStackType()
-                ));
-            } else if (modifier.getTargetTagIndex() != HyforgedModifier.NO_TAG) {
-                var affected = registry.getStatIndicesForTagIndex(modifier.getTargetTagIndex());
-                if (affected.contains(statIndex)) {
+                String dedupeKey = buildModifierDedupeKey(modifier);
+                if (seen.add(dedupeKey)) {
                     breakdown.add(new ModifierBreakdown(
                             modifier.getSourceId(),
                             modifier.getSourceType(),
@@ -461,10 +541,33 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
                             modifier.getStackType()
                     ));
                 }
+            } else if (modifier.getTargetTagIndex() != HyforgedModifier.NO_TAG) {
+                var affected = registry.getStatIndicesForTagIndex(modifier.getTargetTagIndex());
+                if (affected.contains(statIndex)) {
+                    String dedupeKey = buildModifierDedupeKey(modifier);
+                    if (seen.add(dedupeKey)) {
+                        breakdown.add(new ModifierBreakdown(
+                                modifier.getSourceId(),
+                                modifier.getSourceType(),
+                                modifier.getAmount(),
+                                modifier.getStackType()
+                        ));
+                    }
+                }
             }
         }
         
         return breakdown;
+    }
+
+    @Nonnull
+    private String buildModifierDedupeKey(@Nonnull HyforgedModifier modifier) {
+        return (modifier.getSourceId() == null ? "" : modifier.getSourceId())
+                + "|" + modifier.getSourceType()
+                + "|" + modifier.getAmount()
+                + "|" + modifier.getStackType()
+                + "|" + modifier.getTargetStatIndex()
+                + "|" + modifier.getTargetTagIndex();
     }
     
     /**
@@ -509,6 +612,229 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
         String formatted = formatValue(Math.abs(value), format);
         return (value >= 0 ? "+" : "-") + formatted;
     }
+
+    /**
+     * Build tooltip text for a stat name using the stat description.
+     */
+    @Nonnull
+    private String buildStatDescriptionTooltip(@Nonnull StatDefinition definition) {
+        String description = definition.description();
+        if (description == null) {
+            return "";
+        }
+        return description.trim();
+    }
+
+    /**
+     * Build a compact color-coded custom tooltip message listing modifier sources.
+     */
+    @Nullable
+    private Message buildModifierSourcesTooltipMessage(@Nonnull StatEntry stat) {
+        if (stat.breakdown() == null || stat.breakdown().isEmpty()) {
+            return null;
+        }
+
+        Message tooltip = Message.raw("");
+        int linesAdded = 0;
+
+        for (ModifierBreakdown breakdown : stat.breakdown()) {
+            if (linesAdded >= MAX_TOOLTIP_LINES) {
+                break;
+            }
+
+            String line = formatModifierSourceLine(breakdown, stat.definition().displayFormat());
+            if (line.length() > MAX_TOOLTIP_LINE_CHARS) {
+                line = line.substring(0, Math.max(0, MAX_TOOLTIP_LINE_CHARS - 3)) + "...";
+            }
+
+            if (linesAdded > 0) {
+                tooltip.insert(Message.raw("\n"));
+            }
+            tooltip.insert(Message.raw(line).color(resolveModifierSourceColor(breakdown)));
+            linesAdded++;
+        }
+
+        if (stat.breakdown().size() > linesAdded) {
+            tooltip.insert(Message.raw("\n...").color(MessageColors.GRAY));
+        }
+
+        return linesAdded > 0 ? tooltip : null;
+    }
+
+    /**
+     * Format one modifier source line for tooltip display.
+     */
+    @Nonnull
+    private String formatModifierSourceLine(@Nonnull ModifierBreakdown breakdown, @Nonnull DisplayFormat displayFormat) {
+        String amountText = switch (breakdown.modifierType()) {
+            case FLAT -> formatModifierValue(breakdown.value(), displayFormat);
+            case INCREASED, MORE -> formatSignedPercentBps(breakdown.value());
+            case CAP -> (breakdown.value() >= 0 ? "+" : "") + breakdown.value();
+        };
+
+        StringBuilder line = new StringBuilder();
+        line.append(amountText)
+            .append(" [")
+            .append(formatModifierTypeLabel(breakdown.modifierType()))
+            .append("] ")
+            .append(formatModifierSourceCategory(breakdown));
+
+        String sourceLabel = formatSourceLabel(breakdown.sourceId());
+        if (!sourceLabel.isEmpty()) {
+            line.append(" - ").append(sourceLabel);
+        }
+
+        return line.toString();
+    }
+
+    @Nonnull
+    private String formatModifierSourceCategory(@Nonnull ModifierBreakdown breakdown) {
+        String sourceId = breakdown.sourceId();
+        if (sourceId != null) {
+            if (sourceId.startsWith(CHARACTER_LEVEL_SOURCE_PREFIX)) {
+                return "Character Level";
+            }
+            if (sourceId.startsWith(CLASS_LEVEL_SOURCE_PREFIX)) {
+                return "Class Level";
+            }
+        }
+
+        if (breakdown.sourceType() == HyforgedModifier.SourceType.PASSIVE) {
+            return "Passive";
+        }
+        if (breakdown.sourceType() == HyforgedModifier.SourceType.EQUIPMENT) {
+            return "Equipment";
+        }
+
+        return formatSourceTypeLabel(breakdown.sourceType());
+    }
+
+    @Nonnull
+    private String resolveModifierSourceColor(@Nonnull ModifierBreakdown breakdown) {
+        String sourceId = breakdown.sourceId();
+        if (sourceId != null) {
+            if (sourceId.startsWith(CHARACTER_LEVEL_SOURCE_PREFIX)) {
+                return MessageColors.AQUA;
+            }
+            if (sourceId.startsWith(CLASS_LEVEL_SOURCE_PREFIX)) {
+                return MessageColors.PURPLE;
+            }
+        }
+
+        if (breakdown.sourceType() == HyforgedModifier.SourceType.PASSIVE) {
+            return MessageColors.SUCCESS;
+        }
+        if (breakdown.sourceType() == HyforgedModifier.SourceType.EQUIPMENT) {
+            return MessageColors.GOLD;
+        }
+        if (breakdown.sourceType() == HyforgedModifier.SourceType.CLASS) {
+            return MessageColors.PURPLE;
+        }
+
+        return MessageColors.WHITE;
+    }
+
+    /**
+     * Format basis points as signed percent text.
+     */
+    @Nonnull
+    private String formatSignedPercentBps(int valueBps) {
+        double percent = valueBps / 100.0;
+        String formatted = (percent == Math.rint(percent))
+                ? String.format(Locale.ROOT, "%.0f%%", percent)
+                : String.format(Locale.ROOT, "%.1f%%", percent);
+        return (percent >= 0 ? "+" : "") + formatted;
+    }
+
+    /**
+     * Format source type into a readable label.
+     */
+    @Nonnull
+    private String formatSourceTypeLabel(@Nonnull HyforgedModifier.SourceType sourceType) {
+        return titleCase(sourceType.name().toLowerCase(Locale.ROOT).replace('_', ' '));
+    }
+
+    /**
+     * Format modifier stack type into a readable label.
+     */
+    @Nonnull
+    private String formatModifierTypeLabel(@Nonnull HyforgedModifier.StackType stackType) {
+        return titleCase(stackType.name().toLowerCase(Locale.ROOT).replace('_', ' '));
+    }
+
+    /**
+     * Format a source identifier into a readable label.
+     */
+    @Nonnull
+    private String formatSourceLabel(@Nullable String sourceId) {
+        if (sourceId == null) {
+            return "";
+        }
+
+        String normalized = sourceId.trim();
+        if (normalized.isEmpty()) {
+            return "";
+        }
+
+        if (normalized.startsWith(CLASS_LEVEL_SOURCE_PREFIX)) {
+            return formatClassLevelSourceLabel(normalized);
+        }
+
+        if (normalized.startsWith(CHARACTER_LEVEL_SOURCE_PREFIX)) {
+            return formatCharacterLevelSourceLabel(normalized);
+        }
+
+        if (normalized.contains(":")) {
+            normalized = normalized.substring(normalized.lastIndexOf(':') + 1);
+        }
+
+        normalized = normalized.replace('_', ' ').replace('-', ' ');
+        if (normalized.isEmpty()) {
+            return "";
+        }
+
+        return titleCase(normalized);
+    }
+
+    @Nonnull
+    private String formatClassLevelSourceLabel(@Nonnull String sourceId) {
+        String payload = sourceId.substring(CLASS_LEVEL_SOURCE_PREFIX.length());
+        int statLocalSeparator = payload.lastIndexOf(':');
+        if (statLocalSeparator < 0) {
+            return "Class Level";
+        }
+
+        int statNamespaceSeparator = payload.lastIndexOf(':', statLocalSeparator - 1);
+        if (statNamespaceSeparator < 0) {
+            return "Class Level";
+        }
+
+        int classLevelSeparator = payload.lastIndexOf(':', statNamespaceSeparator - 1);
+        if (classLevelSeparator < 0) {
+            return "Class Level";
+        }
+
+        String classId = payload.substring(0, classLevelSeparator);
+        String level = payload.substring(classLevelSeparator + 1, statNamespaceSeparator);
+        String className = classId;
+        if (className.contains(":")) {
+            className = className.substring(className.lastIndexOf(':') + 1);
+        }
+        className = titleCase(className.replace('_', ' ').replace('-', ' '));
+        if (className.isEmpty()) {
+            className = "Class";
+        }
+
+        return "Class L" + level + " (" + className + ")";
+    }
+
+    @Nonnull
+    private String formatCharacterLevelSourceLabel(@Nonnull String sourceId) {
+        String payload = sourceId.substring(CHARACTER_LEVEL_SOURCE_PREFIX.length());
+        int levelSeparator = payload.indexOf(':');
+        String level = levelSeparator >= 0 ? payload.substring(0, levelSeparator) : payload;
+        return "Character L" + level;
+    }
     
     /**
      * Format the min/max range for a stat.
@@ -545,6 +871,7 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
                 playerComponent.getPageManager().setPage(ref, store, Page.None);
             }
         } else if ("refresh".equals(action)) {
+            activeModifierTooltipTarget = null;
             rebuild();
         } else if ("openPassiveTree".equals(action)) {
             Player playerComponent = store.getComponent(ref, Player.getComponentType());
@@ -552,7 +879,45 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
                 PassiveTreePage passivePage = new PassiveTreePage(this.playerRef, null);
                 playerComponent.getPageManager().openCustomPage(ref, store, passivePage);
             }
+        } else if (ACTION_SHOW_MODIFIER_TOOLTIP.equals(action)) {
+            handleShowModifierTooltip(eventData.getTooltipTarget());
+        } else if (ACTION_HIDE_MODIFIER_TOOLTIP.equals(action)) {
+            handleHideModifierTooltip(eventData.getTooltipTarget());
         }
+    }
+
+    private void handleShowModifierTooltip(@Nullable String tooltipTarget) {
+        if (tooltipTarget == null || tooltipTarget.isBlank()) {
+            handleHideModifierTooltip(null);
+            return;
+        }
+
+        Message tooltipMessage = modifierTooltipByRowSelector.get(tooltipTarget);
+        if (tooltipMessage == null) {
+            handleHideModifierTooltip(tooltipTarget);
+            return;
+        }
+
+        UICommandBuilder commandBuilder = new UICommandBuilder();
+        commandBuilder.set("#ModifierTooltipText.TextSpans", tooltipMessage);
+        commandBuilder.set("#ModifierTooltip.Visible", true);
+        activeModifierTooltipTarget = tooltipTarget;
+        sendUpdate(commandBuilder, new UIEventBuilder(), false);
+    }
+
+    private void handleHideModifierTooltip(@Nullable String tooltipTarget) {
+        if (tooltipTarget != null
+                && !tooltipTarget.isBlank()
+                && activeModifierTooltipTarget != null
+                && !activeModifierTooltipTarget.isBlank()
+                && !activeModifierTooltipTarget.equals(tooltipTarget)) {
+            return;
+        }
+
+        UICommandBuilder commandBuilder = new UICommandBuilder();
+        commandBuilder.set("#ModifierTooltip.Visible", false);
+        activeModifierTooltipTarget = null;
+        sendUpdate(commandBuilder, new UIEventBuilder(), false);
     }
     
     // ========== INNER CLASSES ==========
@@ -561,19 +926,30 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
      * Event data for page interactions.
      */
     public static class PageEventData {
+        private static final String KEY_ACTION = "Action";
+        private static final String KEY_TOOLTIP_TARGET = "TooltipTarget";
+
         public static final BuilderCodec<PageEventData> CODEC = BuilderCodec.builder(
                         PageEventData.class, PageEventData::new
                 )
-                .append(new KeyedCodec<>("Action", Codec.STRING), (e, s) -> e.action = s, e -> e.action)
+            .append(new KeyedCodec<>(KEY_ACTION, Codec.STRING), (e, s) -> e.action = s, e -> e.action)
+            .add()
+            .append(new KeyedCodec<>(KEY_TOOLTIP_TARGET, Codec.STRING), (e, s) -> e.tooltipTarget = s, e -> e.tooltipTarget)
                 .add()
                 .build();
         
         private String action;
+        private String tooltipTarget;
         
         public PageEventData() {}
         
         public String getAction() {
             return action;
+        }
+
+        @Nullable
+        public String getTooltipTarget() {
+            return tooltipTarget;
         }
     }
     
