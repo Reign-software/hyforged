@@ -1,0 +1,15 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:divine-fortune",
+      "Type": "notable",
+      "Name": "Divine Fortune",
+      "Description": "+8% Item Rarity\n+4% Experience Gain",
+      "Icon": "Hyforged/Textures/Notable.png",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:item-rarity-increased-bps", "Value": 800 },
+        { "Type": "stat-modifier", "Stat": "hyforged:experience-gain-bps", "Value": 400 }
+      ]
+    }
+  ]
+}

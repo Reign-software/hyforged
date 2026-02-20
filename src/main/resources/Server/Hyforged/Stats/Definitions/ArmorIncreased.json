@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:armor-increased-bps",
+  "Category": "defense",
+  "DisplayName": "Armor",
+  "Description": "Increased armor rating.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "DisplayFormat": "PERCENT_BPS",
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "defense"
+    ],
+    "Type": [
+      "rating"
+    ],
+    "AppliesTo": [
+      "Stat=armor-rating"
+    ],
+    "StackType": [
+      "increased"
+    ]
+  }
+}

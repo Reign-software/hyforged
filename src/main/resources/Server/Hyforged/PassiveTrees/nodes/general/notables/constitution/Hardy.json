@@ -1,0 +1,15 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:hardy",
+      "Type": "notable",
+      "Name": "Hardy",
+      "Description": "+8 Max Health\n+3% Physical Resistance",
+      "Icon": "Hyforged/Textures/Notable.png",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:max-health-flat", "Value": 8 },
+        { "Type": "stat-modifier", "Stat": "hyforged:physical-resistance-bps", "Value": 300 }
+      ]
+    }
+  ]
+}

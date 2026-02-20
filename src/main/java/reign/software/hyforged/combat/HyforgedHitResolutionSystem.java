@@ -46,10 +46,16 @@ public class HyforgedHitResolutionSystem extends DamageEventSystem {
     public static final MetaKey<Boolean> MISS = Damage.META_REGISTRY.registerMetaObject(data -> Boolean.FALSE);
     
     /** Stat ID for accuracy rating (attacker) */
-    private static final StatId ACCURACY_RATING = StatId.hyforged("accuracy-rating");
+    private static final StatId ACCURACY_RATING     = StatId.hyforged("accuracy-rating");
     
     /** Stat ID for evasion chance (defender) */
-    private static final StatId EVASION_CHANCE = StatId.hyforged("evasion-chance-bps");
+    private static final StatId EVASION_CHANCE      = StatId.hyforged("evasion-chance-bps");
+
+    /** Stat ID for evasion increased (defender) — scales raw evasion chance BPS */
+    private static final StatId EVASION_INCREASED   = StatId.hyforged("evasion-increased-bps");
+
+    /** Stat ID for max evasion chance (defender) — caps effective evasion BPS */
+    private static final StatId MAX_EVASION_CHANCE  = StatId.hyforged("max-evasion-chance-bps");
 
     @Nonnull
     private final Query<EntityStore> query;
@@ -58,9 +64,11 @@ public class HyforgedHitResolutionSystem extends DamageEventSystem {
     private final Set<Dependency<EntityStore>> dependencies;
     
     // Cached stat indices
-    private int accuracyIndex = -1;
-    private int evasionIndex = -1;
-    private boolean indicesCached = false;
+    private int accuracyIndex         = -1;
+    private int evasionIndex          = -1;
+    private int evasionIncreasedIndex = -1;
+    private int maxEvasionChanceIndex = -1;
+    private boolean indicesCached     = false;
 
     public HyforgedHitResolutionSystem() {
         // Query for entities with EntityStatMap (entities with stats)
@@ -160,6 +168,22 @@ public class HyforgedHitResolutionSystem extends DamageEventSystem {
         if (evasionIndex >= 0) {
             defenderEvasion = StatAccessor.getStatValueInt(archetypeChunk, index, evasionIndex);
         }
+
+        // Apply evasion-increased-bps multiplier (scales the raw evasion stat up)
+        if (defenderEvasion > 0 && evasionIncreasedIndex >= 0) {
+            int evasionIncreasedBps = StatAccessor.getStatValueInt(archetypeChunk, index, evasionIncreasedIndex);
+            if (evasionIncreasedBps != 0) {
+                defenderEvasion = Math.round(defenderEvasion * (1.0f + evasionIncreasedBps / (float) CombatMath.BPS_100));
+            }
+        }
+
+        // Apply max-evasion-chance-bps cap (data-driven ceiling, replaces any hardcoded cap)
+        if (maxEvasionChanceIndex >= 0) {
+            int maxEvasionBps = StatAccessor.getStatValueInt(archetypeChunk, index, maxEvasionChanceIndex);
+            if (maxEvasionBps > 0) {
+                defenderEvasion = Math.min(defenderEvasion, maxEvasionBps);
+            }
+        }
         
         // Skip hit resolution if defender has no evasion
         if (defenderEvasion <= 0) {
@@ -191,8 +215,10 @@ public class HyforgedHitResolutionSystem extends DamageEventSystem {
         }
         
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
-        accuracyIndex = registry.getIndex(ACCURACY_RATING);
-        evasionIndex = registry.getIndex(EVASION_CHANCE);
-        indicesCached = true;
+        accuracyIndex         = registry.getIndex(ACCURACY_RATING);
+        evasionIndex          = registry.getIndex(EVASION_CHANCE);
+        evasionIncreasedIndex = registry.getIndex(EVASION_INCREASED);
+        maxEvasionChanceIndex = registry.getIndex(MAX_EVASION_CHANCE);
+        indicesCached         = true;
     }
 }

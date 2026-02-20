@@ -7,8 +7,10 @@ import com.hypixel.hytale.server.core.ui.Value;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import reign.software.hyforged.affix.service.AffixTooltipProvider;
+import reign.software.hyforged.concentration.ConcentrationBreakpoint;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 /**
  * Composite HUD that contains all Hyforged HUD sections in a single
@@ -63,6 +65,69 @@ public class HyforgedHud extends CustomUIHud {
     public void hideResourceStats() {
         UICommandBuilder b = new UICommandBuilder();
         b.set("#ResourceStats.Visible", false);
+        update(false, b);
+    }
+
+    // ── Concentration Breakpoints & Regen Rate ──────────────────────
+
+    /** Reference width (px) for computing segment bar widths */
+    private static final int SEGMENT_BAR_WIDTH = 200;
+
+    /** Selector for the container that holds dynamically appended segment bars */
+    private static final String SEGMENTS_CONTAINER = "#ConcentrationSegments";
+
+    /** Active ability bar color (cyan-blue) */
+    private static final String SEGMENT_COLOR_ACTIVE = "#4488CC";
+
+    /** Disabled ability bar color (dimmed dark blue) */
+    private static final String SEGMENT_COLOR_DISABLED = "#333344";
+
+    /**
+     * Update the concentration breakpoint segments and regen rate display.
+     * <p>
+     * Each breakpoint is rendered as a colored bar segment whose width is
+     * proportional to the ability's concentration cost relative to max.
+     * Enabled segments use an active color; disabled use a dimmed color.
+     *
+     * @param breakpoints      Breakpoints ordered by priority (highest first)
+     * @param maxConcentration The entity's maximum concentration
+     * @param regenPerSecond   The effective concentration regen rate per second
+     */
+    public void updateConcentrationBreakpoints(
+            @Nonnull List<ConcentrationBreakpoint> breakpoints,
+            int maxConcentration,
+            float regenPerSecond
+    ) {
+        UICommandBuilder b = new UICommandBuilder();
+
+        // Clear existing segments and rebuild
+        b.clear(SEGMENTS_CONTAINER);
+
+        if (!breakpoints.isEmpty() && maxConcentration > 0) {
+            b.set(SEGMENTS_CONTAINER + ".Visible", true);
+
+            for (ConcentrationBreakpoint bp : breakpoints) {
+                int widthPx = Math.max(2, Math.round((float) bp.cost() / maxConcentration * SEGMENT_BAR_WIDTH));
+                String color = bp.enabled() ? SEGMENT_COLOR_ACTIVE : SEGMENT_COLOR_DISABLED;
+
+                String segmentUI = String.format(
+                        "Group { Anchor: (Width: %d, Height: 6); Background: (Color: %s); Margin: (Right: 1); }",
+                        widthPx, color
+                );
+                b.appendInline(SEGMENTS_CONTAINER, segmentUI);
+            }
+        } else {
+            b.set(SEGMENTS_CONTAINER + ".Visible", false);
+        }
+
+        // Regen rate display
+        if (regenPerSecond > 0.01f) {
+            b.set("#ConcentrationRegenRate.Visible", true);
+            b.set("#ConcentrationRegenRate.Text", String.format("+%.1f/s", regenPerSecond));
+        } else {
+            b.set("#ConcentrationRegenRate.Visible", false);
+        }
+
         update(false, b);
     }
 

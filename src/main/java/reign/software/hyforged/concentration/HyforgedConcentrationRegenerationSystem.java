@@ -88,7 +88,7 @@ public class HyforgedConcentrationRegenerationSystem extends DelayedEntitySystem
         ConcentrationService.get().tickRegeneration(entityRef, regenPerTick);
     }
 
-    static float calculateRegenPerSecond(int wisdom, float scalingFactor, int regenRateBps) {
+    public static float calculateRegenPerSecond(int wisdom, float scalingFactor, int regenRateBps) {
         if (wisdom <= 0 || scalingFactor <= 0f) {
             return 0f;
         }

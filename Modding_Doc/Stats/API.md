@@ -456,11 +456,10 @@ Map<StatId, Integer> stats = registry.resolveStats("hyforged:goblin", 5);
 
 ### JSON Schema
 
-Create classes in `Server/Hyforged/Stats/Classes/`:
+Create classes in `Server/Hyforged/Progression/Classes/`:
 
 ```json
 {
-    "Id": "hyforged:warrior",
     "DisplayName": "Warrior",
     "Description": "A powerful melee combatant focusing on strength.",
     "Strength": 5,

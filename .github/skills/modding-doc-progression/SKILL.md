@@ -14,7 +14,7 @@ This skill summarizes Modding_Doc/Progression at a high level and links to the f
 ## Doc-Derived How-To (Adding Progression Content)
 
 1. Define XP curves in `src/main/resources/Server/<YourMod>/Progression/` using namespaced `id`, `type`, `baseXp`, `exponent`, and `maxLevel`.
-2. Define class data in `src/main/resources/Server/<YourMod>/Stats/Classes/` with `weaponTagFamilies` and `levelRewards`.
+2. Define class data in `src/main/resources/Server/<YourMod>/Progression/Classes/` with `weaponTagFamilies` and `levelRewards`.
 3. Configure XP sources and caps in `src/main/resources/Server/<YourMod>/Progression/XPConfig.json`.
 4. Add XP awards to objectives using the `hyforged:xp_award` completion type or explicit XP amounts.
 5. Integrate via progression events or `ProgressionStatBridge` instead of hard-coded level checks.

@@ -26,7 +26,7 @@
 
 ## Business Rules
 - Player level cap is 100 and must be clearly shown in UI.
-- Character level ability-score rewards are optional and data-driven via `hyforged:default` level rewards.
+- Character level ability-score rewards are optional and data-driven via `Default` class level rewards (in `Progression/Classes/Default.json`).
 - Character level grants 1 general passive point per level (100 total at cap).
 - Each class level grants 1 passive point.
 - Passive point refunds require Tradebars.
@@ -36,8 +36,10 @@
 ## Integrations
 - Experience System → Player Level → Ability Scores.
 - Stats System is the source of truth for effective stat values and modifier stacking.
+- On-kill recovery behavior (for example health/mana gained on kill) is expressed as stats and resolved server-side.
 - Items (rarity/affixes/enchantments) express their power via Stats System modifiers.
 - Combat System consumes effective stats to compute outcomes (damage/healing/mitigation).
+- Defensive "increased" style modifiers are resolved through data-driven stat metadata (target-routing tags) instead of hardcoded stat mappings.
 - Currency (Tradebars) is a shared dependency for enchanting, passive refunds, and trading.
 - Trading/Marketplace operates on server-authoritative item and currency state.
 - Passive trees depend on node-ID stability; when layouts change, allocations must be validated and migrated so effects remain consistent after reconnect/restart.

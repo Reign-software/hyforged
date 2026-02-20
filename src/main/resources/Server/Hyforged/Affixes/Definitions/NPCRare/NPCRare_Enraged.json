@@ -10,8 +10,7 @@
       "ItemLevelReq": 10,
       "Weight": 100,
       "Stats": {
-        "hyforged:damage-increased-bps": { "MinValue": 2000, "MaxValue": 3500, "StackType": "More" },
-        "hyforged:attack-speed-bps": { "MinValue": 1000, "MaxValue": 1500, "StackType": "More" }
+        "hyforged:damage-increased-bps": { "MinValue": 2000, "MaxValue": 3500, "StackType": "More" }
       },
       "Condition": {
         "Type": "health_below_percent",
@@ -23,8 +22,7 @@
       "ItemLevelReq": 40,
       "Weight": 65,
       "Stats": {
-        "hyforged:damage-increased-bps": { "MinValue": 3500, "MaxValue": 5000, "StackType": "More" },
-        "hyforged:attack-speed-bps": { "MinValue": 1500, "MaxValue": 2500, "StackType": "More" }
+        "hyforged:damage-increased-bps": { "MinValue": 3500, "MaxValue": 5000, "StackType": "More" }
       },
       "Condition": {
         "Type": "health_below_percent",

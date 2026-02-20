@@ -19,6 +19,8 @@ import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import reign.software.hyforged.combat.CombatMath;
+import reign.software.hyforged.combat.CombatMeta;
 import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.StatId;
@@ -26,6 +28,8 @@ import reign.software.hyforged.stats.damage.DamageTypeExtensionRegistry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import com.hypixel.hytale.logger.HytaleLogger;
@@ -56,6 +60,22 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
 
     /** Cached stat index for ailment threshold */
     private int ailmentThresholdStatIndex = -1;
+
+    /**
+     * Per-damage-cause cached ailment chance stat index (attacker-side direct trigger chance).
+     * Populated lazily on first encounter via {@link DamageTypeExtensionRegistry#getAilmentChanceStatForDamage}.
+     */
+    private final Map<String, Integer> ailmentChanceIndices = new HashMap<>();
+
+    /**
+     * Per-damage-cause cached ailment duration stat index (attacker-side duration scaling).
+     */
+    private final Map<String, Integer> ailmentDurationIndices = new HashMap<>();
+
+    /**
+     * Per-damage-cause cached ailment damage stat index (attacker-side damage scaling; stored as meta).
+     */
+    private final Map<String, Integer> ailmentDamageIndices = new HashMap<>();
     
     @Nonnull
     private final ComponentType<EntityStore, AilmentAccumulatorComponent> accumulatorComponentType;
@@ -144,7 +164,39 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
         if (effectController == null) {
             return;
         }
-        
+
+        // Store ailment-damage-bps meta for DoT systems (attacker side, data-driven)
+        if (damage.getSource() instanceof Damage.EntitySource entitySourceForMeta) {
+            Ref<EntityStore> attackerRefForMeta = entitySourceForMeta.getRef();
+            if (attackerRefForMeta.isValid()) {
+                int ailmentDmgIdx = getOrCacheAilmentDamageIdx(store, damageCause);
+                if (ailmentDmgIdx >= 0) {
+                    int ailmentDmgBps = StatAccessor.getStatValueInt(store, attackerRefForMeta, ailmentDmgIdx);
+                    if (ailmentDmgBps != 0) {
+                        damage.putMetaObject(CombatMeta.AILMENT_DAMAGE_BPS, ailmentDmgBps);
+                    }
+                }
+            }
+        }
+
+        // Direct chance-based ailment trigger (attacker side, per-element, data-driven)
+        // If the attacker has an ailment chance stat for this damage type and the roll succeeds,
+        // apply the ailment immediately and reset the accumulator.
+        if (damage.getSource() instanceof Damage.EntitySource entitySource) {
+            Ref<EntityStore> attackerRef = entitySource.getRef();
+            if (attackerRef.isValid()) {
+                int chanceIdx = getOrCacheAilmentChanceIdx(store, damageCause);
+                if (chanceIdx >= 0) {
+                    int chanceBps = StatAccessor.getStatValueInt(store, attackerRef, chanceIdx);
+                    if (chanceBps > 0 && CombatMath.rollChance(chanceBps)) {
+                        applyAilment(ailment, damage, damageCause, effectController, store, commandBuffer, archetypeChunk, index);
+                        accumulator.resetAccumulation(elementTag);
+                        return;
+                    }
+                }
+            }
+        }
+
         // Accumulate damage for this element
         long currentTime = System.currentTimeMillis();
         float damageAmount = damage.getAmount();
@@ -159,7 +211,7 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
         
         if (thresholdReached) {
             // Trigger the ailment
-            applyAilment(ailment, damage, effectController, store, commandBuffer, archetypeChunk, index);
+            applyAilment(ailment, damage, damageCause, effectController, store, commandBuffer, archetypeChunk, index);
             
             // Reset the accumulator for this element
             accumulator.resetAccumulation(elementTag);
@@ -172,6 +224,7 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
     private void applyAilment(
             @Nonnull AilmentDefinition ailment,
             @Nonnull Damage damage,
+            @Nonnull DamageCause damageCause,
             @Nonnull EffectControllerComponent effectController,
             @Nonnull Store<EntityStore> store,
             @Nonnull CommandBuffer<EntityStore> commandBuffer,
@@ -187,7 +240,7 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
         }
         
         // Calculate duration with attacker's effect duration scaling
-        float duration = calculateScaledDuration(ailment, damage, store);
+        float duration = calculateScaledDuration(ailment, damage, damageCause, store);
         
         // Get the defender ref
         Ref<EntityStore> defenderRef = archetypeChunk.getReferenceTo(index);
@@ -210,12 +263,15 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
     /**
      * Calculate the scaled duration for an ailment.
      * <p>
-     * Duration is scaled by the attacker's effect-duration-bps stat:
-     * {@code finalDuration = baseDuration * (1 + effectDurationBps / 10000)}
+     * Duration is scaled by:<br>
+     * 1. Attacker's global {@code effect-duration-bps}<br>
+     * 2. Attacker's per-element {@code ailmentDurationStat} (data-driven via registry)<br>
+     * Both are applied as independent MORE multipliers.
      */
     private float calculateScaledDuration(
             @Nonnull AilmentDefinition ailment,
             @Nonnull Damage damage,
+            @Nonnull DamageCause damageCause,
             @Nonnull Store<EntityStore> store
     ) {
         float baseDuration = ailment.baseDurationSeconds();
@@ -224,10 +280,18 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
         if (damage.getSource() instanceof Damage.EntitySource entitySource) {
             Ref<EntityStore> attackerRef = entitySource.getRef();
             if (attackerRef.isValid()) {
+                // 1. Global effect-duration-bps
                 int effectDurationBps = getEffectDurationBps(store, attackerRef);
                 if (effectDurationBps != 0) {
-                    float multiplier = 1.0f + (effectDurationBps / 10000.0f);
-                    return baseDuration * multiplier;
+                    baseDuration *= (1.0f + effectDurationBps / 10000.0f);
+                }
+                // 2. Per-element ailment-duration stat (data-driven)
+                int durationIdx = getOrCacheAilmentDurationIdx(store, damageCause);
+                if (durationIdx >= 0) {
+                    int elementDurationBps = StatAccessor.getStatValueInt(store, attackerRef, durationIdx);
+                    if (elementDurationBps != 0) {
+                        baseDuration *= (1.0f + elementDurationBps / 10000.0f);
+                    }
                 }
             }
         }
@@ -291,6 +355,54 @@ public class HyforgedAilmentSystem extends DamageEventSystem {
         }
 
         return StatAccessor.getStatValueInt(store, defenderRef, ailmentThresholdStatIndex);
+    }
+
+    /**
+     * Look up and cache the ailment chance stat index for a given damage cause.
+     * Returns -1 if no ailment chance stat is defined for this damage type.
+     */
+    private int getOrCacheAilmentChanceIdx(@Nonnull Store<EntityStore> store, @Nonnull DamageCause damageCause) {
+        String id = damageCause.getId();
+        Integer cached = ailmentChanceIndices.get(id);
+        if (cached != null) {
+            return cached;
+        }
+        StatId statId = DamageTypeExtensionRegistry.get().getAilmentChanceStatForDamage(damageCause);
+        int idx = statId != null ? StatDefinitionRegistry.get().getIndex(statId) : -1;
+        ailmentChanceIndices.put(id, idx);
+        return idx;
+    }
+
+    /**
+     * Look up and cache the ailment duration stat index for a given damage cause.
+     * Returns -1 if no ailment duration stat is defined for this damage type.
+     */
+    private int getOrCacheAilmentDurationIdx(@Nonnull Store<EntityStore> store, @Nonnull DamageCause damageCause) {
+        String id = damageCause.getId();
+        Integer cached = ailmentDurationIndices.get(id);
+        if (cached != null) {
+            return cached;
+        }
+        StatId statId = DamageTypeExtensionRegistry.get().getAilmentDurationStatForDamage(damageCause);
+        int idx = statId != null ? StatDefinitionRegistry.get().getIndex(statId) : -1;
+        ailmentDurationIndices.put(id, idx);
+        return idx;
+    }
+
+    /**
+     * Look up and cache the ailment damage stat index for a given damage cause.
+     * Returns -1 if no ailment damage stat is defined for this damage type.
+     */
+    private int getOrCacheAilmentDamageIdx(@Nonnull Store<EntityStore> store, @Nonnull DamageCause damageCause) {
+        String id = damageCause.getId();
+        Integer cached = ailmentDamageIndices.get(id);
+        if (cached != null) {
+            return cached;
+        }
+        StatId statId = DamageTypeExtensionRegistry.get().getAilmentDamageStatForDamage(damageCause);
+        int idx = statId != null ? StatDefinitionRegistry.get().getIndex(statId) : -1;
+        ailmentDamageIndices.put(id, idx);
+        return idx;
     }
     
     /**

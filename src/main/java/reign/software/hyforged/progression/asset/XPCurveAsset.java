@@ -39,7 +39,11 @@ public class XPCurveAsset implements JsonAssetWithMap<String, IndexedLookupTable
                     XPCurveAsset.class,
                     XPCurveAsset::new,
                     Codec.STRING,
-                    (asset, id) -> asset.id = id,
+                    (asset, id) -> {
+                        if (asset.id == null || asset.id.isBlank()) {
+                            asset.id = id;
+                        }
+                    },
                     asset -> asset.id,
                     (asset, data) -> asset.data = data,
                     asset -> asset.data

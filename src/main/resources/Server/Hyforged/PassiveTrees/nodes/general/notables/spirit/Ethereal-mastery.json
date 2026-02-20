@@ -1,0 +1,15 @@
+{
+  "Nodes": [
+    {
+      "Id": "hyforged:ethereal-mastery",
+      "Type": "notable",
+      "Name": "Ethereal Mastery",
+      "Description": "+8% Minion Damage\n+1 Max Minions",
+      "Icon": "Hyforged/Textures/Notable.png",
+      "Effects": [
+        { "Type": "stat-modifier", "Stat": "hyforged:minion-damage-bps", "Value": 800 },
+        { "Type": "stat-modifier", "Stat": "hyforged:max-minions", "Value": 1 }
+      ]
+    }
+  ]
+}

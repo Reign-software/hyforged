@@ -24,8 +24,7 @@
         "Radius": 15,
         "TargetEnemies": true,
         "StatModifiers": {
-          "hyforged:movement-speed-bps": -5000,
-          "hyforged:attack-speed-bps": -3000
+          "hyforged:movement-speed-bps": -5000
         }
       },
       "StackBehavior": "shared",

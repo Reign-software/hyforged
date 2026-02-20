@@ -7,7 +7,6 @@
   },
   "HyforgedModifiers": [
     { "StatId": "hyforged:dexterity", "StackType": "Flat", "Amount": -15 },
-    { "StatId": "hyforged:attack-speed-bps", "StackType": "Increased", "Amount": -2000 },
     { "StatId": "hyforged:evasion-chance-bps", "StackType": "Flat", "Amount": -1500 }
   ]
 }

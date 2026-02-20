@@ -73,7 +73,15 @@ options.close = Close
 # Character Stats Page
 characterStats.title = Character Stats
 characterStats.equipment = Equipment
-characterStats.slot.empty = Slot {slot}: Empty
+characterStats.equipmentPanel.title = Equipment
+characterStats.slot.empty = Empty
+characterStats.slot.head = Head
+characterStats.slot.chest = Chest
+characterStats.slot.legs = Legs
+characterStats.slot.feet = Feet
+characterStats.slot.mainHand = Main Hand
+characterStats.slot.offHand = Off Hand
+characterStats.tooltip.range = Range: {range}
 
 # Character Stats - Column Headers
 characterStats.header.stat = Stat

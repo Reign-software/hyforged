@@ -72,6 +72,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     private int lastBridgedMaxStamina = 0;
     private int lastBridgedMaxConcentration = 0;
     private int lastBridgedMaxRage = 0;
+    private int lastBridgedMovementSpeedBps = 0;
 
     // ========== HUD STATE ==========
     // Track last resource HUD values to avoid redundant UI updates
@@ -83,6 +84,8 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     private int lastHudConcentrationMax = 0;
     private int lastHudRageCurrent = 0;
     private int lastHudRageMax = 0;
+    private int lastHudBreakpointHash = 0;
+    private float lastHudRegenRate = Float.NaN;
     
     // ========== EVENT COALESCING BUFFER ==========
     // Collects stat changes during a tick for batch event emission
@@ -625,6 +628,14 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         lastBridgedMaxRage = value;
     }
 
+    public int getLastBridgedMovementSpeedBps() {
+        return lastBridgedMovementSpeedBps;
+    }
+
+    public void setLastBridgedMovementSpeedBps(int value) {
+        lastBridgedMovementSpeedBps = value;
+    }
+
     // ========== HUD STATE ACCESSORS ==========
 
     public boolean isLastHudShown() {
@@ -681,6 +692,22 @@ public class HyforgedStatComponent implements Component<EntityStore> {
 
     public void setLastHudRageMax(int value) {
         lastHudRageMax = value;
+    }
+
+    public int getLastHudBreakpointHash() {
+        return lastHudBreakpointHash;
+    }
+
+    public void setLastHudBreakpointHash(int hash) {
+        lastHudBreakpointHash = hash;
+    }
+
+    public float getLastHudRegenRate() {
+        return lastHudRegenRate;
+    }
+
+    public void setLastHudRegenRate(float rate) {
+        lastHudRegenRate = rate;
     }
 
     // ========== EFFECTIVENESS HELPERS ==========
@@ -754,6 +781,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         copy.lastBridgedMaxStamina = this.lastBridgedMaxStamina;
         copy.lastBridgedMaxConcentration = this.lastBridgedMaxConcentration;
         copy.lastBridgedMaxRage = this.lastBridgedMaxRage;
+        copy.lastBridgedMovementSpeedBps = this.lastBridgedMovementSpeedBps;
         copy.lastHudShown = this.lastHudShown;
         copy.lastHudConcentrationVisible = this.lastHudConcentrationVisible;
         copy.lastHudRageVisible = this.lastHudRageVisible;

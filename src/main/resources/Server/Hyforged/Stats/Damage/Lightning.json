@@ -1,8 +1,9 @@
 {
     "$Comment": "Lightning damage - electrical elemental damage",
-    "Parent": "Elemental",
     "Inherits": "Elemental",
     "HyforgedResistanceStat": "hyforged:lightning-resistance-bps",
     "HyforgedPenetrationStat": "hyforged:lightning-penetration-bps",
-    "HyforgedElementTag": "lightning"
-}
+    "HyforgedElementTag": "lightning",
+    "HyforgedDamageBonusStat": "hyforged:lightning-damage-increased-bps",
+    "HyforgedAilmentChanceStat": "hyforged:shock-chance-bps",
+    "HyforgedAilmentDurationStat": "hyforged:shock-duration-bps"}

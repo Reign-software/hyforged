@@ -1,4 +1,8 @@
 {
     "$Comment": "Poison damage - toxin damage over time",
-    "HyforgedResistanceStat": "hyforged:poison-resistance-bps"
+    "HyforgedResistanceStat": "hyforged:poison-resistance-bps",
+    "HyforgedDamageBonusStat": "hyforged:poison-damage-increased-bps",
+    "HyforgedAilmentChanceStat": "hyforged:poison-chance-bps",
+    "HyforgedAilmentDurationStat": "hyforged:poison-duration-bps",
+    "HyforgedAilmentDamageStat": "hyforged:poison-damage-increased-bps"
 }

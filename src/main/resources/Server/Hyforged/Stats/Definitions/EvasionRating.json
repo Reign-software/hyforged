@@ -11,6 +11,9 @@
     "Domain": [
       "defense"
     ],
+    "Stat": [
+      "evasion-rating"
+    ],
     "Type": [
       "rating"
     ],

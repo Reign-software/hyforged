@@ -5,7 +5,10 @@ import reign.software.hyforged.stats.StatId;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.hypixel.hytale.logger.HytaleLogger;
 import java.util.logging.Level;
@@ -33,6 +36,16 @@ public final class DamageTypeExtensionRegistry {
     private final Map<String, StatId> resolvedResistances = new HashMap<>();
     private final Map<String, StatId> resolvedPenetrations = new HashMap<>();
     private final Map<String, String> resolvedElementTags = new HashMap<>();
+    /** Cached per-damage-type bonus stat lists (all levels of inheritance chain). */
+    private final Map<String, List<StatId>> resolvedDamageBonusStats = new HashMap<>();
+    /** Cached per-damage-type taken stat lists (all levels of inheritance chain). */
+    private final Map<String, List<StatId>> resolvedDamageTakenStats = new HashMap<>();
+    /** Cached per-damage-type ailment chance stat (first match in inheritance chain). */
+    private final Map<String, StatId> resolvedAilmentChanceStats = new HashMap<>();
+    /** Cached per-damage-type ailment duration stat (first match in inheritance chain). */
+    private final Map<String, StatId> resolvedAilmentDurationStats = new HashMap<>();
+    /** Cached per-damage-type ailment damage stat (first match in inheritance chain). */
+    private final Map<String, StatId> resolvedAilmentDamageStats = new HashMap<>();
 
     private DamageTypeExtensionRegistry() {
     }
@@ -231,6 +244,11 @@ public final class DamageTypeExtensionRegistry {
         resolvedResistances.clear();
         resolvedPenetrations.clear();
         resolvedElementTags.clear();
+        resolvedDamageBonusStats.clear();
+        resolvedDamageTakenStats.clear();
+        resolvedAilmentChanceStats.clear();
+        resolvedAilmentDurationStats.clear();
+        resolvedAilmentDamageStats.clear();
         LOGGER.at(Level.FINE).log("Cleared damage type extension registry");
     }
 
@@ -246,5 +264,151 @@ public final class DamageTypeExtensionRegistry {
      */
     public boolean hasExtension(@Nonnull String damageTypeId) {
         return extensions.containsKey(damageTypeId);
+    }
+
+    /**
+     * Get all outgoing damage bonus stats for a damage cause, walking the full inheritance chain.
+     * <p>
+     * Each level that explicitly declares a {@code HyforgedDamageBonusStat} contributes one stat
+     * to the returned list. For example, {@code Fire} damage returns both
+     * {@code fire-damage-increased-bps} (from Fire.json) and
+     * {@code elemental-damage-increased-bps} (from Elemental.json).
+     *
+     * @param damageCause The damage cause
+     * @return Immutable list of bonus stat IDs (may be empty)
+     */
+    @Nonnull
+    public List<StatId> getDamageBonusStatsForDamage(@Nonnull DamageCause damageCause) {
+        String id = damageCause.getId();
+        List<StatId> cached = resolvedDamageBonusStats.get(id);
+        if (cached != null) {
+            return cached;
+        }
+        List<StatId> result = new ArrayList<>();
+        collectDamageBonusStats(damageCause, result);
+        List<StatId> immutable = Collections.unmodifiableList(result);
+        resolvedDamageBonusStats.put(id, immutable);
+        return immutable;
+    }
+
+    /**
+     * Get all incoming damage taken modifier stats for a damage cause, walking the full inheritance chain.
+     * <p>
+     * Each level that explicitly declares a {@code HyforgedDamageTakenStat} contributes one stat.
+     *
+     * @param damageCause The damage cause
+     * @return Immutable list of taken stat IDs (may be empty)
+     */
+    @Nonnull
+    public List<StatId> getDamageTakenStatsForDamage(@Nonnull DamageCause damageCause) {
+        String id = damageCause.getId();
+        List<StatId> cached = resolvedDamageTakenStats.get(id);
+        if (cached != null) {
+            return cached;
+        }
+        List<StatId> result = new ArrayList<>();
+        collectDamageTakenStats(damageCause, result);
+        List<StatId> immutable = Collections.unmodifiableList(result);
+        resolvedDamageTakenStats.put(id, immutable);
+        return immutable;
+    }
+
+    /** Accumulate damageBonusStat at each level of the inheritance chain. */
+    private void collectDamageBonusStats(@Nonnull DamageCause damageCause, @Nonnull List<StatId> acc) {
+        DamageTypeExtension ext = extensions.get(damageCause.getId());
+        if (ext != null && ext.damageBonusStat() != null) {
+            acc.add(ext.damageBonusStat());
+        }
+        String parentId = ext != null ? ext.inherits() : damageCause.getInherits();
+        if (parentId != null) {
+            DamageCause parentCause = DamageCause.getAssetMap().getAsset(parentId);
+            if (parentCause != null) {
+                collectDamageBonusStats(parentCause, acc);
+            }
+        }
+    }
+
+    /** Accumulate damageTakenStat at each level of the inheritance chain. */
+    private void collectDamageTakenStats(@Nonnull DamageCause damageCause, @Nonnull List<StatId> acc) {
+        DamageTypeExtension ext = extensions.get(damageCause.getId());
+        if (ext != null && ext.damageTakenStat() != null) {
+            acc.add(ext.damageTakenStat());
+        }
+        String parentId = ext != null ? ext.inherits() : damageCause.getInherits();
+        if (parentId != null) {
+            DamageCause parentCause = DamageCause.getAssetMap().getAsset(parentId);
+            if (parentCause != null) {
+                collectDamageTakenStats(parentCause, acc);
+            }
+        }
+    }
+
+    /**
+     * Get the ailment trigger chance stat for a damage cause, following inheritance chain.
+     * Returns the first non-null match walking up the chain.
+     */
+    @Nullable
+    public StatId getAilmentChanceStatForDamage(@Nonnull DamageCause damageCause) {
+        String id = damageCause.getId();
+        if (resolvedAilmentChanceStats.containsKey(id)) {
+            return resolvedAilmentChanceStats.get(id);
+        }
+        StatId resolved = resolveAilmentStat(damageCause, ext -> ext.ailmentChanceStat());
+        resolvedAilmentChanceStats.put(id, resolved);
+        return resolved;
+    }
+
+    /**
+     * Get the ailment duration scaling stat for a damage cause, following inheritance chain.
+     * Returns the first non-null match walking up the chain.
+     */
+    @Nullable
+    public StatId getAilmentDurationStatForDamage(@Nonnull DamageCause damageCause) {
+        String id = damageCause.getId();
+        if (resolvedAilmentDurationStats.containsKey(id)) {
+            return resolvedAilmentDurationStats.get(id);
+        }
+        StatId resolved = resolveAilmentStat(damageCause, ext -> ext.ailmentDurationStat());
+        resolvedAilmentDurationStats.put(id, resolved);
+        return resolved;
+    }
+
+    /**
+     * Get the ailment damage scaling stat for a damage cause, following inheritance chain.
+     * Returns the first non-null match walking up the chain.
+     */
+    @Nullable
+    public StatId getAilmentDamageStatForDamage(@Nonnull DamageCause damageCause) {
+        String id = damageCause.getId();
+        if (resolvedAilmentDamageStats.containsKey(id)) {
+            return resolvedAilmentDamageStats.get(id);
+        }
+        StatId resolved = resolveAilmentStat(damageCause, ext -> ext.ailmentDamageStat());
+        resolvedAilmentDamageStats.put(id, resolved);
+        return resolved;
+    }
+
+    /**
+     * Generic chain-walk resolver for ailment-related stats.
+     * Follows the same inheritance pattern as {@link #resolveResistanceStat}.
+     */
+    @Nullable
+    private StatId resolveAilmentStat(
+            @Nonnull DamageCause damageCause,
+            @Nonnull java.util.function.Function<DamageTypeExtension, StatId> accessor
+    ) {
+        String id = damageCause.getId();
+        DamageTypeExtension ext = extensions.get(id);
+        if (ext != null && accessor.apply(ext) != null) {
+            return accessor.apply(ext);
+        }
+        String parentId = ext != null ? ext.inherits() : damageCause.getInherits();
+        if (parentId != null) {
+            DamageCause parentCause = DamageCause.getAssetMap().getAsset(parentId);
+            if (parentCause != null) {
+                return resolveAilmentStat(parentCause, accessor);
+            }
+        }
+        return null;
     }
 }

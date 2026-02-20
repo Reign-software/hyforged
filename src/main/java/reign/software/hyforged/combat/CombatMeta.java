@@ -96,4 +96,30 @@ public final class CombatMeta {
      */
     public static final MetaKey<Integer> CRIT_ROLL = 
             Damage.META_REGISTRY.registerMetaObject(data -> -1);
+
+    // ==================== Special Mechanics ====================
+
+    /**
+     * Set when a double-damage roll triggers in {@code HyforgedDamageBonusSystem}.
+     * Downstream systems (e.g., combat log) can use this flag to display the result.
+     */
+    public static final MetaKey<Boolean> DOUBLE_DAMAGE =
+            Damage.META_REGISTRY.registerMetaObject(data -> Boolean.FALSE);
+
+    /**
+     * Per-element ailment damage scaling (BPS) stored by {@code HyforgedAilmentSystem}.
+     * DoT systems can read this to scale ongoing ailment damage based on attacker stats.
+     */
+    public static final MetaKey<Integer> AILMENT_DAMAGE_BPS =
+            Damage.META_REGISTRY.registerMetaObject(data -> 0);
+
+    /**
+     * Set when a dodge roll triggers in {@code HyforgedDodgeSystem}.
+     * <p>
+     * Distinct from {@link HyforgedHitResolutionSystem#MISS} (evasion-based miss).
+     * Downstream systems (e.g., combat log) can use this flag to display "Dodge"
+     * instead of "Miss" in the combat feed.
+     */
+    public static final MetaKey<Boolean> DODGE_ROLLED =
+            Damage.META_REGISTRY.registerMetaObject(data -> Boolean.FALSE);
 }

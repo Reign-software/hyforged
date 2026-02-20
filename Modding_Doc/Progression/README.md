@@ -104,7 +104,7 @@ Classes define weapon-based specializations with ability score bonuses.
 
 When a player reaches a class level that has a `levelRewards` entry, the specified ability bonuses are automatically applied as stat modifiers. These are cumulative across all levels gained.
 
-Character level rewards use the same `levelRewards` structure, sourced from `hyforged:default` in `Server/Hyforged/Stats/Classes/Default.json`. This keeps character-level bonus tuning data-driven and separate from per-class rewards.
+Character level rewards use the same `levelRewards` structure, sourced from `Default` in `Server/Hyforged/Progression/Classes/Default.json`. This keeps character-level bonus tuning data-driven and separate from per-class rewards.
 
 Example: A Warrior reaching level 10 would receive:
 - Level 5 reward: +1 Strength
@@ -123,7 +123,7 @@ When a player equips a weapon, the system:
 
 Place class definitions in:
 ```
-Server/Hyforged/Stats/Classes/
+Server/Hyforged/Progression/Classes/
 ```
 
 ## Admin Commands
@@ -159,7 +159,7 @@ The progression system emits events for integration with other systems.
 
 ### Character Level Up
 
-Emitted when a player gains character level(s). Grants 1 general passive point per level gained, and can apply ability bonuses if `hyforged:default` has matching `levelRewards` entries.
+Emitted when a player gains character level(s). Grants 1 general passive point per level gained, and can apply ability bonuses if `Default` class has matching `levelRewards` entries.
 
 ```java
 CharacterLevelUpEvent {

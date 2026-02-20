@@ -15,6 +15,7 @@ import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import reign.software.hyforged.combat.CombatMath;
 import reign.software.hyforged.combat.CombatMeta;
 import reign.software.hyforged.stats.StatAccessor;
 import reign.software.hyforged.stats.StatDefinition;
@@ -58,6 +59,11 @@ public class HyforgedDamageReductionSystem extends DamageEventSystem {
     
     // Cached stat indices for performance (damage type ID -> penetration stat index)
     private final Map<String, Integer> penetrationStatIndices = new HashMap<>();
+
+    // Armor-increased-bps multiplies the effective resistance value (positive only)
+    private static final StatId ARMOR_INCREASED = StatId.hyforged("armor-increased-bps");
+    private int armorIncreasedIndex  = -1;
+    private boolean armorIndexCached = false;
 
     public HyforgedDamageReductionSystem() {
         // Query for entities with EntityStatMap
@@ -118,6 +124,7 @@ public class HyforgedDamageReductionSystem extends DamageEventSystem {
         }
 
         // Get the resistance stat info for this damage type
+        ensureArmorIndexCached();
         ResistanceInfo resistanceInfo = getResistanceInfoForDamageType(damageCause, archetypeChunk, index);
         if (resistanceInfo == null) {
             // No resistance defined for this damage type
@@ -219,6 +226,16 @@ public class HyforgedDamageReductionSystem extends DamageEventSystem {
         }
         
         int value = StatAccessor.getStatValueInt(chunk, entityIndex, statIndex);
+
+        // Apply armor-increased-bps multiplier to positive resistance values.
+        // Negative resistance (vulnerability) is not boosted by this stat.
+        if (armorIncreasedIndex >= 0 && value > 0) {
+            int armorIncreasedBps = StatAccessor.getStatValueInt(chunk, entityIndex, armorIncreasedIndex);
+            if (armorIncreasedBps != 0) {
+                value = Math.round(value * (1.0f + armorIncreasedBps / (float) CombatMath.BPS_100));
+            }
+        }
+
         int minValue = statDef.minValue();
         
         // Calculate effective soft cap including bonus stat
@@ -252,6 +269,17 @@ public class HyforgedDamageReductionSystem extends DamageEventSystem {
         }
         
         return new ResistanceInfo(value, minValue, maxCap);
+    }
+
+    /**
+     * Cache the armor-increased stat index on first use.
+     */
+    private void ensureArmorIndexCached() {
+        if (armorIndexCached) {
+            return;
+        }
+        armorIncreasedIndex = StatDefinitionRegistry.get().getIndex(ARMOR_INCREASED);
+        armorIndexCached = true;
     }
 
     /**

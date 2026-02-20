@@ -11,6 +11,9 @@
     "Domain": [
       "defense"
     ],
+    "Stat": [
+      "armor-rating"
+    ],
     "Type": [
       "rating"
     ],

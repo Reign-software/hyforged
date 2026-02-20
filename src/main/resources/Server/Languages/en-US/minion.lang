@@ -1,0 +1,9 @@
+summoned = {name} has been summoned!
+despawned = {name} has been unsummoned.
+died = Your {name} has been slain!
+cap_reached = Cannot summon: maximum minions reached ({current}/{max}).
+insufficient_concentration = Cannot summon: not enough concentration ({required} required, {available} available).
+resummoned = {name} has been re-summoned.
+released = {name} concentration released.
+reconnect_resummon = Re-summoned {count} minion(s) on reconnect.
+reconnect_disabled = {count} minion(s) remain disabled (insufficient concentration).

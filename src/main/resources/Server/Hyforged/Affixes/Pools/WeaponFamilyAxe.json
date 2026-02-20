@@ -1,55 +1,11 @@
 {
-    "Priority": 300,
-    "Description": "Axe-family weapon affix pool",
-    "AppliesTo": {
-        "Categories": [],
-        "Tags": [
-            "Family=Axe"
-        ]
-    },
-    "Prefixes": [
-        "hyforged:brutish",
-        "hyforged:heavy",
-        "hyforged:enraged",
-        "hyforged:vicious",
-        "hyforged:cruel",
-        "hyforged:deadly",
-        "hyforged:penetrating",
-        "hyforged:fervent",
-        "hyforged:stalwart",
-        "hyforged:rugged",
-        "hyforged:tenacious",
-        "hyforged:siphoning",
-        "hyforged:fortunate",
-        "hyforged:spirited",
-        "hyforged:of-clarity",
-        "hyforged:of-resolve",
-        "hyforged:steadfast"
-    ],
-    "Suffixes": [
-        "of-the-bear",
-        "hyforged:of-slaying",
-        "hyforged:of-the-warrior",
-        "hyforged:of-devastation",
-        "hyforged:of-the-ox",
-        "hyforged:of-vitality",
-        "hyforged:of-endurance",
-        "hyforged:of-the-leech",
-        "hyforged:of-the-serpent",
-        "hyforged:of-the-spirit",
-        "hyforged:of-tenacity"
-    ],
-    "Forged": [
-        "hyforged:corrupted-fury",
-        "hyforged:corrupted-devastation",
-        "hyforged:corrupted-penetration",
-        "hyforged:corrupted-might",
-        "hyforged:corrupted-vitality",
-        "hyforged:corrupted-vampirism",
-        "hyforged:corrupted-fortune",
-        "hyforged:corrupted-spirit",
-        "hyforged:corrupted-tenacity",
-        "hyforged:mental-bastion",
-        "hyforged:unshakeable-focus"
-    ]
+  "Priority": 300,
+  "Description": "Axe-family weapon affix pool",
+  "AppliesTo": {
+    "Categories": [],
+    "Tags": ["Family=Axe"]
+  },
+  "Prefixes": ["hyforged:brutish", "hyforged:heavy", "hyforged:enraged", "hyforged:vicious", "hyforged:cruel", "hyforged:deadly", "hyforged:penetrating", "hyforged:fervent", "hyforged:stalwart", "hyforged:rugged", "hyforged:tenacious", "hyforged:siphoning", "hyforged:fortunate", "hyforged:spirited", "hyforged:of-clarity", "hyforged:of-resolve", "hyforged:steadfast"],
+  "Suffixes": ["of-the-bear", "hyforged:of-slaying", "hyforged:of-the-warrior", "hyforged:of-devastation", "hyforged:of-the-ox", "hyforged:of-vitality", "hyforged:of-endurance", "hyforged:of-the-leech", "hyforged:of-the-serpent", "hyforged:of-the-spirit", "hyforged:of-tenacity"],
+  "Forged": ["hyforged:corrupted-fury", "hyforged:corrupted-devastation", "hyforged:corrupted-penetration", "hyforged:corrupted-might", "hyforged:corrupted-vitality", "hyforged:corrupted-vampirism", "hyforged:corrupted-fortune", "hyforged:corrupted-spirit", "hyforged:corrupted-tenacity", "hyforged:mental-bastion", "hyforged:unshakeable-focus"]
 }

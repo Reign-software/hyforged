@@ -22,7 +22,6 @@
         "TargetSelf": true,
         "StatModifiers": {
           "hyforged:damage-increased-bps": 3000,
-          "hyforged:attack-speed-bps": 2000,
           "hyforged:movement-speed-bps": 1500
         }
       },

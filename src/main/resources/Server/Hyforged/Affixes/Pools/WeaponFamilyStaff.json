@@ -1,58 +1,11 @@
 {
-    "Priority": 300,
-    "Description": "Staff-family weapon affix pool",
-    "AppliesTo": {
-        "Categories": [],
-        "Tags": [
-            "Family=Staff"
-        ]
-    },
-    "Prefixes": [
-        "hyforged:arcane",
-        "hyforged:channelers",
-        "hyforged:mages",
-        "hyforged:quickened",
-        "hyforged:attuned",
-        "hyforged:scholars",
-        "hyforged:sages",
-        "hyforged:summoners",
-        "hyforged:spirited",
-        "hyforged:fortunate",
-        "hyforged:tenacious",
-        "hyforged:warding",
-        "hyforged:mana-siphoning",
-        "hyforged:of-clarity",
-        "hyforged:of-resolve",
-        "hyforged:steadfast"
-    ],
-    "Suffixes": [
-        "hyforged:of-sorcery",
-        "hyforged:of-the-archmage",
-        "hyforged:of-the-sage",
-        "hyforged:of-the-mind",
-        "hyforged:of-the-spirit",
-        "hyforged:of-the-magi",
-        "hyforged:of-focus",
-        "hyforged:of-regeneration",
-        "hyforged:of-the-serpent",
-        "hyforged:of-fortune",
-        "hyforged:of-conviction",
-        "hyforged:of-tenacity"
-    ],
-    "Forged": [
-        "hyforged:corrupted-arcana",
-        "hyforged:corrupted-celerity",
-        "hyforged:corrupted-essence",
-        "hyforged:corrupted-intellect",
-        "hyforged:corrupted-tempest",
-        "hyforged:corrupted-inferno",
-        "hyforged:corrupted-glacier",
-        "hyforged:corrupted-void",
-        "hyforged:corrupted-siphon",
-        "hyforged:corrupted-fortune",
-        "hyforged:corrupted-spirit",
-        "hyforged:corrupted-tenacity",
-        "hyforged:mental-bastion",
-        "hyforged:unshakeable-focus"
-    ]
+  "Priority": 300,
+  "Description": "Staff-family weapon affix pool",
+  "AppliesTo": {
+    "Categories": [],
+    "Tags": ["Family=Staff"]
+  },
+  "Prefixes": ["hyforged:arcane", "hyforged:channelers", "hyforged:mages", "hyforged:quickened", "hyforged:attuned", "hyforged:scholars", "hyforged:sages", "hyforged:summoners", "hyforged:spirited", "hyforged:fortunate", "hyforged:tenacious", "hyforged:warding", "hyforged:mana-siphoning", "hyforged:of-clarity", "hyforged:of-resolve", "hyforged:steadfast"],
+  "Suffixes": ["hyforged:of-sorcery", "hyforged:of-the-archmage", "hyforged:of-the-sage", "hyforged:of-the-mind", "hyforged:of-the-spirit", "hyforged:of-the-magi", "hyforged:of-focus", "hyforged:of-regeneration", "hyforged:of-the-serpent", "hyforged:of-fortune", "hyforged:of-conviction", "hyforged:of-tenacity"],
+  "Forged": ["hyforged:corrupted-arcana", "hyforged:corrupted-celerity", "hyforged:corrupted-essence", "hyforged:corrupted-intellect", "hyforged:corrupted-tempest", "hyforged:corrupted-inferno", "hyforged:corrupted-glacier", "hyforged:corrupted-void", "hyforged:corrupted-siphon", "hyforged:corrupted-fortune", "hyforged:corrupted-spirit", "hyforged:corrupted-tenacity", "hyforged:mental-bastion", "hyforged:unshakeable-focus"]
 }

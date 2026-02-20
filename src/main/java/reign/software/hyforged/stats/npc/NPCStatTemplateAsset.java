@@ -230,7 +230,7 @@ public class NPCStatTemplateAsset implements JsonAssetWithMap<String, IndexedLoo
             builder.stat(StatId.hyforged("max-health"), maxHealth, maxHealthPerLevel);
         }
         if (physicalPower != 0 || physicalPowerPerLevel != 0) {
-            builder.stat(StatId.hyforged("physical-power"), physicalPower, physicalPowerPerLevel);
+            builder.stat(StatId.hyforged("attack-power"), physicalPower, physicalPowerPerLevel);
         }
         if (armorRating != 0 || armorRatingPerLevel != 0) {
             builder.stat(StatId.hyforged("armor-rating"), armorRating, armorRatingPerLevel);

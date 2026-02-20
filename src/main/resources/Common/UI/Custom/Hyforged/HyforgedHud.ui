@@ -22,6 +22,20 @@ Group #HyforgedHud {
                     Direction: Start;
                 }
                 Label #ConcentrationValue { Text: "0/0"; }
+
+                // Segmented breakpoint bar showing per-ability cost as colored segments
+                Group #ConcentrationSegments {
+                    LayoutMode: Left;
+                    Anchor: (Height: 6, Left: 0, Right: 0);
+                    Visible: false;
+                }
+
+                // Effective regen rate display
+                Label #ConcentrationRegenRate {
+                    Text: "";
+                    Style: (FontSize: 12, TextColor: #55FFFF);
+                    Visible: false;
+                }
             }
 
             Group #RageContainer {

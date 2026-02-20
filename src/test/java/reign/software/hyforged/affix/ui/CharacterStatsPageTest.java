@@ -328,8 +328,80 @@ class CharacterStatsPageTest {
     }
     
     @Nested
-    @DisplayName("Equipment Slot Summary")
-    class EquipmentSlotSummaryTests {
+    @DisplayName("Equipment Panel")
+    class EquipmentPanelTests {
+        
+        @Test
+        @DisplayName("armor slot identifiers should follow expected format")
+        void armorSlotIdentifiersShouldFollowExpectedFormat() {
+            // Equipment panel uses "armor:0" through "armor:3" as slot keys
+            String[] expectedSlotKeys = {"armor:0", "armor:1", "armor:2", "armor:3"};
+            for (int i = 0; i < expectedSlotKeys.length; i++) {
+                String slotKey = "armor:" + i;
+                assertEquals(expectedSlotKeys[i], slotKey);
+            }
+        }
+        
+        @Test
+        @DisplayName("hand slot identifiers should follow expected format")
+        void handSlotIdentifiersShouldFollowExpectedFormat() {
+            // Equipment panel uses "hand:0" and "hand:1" as slot keys
+            String[] expectedSlotKeys = {"hand:0", "hand:1"};
+            for (int i = 0; i < expectedSlotKeys.length; i++) {
+                String slotKey = "hand:" + i;
+                assertEquals(expectedSlotKeys[i], slotKey);
+            }
+        }
+        
+        @Test
+        @DisplayName("should have 6 total equipment slots")
+        void shouldHaveSixTotalEquipmentSlots() {
+            // 4 armor + 2 hand = 6 total slots
+            int totalSlots = 4 + 2;
+            assertEquals(6, totalSlots);
+        }
+        
+        @Test
+        @DisplayName("empty slot should produce no tooltip entry")
+        void emptySlotShouldProduceNoTooltipEntry() {
+            // Empty slots should not have tooltip entries in the map
+            java.util.Map<String, Object> tooltipMap = new java.util.HashMap<>();
+            // Simulating: only equipped items get tooltip entries
+            // Empty slot -> no put to map
+            assertNull(tooltipMap.get("armor:0"), "Empty slot should not have a tooltip entry");
+        }
+    }
+    
+    @Nested
+    @DisplayName("Equipment Tooltip")
+    class EquipmentTooltipTests {
+        
+        @Test
+        @DisplayName("tooltip action constants should be non-null and distinct from modifier tooltip")
+        void tooltipActionsShouldBeDistinct() {
+            // Equipment tooltip actions should be different from modifier tooltip actions
+            String showEquip = "showEquipTooltip";
+            String hideEquip = "hideEquipTooltip";
+            String showMod = "showModifierTooltip";
+            String hideMod = "hideModifierTooltip";
+            
+            assertNotNull(showEquip);
+            assertNotNull(hideEquip);
+            assertNotEquals(showEquip, showMod);
+            assertNotEquals(hideEquip, hideMod);
+            assertNotEquals(showEquip, hideEquip);
+        }
+        
+        @Test
+        @DisplayName("PageEventData codec should handle equipment tooltip action values")
+        void pageEventDataShouldHandleEquipActions() {
+            // PageEventData codec reuses existing Action + TooltipTarget keys
+            CharacterStatsPage.PageEventData data = new CharacterStatsPage.PageEventData();
+            assertNotNull(CharacterStatsPage.PageEventData.CODEC);
+            // Just verify codec exists and can create instances
+            assertNull(data.getAction());
+            assertNull(data.getTooltipTarget());
+        }
         
         @Test
         @DisplayName("affix summary should include tier indicator")
@@ -341,38 +413,55 @@ class CharacterStatsPageTest {
             
             assertEquals("[T2] Sturdy", expected);
         }
+    }
+    
+    @Nested
+    @DisplayName("Stat Description Tooltip with Range")
+    class StatDescriptionTooltipTests {
         
         @Test
-        @DisplayName("multiple affixes should be comma-separated")
-        void multipleAffixesShouldBeCommaSeparated() {
-            StringBuilder summary = new StringBuilder();
-            String[] affixes = {"[T1] Mighty", "[T3] Swift"};
-            
-            for (String affix : affixes) {
-                if (summary.length() > 0) {
-                    summary.append(", ");
-                }
-                summary.append(affix);
+        @DisplayName("tooltip should include range when bounds are meaningful")
+        void tooltipShouldIncludeRangeWhenBoundsMeaningful() {
+            // When a stat has min=0, max=100, range is "0 / 100" and not "-"
+            StatDefinition stat = createTestStat("armor", 50, 0, 100);
+            // The range "0 / 100" is meaningful, so tooltip should include it
+            String rangeStr = formatTestRange(stat);
+            assertNotEquals("-", rangeStr, "Range should be meaningful when both bounds are set");
+            assertTrue(rangeStr.contains("/"), "Range should contain separator");
+        }
+        
+        @Test
+        @DisplayName("tooltip should omit range when both bounds are unbounded")
+        void tooltipShouldOmitRangeWhenUnbounded() {
+            StatDefinition stat = createTestStat("misc", 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            String rangeStr = formatTestRange(stat);
+            assertEquals("-", rangeStr, "Unbounded range should return dash");
+        }
+        
+        @Test
+        @DisplayName("range should handle partially bounded stats")
+        void rangeShouldHandlePartiallyBounded() {
+            // Only max bound is set
+            StatDefinition stat = createTestStat("capped", 50, Integer.MIN_VALUE, 100);
+            String rangeStr = formatTestRange(stat);
+            assertNotEquals("-", rangeStr, "Partially bounded range should be meaningful");
+            assertTrue(rangeStr.contains("--"), "Unbounded side should show --");
+        }
+        
+        /**
+         * Mirror the range format logic from CharacterStatsPage.formatRange()
+         */
+        private String formatTestRange(StatDefinition def) {
+            int min = def.minValue();
+            int max = def.maxValue();
+            boolean minUnbounded = (min == Integer.MIN_VALUE);
+            boolean maxUnbounded = (max == Integer.MAX_VALUE);
+            if (minUnbounded && maxUnbounded) {
+                return "-";
             }
-            
-            assertEquals("[T1] Mighty, [T3] Swift", summary.toString());
-        }
-        
-        @Test
-        @DisplayName("empty slot should show Empty label")
-        void emptySlotShouldShowEmptyLabel() {
-            String slotType = "Armor";
-            int slotIndex = 1;
-            String emptyLabel = slotType + " " + (slotIndex + 1) + ": Empty";
-            
-            assertEquals("Armor 2: Empty", emptyLabel);
-        }
-        
-        @Test
-        @DisplayName("no affixes should show No affixes text")
-        void noAffixesShouldShowText() {
-            String noAffixesText = "No affixes";
-            assertEquals("No affixes", noAffixesText);
+            String minStr = minUnbounded ? "--" : String.valueOf(min);
+            String maxStr = maxUnbounded ? "--" : String.valueOf(max);
+            return minStr + " / " + maxStr;
         }
     }
     

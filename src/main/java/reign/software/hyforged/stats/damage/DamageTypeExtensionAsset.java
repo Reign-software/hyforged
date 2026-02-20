@@ -78,6 +78,41 @@ public class DamageTypeExtensionAsset implements JsonAssetWithMap<String, Indexe
                     (asset, parent) -> asset.elementTag = parent.elementTag
             )
             .add()
+            .appendInherited(
+                    new KeyedCodec<>("HyforgedDamageBonusStat", Codec.STRING),
+                    (asset, value) -> asset.damageBonusStat = value,
+                    asset -> asset.damageBonusStat,
+                    (asset, parent) -> {} // no inheritance — chain walked at runtime by registry
+            )
+            .add()
+            .appendInherited(
+                    new KeyedCodec<>("HyforgedDamageTakenStat", Codec.STRING),
+                    (asset, value) -> asset.damageTakenStat = value,
+                    asset -> asset.damageTakenStat,
+                    (asset, parent) -> {} // no inheritance — chain walked at runtime by registry
+            )
+            .add()
+            .appendInherited(
+                    new KeyedCodec<>("HyforgedAilmentChanceStat", Codec.STRING),
+                    (asset, value) -> asset.ailmentChanceStat = value,
+                    asset -> asset.ailmentChanceStat,
+                    (asset, parent) -> asset.ailmentChanceStat = parent.ailmentChanceStat
+            )
+            .add()
+            .appendInherited(
+                    new KeyedCodec<>("HyforgedAilmentDurationStat", Codec.STRING),
+                    (asset, value) -> asset.ailmentDurationStat = value,
+                    asset -> asset.ailmentDurationStat,
+                    (asset, parent) -> asset.ailmentDurationStat = parent.ailmentDurationStat
+            )
+            .add()
+            .appendInherited(
+                    new KeyedCodec<>("HyforgedAilmentDamageStat", Codec.STRING),
+                    (asset, value) -> asset.ailmentDamageStat = value,
+                    asset -> asset.ailmentDamageStat,
+                    (asset, parent) -> asset.ailmentDamageStat = parent.ailmentDamageStat
+            )
+            .add()
             .build();
 
     private static AssetStore<String, DamageTypeExtensionAsset, IndexedLookupTableAssetMap<String, DamageTypeExtensionAsset>> ASSET_STORE;
@@ -91,6 +126,11 @@ public class DamageTypeExtensionAsset implements JsonAssetWithMap<String, Indexe
     private String resistanceStat;
     private String penetrationStat;
     private String elementTag;
+    private String damageBonusStat;
+    private String damageTakenStat;
+    private String ailmentChanceStat;
+    private String ailmentDurationStat;
+    private String ailmentDamageStat;
 
     public DamageTypeExtensionAsset() {
     }
@@ -164,6 +204,54 @@ public class DamageTypeExtensionAsset implements JsonAssetWithMap<String, Indexe
     @Nullable
     public String getElementTag() {
         return elementTag;
+    }
+
+    /**
+     * Get the outgoing damage bonus stat for this damage type.
+     * Used by {@code HyforgedDamageBonusSystem} to apply element-specific damage increases.
+     * Inheritance is intentionally NOT applied here; the registry walks the chain manually
+     * to accumulate bonuses at each level (e.g. fire gets both fire-bonus and elemental-bonus).
+     */
+    @Nullable
+    public StatId getDamageBonusStatId() {
+        return damageBonusStat != null ? StatId.parse(damageBonusStat) : null;
+    }
+
+    /**
+     * Get the incoming damage taken multiplier stat for this damage type.
+     * Used by {@code HyforgedDamageTakenSystem}.
+     * Inheritance is intentionally NOT applied here; the registry walks the chain manually.
+     */
+    @Nullable
+    public StatId getDamageTakenStatId() {
+        return damageTakenStat != null ? StatId.parse(damageTakenStat) : null;
+    }
+
+    /**
+     * Get the per-element ailment trigger chance stat for this damage type.
+     * Used by {@code HyforgedAilmentSystem} for direct chance rolls.
+     */
+    @Nullable
+    public StatId getAilmentChanceStatId() {
+        return ailmentChanceStat != null ? StatId.parse(ailmentChanceStat) : null;
+    }
+
+    /**
+     * Get the per-element ailment duration scaling stat for this damage type.
+     * Used by {@code HyforgedAilmentSystem} to scale ailment duration.
+     */
+    @Nullable
+    public StatId getAilmentDurationStatId() {
+        return ailmentDurationStat != null ? StatId.parse(ailmentDurationStat) : null;
+    }
+
+    /**
+     * Get the per-element ailment damage scaling stat for this damage type.
+     * Used by {@code HyforgedAilmentSystem} and stored as combat meta for DoT systems.
+     */
+    @Nullable
+    public StatId getAilmentDamageStatId() {
+        return ailmentDamageStat != null ? StatId.parse(ailmentDamageStat) : null;
     }
 
     @Override

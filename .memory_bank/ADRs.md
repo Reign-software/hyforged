@@ -15,6 +15,7 @@
 - ADR-0011: Runtime Quality Replacement for Items and NPCs (2026-01-23) — Accepted
 - ADR-0012: Concentration Priority UI Reordering Controls (2026-02-01) — Accepted
 - ADR-0013: Top-Down Vertical Passive Tree Layout (2026-01-26) — Accepted
+- ADR-0014: physical-power Stat ID Correction to attack-power (2026-02-18) — Accepted
 
 
 ## ADR Template
@@ -738,3 +739,28 @@ Standard categories established for stat definitions:
 - Spec: `.memory_bank/Features/random-item-quality/random-item-quality.spec.md`
 - Related: ADR-0009 (Quality for affixes)
 - Hytale: `ItemQuality.java`, `Item.java`, `ItemStack.java`
+
+### ADR-0014: physical-power Stat ID Correction to attack-power
+- Date: 2026-02-18
+- Status: Accepted
+- Deciders: Reign Software
+
+#### Context
+- `NPCStatTemplateAsset.java` line 233 referenced `StatId.hyforged("physical-power")` when scaling NPC attack stats.
+- No stat definition file `physical-power.json` existed in the stats catalog; all NPC template JSON files and existing systems uniformly used `attack-power`.
+- The mismatch caused all NPCs to silently fail to receive their attack-power scaling modifier (Hyforged stat engine returned null/-1 index for the missing stat ID), making every NPC under-statted in combat.
+
+#### Decision
+- Option A taken: rename the reference in `NPCStatTemplateAsset.java` from `StatId.hyforged("physical-power")` to `StatId.hyforged("attack-power")`.
+- No new stat definition was created. `physical-power` as a distinct concept was rejected -- it has no unique semantics separate from `attack-power` in the current catalog.
+
+#### Consequences
+- All NPCs now correctly receive their attack-power scaling modifier during stat template application.
+- No JSON schema changes required.
+- Any future re-introduction of a `physical-power` concept (e.g., for unarmed or physical-only specialization) would require a new stat definition and intentional wiring, which is the correct approach.
+
+#### Alternatives Considered
+- Option B: Create `physical-power.json` as a distinct stat and update all NPC templates -- rejected because no design rationale existed for a separate `physical-power` concept; it was confirmed to be a naming error.
+
+#### Links
+- `.memory_bank/Features/stat-integration-audit/stat-integration-audit.plan.md` Phase 1

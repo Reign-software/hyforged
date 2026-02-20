@@ -1,54 +1,11 @@
 {
-    "Priority": 300,
-    "Description": "Crossbow-family weapon affix pool",
-    "AppliesTo": {
-        "Categories": [],
-        "Tags": [
-            "Family=Crossbow"
-        ]
-    },
-    "Prefixes": [
-        "hyforged:hunters",
-        "hyforged:heavy",
-        "hyforged:penetrating",
-        "hyforged:deadly",
-        "hyforged:precise",
-        "hyforged:vicious",
-        "hyforged:swift",
-        "hyforged:rugged",
-        "hyforged:tenacious",
-        "hyforged:fortunate",
-        "hyforged:spirited",
-        "hyforged:siphoning",
-        "hyforged:of-clarity",
-        "hyforged:of-resolve",
-        "hyforged:steadfast"
-    ],
-    "Suffixes": [
-        "hyforged:of-the-hunter",
-        "hyforged:of-slaying",
-        "hyforged:of-accuracy",
-        "hyforged:of-devastation",
-        "hyforged:of-the-warrior",
-        "hyforged:of-vitality",
-        "hyforged:of-endurance",
-        "hyforged:of-the-leech",
-        "hyforged:of-the-serpent",
-        "hyforged:of-the-spirit",
-        "hyforged:of-tenacity"
-    ],
-    "Forged": [
-        "hyforged:corrupted-precision",
-        "hyforged:corrupted-fury",
-        "hyforged:corrupted-penetration",
-        "hyforged:corrupted-swiftness",
-        "hyforged:corrupted-agility",
-        "hyforged:corrupted-velocity",
-        "hyforged:corrupted-vampirism",
-        "hyforged:corrupted-fortune",
-        "hyforged:corrupted-spirit",
-        "hyforged:corrupted-tenacity",
-        "hyforged:mental-bastion",
-        "hyforged:unshakeable-focus"
-    ]
+  "Priority": 300,
+  "Description": "Crossbow-family weapon affix pool",
+  "AppliesTo": {
+    "Categories": [],
+    "Tags": ["Family=Crossbow"]
+  },
+  "Prefixes": ["hyforged:hunters", "hyforged:heavy", "hyforged:penetrating", "hyforged:deadly", "hyforged:precise", "hyforged:vicious", "hyforged:swift", "hyforged:rugged", "hyforged:tenacious", "hyforged:fortunate", "hyforged:spirited", "hyforged:siphoning", "hyforged:of-clarity", "hyforged:of-resolve", "hyforged:steadfast"],
+  "Suffixes": ["hyforged:of-the-hunter", "hyforged:of-slaying", "hyforged:of-accuracy", "hyforged:of-devastation", "hyforged:of-the-warrior", "hyforged:of-vitality", "hyforged:of-endurance", "hyforged:of-the-leech", "hyforged:of-the-serpent", "hyforged:of-the-spirit", "hyforged:of-tenacity"],
+  "Forged": ["hyforged:corrupted-precision", "hyforged:corrupted-fury", "hyforged:corrupted-penetration", "hyforged:corrupted-swiftness", "hyforged:corrupted-agility", "hyforged:corrupted-velocity", "hyforged:corrupted-vampirism", "hyforged:corrupted-fortune", "hyforged:corrupted-spirit", "hyforged:corrupted-tenacity", "hyforged:mental-bastion", "hyforged:unshakeable-focus"]
 }

@@ -22,6 +22,8 @@ import reign.software.hyforged.progression.event.CharacterLevelUpEvent;
 import reign.software.hyforged.progression.event.ClassLevelUpEvent;
 import reign.software.hyforged.progression.event.LevelUpNotificationEvent;
 import reign.software.hyforged.stats.StatId;
+import reign.software.hyforged.stats.StatAccessor;
+import reign.software.hyforged.stats.StatDefinitionRegistry;
 import reign.software.hyforged.stats.asset.ClassDefinition;
 import reign.software.hyforged.stats.asset.ClassDefinitionRegistry;
 
@@ -50,6 +52,10 @@ public class XPAwardSystem extends EntityEventSystem<EntityStore, XPAwardEvent> 
     
     private final ComponentType<EntityStore, ProgressionComponent> progressionComponentType;
     private final ComponentType<EntityStore, UUIDComponent> uuidComponentType;
+
+    // Cached index for hyforged:experience-gain-bps (Step 5.1)
+    private int experienceGainBpsIndex = -1;
+    private boolean xpBonusIndexCached = false;
     
     public XPAwardSystem() {
         super(XPAwardEvent.class);
@@ -77,9 +83,11 @@ public class XPAwardSystem extends EntityEventSystem<EntityStore, XPAwardEvent> 
         }
         
         Ref<EntityStore> entityRef = archetypeChunk.getReferenceTo(index);
+        ensureXpBonusIndexCached();
         
         // ========== CHARACTER XP ==========
         long charXpAmount = event.getCharacterXpAmount();
+        charXpAmount = applyXpGainBonus(charXpAmount, store, entityRef);
         
         // Don't award XP if at max level
         if (progression.getCharacterLevel() >= CharacterProgression.MAX_LEVEL) {
@@ -98,6 +106,7 @@ public class XPAwardSystem extends EntityEventSystem<EntityStore, XPAwardEvent> 
         // ========== CLASS XP ==========
         String activeClassId = progression.getActiveClassId();
         long classXpAmount = event.getClassXpAmount();
+        classXpAmount = applyXpGainBonus(classXpAmount, store, entityRef);
         
         if (activeClassId != null && classXpAmount > 0) {
             ProgressionComponent.ClassProgressionData classData = progression.getOrCreateClassProgression(activeClassId);
@@ -144,6 +153,33 @@ public class XPAwardSystem extends EntityEventSystem<EntityStore, XPAwardEvent> 
                     activeClassId != null ? classXpAmount : 0,
                     activeClassId != null ? activeClassId : "none");
         }
+    }
+
+    // ========== STEP 5.1: experience-gain-bps multiplier ==========
+
+    /**
+     * Apply the hyforged:experience-gain-bps multiplier to a base XP amount.
+     * Returns the base amount unchanged if the stat is absent or zero.
+     *
+     * @param base      Base XP amount to scale
+     * @param store     The entity store
+     * @param entityRef Reference to the entity receiving XP
+     * @return Scaled XP amount (rounded to nearest long)
+     */
+    private long applyXpGainBonus(long base, Store<EntityStore> store, Ref<EntityStore> entityRef) {
+        if (base <= 0 || experienceGainBpsIndex < 0) return base;
+        int bps = StatAccessor.getStatValueInt(store, entityRef, experienceGainBpsIndex);
+        return bps == 0 ? base : Math.round(base * (1.0 + bps / 10000.0));
+    }
+
+    /**
+     * Lazily resolve hyforged:experience-gain-bps stat index (called once per system lifetime).
+     */
+    private void ensureXpBonusIndexCached() {
+        if (xpBonusIndexCached) return;
+        experienceGainBpsIndex = StatDefinitionRegistry.get().getIndex(
+                StatId.hyforged("experience-gain-bps"));
+        xpBonusIndexCached = true;
     }
 
     /**

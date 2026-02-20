@@ -10,7 +10,7 @@
       "Weight": 40,
       "Stats": {
         "hyforged:luck": { "MinValue": 30, "MaxValue": 40, "StackType": "Flat" },
-        "hyforged:item-rarity-increased-bps": { "MinValue": 1400, "MaxValue": 2000, "StackType": "Increased" }
+        "hyforged:item-rarity-bps": { "MinValue": 1400, "MaxValue": 2000, "StackType": "Increased" }
       }
     },
     {
@@ -19,7 +19,7 @@
       "Weight": 58,
       "Stats": {
         "hyforged:luck": { "MinValue": 22, "MaxValue": 30, "StackType": "Flat" },
-        "hyforged:item-rarity-increased-bps": { "MinValue": 900, "MaxValue": 1400, "StackType": "Increased" }
+        "hyforged:item-rarity-bps": { "MinValue": 900, "MaxValue": 1400, "StackType": "Increased" }
       }
     },
     {
@@ -28,7 +28,7 @@
       "Weight": 78,
       "Stats": {
         "hyforged:luck": { "MinValue": 15, "MaxValue": 22, "StackType": "Flat" },
-        "hyforged:item-rarity-increased-bps": { "MinValue": 550, "MaxValue": 900, "StackType": "Increased" }
+        "hyforged:item-rarity-bps": { "MinValue": 550, "MaxValue": 900, "StackType": "Increased" }
       }
     },
     {
@@ -37,7 +37,7 @@
       "Weight": 102,
       "Stats": {
         "hyforged:luck": { "MinValue": 8, "MaxValue": 15, "StackType": "Flat" },
-        "hyforged:item-rarity-increased-bps": { "MinValue": 250, "MaxValue": 550, "StackType": "Increased" }
+        "hyforged:item-rarity-bps": { "MinValue": 250, "MaxValue": 550, "StackType": "Increased" }
       }
     },
     {
@@ -46,7 +46,7 @@
       "Weight": 128,
       "Stats": {
         "hyforged:luck": { "MinValue": 3, "MaxValue": 8, "StackType": "Flat" },
-        "hyforged:item-rarity-increased-bps": { "MinValue": 100, "MaxValue": 250, "StackType": "Increased" }
+        "hyforged:item-rarity-bps": { "MinValue": 100, "MaxValue": 250, "StackType": "Increased" }
       }
     }
   ]

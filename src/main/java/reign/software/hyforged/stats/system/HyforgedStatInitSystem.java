@@ -126,7 +126,7 @@ public class HyforgedStatInitSystem extends RefSystem<EntityStore> {
      *
      * @param entityRef Reference to the entity
      * @param commandBuffer Command buffer for component access
-     * @return The class ID (e.g., "hyforged:default")
+     * @return The class ID (e.g., "Default", "Warrior")
      */
     @Nonnull
     private String getPlayerClass(

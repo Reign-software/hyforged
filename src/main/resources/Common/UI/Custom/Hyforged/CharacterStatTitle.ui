@@ -9,6 +9,6 @@ Group #CategoryHeader {
 
     Label #CategoryName {
         Text: "";
-        Style: (FontSize: 16, RenderBold: true, TextColor: #DAA520);
+        Style: (FontSize: 16, RenderBold: true, TextColor: #DAA520, HorizontalAlignment: Start);
     }
 }

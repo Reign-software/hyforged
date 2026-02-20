@@ -10,18 +10,18 @@ Group #StatRow {
 
     Label #StatName {
         Text: "";
-        Anchor: (Width: 270);
+        Anchor: (Width: 300);
         Style: (FontSize: 13);
     }
 
     Label #BaseValue {
         Text: "";
-        Anchor: (Width: 110);
+        Anchor: (Width: 120);
         Style: (FontSize: 13, HorizontalAlignment: End);
     }
 
     Button #ModValue {
-        Anchor: (Width: 130, Height: 22);
+        Anchor: (Width: 140, Height: 22);
         Background: #00000000;
         Style: ButtonStyle(Sounds: $Common.@ButtonSounds);
 
@@ -32,15 +32,9 @@ Group #StatRow {
         }
     }
 
-    Label #RangeValue {
-        Text: "";
-        Anchor: (Width: 140);
-        Style: (FontSize: 13, HorizontalAlignment: End, TextColor: #888888);
-    }
-
     Label #TotalValue {
         Text: "";
-        Anchor: (Width: 110);
+        Anchor: (Width: 120);
         Style: (FontSize: 13, HorizontalAlignment: End, RenderBold: true);
     }
 

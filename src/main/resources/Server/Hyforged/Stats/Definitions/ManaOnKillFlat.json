@@ -1,0 +1,20 @@
+{
+  "Id": "hyforged:mana-on-kill-flat",
+  "Category": "recovery",
+  "DisplayName": "Mana on Kill",
+  "Description": "Mana gained when killing an enemy.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 2147483647,
+  "Tags": {
+    "Domain": [
+      "utility"
+    ],
+    "Type": [
+      "resource"
+    ],
+    "Resource": [
+      "mana"
+    ]
+  }
+}

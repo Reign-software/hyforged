@@ -2,7 +2,7 @@
 
 ## Metadata
 - Feature ID (slug): passive-tree-stat-diversity
-- Status: In Progress
+- Status: Done
 - Owner: JBurl
 - Date: 2026-01-25
 
@@ -26,11 +26,11 @@
 - [x] Coverage matrix artifact created and reviewed.
 - [x] Region gap list and density targets documented.
 - [x] Validation outputs defined for coverage and density checks.
-- [ ] Build passes.
+- [x] Build passes.
 - [ ] Tests pass (if applicable).
 
 ## Phase 2: Strength Region (Spec Phase 1)
-- Phase Status: [ ] Not Started  [x] In Progress  [ ] Done
+- Phase Status: [ ] Not Started  [ ] In Progress  [x] Done
 
 ### Steps
 - [x] Fill missing physical/bleed/rage/weapon stat coverage from the matrix.
@@ -43,11 +43,11 @@
 - [x] Strength region achieves full stat coverage for assigned primaries.
 - [x] Off-stat cluster placed and compliant with adjacency rules.
 - [x] Travel density meets configured target for Strength region.
-- [ ] Build passes.
+- [x] Build passes.
 - [ ] Tests pass (if applicable).
 
 ## Phase 3: Dexterity Region (Spec Phase 2)
-- Phase Status: [ ] Not Started  [x] In Progress  [ ] Done
+- Phase Status: [ ] Not Started  [ ] In Progress  [x] Done
 
 ### Steps
 - [x] Fill accuracy/evasion/projectile/crit/stamina gaps from the matrix.
@@ -60,11 +60,11 @@
 - [x] Dexterity region achieves full stat coverage for assigned primaries.
 - [x] Off-stat cluster placed and compliant with adjacency rules.
 - [x] Travel density meets configured target for Dexterity region.
-- [ ] Build passes.
+- [x] Build passes.
 - [ ] Tests pass (if applicable).
 
 ## Phase 4: Intelligence Region (Spec Phase 3)
-- Phase Status: [ ] Not Started  [x] In Progress  [ ] Done
+- Phase Status: [ ] Not Started  [ ] In Progress  [x] Done
 
 ### Steps
 - [x] Fill elemental/cast/mana/penetration/ailment gaps from the matrix.
@@ -77,11 +77,11 @@
 - [x] Intelligence region achieves full stat coverage for assigned primaries.
 - [x] Off-stat cluster placed and compliant with adjacency rules.
 - [x] Travel density meets configured target for Intelligence region.
-- [ ] Build passes.
+- [x] Build passes.
 - [ ] Tests pass (if applicable).
 
 ## Phase 5: Constitution Region (Spec Phase 4)
-- Phase Status: [ ] Not Started  [x] In Progress  [ ] Done
+- Phase Status: [ ] Not Started  [ ] In Progress  [x] Done
 
 ### Steps
 - [x] Fill health/mitigation/block/resistance/regen gaps from the matrix.
@@ -94,11 +94,11 @@
 - [x] Constitution region achieves full stat coverage for assigned primaries.
 - [x] Off-stat cluster placed and compliant with adjacency rules.
 - [x] Travel density meets configured target for Constitution region.
-- [ ] Build passes.
+- [x] Build passes.
 - [ ] Tests pass (if applicable).
 
 ## Phase 6: Wisdom Region (Spec Phase 5)
-- Phase Status: [ ] Not Started  [x] In Progress  [ ] Done
+- Phase Status: [ ] Not Started  [ ] In Progress  [x] Done
 
 ### Steps
 - [x] Fill aura/cooldown/duration/resistance/concentration stability gaps from the matrix.
@@ -112,11 +112,11 @@
 - [x] Concentration stats remain rare and intentionally placed.
 - [x] Off-stat cluster placed and compliant with adjacency rules.
 - [x] Travel density meets configured target for Wisdom region.
-- [ ] Build passes.
+- [x] Build passes.
 - [ ] Tests pass (if applicable).
 
 ## Phase 7: Spirit Region (Spec Phase 6)
-- Phase Status: [ ] Not Started  [x] In Progress  [ ] Done
+- Phase Status: [ ] Not Started  [ ] In Progress  [x] Done
 
 ### Steps
 - [x] Fill mana recovery/reservation/minion/curse/totem/trap gaps from the matrix.
@@ -129,11 +129,11 @@
 - [x] Spirit region achieves full stat coverage for assigned primaries.
 - [x] Off-stat cluster placed and compliant with adjacency rules.
 - [x] Travel density meets configured target for Spirit region.
-- [ ] Build passes.
+- [x] Build passes.
 - [ ] Tests pass (if applicable).
 
 ## Phase 8: Luck Region (Spec Phase 7)
-- Phase Status: [ ] Not Started  [x] In Progress  [ ] Done
+- Phase Status: [ ] Not Started  [ ] In Progress  [x] Done
 
 ### Steps
 - [x] Fill chaos/poison/crit/culling/experience gaps from the matrix.
@@ -147,11 +147,11 @@
 - [x] Item-find stats remain rare and intentionally placed.
 - [x] Off-stat cluster placed and compliant with adjacency rules.
 - [x] Travel density meets configured target for Luck region.
-- [ ] Build passes.
+- [x] Build passes.
 - [ ] Tests pass (if applicable).
 
 ## Phase 9: Hub & Bridges Density Pass (Spec Phase 8)
-- Phase Status: [ ] Not Started  [x] In Progress  [ ] Done
+- Phase Status: [ ] Not Started  [ ] In Progress  [x] Done
 
 ### Steps
 - [x] Ensure hub/bridge clusters contain mixed-theme clusters (not pure travel).
@@ -164,7 +164,7 @@
 - [x] Hub/bridge clusters reflect universal stat placement rules.
 - [x] Global coverage audit confirms 100% stat coverage.
 - [x] Density targets and rare-stat constraints are satisfied.
-- [ ] Build passes.
+- [x] Build passes.
 - [ ] Tests pass (if applicable).
 
 ## Dependencies

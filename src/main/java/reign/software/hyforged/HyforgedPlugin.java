@@ -60,6 +60,13 @@ import reign.software.hyforged.concentration.ConcentrationService;
 import reign.software.hyforged.concentration.HyforgedConcentrationDisruptionSystem;
 import reign.software.hyforged.concentration.HyforgedConcentrationRegenerationSystem;
 import reign.software.hyforged.concentration.ui.ConcentrationPriorityPage;
+import reign.software.hyforged.minion.MinionReconnectHandler;
+import reign.software.hyforged.minion.MinionDefinitionRegistry;
+import reign.software.hyforged.minion.MinionSummonService;
+import reign.software.hyforged.minion.component.MinionTrackerComponent;
+import reign.software.hyforged.minion.component.SummonerLinkComponent;
+import reign.software.hyforged.minion.system.MinionDeathSystem;
+import reign.software.hyforged.minion.system.MinionSummonTickingSystem;
 import reign.software.hyforged.stats.asset.ClassAssetLoader;
 import reign.software.hyforged.stats.asset.StatAssetLoader;
 import reign.software.hyforged.stats.bridge.HyforgedDamageReductionSystem;
@@ -79,8 +86,10 @@ import reign.software.hyforged.stats.hud.ResourceStatsHudSystem;
 import reign.software.hyforged.stats.system.ClassLevelModifierSystem;
 import reign.software.hyforged.stats.system.HyforgedBridgeSystem;
 import reign.software.hyforged.stats.system.HyforgedEffectBridgeSystem;
+import reign.software.hyforged.stats.system.HyforgedMinionStatBridgeSystem;
 import reign.software.hyforged.stats.system.HyforgedStatComputeSystem;
 import reign.software.hyforged.stats.system.HyforgedStatInitSystem;
+import reign.software.hyforged.stats.system.OnKillResourceRecoverySystem;
 import reign.software.hyforged.stats.value.HyforgedStatValueInstaller;
 import reign.software.hyforged.effect.HyforgedEffectAssetLoader;
 import reign.software.hyforged.passive.asset.PassiveTreeAssetLoader;
@@ -144,6 +153,8 @@ public class HyforgedPlugin extends JavaPlugin {
     private ComponentType<EntityStore, PassiveTreeComponent> passiveTreeComponentType;
     private ComponentType<EntityStore, PlayerUnlocksComponent> playerUnlocksComponentType;
     private ComponentType<EntityStore, PlayerSpellsComponent> playerSpellsComponentType;
+    private ComponentType<EntityStore, SummonerLinkComponent> summonerLinkComponentType;
+    private ComponentType<EntityStore, MinionTrackerComponent> minionTrackerComponentType;
     
     // ChunkStore Component Types (block data)
     private ComponentType<ChunkStore, TradebarVaultComponent> tradebarVaultComponentType;
@@ -327,6 +338,13 @@ public class HyforgedPlugin extends JavaPlugin {
         
         // Initialize CurrencyService singleton
         CurrencyService.get();
+
+        // Load minion definitions from JSON index (data-driven)
+        MinionDefinitionRegistry.get().loadFromIndex("Server/Hyforged/Minions/MinionIndex.json");
+        getLogger().at(Level.INFO).log("Loaded %d minion definitions", MinionDefinitionRegistry.get().size());
+
+        // Validate minion NPC templates against NPCPlugin (M-3)
+        MinionDefinitionRegistry.get().validateTemplates();
         
         getLogger().at(Level.FINE).log("Stat and tag asset loading initialized, awaiting asset load...");
     }
@@ -431,6 +449,22 @@ public class HyforgedPlugin extends JavaPlugin {
 
         getLogger().at(Level.FINE).log("Registered PlayerSpellsComponent with persistence codec");
 
+        // Register SummonerLinkComponent (no persistence - runtime tracking only)
+        summonerLinkComponentType = entityStoreRegistry.registerComponent(
+            SummonerLinkComponent.class,
+            SummonerLinkComponent::new
+        );
+
+        getLogger().at(Level.FINE).log("Registered SummonerLinkComponent");
+
+        // Register MinionTrackerComponent (no persistence - runtime tracking only)
+        minionTrackerComponentType = entityStoreRegistry.registerComponent(
+            MinionTrackerComponent.class,
+            MinionTrackerComponent::new
+        );
+
+        getLogger().at(Level.FINE).log("Registered MinionTrackerComponent");
+
         // Initialize PassiveTreeService with component types
         PassiveTreeService.get().initialize(
             passiveTreeComponentType,
@@ -440,6 +474,14 @@ public class HyforgedPlugin extends JavaPlugin {
         );
 
         getLogger().at(Level.FINE).log("Initialized PassiveTreeService");
+
+        // Initialize MinionSummonService with component types
+        MinionSummonService.get().initialize(
+            summonerLinkComponentType,
+            minionTrackerComponentType
+        );
+
+        getLogger().at(Level.FINE).log("Initialized MinionSummonService");
 
         // Register passive effect handlers
         registerPassiveEffectHandlers();
@@ -525,6 +567,9 @@ public class HyforgedPlugin extends JavaPlugin {
                         return;
                     }
 
+                    // Restore minion state on reconnect (runs on world thread internally)
+                    MinionReconnectHandler.onPlayerReady(event);
+
                     com.hypixel.hytale.component.Store<EntityStore> store = ref.getStore();
                     store.getExternalData().getWorld().execute(() -> {
                         if (!ref.isValid()) {
@@ -564,14 +609,28 @@ public class HyforgedPlugin extends JavaPlugin {
                         ProgressionHudSystem.clearCache(uuid);
                         ItemAffixHudSystem.clearCache(uuid);
                         reign.software.hyforged.options.HyforgedPlayerOptions.remove(uuid);
+                        // Despawn all minions (preserve concentration for reconnect FR-12)
+                        MinionSummonService.get().enqueuePlayerDisconnect(uuid);
                     }
                 }
         );
         getLogger().at(Level.FINE).log("Registered HUD disconnect cleanup");
 
-        // Initialize concentration service singleton
+        // Initialize ConcentrationService singleton
         ConcentrationService.get();
         getLogger().at(Level.FINE).log("Initialized ConcentrationService");
+
+        // Register MinionSummonTickingSystem (drains minion spawn/despawn queues)
+        entityStoreRegistry.registerSystem(new MinionSummonTickingSystem());
+        getLogger().at(Level.FINE).log("Registered MinionSummonTickingSystem");
+
+        // Register HyforgedMinionStatBridgeSystem (propagates summoner stats to minions on spawn)
+        entityStoreRegistry.registerSystem(new HyforgedMinionStatBridgeSystem(summonerLinkComponentType));
+        getLogger().at(Level.FINE).log("Registered HyforgedMinionStatBridgeSystem");
+
+        // Register MinionDeathSystem (handles minion death: concentration release, tracker cleanup, notification)
+        entityStoreRegistry.registerSystem(new MinionDeathSystem(summonerLinkComponentType, minionTrackerComponentType));
+        getLogger().at(Level.FINE).log("Registered MinionDeathSystem");
         
         // Register HyforgedStatInitSystem (handles player entity lifecycle)
         entityStoreRegistry.registerSystem(new HyforgedStatInitSystem());
@@ -672,6 +731,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register XPAwardOnKillSystem (awards XP on entity kills)
         entityStoreRegistry.registerSystem(new XPAwardOnKillSystem());
         getLogger().at(Level.FINE).log("Registered XPAwardOnKillSystem");
+
+        // Register OnKillResourceRecoverySystem (life/mana gained on kill)
+        entityStoreRegistry.registerSystem(new OnKillResourceRecoverySystem());
+        getLogger().at(Level.FINE).log("Registered OnKillResourceRecoverySystem");
         
         // Register DiscoveryXPSystem (awards XP on zone discovery)
         entityStoreRegistry.registerSystem(new DiscoveryXPSystem());
@@ -1040,6 +1103,28 @@ public class HyforgedPlugin extends JavaPlugin {
             throw new IllegalStateException("HyforgedPlugin not initialized");
         }
         return playerSpellsComponentType;
+    }
+
+    /**
+     * Get the SummonerLinkComponent type for ECS operations.
+     */
+    @Nonnull
+    public ComponentType<EntityStore, SummonerLinkComponent> getSummonerLinkComponentType() {
+        if (summonerLinkComponentType == null) {
+            throw new IllegalStateException("HyforgedPlugin not initialized");
+        }
+        return summonerLinkComponentType;
+    }
+
+    /**
+     * Get the MinionTrackerComponent type for ECS operations.
+     */
+    @Nonnull
+    public ComponentType<EntityStore, MinionTrackerComponent> getMinionTrackerComponentType() {
+        if (minionTrackerComponentType == null) {
+            throw new IllegalStateException("HyforgedPlugin not initialized");
+        }
+        return minionTrackerComponentType;
     }
     
     /**

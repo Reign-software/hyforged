@@ -1,54 +1,11 @@
 {
-    "Priority": 300,
-    "Description": "Bow-family weapon affix pool",
-    "AppliesTo": {
-        "Categories": [],
-        "Tags": [
-            "Family=Bow"
-        ]
-    },
-    "Prefixes": [
-        "hyforged:hunters",
-        "hyforged:nimble",
-        "hyforged:deadly",
-        "hyforged:precise",
-        "hyforged:swift",
-        "hyforged:fervent",
-        "hyforged:vicious",
-        "hyforged:prospectors",
-        "hyforged:rugged",
-        "hyforged:fortunate",
-        "hyforged:spirited",
-        "hyforged:siphoning",
-        "hyforged:of-clarity",
-        "hyforged:of-resolve",
-        "hyforged:steadfast"
-    ],
-    "Suffixes": [
-        "hyforged:of-the-hunter",
-        "hyforged:of-accuracy",
-        "hyforged:of-devastation",
-        "hyforged:of-the-fox",
-        "hyforged:of-the-wind",
-        "hyforged:of-vitality",
-        "hyforged:of-regeneration",
-        "hyforged:of-the-leech",
-        "hyforged:of-the-serpent",
-        "hyforged:of-the-spirit",
-        "hyforged:of-fortune",
-        "hyforged:of-tenacity"
-    ],
-    "Forged": [
-        "hyforged:corrupted-precision",
-        "hyforged:corrupted-swiftness",
-        "hyforged:corrupted-agility",
-        "hyforged:corrupted-velocity",
-        "hyforged:corrupted-penetration",
-        "hyforged:corrupted-vampirism",
-        "hyforged:corrupted-fortune",
-        "hyforged:corrupted-spirit",
-        "hyforged:corrupted-tenacity",
-        "hyforged:mental-bastion",
-        "hyforged:unshakeable-focus"
-    ]
+  "Priority": 300,
+  "Description": "Bow-family weapon affix pool",
+  "AppliesTo": {
+    "Categories": [],
+    "Tags": ["Family=Bow"]
+  },
+  "Prefixes": ["hyforged:hunters", "hyforged:nimble", "hyforged:deadly", "hyforged:precise", "hyforged:swift", "hyforged:fervent", "hyforged:vicious", "hyforged:prospectors", "hyforged:rugged", "hyforged:fortunate", "hyforged:spirited", "hyforged:siphoning", "hyforged:of-clarity", "hyforged:of-resolve", "hyforged:steadfast"],
+  "Suffixes": ["hyforged:of-the-hunter", "hyforged:of-accuracy", "hyforged:of-devastation", "hyforged:of-the-fox", "hyforged:of-the-wind", "hyforged:of-vitality", "hyforged:of-regeneration", "hyforged:of-the-leech", "hyforged:of-the-serpent", "hyforged:of-the-spirit", "hyforged:of-fortune", "hyforged:of-tenacity"],
+  "Forged": ["hyforged:corrupted-precision", "hyforged:corrupted-swiftness", "hyforged:corrupted-agility", "hyforged:corrupted-velocity", "hyforged:corrupted-penetration", "hyforged:corrupted-vampirism", "hyforged:corrupted-fortune", "hyforged:corrupted-spirit", "hyforged:corrupted-tenacity", "hyforged:mental-bastion", "hyforged:unshakeable-focus"]
 }

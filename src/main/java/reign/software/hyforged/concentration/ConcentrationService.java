@@ -161,6 +161,42 @@ public final class ConcentrationService {
     }
 
     /**
+     * Get the breakpoint data for an entity's concentrated abilities.
+     * Returns breakpoints in priority order (highest first) with cumulative costs.
+     */
+    @Nonnull
+    public List<ConcentrationBreakpoint> getAbilityCostBreakpoints(@Nonnull Ref<EntityStore> entityRef) {
+        Objects.requireNonNull(entityRef, "entityRef cannot be null");
+        if (!entityRef.isValid()) {
+            return List.of();
+        }
+
+        ConcentrationPriorityComponent component = entityRef.getStore().getComponent(
+                entityRef, concentrationPriorityComponentType);
+        if (component == null) {
+            return List.of();
+        }
+
+        List<ConcentratedAbility> abilities = component.getAbilities();
+        if (abilities.isEmpty()) {
+            return List.of();
+        }
+
+        List<ConcentrationBreakpoint> breakpoints = new ArrayList<>(abilities.size());
+        int cumulative = 0;
+        for (ConcentratedAbility ability : abilities) {
+            cumulative += Math.max(0, ability.cost());
+            breakpoints.add(new ConcentrationBreakpoint(
+                    ability.abilityId(),
+                    ability.cost(),
+                    cumulative,
+                    ability.enabled()
+            ));
+        }
+        return breakpoints;
+    }
+
+    /**
      * Get the ordered list of concentrated abilities.
      */
     @Nonnull

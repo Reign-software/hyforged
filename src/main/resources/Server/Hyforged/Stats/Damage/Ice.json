@@ -3,5 +3,8 @@
     "Inherits": "Elemental",
     "HyforgedResistanceStat": "hyforged:cold-resistance-bps",
     "HyforgedPenetrationStat": "hyforged:cold-penetration-bps",
-    "HyforgedElementTag": "ice"
+    "HyforgedElementTag": "ice",
+    "HyforgedDamageBonusStat": "hyforged:cold-damage-increased-bps",
+    "HyforgedAilmentChanceStat": "hyforged:freeze-chance-bps",
+    "HyforgedAilmentDurationStat": "hyforged:freeze-duration-bps"
 }

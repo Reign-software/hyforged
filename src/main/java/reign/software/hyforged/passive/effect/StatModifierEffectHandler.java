@@ -12,6 +12,7 @@ import reign.software.hyforged.stats.modifier.HyforgedModifier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Locale;
 import java.util.logging.Level;
 
 import com.hypixel.hytale.logger.HytaleLogger;
@@ -48,6 +49,9 @@ public final class StatModifierEffectHandler implements PassiveEffectHandler {
     /** Prefix for expanded stat tags that indicate this stat should apply to another target tag. */
     private static final String APPLIES_TO_TAG_PREFIX = "AppliesTo=";
 
+    /** Prefix for expanded stat tags that declare default stack type (e.g. StackType=increased). */
+    private static final String STACK_TYPE_PREFIX = "StackType=";
+
     private final ComponentType<EntityStore, HyforgedStatComponent> statComponentType;
 
     /**
@@ -77,7 +81,6 @@ public final class StatModifierEffectHandler implements PassiveEffectHandler {
 
         int value = effect.getInt("Value", 0);
         String stackTypeStr = effect.getString("StackType");
-        HyforgedModifier.StackType stackType = parseStackType(stackTypeStr);
 
         StatDefinitionRegistry registry = StatDefinitionRegistry.get();
 
@@ -89,6 +92,7 @@ public final class StatModifierEffectHandler implements PassiveEffectHandler {
         }
 
         StatDefinition definition = registry.getStat(statId);
+        HyforgedModifier.StackType stackType = parseStackType(stackTypeStr, definition);
 
         // Create modifier with source = node ID for tracking
         HyforgedModifier.Builder modifierBuilder = HyforgedModifier.builder()
@@ -142,7 +146,9 @@ public final class StatModifierEffectHandler implements PassiveEffectHandler {
         String statId = effect.getString("Stat");
         int value = effect.getInt("Value", 0);
         String stackTypeStr = effect.getString("StackType");
-        HyforgedModifier.StackType stackType = parseStackType(stackTypeStr);
+
+        StatDefinition definition = statId != null ? StatDefinitionRegistry.get().getStat(statId) : null;
+        HyforgedModifier.StackType stackType = parseStackType(stackTypeStr, definition);
 
         // Format value based on stack type
         String formattedValue;
@@ -164,26 +170,64 @@ public final class StatModifierEffectHandler implements PassiveEffectHandler {
 
         // Try to get display name from registry
         String displayName = statId;
-        if (statId != null) {
-            var definition = StatDefinitionRegistry.get().getStat(statId);
-            if (definition != null) {
-                displayName = definition.displayName();
-            }
+        if (definition != null) {
+            displayName = definition.displayName();
         }
 
         return formattedValue + " " + displayName;
     }
 
-    private HyforgedModifier.StackType parseStackType(String stackTypeStr) {
-        if (stackTypeStr == null || stackTypeStr.isEmpty()) {
+    private HyforgedModifier.StackType parseStackType(
+            @Nullable String stackTypeStr,
+            @Nullable StatDefinition definition
+    ) {
+        if (stackTypeStr != null && !stackTypeStr.isBlank()) {
+            return parseStackTypeValue(stackTypeStr);
+        }
+
+        HyforgedModifier.StackType fromDefinition = resolveDefaultStackType(definition);
+        if (fromDefinition != null) {
+            return fromDefinition;
+        }
+
+        return HyforgedModifier.StackType.FLAT;
+    }
+
+    private HyforgedModifier.StackType parseStackTypeValue(@Nonnull String stackTypeStr) {
+        if (stackTypeStr.isBlank()) {
             return HyforgedModifier.StackType.FLAT;
         }
         try {
-            return HyforgedModifier.StackType.valueOf(stackTypeStr.toUpperCase());
+            return HyforgedModifier.StackType.valueOf(stackTypeStr.toUpperCase(Locale.ROOT));
         } catch (IllegalArgumentException e) {
             LOGGER.atWarning().log("Unknown StackType: %s, defaulting to FLAT", stackTypeStr);
             return HyforgedModifier.StackType.FLAT;
         }
+    }
+
+    @Nullable
+    private HyforgedModifier.StackType resolveDefaultStackType(@Nullable StatDefinition definition) {
+        if (definition == null || definition.tags().isEmpty()) {
+            return null;
+        }
+
+        for (String tag : definition.tags()) {
+            if (tag == null || tag.length() <= STACK_TYPE_PREFIX.length()) {
+                continue;
+            }
+            if (!tag.regionMatches(true, 0, STACK_TYPE_PREFIX, 0, STACK_TYPE_PREFIX.length())) {
+                continue;
+            }
+
+            String value = tag.substring(STACK_TYPE_PREFIX.length());
+            if (value.isBlank()) {
+                continue;
+            }
+
+            return parseStackTypeValue(value);
+        }
+
+        return null;
     }
 
     @Nullable

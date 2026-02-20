@@ -3,5 +3,9 @@
     "Inherits": "Elemental",
     "HyforgedResistanceStat": "hyforged:fire-resistance-bps",
     "HyforgedPenetrationStat": "hyforged:fire-penetration-bps",
-    "HyforgedElementTag": "fire"
+    "HyforgedElementTag": "fire",
+    "HyforgedDamageBonusStat": "hyforged:fire-damage-increased-bps",
+    "HyforgedAilmentChanceStat": "hyforged:ignite-chance-bps",
+    "HyforgedAilmentDurationStat": "hyforged:ignite-duration-bps",
+    "HyforgedAilmentDamageStat": "hyforged:ignite-damage-bps"
 }

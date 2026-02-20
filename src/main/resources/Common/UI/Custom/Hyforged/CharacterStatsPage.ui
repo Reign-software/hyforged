@@ -1,12 +1,19 @@
 // Hyforged Character Stats Page UI
 // Table-style layout with Base / Modifier / Effective columns
+// Equipment panel on the left with ItemGrid slots and hover tooltips
 // Categories and stats are populated dynamically by CharacterStatsPage.java
 
 $Common = "../Common.ui";
 
+@EquipSlotStyle = ItemGridStyle(
+    SlotSize: 36,
+    SlotSpacing: 0,
+    SlotIconSize: 32
+);
+
 Group #CharacterStatsPage {
     LayoutMode: Full;
-    Anchor: (Width: 900, Height: 600);
+    Anchor: (Width: 1120, Height: 600);
     Background: $Common.@InputBoxBackground;
     Padding: (Full: 20);
 
@@ -20,89 +27,169 @@ Group #CharacterStatsPage {
         }
     }
 
-    // Column Headers (static row above scrollable content)
-    Group #ColumnHeaders {
-        LayoutMode: Left;
-        Anchor: (Top: 46, Height: 22);
-        Padding: (Top: 6, Bottom: 4);
-
-        Label #ColStat {
-            Text: "Stat";
-            Anchor: (Width: 270);
-            Style: (FontSize: 13, RenderBold: true, TextColor: #AAAAAA);
-        }
-
-        Label #ColBase {
-            Text: "Base";
-            Anchor: (Width: 110);
-            Style: (FontSize: 13, RenderBold: true, HorizontalAlignment: End, TextColor: #AAAAAA);
-        }
-
-        Label #ColMod {
-            Text: "Modifier";
-            Anchor: (Width: 130);
-            Style: (FontSize: 13, RenderBold: true, HorizontalAlignment: End, TextColor: #AAAAAA);
-        }
-
-        Label #ColRange {
-            Text: "Range";
-            Anchor: (Width: 140);
-            Style: (FontSize: 13, RenderBold: true, HorizontalAlignment: End, TextColor: #AAAAAA);
-        }
-
-        Label #ColTotal {
-            Text: "Effective";
-            Anchor: (Width: 110);
-            Style: (FontSize: 13, RenderBold: true, HorizontalAlignment: End, TextColor: #AAAAAA);
-        }
-    }
-
-    // Main Content - Scrollable
-    Group #Content {
+    // Equipment Panel (left side)
+    Group #EquipmentPanel {
         LayoutMode: TopScrolling;
         ScrollbarStyle: $Common.@DefaultScrollbarStyle;
-        Anchor: (Top: 72, Bottom: 60);
+        Anchor: (Left: 0, Top: 46, Width: 190, Bottom: 60);
 
-        // Dynamic stat categories container - populated by Java
-        Group #StatCategories {
-            LayoutMode: Top;
+        Label #EquipmentPanelTitle {
+            Text: "Equipment";
+            Style: (FontSize: 15, RenderBold: true, TextColor: #DAA520);
+            Anchor: (Height: 22);
         }
 
-        // Equipment summary below stats
-        Group #EquipmentColumn {
+        // Armor Slot 0 - Head
+        Group #SlotArmor0 {
             LayoutMode: Top;
-            Padding: (Top: 14);
-
-            Label #EquipmentTitle {
-                Text: "Equipment";
-                Style: (FontSize: 16, RenderBold: true, TextColor: #DAA520);
+            Padding: (Top: 6);
+            Label #SlotLabel { Text: "Head"; Style: (FontSize: 11, TextColor: #AAAAAA); }
+            Group #SlotContent {
+                LayoutMode: Left;
+                Padding: (Top: 2);
+                ItemGrid #SlotGrid { SlotsPerRow: 1; Style: @EquipSlotStyle; Anchor: (Width: 40, Height: 40); }
+                Label #SlotFallback { Visible: false; Text: ""; Style: (FontSize: 12); Anchor: (Width: 140); }
             }
+        }
 
-            Group #ArmorSlots {
-                LayoutMode: Top;
-                Padding: (Top: 4);
-                Label #Armor0 { Text: ""; Style: (FontSize: 13); }
-                Label #Armor1 { Text: ""; Style: (FontSize: 13); }
-                Label #Armor2 { Text: ""; Style: (FontSize: 13); }
-                Label #Armor3 { Text: ""; Style: (FontSize: 13); }
+        // Armor Slot 1 - Chest
+        Group #SlotArmor1 {
+            LayoutMode: Top;
+            Padding: (Top: 6);
+            Label #SlotLabel { Text: "Chest"; Style: (FontSize: 11, TextColor: #AAAAAA); }
+            Group #SlotContent {
+                LayoutMode: Left;
+                Padding: (Top: 2);
+                ItemGrid #SlotGrid { SlotsPerRow: 1; Style: @EquipSlotStyle; Anchor: (Width: 40, Height: 40); }
+                Label #SlotFallback { Visible: false; Text: ""; Style: (FontSize: 12); Anchor: (Width: 140); }
             }
+        }
 
-            Group #HandSlots {
-                LayoutMode: Top;
-                Padding: (Top: 4);
-                Label #Hand0 { Text: ""; Style: (FontSize: 13); }
-                Label #Hand1 { Text: ""; Style: (FontSize: 13); }
+        // Armor Slot 2 - Legs
+        Group #SlotArmor2 {
+            LayoutMode: Top;
+            Padding: (Top: 6);
+            Label #SlotLabel { Text: "Legs"; Style: (FontSize: 11, TextColor: #AAAAAA); }
+            Group #SlotContent {
+                LayoutMode: Left;
+                Padding: (Top: 2);
+                ItemGrid #SlotGrid { SlotsPerRow: 1; Style: @EquipSlotStyle; Anchor: (Width: 40, Height: 40); }
+                Label #SlotFallback { Visible: false; Text: ""; Style: (FontSize: 12); Anchor: (Width: 140); }
+            }
+        }
+
+        // Armor Slot 3 - Feet
+        Group #SlotArmor3 {
+            LayoutMode: Top;
+            Padding: (Top: 6);
+            Label #SlotLabel { Text: "Feet"; Style: (FontSize: 11, TextColor: #AAAAAA); }
+            Group #SlotContent {
+                LayoutMode: Left;
+                Padding: (Top: 2);
+                ItemGrid #SlotGrid { SlotsPerRow: 1; Style: @EquipSlotStyle; Anchor: (Width: 40, Height: 40); }
+                Label #SlotFallback { Visible: false; Text: ""; Style: (FontSize: 12); Anchor: (Width: 140); }
+            }
+        }
+
+        // Hand Slot 0 - Main Hand
+        Group #SlotHand0 {
+            LayoutMode: Top;
+            Padding: (Top: 6);
+            Label #SlotLabel { Text: "Main Hand"; Style: (FontSize: 11, TextColor: #AAAAAA); }
+            Group #SlotContent {
+                LayoutMode: Left;
+                Padding: (Top: 2);
+                ItemGrid #SlotGrid { SlotsPerRow: 1; Style: @EquipSlotStyle; Anchor: (Width: 40, Height: 40); }
+                Label #SlotFallback { Visible: false; Text: ""; Style: (FontSize: 12); Anchor: (Width: 140); }
+            }
+        }
+
+        // Hand Slot 1 - Off Hand
+        Group #SlotHand1 {
+            LayoutMode: Top;
+            Padding: (Top: 6);
+            Label #SlotLabel { Text: "Off Hand"; Style: (FontSize: 11, TextColor: #AAAAAA); }
+            Group #SlotContent {
+                LayoutMode: Left;
+                Padding: (Top: 2);
+                ItemGrid #SlotGrid { SlotsPerRow: 1; Style: @EquipSlotStyle; Anchor: (Width: 40, Height: 40); }
+                Label #SlotFallback { Visible: false; Text: ""; Style: (FontSize: 12); Anchor: (Width: 140); }
             }
         }
     }
 
-    Group #ModifierTooltip {
+    // Stats Area (right of equipment panel)
+    Group #StatsArea {
+        LayoutMode: Full;
+        Anchor: (Left: 200, Top: 46, Bottom: 60);
+
+        // Column Headers (static row above scrollable content)
+        Group #ColumnHeaders {
+            LayoutMode: Left;
+            Anchor: (Left: 0, Right: 0, Top: 0, Height: 22);
+            Padding: (Top: 6, Bottom: 4);
+
+            Label #ColStat {
+                Text: "Stat";
+                Anchor: (Width: 300);
+                Style: (FontSize: 13, RenderBold: true, TextColor: #AAAAAA);
+            }
+
+            Label #ColBase {
+                Text: "Base";
+                Anchor: (Width: 120);
+                Style: (FontSize: 13, RenderBold: true, HorizontalAlignment: End, TextColor: #AAAAAA);
+            }
+
+            Label #ColMod {
+                Text: "Modifier";
+                Anchor: (Width: 140);
+                Style: (FontSize: 13, RenderBold: true, HorizontalAlignment: End, TextColor: #AAAAAA);
+            }
+
+            Label #ColTotal {
+                Text: "Effective";
+                Anchor: (Width: 120);
+                Style: (FontSize: 13, RenderBold: true, HorizontalAlignment: End, TextColor: #AAAAAA);
+            }
+        }
+
+        // Main Content - Scrollable
+        Group #Content {
+            LayoutMode: TopScrolling;
+            ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+            Anchor: (Left: 0, Right: 0, Top: 28, Bottom: 0);
+
+            // Dynamic stat categories container - populated by Java
+            Group #StatCategories {
+                LayoutMode: Top;
+            }
+        }
+
+        // Modifier Tooltip (within stats area)
+        Group #ModifierTooltip {
+            Visible: false;
+            LayoutMode: TopScrolling;
+            ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+            Anchor: (Right: 0, Top: 32, Width: 340, Height: 220);
+            Padding: (Horizontal: 8, Vertical: 6);
+            Background: PatchStyle(Color: #0e1218(0.95), Border: 1);
+
+            Label #ModifierTooltipText {
+                Text: "";
+                Style: (FontSize: 11, Wrap: true, TextColor: #DDDDDD);
+            }
+        }
+    }
+
+    // Equipment Tooltip (fixed-position overlay near equipment panel)
+    Group #EquipmentTooltip {
         Visible: false;
-        Anchor: (Left: 350, Top: 78, Width: 500, Height: 118);
+        Anchor: (Left: 200, Top: 78, Width: 280, Height: 200);
         Padding: (Horizontal: 8, Vertical: 6);
         Background: PatchStyle(Color: #0e1218(0.95), Border: 1);
 
-        Label #ModifierTooltipText {
+        Label #EquipmentTooltipText {
             Text: "";
             Style: (FontSize: 11, Wrap: true, TextColor: #DDDDDD);
         }

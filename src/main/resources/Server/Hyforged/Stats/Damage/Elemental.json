@@ -1,3 +1,5 @@
 {
-    "$Comment": "Elemental damage - base type for fire, ice, lightning. No direct resistance; children define their own."
+    "$Comment": "Elemental damage - base type for fire, ice, lightning. No direct resistance; children define their own.",
+    "HyforgedDamageBonusStat": "hyforged:elemental-damage-increased-bps",
+    "HyforgedDamageTakenStat": "hyforged:elemental-damage-taken-bps"
 }

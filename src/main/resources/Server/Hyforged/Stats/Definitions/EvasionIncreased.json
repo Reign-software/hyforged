@@ -1,0 +1,27 @@
+{
+  "Id": "hyforged:evasion-increased-bps",
+  "Category": "defense",
+  "DisplayName": "Evasion",
+  "Description": "Increased evasion rating.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "DisplayFormat": "PERCENT_BPS",
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "defense"
+    ],
+    "Type": [
+      "rating"
+    ],
+    "AppliesTo": [
+      "Stat=evasion-rating"
+    ],
+    "StackType": [
+      "increased"
+    ]
+  }
+}

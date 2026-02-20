@@ -1,7 +1,8 @@
 {
     "$Comment": "Bleed damage - damage over time from bleeding wounds",
-    "Parent": "Physical",
-    "Inherits": "Physical",
     "HyforgedResistanceStat": "hyforged:bleed-resistance-bps",
-    "HyforgedPenetrationStat": "hyforged:bleed-penetration-bps"
+    "HyforgedPenetrationStat": "hyforged:bleed-penetration-bps",
+    "HyforgedDamageBonusStat": "hyforged:bleed-damage-bps",
+    "HyforgedAilmentChanceStat": "hyforged:bleed-chance-bps",
+    "HyforgedAilmentDurationStat": "hyforged:bleed-duration-bps"
 }

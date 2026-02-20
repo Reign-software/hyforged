@@ -31,7 +31,7 @@ public final class ClassAssetLoader {
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     /** Path for class definition assets relative to asset root */
-    public static final String CLASS_ASSET_PATH = "Hyforged/Stats/Classes";
+    public static final String CLASS_ASSET_PATH = "Hyforged/Progression/Classes";
 
     private static boolean initialized = false;
 

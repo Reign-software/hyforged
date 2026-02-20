@@ -5,13 +5,16 @@ import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.protocol.Color;
 import com.hypixel.hytale.protocol.packets.interface_.CustomPageLifetime;
 import com.hypixel.hytale.protocol.packets.interface_.CustomUIEventBindingType;
 import com.hypixel.hytale.protocol.packets.interface_.Page;
+import com.hypixel.hytale.server.core.asset.type.item.config.ItemQuality;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.pages.InteractiveCustomUIPage;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
+import com.hypixel.hytale.server.core.ui.ItemGridSlot;
 import com.hypixel.hytale.server.core.ui.builder.EventData;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
@@ -20,6 +23,10 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.Message;
 import reign.software.hyforged.HyforgedPlugin;
+import reign.software.hyforged.affix.model.HyforgedItemData;
+import reign.software.hyforged.affix.service.AffixTooltipProvider;
+import reign.software.hyforged.affix.service.HyforgedItemDataService;
+import reign.software.hyforged.quality.service.HyforgedQualityService;
 import reign.software.hyforged.stats.CategoryDefinition;
 import reign.software.hyforged.stats.DisplayFormat;
 import reign.software.hyforged.stats.StatAccessor;
@@ -30,6 +37,8 @@ import reign.software.hyforged.stats.engine.ScalingEngine;
 import reign.software.hyforged.stats.modifier.HyforgedModifier;
 import reign.software.hyforged.passive.ui.PassiveTreePage;
 import reign.software.hyforged.util.MessageColors;
+
+import org.bson.BsonDocument;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -90,11 +99,29 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
     /** Translation key for the page title */
     private static final String TITLE_TRANSLATION_KEY = "hyforged.characterStats.title";
     
-    /** Translation key for equipment section title */
-    private static final String EQUIPMENT_TRANSLATION_KEY = "hyforged.characterStats.equipment";
-    
     /** Translation key for empty equipment slot */
     private static final String EMPTY_SLOT_TRANSLATION_KEY = "hyforged.characterStats.slot.empty";
+
+    /** Translation key for equipment panel title */
+    private static final String EQUIP_PANEL_TITLE_KEY = "hyforged.characterStats.equipmentPanel.title";
+
+    /** Translation key prefix for slot type labels */
+    private static final String SLOT_TRANSLATION_PREFIX = "hyforged.characterStats.slot.";
+
+    /** Armor slot identifiers for translation key suffixes and UI selectors */
+    private static final String[] ARMOR_SLOT_IDS = {"head", "chest", "legs", "feet"};
+
+    /** Hand slot identifiers for translation key suffixes and UI selectors */
+    private static final String[] HAND_SLOT_IDS = {"mainHand", "offHand"};
+
+    /** UI action key for showing an equipment tooltip */
+    private static final String ACTION_SHOW_EQUIP_TOOLTIP = "showEquipTooltip";
+
+    /** UI action key for hiding an equipment tooltip */
+    private static final String ACTION_HIDE_EQUIP_TOOLTIP = "hideEquipTooltip";
+
+    /** Fallback color when quality color is unavailable */
+    private static final String DEFAULT_QUALITY_COLOR = "#CCCCCC";
 
     /** Maximum modifier source lines shown in the custom tooltip */
     private static final int MAX_TOOLTIP_LINES = 8;
@@ -122,6 +149,14 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
     @Nonnull
     private final Map<String, Message> modifierTooltipByRowSelector = new HashMap<>();
 
+    /** Prebuilt equipment tooltip text by slot identifier (e.g. "armor:0", "hand:1"). */
+    @Nonnull
+    private final Map<String, Message> equipTooltipBySlotId = new HashMap<>();
+
+    /** Selector of the currently visible equipment tooltip slot */
+    @Nullable
+    private String activeEquipTooltipTarget;
+
 
     /**
      * Create a new CharacterStatsPage for a player.
@@ -141,8 +176,11 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
     ) {
         this.activeModifierTooltipTarget = null;
         this.modifierTooltipByRowSelector.clear();
+        this.equipTooltipBySlotId.clear();
+        this.activeEquipTooltipTarget = null;
         commandBuilder.append(PAGE_UI_FILE);
         commandBuilder.set("#ModifierTooltip.Visible", false);
+        commandBuilder.set("#EquipmentTooltip.Visible", false);
         
         // Set localized title
         commandBuilder.set("#Title.TextSpans", Message.translation(TITLE_TRANSLATION_KEY));
@@ -163,8 +201,8 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
         // Build stat categories dynamically
         buildStatCategories(commandBuilder, eventBuilder, statComponent, statMap);
         
-        // Build equipment affix summary
-        buildEquipmentSummary(commandBuilder, ref, store);
+        // Build equipment panel with item icons and hover tooltips
+        buildEquipmentPanel(commandBuilder, eventBuilder, ref, store);
     }
 
         private void bindFooterButtons(@Nonnull UIEventBuilder eventBuilder) {
@@ -358,11 +396,6 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
             commandBuilder.set(rowSelector + " #TotalValue.TextSpans",
                     Message.raw(totalStr));
             
-            // Set range (min / max)
-            String rangeStr = formatRange(stat.definition());
-            commandBuilder.set(rowSelector + " #RangeValue.TextSpans",
-                    Message.raw(rangeStr));
-            
             elementIndex++;
         }
         
@@ -429,63 +462,263 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
     }
     
     /**
-     * Build the equipment affix summary section.
+     * Build the equipment panel with item icons and hover tooltips for all 6 slots.
+     * <p>
+     * Populates each slot with a 1-slot ItemGrid showing the equipped item icon,
+     * or a text fallback showing "Empty" for unoccupied slots. Pre-builds tooltip
+     * content for equipped items and binds hover events.
      */
-    private void buildEquipmentSummary(UICommandBuilder commandBuilder, Ref<EntityStore> ref, Store<EntityStore> store) {
-        // Set localized equipment title
-        commandBuilder.set("#EquipmentTitle.TextSpans", Message.translation(EQUIPMENT_TRANSLATION_KEY));
+    private void buildEquipmentPanel(
+            @Nonnull UICommandBuilder commandBuilder,
+            @Nonnull UIEventBuilder eventBuilder,
+            @Nonnull Ref<EntityStore> ref,
+            @Nonnull Store<EntityStore> store
+    ) {
+        // Set localized equipment panel title
+        commandBuilder.set("#EquipmentPanelTitle.TextSpans", Message.translation(EQUIP_PANEL_TITLE_KEY));
         
         Player player = store.getComponent(ref, Player.getComponentType());
         if (player == null) {
+            populateEmptySlots(commandBuilder);
             return;
         }
         
         var inventory = player.getInventory();
         if (inventory == null) {
+            populateEmptySlots(commandBuilder);
             return;
         }
         
-        // Build armor slot summaries (use fixed selectors #Armor0-3)
+        // Build armor slots (0-3)
         ItemContainer armorContainer = inventory.getArmor();
-        if (armorContainer != null) {
-            int slotCount = Math.min((int) armorContainer.getCapacity(), 4);
-            for (int i = 0; i < slotCount; i++) {
-                ItemStack itemStack = armorContainer.getItemStack((short) i);
-                Message slotMessage = buildSlotMessage(i, itemStack);
-                commandBuilder.set("#Armor" + i + ".TextSpans", slotMessage);
-            }
-            for (int i = slotCount; i < 4; i++) {
-                commandBuilder.set("#Armor" + i + ".Text", "");
-            }
+        for (int i = 0; i < ARMOR_SLOT_IDS.length; i++) {
+            String slotUiId = "#SlotArmor" + i;
+            String translationKey = SLOT_TRANSLATION_PREFIX + ARMOR_SLOT_IDS[i];
+            ItemStack itemStack = (armorContainer != null && i < armorContainer.getCapacity())
+                    ? armorContainer.getItemStack((short) i) : null;
+            String slotKey = "armor:" + i;
+            populateEquipmentSlot(commandBuilder, eventBuilder, slotUiId, translationKey, itemStack, slotKey);
         }
         
-        // Build hand slot summaries (use fixed selectors #Hand0-1)
+        // Build hand slots (0-1)
         ItemContainer hotbar = inventory.getHotbar();
-        if (hotbar != null) {
-            for (int i = 0; i < 2; i++) {
-                ItemStack itemStack = i < hotbar.getCapacity() ? hotbar.getItemStack((short) i) : null;
-                Message slotMessage = buildSlotMessage(i, itemStack);
-                commandBuilder.set("#Hand" + i + ".TextSpans", slotMessage);
-            }
+        for (int i = 0; i < HAND_SLOT_IDS.length; i++) {
+            String slotUiId = "#SlotHand" + i;
+            String translationKey = SLOT_TRANSLATION_PREFIX + HAND_SLOT_IDS[i];
+            ItemStack itemStack = (hotbar != null && i < hotbar.getCapacity())
+                    ? hotbar.getItemStack((short) i) : null;
+            String slotKey = "hand:" + i;
+            populateEquipmentSlot(commandBuilder, eventBuilder, slotUiId, translationKey, itemStack, slotKey);
         }
     }
-    
+
     /**
-     * Build a localized message for an equipment slot.
+     * Populate all equipment slots with empty state (used when player/inventory is null).
      */
-    private Message buildSlotMessage(int index, ItemStack itemStack) {
-        if (itemStack == null || itemStack.isEmpty()) {
-            return Message.translation(EMPTY_SLOT_TRANSLATION_KEY)
-                    .param("slot", String.valueOf(index + 1));
+    private void populateEmptySlots(@Nonnull UICommandBuilder commandBuilder) {
+        for (int i = 0; i < ARMOR_SLOT_IDS.length; i++) {
+            String slotUiId = "#SlotArmor" + i;
+            commandBuilder.set(slotUiId + " #SlotLabel.TextSpans",
+                    Message.translation(SLOT_TRANSLATION_PREFIX + ARMOR_SLOT_IDS[i]));
+            commandBuilder.set(slotUiId + " #SlotGrid.Visible", false);
+            commandBuilder.set(slotUiId + " #SlotFallback.Visible", true);
+            commandBuilder.set(slotUiId + " #SlotFallback.TextSpans",
+                    Message.translation(EMPTY_SLOT_TRANSLATION_KEY).color("#666666"));
         }
+        for (int i = 0; i < HAND_SLOT_IDS.length; i++) {
+            String slotUiId = "#SlotHand" + i;
+            commandBuilder.set(slotUiId + " #SlotLabel.TextSpans",
+                    Message.translation(SLOT_TRANSLATION_PREFIX + HAND_SLOT_IDS[i]));
+            commandBuilder.set(slotUiId + " #SlotGrid.Visible", false);
+            commandBuilder.set(slotUiId + " #SlotFallback.Visible", true);
+            commandBuilder.set(slotUiId + " #SlotFallback.TextSpans",
+                    Message.translation(EMPTY_SLOT_TRANSLATION_KEY).color("#666666"));
+        }
+    }
+
+    /**
+     * Populate a single equipment slot with item icon or empty indicator.
+     * Binds hover events for equipped items and pre-builds tooltip content.
+     */
+    private void populateEquipmentSlot(
+            @Nonnull UICommandBuilder commandBuilder,
+            @Nonnull UIEventBuilder eventBuilder,
+            @Nonnull String slotUiId,
+            @Nonnull String translationKey,
+            @Nullable ItemStack itemStack,
+            @Nonnull String slotKey
+    ) {
+        // Set localized slot label
+        commandBuilder.set(slotUiId + " #SlotLabel.TextSpans", Message.translation(translationKey));
+        
+        if (itemStack == null || itemStack.isEmpty()) {
+            // Empty slot: hide ItemGrid, show fallback label with "Empty" text
+            commandBuilder.set(slotUiId + " #SlotGrid.Visible", false);
+            commandBuilder.set(slotUiId + " #SlotFallback.Visible", true);
+            commandBuilder.set(slotUiId + " #SlotFallback.TextSpans",
+                    Message.translation(EMPTY_SLOT_TRANSLATION_KEY).color("#666666"));
+            // No hover events for empty slots (FR-6)
+        } else {
+            // Equipped item: show ItemGrid with item icon, hide fallback
+            // Strip custom Hyforged metadata — client can't deserialize it as ClientItemMetadata
+            ItemStack displayStack = itemStack.withMetadata((BsonDocument) null);
+            commandBuilder.set(slotUiId + " #SlotGrid.Slots",
+                    new ItemGridSlot[]{ new ItemGridSlot(displayStack) });
+            commandBuilder.set(slotUiId + " #SlotGrid.Visible", true);
+            commandBuilder.set(slotUiId + " #SlotFallback.Visible", false);
+            
+            // Pre-build tooltip content and cache it
+            Message tooltipMessage = buildEquipmentTooltipMessage(itemStack);
+            if (tooltipMessage != null) {
+                equipTooltipBySlotId.put(slotKey, tooltipMessage);
+            }
+            
+            // Bind hover events for tooltip display
+            EventData showData = new EventData()
+                    .append(PageEventData.KEY_ACTION, ACTION_SHOW_EQUIP_TOOLTIP)
+                    .append(PageEventData.KEY_TOOLTIP_TARGET, slotKey);
+            EventData hideData = new EventData()
+                    .append(PageEventData.KEY_ACTION, ACTION_HIDE_EQUIP_TOOLTIP)
+                    .append(PageEventData.KEY_TOOLTIP_TARGET, slotKey);
+            
+            eventBuilder.addEventBinding(
+                    CustomUIEventBindingType.SlotMouseEntered,
+                    slotUiId + " #SlotGrid",
+                    showData,
+                    false
+            );
+            eventBuilder.addEventBinding(
+                    CustomUIEventBindingType.SlotMouseExited,
+                    slotUiId + " #SlotGrid",
+                    hideData,
+                    false
+            );
+        }
+    }
+
+    /**
+     * Build a rich tooltip message for an equipped item showing quality-colored name,
+     * quality label, and affix lines.
+     *
+     * @param itemStack The equipped item
+     * @return The tooltip message, or null if no content could be generated
+     */
+    @Nullable
+    private Message buildEquipmentTooltipMessage(@Nonnull ItemStack itemStack) {
+        // Resolve item display name
         String itemName = itemStack.getItem() != null ? itemStack.getItem().getId() : "Unknown";
-        // Simplify the ID for display
         if (itemName.contains(":")) {
             itemName = itemName.substring(itemName.lastIndexOf(':') + 1);
         }
-        // Title-case the item name
         itemName = titleCase(itemName.replace('-', ' ').replace('_', ' '));
-        return Message.raw((index + 1) + ": " + itemName);
+        
+        // Resolve quality color
+        String qualityId = HyforgedQualityService.getEffectiveQuality(itemStack);
+        String qualityColor = resolveQualityHexColor(qualityId);
+        
+        // Build message: item name colored by quality
+        Message tooltip = Message.raw(itemName).color(qualityColor);
+        
+        // Add quality label line (e.g., "[Rare]") if quality is available
+        if (qualityId != null && !qualityId.isBlank()) {
+            tooltip.insert(Message.raw("\n[" + qualityId + "]").color(qualityColor));
+        }
+        
+        // Add affix lines from AffixTooltipProvider
+        HyforgedItemData itemData = HyforgedItemDataService.read(itemStack);
+        AffixTooltipProvider.TooltipContent tooltipContent = AffixTooltipProvider.generateTooltip(itemData);
+        if (tooltipContent.hasContent()) {
+            for (AffixTooltipProvider.TooltipSection section : tooltipContent.sections()) {
+                if (section.lines().isEmpty()) {
+                    continue;
+                }
+                // Section header
+                tooltip.insert(Message.raw("\n" + section.sectionName()).color(section.hudColor()));
+                // Affix lines
+                for (AffixTooltipProvider.TooltipLine line : section.lines()) {
+                    String lineColor = line.color() != null ? line.color() : section.hudColor();
+                    tooltip.insert(Message.raw("\n  " + line.text()).color(lineColor));
+                }
+            }
+        }
+        
+        return tooltip;
+    }
+
+    /**
+     * Resolve the hex color for a quality tier from the quality asset system.
+     *
+     * @param qualityId The quality identifier (e.g., "Rare", "Common")
+     * @return Hex color string (e.g., "#FF5500"), or the default fallback color
+     */
+    @Nonnull
+    private String resolveQualityHexColor(@Nullable String qualityId) {
+        if (qualityId == null || qualityId.isBlank()) {
+            return DEFAULT_QUALITY_COLOR;
+        }
+        try {
+            ItemQuality quality = ItemQuality.getAssetMap().getAsset(qualityId);
+            if (quality != null && quality.getTextColor() != null) {
+                return toHexColor(quality.getTextColor());
+            }
+        } catch (Exception ignored) {
+            // Fallback to default if asset lookup fails
+        }
+        return DEFAULT_QUALITY_COLOR;
+    }
+
+    /**
+     * Convert a Hytale Color to a hex color string.
+     *
+     * @param color The color to convert
+     * @return Hex color string (e.g., "#FF5500")
+     */
+    @Nonnull
+    private static String toHexColor(@Nonnull Color color) {
+        int r = Byte.toUnsignedInt(color.red);
+        int g = Byte.toUnsignedInt(color.green);
+        int b = Byte.toUnsignedInt(color.blue);
+        return String.format("#%02X%02X%02X", r, g, b);
+    }
+
+    /**
+     * Show the equipment tooltip for a specific slot.
+     */
+    private void handleShowEquipTooltip(@Nullable String tooltipTarget) {
+        if (tooltipTarget == null || tooltipTarget.isBlank()) {
+            handleHideEquipTooltip(null);
+            return;
+        }
+
+        Message tooltipMessage = equipTooltipBySlotId.get(tooltipTarget);
+        if (tooltipMessage == null) {
+            handleHideEquipTooltip(tooltipTarget);
+            return;
+        }
+
+        UICommandBuilder commandBuilder = new UICommandBuilder();
+        commandBuilder.set("#EquipmentTooltipText.TextSpans", tooltipMessage);
+        commandBuilder.set("#EquipmentTooltip.Visible", true);
+        activeEquipTooltipTarget = tooltipTarget;
+        sendUpdate(commandBuilder, new UIEventBuilder(), false);
+    }
+
+    /**
+     * Hide the equipment tooltip.
+     */
+    private void handleHideEquipTooltip(@Nullable String tooltipTarget) {
+        if (tooltipTarget != null
+                && !tooltipTarget.isBlank()
+                && activeEquipTooltipTarget != null
+                && !activeEquipTooltipTarget.isBlank()
+                && !activeEquipTooltipTarget.equals(tooltipTarget)) {
+            return;
+        }
+
+        UICommandBuilder commandBuilder = new UICommandBuilder();
+        commandBuilder.set("#EquipmentTooltip.Visible", false);
+        activeEquipTooltipTarget = null;
+        sendUpdate(commandBuilder, new UIEventBuilder(), false);
     }
     
     /**
@@ -615,14 +848,26 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
 
     /**
      * Build tooltip text for a stat name using the stat description.
+     * <p>
+     * When the stat has meaningful min/max bounds, the range is appended
+     * to the tooltip text (FR-8).
      */
     @Nonnull
     private String buildStatDescriptionTooltip(@Nonnull StatDefinition definition) {
+        StringBuilder tooltip = new StringBuilder();
         String description = definition.description();
-        if (description == null) {
-            return "";
+        if (description != null && !description.isBlank()) {
+            tooltip.append(description.trim());
         }
-        return description.trim();
+        // Append range info when meaningful (not both bounds unbounded)
+        String rangeStr = formatRange(definition);
+        if (!"-".equals(rangeStr)) {
+            if (tooltip.length() > 0) {
+                tooltip.append("\n");
+            }
+            tooltip.append("Range: ").append(rangeStr);
+        }
+        return tooltip.toString();
     }
 
     /**
@@ -883,6 +1128,10 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
             handleShowModifierTooltip(eventData.getTooltipTarget());
         } else if (ACTION_HIDE_MODIFIER_TOOLTIP.equals(action)) {
             handleHideModifierTooltip(eventData.getTooltipTarget());
+        } else if (ACTION_SHOW_EQUIP_TOOLTIP.equals(action)) {
+            handleShowEquipTooltip(eventData.getTooltipTarget());
+        } else if (ACTION_HIDE_EQUIP_TOOLTIP.equals(action)) {
+            handleHideEquipTooltip(eventData.getTooltipTarget());
         }
     }
 

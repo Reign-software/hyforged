@@ -23,8 +23,8 @@ public final class ClassDefinitionRegistry {
     
     private static final ClassDefinitionRegistry INSTANCE = new ClassDefinitionRegistry();
     
-    /** Default class ID used when no class is specified */
-    public static final String DEFAULT_CLASS_ID = "hyforged:default";
+    /** Default class ID used when no class is specified. Must match the asset-system-derived key (filename without extension). */
+    public static final String DEFAULT_CLASS_ID = "Default";
     
     private final Map<String, ClassDefinition> classes = new ConcurrentHashMap<>();
 
@@ -86,6 +86,8 @@ public final class ClassDefinitionRegistry {
                 DEFAULT_CLASS_ID,
                 "Default",
                 "Default character class",
+                java.util.Collections.emptyMap(),
+                java.util.Collections.emptySet(),
                 java.util.Collections.emptyMap()
             );
         }
