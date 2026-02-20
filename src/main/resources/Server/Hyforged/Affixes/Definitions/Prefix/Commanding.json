@@ -1,0 +1,40 @@
+{
+  "Id": "hyforged:commanding",
+  "Type": "prefix",
+  "DisplayName": "Commanding",
+  "Weight": 35,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 68,
+      "Weight": 30,
+      "Stats": {
+        "hyforged:max-minions": { "MinValue": 3, "MaxValue": 4, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 48,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:max-minions": { "MinValue": 2, "MaxValue": 3, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 28,
+      "Weight": 75,
+      "Stats": {
+        "hyforged:max-minions": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 1,
+      "Weight": 105,
+      "Stats": {
+        "hyforged:max-minions": { "MinValue": 1, "MaxValue": 1, "StackType": "Flat" }
+      }
+    }
+  ]
+}

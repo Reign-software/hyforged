@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:hexing",
+  "Type": "prefix",
+  "DisplayName": "Hexing",
+  "Weight": 45,
+  "Tiers": [
+    { "Tier": 1, "ItemLevelReq": 58, "Weight": 42, "Stats": { "hyforged:curse-effect-bps": { "MinValue": 2500, "MaxValue": 3200, "StackType": "Increased" } } },
+    { "Tier": 2, "ItemLevelReq": 42, "Weight": 62, "Stats": { "hyforged:curse-effect-bps": { "MinValue": 1700, "MaxValue": 2500, "StackType": "Increased" } } },
+    { "Tier": 3, "ItemLevelReq": 28, "Weight": 82, "Stats": { "hyforged:curse-effect-bps": { "MinValue": 1000, "MaxValue": 1700, "StackType": "Increased" } } },
+    { "Tier": 4, "ItemLevelReq": 14, "Weight": 105, "Stats": { "hyforged:curse-effect-bps": { "MinValue": 400, "MaxValue": 1000, "StackType": "Increased" } } },
+    { "Tier": 5, "ItemLevelReq": 1, "Weight": 128, "Stats": { "hyforged:curse-effect-bps": { "MinValue": 100, "MaxValue": 400, "StackType": "Increased" } } }
+  ]
+}

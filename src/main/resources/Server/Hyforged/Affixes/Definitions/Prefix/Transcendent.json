@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:transcendent",
+  "Type": "prefix",
+  "DisplayName": "Transcendent",
+  "Weight": 35,
+  "Tiers": [
+    { "Tier": 1, "ItemLevelReq": 68, "Weight": 30, "Stats": { "hyforged:attribute-all": { "MinValue": 14, "MaxValue": 18, "StackType": "Flat" } } },
+    { "Tier": 2, "ItemLevelReq": 52, "Weight": 48, "Stats": { "hyforged:attribute-all": { "MinValue": 10, "MaxValue": 14, "StackType": "Flat" } } },
+    { "Tier": 3, "ItemLevelReq": 36, "Weight": 68, "Stats": { "hyforged:attribute-all": { "MinValue": 6, "MaxValue": 10, "StackType": "Flat" } } },
+    { "Tier": 4, "ItemLevelReq": 20, "Weight": 90, "Stats": { "hyforged:attribute-all": { "MinValue": 3, "MaxValue": 6, "StackType": "Flat" } } },
+    { "Tier": 5, "ItemLevelReq": 1, "Weight": 115, "Stats": { "hyforged:attribute-all": { "MinValue": 1, "MaxValue": 3, "StackType": "Flat" } } }
+  ]
+}

@@ -9,7 +9,7 @@
       "ItemLevelReq": 55,
       "Weight": 50,
       "Stats": {
-        "hyforged:aoe-radius-bps": { "MinValue": 2500, "MaxValue": 3000, "StackType": "Increased" }
+        "hyforged:area-of-effect-bps": { "MinValue": 2500, "MaxValue": 3000, "StackType": "Increased" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 38,
       "Weight": 75,
       "Stats": {
-        "hyforged:aoe-radius-bps": { "MinValue": 1700, "MaxValue": 2500, "StackType": "Increased" }
+        "hyforged:area-of-effect-bps": { "MinValue": 1700, "MaxValue": 2500, "StackType": "Increased" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 22,
       "Weight": 100,
       "Stats": {
-        "hyforged:aoe-radius-bps": { "MinValue": 1000, "MaxValue": 1700, "StackType": "Increased" }
+        "hyforged:area-of-effect-bps": { "MinValue": 1000, "MaxValue": 1700, "StackType": "Increased" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 8,
       "Weight": 125,
       "Stats": {
-        "hyforged:aoe-radius-bps": { "MinValue": 400, "MaxValue": 1000, "StackType": "Increased" }
+        "hyforged:area-of-effect-bps": { "MinValue": 400, "MaxValue": 1000, "StackType": "Increased" }
       }
     }
   ]

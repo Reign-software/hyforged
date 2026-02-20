@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:mighty",
+  "Type": "prefix",
+  "DisplayName": "Mighty",
+  "Weight": 55,
+  "Tiers": [
+    { "Tier": 1, "ItemLevelReq": 62, "Weight": 40, "Stats": { "hyforged:attack-power": { "MinValue": 65, "MaxValue": 85, "StackType": "Flat" } } },
+    { "Tier": 2, "ItemLevelReq": 46, "Weight": 60, "Stats": { "hyforged:attack-power": { "MinValue": 45, "MaxValue": 65, "StackType": "Flat" } } },
+    { "Tier": 3, "ItemLevelReq": 30, "Weight": 82, "Stats": { "hyforged:attack-power": { "MinValue": 28, "MaxValue": 45, "StackType": "Flat" } } },
+    { "Tier": 4, "ItemLevelReq": 15, "Weight": 105, "Stats": { "hyforged:attack-power": { "MinValue": 14, "MaxValue": 28, "StackType": "Flat" } } },
+    { "Tier": 5, "ItemLevelReq": 1, "Weight": 130, "Stats": { "hyforged:attack-power": { "MinValue": 4, "MaxValue": 14, "StackType": "Flat" } } }
+  ]
+}

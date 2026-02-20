@@ -9,7 +9,7 @@
       "ItemLevelReq": 70,
       "Weight": 35,
       "Stats": {
-        "hyforged:max-mana": { "MinValue": 85, "MaxValue": 105, "StackType": "Flat" }
+        "hyforged:max-mana-flat": { "MinValue": 85, "MaxValue": 105, "StackType": "Flat" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 55,
       "Weight": 50,
       "Stats": {
-        "hyforged:max-mana": { "MinValue": 65, "MaxValue": 85, "StackType": "Flat" }
+        "hyforged:max-mana-flat": { "MinValue": 65, "MaxValue": 85, "StackType": "Flat" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 40,
       "Weight": 68,
       "Stats": {
-        "hyforged:max-mana": { "MinValue": 45, "MaxValue": 65, "StackType": "Flat" }
+        "hyforged:max-mana-flat": { "MinValue": 45, "MaxValue": 65, "StackType": "Flat" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 26,
       "Weight": 85,
       "Stats": {
-        "hyforged:max-mana": { "MinValue": 28, "MaxValue": 45, "StackType": "Flat" }
+        "hyforged:max-mana-flat": { "MinValue": 28, "MaxValue": 45, "StackType": "Flat" }
       }
     },
     {
@@ -41,7 +41,7 @@
       "ItemLevelReq": 14,
       "Weight": 105,
       "Stats": {
-        "hyforged:max-mana": { "MinValue": 14, "MaxValue": 28, "StackType": "Flat" }
+        "hyforged:max-mana-flat": { "MinValue": 14, "MaxValue": 28, "StackType": "Flat" }
       }
     },
     {
@@ -49,7 +49,7 @@
       "ItemLevelReq": 1,
       "Weight": 125,
       "Stats": {
-        "hyforged:max-mana": { "MinValue": 5, "MaxValue": 14, "StackType": "Flat" }
+        "hyforged:max-mana-flat": { "MinValue": 5, "MaxValue": 14, "StackType": "Flat" }
       }
     }
   ]

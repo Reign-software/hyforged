@@ -1,0 +1,40 @@
+{
+  "Id": "hyforged:of-chaining",
+  "Type": "suffix",
+  "DisplayName": "of Chaining",
+  "Weight": 32,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 65,
+      "Weight": 30,
+      "Stats": {
+        "hyforged:projectile-chain-count": { "MinValue": 3, "MaxValue": 4, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 45,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:projectile-chain-count": { "MinValue": 2, "MaxValue": 3, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 25,
+      "Weight": 78,
+      "Stats": {
+        "hyforged:projectile-chain-count": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 1,
+      "Weight": 108,
+      "Stats": {
+        "hyforged:projectile-chain-count": { "MinValue": 1, "MaxValue": 1, "StackType": "Flat" }
+      }
+    }
+  ]
+}

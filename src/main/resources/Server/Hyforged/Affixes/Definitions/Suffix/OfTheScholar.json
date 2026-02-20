@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:of-the-scholar",
+  "Type": "suffix",
+  "DisplayName": "of the Scholar",
+  "Weight": 40,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 55,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:experience-gain-bps": { "MinValue": 1500, "MaxValue": 2000, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:experience-gain-bps": { "MinValue": 1000, "MaxValue": 1500, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 26,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:experience-gain-bps": { "MinValue": 600, "MaxValue": 1000, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 12,
+      "Weight": 108,
+      "Stats": {
+        "hyforged:experience-gain-bps": { "MinValue": 250, "MaxValue": 600, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:experience-gain-bps": { "MinValue": 80, "MaxValue": 250, "StackType": "Increased" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:brutal",
+  "Type": "prefix",
+  "DisplayName": "Brutal",
+  "Weight": 65,
+  "Tiers": [
+    { "Tier": 1, "ItemLevelReq": 62, "Weight": 40, "Stats": { "hyforged:added-physical-damage-flat": { "MinValue": 22, "MaxValue": 30, "StackType": "Flat" } } },
+    { "Tier": 2, "ItemLevelReq": 46, "Weight": 60, "Stats": { "hyforged:added-physical-damage-flat": { "MinValue": 15, "MaxValue": 22, "StackType": "Flat" } } },
+    { "Tier": 3, "ItemLevelReq": 30, "Weight": 82, "Stats": { "hyforged:added-physical-damage-flat": { "MinValue": 9, "MaxValue": 15, "StackType": "Flat" } } },
+    { "Tier": 4, "ItemLevelReq": 15, "Weight": 105, "Stats": { "hyforged:added-physical-damage-flat": { "MinValue": 4, "MaxValue": 9, "StackType": "Flat" } } },
+    { "Tier": 5, "ItemLevelReq": 1, "Weight": 130, "Stats": { "hyforged:added-physical-damage-flat": { "MinValue": 1, "MaxValue": 4, "StackType": "Flat" } } }
+  ]
+}

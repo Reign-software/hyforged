@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:of-shielding",
+  "Type": "suffix",
+  "DisplayName": "of Shielding",
+  "Weight": 50,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 55,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:auto-block-stamina-cost-bps": { "MinValue": -2800, "MaxValue": -2200, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:auto-block-stamina-cost-bps": { "MinValue": -2200, "MaxValue": -1500, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 26,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:auto-block-stamina-cost-bps": { "MinValue": -1500, "MaxValue": -900, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 12,
+      "Weight": 108,
+      "Stats": {
+        "hyforged:auto-block-stamina-cost-bps": { "MinValue": -900, "MaxValue": -350, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:auto-block-stamina-cost-bps": { "MinValue": -350, "MaxValue": -100, "StackType": "Increased" }
+      }
+    }
+  ]
+}

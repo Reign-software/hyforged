@@ -1,0 +1,13 @@
+{
+  "Id": "hyforged:nullifying",
+  "Type": "prefix",
+  "DisplayName": "Nullifying",
+  "Weight": 45,
+  "Tiers": [
+    { "Tier": 1, "ItemLevelReq": 60, "Weight": 42, "Stats": { "hyforged:suppression-effect-bps": { "MinValue": 2000, "MaxValue": 2600, "StackType": "Increased" } } },
+    { "Tier": 2, "ItemLevelReq": 44, "Weight": 62, "Stats": { "hyforged:suppression-effect-bps": { "MinValue": 1400, "MaxValue": 2000, "StackType": "Increased" } } },
+    { "Tier": 3, "ItemLevelReq": 30, "Weight": 82, "Stats": { "hyforged:suppression-effect-bps": { "MinValue": 800, "MaxValue": 1400, "StackType": "Increased" } } },
+    { "Tier": 4, "ItemLevelReq": 16, "Weight": 105, "Stats": { "hyforged:suppression-effect-bps": { "MinValue": 350, "MaxValue": 800, "StackType": "Increased" } } },
+    { "Tier": 5, "ItemLevelReq": 1, "Weight": 128, "Stats": { "hyforged:suppression-effect-bps": { "MinValue": 100, "MaxValue": 350, "StackType": "Increased" } } }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "Id": "sharp",
+  "Id": "hyforged:sharp",
   "Type": "prefix",
   "DisplayName": "Sharp",
   "Weight": 100,
@@ -9,7 +9,7 @@
       "ItemLevelReq": 40,
       "Weight": 50,
       "Stats": {
-        "hyforged:physical-damage": { "MinValue": 2500, "MaxValue": 3000, "StackType": "Increased" }
+        "hyforged:physical-damage-increased-bps": { "MinValue": 2500, "MaxValue": 3000, "StackType": "Increased" }
       }
     },
     {
@@ -17,7 +17,7 @@
       "ItemLevelReq": 25,
       "Weight": 75,
       "Stats": {
-        "hyforged:physical-damage": { "MinValue": 1800, "MaxValue": 2500, "StackType": "Increased" }
+        "hyforged:physical-damage-increased-bps": { "MinValue": 1800, "MaxValue": 2500, "StackType": "Increased" }
       }
     },
     {
@@ -25,7 +25,7 @@
       "ItemLevelReq": 10,
       "Weight": 100,
       "Stats": {
-        "hyforged:physical-damage": { "MinValue": 1200, "MaxValue": 1800, "StackType": "Increased" }
+        "hyforged:physical-damage-increased-bps": { "MinValue": 1200, "MaxValue": 1800, "StackType": "Increased" }
       }
     },
     {
@@ -33,7 +33,7 @@
       "ItemLevelReq": 5,
       "Weight": 125,
       "Stats": {
-        "hyforged:physical-damage": { "MinValue": 600, "MaxValue": 1200, "StackType": "Increased" }
+        "hyforged:physical-damage-increased-bps": { "MinValue": 600, "MaxValue": 1200, "StackType": "Increased" }
       }
     },
     {
@@ -41,7 +41,7 @@
       "ItemLevelReq": 1,
       "Weight": 150,
       "Stats": {
-        "hyforged:physical-damage": { "MinValue": 200, "MaxValue": 600, "StackType": "Increased" }
+        "hyforged:physical-damage-increased-bps": { "MinValue": 200, "MaxValue": 600, "StackType": "Increased" }
       }
     }
   ]

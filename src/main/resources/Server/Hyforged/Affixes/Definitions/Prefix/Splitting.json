@@ -1,0 +1,40 @@
+{
+  "Id": "hyforged:splitting",
+  "Type": "prefix",
+  "DisplayName": "Splitting",
+  "Weight": 30,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 68,
+      "Weight": 28,
+      "Stats": {
+        "hyforged:additional-projectiles": { "MinValue": 3, "MaxValue": 4, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 48,
+      "Weight": 48,
+      "Stats": {
+        "hyforged:additional-projectiles": { "MinValue": 2, "MaxValue": 3, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 28,
+      "Weight": 75,
+      "Stats": {
+        "hyforged:additional-projectiles": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 1,
+      "Weight": 108,
+      "Stats": {
+        "hyforged:additional-projectiles": { "MinValue": 1, "MaxValue": 1, "StackType": "Flat" }
+      }
+    }
+  ]
+}

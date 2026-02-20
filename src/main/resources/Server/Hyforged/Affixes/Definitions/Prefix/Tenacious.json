@@ -10,7 +10,7 @@
       "Weight": 36,
       "Stats": {
         "hyforged:constitution": { "MinValue": 34, "MaxValue": 42, "StackType": "Flat" },
-        "hyforged:life-regen": { "MinValue": 12, "MaxValue": 16, "StackType": "Flat" }
+        "hyforged:health-regen-flat": { "MinValue": 12, "MaxValue": 16, "StackType": "Flat" }
       }
     },
     {
@@ -19,7 +19,7 @@
       "Weight": 52,
       "Stats": {
         "hyforged:constitution": { "MinValue": 26, "MaxValue": 34, "StackType": "Flat" },
-        "hyforged:life-regen": { "MinValue": 8, "MaxValue": 12, "StackType": "Flat" }
+        "hyforged:health-regen-flat": { "MinValue": 8, "MaxValue": 12, "StackType": "Flat" }
       }
     },
     {
@@ -28,7 +28,7 @@
       "Weight": 72,
       "Stats": {
         "hyforged:constitution": { "MinValue": 18, "MaxValue": 26, "StackType": "Flat" },
-        "hyforged:life-regen": { "MinValue": 5, "MaxValue": 8, "StackType": "Flat" }
+        "hyforged:health-regen-flat": { "MinValue": 5, "MaxValue": 8, "StackType": "Flat" }
       }
     },
     {
@@ -37,7 +37,7 @@
       "Weight": 92,
       "Stats": {
         "hyforged:constitution": { "MinValue": 12, "MaxValue": 18, "StackType": "Flat" },
-        "hyforged:life-regen": { "MinValue": 3, "MaxValue": 5, "StackType": "Flat" }
+        "hyforged:health-regen-flat": { "MinValue": 3, "MaxValue": 5, "StackType": "Flat" }
       }
     },
     {
@@ -46,7 +46,7 @@
       "Weight": 112,
       "Stats": {
         "hyforged:constitution": { "MinValue": 6, "MaxValue": 12, "StackType": "Flat" },
-        "hyforged:life-regen": { "MinValue": 2, "MaxValue": 3, "StackType": "Flat" }
+        "hyforged:health-regen-flat": { "MinValue": 2, "MaxValue": 3, "StackType": "Flat" }
       }
     },
     {
@@ -55,7 +55,7 @@
       "Weight": 132,
       "Stats": {
         "hyforged:constitution": { "MinValue": 3, "MaxValue": 6, "StackType": "Flat" },
-        "hyforged:life-regen": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" }
+        "hyforged:health-regen-flat": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" }
       }
     }
   ]

@@ -1,0 +1,12 @@
+{
+  "Id": "hyforged:impaling",
+  "Type": "prefix",
+  "DisplayName": "Impaling",
+  "Weight": 35,
+  "Tiers": [
+    { "Tier": 1, "ItemLevelReq": 65, "Weight": 32, "Stats": { "hyforged:max-impales": { "MinValue": 3, "MaxValue": 4, "StackType": "Flat" } } },
+    { "Tier": 2, "ItemLevelReq": 45, "Weight": 52, "Stats": { "hyforged:max-impales": { "MinValue": 2, "MaxValue": 3, "StackType": "Flat" } } },
+    { "Tier": 3, "ItemLevelReq": 25, "Weight": 78, "Stats": { "hyforged:max-impales": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" } } },
+    { "Tier": 4, "ItemLevelReq": 1, "Weight": 108, "Stats": { "hyforged:max-impales": { "MinValue": 1, "MaxValue": 1, "StackType": "Flat" } } }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "Id": "hyforged:totemic",
+  "Type": "prefix",
+  "DisplayName": "Totemic",
+  "Weight": 32,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 68,
+      "Weight": 28,
+      "Stats": {
+        "hyforged:max-totems": { "MinValue": 2, "MaxValue": 3, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 42,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:max-totems": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 1,
+      "Weight": 82,
+      "Stats": {
+        "hyforged:max-totems": { "MinValue": 1, "MaxValue": 1, "StackType": "Flat" }
+      }
+    }
+  ]
+}
