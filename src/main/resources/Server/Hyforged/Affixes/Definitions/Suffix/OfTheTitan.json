@@ -1,0 +1,53 @@
+{
+  "Id": "hyforged:of-the-titan",
+  "Type": "suffix",
+  "DisplayName": "of the Titan",
+  "Weight": 65,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 66,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:strength": { "MinValue": 30, "MaxValue": 40, "StackType": "Flat" },
+        "hyforged:constitution": { "MinValue": 30, "MaxValue": 40, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 48,
+      "Weight": 58,
+      "Stats": {
+        "hyforged:strength": { "MinValue": 20, "MaxValue": 30, "StackType": "Flat" },
+        "hyforged:constitution": { "MinValue": 20, "MaxValue": 30, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 32,
+      "Weight": 78,
+      "Stats": {
+        "hyforged:strength": { "MinValue": 12, "MaxValue": 20, "StackType": "Flat" },
+        "hyforged:constitution": { "MinValue": 12, "MaxValue": 20, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 16,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:strength": { "MinValue": 5, "MaxValue": 12, "StackType": "Flat" },
+        "hyforged:constitution": { "MinValue": 5, "MaxValue": 12, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:strength": { "MinValue": 2, "MaxValue": 5, "StackType": "Flat" },
+        "hyforged:constitution": { "MinValue": 2, "MaxValue": 5, "StackType": "Flat" }
+      }
+    }
+  ]
+}

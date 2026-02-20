@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:biting",
+  "Type": "prefix",
+  "DisplayName": "Biting",
+  "Weight": 60,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 60,
+      "Weight": 38,
+      "Stats": {
+        "hyforged:cold-penetration-bps": { "MinValue": 1400, "MaxValue": 1800, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 44,
+      "Weight": 55,
+      "Stats": {
+        "hyforged:cold-penetration-bps": { "MinValue": 900, "MaxValue": 1400, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 28,
+      "Weight": 75,
+      "Stats": {
+        "hyforged:cold-penetration-bps": { "MinValue": 500, "MaxValue": 900, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 14,
+      "Weight": 95,
+      "Stats": {
+        "hyforged:cold-penetration-bps": { "MinValue": 200, "MaxValue": 500, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 115,
+      "Stats": {
+        "hyforged:cold-penetration-bps": { "MinValue": 50, "MaxValue": 200, "StackType": "Flat" }
+      }
+    }
+  ]
+}

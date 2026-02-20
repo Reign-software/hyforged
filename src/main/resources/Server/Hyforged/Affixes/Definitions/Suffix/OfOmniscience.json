@@ -1,0 +1,40 @@
+{
+  "Id": "hyforged:of-omniscience",
+  "Type": "suffix",
+  "DisplayName": "of Omniscience",
+  "Weight": 50,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 64,
+      "Weight": 38,
+      "Stats": {
+        "hyforged:elemental-penetration-bps": { "MinValue": 1000, "MaxValue": 1400, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 48,
+      "Weight": 55,
+      "Stats": {
+        "hyforged:elemental-penetration-bps": { "MinValue": 600, "MaxValue": 1000, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 32,
+      "Weight": 75,
+      "Stats": {
+        "hyforged:elemental-penetration-bps": { "MinValue": 300, "MaxValue": 600, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 16,
+      "Weight": 95,
+      "Stats": {
+        "hyforged:elemental-penetration-bps": { "MinValue": 100, "MaxValue": 300, "StackType": "Flat" }
+      }
+    }
+  ]
+}

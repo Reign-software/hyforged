@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:of-the-juggernaut",
+  "Type": "suffix",
+  "DisplayName": "of the Juggernaut",
+  "Weight": 60,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 58,
+      "Weight": 42,
+      "Stats": {
+        "hyforged:stun-duration-bps": { "MinValue": 2500, "MaxValue": 3500, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 42,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:stun-duration-bps": { "MinValue": 1600, "MaxValue": 2500, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 28,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:stun-duration-bps": { "MinValue": 800, "MaxValue": 1600, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 14,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:stun-duration-bps": { "MinValue": 300, "MaxValue": 800, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:stun-duration-bps": { "MinValue": 100, "MaxValue": 300, "StackType": "Increased" }
+      }
+    }
+  ]
+}

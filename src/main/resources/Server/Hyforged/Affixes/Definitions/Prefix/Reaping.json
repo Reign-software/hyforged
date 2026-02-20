@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:reaping",
+  "Type": "prefix",
+  "DisplayName": "Reaping",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 58,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:life-on-kill-flat": { "MinValue": 40, "MaxValue": 60, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 42,
+      "Weight": 58,
+      "Stats": {
+        "hyforged:life-on-kill-flat": { "MinValue": 25, "MaxValue": 40, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 26,
+      "Weight": 78,
+      "Stats": {
+        "hyforged:life-on-kill-flat": { "MinValue": 14, "MaxValue": 25, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 12,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:life-on-kill-flat": { "MinValue": 6, "MaxValue": 14, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:life-on-kill-flat": { "MinValue": 2, "MaxValue": 6, "StackType": "Flat" }
+      }
+    }
+  ]
+}

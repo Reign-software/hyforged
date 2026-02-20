@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:shielded",
+  "Type": "prefix",
+  "DisplayName": "Shielded",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 64,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:elemental-damage-taken-bps": { "MinValue": -2000, "MaxValue": -1400, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 48,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:elemental-damage-taken-bps": { "MinValue": -1400, "MaxValue": -900, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 32,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:elemental-damage-taken-bps": { "MinValue": -900, "MaxValue": -500, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 18,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:elemental-damage-taken-bps": { "MinValue": -500, "MaxValue": -250, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:elemental-damage-taken-bps": { "MinValue": -250, "MaxValue": -80, "StackType": "Flat" }
+      }
+    }
+  ]
+}

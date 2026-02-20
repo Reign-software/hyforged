@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:of-antivenom",
+  "Type": "suffix",
+  "DisplayName": "of Antivenom",
+  "Weight": 60,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 62,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:poison-resistance-bps": { "MinValue": 2800, "MaxValue": 3500, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 46,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:poison-resistance-bps": { "MinValue": 1900, "MaxValue": 2800, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 30,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:poison-resistance-bps": { "MinValue": 1100, "MaxValue": 1900, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 15,
+      "Weight": 105,
+      "Stats": {
+        "hyforged:poison-resistance-bps": { "MinValue": 500, "MaxValue": 1100, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 125,
+      "Stats": {
+        "hyforged:poison-resistance-bps": { "MinValue": 150, "MaxValue": 500, "StackType": "Flat" }
+      }
+    }
+  ]
+}

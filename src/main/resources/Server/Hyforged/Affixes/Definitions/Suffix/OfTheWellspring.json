@@ -1,0 +1,40 @@
+{
+  "Id": "hyforged:of-the-wellspring",
+  "Type": "suffix",
+  "DisplayName": "of the Wellspring",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 58,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:mana-on-hit-flat": { "MinValue": 10, "MaxValue": 15, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 42,
+      "Weight": 58,
+      "Stats": {
+        "hyforged:mana-on-hit-flat": { "MinValue": 6, "MaxValue": 10, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 26,
+      "Weight": 78,
+      "Stats": {
+        "hyforged:mana-on-hit-flat": { "MinValue": 3, "MaxValue": 6, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 12,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:mana-on-hit-flat": { "MinValue": 1, "MaxValue": 3, "StackType": "Flat" }
+      }
+    }
+  ]
+}

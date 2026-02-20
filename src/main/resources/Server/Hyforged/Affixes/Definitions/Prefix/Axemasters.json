@@ -1,0 +1,24 @@
+{
+  "Id": "hyforged:axemasters",
+  "Type": "prefix",
+  "DisplayName": "Axemaster's",
+  "Weight": 45,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 64,
+      "Weight": 35,
+      "Stats": {
+        "hyforged:axe-skill-levels": { "MinValue": 2, "MaxValue": 2, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 28,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:axe-skill-levels": { "MinValue": 1, "MaxValue": 1, "StackType": "Flat" }
+      }
+    }
+  ]
+}

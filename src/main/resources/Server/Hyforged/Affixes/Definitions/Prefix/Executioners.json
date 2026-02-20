@@ -1,0 +1,32 @@
+{
+  "Id": "hyforged:executioners",
+  "Type": "prefix",
+  "DisplayName": "Executioner's",
+  "Weight": 35,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 68,
+      "Weight": 30,
+      "Stats": {
+        "hyforged:culling-strike-threshold-bps": { "MinValue": 700, "MaxValue": 1000, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 50,
+      "Weight": 48,
+      "Stats": {
+        "hyforged:culling-strike-threshold-bps": { "MinValue": 400, "MaxValue": 700, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 32,
+      "Weight": 68,
+      "Stats": {
+        "hyforged:culling-strike-threshold-bps": { "MinValue": 200, "MaxValue": 400, "StackType": "Flat" }
+      }
+    }
+  ]
+}

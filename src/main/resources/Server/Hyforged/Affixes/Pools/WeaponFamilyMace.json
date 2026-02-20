@@ -21,7 +21,14 @@
         "hyforged:spirited",
         "hyforged:of-clarity",
         "hyforged:of-resolve",
-        "hyforged:steadfast"
+        "hyforged:steadfast",
+        "hyforged:hemorrhaging",
+        "hyforged:empowered",
+        "hyforged:twinned",
+        "hyforged:vampiric",
+        "hyforged:reaping",
+        "hyforged:executioners",
+        "hyforged:crusaders"
     ],
     "Suffixes": [
         "of-the-bear",
@@ -35,7 +42,13 @@
         "hyforged:of-the-spirit",
         "hyforged:of-the-serpent",
         "hyforged:of-conviction",
-        "hyforged:of-tenacity"
+        "hyforged:of-tenacity",
+        "hyforged:of-hemorrhage",
+        "hyforged:of-the-vampire",
+        "hyforged:of-the-reaper",
+        "hyforged:of-the-juggernaut",
+        "hyforged:of-execution",
+        "hyforged:of-the-titan"
     ],
     "Forged": [
         "hyforged:corrupted-fury",

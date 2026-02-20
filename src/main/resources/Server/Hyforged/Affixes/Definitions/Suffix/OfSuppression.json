@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:of-suppression",
+  "Type": "suffix",
+  "DisplayName": "of Suppression",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 62,
+      "Weight": 42,
+      "Stats": {
+        "hyforged:suppression-chance-bps": { "MinValue": 2000, "MaxValue": 2800, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 46,
+      "Weight": 62,
+      "Stats": {
+        "hyforged:suppression-chance-bps": { "MinValue": 1400, "MaxValue": 2000, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 30,
+      "Weight": 82,
+      "Stats": {
+        "hyforged:suppression-chance-bps": { "MinValue": 800, "MaxValue": 1400, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 16,
+      "Weight": 102,
+      "Stats": {
+        "hyforged:suppression-chance-bps": { "MinValue": 400, "MaxValue": 800, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 122,
+      "Stats": {
+        "hyforged:suppression-chance-bps": { "MinValue": 120, "MaxValue": 400, "StackType": "Flat" }
+      }
+    }
+  ]
+}

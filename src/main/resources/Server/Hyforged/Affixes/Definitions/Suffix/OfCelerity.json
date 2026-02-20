@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:of-celerity",
+  "Type": "suffix",
+  "DisplayName": "of Celerity",
+  "Weight": 60,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 58,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:movement-speed-bps": { "MinValue": 2000, "MaxValue": 2800, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 42,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:movement-speed-bps": { "MinValue": 1400, "MaxValue": 2000, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 28,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:movement-speed-bps": { "MinValue": 800, "MaxValue": 1400, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 14,
+      "Weight": 105,
+      "Stats": {
+        "hyforged:movement-speed-bps": { "MinValue": 400, "MaxValue": 800, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 125,
+      "Stats": {
+        "hyforged:movement-speed-bps": { "MinValue": 150, "MaxValue": 400, "StackType": "Increased" }
+      }
+    }
+  ]
+}

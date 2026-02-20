@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:resilient",
+  "Type": "prefix",
+  "DisplayName": "Resilient",
+  "Weight": 45,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 68,
+      "Weight": 35,
+      "Stats": {
+        "hyforged:damage-taken-bps": { "MinValue": -1200, "MaxValue": -800, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 52,
+      "Weight": 55,
+      "Stats": {
+        "hyforged:damage-taken-bps": { "MinValue": -800, "MaxValue": -500, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 36,
+      "Weight": 75,
+      "Stats": {
+        "hyforged:damage-taken-bps": { "MinValue": -500, "MaxValue": -300, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 20,
+      "Weight": 95,
+      "Stats": {
+        "hyforged:damage-taken-bps": { "MinValue": -300, "MaxValue": -150, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 115,
+      "Stats": {
+        "hyforged:damage-taken-bps": { "MinValue": -150, "MaxValue": -50, "StackType": "Flat" }
+      }
+    }
+  ]
+}

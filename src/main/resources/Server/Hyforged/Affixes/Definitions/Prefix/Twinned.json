@@ -1,0 +1,40 @@
+{
+  "Id": "hyforged:twinned",
+  "Type": "prefix",
+  "DisplayName": "Twinned",
+  "Weight": 40,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 66,
+      "Weight": 32,
+      "Stats": {
+        "hyforged:chance-to-deal-double-damage-bps": { "MinValue": 600, "MaxValue": 800, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 48,
+      "Weight": 50,
+      "Stats": {
+        "hyforged:chance-to-deal-double-damage-bps": { "MinValue": 400, "MaxValue": 600, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 32,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:chance-to-deal-double-damage-bps": { "MinValue": 200, "MaxValue": 400, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 16,
+      "Weight": 90,
+      "Stats": {
+        "hyforged:chance-to-deal-double-damage-bps": { "MinValue": 100, "MaxValue": 200, "StackType": "Flat" }
+      }
+    }
+  ]
+}

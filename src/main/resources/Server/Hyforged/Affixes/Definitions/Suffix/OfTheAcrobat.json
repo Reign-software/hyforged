@@ -1,0 +1,53 @@
+{
+  "Id": "hyforged:of-the-acrobat",
+  "Type": "suffix",
+  "DisplayName": "of the Acrobat",
+  "Weight": 65,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 66,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:dexterity": { "MinValue": 30, "MaxValue": 40, "StackType": "Flat" },
+        "hyforged:dodge-chance-bps": { "MinValue": 300, "MaxValue": 500, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 48,
+      "Weight": 58,
+      "Stats": {
+        "hyforged:dexterity": { "MinValue": 20, "MaxValue": 30, "StackType": "Flat" },
+        "hyforged:dodge-chance-bps": { "MinValue": 200, "MaxValue": 300, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 32,
+      "Weight": 78,
+      "Stats": {
+        "hyforged:dexterity": { "MinValue": 12, "MaxValue": 20, "StackType": "Flat" },
+        "hyforged:dodge-chance-bps": { "MinValue": 100, "MaxValue": 200, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 16,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:dexterity": { "MinValue": 5, "MaxValue": 12, "StackType": "Flat" },
+        "hyforged:dodge-chance-bps": { "MinValue": 50, "MaxValue": 100, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:dexterity": { "MinValue": 2, "MaxValue": 5, "StackType": "Flat" },
+        "hyforged:dodge-chance-bps": { "MinValue": 20, "MaxValue": 50, "StackType": "Flat" }
+      }
+    }
+  ]
+}

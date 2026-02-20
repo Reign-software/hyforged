@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:conditioned",
+  "Type": "prefix",
+  "DisplayName": "Conditioned",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 62,
+      "Weight": 42,
+      "Stats": {
+        "hyforged:ailment-threshold-bps": { "MinValue": 3000, "MaxValue": 4000, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 46,
+      "Weight": 62,
+      "Stats": {
+        "hyforged:ailment-threshold-bps": { "MinValue": 2000, "MaxValue": 3000, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 30,
+      "Weight": 82,
+      "Stats": {
+        "hyforged:ailment-threshold-bps": { "MinValue": 1200, "MaxValue": 2000, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 16,
+      "Weight": 102,
+      "Stats": {
+        "hyforged:ailment-threshold-bps": { "MinValue": 600, "MaxValue": 1200, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 122,
+      "Stats": {
+        "hyforged:ailment-threshold-bps": { "MinValue": 200, "MaxValue": 600, "StackType": "Flat" }
+      }
+    }
+  ]
+}

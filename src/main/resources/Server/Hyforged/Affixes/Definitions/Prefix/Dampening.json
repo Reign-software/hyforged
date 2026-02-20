@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:dampening",
+  "Type": "prefix",
+  "DisplayName": "Dampening",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 64,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:damage-over-time-taken-bps": { "MinValue": -2200, "MaxValue": -1500, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 48,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:damage-over-time-taken-bps": { "MinValue": -1500, "MaxValue": -1000, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 32,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:damage-over-time-taken-bps": { "MinValue": -1000, "MaxValue": -550, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 18,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:damage-over-time-taken-bps": { "MinValue": -550, "MaxValue": -280, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:damage-over-time-taken-bps": { "MinValue": -280, "MaxValue": -100, "StackType": "Flat" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:cerebral",
+  "Type": "prefix",
+  "DisplayName": "Cerebral",
+  "Weight": 65,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 64,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:max-mana-flat": { "MinValue": 80, "MaxValue": 120, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 48,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:max-mana-flat": { "MinValue": 55, "MaxValue": 80, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 32,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:max-mana-flat": { "MinValue": 35, "MaxValue": 55, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 18,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:max-mana-flat": { "MinValue": 18, "MaxValue": 35, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:max-mana-flat": { "MinValue": 8, "MaxValue": 18, "StackType": "Flat" }
+      }
+    }
+  ]
+}

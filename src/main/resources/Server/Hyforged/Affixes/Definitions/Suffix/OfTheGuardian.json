@@ -1,0 +1,53 @@
+{
+  "Id": "hyforged:of-the-guardian",
+  "Type": "suffix",
+  "DisplayName": "of the Guardian",
+  "Weight": 60,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 66,
+      "Weight": 38,
+      "Stats": {
+        "hyforged:healing-received-bps": { "MinValue": 1800, "MaxValue": 2500, "StackType": "Flat" },
+        "hyforged:max-health-flat": { "MinValue": 80, "MaxValue": 120, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 50,
+      "Weight": 58,
+      "Stats": {
+        "hyforged:healing-received-bps": { "MinValue": 1200, "MaxValue": 1800, "StackType": "Flat" },
+        "hyforged:max-health-flat": { "MinValue": 50, "MaxValue": 80, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 34,
+      "Weight": 78,
+      "Stats": {
+        "hyforged:healing-received-bps": { "MinValue": 700, "MaxValue": 1200, "StackType": "Flat" },
+        "hyforged:max-health-flat": { "MinValue": 30, "MaxValue": 50, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 20,
+      "Weight": 98,
+      "Stats": {
+        "hyforged:healing-received-bps": { "MinValue": 350, "MaxValue": 700, "StackType": "Flat" },
+        "hyforged:max-health-flat": { "MinValue": 15, "MaxValue": 30, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 118,
+      "Stats": {
+        "hyforged:healing-received-bps": { "MinValue": 100, "MaxValue": 350, "StackType": "Flat" },
+        "hyforged:max-health-flat": { "MinValue": 5, "MaxValue": 15, "StackType": "Flat" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "Id": "hyforged:of-the-mystic",
+  "Type": "suffix",
+  "DisplayName": "of the Mystic",
+  "Weight": 60,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 64,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:max-mana-flat": { "MinValue": 55, "MaxValue": 80, "StackType": "Flat" },
+        "hyforged:mana-recovery-rate-bps": { "MinValue": 1500, "MaxValue": 2200, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 48,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:max-mana-flat": { "MinValue": 35, "MaxValue": 55, "StackType": "Flat" },
+        "hyforged:mana-recovery-rate-bps": { "MinValue": 1000, "MaxValue": 1500, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 32,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:max-mana-flat": { "MinValue": 20, "MaxValue": 35, "StackType": "Flat" },
+        "hyforged:mana-recovery-rate-bps": { "MinValue": 600, "MaxValue": 1000, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 18,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:max-mana-flat": { "MinValue": 10, "MaxValue": 20, "StackType": "Flat" },
+        "hyforged:mana-recovery-rate-bps": { "MinValue": 300, "MaxValue": 600, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:max-mana-flat": { "MinValue": 5, "MaxValue": 10, "StackType": "Flat" },
+        "hyforged:mana-recovery-rate-bps": { "MinValue": 100, "MaxValue": 300, "StackType": "Flat" }
+      }
+    }
+  ]
+}

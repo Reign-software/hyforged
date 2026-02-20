@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:withering",
+  "Type": "prefix",
+  "DisplayName": "Withering",
+  "Weight": 60,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 60,
+      "Weight": 42,
+      "Stats": {
+        "hyforged:damage-over-time-bps": { "MinValue": 3000, "MaxValue": 4000, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 44,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:damage-over-time-bps": { "MinValue": 2000, "MaxValue": 3000, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 28,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:damage-over-time-bps": { "MinValue": 1200, "MaxValue": 2000, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 14,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:damage-over-time-bps": { "MinValue": 500, "MaxValue": 1200, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:damage-over-time-bps": { "MinValue": 150, "MaxValue": 500, "StackType": "Increased" }
+      }
+    }
+  ]
+}

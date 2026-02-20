@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:of-the-bulwark",
+  "Type": "suffix",
+  "DisplayName": "of the Bulwark",
+  "Weight": 55,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 64,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:critical-damage-taken-bps": { "MinValue": -2500, "MaxValue": -1800, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 48,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:critical-damage-taken-bps": { "MinValue": -1800, "MaxValue": -1200, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 32,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:critical-damage-taken-bps": { "MinValue": -1200, "MaxValue": -700, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 18,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:critical-damage-taken-bps": { "MinValue": -700, "MaxValue": -350, "StackType": "Flat" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:critical-damage-taken-bps": { "MinValue": -350, "MaxValue": -100, "StackType": "Flat" }
+      }
+    }
+  ]
+}

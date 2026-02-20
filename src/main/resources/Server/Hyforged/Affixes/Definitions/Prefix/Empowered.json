@@ -1,0 +1,48 @@
+{
+  "Id": "hyforged:empowered",
+  "Type": "prefix",
+  "DisplayName": "Empowered",
+  "Weight": 65,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 60,
+      "Weight": 42,
+      "Stats": {
+        "hyforged:damage-increased-bps": { "MinValue": 3000, "MaxValue": 4000, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 44,
+      "Weight": 60,
+      "Stats": {
+        "hyforged:damage-increased-bps": { "MinValue": 2000, "MaxValue": 3000, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 28,
+      "Weight": 80,
+      "Stats": {
+        "hyforged:damage-increased-bps": { "MinValue": 1200, "MaxValue": 2000, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 14,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:damage-increased-bps": { "MinValue": 600, "MaxValue": 1200, "StackType": "Increased" }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 120,
+      "Stats": {
+        "hyforged:damage-increased-bps": { "MinValue": 200, "MaxValue": 600, "StackType": "Increased" }
+      }
+    }
+  ]
+}
