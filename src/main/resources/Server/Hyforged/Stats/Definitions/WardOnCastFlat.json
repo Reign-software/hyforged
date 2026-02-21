@@ -1,0 +1,19 @@
+{
+  "Id": "hyforged:ward-on-cast-flat",
+  "Category": "defense",
+  "DisplayName": "Ward on Cast",
+  "Description": "Flat Ward restored each time you cast a skill.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 2147483647,
+  "Tags": {
+    "Domain": [
+      "defense"
+    ],
+    "Type": [
+      "defense",
+      "ward",
+      "recovery"
+    ]
+  }
+}

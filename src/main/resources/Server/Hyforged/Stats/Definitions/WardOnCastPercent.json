@@ -1,0 +1,23 @@
+{
+  "Id": "hyforged:ward-on-cast-bps",
+  "Category": "defense",
+  "DisplayName": "Ward on Cast %",
+  "Description": "Percentage of maximum Ward restored each time you cast a skill.",
+  "DefaultValue": 0,
+  "MinValue": 0,
+  "MaxValue": 10000,
+  "DisplayFormat": "PERCENT_BPS",
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "defense"
+    ],
+    "Type": [
+      "defense",
+      "ward",
+      "recovery"
+    ]
+  }
+}

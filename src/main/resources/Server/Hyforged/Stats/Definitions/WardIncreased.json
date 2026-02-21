@@ -1,0 +1,22 @@
+{
+  "Id": "hyforged:ward-increased-bps",
+  "Category": "defense",
+  "DisplayName": "Increased Max Ward",
+  "Description": "Increases maximum Ward.",
+  "DefaultValue": 0,
+  "MinValue": -10000,
+  "MaxValue": 10000,
+  "DisplayFormat": "PERCENT_BPS",
+  "Tags": {
+    "Modifier": [
+      "percent"
+    ],
+    "Domain": [
+      "defense"
+    ],
+    "Type": [
+      "defense",
+      "ward"
+    ]
+  }
+}

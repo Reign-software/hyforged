@@ -28,6 +28,7 @@ import reign.software.hyforged.affix.ui.CharacterStatsPage;
 import reign.software.hyforged.hud.HyforgedReticleUI;
 import reign.software.hyforged.combat.HyforgedAutoBlockSystem;
 import reign.software.hyforged.combat.HyforgedCriticalHitSystem;
+import reign.software.hyforged.combat.HyforgedDamageTakenSystem;
 import reign.software.hyforged.combat.ailment.AilmentAccumulatorComponent;
 import reign.software.hyforged.combat.ailment.AilmentLoader;
 import reign.software.hyforged.combat.ailment.HyforgedAilmentSystem;
@@ -124,6 +125,9 @@ import reign.software.hyforged.currency.system.VaultBreakProtectionSystem;
 import reign.software.hyforged.progression.hud.ProgressionHudSystem;
 import reign.software.hyforged.currency.ui.MarketStallPage;
 import reign.software.hyforged.currency.ui.VaultPage;
+import reign.software.hyforged.ward.WardAbsorptionSystem;
+import reign.software.hyforged.ward.WardHudSystem;
+import reign.software.hyforged.ward.WardRestoreOnCastListener;
 
 import javax.annotation.Nonnull;
 import java.util.logging.Level;
@@ -711,6 +715,10 @@ public class HyforgedPlugin extends JavaPlugin {
         entityStoreRegistry.registerSystem(new ResourceStatsHudSystem());
         getLogger().at(Level.FINE).log("Registered ResourceStatsHudSystem");
 
+        // Register WardHudSystem (custom HUD bar for the Ward caster-defense pool)
+        entityStoreRegistry.registerSystem(new WardHudSystem());
+        getLogger().at(Level.FINE).log("Registered WardHudSystem");
+
         // Register CurrencyHudSystem (custom HUD for Tradebar balance)
         entityStoreRegistry.registerSystem(new CurrencyHudSystem());
         getLogger().at(Level.FINE).log("Registered CurrencyHudSystem");
@@ -730,6 +738,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register Hyforged damage reduction system (replaces Hytale's ArmorDamageReduction)
         entityStoreRegistry.registerSystem(new HyforgedDamageReductionSystem());
         getLogger().at(Level.FINE).log("Registered HyforgedDamageReductionSystem");
+
+        // Register Hyforged damage taken system (defender-side incoming damage multipliers)
+        entityStoreRegistry.registerSystem(new HyforgedDamageTakenSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedDamageTakenSystem");
         
         // Register Hyforged knockback reduction system (replaces Hytale's ArmorKnockbackReduction)
         entityStoreRegistry.registerSystem(new HyforgedKnockbackReductionSystem());
@@ -823,6 +835,11 @@ public class HyforgedPlugin extends JavaPlugin {
         EffectAffixCastListener effectAffixCastListener = new EffectAffixCastListener();
         effectAffixCastListener.register();
         getLogger().at(Level.FINE).log("Registered EffectAffixCastListener");
+
+        // Register WardRestoreOnCastListener (restores Ward pool on each spell cast)
+        WardRestoreOnCastListener wardRestoreOnCastListener = new WardRestoreOnCastListener();
+        wardRestoreOnCastListener.register();
+        getLogger().at(Level.FINE).log("Registered WardRestoreOnCastListener");
     }
     
     /**
@@ -896,6 +913,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register concentration disruption system (runs last in inspect group)
         entityStoreRegistry.registerSystem(new HyforgedConcentrationDisruptionSystem(concentrationPriorityComponentType));
         getLogger().at(Level.FINE).log("Registered HyforgedConcentrationDisruptionSystem");
+
+        // Register WardAbsorptionSystem (absorbs incoming damage into Ward pool before HP)
+        entityStoreRegistry.registerSystem(new WardAbsorptionSystem());
+        getLogger().at(Level.FINE).log("Registered WardAbsorptionSystem");
         
     }
     

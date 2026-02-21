@@ -131,6 +131,31 @@ public class HyforgedHud extends CustomUIHud {
         update(false, b);
     }
 
+    // ── Ward Section ─────────────────────────────────────────────────
+
+    /**
+     * Update the Ward bar (caster defense buffer).
+     *
+     * @param current current Ward pool value
+     * @param max     maximum Ward pool value
+     */
+    public void updateWard(int current, int max) {
+        UICommandBuilder b = new UICommandBuilder();
+        b.set("#WardContainer.Visible", true);
+        b.set("#WardValue.Text", current + "/" + max);
+        b.set("#WardFill.Value", computeFillRatio(current, max));
+        update(false, b);
+    }
+
+    /**
+     * Hide the Ward bar.
+     */
+    public void hideWard() {
+        UICommandBuilder b = new UICommandBuilder();
+        b.set("#WardContainer.Visible", false);
+        update(false, b);
+    }
+
     // ── Currency Section ────────────────────────────────────────────
 
     /**

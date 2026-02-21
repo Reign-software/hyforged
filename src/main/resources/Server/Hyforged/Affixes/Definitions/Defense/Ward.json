@@ -1,0 +1,92 @@
+{
+  "Id": "hyforged:defense-ward",
+  "Type": "defense",
+  "DisplayName": "Ward",
+  "Weight": 1000,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 45,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:ward-rating-flat": {
+          "MinValue": 230,
+          "MaxValue": 310,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 35,
+      "Weight": 55,
+      "Stats": {
+        "hyforged:ward-rating-flat": {
+          "MinValue": 170,
+          "MaxValue": 230,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 30,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:ward-rating-flat": {
+          "MinValue": 120,
+          "MaxValue": 170,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 25,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:ward-rating-flat": {
+          "MinValue": 80,
+          "MaxValue": 120,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 15,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:ward-rating-flat": {
+          "MinValue": 50,
+          "MaxValue": 80,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 10,
+      "Weight": 115,
+      "Stats": {
+        "hyforged:ward-rating-flat": {
+          "MinValue": 25,
+          "MaxValue": 50,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 7,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:ward-rating-flat": {
+          "MinValue": 10,
+          "MaxValue": 25,
+          "StackType": "Flat"
+        }
+      }
+    }
+  ]
+}

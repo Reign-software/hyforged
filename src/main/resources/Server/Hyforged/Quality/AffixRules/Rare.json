@@ -4,6 +4,7 @@
     "prefix": 2,
     "suffix": 2,
     "forged": 0,
+    "defense": 1,
     "npc": 2,
     "npc_rare": 1,
     "npc_legendary": 0

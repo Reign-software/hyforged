@@ -109,3 +109,7 @@ characterStats.category.elemental = Elemental
 characterStats.category.flask = Flasks
 characterStats.category.loot = Loot & Experience
 characterStats.category.utility = Utility
+
+# Ward (caster defense buffer)
+ward.label = Ward
+ward.hud.value = {0}/{1}

@@ -1,0 +1,92 @@
+{
+  "Id": "hyforged:defense-armor",
+  "Type": "defense",
+  "DisplayName": "Armor",
+  "Weight": 1000,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 50,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:armor-rating": {
+          "MinValue": 300,
+          "MaxValue": 400,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 55,
+      "Stats": {
+        "hyforged:armor-rating": {
+          "MinValue": 220,
+          "MaxValue": 300,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 30,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:armor-rating": {
+          "MinValue": 160,
+          "MaxValue": 220,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 25,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:armor-rating": {
+          "MinValue": 110,
+          "MaxValue": 160,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 20,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:armor-rating": {
+          "MinValue": 70,
+          "MaxValue": 110,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 10,
+      "Weight": 115,
+      "Stats": {
+        "hyforged:armor-rating": {
+          "MinValue": 40,
+          "MaxValue": 70,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 7,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:armor-rating": {
+          "MinValue": 20,
+          "MaxValue": 40,
+          "StackType": "Flat"
+        }
+      }
+    }
+  ]
+}

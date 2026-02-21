@@ -122,4 +122,13 @@ public final class CombatMeta {
      */
     public static final MetaKey<Boolean> DODGE_ROLLED =
             Damage.META_REGISTRY.registerMetaObject(data -> Boolean.FALSE);
+
+    /**
+     * Amount of damage absorbed by Ward in this hit.
+     * <p>
+     * Set by {@code WardAbsorptionSystem}. Downstream systems (e.g., combat log)
+     * can use this to show how much Ward mitigated.
+     */
+    public static final MetaKey<Float> WARD_ABSORBED =
+            Damage.META_REGISTRY.registerMetaObject(data -> 0f);
 }

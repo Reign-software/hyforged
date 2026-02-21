@@ -1,0 +1,8 @@
+{
+  "Id": "defense",
+  "DisplayNamePosition": "none",
+  "DisplayFormat": "{name} (T{tier})",
+  "Stackable": false,
+  "HudSectionName": "Defense",
+  "HudColor": "#7ab8d4"
+}

@@ -86,6 +86,11 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
     public static final String MODIFIER_KEY_MAX_RAGE = MODIFIER_KEY_PREFIX + "MaxRage";
 
     /**
+     * Modifier key for max ward.
+     */
+    public static final String MODIFIER_KEY_MAX_WARD = MODIFIER_KEY_PREFIX + "MaxWard";
+
+    /**
      * Modifier key for movement speed (unused — movement speed bridge uses MovementManager, not EntityStatMap).
      */
     public static final String MODIFIER_KEY_MOVEMENT_SPEED = MODIFIER_KEY_PREFIX + "MovementSpeed";
@@ -122,8 +127,10 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
     private int maxStaminaIndex = -1;
     private int maxConcentrationIndex = -1;
     private int maxRageIndex = -1;
+    private int maxWardIndex = -1;
     private int concentrationEntityStatIndex = -1;
     private int rageEntityStatIndex = -1;
+    private int wardEntityStatIndex = -1;
     private int movementSpeedBpsIndex = -1;
 
     private boolean indicesInitialized = false;
@@ -185,6 +192,7 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
         bridgeMaxStamina(hyforgedStats, entityStatMap);
         bridgeMaxConcentration(hyforgedStats, entityStatMap);
         bridgeMaxRage(hyforgedStats, entityStatMap);
+        bridgeMaxWard(hyforgedStats, entityStatMap);
 
         // Bridge movement speed (optional — players only)
         Ref<EntityStore> entityRef = archetypeChunk.getReferenceTo(index);
@@ -201,8 +209,10 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
         maxStaminaIndex = registry.getIndex(StatId.hyforged("max-stamina-flat"));
         maxConcentrationIndex = registry.getIndex(StatId.hyforged("concentration"));
         maxRageIndex = registry.getIndex(StatId.hyforged("rage-max"));
+        maxWardIndex = registry.getIndex(StatId.hyforged("max-ward-flat"));
         concentrationEntityStatIndex = EntityStatType.getAssetMap().getIndex("Concentration");
         rageEntityStatIndex = EntityStatType.getAssetMap().getIndex("Rage");
+        wardEntityStatIndex = EntityStatType.getAssetMap().getIndex("Ward");
         movementSpeedBpsIndex = registry.getIndex(StatId.hyforged("movement-speed-bps"));
         indicesInitialized = true;
     }
@@ -348,6 +358,34 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
             applyModifier(entityStatMap, rageEntityStatIndex, MODIFIER_KEY_MAX_RAGE, currentValue);
             hyforgedStats.setLastBridgedMaxRage(currentValue);
             logBridge("Rage", currentValue, lastBridged);
+        }
+    }
+
+    /**
+     * Bridge max ward from Hyforged to Hytale's EntityStatMap.
+     * On first bridge after login, maximizes the stat so the player starts with full Ward.
+     */
+    private void bridgeMaxWard(
+            @Nonnull HyforgedStatComponent hyforgedStats,
+            @Nonnull EntityStatMap entityStatMap
+    ) {
+        if (maxWardIndex < 0 || wardEntityStatIndex < 0) {
+            return;
+        }
+
+        int currentValue = hyforgedStats.getCachedValue(maxWardIndex);
+        int lastBridged = hyforgedStats.getLastBridgedMaxWard();
+
+        boolean modifierMissing = entityStatMap.getModifier(wardEntityStatIndex, MODIFIER_KEY_MAX_WARD) == null;
+        int delta = currentValue - lastBridged;
+        if (modifierMissing || Math.abs(delta) >= UPDATE_THRESHOLD) {
+            boolean firstBridge = lastBridged == 0 && currentValue > 0;
+            applyModifier(entityStatMap, wardEntityStatIndex, MODIFIER_KEY_MAX_WARD, currentValue);
+            hyforgedStats.setLastBridgedMaxWard(currentValue);
+            logBridge("Ward", currentValue, lastBridged);
+            if (firstBridge) {
+                entityStatMap.maximizeStatValue(wardEntityStatIndex);
+            }
         }
     }
 

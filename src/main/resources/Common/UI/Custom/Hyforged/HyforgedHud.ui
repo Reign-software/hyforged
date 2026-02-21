@@ -47,6 +47,25 @@ Group #HyforgedHud {
                 }
                 Label #RageValue { Text: "0/0"; }
             }
+
+            Group #WardContainer {
+                LayoutMode: Top;
+                Visible: false;
+                Label #WardLabel {
+                    Text: "Ward";
+                    Style: (FontSize: 14, TextColor: #9966FF);
+                }
+                ProgressBar #WardFill {
+                    Value: 0.0;
+                    Direction: Start;
+                    Bar: PatchStyle(Color: #9966FF);
+                    Background: PatchStyle(Color: #1a0a2a);
+                }
+                Label #WardValue {
+                    Text: "0/0";
+                    Style: (FontSize: 13, TextColor: #CC99FF);
+                }
+            }
         }
 
         // === Currency Section (Tradebar balance) ===

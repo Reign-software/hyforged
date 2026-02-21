@@ -72,6 +72,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     private int lastBridgedMaxStamina = 0;
     private int lastBridgedMaxConcentration = 0;
     private int lastBridgedMaxRage = 0;
+    private int lastBridgedMaxWard = 0;
     private int lastBridgedMovementSpeedBps = 0;
 
     // ========== HUD STATE ==========
@@ -84,6 +85,9 @@ public class HyforgedStatComponent implements Component<EntityStore> {
     private int lastHudConcentrationMax = 0;
     private int lastHudRageCurrent = 0;
     private int lastHudRageMax = 0;
+    private boolean lastHudWardVisible = false;
+    private int lastHudWardCurrent = 0;
+    private int lastHudWardMax = 0;
     private int lastHudBreakpointHash = 0;
     private float lastHudRegenRate = Float.NaN;
     
@@ -628,6 +632,14 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         lastBridgedMaxRage = value;
     }
 
+    public int getLastBridgedMaxWard() {
+        return lastBridgedMaxWard;
+    }
+
+    public void setLastBridgedMaxWard(int value) {
+        lastBridgedMaxWard = value;
+    }
+
     public int getLastBridgedMovementSpeedBps() {
         return lastBridgedMovementSpeedBps;
     }
@@ -692,6 +704,30 @@ public class HyforgedStatComponent implements Component<EntityStore> {
 
     public void setLastHudRageMax(int value) {
         lastHudRageMax = value;
+    }
+
+    public boolean isLastHudWardVisible() {
+        return lastHudWardVisible;
+    }
+
+    public void setLastHudWardVisible(boolean visible) {
+        lastHudWardVisible = visible;
+    }
+
+    public int getLastHudWardCurrent() {
+        return lastHudWardCurrent;
+    }
+
+    public void setLastHudWardCurrent(int value) {
+        lastHudWardCurrent = value;
+    }
+
+    public int getLastHudWardMax() {
+        return lastHudWardMax;
+    }
+
+    public void setLastHudWardMax(int value) {
+        lastHudWardMax = value;
     }
 
     public int getLastHudBreakpointHash() {
@@ -781,6 +817,7 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         copy.lastBridgedMaxStamina = this.lastBridgedMaxStamina;
         copy.lastBridgedMaxConcentration = this.lastBridgedMaxConcentration;
         copy.lastBridgedMaxRage = this.lastBridgedMaxRage;
+        copy.lastBridgedMaxWard = this.lastBridgedMaxWard;
         copy.lastBridgedMovementSpeedBps = this.lastBridgedMovementSpeedBps;
         copy.lastHudShown = this.lastHudShown;
         copy.lastHudConcentrationVisible = this.lastHudConcentrationVisible;
@@ -789,6 +826,9 @@ public class HyforgedStatComponent implements Component<EntityStore> {
         copy.lastHudConcentrationMax = this.lastHudConcentrationMax;
         copy.lastHudRageCurrent = this.lastHudRageCurrent;
         copy.lastHudRageMax = this.lastHudRageMax;
+        copy.lastHudWardVisible = this.lastHudWardVisible;
+        copy.lastHudWardCurrent = this.lastHudWardCurrent;
+        copy.lastHudWardMax = this.lastHudWardMax;
         return copy;
     }
 }

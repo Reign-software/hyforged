@@ -1,0 +1,92 @@
+{
+  "Id": "hyforged:defense-evasion",
+  "Type": "defense",
+  "DisplayName": "Evasion",
+  "Weight": 1000,
+  "Tiers": [
+    {
+      "Tier": 1,
+      "ItemLevelReq": 45,
+      "Weight": 40,
+      "Stats": {
+        "hyforged:evasion-rating": {
+          "MinValue": 270,
+          "MaxValue": 360,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 35,
+      "Weight": 55,
+      "Stats": {
+        "hyforged:evasion-rating": {
+          "MinValue": 200,
+          "MaxValue": 270,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 30,
+      "Weight": 70,
+      "Stats": {
+        "hyforged:evasion-rating": {
+          "MinValue": 140,
+          "MaxValue": 200,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 25,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:evasion-rating": {
+          "MinValue": 95,
+          "MaxValue": 140,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 20,
+      "Weight": 100,
+      "Stats": {
+        "hyforged:evasion-rating": {
+          "MinValue": 60,
+          "MaxValue": 95,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 6,
+      "ItemLevelReq": 10,
+      "Weight": 115,
+      "Stats": {
+        "hyforged:evasion-rating": {
+          "MinValue": 35,
+          "MaxValue": 60,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 7,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:evasion-rating": {
+          "MinValue": 17,
+          "MaxValue": 35,
+          "StackType": "Flat"
+        }
+      }
+    }
+  ]
+}
