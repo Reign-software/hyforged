@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/CritChance.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:crit-chance-bps", "StackType": "Flat", "Amount": 2000 },
-    { "StatId": "hyforged:crit-multiplier-bps", "StackType": "Increased", "Amount": 3000 }
+    {
+      "StatId": "hyforged:crit-chance-bps",
+      "StackType": "Flat",
+      "Amount": 2000
+    },
+    {
+      "StatId": "hyforged:crit-multiplier-bps",
+      "StackType": "Increased",
+      "Amount": 3000
+    }
   ]
 }

@@ -34,6 +34,7 @@ import reign.software.hyforged.combat.ailment.HyforgedAilmentSystem;
 import reign.software.hyforged.combat.log.HyforgedCombatLogSystem;
 import reign.software.hyforged.combat.hud.CombatLogHudSystem;
 import reign.software.hyforged.combat.hud.PlayerDeathCombatLogSystem;
+import reign.software.hyforged.combat.HyforgedAttackDamageSystem;
 import reign.software.hyforged.combat.HyforgedHitResolutionSystem;
 import reign.software.hyforged.combat.scaling.HyforgedMonsterScalingSystem;
 import reign.software.hyforged.combat.scaling.MonsterLevelComponent;
@@ -51,6 +52,7 @@ import reign.software.hyforged.progression.xp.XPConfigAssetLoader;
 import reign.software.hyforged.progression.xp.XPNotificationAggregator;
 import reign.software.hyforged.quality.asset.QualityAssetLoader;
 import reign.software.hyforged.quality.component.HyforgedNPCQualityComponent;
+import reign.software.hyforged.quality.system.HyforgedLootMultiplierSystem;
 import reign.software.hyforged.quality.system.LootQualitySystem;
 import reign.software.hyforged.quality.system.NPCQualityAffixStatSystem;
 import reign.software.hyforged.quality.system.NPCQualitySystem;
@@ -87,6 +89,7 @@ import reign.software.hyforged.stats.system.ClassLevelModifierSystem;
 import reign.software.hyforged.stats.system.HyforgedBridgeSystem;
 import reign.software.hyforged.stats.system.HyforgedEffectBridgeSystem;
 import reign.software.hyforged.stats.system.HyforgedMinionStatBridgeSystem;
+import reign.software.hyforged.stats.system.HyforgedRegenSystem;
 import reign.software.hyforged.stats.system.HyforgedStatComputeSystem;
 import reign.software.hyforged.stats.system.HyforgedStatInitSystem;
 import reign.software.hyforged.stats.system.OnKillResourceRecoverySystem;
@@ -155,7 +158,10 @@ public class HyforgedPlugin extends JavaPlugin {
     private ComponentType<EntityStore, PlayerSpellsComponent> playerSpellsComponentType;
     private ComponentType<EntityStore, SummonerLinkComponent> summonerLinkComponentType;
     private ComponentType<EntityStore, MinionTrackerComponent> minionTrackerComponentType;
-    
+
+    // Listener references (kept as fields for cross-system access)
+    private EquipmentAffixListener equipmentAffixListener;
+
     // ChunkStore Component Types (block data)
     private ComponentType<ChunkStore, TradebarVaultComponent> tradebarVaultComponentType;
     
@@ -592,6 +598,18 @@ public class HyforgedPlugin extends JavaPlugin {
                                 playerRef.getUsername());
                         HyforgedHudManager.markReady(uuid);
                         HyforgedReticleUI.send(playerRef);
+
+                        // Re-apply equipment modifiers on login — LivingEntityInventoryChangeEvent
+                        // does not fire during initial inventory restore, so equipment stats would
+                        // otherwise be missing until the player physically moves an item.
+                        if (equipmentAffixListener != null) {
+                            com.hypixel.hytale.server.core.entity.entities.Player playerEntity =
+                                    store.getComponent(ref,
+                                            com.hypixel.hytale.server.core.entity.entities.Player.getComponentType());
+                            if (playerEntity != null) {
+                                equipmentAffixListener.reapplyAllEquipmentModifiers(playerEntity);
+                            }
+                        }
                     });
                 }
         );
@@ -676,6 +694,10 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register HyforgedBridgeSystem (bridges to Hytale's EntityStatMap)
         entityStoreRegistry.registerSystem(new HyforgedBridgeSystem());
         getLogger().at(Level.FINE).log("Registered HyforgedBridgeSystem");
+
+        // Register HyforgedRegenSystem (HP/mana/stamina/energy regen per second)
+        entityStoreRegistry.registerSystem(new HyforgedRegenSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedRegenSystem");
 
         // Register RageDecaySystem (out-of-combat rage decay)
         entityStoreRegistry.registerSystem(new RageDecaySystem());
@@ -781,6 +803,11 @@ public class HyforgedPlugin extends JavaPlugin {
         // Register LootQualitySystem (assigns quality tiers to loot)
         entityStoreRegistry.registerSystem(new LootQualitySystem());
         getLogger().at(Level.FINE).log("Registered LootQualitySystem");
+
+        // Register HyforgedLootMultiplierSystem (stub: item-quantity and item-rarity stat caching; Phase 6+)
+        // NOTE: Must run AFTER LootQualitySystem
+        entityStoreRegistry.registerSystem(new HyforgedLootMultiplierSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedLootMultiplierSystem");
         
         // Register CraftAffixListener (rolls affixes on crafted items)
         CraftAffixListener craftAffixListener = new CraftAffixListener();
@@ -788,7 +815,7 @@ public class HyforgedPlugin extends JavaPlugin {
         getLogger().at(Level.FINE).log("Registered CraftAffixListener");
 
         // Register EquipmentAffixListener (applies affix modifiers on equipment change)
-        EquipmentAffixListener equipmentAffixListener = new EquipmentAffixListener();
+        equipmentAffixListener = new EquipmentAffixListener();
         equipmentAffixListener.register();
         getLogger().at(Level.FINE).log("Registered EquipmentAffixListener");
 
@@ -807,6 +834,10 @@ public class HyforgedPlugin extends JavaPlugin {
      * - Critical hits
      */
     private void registerCombatSystems(ComponentRegistryProxy<EntityStore> entityStoreRegistry) {
+        // Inject attacker's attack-power as base physical damage (weapons have BaseDamage: 0)
+        entityStoreRegistry.registerSystem(new HyforgedAttackDamageSystem());
+        getLogger().at(Level.FINE).log("Registered HyforgedAttackDamageSystem");
+
         // Register hit resolution system (runs in gather group before damage filtering)
         entityStoreRegistry.registerSystem(new HyforgedHitResolutionSystem());
         getLogger().at(Level.FINE).log("Registered HyforgedHitResolutionSystem");

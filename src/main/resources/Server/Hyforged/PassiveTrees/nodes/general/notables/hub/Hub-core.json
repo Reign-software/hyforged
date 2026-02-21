@@ -13,7 +13,11 @@
       "Name": "Scion Core",
       "Description": "The core of the Scion's power. Grants balanced attribute bonuses.",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:attribute-all", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:attribute-all",
+          "Value": 1
+        }
       ]
     },
     {
@@ -23,8 +27,16 @@
       "Description": "+1 to All Attributes\n+5% increased Damage",
       "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:attribute-all", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:damage-increased-bps", "Value": 500 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:attribute-all",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:damage-increased-bps",
+          "Value": 500
+        }
       ]
     }
   ]

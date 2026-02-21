@@ -4,8 +4,41 @@
   "DisplayName": "Blaspheming",
   "Weight": 30,
   "Tiers": [
-    { "Tier": 1, "ItemLevelReq": 68, "Weight": 30, "Stats": { "hyforged:max-curses": { "MinValue": 2, "MaxValue": 3, "StackType": "Flat" } } },
-    { "Tier": 2, "ItemLevelReq": 42, "Weight": 55, "Stats": { "hyforged:max-curses": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" } } },
-    { "Tier": 3, "ItemLevelReq": 1, "Weight": 90, "Stats": { "hyforged:max-curses": { "MinValue": 1, "MaxValue": 1, "StackType": "Flat" } } }
+    {
+      "Tier": 1,
+      "ItemLevelReq": 68,
+      "Weight": 30,
+      "Stats": {
+        "hyforged:max-curses": {
+          "MinValue": 2,
+          "MaxValue": 3,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 42,
+      "Weight": 55,
+      "Stats": {
+        "hyforged:max-curses": {
+          "MinValue": 1,
+          "MaxValue": 2,
+          "StackType": "Flat"
+        }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 1,
+      "Weight": 90,
+      "Stats": {
+        "hyforged:max-curses": {
+          "MinValue": 1,
+          "MaxValue": 1,
+          "StackType": "Flat"
+        }
+      }
+    }
   ]
 }

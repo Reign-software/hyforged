@@ -9,7 +9,11 @@
       "ItemLevelReq": 58,
       "Weight": 44,
       "Stats": {
-        "hyforged:rage": { "MinValue": 18, "MaxValue": 25, "StackType": "Flat" }
+        "hyforged:rage": {
+          "MinValue": 18,
+          "MaxValue": 25,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 42,
       "Weight": 64,
       "Stats": {
-        "hyforged:rage": { "MinValue": 12, "MaxValue": 18, "StackType": "Flat" }
+        "hyforged:rage": {
+          "MinValue": 12,
+          "MaxValue": 18,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 28,
       "Weight": 84,
       "Stats": {
-        "hyforged:rage": { "MinValue": 7, "MaxValue": 12, "StackType": "Flat" }
+        "hyforged:rage": {
+          "MinValue": 7,
+          "MaxValue": 12,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 14,
       "Weight": 106,
       "Stats": {
-        "hyforged:rage": { "MinValue": 3, "MaxValue": 7, "StackType": "Flat" }
+        "hyforged:rage": {
+          "MinValue": 3,
+          "MaxValue": 7,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 1,
       "Weight": 128,
       "Stats": {
-        "hyforged:rage": { "MinValue": 1, "MaxValue": 3, "StackType": "Flat" }
+        "hyforged:rage": {
+          "MinValue": 1,
+          "MaxValue": 3,
+          "StackType": "Flat"
+        }
       }
     }
   ]

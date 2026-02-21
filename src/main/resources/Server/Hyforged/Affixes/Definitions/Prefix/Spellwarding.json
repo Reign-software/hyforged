@@ -4,10 +4,65 @@
   "DisplayName": "Spellwarding",
   "Weight": 48,
   "Tiers": [
-    { "Tier": 1, "ItemLevelReq": 60, "Weight": 42, "Stats": { "hyforged:block-spell-chance-bps": { "MinValue": 1800, "MaxValue": 2400, "StackType": "Increased" } } },
-    { "Tier": 2, "ItemLevelReq": 44, "Weight": 62, "Stats": { "hyforged:block-spell-chance-bps": { "MinValue": 1200, "MaxValue": 1800, "StackType": "Increased" } } },
-    { "Tier": 3, "ItemLevelReq": 30, "Weight": 82, "Stats": { "hyforged:block-spell-chance-bps": { "MinValue": 700, "MaxValue": 1200, "StackType": "Increased" } } },
-    { "Tier": 4, "ItemLevelReq": 16, "Weight": 105, "Stats": { "hyforged:block-spell-chance-bps": { "MinValue": 300, "MaxValue": 700, "StackType": "Increased" } } },
-    { "Tier": 5, "ItemLevelReq": 1, "Weight": 128, "Stats": { "hyforged:block-spell-chance-bps": { "MinValue": 80, "MaxValue": 300, "StackType": "Increased" } } }
+    {
+      "Tier": 1,
+      "ItemLevelReq": 60,
+      "Weight": 42,
+      "Stats": {
+        "hyforged:block-spell-chance-bps": {
+          "MinValue": 1800,
+          "MaxValue": 2400,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 44,
+      "Weight": 62,
+      "Stats": {
+        "hyforged:block-spell-chance-bps": {
+          "MinValue": 1200,
+          "MaxValue": 1800,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 30,
+      "Weight": 82,
+      "Stats": {
+        "hyforged:block-spell-chance-bps": {
+          "MinValue": 700,
+          "MaxValue": 1200,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 16,
+      "Weight": 105,
+      "Stats": {
+        "hyforged:block-spell-chance-bps": {
+          "MinValue": 300,
+          "MaxValue": 700,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 128,
+      "Stats": {
+        "hyforged:block-spell-chance-bps": {
+          "MinValue": 80,
+          "MaxValue": 300,
+          "StackType": "Increased"
+        }
+      }
+    }
   ]
 }

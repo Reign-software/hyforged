@@ -9,7 +9,11 @@
       "ItemLevelReq": 60,
       "Weight": 38,
       "Stats": {
-        "hyforged:spell-damage-increased-bps": { "MinValue": 3800, "MaxValue": 4800, "StackType": "Increased" }
+        "hyforged:spell-damage-increased-bps": {
+          "MinValue": 3800,
+          "MaxValue": 4800,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 46,
       "Weight": 55,
       "Stats": {
-        "hyforged:spell-damage-increased-bps": { "MinValue": 2800, "MaxValue": 3800, "StackType": "Increased" }
+        "hyforged:spell-damage-increased-bps": {
+          "MinValue": 2800,
+          "MaxValue": 3800,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 32,
       "Weight": 75,
       "Stats": {
-        "hyforged:spell-damage-increased-bps": { "MinValue": 1800, "MaxValue": 2800, "StackType": "Increased" }
+        "hyforged:spell-damage-increased-bps": {
+          "MinValue": 1800,
+          "MaxValue": 2800,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 18,
       "Weight": 95,
       "Stats": {
-        "hyforged:spell-damage-increased-bps": { "MinValue": 1000, "MaxValue": 1800, "StackType": "Increased" }
+        "hyforged:spell-damage-increased-bps": {
+          "MinValue": 1000,
+          "MaxValue": 1800,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 6,
       "Weight": 118,
       "Stats": {
-        "hyforged:spell-damage-increased-bps": { "MinValue": 400, "MaxValue": 1000, "StackType": "Increased" }
+        "hyforged:spell-damage-increased-bps": {
+          "MinValue": 400,
+          "MaxValue": 1000,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -49,7 +69,11 @@
       "ItemLevelReq": 1,
       "Weight": 140,
       "Stats": {
-        "hyforged:spell-damage-increased-bps": { "MinValue": 100, "MaxValue": 400, "StackType": "Increased" }
+        "hyforged:spell-damage-increased-bps": {
+          "MinValue": 100,
+          "MaxValue": 400,
+          "StackType": "Increased"
+        }
       }
     }
   ]

@@ -20,9 +20,12 @@
   ],
   "TriggeredEffects": [
     {
-      "Trigger": { "Type": "interval", "IntervalSeconds": 15.0 },
-      "Effect": { 
-        "Type": "spawn_prefab", 
+      "Trigger": {
+        "Type": "interval",
+        "IntervalSeconds": 15.0
+      },
+      "Effect": {
+        "Type": "spawn_prefab",
         "PrefabId": "hyforged:summoned_minion",
         "Count": 2,
         "SpawnRadius": 3

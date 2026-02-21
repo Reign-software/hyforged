@@ -4,10 +4,65 @@
   "DisplayName": "of the Wall",
   "Weight": 35,
   "Tiers": [
-    { "Tier": 1, "ItemLevelReq": 65, "Weight": 35, "Stats": { "hyforged:max-block-chance-bps": { "MinValue": 500, "MaxValue": 800, "StackType": "Increased" } } },
-    { "Tier": 2, "ItemLevelReq": 48, "Weight": 55, "Stats": { "hyforged:max-block-chance-bps": { "MinValue": 300, "MaxValue": 500, "StackType": "Increased" } } },
-    { "Tier": 3, "ItemLevelReq": 32, "Weight": 78, "Stats": { "hyforged:max-block-chance-bps": { "MinValue": 150, "MaxValue": 300, "StackType": "Increased" } } },
-    { "Tier": 4, "ItemLevelReq": 16, "Weight": 105, "Stats": { "hyforged:max-block-chance-bps": { "MinValue": 50, "MaxValue": 150, "StackType": "Increased" } } },
-    { "Tier": 5, "ItemLevelReq": 1, "Weight": 130, "Stats": { "hyforged:max-block-chance-bps": { "MinValue": 25, "MaxValue": 50, "StackType": "Increased" } } }
+    {
+      "Tier": 1,
+      "ItemLevelReq": 65,
+      "Weight": 35,
+      "Stats": {
+        "hyforged:max-block-chance-bps": {
+          "MinValue": 500,
+          "MaxValue": 800,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 48,
+      "Weight": 55,
+      "Stats": {
+        "hyforged:max-block-chance-bps": {
+          "MinValue": 300,
+          "MaxValue": 500,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 32,
+      "Weight": 78,
+      "Stats": {
+        "hyforged:max-block-chance-bps": {
+          "MinValue": 150,
+          "MaxValue": 300,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 16,
+      "Weight": 105,
+      "Stats": {
+        "hyforged:max-block-chance-bps": {
+          "MinValue": 50,
+          "MaxValue": 150,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:max-block-chance-bps": {
+          "MinValue": 25,
+          "MaxValue": 50,
+          "StackType": "Increased"
+        }
+      }
+    }
   ]
 }

@@ -1,167 +1,856 @@
 {
   "TreeId": "hyforged:passive-tree-general",
   "Placements": [
-    { "NodeId": "hyforged:minor-constitution-1", "Position": { "X": -140, "Y": 100 }, "Region": "constitution", "InstanceId": "hyforged:const-br-01" },
-    { "NodeId": "hyforged:minor-constitution-1", "Position": { "X": -140, "Y": 200 }, "Region": "constitution", "InstanceId": "hyforged:const-br-02" },
-    { "NodeId": "hyforged:hardy", "Position": { "X": -140, "Y": 300 }, "Region": "constitution" },
-    { "NodeId": "hyforged:minor-constitution-1", "Position": { "X": -140, "Y": 400 }, "Region": "constitution", "InstanceId": "hyforged:const-br-03" },
-    { "NodeId": "hyforged:minor-constitution-1", "Position": { "X": -140, "Y": 500 }, "Region": "constitution", "InstanceId": "hyforged:const-br-04" },
-    { "NodeId": "hyforged:thick-skin", "Position": { "X": -140, "Y": 600 }, "Region": "constitution" },
-    { "NodeId": "hyforged:minor-constitution-1", "Position": { "X": -140, "Y": 700 }, "Region": "constitution", "InstanceId": "hyforged:const-br-05" },
-    { "NodeId": "hyforged:minor-constitution-1", "Position": { "X": -140, "Y": 800 }, "Region": "constitution", "InstanceId": "hyforged:const-br-06" },
-    { "NodeId": "hyforged:endurance", "Position": { "X": -140, "Y": 900 }, "Region": "constitution" },
-    { "NodeId": "hyforged:minor-constitution-1", "Position": { "X": -140, "Y": 1000 }, "Region": "constitution", "InstanceId": "hyforged:const-br-07" },
-    { "NodeId": "hyforged:minor-constitution-1", "Position": { "X": -140, "Y": 1100 }, "Region": "constitution", "InstanceId": "hyforged:const-br-08" },
-    { "NodeId": "hyforged:stalwart", "Position": { "X": -140, "Y": 1200 }, "Region": "constitution" },
-    { "NodeId": "hyforged:minor-constitution-1", "Position": { "X": -140, "Y": 1300 }, "Region": "constitution", "InstanceId": "hyforged:const-br-09" },
-    { "NodeId": "hyforged:minor-constitution-1", "Position": { "X": -140, "Y": 1400 }, "Region": "constitution", "InstanceId": "hyforged:const-br-10" },
-    { "NodeId": "hyforged:tenacity", "Position": { "X": -140, "Y": 1500 }, "Region": "constitution" },
-    { "NodeId": "hyforged:minor-constitution-1", "Position": { "X": -140, "Y": 1600 }, "Region": "constitution", "InstanceId": "hyforged:const-br-11" },
-    { "NodeId": "hyforged:minor-constitution-1", "Position": { "X": -140, "Y": 1700 }, "Region": "constitution", "InstanceId": "hyforged:const-br-12" },
-    { "NodeId": "hyforged:immortal-ambition", "Position": { "X": -140, "Y": 1800 }, "Region": "constitution" },
-
-    { "NodeId": "hyforged:minor-luck-1", "Position": { "X": 0, "Y": 100 }, "Region": "luck", "InstanceId": "hyforged:luck-br-01" },
-    { "NodeId": "hyforged:minor-luck-1", "Position": { "X": 0, "Y": 200 }, "Region": "luck", "InstanceId": "hyforged:luck-br-02" },
-    { "NodeId": "hyforged:fortune", "Position": { "X": 0, "Y": 300 }, "Region": "luck" },
-    { "NodeId": "hyforged:minor-luck-1", "Position": { "X": 0, "Y": 400 }, "Region": "luck", "InstanceId": "hyforged:luck-br-03" },
-    { "NodeId": "hyforged:minor-luck-1", "Position": { "X": 0, "Y": 500 }, "Region": "luck", "InstanceId": "hyforged:luck-br-04" },
-    { "NodeId": "hyforged:serendipity", "Position": { "X": 0, "Y": 600 }, "Region": "luck" },
-    { "NodeId": "hyforged:minor-luck-1", "Position": { "X": 0, "Y": 700 }, "Region": "luck", "InstanceId": "hyforged:luck-br-05" },
-    { "NodeId": "hyforged:minor-luck-1", "Position": { "X": 0, "Y": 800 }, "Region": "luck", "InstanceId": "hyforged:luck-br-06" },
-    { "NodeId": "hyforged:gamblers-faith", "Position": { "X": 0, "Y": 900 }, "Region": "luck" },
-    { "NodeId": "hyforged:minor-luck-1", "Position": { "X": 0, "Y": 1000 }, "Region": "luck", "InstanceId": "hyforged:luck-br-07" },
-    { "NodeId": "hyforged:minor-luck-1", "Position": { "X": 0, "Y": 1100 }, "Region": "luck", "InstanceId": "hyforged:luck-br-08" },
-    { "NodeId": "hyforged:fate-weaver", "Position": { "X": 0, "Y": 1200 }, "Region": "luck" },
-    { "NodeId": "hyforged:minor-luck-1", "Position": { "X": 0, "Y": 1300 }, "Region": "luck", "InstanceId": "hyforged:luck-br-09" },
-    { "NodeId": "hyforged:minor-luck-1", "Position": { "X": 0, "Y": 1400 }, "Region": "luck", "InstanceId": "hyforged:luck-br-10" },
-    { "NodeId": "hyforged:windfall", "Position": { "X": 0, "Y": 1500 }, "Region": "luck" },
-    { "NodeId": "hyforged:minor-luck-1", "Position": { "X": 0, "Y": 1600 }, "Region": "luck", "InstanceId": "hyforged:luck-br-11" },
-    { "NodeId": "hyforged:minor-luck-1", "Position": { "X": 0, "Y": 1700 }, "Region": "luck", "InstanceId": "hyforged:luck-br-12" },
-    { "NodeId": "hyforged:divine-fortune", "Position": { "X": 0, "Y": 1800 }, "Region": "luck" },
-
-    { "NodeId": "hyforged:minor-spirit-1", "Position": { "X": 140, "Y": 100 }, "Region": "spirit", "InstanceId": "hyforged:spirit-br-01" },
-    { "NodeId": "hyforged:minor-spirit-1", "Position": { "X": 140, "Y": 200 }, "Region": "spirit", "InstanceId": "hyforged:spirit-br-02" },
-    { "NodeId": "hyforged:arcane-attunement", "Position": { "X": 140, "Y": 300 }, "Region": "spirit" },
-    { "NodeId": "hyforged:minor-spirit-1", "Position": { "X": 140, "Y": 400 }, "Region": "spirit", "InstanceId": "hyforged:spirit-br-03" },
-    { "NodeId": "hyforged:minor-spirit-1", "Position": { "X": 140, "Y": 500 }, "Region": "spirit", "InstanceId": "hyforged:spirit-br-04" },
-    { "NodeId": "hyforged:mystic-attunement", "Position": { "X": 140, "Y": 600 }, "Region": "spirit" },
-    { "NodeId": "hyforged:minor-spirit-1", "Position": { "X": 140, "Y": 700 }, "Region": "spirit", "InstanceId": "hyforged:spirit-br-05" },
-    { "NodeId": "hyforged:minor-spirit-1", "Position": { "X": 140, "Y": 800 }, "Region": "spirit", "InstanceId": "hyforged:spirit-br-06" },
-    { "NodeId": "hyforged:spiritual-aid", "Position": { "X": 140, "Y": 900 }, "Region": "spirit" },
-    { "NodeId": "hyforged:minor-spirit-1", "Position": { "X": 140, "Y": 1000 }, "Region": "spirit", "InstanceId": "hyforged:spirit-br-07" },
-    { "NodeId": "hyforged:minor-spirit-1", "Position": { "X": 140, "Y": 1100 }, "Region": "spirit", "InstanceId": "hyforged:spirit-br-08" },
-    { "NodeId": "hyforged:inner-conviction", "Position": { "X": 140, "Y": 1200 }, "Region": "spirit" },
-    { "NodeId": "hyforged:minor-spirit-1", "Position": { "X": 140, "Y": 1300 }, "Region": "spirit", "InstanceId": "hyforged:spirit-br-09" },
-    { "NodeId": "hyforged:minor-spirit-1", "Position": { "X": 140, "Y": 1400 }, "Region": "spirit", "InstanceId": "hyforged:spirit-br-10" },
-    { "NodeId": "hyforged:supreme-ego", "Position": { "X": 140, "Y": 1500 }, "Region": "spirit" },
-    { "NodeId": "hyforged:minor-spirit-1", "Position": { "X": 140, "Y": 1600 }, "Region": "spirit", "InstanceId": "hyforged:spirit-br-11" },
-    { "NodeId": "hyforged:minor-spirit-1", "Position": { "X": 140, "Y": 1700 }, "Region": "spirit", "InstanceId": "hyforged:spirit-br-12" },
-    { "NodeId": "hyforged:ethereal-mastery", "Position": { "X": 140, "Y": 1800 }, "Region": "spirit" }
+    {
+      "NodeId": "hyforged:minor-constitution-1",
+      "Position": {
+        "X": -140,
+        "Y": 100
+      },
+      "Region": "constitution",
+      "InstanceId": "hyforged:const-br-01"
+    },
+    {
+      "NodeId": "hyforged:minor-constitution-1",
+      "Position": {
+        "X": -140,
+        "Y": 200
+      },
+      "Region": "constitution",
+      "InstanceId": "hyforged:const-br-02"
+    },
+    {
+      "NodeId": "hyforged:hardy",
+      "Position": {
+        "X": -140,
+        "Y": 300
+      },
+      "Region": "constitution"
+    },
+    {
+      "NodeId": "hyforged:minor-constitution-1",
+      "Position": {
+        "X": -140,
+        "Y": 400
+      },
+      "Region": "constitution",
+      "InstanceId": "hyforged:const-br-03"
+    },
+    {
+      "NodeId": "hyforged:minor-constitution-1",
+      "Position": {
+        "X": -140,
+        "Y": 500
+      },
+      "Region": "constitution",
+      "InstanceId": "hyforged:const-br-04"
+    },
+    {
+      "NodeId": "hyforged:thick-skin",
+      "Position": {
+        "X": -140,
+        "Y": 600
+      },
+      "Region": "constitution"
+    },
+    {
+      "NodeId": "hyforged:minor-constitution-1",
+      "Position": {
+        "X": -140,
+        "Y": 700
+      },
+      "Region": "constitution",
+      "InstanceId": "hyforged:const-br-05"
+    },
+    {
+      "NodeId": "hyforged:minor-constitution-1",
+      "Position": {
+        "X": -140,
+        "Y": 800
+      },
+      "Region": "constitution",
+      "InstanceId": "hyforged:const-br-06"
+    },
+    {
+      "NodeId": "hyforged:endurance",
+      "Position": {
+        "X": -140,
+        "Y": 900
+      },
+      "Region": "constitution"
+    },
+    {
+      "NodeId": "hyforged:minor-constitution-1",
+      "Position": {
+        "X": -140,
+        "Y": 1000
+      },
+      "Region": "constitution",
+      "InstanceId": "hyforged:const-br-07"
+    },
+    {
+      "NodeId": "hyforged:minor-constitution-1",
+      "Position": {
+        "X": -140,
+        "Y": 1100
+      },
+      "Region": "constitution",
+      "InstanceId": "hyforged:const-br-08"
+    },
+    {
+      "NodeId": "hyforged:stalwart",
+      "Position": {
+        "X": -140,
+        "Y": 1200
+      },
+      "Region": "constitution"
+    },
+    {
+      "NodeId": "hyforged:minor-constitution-1",
+      "Position": {
+        "X": -140,
+        "Y": 1300
+      },
+      "Region": "constitution",
+      "InstanceId": "hyforged:const-br-09"
+    },
+    {
+      "NodeId": "hyforged:minor-constitution-1",
+      "Position": {
+        "X": -140,
+        "Y": 1400
+      },
+      "Region": "constitution",
+      "InstanceId": "hyforged:const-br-10"
+    },
+    {
+      "NodeId": "hyforged:tenacity",
+      "Position": {
+        "X": -140,
+        "Y": 1500
+      },
+      "Region": "constitution"
+    },
+    {
+      "NodeId": "hyforged:minor-constitution-1",
+      "Position": {
+        "X": -140,
+        "Y": 1600
+      },
+      "Region": "constitution",
+      "InstanceId": "hyforged:const-br-11"
+    },
+    {
+      "NodeId": "hyforged:minor-constitution-1",
+      "Position": {
+        "X": -140,
+        "Y": 1700
+      },
+      "Region": "constitution",
+      "InstanceId": "hyforged:const-br-12"
+    },
+    {
+      "NodeId": "hyforged:immortal-ambition",
+      "Position": {
+        "X": -140,
+        "Y": 1800
+      },
+      "Region": "constitution"
+    },
+    {
+      "NodeId": "hyforged:minor-luck-1",
+      "Position": {
+        "X": 0,
+        "Y": 100
+      },
+      "Region": "luck",
+      "InstanceId": "hyforged:luck-br-01"
+    },
+    {
+      "NodeId": "hyforged:minor-luck-1",
+      "Position": {
+        "X": 0,
+        "Y": 200
+      },
+      "Region": "luck",
+      "InstanceId": "hyforged:luck-br-02"
+    },
+    {
+      "NodeId": "hyforged:fortune",
+      "Position": {
+        "X": 0,
+        "Y": 300
+      },
+      "Region": "luck"
+    },
+    {
+      "NodeId": "hyforged:minor-luck-1",
+      "Position": {
+        "X": 0,
+        "Y": 400
+      },
+      "Region": "luck",
+      "InstanceId": "hyforged:luck-br-03"
+    },
+    {
+      "NodeId": "hyforged:minor-luck-1",
+      "Position": {
+        "X": 0,
+        "Y": 500
+      },
+      "Region": "luck",
+      "InstanceId": "hyforged:luck-br-04"
+    },
+    {
+      "NodeId": "hyforged:serendipity",
+      "Position": {
+        "X": 0,
+        "Y": 600
+      },
+      "Region": "luck"
+    },
+    {
+      "NodeId": "hyforged:minor-luck-1",
+      "Position": {
+        "X": 0,
+        "Y": 700
+      },
+      "Region": "luck",
+      "InstanceId": "hyforged:luck-br-05"
+    },
+    {
+      "NodeId": "hyforged:minor-luck-1",
+      "Position": {
+        "X": 0,
+        "Y": 800
+      },
+      "Region": "luck",
+      "InstanceId": "hyforged:luck-br-06"
+    },
+    {
+      "NodeId": "hyforged:gamblers-faith",
+      "Position": {
+        "X": 0,
+        "Y": 900
+      },
+      "Region": "luck"
+    },
+    {
+      "NodeId": "hyforged:minor-luck-1",
+      "Position": {
+        "X": 0,
+        "Y": 1000
+      },
+      "Region": "luck",
+      "InstanceId": "hyforged:luck-br-07"
+    },
+    {
+      "NodeId": "hyforged:minor-luck-1",
+      "Position": {
+        "X": 0,
+        "Y": 1100
+      },
+      "Region": "luck",
+      "InstanceId": "hyforged:luck-br-08"
+    },
+    {
+      "NodeId": "hyforged:fate-weaver",
+      "Position": {
+        "X": 0,
+        "Y": 1200
+      },
+      "Region": "luck"
+    },
+    {
+      "NodeId": "hyforged:minor-luck-1",
+      "Position": {
+        "X": 0,
+        "Y": 1300
+      },
+      "Region": "luck",
+      "InstanceId": "hyforged:luck-br-09"
+    },
+    {
+      "NodeId": "hyforged:minor-luck-1",
+      "Position": {
+        "X": 0,
+        "Y": 1400
+      },
+      "Region": "luck",
+      "InstanceId": "hyforged:luck-br-10"
+    },
+    {
+      "NodeId": "hyforged:windfall",
+      "Position": {
+        "X": 0,
+        "Y": 1500
+      },
+      "Region": "luck"
+    },
+    {
+      "NodeId": "hyforged:minor-luck-1",
+      "Position": {
+        "X": 0,
+        "Y": 1600
+      },
+      "Region": "luck",
+      "InstanceId": "hyforged:luck-br-11"
+    },
+    {
+      "NodeId": "hyforged:minor-luck-1",
+      "Position": {
+        "X": 0,
+        "Y": 1700
+      },
+      "Region": "luck",
+      "InstanceId": "hyforged:luck-br-12"
+    },
+    {
+      "NodeId": "hyforged:divine-fortune",
+      "Position": {
+        "X": 0,
+        "Y": 1800
+      },
+      "Region": "luck"
+    },
+    {
+      "NodeId": "hyforged:minor-spirit-1",
+      "Position": {
+        "X": 140,
+        "Y": 100
+      },
+      "Region": "spirit",
+      "InstanceId": "hyforged:spirit-br-01"
+    },
+    {
+      "NodeId": "hyforged:minor-spirit-1",
+      "Position": {
+        "X": 140,
+        "Y": 200
+      },
+      "Region": "spirit",
+      "InstanceId": "hyforged:spirit-br-02"
+    },
+    {
+      "NodeId": "hyforged:arcane-attunement",
+      "Position": {
+        "X": 140,
+        "Y": 300
+      },
+      "Region": "spirit"
+    },
+    {
+      "NodeId": "hyforged:minor-spirit-1",
+      "Position": {
+        "X": 140,
+        "Y": 400
+      },
+      "Region": "spirit",
+      "InstanceId": "hyforged:spirit-br-03"
+    },
+    {
+      "NodeId": "hyforged:minor-spirit-1",
+      "Position": {
+        "X": 140,
+        "Y": 500
+      },
+      "Region": "spirit",
+      "InstanceId": "hyforged:spirit-br-04"
+    },
+    {
+      "NodeId": "hyforged:mystic-attunement",
+      "Position": {
+        "X": 140,
+        "Y": 600
+      },
+      "Region": "spirit"
+    },
+    {
+      "NodeId": "hyforged:minor-spirit-1",
+      "Position": {
+        "X": 140,
+        "Y": 700
+      },
+      "Region": "spirit",
+      "InstanceId": "hyforged:spirit-br-05"
+    },
+    {
+      "NodeId": "hyforged:minor-spirit-1",
+      "Position": {
+        "X": 140,
+        "Y": 800
+      },
+      "Region": "spirit",
+      "InstanceId": "hyforged:spirit-br-06"
+    },
+    {
+      "NodeId": "hyforged:spiritual-aid",
+      "Position": {
+        "X": 140,
+        "Y": 900
+      },
+      "Region": "spirit"
+    },
+    {
+      "NodeId": "hyforged:minor-spirit-1",
+      "Position": {
+        "X": 140,
+        "Y": 1000
+      },
+      "Region": "spirit",
+      "InstanceId": "hyforged:spirit-br-07"
+    },
+    {
+      "NodeId": "hyforged:minor-spirit-1",
+      "Position": {
+        "X": 140,
+        "Y": 1100
+      },
+      "Region": "spirit",
+      "InstanceId": "hyforged:spirit-br-08"
+    },
+    {
+      "NodeId": "hyforged:inner-conviction",
+      "Position": {
+        "X": 140,
+        "Y": 1200
+      },
+      "Region": "spirit"
+    },
+    {
+      "NodeId": "hyforged:minor-spirit-1",
+      "Position": {
+        "X": 140,
+        "Y": 1300
+      },
+      "Region": "spirit",
+      "InstanceId": "hyforged:spirit-br-09"
+    },
+    {
+      "NodeId": "hyforged:minor-spirit-1",
+      "Position": {
+        "X": 140,
+        "Y": 1400
+      },
+      "Region": "spirit",
+      "InstanceId": "hyforged:spirit-br-10"
+    },
+    {
+      "NodeId": "hyforged:supreme-ego",
+      "Position": {
+        "X": 140,
+        "Y": 1500
+      },
+      "Region": "spirit"
+    },
+    {
+      "NodeId": "hyforged:minor-spirit-1",
+      "Position": {
+        "X": 140,
+        "Y": 1600
+      },
+      "Region": "spirit",
+      "InstanceId": "hyforged:spirit-br-11"
+    },
+    {
+      "NodeId": "hyforged:minor-spirit-1",
+      "Position": {
+        "X": 140,
+        "Y": 1700
+      },
+      "Region": "spirit",
+      "InstanceId": "hyforged:spirit-br-12"
+    },
+    {
+      "NodeId": "hyforged:ethereal-mastery",
+      "Position": {
+        "X": 140,
+        "Y": 1800
+      },
+      "Region": "spirit"
+    }
   ],
   "Connections": [
-    { "From": "hyforged:str-p3-dot-02", "To": "hyforged:const-br-01" },
-    { "From": "hyforged:const-br-01", "To": "hyforged:dex-p1-eva-02" },
-    { "From": "hyforged:const-br-01", "To": "hyforged:const-br-02" },
-    { "From": "hyforged:const-br-02", "To": "hyforged:hardy" },
-    { "From": "hyforged:hardy", "To": "hyforged:const-br-03" },
-    { "From": "hyforged:const-br-03", "To": "hyforged:const-br-04" },
-    { "From": "hyforged:const-br-04", "To": "hyforged:thick-skin" },
-    { "From": "hyforged:thick-skin", "To": "hyforged:const-br-05" },
-    { "From": "hyforged:const-br-05", "To": "hyforged:const-br-06" },
-    { "From": "hyforged:const-br-06", "To": "hyforged:endurance" },
-    { "From": "hyforged:endurance", "To": "hyforged:const-br-07" },
-    { "From": "hyforged:const-br-07", "To": "hyforged:const-br-08" },
-    { "From": "hyforged:const-br-08", "To": "hyforged:stalwart" },
-    { "From": "hyforged:stalwart", "To": "hyforged:const-br-09" },
-    { "From": "hyforged:const-br-09", "To": "hyforged:const-br-10" },
-    { "From": "hyforged:const-br-10", "To": "hyforged:tenacity" },
-    { "From": "hyforged:tenacity", "To": "hyforged:const-br-11" },
-    { "From": "hyforged:const-br-11", "To": "hyforged:const-br-12" },
-    { "From": "hyforged:const-br-12", "To": "hyforged:immortal-ambition" },
-
-    { "From": "hyforged:hardy", "To": "hyforged:str-p3-t01" },
-    { "From": "hyforged:hardy", "To": "hyforged:dex-p1-t01" },
-    { "From": "hyforged:thick-skin", "To": "hyforged:str-p3-t02" },
-    { "From": "hyforged:thick-skin", "To": "hyforged:dex-p1-t02" },
-    { "From": "hyforged:endurance", "To": "hyforged:str-p3-t03" },
-    { "From": "hyforged:endurance", "To": "hyforged:dex-p1-t03" },
-    { "From": "hyforged:stalwart", "To": "hyforged:str-p3-t04" },
-    { "From": "hyforged:stalwart", "To": "hyforged:dex-p1-t04" },
-    { "From": "hyforged:tenacity", "To": "hyforged:str-p3-t05" },
-    { "From": "hyforged:tenacity", "To": "hyforged:dex-p1-t05" },
-    { "From": "hyforged:immortal-ambition", "To": "hyforged:str-p3-t06" },
-    { "From": "hyforged:immortal-ambition", "To": "hyforged:dex-p1-t06" },
-
-    { "From": "hyforged:dex-p3-move-02", "To": "hyforged:luck-br-01" },
-    { "From": "hyforged:luck-br-01", "To": "hyforged:int-p1-spell-02" },
-    { "From": "hyforged:luck-br-01", "To": "hyforged:luck-br-02" },
-    { "From": "hyforged:luck-br-02", "To": "hyforged:fortune" },
-    { "From": "hyforged:fortune", "To": "hyforged:luck-br-03" },
-    { "From": "hyforged:luck-br-03", "To": "hyforged:luck-br-04" },
-    { "From": "hyforged:luck-br-04", "To": "hyforged:serendipity" },
-    { "From": "hyforged:serendipity", "To": "hyforged:luck-br-05" },
-    { "From": "hyforged:luck-br-05", "To": "hyforged:luck-br-06" },
-    { "From": "hyforged:luck-br-06", "To": "hyforged:gamblers-faith" },
-    { "From": "hyforged:gamblers-faith", "To": "hyforged:luck-br-07" },
-    { "From": "hyforged:luck-br-07", "To": "hyforged:luck-br-08" },
-    { "From": "hyforged:luck-br-08", "To": "hyforged:fate-weaver" },
-    { "From": "hyforged:fate-weaver", "To": "hyforged:luck-br-09" },
-    { "From": "hyforged:luck-br-09", "To": "hyforged:luck-br-10" },
-    { "From": "hyforged:luck-br-10", "To": "hyforged:windfall" },
-    { "From": "hyforged:windfall", "To": "hyforged:luck-br-11" },
-    { "From": "hyforged:luck-br-11", "To": "hyforged:luck-br-12" },
-    { "From": "hyforged:luck-br-12", "To": "hyforged:divine-fortune" },
-
-    { "From": "hyforged:fortune", "To": "hyforged:dex-p3-t01" },
-    { "From": "hyforged:fortune", "To": "hyforged:int-p1-t01" },
-    { "From": "hyforged:serendipity", "To": "hyforged:dex-p3-t02" },
-    { "From": "hyforged:serendipity", "To": "hyforged:int-p1-t02" },
-    { "From": "hyforged:gamblers-faith", "To": "hyforged:dex-p3-t03" },
-    { "From": "hyforged:gamblers-faith", "To": "hyforged:int-p1-t03" },
-    { "From": "hyforged:fate-weaver", "To": "hyforged:dex-p3-t04" },
-    { "From": "hyforged:fate-weaver", "To": "hyforged:int-p1-t04" },
-    { "From": "hyforged:windfall", "To": "hyforged:dex-p3-t05" },
-    { "From": "hyforged:windfall", "To": "hyforged:int-p1-t05" },
-    { "From": "hyforged:divine-fortune", "To": "hyforged:dex-p3-t06" },
-    { "From": "hyforged:divine-fortune", "To": "hyforged:int-p1-t06" },
-
-    { "From": "hyforged:int-p3-elem-02", "To": "hyforged:spirit-br-01" },
-    { "From": "hyforged:spirit-br-01", "To": "hyforged:wis-p1-regen-02" },
-    { "From": "hyforged:spirit-br-01", "To": "hyforged:spirit-br-02" },
-    { "From": "hyforged:spirit-br-02", "To": "hyforged:arcane-attunement" },
-    { "From": "hyforged:arcane-attunement", "To": "hyforged:spirit-br-03" },
-    { "From": "hyforged:spirit-br-03", "To": "hyforged:spirit-br-04" },
-    { "From": "hyforged:spirit-br-04", "To": "hyforged:mystic-attunement" },
-    { "From": "hyforged:mystic-attunement", "To": "hyforged:spirit-br-05" },
-    { "From": "hyforged:spirit-br-05", "To": "hyforged:spirit-br-06" },
-    { "From": "hyforged:spirit-br-06", "To": "hyforged:spiritual-aid" },
-    { "From": "hyforged:spiritual-aid", "To": "hyforged:spirit-br-07" },
-    { "From": "hyforged:spirit-br-07", "To": "hyforged:spirit-br-08" },
-    { "From": "hyforged:spirit-br-08", "To": "hyforged:inner-conviction" },
-    { "From": "hyforged:inner-conviction", "To": "hyforged:spirit-br-09" },
-    { "From": "hyforged:spirit-br-09", "To": "hyforged:spirit-br-10" },
-    { "From": "hyforged:spirit-br-10", "To": "hyforged:supreme-ego" },
-    { "From": "hyforged:supreme-ego", "To": "hyforged:spirit-br-11" },
-    { "From": "hyforged:spirit-br-11", "To": "hyforged:spirit-br-12" },
-    { "From": "hyforged:spirit-br-12", "To": "hyforged:ethereal-mastery" },
-
-    { "From": "hyforged:arcane-attunement", "To": "hyforged:int-p3-t01" },
-    { "From": "hyforged:arcane-attunement", "To": "hyforged:wis-p1-t01" },
-    { "From": "hyforged:mystic-attunement", "To": "hyforged:int-p3-t02" },
-    { "From": "hyforged:mystic-attunement", "To": "hyforged:wis-p1-t02" },
-    { "From": "hyforged:spiritual-aid", "To": "hyforged:int-p3-t03" },
-    { "From": "hyforged:spiritual-aid", "To": "hyforged:wis-p1-t03" },
-    { "From": "hyforged:inner-conviction", "To": "hyforged:int-p3-t04" },
-    { "From": "hyforged:inner-conviction", "To": "hyforged:wis-p1-t04" },
-    { "From": "hyforged:supreme-ego", "To": "hyforged:int-p3-t05" },
-    { "From": "hyforged:supreme-ego", "To": "hyforged:wis-p1-t05" },
-    { "From": "hyforged:ethereal-mastery", "To": "hyforged:int-p3-t06" },
-    { "From": "hyforged:ethereal-mastery", "To": "hyforged:wis-p1-t06" }
+    {
+      "From": "hyforged:str-p3-dot-02",
+      "To": "hyforged:const-br-01"
+    },
+    {
+      "From": "hyforged:const-br-01",
+      "To": "hyforged:dex-p1-eva-02"
+    },
+    {
+      "From": "hyforged:const-br-01",
+      "To": "hyforged:const-br-02"
+    },
+    {
+      "From": "hyforged:const-br-02",
+      "To": "hyforged:hardy"
+    },
+    {
+      "From": "hyforged:hardy",
+      "To": "hyforged:const-br-03"
+    },
+    {
+      "From": "hyforged:const-br-03",
+      "To": "hyforged:const-br-04"
+    },
+    {
+      "From": "hyforged:const-br-04",
+      "To": "hyforged:thick-skin"
+    },
+    {
+      "From": "hyforged:thick-skin",
+      "To": "hyforged:const-br-05"
+    },
+    {
+      "From": "hyforged:const-br-05",
+      "To": "hyforged:const-br-06"
+    },
+    {
+      "From": "hyforged:const-br-06",
+      "To": "hyforged:endurance"
+    },
+    {
+      "From": "hyforged:endurance",
+      "To": "hyforged:const-br-07"
+    },
+    {
+      "From": "hyforged:const-br-07",
+      "To": "hyforged:const-br-08"
+    },
+    {
+      "From": "hyforged:const-br-08",
+      "To": "hyforged:stalwart"
+    },
+    {
+      "From": "hyforged:stalwart",
+      "To": "hyforged:const-br-09"
+    },
+    {
+      "From": "hyforged:const-br-09",
+      "To": "hyforged:const-br-10"
+    },
+    {
+      "From": "hyforged:const-br-10",
+      "To": "hyforged:tenacity"
+    },
+    {
+      "From": "hyforged:tenacity",
+      "To": "hyforged:const-br-11"
+    },
+    {
+      "From": "hyforged:const-br-11",
+      "To": "hyforged:const-br-12"
+    },
+    {
+      "From": "hyforged:const-br-12",
+      "To": "hyforged:immortal-ambition"
+    },
+    {
+      "From": "hyforged:hardy",
+      "To": "hyforged:str-p3-t01"
+    },
+    {
+      "From": "hyforged:hardy",
+      "To": "hyforged:dex-p1-t01"
+    },
+    {
+      "From": "hyforged:thick-skin",
+      "To": "hyforged:str-p3-t02"
+    },
+    {
+      "From": "hyforged:thick-skin",
+      "To": "hyforged:dex-p1-t02"
+    },
+    {
+      "From": "hyforged:endurance",
+      "To": "hyforged:str-p3-t03"
+    },
+    {
+      "From": "hyforged:endurance",
+      "To": "hyforged:dex-p1-t03"
+    },
+    {
+      "From": "hyforged:stalwart",
+      "To": "hyforged:str-p3-t04"
+    },
+    {
+      "From": "hyforged:stalwart",
+      "To": "hyforged:dex-p1-t04"
+    },
+    {
+      "From": "hyforged:tenacity",
+      "To": "hyforged:str-p3-t05"
+    },
+    {
+      "From": "hyforged:tenacity",
+      "To": "hyforged:dex-p1-t05"
+    },
+    {
+      "From": "hyforged:immortal-ambition",
+      "To": "hyforged:str-p3-t06"
+    },
+    {
+      "From": "hyforged:immortal-ambition",
+      "To": "hyforged:dex-p1-t06"
+    },
+    {
+      "From": "hyforged:dex-p3-move-02",
+      "To": "hyforged:luck-br-01"
+    },
+    {
+      "From": "hyforged:luck-br-01",
+      "To": "hyforged:int-p1-spell-02"
+    },
+    {
+      "From": "hyforged:luck-br-01",
+      "To": "hyforged:luck-br-02"
+    },
+    {
+      "From": "hyforged:luck-br-02",
+      "To": "hyforged:fortune"
+    },
+    {
+      "From": "hyforged:fortune",
+      "To": "hyforged:luck-br-03"
+    },
+    {
+      "From": "hyforged:luck-br-03",
+      "To": "hyforged:luck-br-04"
+    },
+    {
+      "From": "hyforged:luck-br-04",
+      "To": "hyforged:serendipity"
+    },
+    {
+      "From": "hyforged:serendipity",
+      "To": "hyforged:luck-br-05"
+    },
+    {
+      "From": "hyforged:luck-br-05",
+      "To": "hyforged:luck-br-06"
+    },
+    {
+      "From": "hyforged:luck-br-06",
+      "To": "hyforged:gamblers-faith"
+    },
+    {
+      "From": "hyforged:gamblers-faith",
+      "To": "hyforged:luck-br-07"
+    },
+    {
+      "From": "hyforged:luck-br-07",
+      "To": "hyforged:luck-br-08"
+    },
+    {
+      "From": "hyforged:luck-br-08",
+      "To": "hyforged:fate-weaver"
+    },
+    {
+      "From": "hyforged:fate-weaver",
+      "To": "hyforged:luck-br-09"
+    },
+    {
+      "From": "hyforged:luck-br-09",
+      "To": "hyforged:luck-br-10"
+    },
+    {
+      "From": "hyforged:luck-br-10",
+      "To": "hyforged:windfall"
+    },
+    {
+      "From": "hyforged:windfall",
+      "To": "hyforged:luck-br-11"
+    },
+    {
+      "From": "hyforged:luck-br-11",
+      "To": "hyforged:luck-br-12"
+    },
+    {
+      "From": "hyforged:luck-br-12",
+      "To": "hyforged:divine-fortune"
+    },
+    {
+      "From": "hyforged:fortune",
+      "To": "hyforged:dex-p3-t01"
+    },
+    {
+      "From": "hyforged:fortune",
+      "To": "hyforged:int-p1-t01"
+    },
+    {
+      "From": "hyforged:serendipity",
+      "To": "hyforged:dex-p3-t02"
+    },
+    {
+      "From": "hyforged:serendipity",
+      "To": "hyforged:int-p1-t02"
+    },
+    {
+      "From": "hyforged:gamblers-faith",
+      "To": "hyforged:dex-p3-t03"
+    },
+    {
+      "From": "hyforged:gamblers-faith",
+      "To": "hyforged:int-p1-t03"
+    },
+    {
+      "From": "hyforged:fate-weaver",
+      "To": "hyforged:dex-p3-t04"
+    },
+    {
+      "From": "hyforged:fate-weaver",
+      "To": "hyforged:int-p1-t04"
+    },
+    {
+      "From": "hyforged:windfall",
+      "To": "hyforged:dex-p3-t05"
+    },
+    {
+      "From": "hyforged:windfall",
+      "To": "hyforged:int-p1-t05"
+    },
+    {
+      "From": "hyforged:divine-fortune",
+      "To": "hyforged:dex-p3-t06"
+    },
+    {
+      "From": "hyforged:divine-fortune",
+      "To": "hyforged:int-p1-t06"
+    },
+    {
+      "From": "hyforged:int-p3-elem-02",
+      "To": "hyforged:spirit-br-01"
+    },
+    {
+      "From": "hyforged:spirit-br-01",
+      "To": "hyforged:wis-p1-regen-02"
+    },
+    {
+      "From": "hyforged:spirit-br-01",
+      "To": "hyforged:spirit-br-02"
+    },
+    {
+      "From": "hyforged:spirit-br-02",
+      "To": "hyforged:arcane-attunement"
+    },
+    {
+      "From": "hyforged:arcane-attunement",
+      "To": "hyforged:spirit-br-03"
+    },
+    {
+      "From": "hyforged:spirit-br-03",
+      "To": "hyforged:spirit-br-04"
+    },
+    {
+      "From": "hyforged:spirit-br-04",
+      "To": "hyforged:mystic-attunement"
+    },
+    {
+      "From": "hyforged:mystic-attunement",
+      "To": "hyforged:spirit-br-05"
+    },
+    {
+      "From": "hyforged:spirit-br-05",
+      "To": "hyforged:spirit-br-06"
+    },
+    {
+      "From": "hyforged:spirit-br-06",
+      "To": "hyforged:spiritual-aid"
+    },
+    {
+      "From": "hyforged:spiritual-aid",
+      "To": "hyforged:spirit-br-07"
+    },
+    {
+      "From": "hyforged:spirit-br-07",
+      "To": "hyforged:spirit-br-08"
+    },
+    {
+      "From": "hyforged:spirit-br-08",
+      "To": "hyforged:inner-conviction"
+    },
+    {
+      "From": "hyforged:inner-conviction",
+      "To": "hyforged:spirit-br-09"
+    },
+    {
+      "From": "hyforged:spirit-br-09",
+      "To": "hyforged:spirit-br-10"
+    },
+    {
+      "From": "hyforged:spirit-br-10",
+      "To": "hyforged:supreme-ego"
+    },
+    {
+      "From": "hyforged:supreme-ego",
+      "To": "hyforged:spirit-br-11"
+    },
+    {
+      "From": "hyforged:spirit-br-11",
+      "To": "hyforged:spirit-br-12"
+    },
+    {
+      "From": "hyforged:spirit-br-12",
+      "To": "hyforged:ethereal-mastery"
+    },
+    {
+      "From": "hyforged:arcane-attunement",
+      "To": "hyforged:int-p3-t01"
+    },
+    {
+      "From": "hyforged:arcane-attunement",
+      "To": "hyforged:wis-p1-t01"
+    },
+    {
+      "From": "hyforged:mystic-attunement",
+      "To": "hyforged:int-p3-t02"
+    },
+    {
+      "From": "hyforged:mystic-attunement",
+      "To": "hyforged:wis-p1-t02"
+    },
+    {
+      "From": "hyforged:spiritual-aid",
+      "To": "hyforged:int-p3-t03"
+    },
+    {
+      "From": "hyforged:spiritual-aid",
+      "To": "hyforged:wis-p1-t03"
+    },
+    {
+      "From": "hyforged:inner-conviction",
+      "To": "hyforged:int-p3-t04"
+    },
+    {
+      "From": "hyforged:inner-conviction",
+      "To": "hyforged:wis-p1-t04"
+    },
+    {
+      "From": "hyforged:supreme-ego",
+      "To": "hyforged:int-p3-t05"
+    },
+    {
+      "From": "hyforged:supreme-ego",
+      "To": "hyforged:wis-p1-t05"
+    },
+    {
+      "From": "hyforged:ethereal-mastery",
+      "To": "hyforged:int-p3-t06"
+    },
+    {
+      "From": "hyforged:ethereal-mastery",
+      "To": "hyforged:wis-p1-t06"
+    }
   ],
   "TextLabels": [
     {
       "Text": "CONSTITUTION",
-      "Position": { "X": -140, "Y": 70 },
+      "Position": {
+        "X": -140,
+        "Y": 70
+      },
       "FontSize": 12,
       "Color": "#E8A87C",
       "Anchor": "center",
@@ -170,7 +859,10 @@
     },
     {
       "Text": "LUCK",
-      "Position": { "X": 0, "Y": 70 },
+      "Position": {
+        "X": 0,
+        "Y": 70
+      },
       "FontSize": 12,
       "Color": "#FFD93D",
       "Anchor": "center",
@@ -179,7 +871,10 @@
     },
     {
       "Text": "SPIRIT",
-      "Position": { "X": 140, "Y": 70 },
+      "Position": {
+        "X": 140,
+        "Y": 70
+      },
       "FontSize": 12,
       "Color": "#85DCBA",
       "Anchor": "center",

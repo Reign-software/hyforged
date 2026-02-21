@@ -4,10 +4,65 @@
   "DisplayName": "Menacing",
   "Weight": 48,
   "Tiers": [
-    { "Tier": 1, "ItemLevelReq": 55, "Weight": 45, "Stats": { "hyforged:intimidate-effect-bps": { "MinValue": 2200, "MaxValue": 2800, "StackType": "Increased" } } },
-    { "Tier": 2, "ItemLevelReq": 40, "Weight": 65, "Stats": { "hyforged:intimidate-effect-bps": { "MinValue": 1500, "MaxValue": 2200, "StackType": "Increased" } } },
-    { "Tier": 3, "ItemLevelReq": 26, "Weight": 85, "Stats": { "hyforged:intimidate-effect-bps": { "MinValue": 900, "MaxValue": 1500, "StackType": "Increased" } } },
-    { "Tier": 4, "ItemLevelReq": 12, "Weight": 108, "Stats": { "hyforged:intimidate-effect-bps": { "MinValue": 350, "MaxValue": 900, "StackType": "Increased" } } },
-    { "Tier": 5, "ItemLevelReq": 1, "Weight": 130, "Stats": { "hyforged:intimidate-effect-bps": { "MinValue": 100, "MaxValue": 350, "StackType": "Increased" } } }
+    {
+      "Tier": 1,
+      "ItemLevelReq": 55,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:intimidate-effect-bps": {
+          "MinValue": 2200,
+          "MaxValue": 2800,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:intimidate-effect-bps": {
+          "MinValue": 1500,
+          "MaxValue": 2200,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 26,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:intimidate-effect-bps": {
+          "MinValue": 900,
+          "MaxValue": 1500,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 12,
+      "Weight": 108,
+      "Stats": {
+        "hyforged:intimidate-effect-bps": {
+          "MinValue": 350,
+          "MaxValue": 900,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:intimidate-effect-bps": {
+          "MinValue": 100,
+          "MaxValue": 350,
+          "StackType": "Increased"
+        }
+      }
+    }
   ]
 }

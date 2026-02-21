@@ -2,9 +2,21 @@
   "Order": 2,
   "Enabled": true,
   "Segments": [
-    { "Text": "  ", "Color": "#AAAAAA" },
-    { "TranslationKey": "hyforged.welcome.tipPrefix", "Color": "#AAAAAA" },
-    { "Text": " /hyforged c", "Color": "#55FF55" },
-    { "TranslationKey": "hyforged.welcome.tipSuffix", "Color": "#AAAAAA" }
+    {
+      "Text": "  ",
+      "Color": "#AAAAAA"
+    },
+    {
+      "TranslationKey": "hyforged.welcome.tipPrefix",
+      "Color": "#AAAAAA"
+    },
+    {
+      "Text": " /hyforged c",
+      "Color": "#55FF55"
+    },
+    {
+      "TranslationKey": "hyforged.welcome.tipSuffix",
+      "Color": "#AAAAAA"
+    }
   ]
 }

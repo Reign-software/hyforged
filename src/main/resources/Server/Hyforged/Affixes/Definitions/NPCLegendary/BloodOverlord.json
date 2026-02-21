@@ -10,9 +10,21 @@
       "ItemLevelReq": 40,
       "Weight": 100,
       "Stats": {
-        "hyforged:life-leech-bps": { "MinValue": 1300, "MaxValue": 2200, "StackType": "Flat" },
-        "hyforged:max-health-flat": { "MinValue": 2200, "MaxValue": 3600, "StackType": "More" },
-        "hyforged:damage-increased-bps": { "MinValue": 1500, "MaxValue": 2400, "StackType": "More" }
+        "hyforged:life-leech-bps": {
+          "MinValue": 1300,
+          "MaxValue": 2200,
+          "StackType": "Flat"
+        },
+        "hyforged:max-health-flat": {
+          "MinValue": 2200,
+          "MaxValue": 3600,
+          "StackType": "More"
+        },
+        "hyforged:damage-increased-bps": {
+          "MinValue": 1500,
+          "MaxValue": 2400,
+          "StackType": "More"
+        }
       }
     }
   ]

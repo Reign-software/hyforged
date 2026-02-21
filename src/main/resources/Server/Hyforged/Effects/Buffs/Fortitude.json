@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Defense.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:max-health-flat", "StackType": "Increased", "Amount": 2000 },
-    { "StatId": "hyforged:damage-taken-bps", "StackType": "Increased", "Amount": -1000 }
+    {
+      "StatId": "hyforged:max-health-flat",
+      "StackType": "Increased",
+      "Amount": 2000
+    },
+    {
+      "StatId": "hyforged:damage-taken-bps",
+      "StackType": "Increased",
+      "Amount": -1000
+    }
   ]
 }

@@ -9,7 +9,11 @@
       "ItemLevelReq": 58,
       "Weight": 45,
       "Stats": {
-        "hyforged:reservation-efficiency-bps": { "MinValue": 1500, "MaxValue": 2200, "StackType": "Flat" }
+        "hyforged:reservation-efficiency-bps": {
+          "MinValue": 1500,
+          "MaxValue": 2200,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 42,
       "Weight": 65,
       "Stats": {
-        "hyforged:reservation-efficiency-bps": { "MinValue": 1000, "MaxValue": 1500, "StackType": "Flat" }
+        "hyforged:reservation-efficiency-bps": {
+          "MinValue": 1000,
+          "MaxValue": 1500,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 28,
       "Weight": 85,
       "Stats": {
-        "hyforged:reservation-efficiency-bps": { "MinValue": 600, "MaxValue": 1000, "StackType": "Flat" }
+        "hyforged:reservation-efficiency-bps": {
+          "MinValue": 600,
+          "MaxValue": 1000,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 14,
       "Weight": 105,
       "Stats": {
-        "hyforged:reservation-efficiency-bps": { "MinValue": 300, "MaxValue": 600, "StackType": "Flat" }
+        "hyforged:reservation-efficiency-bps": {
+          "MinValue": 300,
+          "MaxValue": 600,
+          "StackType": "Flat"
+        }
       }
     }
   ]

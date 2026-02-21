@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/AttackSpeed.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:dual-wield-damage-bps", "StackType": "Increased", "Amount": 2500 },
-    { "StatId": "hyforged:movement-speed-bps", "StackType": "Increased", "Amount": 1000 }
+    {
+      "StatId": "hyforged:dual-wield-damage-bps",
+      "StackType": "Increased",
+      "Amount": 2500
+    },
+    {
+      "StatId": "hyforged:movement-speed-bps",
+      "StackType": "Increased",
+      "Amount": 1000
+    }
   ]
 }

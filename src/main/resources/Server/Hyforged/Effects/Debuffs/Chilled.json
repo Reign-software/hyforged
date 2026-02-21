@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Chill.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:movement-speed-bps", "StackType": "Increased", "Amount": -3000 },
-    { "StatId": "hyforged:cast-speed-bps", "StackType": "Increased", "Amount": -2000 }
+    {
+      "StatId": "hyforged:movement-speed-bps",
+      "StackType": "Increased",
+      "Amount": -3000
+    },
+    {
+      "StatId": "hyforged:cast-speed-bps",
+      "StackType": "Increased",
+      "Amount": -2000
+    }
   ]
 }

@@ -17,6 +17,8 @@
     "Type": [
       "leech"
     ],
-    "Resource": ["health"]
+    "Resource": [
+      "health"
+    ]
   }
 }

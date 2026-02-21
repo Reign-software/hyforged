@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/LightningResist.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:lightning-resistance-bps", "StackType": "Flat", "Amount": 4000 },
-    { "StatId": "hyforged:maximum-resistance-lightning-bps", "StackType": "Flat", "Amount": 500 }
+    {
+      "StatId": "hyforged:lightning-resistance-bps",
+      "StackType": "Flat",
+      "Amount": 4000
+    },
+    {
+      "StatId": "hyforged:maximum-resistance-lightning-bps",
+      "StackType": "Flat",
+      "Amount": 500
+    }
   ]
 }

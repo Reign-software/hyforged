@@ -6,8 +6,20 @@
     "StatusEffectIcon": "UI/StatusEffects/Block.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:block-chance-bps", "StackType": "Flat", "Amount": 2500 },
-    { "StatId": "hyforged:block-mitigation-bps", "StackType": "Increased", "Amount": 2000 },
-    { "StatId": "hyforged:auto-block-stamina-cost-bps", "StackType": "Increased", "Amount": -1500 }
+    {
+      "StatId": "hyforged:block-chance-bps",
+      "StackType": "Flat",
+      "Amount": 2500
+    },
+    {
+      "StatId": "hyforged:block-mitigation-bps",
+      "StackType": "Increased",
+      "Amount": 2000
+    },
+    {
+      "StatId": "hyforged:auto-block-stamina-cost-bps",
+      "StackType": "Increased",
+      "Amount": -1500
+    }
   ]
 }

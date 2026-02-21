@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Impale.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:physical-damage-taken-bps", "StackType": "Increased", "Amount": 3000 },
-    { "StatId": "hyforged:movement-speed-bps", "StackType": "Increased", "Amount": -1500 }
+    {
+      "StatId": "hyforged:physical-damage-taken-bps",
+      "StackType": "Increased",
+      "Amount": 3000
+    },
+    {
+      "StatId": "hyforged:movement-speed-bps",
+      "StackType": "Increased",
+      "Amount": -1500
+    }
   ]
 }

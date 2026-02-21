@@ -6,9 +6,21 @@
       "Name": "Elemental Imbuement",
       "Description": "+1 Fire Damage\n+1 Cold Damage\n+1 Lightning Damage",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:added-fire-damage-flat", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:added-cold-damage-flat", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:added-lightning-damage-flat", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:added-fire-damage-flat",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:added-cold-damage-flat",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:added-lightning-damage-flat",
+          "Value": 1
+        }
       ]
     },
     {
@@ -17,9 +29,21 @@
       "Name": "Brutal Strikes",
       "Description": "+1 Physical Damage\n+2 Attack Power\n+2% Armor Penetration",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:added-physical-damage-flat", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:attack-power", "Value": 2 },
-        { "Type": "stat-modifier", "Stat": "hyforged:armor-penetration-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:added-physical-damage-flat",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:attack-power",
+          "Value": 2
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:armor-penetration-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -28,9 +52,21 @@
       "Name": "Void Imbuement",
       "Description": "+1 Chaos Damage\n1% Reduced Chaos Damage Taken\n+0.5% Max Chaos Resistance",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:added-chaos-damage-flat", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:chaos-damage-taken-bps", "Value": -100 },
-        { "Type": "stat-modifier", "Stat": "hyforged:maximum-resistance-chaos-bps", "Value": 50 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:added-chaos-damage-flat",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:chaos-damage-taken-bps",
+          "Value": -100
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:maximum-resistance-chaos-bps",
+          "Value": 50
+        }
       ]
     },
     {
@@ -39,8 +75,16 @@
       "Name": "Ailment Mastery",
       "Description": "+2% Ailment Damage\n+2% Ailment Threshold",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:ailment-damage-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:ailment-threshold-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:ailment-damage-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:ailment-threshold-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -49,10 +93,26 @@
       "Name": "Hemorrhage",
       "Description": "+2% Bleed Chance\n+2% Bleed Duration\n+2% Bleed Penetration\n+2% Bleed Resistance",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:bleed-chance-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:bleed-duration-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:bleed-penetration-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:bleed-resistance-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:bleed-chance-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:bleed-duration-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:bleed-penetration-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:bleed-resistance-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -61,9 +121,21 @@
       "Name": "Ignition",
       "Description": "+2% Ignite Chance\n+2% Ignite Damage\n+2% Ignite Duration",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:ignite-chance-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:ignite-damage-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:ignite-duration-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:ignite-chance-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:ignite-damage-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:ignite-duration-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -72,9 +144,21 @@
       "Name": "Glacial Nerve",
       "Description": "+2% Freeze Chance\n+2% Freeze Duration\n+2% Chill Effect",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:freeze-chance-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:freeze-duration-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:chill-effect-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:freeze-chance-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:freeze-duration-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:chill-effect-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -83,9 +167,21 @@
       "Name": "Storm Conductor",
       "Description": "+2% Shock Chance\n+2% Shock Duration\n+2% Shock Effect",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:shock-chance-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:shock-duration-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:shock-effect-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:shock-chance-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:shock-duration-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:shock-effect-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -94,8 +190,16 @@
       "Name": "Toxic Guard",
       "Description": "+2% Poison Duration\n+2% Poison Resistance",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:poison-duration-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:poison-resistance-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:poison-duration-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:poison-resistance-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -104,10 +208,26 @@
       "Name": "Projectile Techniques",
       "Description": "+1 Additional Projectile\n+1 Projectile Chain\n+1 Projectile Fork\n+1 Projectile Pierce",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:additional-projectiles", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:projectile-chain-count", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:projectile-fork-count", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:projectile-pierce-count", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:additional-projectiles",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:projectile-chain-count",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:projectile-fork-count",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:projectile-pierce-count",
+          "Value": 1
+        }
       ]
     },
     {
@@ -116,10 +236,26 @@
       "Name": "Penetrating Elements",
       "Description": "+2% Elemental Penetration\n+2% Fire Penetration\n+2% Cold Penetration\n+2% Lightning Penetration",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:elemental-penetration-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:fire-penetration-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:cold-penetration-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:lightning-penetration-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:elemental-penetration-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:fire-penetration-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:cold-penetration-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:lightning-penetration-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -128,9 +264,21 @@
       "Name": "Elemental Ward",
       "Description": "+1% Fire Resistance\n+1% Cold Resistance\n+1% Lightning Resistance",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:fire-resistance-bps", "Value": 100 },
-        { "Type": "stat-modifier", "Stat": "hyforged:cold-resistance-bps", "Value": 100 },
-        { "Type": "stat-modifier", "Stat": "hyforged:lightning-resistance-bps", "Value": 100 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:fire-resistance-bps",
+          "Value": 100
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:cold-resistance-bps",
+          "Value": 100
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:lightning-resistance-bps",
+          "Value": 100
+        }
       ]
     },
     {
@@ -139,9 +287,21 @@
       "Name": "Elemental Aegis",
       "Description": "+0.5% Max Fire Resistance\n+0.5% Max Cold Resistance\n+0.5% Max Lightning Resistance",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:maximum-resistance-fire-bps", "Value": 50 },
-        { "Type": "stat-modifier", "Stat": "hyforged:maximum-resistance-cold-bps", "Value": 50 },
-        { "Type": "stat-modifier", "Stat": "hyforged:maximum-resistance-lightning-bps", "Value": 50 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:maximum-resistance-fire-bps",
+          "Value": 50
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:maximum-resistance-cold-bps",
+          "Value": 50
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:maximum-resistance-lightning-bps",
+          "Value": 50
+        }
       ]
     },
     {
@@ -150,10 +310,26 @@
       "Name": "Damage Mitigation",
       "Description": "1% Reduced Damage Taken\n1% Reduced Physical Damage Taken\n1% Reduced Elemental Damage Taken\n1% Reduced Damage Over Time Taken",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:damage-taken-bps", "Value": -100 },
-        { "Type": "stat-modifier", "Stat": "hyforged:physical-damage-taken-bps", "Value": -100 },
-        { "Type": "stat-modifier", "Stat": "hyforged:elemental-damage-taken-bps", "Value": -100 },
-        { "Type": "stat-modifier", "Stat": "hyforged:damage-over-time-taken-bps", "Value": -100 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:damage-taken-bps",
+          "Value": -100
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:physical-damage-taken-bps",
+          "Value": -100
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:elemental-damage-taken-bps",
+          "Value": -100
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:damage-over-time-taken-bps",
+          "Value": -100
+        }
       ]
     },
     {
@@ -162,9 +338,21 @@
       "Name": "Critical Bulwark",
       "Description": "1% Reduced Critical Damage Taken\n+2% Stun Threshold\n+1% Max Crit Chance",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:critical-damage-taken-bps", "Value": -100 },
-        { "Type": "stat-modifier", "Stat": "hyforged:stun-threshold-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:max-crit-chance-bps", "Value": 100 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:critical-damage-taken-bps",
+          "Value": -100
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:stun-threshold-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:max-crit-chance-bps",
+          "Value": 100
+        }
       ]
     },
     {
@@ -173,10 +361,26 @@
       "Name": "Shield Discipline",
       "Description": "+2% Spell Block Chance\n+1% Max Block Chance\n2% Reduced Auto Block Stamina Cost\n1% Reduced Reflected Damage Taken",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:block-spell-chance-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:max-block-chance-bps", "Value": 100 },
-        { "Type": "stat-modifier", "Stat": "hyforged:auto-block-stamina-cost-bps", "Value": -200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:reflect-damage-taken-bps", "Value": -100 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:block-spell-chance-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:max-block-chance-bps",
+          "Value": 100
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:auto-block-stamina-cost-bps",
+          "Value": -200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:reflect-damage-taken-bps",
+          "Value": -100
+        }
       ]
     },
     {
@@ -185,9 +389,21 @@
       "Name": "Evasive Suppression",
       "Description": "+1% Max Evasion Chance\n+2% Spell Suppression Chance\n+2% Spell Suppression Effect",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:max-evasion-chance-bps", "Value": 100 },
-        { "Type": "stat-modifier", "Stat": "hyforged:suppression-chance-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:suppression-effect-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:max-evasion-chance-bps",
+          "Value": 100
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:suppression-chance-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:suppression-effect-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -196,9 +412,21 @@
       "Name": "Restorative Flow",
       "Description": "+2% Healing Effectiveness\n+2% Healing Received\n+1 Health Regen",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:healing-effectiveness-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:healing-received-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:health-regen-flat", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:healing-effectiveness-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:healing-received-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:health-regen-flat",
+          "Value": 1
+        }
       ]
     },
     {
@@ -207,10 +435,26 @@
       "Name": "Sanguine Leech",
       "Description": "+2% Life Leech\n+2% Leech Rate\n+1% Max Life Leech Rate\n+1 Life on Hit",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:life-leech-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:leech-rate-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:max-life-leech-rate-bps", "Value": 100 },
-        { "Type": "stat-modifier", "Stat": "hyforged:life-on-hit-flat", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:life-leech-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:leech-rate-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:max-life-leech-rate-bps",
+          "Value": 100
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:life-on-hit-flat",
+          "Value": 1
+        }
       ]
     },
     {
@@ -219,9 +463,21 @@
       "Name": "Vital Costs",
       "Description": "2% Reduced Life Cost\n-1 Skill Cost\n+1 Mana Regen",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:life-cost-bps", "Value": -200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:skill-cost-flat", "Value": -1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:mana-regen-flat", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:life-cost-bps",
+          "Value": -200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:skill-cost-flat",
+          "Value": -1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:mana-regen-flat",
+          "Value": 1
+        }
       ]
     },
     {
@@ -230,9 +486,21 @@
       "Name": "Battle Fury",
       "Description": "+1 Rage\n+1 Maximum Impales\n+2% Intimidate Effect",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:rage", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:max-impales", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:intimidate-effect-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:rage",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:max-impales",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:intimidate-effect-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -241,10 +509,26 @@
       "Name": "Martial Forms",
       "Description": "+2% One-Handed Damage\n+2% Two-Handed Damage\n+2% Dual Wield Damage\n+2% Unarmed Damage",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:one-handed-damage-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:two-handed-damage-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:dual-wield-damage-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:unarmed-damage-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:one-handed-damage-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:two-handed-damage-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:dual-wield-damage-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:unarmed-damage-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -253,10 +537,26 @@
       "Name": "Shield Bash",
       "Description": "+2% Shield Damage\n+2% Knockback Chance\n+2% Knockback Distance\n+2% Knockback Resistance",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:shield-damage-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:knockback-chance-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:knockback-distance-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:knockback-resistance-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:shield-damage-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:knockback-chance-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:knockback-distance-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:knockback-resistance-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -265,9 +565,21 @@
       "Name": "Ranged Expertise",
       "Description": "+2% Ranged Damage\n+1 Bow Skill Level\n+1 Crossbow Skill Level",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:ranged-damage-increased-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:bow-skill-levels", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:crossbow-skill-levels", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:ranged-damage-increased-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:bow-skill-levels",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:crossbow-skill-levels",
+          "Value": 1
+        }
       ]
     },
     {
@@ -276,9 +588,21 @@
       "Name": "Martial Training",
       "Description": "+1 Melee Skill Level\n+1 Axe Skill Level\n+1 Mace Skill Level",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:melee-skill-levels", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:axe-skill-levels", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:mace-skill-levels", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:melee-skill-levels",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:axe-skill-levels",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:mace-skill-levels",
+          "Value": 1
+        }
       ]
     },
     {
@@ -287,9 +611,21 @@
       "Name": "Blade Training",
       "Description": "+1 Sword Skill Level\n+1 Dagger Skill Level\n+1 Staff Skill Level",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:sword-skill-levels", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:dagger-skill-levels", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:staff-skill-levels", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:sword-skill-levels",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:dagger-skill-levels",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:staff-skill-levels",
+          "Value": 1
+        }
       ]
     },
     {
@@ -298,9 +634,21 @@
       "Name": "Elemental Arts",
       "Description": "+1 Fire Skill Level\n+1 Cold Skill Level\n+1 Lightning Skill Level",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:fire-skill-levels", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:cold-skill-levels", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:lightning-skill-levels", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:fire-skill-levels",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:cold-skill-levels",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:lightning-skill-levels",
+          "Value": 1
+        }
       ]
     },
     {
@@ -309,9 +657,21 @@
       "Name": "Arcane Studies",
       "Description": "+1 Spell Skill Level\n+2 Spell Power\n+1 All Skill Level",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:spell-skill-levels", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:spell-power", "Value": 2 },
-        { "Type": "stat-modifier", "Stat": "hyforged:all-skill-levels", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:spell-skill-levels",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:spell-power",
+          "Value": 2
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:all-skill-levels",
+          "Value": 1
+        }
       ]
     },
     {
@@ -320,10 +680,26 @@
       "Name": "Aura Command",
       "Description": "+2% Aura Area\n+2% Aura Effect\n+1 Aura Skill Level\n+2% Banner Effect",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:aura-area-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:aura-effect-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:aura-skill-levels", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:banner-effect-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:aura-area-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:aura-effect-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:aura-skill-levels",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:banner-effect-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -332,9 +708,21 @@
       "Name": "Minion Command",
       "Description": "+1 Minion Skill Level\n+1 Max Minions\n+2% Minion Speed",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:minion-skill-levels", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:max-minions", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:minion-speed-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:minion-skill-levels",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:max-minions",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:minion-speed-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -343,7 +731,11 @@
       "Name": "Curse Mastery",
       "Description": "+1 Max Curses",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:max-curses", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:max-curses",
+          "Value": 1
+        }
       ]
     },
     {
@@ -352,7 +744,11 @@
       "Name": "Experienced",
       "Description": "+2% Experience Gain",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:experience-gain-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:experience-gain-bps",
+          "Value": 200
+        }
       ]
     }
   ]

@@ -9,7 +9,11 @@
       "ItemLevelReq": 68,
       "Weight": 30,
       "Stats": {
-        "hyforged:max-minions": { "MinValue": 3, "MaxValue": 4, "StackType": "Flat" }
+        "hyforged:max-minions": {
+          "MinValue": 3,
+          "MaxValue": 4,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 48,
       "Weight": 50,
       "Stats": {
-        "hyforged:max-minions": { "MinValue": 2, "MaxValue": 3, "StackType": "Flat" }
+        "hyforged:max-minions": {
+          "MinValue": 2,
+          "MaxValue": 3,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 28,
       "Weight": 75,
       "Stats": {
-        "hyforged:max-minions": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" }
+        "hyforged:max-minions": {
+          "MinValue": 1,
+          "MaxValue": 2,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 1,
       "Weight": 105,
       "Stats": {
-        "hyforged:max-minions": { "MinValue": 1, "MaxValue": 1, "StackType": "Flat" }
+        "hyforged:max-minions": {
+          "MinValue": 1,
+          "MaxValue": 1,
+          "StackType": "Flat"
+        }
       }
     }
   ]

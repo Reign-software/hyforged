@@ -6,6 +6,10 @@
     "StatusEffectIcon": "UI/StatusEffects/Concentration.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:concentration-loss-reduction-bps", "StackType": "Flat", "Amount": -2500 }
+    {
+      "StatId": "hyforged:concentration-loss-reduction-bps",
+      "StackType": "Flat",
+      "Amount": -2500
+    }
   ]
 }

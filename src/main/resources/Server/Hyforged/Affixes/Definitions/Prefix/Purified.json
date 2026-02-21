@@ -9,7 +9,11 @@
       "ItemLevelReq": 64,
       "Weight": 40,
       "Stats": {
-        "hyforged:chaos-damage-taken-bps": { "MinValue": -2200, "MaxValue": -1500, "StackType": "Flat" }
+        "hyforged:chaos-damage-taken-bps": {
+          "MinValue": -2200,
+          "MaxValue": -1500,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 48,
       "Weight": 60,
       "Stats": {
-        "hyforged:chaos-damage-taken-bps": { "MinValue": -1500, "MaxValue": -1000, "StackType": "Flat" }
+        "hyforged:chaos-damage-taken-bps": {
+          "MinValue": -1500,
+          "MaxValue": -1000,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 32,
       "Weight": 80,
       "Stats": {
-        "hyforged:chaos-damage-taken-bps": { "MinValue": -1000, "MaxValue": -550, "StackType": "Flat" }
+        "hyforged:chaos-damage-taken-bps": {
+          "MinValue": -1000,
+          "MaxValue": -550,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 18,
       "Weight": 100,
       "Stats": {
-        "hyforged:chaos-damage-taken-bps": { "MinValue": -550, "MaxValue": -280, "StackType": "Flat" }
+        "hyforged:chaos-damage-taken-bps": {
+          "MinValue": -550,
+          "MaxValue": -280,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 1,
       "Weight": 120,
       "Stats": {
-        "hyforged:chaos-damage-taken-bps": { "MinValue": -280, "MaxValue": -100, "StackType": "Flat" }
+        "hyforged:chaos-damage-taken-bps": {
+          "MinValue": -280,
+          "MaxValue": -100,
+          "StackType": "Flat"
+        }
       }
     }
   ]

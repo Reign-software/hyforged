@@ -9,7 +9,11 @@
       "ItemLevelReq": 66,
       "Weight": 38,
       "Stats": {
-        "hyforged:spirit": { "MinValue": 38, "MaxValue": 48, "StackType": "Flat" }
+        "hyforged:spirit": {
+          "MinValue": 38,
+          "MaxValue": 48,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 50,
       "Weight": 55,
       "Stats": {
-        "hyforged:spirit": { "MinValue": 28, "MaxValue": 38, "StackType": "Flat" }
+        "hyforged:spirit": {
+          "MinValue": 28,
+          "MaxValue": 38,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 36,
       "Weight": 75,
       "Stats": {
-        "hyforged:spirit": { "MinValue": 20, "MaxValue": 28, "StackType": "Flat" }
+        "hyforged:spirit": {
+          "MinValue": 20,
+          "MaxValue": 28,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 22,
       "Weight": 95,
       "Stats": {
-        "hyforged:spirit": { "MinValue": 12, "MaxValue": 20, "StackType": "Flat" }
+        "hyforged:spirit": {
+          "MinValue": 12,
+          "MaxValue": 20,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 10,
       "Weight": 115,
       "Stats": {
-        "hyforged:spirit": { "MinValue": 6, "MaxValue": 12, "StackType": "Flat" }
+        "hyforged:spirit": {
+          "MinValue": 6,
+          "MaxValue": 12,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -49,7 +69,11 @@
       "ItemLevelReq": 1,
       "Weight": 135,
       "Stats": {
-        "hyforged:spirit": { "MinValue": 2, "MaxValue": 6, "StackType": "Flat" }
+        "hyforged:spirit": {
+          "MinValue": 2,
+          "MaxValue": 6,
+          "StackType": "Flat"
+        }
       }
     }
   ]

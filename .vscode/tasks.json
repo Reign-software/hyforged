@@ -1,72 +1,69 @@
 {
-    "version": "2.0.0",
-    "options": {
-        "shell": {
-            "executable": "cmd.exe",
-            "args": ["/c"]
-        }
+  "version": "2.0.0",
+  "options": {
+    "shell": {
+      "executable": "cmd.exe",
+      "args": ["/c"]
+    }
+  },
+  "tasks": [
+    {
+      "label": "Build Plugin",
+      "type": "shell",
+      "command": "mvn package -DskipTests -s .mvn/settings.xml",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": "$msCompile",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
     },
-    "tasks": [
-        {
-            "label": "Build Plugin",
-            "type": "shell",
-            "command": "mvn package -DskipTests -s .mvn/settings.xml",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": "$msCompile",
-            "presentation": {
-                "reveal": "always",
-                "panel": "shared"
-            }
-        },
-        {
-            "label": "Deploy Plugin",
-            "type": "shell",
-            "command": "copy /Y \"${workspaceFolder}\\target\\Hyforged-1.0.0.jar\" \"C:\\Users\\JBurl\\AppData\\Roaming\\Hytale\\UserData\\Mods\\\"",
-            "dependsOn": "Build Plugin",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "always",
-                "panel": "shared"
-            }
-        },
-        {
-            "label": "Build and Deploy Plugin",
-            "dependsOn": [
-                "Build Plugin",
-                "Deploy Plugin"
-            ],
-            "dependsOrder": "sequence",
-            "group": "build",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "always",
-                "panel": "shared"
-            }
-        },
-        {
-            "label": "Clean Build",
-            "type": "shell",
-            "command": "mvn clean package -DskipTests -s .mvn/settings.xml",
-            "group": "build",
-            "problemMatcher": "$msCompile",
-            "presentation": {
-                "reveal": "always",
-                "panel": "shared"
-            }
-        },
-        {
-            "label": "Clean Build and Deploy Plugin",
-            "type": "shell",
-            "command": "mvn clean package -DskipTests -s .mvn/settings.xml && copy /Y \"${workspaceFolder}\\target\\Hyforged-1.0.0.jar\" \"C:\\Users\\JBurl\\AppData\\Roaming\\Hytale\\UserData\\Mods\\\"",
-            "group": "build",
-            "problemMatcher": "$msCompile",
-            "presentation": {
-                "reveal": "always",
-                "panel": "shared"
-            }
-        }
-    ]
+    {
+      "label": "Deploy Plugin",
+      "type": "shell",
+      "command": "copy /Y \"${workspaceFolder}\\target\\Hyforged-1.0.0.jar\" \"C:\\Users\\JBurl\\AppData\\Roaming\\Hytale\\UserData\\Mods\\\"",
+      "dependsOn": "Build Plugin",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Build and Deploy Plugin",
+      "dependsOn": ["Build Plugin", "Deploy Plugin"],
+      "dependsOrder": "sequence",
+      "group": "build",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Clean Build",
+      "type": "shell",
+      "command": "mvn clean package -DskipTests -s .mvn/settings.xml",
+      "group": "build",
+      "problemMatcher": "$msCompile",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Clean Build and Deploy Plugin",
+      "type": "shell",
+      "command": "mvn clean package -DskipTests -s .mvn/settings.xml && copy /Y \"${workspaceFolder}\\target\\Hyforged-1.0.0.jar\" \"C:\\Users\\JBurl\\AppData\\Roaming\\Hytale\\UserData\\Mods\\\"",
+      "group": "build",
+      "problemMatcher": "$msCompile",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+  ]
 }

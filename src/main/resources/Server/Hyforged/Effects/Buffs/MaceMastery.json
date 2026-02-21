@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Mace.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:mace-skill-levels", "StackType": "Flat", "Amount": 3 },
-    { "StatId": "hyforged:stun-duration-bps", "StackType": "Increased", "Amount": 3000 }
+    {
+      "StatId": "hyforged:mace-skill-levels",
+      "StackType": "Flat",
+      "Amount": 3
+    },
+    {
+      "StatId": "hyforged:stun-duration-bps",
+      "StackType": "Increased",
+      "Amount": 3000
+    }
   ]
 }

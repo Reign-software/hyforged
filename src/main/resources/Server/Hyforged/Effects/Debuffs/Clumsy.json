@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Clumsy.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:dexterity", "StackType": "Flat", "Amount": -15 },
-    { "StatId": "hyforged:evasion-chance-bps", "StackType": "Flat", "Amount": -1500 }
+    {
+      "StatId": "hyforged:dexterity",
+      "StackType": "Flat",
+      "Amount": -15
+    },
+    {
+      "StatId": "hyforged:evasion-chance-bps",
+      "StackType": "Flat",
+      "Amount": -1500
+    }
   ]
 }

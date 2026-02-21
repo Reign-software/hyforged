@@ -9,7 +9,11 @@
       "ItemLevelReq": 62,
       "Weight": 42,
       "Stats": {
-        "hyforged:healing-received-bps": { "MinValue": 2500, "MaxValue": 3500, "StackType": "Flat" }
+        "hyforged:healing-received-bps": {
+          "MinValue": 2500,
+          "MaxValue": 3500,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 46,
       "Weight": 62,
       "Stats": {
-        "hyforged:healing-received-bps": { "MinValue": 1700, "MaxValue": 2500, "StackType": "Flat" }
+        "hyforged:healing-received-bps": {
+          "MinValue": 1700,
+          "MaxValue": 2500,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 30,
       "Weight": 82,
       "Stats": {
-        "hyforged:healing-received-bps": { "MinValue": 1000, "MaxValue": 1700, "StackType": "Flat" }
+        "hyforged:healing-received-bps": {
+          "MinValue": 1000,
+          "MaxValue": 1700,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 16,
       "Weight": 102,
       "Stats": {
-        "hyforged:healing-received-bps": { "MinValue": 500, "MaxValue": 1000, "StackType": "Flat" }
+        "hyforged:healing-received-bps": {
+          "MinValue": 500,
+          "MaxValue": 1000,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 1,
       "Weight": 122,
       "Stats": {
-        "hyforged:healing-received-bps": { "MinValue": 150, "MaxValue": 500, "StackType": "Flat" }
+        "hyforged:healing-received-bps": {
+          "MinValue": 150,
+          "MaxValue": 500,
+          "StackType": "Flat"
+        }
       }
     }
   ]

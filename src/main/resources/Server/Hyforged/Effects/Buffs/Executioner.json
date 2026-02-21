@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/CritDamage.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:crit-multiplier-bps", "StackType": "More", "Amount": 5000 },
-    { "StatId": "hyforged:culling-strike-threshold-bps", "StackType": "Flat", "Amount": 1000 }
+    {
+      "StatId": "hyforged:crit-multiplier-bps",
+      "StackType": "More",
+      "Amount": 5000
+    },
+    {
+      "StatId": "hyforged:culling-strike-threshold-bps",
+      "StackType": "Flat",
+      "Amount": 1000
+    }
   ]
 }

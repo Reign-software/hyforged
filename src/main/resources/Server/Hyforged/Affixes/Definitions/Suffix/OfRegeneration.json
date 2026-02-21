@@ -9,7 +9,11 @@
       "ItemLevelReq": 60,
       "Weight": 42,
       "Stats": {
-        "hyforged:health-regen-flat": { "MinValue": 22, "MaxValue": 30, "StackType": "Flat" }
+        "hyforged:health-regen-flat": {
+          "MinValue": 22,
+          "MaxValue": 30,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 44,
       "Weight": 62,
       "Stats": {
-        "hyforged:health-regen-flat": { "MinValue": 15, "MaxValue": 22, "StackType": "Flat" }
+        "hyforged:health-regen-flat": {
+          "MinValue": 15,
+          "MaxValue": 22,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 28,
       "Weight": 85,
       "Stats": {
-        "hyforged:health-regen-flat": { "MinValue": 9, "MaxValue": 15, "StackType": "Flat" }
+        "hyforged:health-regen-flat": {
+          "MinValue": 9,
+          "MaxValue": 15,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 14,
       "Weight": 108,
       "Stats": {
-        "hyforged:health-regen-flat": { "MinValue": 4, "MaxValue": 9, "StackType": "Flat" }
+        "hyforged:health-regen-flat": {
+          "MinValue": 4,
+          "MaxValue": 9,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 1,
       "Weight": 130,
       "Stats": {
-        "hyforged:health-regen-flat": { "MinValue": 1, "MaxValue": 4, "StackType": "Flat" }
+        "hyforged:health-regen-flat": {
+          "MinValue": 1,
+          "MaxValue": 4,
+          "StackType": "Flat"
+        }
       }
     }
   ]

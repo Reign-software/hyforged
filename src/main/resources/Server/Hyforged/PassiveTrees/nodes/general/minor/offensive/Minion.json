@@ -6,7 +6,11 @@
       "Name": "Minion Power",
       "Description": "+2% Minion Damage",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:minion-damage-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:minion-damage-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -15,8 +19,16 @@
       "Name": "Minion Assault",
       "Description": "+2% Minion Damage\n+2% Minion Attack Speed",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:minion-damage-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:minion-attack-speed-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:minion-damage-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:minion-attack-speed-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -25,8 +37,16 @@
       "Name": "Minion Precision",
       "Description": "+1% Minion Critical Chance\n+2% Minion Accuracy",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:minion-crit-chance-bps", "Value": 100 },
-        { "Type": "stat-modifier", "Stat": "hyforged:minion-accuracy-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:minion-crit-chance-bps",
+          "Value": 100
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:minion-accuracy-bps",
+          "Value": 200
+        }
       ]
     }
   ]

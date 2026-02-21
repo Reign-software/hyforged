@@ -1,329 +1,1550 @@
 {
   "TreeId": "hyforged:passive-tree-general",
   "Placements": [
-    { "NodeId": "hyforged:minor-physical-1", "Position": { "X": -240, "Y": 50 }, "Region": "strength", "InstanceId": "hyforged:str-p1-phys-01" },
-    { "NodeId": "hyforged:minor-melee-1", "Position": { "X": -210, "Y": 50 }, "Region": "strength", "InstanceId": "hyforged:str-p2-melee-01" },
-    { "NodeId": "hyforged:minor-dot-1", "Position": { "X": -180, "Y": 50 }, "Region": "strength", "InstanceId": "hyforged:str-p3-dot-01" },
-
-    { "NodeId": "hyforged:minor-physical-1", "Position": { "X": -240, "Y": 100 }, "Region": "strength", "InstanceId": "hyforged:str-p1-phys-02" },
-    { "NodeId": "hyforged:minor-melee-1", "Position": { "X": -210, "Y": 100 }, "Region": "strength", "InstanceId": "hyforged:str-p2-melee-02" },
-    { "NodeId": "hyforged:minor-dot-1", "Position": { "X": -180, "Y": 100 }, "Region": "strength", "InstanceId": "hyforged:str-p3-dot-02" },
-
-    { "NodeId": "hyforged:bone-breaker", "Position": { "X": -240, "Y": 150 }, "Region": "strength" },
-    { "NodeId": "hyforged:skull-crusher", "Position": { "X": -210, "Y": 150 }, "Region": "strength" },
-    { "NodeId": "hyforged:bloodletting", "Position": { "X": -180, "Y": 150 }, "Region": "strength" },
-
-    { "NodeId": "hyforged:minor-physical-1", "Position": { "X": -240, "Y": 200 }, "Region": "strength", "InstanceId": "hyforged:str-p1-phys-03" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -210, "Y": 200 }, "Region": "strength", "InstanceId": "hyforged:str-p2-speed-01" },
-    { "NodeId": "hyforged:minor-dot-1", "Position": { "X": -180, "Y": 200 }, "Region": "strength", "InstanceId": "hyforged:str-p3-dot-03" },
-
-    { "NodeId": "hyforged:minor-armor-1", "Position": { "X": -240, "Y": 250 }, "Region": "strength", "InstanceId": "hyforged:str-p1-armor-01" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -210, "Y": 250 }, "Region": "strength", "InstanceId": "hyforged:str-p2-speed-02" },
-    { "NodeId": "hyforged:minor-rage-1", "Position": { "X": -180, "Y": 250 }, "Region": "strength", "InstanceId": "hyforged:str-p3-rage-01" },
-
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -240, "Y": 300 }, "Region": "strength", "InstanceId": "hyforged:str-p1-t01" },
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -210, "Y": 300 }, "Region": "strength", "InstanceId": "hyforged:str-p2-t01" },
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -180, "Y": 300 }, "Region": "strength", "InstanceId": "hyforged:str-p3-t01" },
-
-    { "NodeId": "hyforged:minor-physical-1", "Position": { "X": -240, "Y": 350 }, "Region": "strength", "InstanceId": "hyforged:str-p1-phys-04" },
-    { "NodeId": "hyforged:minor-melee-1", "Position": { "X": -210, "Y": 350 }, "Region": "strength", "InstanceId": "hyforged:str-p2-melee-03" },
-    { "NodeId": "hyforged:minor-dot-1", "Position": { "X": -180, "Y": 350 }, "Region": "strength", "InstanceId": "hyforged:str-p3-dot-04" },
-
-    { "NodeId": "hyforged:minor-physical-1", "Position": { "X": -240, "Y": 400 }, "Region": "strength", "InstanceId": "hyforged:str-p1-phys-05" },
-    { "NodeId": "hyforged:minor-melee-1", "Position": { "X": -210, "Y": 400 }, "Region": "strength", "InstanceId": "hyforged:str-p2-melee-04" },
-    { "NodeId": "hyforged:minor-rage-1", "Position": { "X": -180, "Y": 400 }, "Region": "strength", "InstanceId": "hyforged:str-p3-rage-02" },
-
-    { "NodeId": "hyforged:unstoppable-force", "Position": { "X": -240, "Y": 450 }, "Region": "strength" },
-    { "NodeId": "hyforged:berserkers-fury", "Position": { "X": -210, "Y": 450 }, "Region": "strength" },
-    { "NodeId": "hyforged:crimson-tide", "Position": { "X": -180, "Y": 450 }, "Region": "strength" },
-
-    { "NodeId": "hyforged:minor-armor-1", "Position": { "X": -240, "Y": 500 }, "Region": "strength", "InstanceId": "hyforged:str-p1-armor-02" },
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": -210, "Y": 500 }, "Region": "strength", "InstanceId": "hyforged:str-p2-health-01" },
-    { "NodeId": "hyforged:minor-dot-1", "Position": { "X": -180, "Y": 500 }, "Region": "strength", "InstanceId": "hyforged:str-p3-dot-05" },
-
-    { "NodeId": "hyforged:minor-block-1", "Position": { "X": -240, "Y": 550 }, "Region": "strength", "InstanceId": "hyforged:str-p1-block-01" },
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": -210, "Y": 550 }, "Region": "strength", "InstanceId": "hyforged:str-p2-health-02" },
-    { "NodeId": "hyforged:minor-rage-1", "Position": { "X": -180, "Y": 550 }, "Region": "strength", "InstanceId": "hyforged:str-p3-rage-03" },
-
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -240, "Y": 600 }, "Region": "strength", "InstanceId": "hyforged:str-p1-t02" },
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -210, "Y": 600 }, "Region": "strength", "InstanceId": "hyforged:str-p2-t02" },
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -180, "Y": 600 }, "Region": "strength", "InstanceId": "hyforged:str-p3-t02" },
-
-    { "NodeId": "hyforged:resolute-technique", "Position": { "X": -240, "Y": 650 }, "Region": "strength" },
-    { "NodeId": "hyforged:minor-melee-1", "Position": { "X": -210, "Y": 650 }, "Region": "strength", "InstanceId": "hyforged:str-p2-melee-05" },
-    { "NodeId": "hyforged:minor-dot-1", "Position": { "X": -180, "Y": 650 }, "Region": "strength", "InstanceId": "hyforged:str-p3-dot-06" },
-
-    { "NodeId": "hyforged:minor-physical-1", "Position": { "X": -240, "Y": 700 }, "Region": "strength", "InstanceId": "hyforged:str-p1-phys-06" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -210, "Y": 700 }, "Region": "strength", "InstanceId": "hyforged:str-p2-speed-03" },
-    { "NodeId": "hyforged:minor-rage-1", "Position": { "X": -180, "Y": 700 }, "Region": "strength", "InstanceId": "hyforged:str-p3-rage-04" },
-
-    { "NodeId": "hyforged:minor-physical-1", "Position": { "X": -240, "Y": 750 }, "Region": "strength", "InstanceId": "hyforged:str-p1-phys-07" },
-    { "NodeId": "hyforged:minor-melee-1", "Position": { "X": -210, "Y": 750 }, "Region": "strength", "InstanceId": "hyforged:str-p2-melee-06" },
-    { "NodeId": "hyforged:minor-dot-1", "Position": { "X": -180, "Y": 750 }, "Region": "strength", "InstanceId": "hyforged:str-p3-dot-07" },
-
-    { "NodeId": "hyforged:sundering-blow", "Position": { "X": -240, "Y": 800 }, "Region": "strength" },
-    { "NodeId": "hyforged:warcry-master", "Position": { "X": -210, "Y": 800 }, "Region": "strength" },
-    { "NodeId": "hyforged:hemorrhage", "Position": { "X": -180, "Y": 800 }, "Region": "strength" },
-
-    { "NodeId": "hyforged:minor-armor-1", "Position": { "X": -240, "Y": 850 }, "Region": "strength", "InstanceId": "hyforged:str-p1-armor-03" },
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": -210, "Y": 850 }, "Region": "strength", "InstanceId": "hyforged:str-p2-health-03" },
-    { "NodeId": "hyforged:minor-rage-1", "Position": { "X": -180, "Y": 850 }, "Region": "strength", "InstanceId": "hyforged:str-p3-rage-05" },
-
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -240, "Y": 900 }, "Region": "strength", "InstanceId": "hyforged:str-p1-t03" },
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -210, "Y": 900 }, "Region": "strength", "InstanceId": "hyforged:str-p2-t03" },
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -180, "Y": 900 }, "Region": "strength", "InstanceId": "hyforged:str-p3-t03" },
-
-    { "NodeId": "hyforged:minor-physical-1", "Position": { "X": -240, "Y": 950 }, "Region": "strength", "InstanceId": "hyforged:str-p1-phys-08" },
-    { "NodeId": "hyforged:minor-melee-1", "Position": { "X": -210, "Y": 950 }, "Region": "strength", "InstanceId": "hyforged:str-p2-melee-07" },
-    { "NodeId": "hyforged:minor-dot-1", "Position": { "X": -180, "Y": 950 }, "Region": "strength", "InstanceId": "hyforged:str-p3-dot-08" },
-
-    { "NodeId": "hyforged:minor-physical-1", "Position": { "X": -240, "Y": 1000 }, "Region": "strength", "InstanceId": "hyforged:str-p1-phys-09" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -210, "Y": 1000 }, "Region": "strength", "InstanceId": "hyforged:str-p2-speed-04" },
-    { "NodeId": "hyforged:minor-rage-1", "Position": { "X": -180, "Y": 1000 }, "Region": "strength", "InstanceId": "hyforged:str-p3-rage-06" },
-
-    { "NodeId": "hyforged:unwavering-stance", "Position": { "X": -240, "Y": 1050 }, "Region": "strength" },
-    { "NodeId": "hyforged:endless-rage", "Position": { "X": -210, "Y": 1050 }, "Region": "strength" },
-    { "NodeId": "hyforged:crimson-dance", "Position": { "X": -180, "Y": 1050 }, "Region": "strength" },
-
-    { "NodeId": "hyforged:minor-armor-1", "Position": { "X": -240, "Y": 1100 }, "Region": "strength", "InstanceId": "hyforged:str-p1-armor-04" },
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": -210, "Y": 1100 }, "Region": "strength", "InstanceId": "hyforged:str-p2-health-04" },
-    { "NodeId": "hyforged:minor-dot-1", "Position": { "X": -180, "Y": 1100 }, "Region": "strength", "InstanceId": "hyforged:str-p3-dot-09" },
-
-    { "NodeId": "hyforged:minor-block-1", "Position": { "X": -240, "Y": 1150 }, "Region": "strength", "InstanceId": "hyforged:str-p1-block-02" },
-    { "NodeId": "hyforged:minor-melee-1", "Position": { "X": -210, "Y": 1150 }, "Region": "strength", "InstanceId": "hyforged:str-p2-melee-08" },
-    { "NodeId": "hyforged:minor-rage-1", "Position": { "X": -180, "Y": 1150 }, "Region": "strength", "InstanceId": "hyforged:str-p3-rage-07" },
-
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -240, "Y": 1200 }, "Region": "strength", "InstanceId": "hyforged:str-p1-t04" },
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -210, "Y": 1200 }, "Region": "strength", "InstanceId": "hyforged:str-p2-t04" },
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -180, "Y": 1200 }, "Region": "strength", "InstanceId": "hyforged:str-p3-t04" },
-
-    { "NodeId": "hyforged:minor-physical-1", "Position": { "X": -240, "Y": 1250 }, "Region": "strength", "InstanceId": "hyforged:str-p1-phys-10" },
-    { "NodeId": "hyforged:minor-melee-1", "Position": { "X": -210, "Y": 1250 }, "Region": "strength", "InstanceId": "hyforged:str-p2-melee-09" },
-    { "NodeId": "hyforged:minor-dot-1", "Position": { "X": -180, "Y": 1250 }, "Region": "strength", "InstanceId": "hyforged:str-p3-dot-10" },
-
-    { "NodeId": "hyforged:minor-physical-1", "Position": { "X": -240, "Y": 1300 }, "Region": "strength", "InstanceId": "hyforged:str-p1-phys-11" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -210, "Y": 1300 }, "Region": "strength", "InstanceId": "hyforged:str-p2-speed-05" },
-    { "NodeId": "hyforged:minor-rage-1", "Position": { "X": -180, "Y": 1300 }, "Region": "strength", "InstanceId": "hyforged:str-p3-rage-08" },
-
-    { "NodeId": "hyforged:iron-will", "Position": { "X": -240, "Y": 1350 }, "Region": "strength" },
-    { "NodeId": "hyforged:titanic-strikes", "Position": { "X": -210, "Y": 1350 }, "Region": "strength" },
-    { "NodeId": "hyforged:rupture", "Position": { "X": -180, "Y": 1350 }, "Region": "strength" },
-
-    { "NodeId": "hyforged:minor-armor-1", "Position": { "X": -240, "Y": 1400 }, "Region": "strength", "InstanceId": "hyforged:str-p1-armor-05" },
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": -210, "Y": 1400 }, "Region": "strength", "InstanceId": "hyforged:str-p2-health-05" },
-    { "NodeId": "hyforged:minor-dot-1", "Position": { "X": -180, "Y": 1400 }, "Region": "strength", "InstanceId": "hyforged:str-p3-dot-11" },
-
-    { "NodeId": "hyforged:minor-physical-1", "Position": { "X": -240, "Y": 1450 }, "Region": "strength", "InstanceId": "hyforged:str-p1-phys-12" },
-    { "NodeId": "hyforged:minor-melee-1", "Position": { "X": -210, "Y": 1450 }, "Region": "strength", "InstanceId": "hyforged:str-p2-melee-10" },
-    { "NodeId": "hyforged:minor-rage-1", "Position": { "X": -180, "Y": 1450 }, "Region": "strength", "InstanceId": "hyforged:str-p3-rage-09" },
-
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -240, "Y": 1500 }, "Region": "strength", "InstanceId": "hyforged:str-p1-t05" },
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -210, "Y": 1500 }, "Region": "strength", "InstanceId": "hyforged:str-p2-t05" },
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -180, "Y": 1500 }, "Region": "strength", "InstanceId": "hyforged:str-p3-t05" },
-
-    { "NodeId": "hyforged:minor-physical-1", "Position": { "X": -240, "Y": 1550 }, "Region": "strength", "InstanceId": "hyforged:str-p1-phys-13" },
-    { "NodeId": "hyforged:minor-melee-1", "Position": { "X": -210, "Y": 1550 }, "Region": "strength", "InstanceId": "hyforged:str-p2-melee-11" },
-    { "NodeId": "hyforged:minor-dot-1", "Position": { "X": -180, "Y": 1550 }, "Region": "strength", "InstanceId": "hyforged:str-p3-dot-12" },
-
-    { "NodeId": "hyforged:minor-armor-1", "Position": { "X": -240, "Y": 1600 }, "Region": "strength", "InstanceId": "hyforged:str-p1-armor-06" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -210, "Y": 1600 }, "Region": "strength", "InstanceId": "hyforged:str-p2-speed-06" },
-    { "NodeId": "hyforged:minor-rage-1", "Position": { "X": -180, "Y": 1600 }, "Region": "strength", "InstanceId": "hyforged:str-p3-rage-10" },
-
-    { "NodeId": "hyforged:blood-magic", "Position": { "X": -240, "Y": 1650 }, "Region": "strength" },
-    { "NodeId": "hyforged:savage-hits", "Position": { "X": -210, "Y": 1650 }, "Region": "strength" },
-    { "NodeId": "hyforged:eternal-bleed", "Position": { "X": -180, "Y": 1650 }, "Region": "strength" },
-
-    { "NodeId": "hyforged:minor-physical-1", "Position": { "X": -240, "Y": 1700 }, "Region": "strength", "InstanceId": "hyforged:str-p1-phys-14" },
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": -210, "Y": 1700 }, "Region": "strength", "InstanceId": "hyforged:str-p2-health-06" },
-    { "NodeId": "hyforged:minor-dot-1", "Position": { "X": -180, "Y": 1700 }, "Region": "strength", "InstanceId": "hyforged:str-p3-dot-13" },
-
-    { "NodeId": "hyforged:minor-block-1", "Position": { "X": -240, "Y": 1750 }, "Region": "strength", "InstanceId": "hyforged:str-p1-block-03" },
-    { "NodeId": "hyforged:minor-melee-1", "Position": { "X": -210, "Y": 1750 }, "Region": "strength", "InstanceId": "hyforged:str-p2-melee-12" },
-    { "NodeId": "hyforged:minor-rage-1", "Position": { "X": -180, "Y": 1750 }, "Region": "strength", "InstanceId": "hyforged:str-p3-rage-11" },
-
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -240, "Y": 1800 }, "Region": "strength", "InstanceId": "hyforged:str-p1-t06" },
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -210, "Y": 1800 }, "Region": "strength", "InstanceId": "hyforged:str-p2-t06" },
-    { "NodeId": "hyforged:travel-strength", "Position": { "X": -180, "Y": 1800 }, "Region": "strength", "InstanceId": "hyforged:str-p3-t06" },
-
-    { "NodeId": "hyforged:minor-physical-1", "Position": { "X": -240, "Y": 1850 }, "Region": "strength", "InstanceId": "hyforged:str-p1-phys-15" },
-    { "NodeId": "hyforged:minor-melee-1", "Position": { "X": -210, "Y": 1850 }, "Region": "strength", "InstanceId": "hyforged:str-p2-melee-13" },
-    { "NodeId": "hyforged:minor-dot-1", "Position": { "X": -180, "Y": 1850 }, "Region": "strength", "InstanceId": "hyforged:str-p3-dot-14" },
-
-    { "NodeId": "hyforged:minor-armor-1", "Position": { "X": -240, "Y": 1900 }, "Region": "strength", "InstanceId": "hyforged:str-p1-armor-07" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -210, "Y": 1900 }, "Region": "strength", "InstanceId": "hyforged:str-p2-speed-07" },
-    { "NodeId": "hyforged:minor-rage-1", "Position": { "X": -180, "Y": 1900 }, "Region": "strength", "InstanceId": "hyforged:str-p3-rage-12" },
-
-    { "NodeId": "hyforged:vaal-pact", "Position": { "X": -240, "Y": 1950 }, "Region": "strength" },
-    { "NodeId": "hyforged:avatar-of-war", "Position": { "X": -210, "Y": 1950 }, "Region": "strength" },
-    { "NodeId": "hyforged:perfect-agony", "Position": { "X": -180, "Y": 1950 }, "Region": "strength" }
+    {
+      "NodeId": "hyforged:minor-physical-1",
+      "Position": {
+        "X": -240,
+        "Y": 50
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-phys-01"
+    },
+    {
+      "NodeId": "hyforged:minor-melee-1",
+      "Position": {
+        "X": -210,
+        "Y": 50
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-melee-01"
+    },
+    {
+      "NodeId": "hyforged:minor-dot-1",
+      "Position": {
+        "X": -180,
+        "Y": 50
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-dot-01"
+    },
+    {
+      "NodeId": "hyforged:minor-physical-1",
+      "Position": {
+        "X": -240,
+        "Y": 100
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-phys-02"
+    },
+    {
+      "NodeId": "hyforged:minor-melee-1",
+      "Position": {
+        "X": -210,
+        "Y": 100
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-melee-02"
+    },
+    {
+      "NodeId": "hyforged:minor-dot-1",
+      "Position": {
+        "X": -180,
+        "Y": 100
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-dot-02"
+    },
+    {
+      "NodeId": "hyforged:bone-breaker",
+      "Position": {
+        "X": -240,
+        "Y": 150
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:skull-crusher",
+      "Position": {
+        "X": -210,
+        "Y": 150
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:bloodletting",
+      "Position": {
+        "X": -180,
+        "Y": 150
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:minor-physical-1",
+      "Position": {
+        "X": -240,
+        "Y": 200
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-phys-03"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -210,
+        "Y": 200
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-speed-01"
+    },
+    {
+      "NodeId": "hyforged:minor-dot-1",
+      "Position": {
+        "X": -180,
+        "Y": 200
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-dot-03"
+    },
+    {
+      "NodeId": "hyforged:minor-armor-1",
+      "Position": {
+        "X": -240,
+        "Y": 250
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-armor-01"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -210,
+        "Y": 250
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-speed-02"
+    },
+    {
+      "NodeId": "hyforged:minor-rage-1",
+      "Position": {
+        "X": -180,
+        "Y": 250
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-rage-01"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -240,
+        "Y": 300
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-t01"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -210,
+        "Y": 300
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-t01"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -180,
+        "Y": 300
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-t01"
+    },
+    {
+      "NodeId": "hyforged:minor-physical-1",
+      "Position": {
+        "X": -240,
+        "Y": 350
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-phys-04"
+    },
+    {
+      "NodeId": "hyforged:minor-melee-1",
+      "Position": {
+        "X": -210,
+        "Y": 350
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-melee-03"
+    },
+    {
+      "NodeId": "hyforged:minor-dot-1",
+      "Position": {
+        "X": -180,
+        "Y": 350
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-dot-04"
+    },
+    {
+      "NodeId": "hyforged:minor-physical-1",
+      "Position": {
+        "X": -240,
+        "Y": 400
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-phys-05"
+    },
+    {
+      "NodeId": "hyforged:minor-melee-1",
+      "Position": {
+        "X": -210,
+        "Y": 400
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-melee-04"
+    },
+    {
+      "NodeId": "hyforged:minor-rage-1",
+      "Position": {
+        "X": -180,
+        "Y": 400
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-rage-02"
+    },
+    {
+      "NodeId": "hyforged:unstoppable-force",
+      "Position": {
+        "X": -240,
+        "Y": 450
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:berserkers-fury",
+      "Position": {
+        "X": -210,
+        "Y": 450
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:crimson-tide",
+      "Position": {
+        "X": -180,
+        "Y": 450
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:minor-armor-1",
+      "Position": {
+        "X": -240,
+        "Y": 500
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-armor-02"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": -210,
+        "Y": 500
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-health-01"
+    },
+    {
+      "NodeId": "hyforged:minor-dot-1",
+      "Position": {
+        "X": -180,
+        "Y": 500
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-dot-05"
+    },
+    {
+      "NodeId": "hyforged:minor-block-1",
+      "Position": {
+        "X": -240,
+        "Y": 550
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-block-01"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": -210,
+        "Y": 550
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-health-02"
+    },
+    {
+      "NodeId": "hyforged:minor-rage-1",
+      "Position": {
+        "X": -180,
+        "Y": 550
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-rage-03"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -240,
+        "Y": 600
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-t02"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -210,
+        "Y": 600
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-t02"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -180,
+        "Y": 600
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-t02"
+    },
+    {
+      "NodeId": "hyforged:resolute-technique",
+      "Position": {
+        "X": -240,
+        "Y": 650
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:minor-melee-1",
+      "Position": {
+        "X": -210,
+        "Y": 650
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-melee-05"
+    },
+    {
+      "NodeId": "hyforged:minor-dot-1",
+      "Position": {
+        "X": -180,
+        "Y": 650
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-dot-06"
+    },
+    {
+      "NodeId": "hyforged:minor-physical-1",
+      "Position": {
+        "X": -240,
+        "Y": 700
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-phys-06"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -210,
+        "Y": 700
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-speed-03"
+    },
+    {
+      "NodeId": "hyforged:minor-rage-1",
+      "Position": {
+        "X": -180,
+        "Y": 700
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-rage-04"
+    },
+    {
+      "NodeId": "hyforged:minor-physical-1",
+      "Position": {
+        "X": -240,
+        "Y": 750
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-phys-07"
+    },
+    {
+      "NodeId": "hyforged:minor-melee-1",
+      "Position": {
+        "X": -210,
+        "Y": 750
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-melee-06"
+    },
+    {
+      "NodeId": "hyforged:minor-dot-1",
+      "Position": {
+        "X": -180,
+        "Y": 750
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-dot-07"
+    },
+    {
+      "NodeId": "hyforged:sundering-blow",
+      "Position": {
+        "X": -240,
+        "Y": 800
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:warcry-master",
+      "Position": {
+        "X": -210,
+        "Y": 800
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:hemorrhage",
+      "Position": {
+        "X": -180,
+        "Y": 800
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:minor-armor-1",
+      "Position": {
+        "X": -240,
+        "Y": 850
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-armor-03"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": -210,
+        "Y": 850
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-health-03"
+    },
+    {
+      "NodeId": "hyforged:minor-rage-1",
+      "Position": {
+        "X": -180,
+        "Y": 850
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-rage-05"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -240,
+        "Y": 900
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-t03"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -210,
+        "Y": 900
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-t03"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -180,
+        "Y": 900
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-t03"
+    },
+    {
+      "NodeId": "hyforged:minor-physical-1",
+      "Position": {
+        "X": -240,
+        "Y": 950
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-phys-08"
+    },
+    {
+      "NodeId": "hyforged:minor-melee-1",
+      "Position": {
+        "X": -210,
+        "Y": 950
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-melee-07"
+    },
+    {
+      "NodeId": "hyforged:minor-dot-1",
+      "Position": {
+        "X": -180,
+        "Y": 950
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-dot-08"
+    },
+    {
+      "NodeId": "hyforged:minor-physical-1",
+      "Position": {
+        "X": -240,
+        "Y": 1000
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-phys-09"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -210,
+        "Y": 1000
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-speed-04"
+    },
+    {
+      "NodeId": "hyforged:minor-rage-1",
+      "Position": {
+        "X": -180,
+        "Y": 1000
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-rage-06"
+    },
+    {
+      "NodeId": "hyforged:unwavering-stance",
+      "Position": {
+        "X": -240,
+        "Y": 1050
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:endless-rage",
+      "Position": {
+        "X": -210,
+        "Y": 1050
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:crimson-dance",
+      "Position": {
+        "X": -180,
+        "Y": 1050
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:minor-armor-1",
+      "Position": {
+        "X": -240,
+        "Y": 1100
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-armor-04"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": -210,
+        "Y": 1100
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-health-04"
+    },
+    {
+      "NodeId": "hyforged:minor-dot-1",
+      "Position": {
+        "X": -180,
+        "Y": 1100
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-dot-09"
+    },
+    {
+      "NodeId": "hyforged:minor-block-1",
+      "Position": {
+        "X": -240,
+        "Y": 1150
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-block-02"
+    },
+    {
+      "NodeId": "hyforged:minor-melee-1",
+      "Position": {
+        "X": -210,
+        "Y": 1150
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-melee-08"
+    },
+    {
+      "NodeId": "hyforged:minor-rage-1",
+      "Position": {
+        "X": -180,
+        "Y": 1150
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-rage-07"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -240,
+        "Y": 1200
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-t04"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -210,
+        "Y": 1200
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-t04"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -180,
+        "Y": 1200
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-t04"
+    },
+    {
+      "NodeId": "hyforged:minor-physical-1",
+      "Position": {
+        "X": -240,
+        "Y": 1250
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-phys-10"
+    },
+    {
+      "NodeId": "hyforged:minor-melee-1",
+      "Position": {
+        "X": -210,
+        "Y": 1250
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-melee-09"
+    },
+    {
+      "NodeId": "hyforged:minor-dot-1",
+      "Position": {
+        "X": -180,
+        "Y": 1250
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-dot-10"
+    },
+    {
+      "NodeId": "hyforged:minor-physical-1",
+      "Position": {
+        "X": -240,
+        "Y": 1300
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-phys-11"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -210,
+        "Y": 1300
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-speed-05"
+    },
+    {
+      "NodeId": "hyforged:minor-rage-1",
+      "Position": {
+        "X": -180,
+        "Y": 1300
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-rage-08"
+    },
+    {
+      "NodeId": "hyforged:iron-will",
+      "Position": {
+        "X": -240,
+        "Y": 1350
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:titanic-strikes",
+      "Position": {
+        "X": -210,
+        "Y": 1350
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:rupture",
+      "Position": {
+        "X": -180,
+        "Y": 1350
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:minor-armor-1",
+      "Position": {
+        "X": -240,
+        "Y": 1400
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-armor-05"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": -210,
+        "Y": 1400
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-health-05"
+    },
+    {
+      "NodeId": "hyforged:minor-dot-1",
+      "Position": {
+        "X": -180,
+        "Y": 1400
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-dot-11"
+    },
+    {
+      "NodeId": "hyforged:minor-physical-1",
+      "Position": {
+        "X": -240,
+        "Y": 1450
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-phys-12"
+    },
+    {
+      "NodeId": "hyforged:minor-melee-1",
+      "Position": {
+        "X": -210,
+        "Y": 1450
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-melee-10"
+    },
+    {
+      "NodeId": "hyforged:minor-rage-1",
+      "Position": {
+        "X": -180,
+        "Y": 1450
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-rage-09"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -240,
+        "Y": 1500
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-t05"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -210,
+        "Y": 1500
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-t05"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -180,
+        "Y": 1500
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-t05"
+    },
+    {
+      "NodeId": "hyforged:minor-physical-1",
+      "Position": {
+        "X": -240,
+        "Y": 1550
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-phys-13"
+    },
+    {
+      "NodeId": "hyforged:minor-melee-1",
+      "Position": {
+        "X": -210,
+        "Y": 1550
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-melee-11"
+    },
+    {
+      "NodeId": "hyforged:minor-dot-1",
+      "Position": {
+        "X": -180,
+        "Y": 1550
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-dot-12"
+    },
+    {
+      "NodeId": "hyforged:minor-armor-1",
+      "Position": {
+        "X": -240,
+        "Y": 1600
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-armor-06"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -210,
+        "Y": 1600
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-speed-06"
+    },
+    {
+      "NodeId": "hyforged:minor-rage-1",
+      "Position": {
+        "X": -180,
+        "Y": 1600
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-rage-10"
+    },
+    {
+      "NodeId": "hyforged:blood-magic",
+      "Position": {
+        "X": -240,
+        "Y": 1650
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:savage-hits",
+      "Position": {
+        "X": -210,
+        "Y": 1650
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:eternal-bleed",
+      "Position": {
+        "X": -180,
+        "Y": 1650
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:minor-physical-1",
+      "Position": {
+        "X": -240,
+        "Y": 1700
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-phys-14"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": -210,
+        "Y": 1700
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-health-06"
+    },
+    {
+      "NodeId": "hyforged:minor-dot-1",
+      "Position": {
+        "X": -180,
+        "Y": 1700
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-dot-13"
+    },
+    {
+      "NodeId": "hyforged:minor-block-1",
+      "Position": {
+        "X": -240,
+        "Y": 1750
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-block-03"
+    },
+    {
+      "NodeId": "hyforged:minor-melee-1",
+      "Position": {
+        "X": -210,
+        "Y": 1750
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-melee-12"
+    },
+    {
+      "NodeId": "hyforged:minor-rage-1",
+      "Position": {
+        "X": -180,
+        "Y": 1750
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-rage-11"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -240,
+        "Y": 1800
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-t06"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -210,
+        "Y": 1800
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-t06"
+    },
+    {
+      "NodeId": "hyforged:travel-strength",
+      "Position": {
+        "X": -180,
+        "Y": 1800
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-t06"
+    },
+    {
+      "NodeId": "hyforged:minor-physical-1",
+      "Position": {
+        "X": -240,
+        "Y": 1850
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-phys-15"
+    },
+    {
+      "NodeId": "hyforged:minor-melee-1",
+      "Position": {
+        "X": -210,
+        "Y": 1850
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-melee-13"
+    },
+    {
+      "NodeId": "hyforged:minor-dot-1",
+      "Position": {
+        "X": -180,
+        "Y": 1850
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-dot-14"
+    },
+    {
+      "NodeId": "hyforged:minor-armor-1",
+      "Position": {
+        "X": -240,
+        "Y": 1900
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p1-armor-07"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -210,
+        "Y": 1900
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p2-speed-07"
+    },
+    {
+      "NodeId": "hyforged:minor-rage-1",
+      "Position": {
+        "X": -180,
+        "Y": 1900
+      },
+      "Region": "strength",
+      "InstanceId": "hyforged:str-p3-rage-12"
+    },
+    {
+      "NodeId": "hyforged:vaal-pact",
+      "Position": {
+        "X": -240,
+        "Y": 1950
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:avatar-of-war",
+      "Position": {
+        "X": -210,
+        "Y": 1950
+      },
+      "Region": "strength"
+    },
+    {
+      "NodeId": "hyforged:perfect-agony",
+      "Position": {
+        "X": -180,
+        "Y": 1950
+      },
+      "Region": "strength"
+    }
   ],
   "Connections": [
-    { "From": "hyforged:start-strength", "To": "hyforged:str-p1-phys-01" },
-    { "From": "hyforged:start-strength", "To": "hyforged:str-p2-melee-01" },
-    { "From": "hyforged:start-strength", "To": "hyforged:str-p3-dot-01" },
-
-    { "From": "hyforged:str-p1-phys-01", "To": "hyforged:str-p1-phys-02" },
-    { "From": "hyforged:str-p2-melee-01", "To": "hyforged:str-p2-melee-02" },
-    { "From": "hyforged:str-p3-dot-01", "To": "hyforged:str-p3-dot-02" },
-
-    { "From": "hyforged:str-p1-phys-02", "To": "hyforged:bone-breaker" },
-    { "From": "hyforged:str-p2-melee-02", "To": "hyforged:skull-crusher" },
-    { "From": "hyforged:str-p3-dot-02", "To": "hyforged:bloodletting" },
-
-    { "From": "hyforged:bone-breaker", "To": "hyforged:str-p1-phys-03" },
-    { "From": "hyforged:skull-crusher", "To": "hyforged:str-p2-speed-01" },
-    { "From": "hyforged:bloodletting", "To": "hyforged:str-p3-dot-03" },
-
-    { "From": "hyforged:str-p1-phys-03", "To": "hyforged:str-p1-armor-01" },
-    { "From": "hyforged:str-p2-speed-01", "To": "hyforged:str-p2-speed-02" },
-    { "From": "hyforged:str-p3-dot-03", "To": "hyforged:str-p3-rage-01" },
-
-    { "From": "hyforged:str-p1-armor-01", "To": "hyforged:str-p1-t01" },
-    { "From": "hyforged:str-p2-speed-02", "To": "hyforged:str-p2-t01" },
-    { "From": "hyforged:str-p3-rage-01", "To": "hyforged:str-p3-t01" },
-
-    { "From": "hyforged:str-p1-t01", "To": "hyforged:str-p1-phys-04" },
-    { "From": "hyforged:str-p2-t01", "To": "hyforged:str-p2-melee-03" },
-    { "From": "hyforged:str-p3-t01", "To": "hyforged:str-p3-dot-04" },
-
-    { "From": "hyforged:str-p1-phys-04", "To": "hyforged:str-p1-phys-05" },
-    { "From": "hyforged:str-p2-melee-03", "To": "hyforged:str-p2-melee-04" },
-    { "From": "hyforged:str-p3-dot-04", "To": "hyforged:str-p3-rage-02" },
-
-    { "From": "hyforged:str-p1-phys-05", "To": "hyforged:unstoppable-force" },
-    { "From": "hyforged:str-p2-melee-04", "To": "hyforged:berserkers-fury" },
-    { "From": "hyforged:str-p3-rage-02", "To": "hyforged:crimson-tide" },
-
-    { "From": "hyforged:unstoppable-force", "To": "hyforged:str-p1-armor-02" },
-    { "From": "hyforged:berserkers-fury", "To": "hyforged:str-p2-health-01" },
-    { "From": "hyforged:crimson-tide", "To": "hyforged:str-p3-dot-05" },
-
-    { "From": "hyforged:str-p1-armor-02", "To": "hyforged:str-p1-block-01" },
-    { "From": "hyforged:str-p2-health-01", "To": "hyforged:str-p2-health-02" },
-    { "From": "hyforged:str-p3-dot-05", "To": "hyforged:str-p3-rage-03" },
-
-    { "From": "hyforged:str-p1-block-01", "To": "hyforged:str-p1-t02" },
-    { "From": "hyforged:str-p2-health-02", "To": "hyforged:str-p2-t02" },
-    { "From": "hyforged:str-p3-rage-03", "To": "hyforged:str-p3-t02" },
-
-    { "From": "hyforged:str-p1-t02", "To": "hyforged:resolute-technique" },
-    { "From": "hyforged:str-p2-t02", "To": "hyforged:str-p2-melee-05" },
-    { "From": "hyforged:str-p3-t02", "To": "hyforged:str-p3-dot-06" },
-
-    { "From": "hyforged:resolute-technique", "To": "hyforged:str-p1-phys-06" },
-    { "From": "hyforged:str-p2-melee-05", "To": "hyforged:str-p2-speed-03" },
-    { "From": "hyforged:str-p3-dot-06", "To": "hyforged:str-p3-rage-04" },
-
-    { "From": "hyforged:str-p1-phys-06", "To": "hyforged:str-p1-phys-07" },
-    { "From": "hyforged:str-p2-speed-03", "To": "hyforged:str-p2-melee-06" },
-    { "From": "hyforged:str-p3-rage-04", "To": "hyforged:str-p3-dot-07" },
-
-    { "From": "hyforged:str-p1-phys-07", "To": "hyforged:sundering-blow" },
-    { "From": "hyforged:str-p2-melee-06", "To": "hyforged:warcry-master" },
-    { "From": "hyforged:str-p3-dot-07", "To": "hyforged:hemorrhage" },
-
-    { "From": "hyforged:sundering-blow", "To": "hyforged:str-p1-armor-03" },
-    { "From": "hyforged:warcry-master", "To": "hyforged:str-p2-health-03" },
-    { "From": "hyforged:hemorrhage", "To": "hyforged:str-p3-rage-05" },
-
-    { "From": "hyforged:str-p1-armor-03", "To": "hyforged:str-p1-t03" },
-    { "From": "hyforged:str-p2-health-03", "To": "hyforged:str-p2-t03" },
-    { "From": "hyforged:str-p3-rage-05", "To": "hyforged:str-p3-t03" },
-
-    { "From": "hyforged:str-p1-t03", "To": "hyforged:str-p1-phys-08" },
-    { "From": "hyforged:str-p2-t03", "To": "hyforged:str-p2-melee-07" },
-    { "From": "hyforged:str-p3-t03", "To": "hyforged:str-p3-dot-08" },
-
-    { "From": "hyforged:str-p1-phys-08", "To": "hyforged:str-p1-phys-09" },
-    { "From": "hyforged:str-p2-melee-07", "To": "hyforged:str-p2-speed-04" },
-    { "From": "hyforged:str-p3-dot-08", "To": "hyforged:str-p3-rage-06" },
-
-    { "From": "hyforged:str-p1-phys-09", "To": "hyforged:unwavering-stance" },
-    { "From": "hyforged:str-p2-speed-04", "To": "hyforged:endless-rage" },
-    { "From": "hyforged:str-p3-rage-06", "To": "hyforged:crimson-dance" },
-
-    { "From": "hyforged:unwavering-stance", "To": "hyforged:str-p1-armor-04" },
-    { "From": "hyforged:endless-rage", "To": "hyforged:str-p2-health-04" },
-    { "From": "hyforged:crimson-dance", "To": "hyforged:str-p3-dot-09" },
-
-    { "From": "hyforged:str-p1-armor-04", "To": "hyforged:str-p1-block-02" },
-    { "From": "hyforged:str-p2-health-04", "To": "hyforged:str-p2-melee-08" },
-    { "From": "hyforged:str-p3-dot-09", "To": "hyforged:str-p3-rage-07" },
-
-    { "From": "hyforged:str-p1-block-02", "To": "hyforged:str-p1-t04" },
-    { "From": "hyforged:str-p2-melee-08", "To": "hyforged:str-p2-t04" },
-    { "From": "hyforged:str-p3-rage-07", "To": "hyforged:str-p3-t04" },
-
-    { "From": "hyforged:str-p1-t04", "To": "hyforged:str-p1-phys-10" },
-    { "From": "hyforged:str-p2-t04", "To": "hyforged:str-p2-melee-09" },
-    { "From": "hyforged:str-p3-t04", "To": "hyforged:str-p3-dot-10" },
-
-    { "From": "hyforged:str-p1-phys-10", "To": "hyforged:str-p1-phys-11" },
-    { "From": "hyforged:str-p2-melee-09", "To": "hyforged:str-p2-speed-05" },
-    { "From": "hyforged:str-p3-dot-10", "To": "hyforged:str-p3-rage-08" },
-
-    { "From": "hyforged:str-p1-phys-11", "To": "hyforged:iron-will" },
-    { "From": "hyforged:str-p2-speed-05", "To": "hyforged:titanic-strikes" },
-    { "From": "hyforged:str-p3-rage-08", "To": "hyforged:rupture" },
-
-    { "From": "hyforged:iron-will", "To": "hyforged:str-p1-armor-05" },
-    { "From": "hyforged:titanic-strikes", "To": "hyforged:str-p2-health-05" },
-    { "From": "hyforged:rupture", "To": "hyforged:str-p3-dot-11" },
-
-    { "From": "hyforged:str-p1-armor-05", "To": "hyforged:str-p1-phys-12" },
-    { "From": "hyforged:str-p2-health-05", "To": "hyforged:str-p2-melee-10" },
-    { "From": "hyforged:str-p3-dot-11", "To": "hyforged:str-p3-rage-09" },
-
-    { "From": "hyforged:str-p1-phys-12", "To": "hyforged:str-p1-t05" },
-    { "From": "hyforged:str-p2-melee-10", "To": "hyforged:str-p2-t05" },
-    { "From": "hyforged:str-p3-rage-09", "To": "hyforged:str-p3-t05" },
-
-    { "From": "hyforged:str-p1-t05", "To": "hyforged:str-p1-phys-13" },
-    { "From": "hyforged:str-p2-t05", "To": "hyforged:str-p2-melee-11" },
-    { "From": "hyforged:str-p3-t05", "To": "hyforged:str-p3-dot-12" },
-
-    { "From": "hyforged:str-p1-phys-13", "To": "hyforged:str-p1-armor-06" },
-    { "From": "hyforged:str-p2-melee-11", "To": "hyforged:str-p2-speed-06" },
-    { "From": "hyforged:str-p3-dot-12", "To": "hyforged:str-p3-rage-10" },
-
-    { "From": "hyforged:str-p1-armor-06", "To": "hyforged:blood-magic" },
-    { "From": "hyforged:str-p2-speed-06", "To": "hyforged:savage-hits" },
-    { "From": "hyforged:str-p3-rage-10", "To": "hyforged:eternal-bleed" },
-
-    { "From": "hyforged:blood-magic", "To": "hyforged:str-p1-phys-14" },
-    { "From": "hyforged:savage-hits", "To": "hyforged:str-p2-health-06" },
-    { "From": "hyforged:eternal-bleed", "To": "hyforged:str-p3-dot-13" },
-
-    { "From": "hyforged:str-p1-phys-14", "To": "hyforged:str-p1-block-03" },
-    { "From": "hyforged:str-p2-health-06", "To": "hyforged:str-p2-melee-12" },
-    { "From": "hyforged:str-p3-dot-13", "To": "hyforged:str-p3-rage-11" },
-
-    { "From": "hyforged:str-p1-block-03", "To": "hyforged:str-p1-t06" },
-    { "From": "hyforged:str-p2-melee-12", "To": "hyforged:str-p2-t06" },
-    { "From": "hyforged:str-p3-rage-11", "To": "hyforged:str-p3-t06" },
-
-    { "From": "hyforged:str-p1-t06", "To": "hyforged:str-p1-phys-15" },
-    { "From": "hyforged:str-p2-t06", "To": "hyforged:str-p2-melee-13" },
-    { "From": "hyforged:str-p3-t06", "To": "hyforged:str-p3-dot-14" },
-
-    { "From": "hyforged:str-p1-phys-15", "To": "hyforged:str-p1-armor-07" },
-    { "From": "hyforged:str-p2-melee-13", "To": "hyforged:str-p2-speed-07" },
-    { "From": "hyforged:str-p3-dot-14", "To": "hyforged:str-p3-rage-12" },
-
-    { "From": "hyforged:str-p1-armor-07", "To": "hyforged:vaal-pact" },
-    { "From": "hyforged:str-p2-speed-07", "To": "hyforged:avatar-of-war" },
-    { "From": "hyforged:str-p3-rage-12", "To": "hyforged:perfect-agony" },
-
-    { "From": "hyforged:bone-breaker", "To": "hyforged:skull-crusher" },
-    { "From": "hyforged:str-p1-t01", "To": "hyforged:str-p2-t01" },
-    { "From": "hyforged:berserkers-fury", "To": "hyforged:crimson-tide" },
-    { "From": "hyforged:str-p2-t02", "To": "hyforged:str-p3-t02" },
-    { "From": "hyforged:resolute-technique", "To": "hyforged:str-p2-melee-06" },
-    { "From": "hyforged:str-p1-t03", "To": "hyforged:str-p2-t03" },
-    { "From": "hyforged:str-p2-t04", "To": "hyforged:str-p3-t04" },
-    { "From": "hyforged:str-p1-t05", "To": "hyforged:str-p2-t05" },
-    { "From": "hyforged:blood-magic", "To": "hyforged:savage-hits" },
-    { "From": "hyforged:savage-hits", "To": "hyforged:eternal-bleed" },
-    { "From": "hyforged:vaal-pact", "To": "hyforged:avatar-of-war" }
+    {
+      "From": "hyforged:start-strength",
+      "To": "hyforged:str-p1-phys-01"
+    },
+    {
+      "From": "hyforged:start-strength",
+      "To": "hyforged:str-p2-melee-01"
+    },
+    {
+      "From": "hyforged:start-strength",
+      "To": "hyforged:str-p3-dot-01"
+    },
+    {
+      "From": "hyforged:str-p1-phys-01",
+      "To": "hyforged:str-p1-phys-02"
+    },
+    {
+      "From": "hyforged:str-p2-melee-01",
+      "To": "hyforged:str-p2-melee-02"
+    },
+    {
+      "From": "hyforged:str-p3-dot-01",
+      "To": "hyforged:str-p3-dot-02"
+    },
+    {
+      "From": "hyforged:str-p1-phys-02",
+      "To": "hyforged:bone-breaker"
+    },
+    {
+      "From": "hyforged:str-p2-melee-02",
+      "To": "hyforged:skull-crusher"
+    },
+    {
+      "From": "hyforged:str-p3-dot-02",
+      "To": "hyforged:bloodletting"
+    },
+    {
+      "From": "hyforged:bone-breaker",
+      "To": "hyforged:str-p1-phys-03"
+    },
+    {
+      "From": "hyforged:skull-crusher",
+      "To": "hyforged:str-p2-speed-01"
+    },
+    {
+      "From": "hyforged:bloodletting",
+      "To": "hyforged:str-p3-dot-03"
+    },
+    {
+      "From": "hyforged:str-p1-phys-03",
+      "To": "hyforged:str-p1-armor-01"
+    },
+    {
+      "From": "hyforged:str-p2-speed-01",
+      "To": "hyforged:str-p2-speed-02"
+    },
+    {
+      "From": "hyforged:str-p3-dot-03",
+      "To": "hyforged:str-p3-rage-01"
+    },
+    {
+      "From": "hyforged:str-p1-armor-01",
+      "To": "hyforged:str-p1-t01"
+    },
+    {
+      "From": "hyforged:str-p2-speed-02",
+      "To": "hyforged:str-p2-t01"
+    },
+    {
+      "From": "hyforged:str-p3-rage-01",
+      "To": "hyforged:str-p3-t01"
+    },
+    {
+      "From": "hyforged:str-p1-t01",
+      "To": "hyforged:str-p1-phys-04"
+    },
+    {
+      "From": "hyforged:str-p2-t01",
+      "To": "hyforged:str-p2-melee-03"
+    },
+    {
+      "From": "hyforged:str-p3-t01",
+      "To": "hyforged:str-p3-dot-04"
+    },
+    {
+      "From": "hyforged:str-p1-phys-04",
+      "To": "hyforged:str-p1-phys-05"
+    },
+    {
+      "From": "hyforged:str-p2-melee-03",
+      "To": "hyforged:str-p2-melee-04"
+    },
+    {
+      "From": "hyforged:str-p3-dot-04",
+      "To": "hyforged:str-p3-rage-02"
+    },
+    {
+      "From": "hyforged:str-p1-phys-05",
+      "To": "hyforged:unstoppable-force"
+    },
+    {
+      "From": "hyforged:str-p2-melee-04",
+      "To": "hyforged:berserkers-fury"
+    },
+    {
+      "From": "hyforged:str-p3-rage-02",
+      "To": "hyforged:crimson-tide"
+    },
+    {
+      "From": "hyforged:unstoppable-force",
+      "To": "hyforged:str-p1-armor-02"
+    },
+    {
+      "From": "hyforged:berserkers-fury",
+      "To": "hyforged:str-p2-health-01"
+    },
+    {
+      "From": "hyforged:crimson-tide",
+      "To": "hyforged:str-p3-dot-05"
+    },
+    {
+      "From": "hyforged:str-p1-armor-02",
+      "To": "hyforged:str-p1-block-01"
+    },
+    {
+      "From": "hyforged:str-p2-health-01",
+      "To": "hyforged:str-p2-health-02"
+    },
+    {
+      "From": "hyforged:str-p3-dot-05",
+      "To": "hyforged:str-p3-rage-03"
+    },
+    {
+      "From": "hyforged:str-p1-block-01",
+      "To": "hyforged:str-p1-t02"
+    },
+    {
+      "From": "hyforged:str-p2-health-02",
+      "To": "hyforged:str-p2-t02"
+    },
+    {
+      "From": "hyforged:str-p3-rage-03",
+      "To": "hyforged:str-p3-t02"
+    },
+    {
+      "From": "hyforged:str-p1-t02",
+      "To": "hyforged:resolute-technique"
+    },
+    {
+      "From": "hyforged:str-p2-t02",
+      "To": "hyforged:str-p2-melee-05"
+    },
+    {
+      "From": "hyforged:str-p3-t02",
+      "To": "hyforged:str-p3-dot-06"
+    },
+    {
+      "From": "hyforged:resolute-technique",
+      "To": "hyforged:str-p1-phys-06"
+    },
+    {
+      "From": "hyforged:str-p2-melee-05",
+      "To": "hyforged:str-p2-speed-03"
+    },
+    {
+      "From": "hyforged:str-p3-dot-06",
+      "To": "hyforged:str-p3-rage-04"
+    },
+    {
+      "From": "hyforged:str-p1-phys-06",
+      "To": "hyforged:str-p1-phys-07"
+    },
+    {
+      "From": "hyforged:str-p2-speed-03",
+      "To": "hyforged:str-p2-melee-06"
+    },
+    {
+      "From": "hyforged:str-p3-rage-04",
+      "To": "hyforged:str-p3-dot-07"
+    },
+    {
+      "From": "hyforged:str-p1-phys-07",
+      "To": "hyforged:sundering-blow"
+    },
+    {
+      "From": "hyforged:str-p2-melee-06",
+      "To": "hyforged:warcry-master"
+    },
+    {
+      "From": "hyforged:str-p3-dot-07",
+      "To": "hyforged:hemorrhage"
+    },
+    {
+      "From": "hyforged:sundering-blow",
+      "To": "hyforged:str-p1-armor-03"
+    },
+    {
+      "From": "hyforged:warcry-master",
+      "To": "hyforged:str-p2-health-03"
+    },
+    {
+      "From": "hyforged:hemorrhage",
+      "To": "hyforged:str-p3-rage-05"
+    },
+    {
+      "From": "hyforged:str-p1-armor-03",
+      "To": "hyforged:str-p1-t03"
+    },
+    {
+      "From": "hyforged:str-p2-health-03",
+      "To": "hyforged:str-p2-t03"
+    },
+    {
+      "From": "hyforged:str-p3-rage-05",
+      "To": "hyforged:str-p3-t03"
+    },
+    {
+      "From": "hyforged:str-p1-t03",
+      "To": "hyforged:str-p1-phys-08"
+    },
+    {
+      "From": "hyforged:str-p2-t03",
+      "To": "hyforged:str-p2-melee-07"
+    },
+    {
+      "From": "hyforged:str-p3-t03",
+      "To": "hyforged:str-p3-dot-08"
+    },
+    {
+      "From": "hyforged:str-p1-phys-08",
+      "To": "hyforged:str-p1-phys-09"
+    },
+    {
+      "From": "hyforged:str-p2-melee-07",
+      "To": "hyforged:str-p2-speed-04"
+    },
+    {
+      "From": "hyforged:str-p3-dot-08",
+      "To": "hyforged:str-p3-rage-06"
+    },
+    {
+      "From": "hyforged:str-p1-phys-09",
+      "To": "hyforged:unwavering-stance"
+    },
+    {
+      "From": "hyforged:str-p2-speed-04",
+      "To": "hyforged:endless-rage"
+    },
+    {
+      "From": "hyforged:str-p3-rage-06",
+      "To": "hyforged:crimson-dance"
+    },
+    {
+      "From": "hyforged:unwavering-stance",
+      "To": "hyforged:str-p1-armor-04"
+    },
+    {
+      "From": "hyforged:endless-rage",
+      "To": "hyforged:str-p2-health-04"
+    },
+    {
+      "From": "hyforged:crimson-dance",
+      "To": "hyforged:str-p3-dot-09"
+    },
+    {
+      "From": "hyforged:str-p1-armor-04",
+      "To": "hyforged:str-p1-block-02"
+    },
+    {
+      "From": "hyforged:str-p2-health-04",
+      "To": "hyforged:str-p2-melee-08"
+    },
+    {
+      "From": "hyforged:str-p3-dot-09",
+      "To": "hyforged:str-p3-rage-07"
+    },
+    {
+      "From": "hyforged:str-p1-block-02",
+      "To": "hyforged:str-p1-t04"
+    },
+    {
+      "From": "hyforged:str-p2-melee-08",
+      "To": "hyforged:str-p2-t04"
+    },
+    {
+      "From": "hyforged:str-p3-rage-07",
+      "To": "hyforged:str-p3-t04"
+    },
+    {
+      "From": "hyforged:str-p1-t04",
+      "To": "hyforged:str-p1-phys-10"
+    },
+    {
+      "From": "hyforged:str-p2-t04",
+      "To": "hyforged:str-p2-melee-09"
+    },
+    {
+      "From": "hyforged:str-p3-t04",
+      "To": "hyforged:str-p3-dot-10"
+    },
+    {
+      "From": "hyforged:str-p1-phys-10",
+      "To": "hyforged:str-p1-phys-11"
+    },
+    {
+      "From": "hyforged:str-p2-melee-09",
+      "To": "hyforged:str-p2-speed-05"
+    },
+    {
+      "From": "hyforged:str-p3-dot-10",
+      "To": "hyforged:str-p3-rage-08"
+    },
+    {
+      "From": "hyforged:str-p1-phys-11",
+      "To": "hyforged:iron-will"
+    },
+    {
+      "From": "hyforged:str-p2-speed-05",
+      "To": "hyforged:titanic-strikes"
+    },
+    {
+      "From": "hyforged:str-p3-rage-08",
+      "To": "hyforged:rupture"
+    },
+    {
+      "From": "hyforged:iron-will",
+      "To": "hyforged:str-p1-armor-05"
+    },
+    {
+      "From": "hyforged:titanic-strikes",
+      "To": "hyforged:str-p2-health-05"
+    },
+    {
+      "From": "hyforged:rupture",
+      "To": "hyforged:str-p3-dot-11"
+    },
+    {
+      "From": "hyforged:str-p1-armor-05",
+      "To": "hyforged:str-p1-phys-12"
+    },
+    {
+      "From": "hyforged:str-p2-health-05",
+      "To": "hyforged:str-p2-melee-10"
+    },
+    {
+      "From": "hyforged:str-p3-dot-11",
+      "To": "hyforged:str-p3-rage-09"
+    },
+    {
+      "From": "hyforged:str-p1-phys-12",
+      "To": "hyforged:str-p1-t05"
+    },
+    {
+      "From": "hyforged:str-p2-melee-10",
+      "To": "hyforged:str-p2-t05"
+    },
+    {
+      "From": "hyforged:str-p3-rage-09",
+      "To": "hyforged:str-p3-t05"
+    },
+    {
+      "From": "hyforged:str-p1-t05",
+      "To": "hyforged:str-p1-phys-13"
+    },
+    {
+      "From": "hyforged:str-p2-t05",
+      "To": "hyforged:str-p2-melee-11"
+    },
+    {
+      "From": "hyforged:str-p3-t05",
+      "To": "hyforged:str-p3-dot-12"
+    },
+    {
+      "From": "hyforged:str-p1-phys-13",
+      "To": "hyforged:str-p1-armor-06"
+    },
+    {
+      "From": "hyforged:str-p2-melee-11",
+      "To": "hyforged:str-p2-speed-06"
+    },
+    {
+      "From": "hyforged:str-p3-dot-12",
+      "To": "hyforged:str-p3-rage-10"
+    },
+    {
+      "From": "hyforged:str-p1-armor-06",
+      "To": "hyforged:blood-magic"
+    },
+    {
+      "From": "hyforged:str-p2-speed-06",
+      "To": "hyforged:savage-hits"
+    },
+    {
+      "From": "hyforged:str-p3-rage-10",
+      "To": "hyforged:eternal-bleed"
+    },
+    {
+      "From": "hyforged:blood-magic",
+      "To": "hyforged:str-p1-phys-14"
+    },
+    {
+      "From": "hyforged:savage-hits",
+      "To": "hyforged:str-p2-health-06"
+    },
+    {
+      "From": "hyforged:eternal-bleed",
+      "To": "hyforged:str-p3-dot-13"
+    },
+    {
+      "From": "hyforged:str-p1-phys-14",
+      "To": "hyforged:str-p1-block-03"
+    },
+    {
+      "From": "hyforged:str-p2-health-06",
+      "To": "hyforged:str-p2-melee-12"
+    },
+    {
+      "From": "hyforged:str-p3-dot-13",
+      "To": "hyforged:str-p3-rage-11"
+    },
+    {
+      "From": "hyforged:str-p1-block-03",
+      "To": "hyforged:str-p1-t06"
+    },
+    {
+      "From": "hyforged:str-p2-melee-12",
+      "To": "hyforged:str-p2-t06"
+    },
+    {
+      "From": "hyforged:str-p3-rage-11",
+      "To": "hyforged:str-p3-t06"
+    },
+    {
+      "From": "hyforged:str-p1-t06",
+      "To": "hyforged:str-p1-phys-15"
+    },
+    {
+      "From": "hyforged:str-p2-t06",
+      "To": "hyforged:str-p2-melee-13"
+    },
+    {
+      "From": "hyforged:str-p3-t06",
+      "To": "hyforged:str-p3-dot-14"
+    },
+    {
+      "From": "hyforged:str-p1-phys-15",
+      "To": "hyforged:str-p1-armor-07"
+    },
+    {
+      "From": "hyforged:str-p2-melee-13",
+      "To": "hyforged:str-p2-speed-07"
+    },
+    {
+      "From": "hyforged:str-p3-dot-14",
+      "To": "hyforged:str-p3-rage-12"
+    },
+    {
+      "From": "hyforged:str-p1-armor-07",
+      "To": "hyforged:vaal-pact"
+    },
+    {
+      "From": "hyforged:str-p2-speed-07",
+      "To": "hyforged:avatar-of-war"
+    },
+    {
+      "From": "hyforged:str-p3-rage-12",
+      "To": "hyforged:perfect-agony"
+    },
+    {
+      "From": "hyforged:bone-breaker",
+      "To": "hyforged:skull-crusher"
+    },
+    {
+      "From": "hyforged:str-p1-t01",
+      "To": "hyforged:str-p2-t01"
+    },
+    {
+      "From": "hyforged:berserkers-fury",
+      "To": "hyforged:crimson-tide"
+    },
+    {
+      "From": "hyforged:str-p2-t02",
+      "To": "hyforged:str-p3-t02"
+    },
+    {
+      "From": "hyforged:resolute-technique",
+      "To": "hyforged:str-p2-melee-06"
+    },
+    {
+      "From": "hyforged:str-p1-t03",
+      "To": "hyforged:str-p2-t03"
+    },
+    {
+      "From": "hyforged:str-p2-t04",
+      "To": "hyforged:str-p3-t04"
+    },
+    {
+      "From": "hyforged:str-p1-t05",
+      "To": "hyforged:str-p2-t05"
+    },
+    {
+      "From": "hyforged:blood-magic",
+      "To": "hyforged:savage-hits"
+    },
+    {
+      "From": "hyforged:savage-hits",
+      "To": "hyforged:eternal-bleed"
+    },
+    {
+      "From": "hyforged:vaal-pact",
+      "To": "hyforged:avatar-of-war"
+    }
   ]
 }

@@ -7,9 +7,21 @@
       "Description": "+4% Spell Damage\n+4% Elemental Damage\n+4% Cast Speed",
       "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:spell-damage-increased-bps", "Value": 400 },
-        { "Type": "stat-modifier", "Stat": "hyforged:elemental-damage-increased-bps", "Value": 400 },
-        { "Type": "stat-modifier", "Stat": "hyforged:cast-speed-bps", "Value": 400 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:spell-damage-increased-bps",
+          "Value": 400
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:elemental-damage-increased-bps",
+          "Value": 400
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:cast-speed-bps",
+          "Value": 400
+        }
       ]
     }
   ]

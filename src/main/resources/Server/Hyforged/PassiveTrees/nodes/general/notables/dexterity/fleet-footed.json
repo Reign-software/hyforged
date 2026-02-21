@@ -7,8 +7,16 @@
       "Description": "+3 Dexterity\n+3% Movement Speed",
       "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:dexterity", "Value": 3 },
-        { "Type": "stat-modifier", "Stat": "hyforged:movement-speed-bps", "Value": 300 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:dexterity",
+          "Value": 3
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:movement-speed-bps",
+          "Value": 300
+        }
       ]
     }
   ]

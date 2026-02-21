@@ -6,8 +6,16 @@
       "Name": "Stamina Reserves",
       "Description": "+3 Max Stamina\n+2 Stamina Regen",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:max-stamina-flat", "Value": 3 },
-        { "Type": "stat-modifier", "Stat": "hyforged:stamina-regen-flat", "Value": 2 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:max-stamina-flat",
+          "Value": 3
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:stamina-regen-flat",
+          "Value": 2
+        }
       ]
     }
   ]

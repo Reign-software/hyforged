@@ -9,7 +9,11 @@
       "ItemLevelReq": 65,
       "Weight": 30,
       "Stats": {
-        "hyforged:projectile-fork-count": { "MinValue": 2, "MaxValue": 3, "StackType": "Flat" }
+        "hyforged:projectile-fork-count": {
+          "MinValue": 2,
+          "MaxValue": 3,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 42,
       "Weight": 52,
       "Stats": {
-        "hyforged:projectile-fork-count": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" }
+        "hyforged:projectile-fork-count": {
+          "MinValue": 1,
+          "MaxValue": 2,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 1,
       "Weight": 85,
       "Stats": {
-        "hyforged:projectile-fork-count": { "MinValue": 1, "MaxValue": 1, "StackType": "Flat" }
+        "hyforged:projectile-fork-count": {
+          "MinValue": 1,
+          "MaxValue": 1,
+          "StackType": "Flat"
+        }
       }
     }
   ]

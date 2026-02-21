@@ -9,7 +9,11 @@
       "ItemLevelReq": 80,
       "Weight": 25,
       "Stats": {
-        "hyforged:armor-rating": { "MinValue": 650, "MaxValue": 850, "StackType": "Flat" }
+        "hyforged:armor-rating": {
+          "MinValue": 650,
+          "MaxValue": 850,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 60,
       "Weight": 48,
       "Stats": {
-        "hyforged:armor-rating": { "MinValue": 480, "MaxValue": 650, "StackType": "Flat" }
+        "hyforged:armor-rating": {
+          "MinValue": 480,
+          "MaxValue": 650,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 40,
       "Weight": 75,
       "Stats": {
-        "hyforged:armor-rating": { "MinValue": 320, "MaxValue": 480, "StackType": "Flat" }
+        "hyforged:armor-rating": {
+          "MinValue": 320,
+          "MaxValue": 480,
+          "StackType": "Flat"
+        }
       }
     }
   ]

@@ -10,14 +10,21 @@
       "ItemLevelReq": 30,
       "Weight": 100,
       "Stats": {
-        "hyforged:fire-resistance-bps": { "MinValue": 5000, "MaxValue": 7500, "StackType": "More" }
+        "hyforged:fire-resistance-bps": {
+          "MinValue": 5000,
+          "MaxValue": 7500,
+          "StackType": "More"
+        }
       }
     }
   ],
   "TriggeredEffects": [
     {
-      "Trigger": { "Type": "interval", "IntervalSeconds": 1.0 },
-      "Effect": { 
+      "Trigger": {
+        "Type": "interval",
+        "IntervalSeconds": 1.0
+      },
+      "Effect": {
         "Type": "spawn_prefab",
         "PrefabId": "hyforged:fire_pool",
         "Duration": 5.0,
@@ -28,8 +35,10 @@
       "MaxStacks": 1
     },
     {
-      "Trigger": { "Type": "on_death" },
-      "Effect": { 
+      "Trigger": {
+        "Type": "on_death"
+      },
+      "Effect": {
         "Type": "damage_area",
         "DamageType": "Fire",
         "BaseDamage": 60,

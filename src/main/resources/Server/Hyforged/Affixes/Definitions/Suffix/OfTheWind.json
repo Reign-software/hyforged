@@ -9,7 +9,11 @@
       "ItemLevelReq": 52,
       "Weight": 55,
       "Stats": {
-        "hyforged:movement-speed-bps": { "MinValue": 2200, "MaxValue": 2800, "StackType": "Increased" }
+        "hyforged:movement-speed-bps": {
+          "MinValue": 2200,
+          "MaxValue": 2800,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 34,
       "Weight": 80,
       "Stats": {
-        "hyforged:movement-speed-bps": { "MinValue": 1400, "MaxValue": 2200, "StackType": "Increased" }
+        "hyforged:movement-speed-bps": {
+          "MinValue": 1400,
+          "MaxValue": 2200,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 16,
       "Weight": 110,
       "Stats": {
-        "hyforged:movement-speed-bps": { "MinValue": 600, "MaxValue": 1400, "StackType": "Increased" }
+        "hyforged:movement-speed-bps": {
+          "MinValue": 600,
+          "MaxValue": 1400,
+          "StackType": "Increased"
+        }
       }
     }
   ]

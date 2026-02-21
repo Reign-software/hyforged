@@ -6,8 +6,16 @@
       "Name": "Hex Mastery",
       "Description": "+2% Curse Effect\n+2% Curse Duration",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:curse-effect-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:curse-duration-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:curse-effect-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:curse-duration-bps",
+          "Value": 200
+        }
       ]
     }
   ]

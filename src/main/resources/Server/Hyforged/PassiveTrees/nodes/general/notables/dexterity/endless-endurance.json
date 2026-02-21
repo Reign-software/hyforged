@@ -7,9 +7,21 @@
       "Description": "+5 Max Stamina\n-4% Stamina Cost\n+5 Stamina Regen",
       "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:max-stamina-flat", "Value": 5 },
-        { "Type": "stat-modifier", "Stat": "hyforged:stamina-cost-bps", "Value": 400 },
-        { "Type": "stat-modifier", "Stat": "hyforged:stamina-regen-flat", "Value": 5 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:max-stamina-flat",
+          "Value": 5
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:stamina-cost-bps",
+          "Value": 400
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:stamina-regen-flat",
+          "Value": 5
+        }
       ]
     }
   ]

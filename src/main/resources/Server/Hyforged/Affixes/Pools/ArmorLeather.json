@@ -3,7 +3,9 @@
     "Description": "Affix pool for leather armor families",
     "AppliesTo": {
         "Categories": [],
-        "Tags": ["Family=Leather"]
+        "Tags": [
+            "Family=Leather"
+        ]
     },
     "Prefixes": [
         "hyforged:evasive",

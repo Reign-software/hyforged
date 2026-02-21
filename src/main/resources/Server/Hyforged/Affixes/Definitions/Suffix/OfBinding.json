@@ -9,7 +9,11 @@
       "ItemLevelReq": 55,
       "Weight": 45,
       "Stats": {
-        "hyforged:minion-duration-bps": { "MinValue": 2200, "MaxValue": 2800, "StackType": "Increased" }
+        "hyforged:minion-duration-bps": {
+          "MinValue": 2200,
+          "MaxValue": 2800,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 40,
       "Weight": 65,
       "Stats": {
-        "hyforged:minion-duration-bps": { "MinValue": 1500, "MaxValue": 2200, "StackType": "Increased" }
+        "hyforged:minion-duration-bps": {
+          "MinValue": 1500,
+          "MaxValue": 2200,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 26,
       "Weight": 85,
       "Stats": {
-        "hyforged:minion-duration-bps": { "MinValue": 900, "MaxValue": 1500, "StackType": "Increased" }
+        "hyforged:minion-duration-bps": {
+          "MinValue": 900,
+          "MaxValue": 1500,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 12,
       "Weight": 108,
       "Stats": {
-        "hyforged:minion-duration-bps": { "MinValue": 350, "MaxValue": 900, "StackType": "Increased" }
+        "hyforged:minion-duration-bps": {
+          "MinValue": 350,
+          "MaxValue": 900,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 1,
       "Weight": 130,
       "Stats": {
-        "hyforged:minion-duration-bps": { "MinValue": 100, "MaxValue": 350, "StackType": "Increased" }
+        "hyforged:minion-duration-bps": {
+          "MinValue": 100,
+          "MaxValue": 350,
+          "StackType": "Increased"
+        }
       }
     }
   ]

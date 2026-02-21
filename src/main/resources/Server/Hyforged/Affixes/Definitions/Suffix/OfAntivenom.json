@@ -9,7 +9,11 @@
       "ItemLevelReq": 62,
       "Weight": 45,
       "Stats": {
-        "hyforged:poison-resistance-bps": { "MinValue": 2800, "MaxValue": 3500, "StackType": "Flat" }
+        "hyforged:poison-resistance-bps": {
+          "MinValue": 2800,
+          "MaxValue": 3500,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 46,
       "Weight": 65,
       "Stats": {
-        "hyforged:poison-resistance-bps": { "MinValue": 1900, "MaxValue": 2800, "StackType": "Flat" }
+        "hyforged:poison-resistance-bps": {
+          "MinValue": 1900,
+          "MaxValue": 2800,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 30,
       "Weight": 85,
       "Stats": {
-        "hyforged:poison-resistance-bps": { "MinValue": 1100, "MaxValue": 1900, "StackType": "Flat" }
+        "hyforged:poison-resistance-bps": {
+          "MinValue": 1100,
+          "MaxValue": 1900,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 15,
       "Weight": 105,
       "Stats": {
-        "hyforged:poison-resistance-bps": { "MinValue": 500, "MaxValue": 1100, "StackType": "Flat" }
+        "hyforged:poison-resistance-bps": {
+          "MinValue": 500,
+          "MaxValue": 1100,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 1,
       "Weight": 125,
       "Stats": {
-        "hyforged:poison-resistance-bps": { "MinValue": 150, "MaxValue": 500, "StackType": "Flat" }
+        "hyforged:poison-resistance-bps": {
+          "MinValue": 150,
+          "MaxValue": 500,
+          "StackType": "Flat"
+        }
       }
     }
   ]

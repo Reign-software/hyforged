@@ -6,6 +6,10 @@
     "StatusEffectIcon": "UI/StatusEffects/BleedResist.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:bleed-resistance-bps", "StackType": "Flat", "Amount": 5000 }
+    {
+      "StatId": "hyforged:bleed-resistance-bps",
+      "StackType": "Flat",
+      "Amount": 5000
+    }
   ]
 }

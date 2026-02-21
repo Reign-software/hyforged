@@ -6,4 +6,5 @@
     "HyforgedElementTag": "lightning",
     "HyforgedDamageBonusStat": "hyforged:lightning-damage-increased-bps",
     "HyforgedAilmentChanceStat": "hyforged:shock-chance-bps",
-    "HyforgedAilmentDurationStat": "hyforged:shock-duration-bps"}
+    "HyforgedAilmentDurationStat": "hyforged:shock-duration-bps"
+}

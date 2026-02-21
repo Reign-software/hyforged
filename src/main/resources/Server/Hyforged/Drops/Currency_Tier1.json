@@ -8,9 +8,33 @@
         "RollsMax": 1,
         "Comment": "Tradebar currency drop - Tier 1 (Zone 1 encounters)",
         "Containers": [
-          { "Type": "Single", "Weight": 60, "Item": { "ItemId": "hyforged:Tradebar", "QuantityMin": 5, "QuantityMax": 15 } },
-          { "Type": "Single", "Weight": 30, "Item": { "ItemId": "hyforged:Tradebar", "QuantityMin": 16, "QuantityMax": 30 } },
-          { "Type": "Single", "Weight": 10, "Item": { "ItemId": "hyforged:Tradebar", "QuantityMin": 31, "QuantityMax": 50 } }
+          {
+            "Type": "Single",
+            "Weight": 60,
+            "Item": {
+              "ItemId": "hyforged:Tradebar",
+              "QuantityMin": 5,
+              "QuantityMax": 15
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 30,
+            "Item": {
+              "ItemId": "hyforged:Tradebar",
+              "QuantityMin": 16,
+              "QuantityMax": 30
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 10,
+            "Item": {
+              "ItemId": "hyforged:Tradebar",
+              "QuantityMin": 31,
+              "QuantityMax": 50
+            }
+          }
         ]
       }
     ]

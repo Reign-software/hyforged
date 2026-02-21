@@ -9,7 +9,11 @@
       "ItemLevelReq": 76,
       "Weight": 30,
       "Stats": {
-        "hyforged:evasion-rating": { "MinValue": 400, "MaxValue": 500, "StackType": "Flat" }
+        "hyforged:evasion-rating": {
+          "MinValue": 400,
+          "MaxValue": 500,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 62,
       "Weight": 45,
       "Stats": {
-        "hyforged:evasion-rating": { "MinValue": 310, "MaxValue": 400, "StackType": "Flat" }
+        "hyforged:evasion-rating": {
+          "MinValue": 310,
+          "MaxValue": 400,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 48,
       "Weight": 60,
       "Stats": {
-        "hyforged:evasion-rating": { "MinValue": 230, "MaxValue": 310, "StackType": "Flat" }
+        "hyforged:evasion-rating": {
+          "MinValue": 230,
+          "MaxValue": 310,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 36,
       "Weight": 75,
       "Stats": {
-        "hyforged:evasion-rating": { "MinValue": 160, "MaxValue": 230, "StackType": "Flat" }
+        "hyforged:evasion-rating": {
+          "MinValue": 160,
+          "MaxValue": 230,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 24,
       "Weight": 90,
       "Stats": {
-        "hyforged:evasion-rating": { "MinValue": 100, "MaxValue": 160, "StackType": "Flat" }
+        "hyforged:evasion-rating": {
+          "MinValue": 100,
+          "MaxValue": 160,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -49,7 +69,11 @@
       "ItemLevelReq": 12,
       "Weight": 108,
       "Stats": {
-        "hyforged:evasion-rating": { "MinValue": 55, "MaxValue": 100, "StackType": "Flat" }
+        "hyforged:evasion-rating": {
+          "MinValue": 55,
+          "MaxValue": 100,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -57,7 +81,11 @@
       "ItemLevelReq": 1,
       "Weight": 125,
       "Stats": {
-        "hyforged:evasion-rating": { "MinValue": 20, "MaxValue": 55, "StackType": "Flat" }
+        "hyforged:evasion-rating": {
+          "MinValue": 20,
+          "MaxValue": 55,
+          "StackType": "Flat"
+        }
       }
     }
   ]

@@ -7,8 +7,16 @@
       "Description": "+2% Crit Chance\n+2% Experience Gain",
       "Icon": "Hyforged/Textures/Luck.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:crit-chance-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:experience-gain-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:crit-chance-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:experience-gain-bps",
+          "Value": 200
+        }
       ]
     }
   ]

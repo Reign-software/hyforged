@@ -3,7 +3,9 @@
     "Description": "Affix pool for diving armor family",
     "AppliesTo": {
         "Categories": [],
-        "Tags": ["Family=Diving"]
+        "Tags": [
+            "Family=Diving"
+        ]
     },
     "Prefixes": [
         "hyforged:sturdy",

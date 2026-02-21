@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Dexterity.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:dexterity", "StackType": "Flat", "Amount": 15 },
-    { "StatId": "hyforged:crit-chance-bps", "StackType": "Flat", "Amount": 500 }
+    {
+      "StatId": "hyforged:dexterity",
+      "StackType": "Flat",
+      "Amount": 15
+    },
+    {
+      "StatId": "hyforged:crit-chance-bps",
+      "StackType": "Flat",
+      "Amount": 500
+    }
   ]
 }

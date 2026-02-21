@@ -34,6 +34,11 @@
       "Type": "linear",
       "Source": "hyforged:wisdom",
       "Ratio": 2.0
+    },
+    {
+      "Type": "linear",
+      "Source": "hyforged:all-resistance-bps",
+      "Ratio": 1.0
     }
   ]
 }

@@ -6,8 +6,20 @@
     "StatusEffectIcon": "UI/StatusEffects/SpellBlock.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:block-spell-chance-bps", "StackType": "Flat", "Amount": 2000 },
-    { "StatId": "hyforged:suppression-chance-bps", "StackType": "Flat", "Amount": 1500 },
-    { "StatId": "hyforged:suppression-effect-bps", "StackType": "Increased", "Amount": 2500 }
+    {
+      "StatId": "hyforged:block-spell-chance-bps",
+      "StackType": "Flat",
+      "Amount": 2000
+    },
+    {
+      "StatId": "hyforged:suppression-chance-bps",
+      "StackType": "Flat",
+      "Amount": 1500
+    },
+    {
+      "StatId": "hyforged:suppression-effect-bps",
+      "StackType": "Increased",
+      "Amount": 2500
+    }
   ]
 }

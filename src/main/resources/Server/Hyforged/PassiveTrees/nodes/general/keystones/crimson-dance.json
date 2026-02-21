@@ -7,8 +7,14 @@
       "Description": "Bleeding can affect immune enemies\nBleeding deals damage faster",
       "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
-        { "Type": "unlock-flag", "FlagId": "hyforged:bleed-immunity-bypass" },
-        { "Type": "unlock-flag", "FlagId": "hyforged:bleed-faster" }
+        {
+          "Type": "unlock-flag",
+          "FlagId": "hyforged:bleed-immunity-bypass"
+        },
+        {
+          "Type": "unlock-flag",
+          "FlagId": "hyforged:bleed-faster"
+        }
       ]
     }
   ]

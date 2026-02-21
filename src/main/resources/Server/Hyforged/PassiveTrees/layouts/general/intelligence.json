@@ -1,328 +1,1546 @@
 {
   "TreeId": "hyforged:passive-tree-general",
   "Placements": [
-    { "NodeId": "hyforged:minor-spell-1", "Position": { "X": 40, "Y": 50 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-spell-01" },
-    { "NodeId": "hyforged:minor-mana-1", "Position": { "X": 70, "Y": 50 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-mana-01" },
-    { "NodeId": "hyforged:minor-elemental-1", "Position": { "X": 100, "Y": 50 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-elem-01" },
-
-    { "NodeId": "hyforged:minor-spell-1", "Position": { "X": 40, "Y": 100 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-spell-02" },
-    { "NodeId": "hyforged:minor-mana-1", "Position": { "X": 70, "Y": 100 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-mana-02" },
-    { "NodeId": "hyforged:minor-elemental-1", "Position": { "X": 100, "Y": 100 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-elem-02" },
-
-    { "NodeId": "hyforged:arcane-focus", "Position": { "X": 40, "Y": 150 }, "Region": "intelligence" },
-    { "NodeId": "hyforged:mana-flows", "Position": { "X": 70, "Y": 150 }, "Region": "intelligence" },
-    { "NodeId": "hyforged:elemental-fury", "Position": { "X": 100, "Y": 150 }, "Region": "intelligence" },
-
-    { "NodeId": "hyforged:minor-cast-speed-1", "Position": { "X": 40, "Y": 200 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-cast-01" },
-    { "NodeId": "hyforged:minor-mana-regen-1", "Position": { "X": 70, "Y": 200 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-regen-01" },
-    { "NodeId": "hyforged:minor-fire-1", "Position": { "X": 100, "Y": 200 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-fire-01" },
-
-    { "NodeId": "hyforged:minor-cast-speed-1", "Position": { "X": 40, "Y": 250 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-cast-02" },
-    { "NodeId": "hyforged:minor-mana-regen-1", "Position": { "X": 70, "Y": 250 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-regen-02" },
-    { "NodeId": "hyforged:minor-cold-1", "Position": { "X": 100, "Y": 250 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-cold-01" },
-
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 40, "Y": 300 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-t01" },
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 70, "Y": 300 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-t01" },
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 100, "Y": 300 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-t01" },
-
-    { "NodeId": "hyforged:minor-spell-1", "Position": { "X": 40, "Y": 350 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-spell-03" },
-    { "NodeId": "hyforged:minor-mana-1", "Position": { "X": 70, "Y": 350 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-mana-03" },
-    { "NodeId": "hyforged:minor-lightning-1", "Position": { "X": 100, "Y": 350 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-light-01" },
-
-    { "NodeId": "hyforged:minor-crit-1", "Position": { "X": 40, "Y": 400 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-crit-01" },
-    { "NodeId": "hyforged:minor-mana-1", "Position": { "X": 70, "Y": 400 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-mana-04" },
-    { "NodeId": "hyforged:minor-fire-1", "Position": { "X": 100, "Y": 400 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-fire-02" },
-
-    { "NodeId": "hyforged:quick-caster", "Position": { "X": 40, "Y": 450 }, "Region": "intelligence" },
-    { "NodeId": "hyforged:mana-well", "Position": { "X": 70, "Y": 450 }, "Region": "intelligence" },
-    { "NodeId": "hyforged:ignite-mastery", "Position": { "X": 100, "Y": 450 }, "Region": "intelligence" },
-
-    { "NodeId": "hyforged:minor-cast-speed-1", "Position": { "X": 40, "Y": 500 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-cast-03" },
-    { "NodeId": "hyforged:minor-mana-regen-1", "Position": { "X": 70, "Y": 500 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-regen-03" },
-    { "NodeId": "hyforged:minor-cold-1", "Position": { "X": 100, "Y": 500 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-cold-02" },
-
-    { "NodeId": "hyforged:minor-spell-1", "Position": { "X": 40, "Y": 550 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-spell-04" },
-    { "NodeId": "hyforged:minor-mana-1", "Position": { "X": 70, "Y": 550 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-mana-05" },
-    { "NodeId": "hyforged:minor-lightning-1", "Position": { "X": 100, "Y": 550 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-light-02" },
-
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 40, "Y": 600 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-t02" },
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 70, "Y": 600 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-t02" },
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 100, "Y": 600 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-t02" },
-
-    { "NodeId": "hyforged:pain-attunement", "Position": { "X": 40, "Y": 650 }, "Region": "intelligence" },
-    { "NodeId": "hyforged:minor-mana-regen-1", "Position": { "X": 70, "Y": 650 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-regen-04" },
-    { "NodeId": "hyforged:minor-elemental-1", "Position": { "X": 100, "Y": 650 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-elem-03" },
-
-    { "NodeId": "hyforged:minor-crit-1", "Position": { "X": 40, "Y": 700 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-crit-02" },
-    { "NodeId": "hyforged:minor-mana-1", "Position": { "X": 70, "Y": 700 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-mana-06" },
-    { "NodeId": "hyforged:minor-fire-1", "Position": { "X": 100, "Y": 700 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-fire-03" },
-
-    { "NodeId": "hyforged:minor-cast-speed-1", "Position": { "X": 40, "Y": 750 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-cast-04" },
-    { "NodeId": "hyforged:minor-mana-regen-1", "Position": { "X": 70, "Y": 750 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-regen-05" },
-    { "NodeId": "hyforged:minor-cold-1", "Position": { "X": 100, "Y": 750 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-cold-03" },
-
-    { "NodeId": "hyforged:spell-echo", "Position": { "X": 40, "Y": 800 }, "Region": "intelligence" },
-    { "NodeId": "hyforged:arcane-surge", "Position": { "X": 70, "Y": 800 }, "Region": "intelligence" },
-    { "NodeId": "hyforged:frost-mastery", "Position": { "X": 100, "Y": 800 }, "Region": "intelligence" },
-
-    { "NodeId": "hyforged:minor-spell-1", "Position": { "X": 40, "Y": 850 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-spell-05" },
-    { "NodeId": "hyforged:minor-mana-1", "Position": { "X": 70, "Y": 850 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-mana-07" },
-    { "NodeId": "hyforged:minor-lightning-1", "Position": { "X": 100, "Y": 850 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-light-03" },
-
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 40, "Y": 900 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-t03" },
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 70, "Y": 900 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-t03" },
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 100, "Y": 900 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-t03" },
-
-    { "NodeId": "hyforged:minor-crit-1", "Position": { "X": 40, "Y": 950 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-crit-03" },
-    { "NodeId": "hyforged:minor-mana-regen-1", "Position": { "X": 70, "Y": 950 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-regen-06" },
-    { "NodeId": "hyforged:minor-elemental-1", "Position": { "X": 100, "Y": 950 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-elem-04" },
-
-    { "NodeId": "hyforged:minor-cast-speed-1", "Position": { "X": 40, "Y": 1000 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-cast-05" },
-    { "NodeId": "hyforged:minor-mana-1", "Position": { "X": 70, "Y": 1000 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-mana-08" },
-    { "NodeId": "hyforged:minor-fire-1", "Position": { "X": 100, "Y": 1000 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-fire-04" },
-
-    { "NodeId": "hyforged:elemental-equilibrium", "Position": { "X": 40, "Y": 1050 }, "Region": "intelligence" },
-    { "NodeId": "hyforged:mind-over-matter", "Position": { "X": 70, "Y": 1050 }, "Region": "intelligence" },
-    { "NodeId": "hyforged:storm-caller", "Position": { "X": 100, "Y": 1050 }, "Region": "intelligence" },
-
-    { "NodeId": "hyforged:minor-spell-1", "Position": { "X": 40, "Y": 1100 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-spell-06" },
-    { "NodeId": "hyforged:minor-mana-regen-1", "Position": { "X": 70, "Y": 1100 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-regen-07" },
-    { "NodeId": "hyforged:minor-cold-1", "Position": { "X": 100, "Y": 1100 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-cold-04" },
-
-    { "NodeId": "hyforged:minor-crit-1", "Position": { "X": 40, "Y": 1150 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-crit-04" },
-    { "NodeId": "hyforged:minor-mana-1", "Position": { "X": 70, "Y": 1150 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-mana-09" },
-    { "NodeId": "hyforged:minor-lightning-1", "Position": { "X": 100, "Y": 1150 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-light-04" },
-
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 40, "Y": 1200 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-t04" },
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 70, "Y": 1200 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-t04" },
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 100, "Y": 1200 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-t04" },
-
-    { "NodeId": "hyforged:minor-cast-speed-1", "Position": { "X": 40, "Y": 1250 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-cast-06" },
-    { "NodeId": "hyforged:minor-mana-regen-1", "Position": { "X": 70, "Y": 1250 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-regen-08" },
-    { "NodeId": "hyforged:minor-elemental-1", "Position": { "X": 100, "Y": 1250 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-elem-05" },
-
-    { "NodeId": "hyforged:minor-spell-1", "Position": { "X": 40, "Y": 1300 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-spell-07" },
-    { "NodeId": "hyforged:minor-mana-1", "Position": { "X": 70, "Y": 1300 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-mana-10" },
-    { "NodeId": "hyforged:minor-fire-1", "Position": { "X": 100, "Y": 1300 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-fire-05" },
-
-    { "NodeId": "hyforged:arcane-potency", "Position": { "X": 40, "Y": 1350 }, "Region": "intelligence" },
-    { "NodeId": "hyforged:essence-siphon", "Position": { "X": 70, "Y": 1350 }, "Region": "intelligence" },
-    { "NodeId": "hyforged:inferno-mastery", "Position": { "X": 100, "Y": 1350 }, "Region": "intelligence" },
-
-    { "NodeId": "hyforged:minor-crit-1", "Position": { "X": 40, "Y": 1400 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-crit-05" },
-    { "NodeId": "hyforged:minor-mana-regen-1", "Position": { "X": 70, "Y": 1400 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-regen-09" },
-    { "NodeId": "hyforged:minor-cold-1", "Position": { "X": 100, "Y": 1400 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-cold-05" },
-
-    { "NodeId": "hyforged:minor-cast-speed-1", "Position": { "X": 40, "Y": 1450 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-cast-07" },
-    { "NodeId": "hyforged:minor-mana-1", "Position": { "X": 70, "Y": 1450 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-mana-11" },
-    { "NodeId": "hyforged:minor-lightning-1", "Position": { "X": 100, "Y": 1450 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-light-05" },
-
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 40, "Y": 1500 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-t05" },
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 70, "Y": 1500 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-t05" },
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 100, "Y": 1500 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-t05" },
-
-    { "NodeId": "hyforged:minor-spell-1", "Position": { "X": 40, "Y": 1550 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-spell-08" },
-    { "NodeId": "hyforged:minor-mana-regen-1", "Position": { "X": 70, "Y": 1550 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-regen-10" },
-    { "NodeId": "hyforged:minor-elemental-1", "Position": { "X": 100, "Y": 1550 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-elem-06" },
-
-    { "NodeId": "hyforged:minor-crit-1", "Position": { "X": 40, "Y": 1600 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-crit-06" },
-    { "NodeId": "hyforged:minor-mana-1", "Position": { "X": 70, "Y": 1600 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-mana-12" },
-    { "NodeId": "hyforged:minor-fire-1", "Position": { "X": 100, "Y": 1600 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-fire-06" },
-
-    { "NodeId": "hyforged:eldritch-battery", "Position": { "X": 40, "Y": 1650 }, "Region": "intelligence" },
-    { "NodeId": "hyforged:mana-shield", "Position": { "X": 70, "Y": 1650 }, "Region": "intelligence" },
-    { "NodeId": "hyforged:avatar-of-fire", "Position": { "X": 100, "Y": 1650 }, "Region": "intelligence" },
-
-    { "NodeId": "hyforged:minor-cast-speed-1", "Position": { "X": 40, "Y": 1700 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-cast-08" },
-    { "NodeId": "hyforged:minor-mana-regen-1", "Position": { "X": 70, "Y": 1700 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-regen-11" },
-    { "NodeId": "hyforged:minor-cold-1", "Position": { "X": 100, "Y": 1700 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-cold-06" },
-
-    { "NodeId": "hyforged:minor-spell-1", "Position": { "X": 40, "Y": 1750 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-spell-09" },
-    { "NodeId": "hyforged:minor-mana-1", "Position": { "X": 70, "Y": 1750 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-mana-13" },
-    { "NodeId": "hyforged:minor-lightning-1", "Position": { "X": 100, "Y": 1750 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-light-06" },
-
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 40, "Y": 1800 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-t06" },
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 70, "Y": 1800 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-t06" },
-    { "NodeId": "hyforged:travel-intelligence", "Position": { "X": 100, "Y": 1800 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-t06" },
-
-    { "NodeId": "hyforged:minor-crit-1", "Position": { "X": 40, "Y": 1850 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-crit-07" },
-    { "NodeId": "hyforged:minor-mana-regen-1", "Position": { "X": 70, "Y": 1850 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-regen-12" },
-    { "NodeId": "hyforged:minor-elemental-1", "Position": { "X": 100, "Y": 1850 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-elem-07" },
-
-    { "NodeId": "hyforged:minor-cast-speed-1", "Position": { "X": 40, "Y": 1900 }, "Region": "intelligence", "InstanceId": "hyforged:int-p1-cast-09" },
-    { "NodeId": "hyforged:minor-mana-1", "Position": { "X": 70, "Y": 1900 }, "Region": "intelligence", "InstanceId": "hyforged:int-p2-mana-14" },
-    { "NodeId": "hyforged:minor-fire-1", "Position": { "X": 100, "Y": 1900 }, "Region": "intelligence", "InstanceId": "hyforged:int-p3-fire-07" },
-
-    { "NodeId": "hyforged:archmage", "Position": { "X": 40, "Y": 1950 }, "Region": "intelligence" },
-    { "NodeId": "hyforged:eternal-essence", "Position": { "X": 70, "Y": 1950 }, "Region": "intelligence" },
-    { "NodeId": "hyforged:lightning-mastery", "Position": { "X": 100, "Y": 1950 }, "Region": "intelligence" }
+    {
+      "NodeId": "hyforged:minor-spell-1",
+      "Position": {
+        "X": 40,
+        "Y": 50
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-spell-01"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-1",
+      "Position": {
+        "X": 70,
+        "Y": 50
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-mana-01"
+    },
+    {
+      "NodeId": "hyforged:minor-elemental-1",
+      "Position": {
+        "X": 100,
+        "Y": 50
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-elem-01"
+    },
+    {
+      "NodeId": "hyforged:minor-spell-1",
+      "Position": {
+        "X": 40,
+        "Y": 100
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-spell-02"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-1",
+      "Position": {
+        "X": 70,
+        "Y": 100
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-mana-02"
+    },
+    {
+      "NodeId": "hyforged:minor-elemental-1",
+      "Position": {
+        "X": 100,
+        "Y": 100
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-elem-02"
+    },
+    {
+      "NodeId": "hyforged:arcane-focus",
+      "Position": {
+        "X": 40,
+        "Y": 150
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:mana-flows",
+      "Position": {
+        "X": 70,
+        "Y": 150
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:elemental-fury",
+      "Position": {
+        "X": 100,
+        "Y": 150
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:minor-cast-speed-1",
+      "Position": {
+        "X": 40,
+        "Y": 200
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-cast-01"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-regen-1",
+      "Position": {
+        "X": 70,
+        "Y": 200
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-regen-01"
+    },
+    {
+      "NodeId": "hyforged:minor-fire-1",
+      "Position": {
+        "X": 100,
+        "Y": 200
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-fire-01"
+    },
+    {
+      "NodeId": "hyforged:minor-cast-speed-1",
+      "Position": {
+        "X": 40,
+        "Y": 250
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-cast-02"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-regen-1",
+      "Position": {
+        "X": 70,
+        "Y": 250
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-regen-02"
+    },
+    {
+      "NodeId": "hyforged:minor-cold-1",
+      "Position": {
+        "X": 100,
+        "Y": 250
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-cold-01"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 40,
+        "Y": 300
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-t01"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 70,
+        "Y": 300
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-t01"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 100,
+        "Y": 300
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-t01"
+    },
+    {
+      "NodeId": "hyforged:minor-spell-1",
+      "Position": {
+        "X": 40,
+        "Y": 350
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-spell-03"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-1",
+      "Position": {
+        "X": 70,
+        "Y": 350
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-mana-03"
+    },
+    {
+      "NodeId": "hyforged:minor-lightning-1",
+      "Position": {
+        "X": 100,
+        "Y": 350
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-light-01"
+    },
+    {
+      "NodeId": "hyforged:minor-crit-1",
+      "Position": {
+        "X": 40,
+        "Y": 400
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-crit-01"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-1",
+      "Position": {
+        "X": 70,
+        "Y": 400
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-mana-04"
+    },
+    {
+      "NodeId": "hyforged:minor-fire-1",
+      "Position": {
+        "X": 100,
+        "Y": 400
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-fire-02"
+    },
+    {
+      "NodeId": "hyforged:quick-caster",
+      "Position": {
+        "X": 40,
+        "Y": 450
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:mana-well",
+      "Position": {
+        "X": 70,
+        "Y": 450
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:ignite-mastery",
+      "Position": {
+        "X": 100,
+        "Y": 450
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:minor-cast-speed-1",
+      "Position": {
+        "X": 40,
+        "Y": 500
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-cast-03"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-regen-1",
+      "Position": {
+        "X": 70,
+        "Y": 500
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-regen-03"
+    },
+    {
+      "NodeId": "hyforged:minor-cold-1",
+      "Position": {
+        "X": 100,
+        "Y": 500
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-cold-02"
+    },
+    {
+      "NodeId": "hyforged:minor-spell-1",
+      "Position": {
+        "X": 40,
+        "Y": 550
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-spell-04"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-1",
+      "Position": {
+        "X": 70,
+        "Y": 550
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-mana-05"
+    },
+    {
+      "NodeId": "hyforged:minor-lightning-1",
+      "Position": {
+        "X": 100,
+        "Y": 550
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-light-02"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 40,
+        "Y": 600
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-t02"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 70,
+        "Y": 600
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-t02"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 100,
+        "Y": 600
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-t02"
+    },
+    {
+      "NodeId": "hyforged:pain-attunement",
+      "Position": {
+        "X": 40,
+        "Y": 650
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-regen-1",
+      "Position": {
+        "X": 70,
+        "Y": 650
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-regen-04"
+    },
+    {
+      "NodeId": "hyforged:minor-elemental-1",
+      "Position": {
+        "X": 100,
+        "Y": 650
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-elem-03"
+    },
+    {
+      "NodeId": "hyforged:minor-crit-1",
+      "Position": {
+        "X": 40,
+        "Y": 700
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-crit-02"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-1",
+      "Position": {
+        "X": 70,
+        "Y": 700
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-mana-06"
+    },
+    {
+      "NodeId": "hyforged:minor-fire-1",
+      "Position": {
+        "X": 100,
+        "Y": 700
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-fire-03"
+    },
+    {
+      "NodeId": "hyforged:minor-cast-speed-1",
+      "Position": {
+        "X": 40,
+        "Y": 750
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-cast-04"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-regen-1",
+      "Position": {
+        "X": 70,
+        "Y": 750
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-regen-05"
+    },
+    {
+      "NodeId": "hyforged:minor-cold-1",
+      "Position": {
+        "X": 100,
+        "Y": 750
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-cold-03"
+    },
+    {
+      "NodeId": "hyforged:spell-echo",
+      "Position": {
+        "X": 40,
+        "Y": 800
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:arcane-surge",
+      "Position": {
+        "X": 70,
+        "Y": 800
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:frost-mastery",
+      "Position": {
+        "X": 100,
+        "Y": 800
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:minor-spell-1",
+      "Position": {
+        "X": 40,
+        "Y": 850
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-spell-05"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-1",
+      "Position": {
+        "X": 70,
+        "Y": 850
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-mana-07"
+    },
+    {
+      "NodeId": "hyforged:minor-lightning-1",
+      "Position": {
+        "X": 100,
+        "Y": 850
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-light-03"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 40,
+        "Y": 900
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-t03"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 70,
+        "Y": 900
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-t03"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 100,
+        "Y": 900
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-t03"
+    },
+    {
+      "NodeId": "hyforged:minor-crit-1",
+      "Position": {
+        "X": 40,
+        "Y": 950
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-crit-03"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-regen-1",
+      "Position": {
+        "X": 70,
+        "Y": 950
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-regen-06"
+    },
+    {
+      "NodeId": "hyforged:minor-elemental-1",
+      "Position": {
+        "X": 100,
+        "Y": 950
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-elem-04"
+    },
+    {
+      "NodeId": "hyforged:minor-cast-speed-1",
+      "Position": {
+        "X": 40,
+        "Y": 1000
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-cast-05"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-1",
+      "Position": {
+        "X": 70,
+        "Y": 1000
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-mana-08"
+    },
+    {
+      "NodeId": "hyforged:minor-fire-1",
+      "Position": {
+        "X": 100,
+        "Y": 1000
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-fire-04"
+    },
+    {
+      "NodeId": "hyforged:elemental-equilibrium",
+      "Position": {
+        "X": 40,
+        "Y": 1050
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:mind-over-matter",
+      "Position": {
+        "X": 70,
+        "Y": 1050
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:storm-caller",
+      "Position": {
+        "X": 100,
+        "Y": 1050
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:minor-spell-1",
+      "Position": {
+        "X": 40,
+        "Y": 1100
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-spell-06"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-regen-1",
+      "Position": {
+        "X": 70,
+        "Y": 1100
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-regen-07"
+    },
+    {
+      "NodeId": "hyforged:minor-cold-1",
+      "Position": {
+        "X": 100,
+        "Y": 1100
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-cold-04"
+    },
+    {
+      "NodeId": "hyforged:minor-crit-1",
+      "Position": {
+        "X": 40,
+        "Y": 1150
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-crit-04"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-1",
+      "Position": {
+        "X": 70,
+        "Y": 1150
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-mana-09"
+    },
+    {
+      "NodeId": "hyforged:minor-lightning-1",
+      "Position": {
+        "X": 100,
+        "Y": 1150
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-light-04"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 40,
+        "Y": 1200
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-t04"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 70,
+        "Y": 1200
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-t04"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 100,
+        "Y": 1200
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-t04"
+    },
+    {
+      "NodeId": "hyforged:minor-cast-speed-1",
+      "Position": {
+        "X": 40,
+        "Y": 1250
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-cast-06"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-regen-1",
+      "Position": {
+        "X": 70,
+        "Y": 1250
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-regen-08"
+    },
+    {
+      "NodeId": "hyforged:minor-elemental-1",
+      "Position": {
+        "X": 100,
+        "Y": 1250
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-elem-05"
+    },
+    {
+      "NodeId": "hyforged:minor-spell-1",
+      "Position": {
+        "X": 40,
+        "Y": 1300
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-spell-07"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-1",
+      "Position": {
+        "X": 70,
+        "Y": 1300
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-mana-10"
+    },
+    {
+      "NodeId": "hyforged:minor-fire-1",
+      "Position": {
+        "X": 100,
+        "Y": 1300
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-fire-05"
+    },
+    {
+      "NodeId": "hyforged:arcane-potency",
+      "Position": {
+        "X": 40,
+        "Y": 1350
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:essence-siphon",
+      "Position": {
+        "X": 70,
+        "Y": 1350
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:inferno-mastery",
+      "Position": {
+        "X": 100,
+        "Y": 1350
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:minor-crit-1",
+      "Position": {
+        "X": 40,
+        "Y": 1400
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-crit-05"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-regen-1",
+      "Position": {
+        "X": 70,
+        "Y": 1400
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-regen-09"
+    },
+    {
+      "NodeId": "hyforged:minor-cold-1",
+      "Position": {
+        "X": 100,
+        "Y": 1400
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-cold-05"
+    },
+    {
+      "NodeId": "hyforged:minor-cast-speed-1",
+      "Position": {
+        "X": 40,
+        "Y": 1450
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-cast-07"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-1",
+      "Position": {
+        "X": 70,
+        "Y": 1450
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-mana-11"
+    },
+    {
+      "NodeId": "hyforged:minor-lightning-1",
+      "Position": {
+        "X": 100,
+        "Y": 1450
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-light-05"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 40,
+        "Y": 1500
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-t05"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 70,
+        "Y": 1500
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-t05"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 100,
+        "Y": 1500
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-t05"
+    },
+    {
+      "NodeId": "hyforged:minor-spell-1",
+      "Position": {
+        "X": 40,
+        "Y": 1550
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-spell-08"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-regen-1",
+      "Position": {
+        "X": 70,
+        "Y": 1550
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-regen-10"
+    },
+    {
+      "NodeId": "hyforged:minor-elemental-1",
+      "Position": {
+        "X": 100,
+        "Y": 1550
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-elem-06"
+    },
+    {
+      "NodeId": "hyforged:minor-crit-1",
+      "Position": {
+        "X": 40,
+        "Y": 1600
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-crit-06"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-1",
+      "Position": {
+        "X": 70,
+        "Y": 1600
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-mana-12"
+    },
+    {
+      "NodeId": "hyforged:minor-fire-1",
+      "Position": {
+        "X": 100,
+        "Y": 1600
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-fire-06"
+    },
+    {
+      "NodeId": "hyforged:eldritch-battery",
+      "Position": {
+        "X": 40,
+        "Y": 1650
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:mana-shield",
+      "Position": {
+        "X": 70,
+        "Y": 1650
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:avatar-of-fire",
+      "Position": {
+        "X": 100,
+        "Y": 1650
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:minor-cast-speed-1",
+      "Position": {
+        "X": 40,
+        "Y": 1700
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-cast-08"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-regen-1",
+      "Position": {
+        "X": 70,
+        "Y": 1700
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-regen-11"
+    },
+    {
+      "NodeId": "hyforged:minor-cold-1",
+      "Position": {
+        "X": 100,
+        "Y": 1700
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-cold-06"
+    },
+    {
+      "NodeId": "hyforged:minor-spell-1",
+      "Position": {
+        "X": 40,
+        "Y": 1750
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-spell-09"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-1",
+      "Position": {
+        "X": 70,
+        "Y": 1750
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-mana-13"
+    },
+    {
+      "NodeId": "hyforged:minor-lightning-1",
+      "Position": {
+        "X": 100,
+        "Y": 1750
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-light-06"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 40,
+        "Y": 1800
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-t06"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 70,
+        "Y": 1800
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-t06"
+    },
+    {
+      "NodeId": "hyforged:travel-intelligence",
+      "Position": {
+        "X": 100,
+        "Y": 1800
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-t06"
+    },
+    {
+      "NodeId": "hyforged:minor-crit-1",
+      "Position": {
+        "X": 40,
+        "Y": 1850
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-crit-07"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-regen-1",
+      "Position": {
+        "X": 70,
+        "Y": 1850
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-regen-12"
+    },
+    {
+      "NodeId": "hyforged:minor-elemental-1",
+      "Position": {
+        "X": 100,
+        "Y": 1850
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-elem-07"
+    },
+    {
+      "NodeId": "hyforged:minor-cast-speed-1",
+      "Position": {
+        "X": 40,
+        "Y": 1900
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p1-cast-09"
+    },
+    {
+      "NodeId": "hyforged:minor-mana-1",
+      "Position": {
+        "X": 70,
+        "Y": 1900
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p2-mana-14"
+    },
+    {
+      "NodeId": "hyforged:minor-fire-1",
+      "Position": {
+        "X": 100,
+        "Y": 1900
+      },
+      "Region": "intelligence",
+      "InstanceId": "hyforged:int-p3-fire-07"
+    },
+    {
+      "NodeId": "hyforged:archmage",
+      "Position": {
+        "X": 40,
+        "Y": 1950
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:eternal-essence",
+      "Position": {
+        "X": 70,
+        "Y": 1950
+      },
+      "Region": "intelligence"
+    },
+    {
+      "NodeId": "hyforged:lightning-mastery",
+      "Position": {
+        "X": 100,
+        "Y": 1950
+      },
+      "Region": "intelligence"
+    }
   ],
   "Connections": [
-    { "From": "hyforged:start-intelligence", "To": "hyforged:int-p1-spell-01" },
-    { "From": "hyforged:start-intelligence", "To": "hyforged:int-p2-mana-01" },
-    { "From": "hyforged:start-intelligence", "To": "hyforged:int-p3-elem-01" },
-
-    { "From": "hyforged:int-p1-spell-01", "To": "hyforged:int-p1-spell-02" },
-    { "From": "hyforged:int-p2-mana-01", "To": "hyforged:int-p2-mana-02" },
-    { "From": "hyforged:int-p3-elem-01", "To": "hyforged:int-p3-elem-02" },
-
-    { "From": "hyforged:int-p1-spell-02", "To": "hyforged:arcane-focus" },
-    { "From": "hyforged:int-p2-mana-02", "To": "hyforged:mana-flows" },
-    { "From": "hyforged:int-p3-elem-02", "To": "hyforged:elemental-fury" },
-
-    { "From": "hyforged:arcane-focus", "To": "hyforged:int-p1-cast-01" },
-    { "From": "hyforged:mana-flows", "To": "hyforged:int-p2-regen-01" },
-    { "From": "hyforged:elemental-fury", "To": "hyforged:int-p3-fire-01" },
-
-    { "From": "hyforged:int-p1-cast-01", "To": "hyforged:int-p1-cast-02" },
-    { "From": "hyforged:int-p2-regen-01", "To": "hyforged:int-p2-regen-02" },
-    { "From": "hyforged:int-p3-fire-01", "To": "hyforged:int-p3-cold-01" },
-
-    { "From": "hyforged:int-p1-cast-02", "To": "hyforged:int-p1-t01" },
-    { "From": "hyforged:int-p2-regen-02", "To": "hyforged:int-p2-t01" },
-    { "From": "hyforged:int-p3-cold-01", "To": "hyforged:int-p3-t01" },
-
-    { "From": "hyforged:int-p1-t01", "To": "hyforged:int-p1-spell-03" },
-    { "From": "hyforged:int-p2-t01", "To": "hyforged:int-p2-mana-03" },
-    { "From": "hyforged:int-p3-t01", "To": "hyforged:int-p3-light-01" },
-
-    { "From": "hyforged:int-p1-spell-03", "To": "hyforged:int-p1-crit-01" },
-    { "From": "hyforged:int-p2-mana-03", "To": "hyforged:int-p2-mana-04" },
-    { "From": "hyforged:int-p3-light-01", "To": "hyforged:int-p3-fire-02" },
-
-    { "From": "hyforged:int-p1-crit-01", "To": "hyforged:quick-caster" },
-    { "From": "hyforged:int-p2-mana-04", "To": "hyforged:mana-well" },
-    { "From": "hyforged:int-p3-fire-02", "To": "hyforged:ignite-mastery" },
-
-    { "From": "hyforged:quick-caster", "To": "hyforged:int-p1-cast-03" },
-    { "From": "hyforged:mana-well", "To": "hyforged:int-p2-regen-03" },
-    { "From": "hyforged:ignite-mastery", "To": "hyforged:int-p3-cold-02" },
-
-    { "From": "hyforged:int-p1-cast-03", "To": "hyforged:int-p1-spell-04" },
-    { "From": "hyforged:int-p2-regen-03", "To": "hyforged:int-p2-mana-05" },
-    { "From": "hyforged:int-p3-cold-02", "To": "hyforged:int-p3-light-02" },
-
-    { "From": "hyforged:int-p1-spell-04", "To": "hyforged:int-p1-t02" },
-    { "From": "hyforged:int-p2-mana-05", "To": "hyforged:int-p2-t02" },
-    { "From": "hyforged:int-p3-light-02", "To": "hyforged:int-p3-t02" },
-
-    { "From": "hyforged:int-p1-t02", "To": "hyforged:pain-attunement" },
-    { "From": "hyforged:int-p2-t02", "To": "hyforged:int-p2-regen-04" },
-    { "From": "hyforged:int-p3-t02", "To": "hyforged:int-p3-elem-03" },
-
-    { "From": "hyforged:pain-attunement", "To": "hyforged:int-p1-crit-02" },
-    { "From": "hyforged:int-p2-regen-04", "To": "hyforged:int-p2-mana-06" },
-    { "From": "hyforged:int-p3-elem-03", "To": "hyforged:int-p3-fire-03" },
-
-    { "From": "hyforged:int-p1-crit-02", "To": "hyforged:int-p1-cast-04" },
-    { "From": "hyforged:int-p2-mana-06", "To": "hyforged:int-p2-regen-05" },
-    { "From": "hyforged:int-p3-fire-03", "To": "hyforged:int-p3-cold-03" },
-
-    { "From": "hyforged:int-p1-cast-04", "To": "hyforged:spell-echo" },
-    { "From": "hyforged:int-p2-regen-05", "To": "hyforged:arcane-surge" },
-    { "From": "hyforged:int-p3-cold-03", "To": "hyforged:frost-mastery" },
-
-    { "From": "hyforged:spell-echo", "To": "hyforged:int-p1-spell-05" },
-    { "From": "hyforged:arcane-surge", "To": "hyforged:int-p2-mana-07" },
-    { "From": "hyforged:frost-mastery", "To": "hyforged:int-p3-light-03" },
-
-    { "From": "hyforged:int-p1-spell-05", "To": "hyforged:int-p1-t03" },
-    { "From": "hyforged:int-p2-mana-07", "To": "hyforged:int-p2-t03" },
-    { "From": "hyforged:int-p3-light-03", "To": "hyforged:int-p3-t03" },
-
-    { "From": "hyforged:int-p1-t03", "To": "hyforged:int-p1-crit-03" },
-    { "From": "hyforged:int-p2-t03", "To": "hyforged:int-p2-regen-06" },
-    { "From": "hyforged:int-p3-t03", "To": "hyforged:int-p3-elem-04" },
-
-    { "From": "hyforged:int-p1-crit-03", "To": "hyforged:int-p1-cast-05" },
-    { "From": "hyforged:int-p2-regen-06", "To": "hyforged:int-p2-mana-08" },
-    { "From": "hyforged:int-p3-elem-04", "To": "hyforged:int-p3-fire-04" },
-
-    { "From": "hyforged:int-p1-cast-05", "To": "hyforged:elemental-equilibrium" },
-    { "From": "hyforged:int-p2-mana-08", "To": "hyforged:mind-over-matter" },
-    { "From": "hyforged:int-p3-fire-04", "To": "hyforged:storm-caller" },
-
-    { "From": "hyforged:elemental-equilibrium", "To": "hyforged:int-p1-spell-06" },
-    { "From": "hyforged:mind-over-matter", "To": "hyforged:int-p2-regen-07" },
-    { "From": "hyforged:storm-caller", "To": "hyforged:int-p3-cold-04" },
-
-    { "From": "hyforged:int-p1-spell-06", "To": "hyforged:int-p1-crit-04" },
-    { "From": "hyforged:int-p2-regen-07", "To": "hyforged:int-p2-mana-09" },
-    { "From": "hyforged:int-p3-cold-04", "To": "hyforged:int-p3-light-04" },
-
-    { "From": "hyforged:int-p1-crit-04", "To": "hyforged:int-p1-t04" },
-    { "From": "hyforged:int-p2-mana-09", "To": "hyforged:int-p2-t04" },
-    { "From": "hyforged:int-p3-light-04", "To": "hyforged:int-p3-t04" },
-
-    { "From": "hyforged:int-p1-t04", "To": "hyforged:int-p1-cast-06" },
-    { "From": "hyforged:int-p2-t04", "To": "hyforged:int-p2-regen-08" },
-    { "From": "hyforged:int-p3-t04", "To": "hyforged:int-p3-elem-05" },
-
-    { "From": "hyforged:int-p1-cast-06", "To": "hyforged:int-p1-spell-07" },
-    { "From": "hyforged:int-p2-regen-08", "To": "hyforged:int-p2-mana-10" },
-    { "From": "hyforged:int-p3-elem-05", "To": "hyforged:int-p3-fire-05" },
-
-    { "From": "hyforged:int-p1-spell-07", "To": "hyforged:arcane-potency" },
-    { "From": "hyforged:int-p2-mana-10", "To": "hyforged:essence-siphon" },
-    { "From": "hyforged:int-p3-fire-05", "To": "hyforged:inferno-mastery" },
-
-    { "From": "hyforged:arcane-potency", "To": "hyforged:int-p1-crit-05" },
-    { "From": "hyforged:essence-siphon", "To": "hyforged:int-p2-regen-09" },
-    { "From": "hyforged:inferno-mastery", "To": "hyforged:int-p3-cold-05" },
-
-    { "From": "hyforged:int-p1-crit-05", "To": "hyforged:int-p1-cast-07" },
-    { "From": "hyforged:int-p2-regen-09", "To": "hyforged:int-p2-mana-11" },
-    { "From": "hyforged:int-p3-cold-05", "To": "hyforged:int-p3-light-05" },
-
-    { "From": "hyforged:int-p1-cast-07", "To": "hyforged:int-p1-t05" },
-    { "From": "hyforged:int-p2-mana-11", "To": "hyforged:int-p2-t05" },
-    { "From": "hyforged:int-p3-light-05", "To": "hyforged:int-p3-t05" },
-
-    { "From": "hyforged:int-p1-t05", "To": "hyforged:int-p1-spell-08" },
-    { "From": "hyforged:int-p2-t05", "To": "hyforged:int-p2-regen-10" },
-    { "From": "hyforged:int-p3-t05", "To": "hyforged:int-p3-elem-06" },
-
-    { "From": "hyforged:int-p1-spell-08", "To": "hyforged:int-p1-crit-06" },
-    { "From": "hyforged:int-p2-regen-10", "To": "hyforged:int-p2-mana-12" },
-    { "From": "hyforged:int-p3-elem-06", "To": "hyforged:int-p3-fire-06" },
-
-    { "From": "hyforged:int-p1-crit-06", "To": "hyforged:eldritch-battery" },
-    { "From": "hyforged:int-p2-mana-12", "To": "hyforged:mana-shield" },
-    { "From": "hyforged:int-p3-fire-06", "To": "hyforged:avatar-of-fire" },
-
-    { "From": "hyforged:eldritch-battery", "To": "hyforged:int-p1-cast-08" },
-    { "From": "hyforged:mana-shield", "To": "hyforged:int-p2-regen-11" },
-    { "From": "hyforged:avatar-of-fire", "To": "hyforged:int-p3-cold-06" },
-
-    { "From": "hyforged:int-p1-cast-08", "To": "hyforged:int-p1-spell-09" },
-    { "From": "hyforged:int-p2-regen-11", "To": "hyforged:int-p2-mana-13" },
-    { "From": "hyforged:int-p3-cold-06", "To": "hyforged:int-p3-light-06" },
-
-    { "From": "hyforged:int-p1-spell-09", "To": "hyforged:int-p1-t06" },
-    { "From": "hyforged:int-p2-mana-13", "To": "hyforged:int-p2-t06" },
-    { "From": "hyforged:int-p3-light-06", "To": "hyforged:int-p3-t06" },
-
-    { "From": "hyforged:int-p1-t06", "To": "hyforged:int-p1-crit-07" },
-    { "From": "hyforged:int-p2-t06", "To": "hyforged:int-p2-regen-12" },
-    { "From": "hyforged:int-p3-t06", "To": "hyforged:int-p3-elem-07" },
-
-    { "From": "hyforged:int-p1-crit-07", "To": "hyforged:int-p1-cast-09" },
-    { "From": "hyforged:int-p2-regen-12", "To": "hyforged:int-p2-mana-14" },
-    { "From": "hyforged:int-p3-elem-07", "To": "hyforged:int-p3-fire-07" },
-
-    { "From": "hyforged:int-p1-cast-09", "To": "hyforged:archmage" },
-    { "From": "hyforged:int-p2-mana-14", "To": "hyforged:eternal-essence" },
-    { "From": "hyforged:int-p3-fire-07", "To": "hyforged:lightning-mastery" },
-
-    { "From": "hyforged:arcane-focus", "To": "hyforged:mana-flows" },
-    { "From": "hyforged:int-p1-t01", "To": "hyforged:int-p2-t01" },
-    { "From": "hyforged:int-p2-t02", "To": "hyforged:int-p3-t02" },
-    { "From": "hyforged:int-p1-t03", "To": "hyforged:int-p2-t03" },
-    { "From": "hyforged:elemental-equilibrium", "To": "hyforged:mind-over-matter" },
-    { "From": "hyforged:int-p2-t04", "To": "hyforged:int-p3-t04" },
-    { "From": "hyforged:int-p1-t05", "To": "hyforged:int-p2-t05" },
-    { "From": "hyforged:eldritch-battery", "To": "hyforged:mana-shield" },
-    { "From": "hyforged:mana-shield", "To": "hyforged:avatar-of-fire" },
-    { "From": "hyforged:archmage", "To": "hyforged:eternal-essence" }
+    {
+      "From": "hyforged:start-intelligence",
+      "To": "hyforged:int-p1-spell-01"
+    },
+    {
+      "From": "hyforged:start-intelligence",
+      "To": "hyforged:int-p2-mana-01"
+    },
+    {
+      "From": "hyforged:start-intelligence",
+      "To": "hyforged:int-p3-elem-01"
+    },
+    {
+      "From": "hyforged:int-p1-spell-01",
+      "To": "hyforged:int-p1-spell-02"
+    },
+    {
+      "From": "hyforged:int-p2-mana-01",
+      "To": "hyforged:int-p2-mana-02"
+    },
+    {
+      "From": "hyforged:int-p3-elem-01",
+      "To": "hyforged:int-p3-elem-02"
+    },
+    {
+      "From": "hyforged:int-p1-spell-02",
+      "To": "hyforged:arcane-focus"
+    },
+    {
+      "From": "hyforged:int-p2-mana-02",
+      "To": "hyforged:mana-flows"
+    },
+    {
+      "From": "hyforged:int-p3-elem-02",
+      "To": "hyforged:elemental-fury"
+    },
+    {
+      "From": "hyforged:arcane-focus",
+      "To": "hyforged:int-p1-cast-01"
+    },
+    {
+      "From": "hyforged:mana-flows",
+      "To": "hyforged:int-p2-regen-01"
+    },
+    {
+      "From": "hyforged:elemental-fury",
+      "To": "hyforged:int-p3-fire-01"
+    },
+    {
+      "From": "hyforged:int-p1-cast-01",
+      "To": "hyforged:int-p1-cast-02"
+    },
+    {
+      "From": "hyforged:int-p2-regen-01",
+      "To": "hyforged:int-p2-regen-02"
+    },
+    {
+      "From": "hyforged:int-p3-fire-01",
+      "To": "hyforged:int-p3-cold-01"
+    },
+    {
+      "From": "hyforged:int-p1-cast-02",
+      "To": "hyforged:int-p1-t01"
+    },
+    {
+      "From": "hyforged:int-p2-regen-02",
+      "To": "hyforged:int-p2-t01"
+    },
+    {
+      "From": "hyforged:int-p3-cold-01",
+      "To": "hyforged:int-p3-t01"
+    },
+    {
+      "From": "hyforged:int-p1-t01",
+      "To": "hyforged:int-p1-spell-03"
+    },
+    {
+      "From": "hyforged:int-p2-t01",
+      "To": "hyforged:int-p2-mana-03"
+    },
+    {
+      "From": "hyforged:int-p3-t01",
+      "To": "hyforged:int-p3-light-01"
+    },
+    {
+      "From": "hyforged:int-p1-spell-03",
+      "To": "hyforged:int-p1-crit-01"
+    },
+    {
+      "From": "hyforged:int-p2-mana-03",
+      "To": "hyforged:int-p2-mana-04"
+    },
+    {
+      "From": "hyforged:int-p3-light-01",
+      "To": "hyforged:int-p3-fire-02"
+    },
+    {
+      "From": "hyforged:int-p1-crit-01",
+      "To": "hyforged:quick-caster"
+    },
+    {
+      "From": "hyforged:int-p2-mana-04",
+      "To": "hyforged:mana-well"
+    },
+    {
+      "From": "hyforged:int-p3-fire-02",
+      "To": "hyforged:ignite-mastery"
+    },
+    {
+      "From": "hyforged:quick-caster",
+      "To": "hyforged:int-p1-cast-03"
+    },
+    {
+      "From": "hyforged:mana-well",
+      "To": "hyforged:int-p2-regen-03"
+    },
+    {
+      "From": "hyforged:ignite-mastery",
+      "To": "hyforged:int-p3-cold-02"
+    },
+    {
+      "From": "hyforged:int-p1-cast-03",
+      "To": "hyforged:int-p1-spell-04"
+    },
+    {
+      "From": "hyforged:int-p2-regen-03",
+      "To": "hyforged:int-p2-mana-05"
+    },
+    {
+      "From": "hyforged:int-p3-cold-02",
+      "To": "hyforged:int-p3-light-02"
+    },
+    {
+      "From": "hyforged:int-p1-spell-04",
+      "To": "hyforged:int-p1-t02"
+    },
+    {
+      "From": "hyforged:int-p2-mana-05",
+      "To": "hyforged:int-p2-t02"
+    },
+    {
+      "From": "hyforged:int-p3-light-02",
+      "To": "hyforged:int-p3-t02"
+    },
+    {
+      "From": "hyforged:int-p1-t02",
+      "To": "hyforged:pain-attunement"
+    },
+    {
+      "From": "hyforged:int-p2-t02",
+      "To": "hyforged:int-p2-regen-04"
+    },
+    {
+      "From": "hyforged:int-p3-t02",
+      "To": "hyforged:int-p3-elem-03"
+    },
+    {
+      "From": "hyforged:pain-attunement",
+      "To": "hyforged:int-p1-crit-02"
+    },
+    {
+      "From": "hyforged:int-p2-regen-04",
+      "To": "hyforged:int-p2-mana-06"
+    },
+    {
+      "From": "hyforged:int-p3-elem-03",
+      "To": "hyforged:int-p3-fire-03"
+    },
+    {
+      "From": "hyforged:int-p1-crit-02",
+      "To": "hyforged:int-p1-cast-04"
+    },
+    {
+      "From": "hyforged:int-p2-mana-06",
+      "To": "hyforged:int-p2-regen-05"
+    },
+    {
+      "From": "hyforged:int-p3-fire-03",
+      "To": "hyforged:int-p3-cold-03"
+    },
+    {
+      "From": "hyforged:int-p1-cast-04",
+      "To": "hyforged:spell-echo"
+    },
+    {
+      "From": "hyforged:int-p2-regen-05",
+      "To": "hyforged:arcane-surge"
+    },
+    {
+      "From": "hyforged:int-p3-cold-03",
+      "To": "hyforged:frost-mastery"
+    },
+    {
+      "From": "hyforged:spell-echo",
+      "To": "hyforged:int-p1-spell-05"
+    },
+    {
+      "From": "hyforged:arcane-surge",
+      "To": "hyforged:int-p2-mana-07"
+    },
+    {
+      "From": "hyforged:frost-mastery",
+      "To": "hyforged:int-p3-light-03"
+    },
+    {
+      "From": "hyforged:int-p1-spell-05",
+      "To": "hyforged:int-p1-t03"
+    },
+    {
+      "From": "hyforged:int-p2-mana-07",
+      "To": "hyforged:int-p2-t03"
+    },
+    {
+      "From": "hyforged:int-p3-light-03",
+      "To": "hyforged:int-p3-t03"
+    },
+    {
+      "From": "hyforged:int-p1-t03",
+      "To": "hyforged:int-p1-crit-03"
+    },
+    {
+      "From": "hyforged:int-p2-t03",
+      "To": "hyforged:int-p2-regen-06"
+    },
+    {
+      "From": "hyforged:int-p3-t03",
+      "To": "hyforged:int-p3-elem-04"
+    },
+    {
+      "From": "hyforged:int-p1-crit-03",
+      "To": "hyforged:int-p1-cast-05"
+    },
+    {
+      "From": "hyforged:int-p2-regen-06",
+      "To": "hyforged:int-p2-mana-08"
+    },
+    {
+      "From": "hyforged:int-p3-elem-04",
+      "To": "hyforged:int-p3-fire-04"
+    },
+    {
+      "From": "hyforged:int-p1-cast-05",
+      "To": "hyforged:elemental-equilibrium"
+    },
+    {
+      "From": "hyforged:int-p2-mana-08",
+      "To": "hyforged:mind-over-matter"
+    },
+    {
+      "From": "hyforged:int-p3-fire-04",
+      "To": "hyforged:storm-caller"
+    },
+    {
+      "From": "hyforged:elemental-equilibrium",
+      "To": "hyforged:int-p1-spell-06"
+    },
+    {
+      "From": "hyforged:mind-over-matter",
+      "To": "hyforged:int-p2-regen-07"
+    },
+    {
+      "From": "hyforged:storm-caller",
+      "To": "hyforged:int-p3-cold-04"
+    },
+    {
+      "From": "hyforged:int-p1-spell-06",
+      "To": "hyforged:int-p1-crit-04"
+    },
+    {
+      "From": "hyforged:int-p2-regen-07",
+      "To": "hyforged:int-p2-mana-09"
+    },
+    {
+      "From": "hyforged:int-p3-cold-04",
+      "To": "hyforged:int-p3-light-04"
+    },
+    {
+      "From": "hyforged:int-p1-crit-04",
+      "To": "hyforged:int-p1-t04"
+    },
+    {
+      "From": "hyforged:int-p2-mana-09",
+      "To": "hyforged:int-p2-t04"
+    },
+    {
+      "From": "hyforged:int-p3-light-04",
+      "To": "hyforged:int-p3-t04"
+    },
+    {
+      "From": "hyforged:int-p1-t04",
+      "To": "hyforged:int-p1-cast-06"
+    },
+    {
+      "From": "hyforged:int-p2-t04",
+      "To": "hyforged:int-p2-regen-08"
+    },
+    {
+      "From": "hyforged:int-p3-t04",
+      "To": "hyforged:int-p3-elem-05"
+    },
+    {
+      "From": "hyforged:int-p1-cast-06",
+      "To": "hyforged:int-p1-spell-07"
+    },
+    {
+      "From": "hyforged:int-p2-regen-08",
+      "To": "hyforged:int-p2-mana-10"
+    },
+    {
+      "From": "hyforged:int-p3-elem-05",
+      "To": "hyforged:int-p3-fire-05"
+    },
+    {
+      "From": "hyforged:int-p1-spell-07",
+      "To": "hyforged:arcane-potency"
+    },
+    {
+      "From": "hyforged:int-p2-mana-10",
+      "To": "hyforged:essence-siphon"
+    },
+    {
+      "From": "hyforged:int-p3-fire-05",
+      "To": "hyforged:inferno-mastery"
+    },
+    {
+      "From": "hyforged:arcane-potency",
+      "To": "hyforged:int-p1-crit-05"
+    },
+    {
+      "From": "hyforged:essence-siphon",
+      "To": "hyforged:int-p2-regen-09"
+    },
+    {
+      "From": "hyforged:inferno-mastery",
+      "To": "hyforged:int-p3-cold-05"
+    },
+    {
+      "From": "hyforged:int-p1-crit-05",
+      "To": "hyforged:int-p1-cast-07"
+    },
+    {
+      "From": "hyforged:int-p2-regen-09",
+      "To": "hyforged:int-p2-mana-11"
+    },
+    {
+      "From": "hyforged:int-p3-cold-05",
+      "To": "hyforged:int-p3-light-05"
+    },
+    {
+      "From": "hyforged:int-p1-cast-07",
+      "To": "hyforged:int-p1-t05"
+    },
+    {
+      "From": "hyforged:int-p2-mana-11",
+      "To": "hyforged:int-p2-t05"
+    },
+    {
+      "From": "hyforged:int-p3-light-05",
+      "To": "hyforged:int-p3-t05"
+    },
+    {
+      "From": "hyforged:int-p1-t05",
+      "To": "hyforged:int-p1-spell-08"
+    },
+    {
+      "From": "hyforged:int-p2-t05",
+      "To": "hyforged:int-p2-regen-10"
+    },
+    {
+      "From": "hyforged:int-p3-t05",
+      "To": "hyforged:int-p3-elem-06"
+    },
+    {
+      "From": "hyforged:int-p1-spell-08",
+      "To": "hyforged:int-p1-crit-06"
+    },
+    {
+      "From": "hyforged:int-p2-regen-10",
+      "To": "hyforged:int-p2-mana-12"
+    },
+    {
+      "From": "hyforged:int-p3-elem-06",
+      "To": "hyforged:int-p3-fire-06"
+    },
+    {
+      "From": "hyforged:int-p1-crit-06",
+      "To": "hyforged:eldritch-battery"
+    },
+    {
+      "From": "hyforged:int-p2-mana-12",
+      "To": "hyforged:mana-shield"
+    },
+    {
+      "From": "hyforged:int-p3-fire-06",
+      "To": "hyforged:avatar-of-fire"
+    },
+    {
+      "From": "hyforged:eldritch-battery",
+      "To": "hyforged:int-p1-cast-08"
+    },
+    {
+      "From": "hyforged:mana-shield",
+      "To": "hyforged:int-p2-regen-11"
+    },
+    {
+      "From": "hyforged:avatar-of-fire",
+      "To": "hyforged:int-p3-cold-06"
+    },
+    {
+      "From": "hyforged:int-p1-cast-08",
+      "To": "hyforged:int-p1-spell-09"
+    },
+    {
+      "From": "hyforged:int-p2-regen-11",
+      "To": "hyforged:int-p2-mana-13"
+    },
+    {
+      "From": "hyforged:int-p3-cold-06",
+      "To": "hyforged:int-p3-light-06"
+    },
+    {
+      "From": "hyforged:int-p1-spell-09",
+      "To": "hyforged:int-p1-t06"
+    },
+    {
+      "From": "hyforged:int-p2-mana-13",
+      "To": "hyforged:int-p2-t06"
+    },
+    {
+      "From": "hyforged:int-p3-light-06",
+      "To": "hyforged:int-p3-t06"
+    },
+    {
+      "From": "hyforged:int-p1-t06",
+      "To": "hyforged:int-p1-crit-07"
+    },
+    {
+      "From": "hyforged:int-p2-t06",
+      "To": "hyforged:int-p2-regen-12"
+    },
+    {
+      "From": "hyforged:int-p3-t06",
+      "To": "hyforged:int-p3-elem-07"
+    },
+    {
+      "From": "hyforged:int-p1-crit-07",
+      "To": "hyforged:int-p1-cast-09"
+    },
+    {
+      "From": "hyforged:int-p2-regen-12",
+      "To": "hyforged:int-p2-mana-14"
+    },
+    {
+      "From": "hyforged:int-p3-elem-07",
+      "To": "hyforged:int-p3-fire-07"
+    },
+    {
+      "From": "hyforged:int-p1-cast-09",
+      "To": "hyforged:archmage"
+    },
+    {
+      "From": "hyforged:int-p2-mana-14",
+      "To": "hyforged:eternal-essence"
+    },
+    {
+      "From": "hyforged:int-p3-fire-07",
+      "To": "hyforged:lightning-mastery"
+    },
+    {
+      "From": "hyforged:arcane-focus",
+      "To": "hyforged:mana-flows"
+    },
+    {
+      "From": "hyforged:int-p1-t01",
+      "To": "hyforged:int-p2-t01"
+    },
+    {
+      "From": "hyforged:int-p2-t02",
+      "To": "hyforged:int-p3-t02"
+    },
+    {
+      "From": "hyforged:int-p1-t03",
+      "To": "hyforged:int-p2-t03"
+    },
+    {
+      "From": "hyforged:elemental-equilibrium",
+      "To": "hyforged:mind-over-matter"
+    },
+    {
+      "From": "hyforged:int-p2-t04",
+      "To": "hyforged:int-p3-t04"
+    },
+    {
+      "From": "hyforged:int-p1-t05",
+      "To": "hyforged:int-p2-t05"
+    },
+    {
+      "From": "hyforged:eldritch-battery",
+      "To": "hyforged:mana-shield"
+    },
+    {
+      "From": "hyforged:mana-shield",
+      "To": "hyforged:avatar-of-fire"
+    },
+    {
+      "From": "hyforged:archmage",
+      "To": "hyforged:eternal-essence"
+    }
   ]
 }

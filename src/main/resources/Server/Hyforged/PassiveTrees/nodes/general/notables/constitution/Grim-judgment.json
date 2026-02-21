@@ -7,9 +7,21 @@
       "Description": "+5% Chaos Damage\n+3% Critical Strike Chance\n+3% Culling Strike Threshold",
       "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:chaos-damage-increased-bps", "Value": 500 },
-        { "Type": "stat-modifier", "Stat": "hyforged:crit-chance-bps", "Value": 300 },
-        { "Type": "stat-modifier", "Stat": "hyforged:culling-strike-threshold-bps", "Value": 300 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:chaos-damage-increased-bps",
+          "Value": 500
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:crit-chance-bps",
+          "Value": 300
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:culling-strike-threshold-bps",
+          "Value": 300
+        }
       ]
     }
   ]

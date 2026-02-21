@@ -6,8 +6,20 @@
     "StatusEffectIcon": "UI/StatusEffects/Fatigue.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:max-stamina-flat", "StackType": "Increased", "Amount": -2500 },
-    { "StatId": "hyforged:stamina-regen-flat", "StackType": "Increased", "Amount": -4000 },
-    { "StatId": "hyforged:stamina-cost-bps", "StackType": "Increased", "Amount": 3000 }
+    {
+      "StatId": "hyforged:max-stamina-flat",
+      "StackType": "Increased",
+      "Amount": -2500
+    },
+    {
+      "StatId": "hyforged:stamina-regen-flat",
+      "StackType": "Increased",
+      "Amount": -4000
+    },
+    {
+      "StatId": "hyforged:stamina-cost-bps",
+      "StackType": "Increased",
+      "Amount": 3000
+    }
   ]
 }

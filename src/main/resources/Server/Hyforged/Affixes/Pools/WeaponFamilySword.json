@@ -3,7 +3,9 @@
     "Description": "Sword-family weapon affix pool",
     "AppliesTo": {
         "Categories": [],
-        "Tags": ["Family=Sword"]
+        "Tags": [
+            "Family=Sword"
+        ]
     },
     "Prefixes": [
         "hyforged:brutish",

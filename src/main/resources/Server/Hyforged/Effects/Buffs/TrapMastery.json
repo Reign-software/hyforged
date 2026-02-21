@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Trap.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:max-traps", "StackType": "Flat", "Amount": 3 },
-    { "StatId": "hyforged:cooldown-recovery-rate-bps", "StackType": "Increased", "Amount": 2000 }
+    {
+      "StatId": "hyforged:max-traps",
+      "StackType": "Flat",
+      "Amount": 3
+    },
+    {
+      "StatId": "hyforged:cooldown-recovery-rate-bps",
+      "StackType": "Increased",
+      "Amount": 2000
+    }
   ]
 }

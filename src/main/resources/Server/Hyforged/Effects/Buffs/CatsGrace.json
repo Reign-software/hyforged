@@ -6,6 +6,10 @@
     "StatusEffectIcon": "UI/StatusEffects/Dexterity.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:dexterity", "StackType": "Flat", "Amount": 15 }
+    {
+      "StatId": "hyforged:dexterity",
+      "StackType": "Flat",
+      "Amount": 15
+    }
   ]
 }

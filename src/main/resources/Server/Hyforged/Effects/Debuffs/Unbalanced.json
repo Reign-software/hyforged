@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Unbalanced.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:knockback-resistance-bps", "StackType": "Flat", "Amount": -5000 },
-    { "StatId": "hyforged:block-mitigation-bps", "StackType": "Increased", "Amount": -2500 }
+    {
+      "StatId": "hyforged:knockback-resistance-bps",
+      "StackType": "Flat",
+      "Amount": -5000
+    },
+    {
+      "StatId": "hyforged:block-mitigation-bps",
+      "StackType": "Increased",
+      "Amount": -2500
+    }
   ]
 }

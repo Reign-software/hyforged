@@ -10,7 +10,11 @@
       "ItemLevelReq": 1,
       "Weight": 100,
       "Stats": {
-        "hyforged:block-chance-bps": { "MinValue": 180, "MaxValue": 320, "StackType": "Flat" }
+        "hyforged:block-chance-bps": {
+          "MinValue": 180,
+          "MaxValue": 320,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -18,7 +22,11 @@
       "ItemLevelReq": 25,
       "Weight": 80,
       "Stats": {
-        "hyforged:block-chance-bps": { "MinValue": 320, "MaxValue": 600, "StackType": "Flat" }
+        "hyforged:block-chance-bps": {
+          "MinValue": 320,
+          "MaxValue": 600,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -26,7 +34,11 @@
       "ItemLevelReq": 50,
       "Weight": 60,
       "Stats": {
-        "hyforged:block-chance-bps": { "MinValue": 600, "MaxValue": 1000, "StackType": "Flat" }
+        "hyforged:block-chance-bps": {
+          "MinValue": 600,
+          "MaxValue": 1000,
+          "StackType": "Flat"
+        }
       }
     }
   ]

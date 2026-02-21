@@ -6,7 +6,11 @@
       "Name": "Expanded Reach",
       "Description": "+2% Area of Effect",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:area-of-effect-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:area-of-effect-bps",
+          "Value": 200
+        }
       ]
     }
   ]

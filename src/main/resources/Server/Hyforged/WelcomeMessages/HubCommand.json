@@ -2,8 +2,17 @@
   "Order": 1,
   "Enabled": true,
   "Segments": [
-    { "Text": "  /hyforged hub", "Color": "#55FF55" },
-    { "Text": " — ", "Color": "#555555" },
-    { "TranslationKey": "hyforged.welcome.hubCommand", "Color": "#AAAAAA" }
+    {
+      "Text": "  /hyforged hub",
+      "Color": "#55FF55"
+    },
+    {
+      "Text": " — ",
+      "Color": "#555555"
+    },
+    {
+      "TranslationKey": "hyforged.welcome.hubCommand",
+      "Color": "#AAAAAA"
+    }
   ]
 }

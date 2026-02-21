@@ -7,7 +7,9 @@
   "MinValue": 0,
   "MaxValue": 2147483647,
   "Tags": {
-    "Resource": ["rage"],
+    "Resource": [
+      "rage"
+    ],
     "Domain": [
       "resource"
     ],

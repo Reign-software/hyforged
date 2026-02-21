@@ -4,10 +4,65 @@
   "DisplayName": "of Repulsion",
   "Weight": 52,
   "Tiers": [
-    { "Tier": 1, "ItemLevelReq": 55, "Weight": 45, "Stats": { "hyforged:knockback-chance-bps": { "MinValue": 2000, "MaxValue": 2600, "StackType": "Increased" } } },
-    { "Tier": 2, "ItemLevelReq": 40, "Weight": 65, "Stats": { "hyforged:knockback-chance-bps": { "MinValue": 1400, "MaxValue": 2000, "StackType": "Increased" } } },
-    { "Tier": 3, "ItemLevelReq": 26, "Weight": 85, "Stats": { "hyforged:knockback-chance-bps": { "MinValue": 800, "MaxValue": 1400, "StackType": "Increased" } } },
-    { "Tier": 4, "ItemLevelReq": 12, "Weight": 108, "Stats": { "hyforged:knockback-chance-bps": { "MinValue": 300, "MaxValue": 800, "StackType": "Increased" } } },
-    { "Tier": 5, "ItemLevelReq": 1, "Weight": 130, "Stats": { "hyforged:knockback-chance-bps": { "MinValue": 80, "MaxValue": 300, "StackType": "Increased" } } }
+    {
+      "Tier": 1,
+      "ItemLevelReq": 55,
+      "Weight": 45,
+      "Stats": {
+        "hyforged:knockback-chance-bps": {
+          "MinValue": 2000,
+          "MaxValue": 2600,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 2,
+      "ItemLevelReq": 40,
+      "Weight": 65,
+      "Stats": {
+        "hyforged:knockback-chance-bps": {
+          "MinValue": 1400,
+          "MaxValue": 2000,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 3,
+      "ItemLevelReq": 26,
+      "Weight": 85,
+      "Stats": {
+        "hyforged:knockback-chance-bps": {
+          "MinValue": 800,
+          "MaxValue": 1400,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 4,
+      "ItemLevelReq": 12,
+      "Weight": 108,
+      "Stats": {
+        "hyforged:knockback-chance-bps": {
+          "MinValue": 300,
+          "MaxValue": 800,
+          "StackType": "Increased"
+        }
+      }
+    },
+    {
+      "Tier": 5,
+      "ItemLevelReq": 1,
+      "Weight": 130,
+      "Stats": {
+        "hyforged:knockback-chance-bps": {
+          "MinValue": 80,
+          "MaxValue": 300,
+          "StackType": "Increased"
+        }
+      }
+    }
   ]
 }

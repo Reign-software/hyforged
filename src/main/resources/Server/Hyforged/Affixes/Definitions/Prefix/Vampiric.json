@@ -9,7 +9,11 @@
       "ItemLevelReq": 60,
       "Weight": 40,
       "Stats": {
-        "hyforged:life-on-hit-flat": { "MinValue": 18, "MaxValue": 25, "StackType": "Flat" }
+        "hyforged:life-on-hit-flat": {
+          "MinValue": 18,
+          "MaxValue": 25,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 44,
       "Weight": 58,
       "Stats": {
-        "hyforged:life-on-hit-flat": { "MinValue": 12, "MaxValue": 18, "StackType": "Flat" }
+        "hyforged:life-on-hit-flat": {
+          "MinValue": 12,
+          "MaxValue": 18,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 28,
       "Weight": 78,
       "Stats": {
-        "hyforged:life-on-hit-flat": { "MinValue": 7, "MaxValue": 12, "StackType": "Flat" }
+        "hyforged:life-on-hit-flat": {
+          "MinValue": 7,
+          "MaxValue": 12,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 14,
       "Weight": 100,
       "Stats": {
-        "hyforged:life-on-hit-flat": { "MinValue": 3, "MaxValue": 7, "StackType": "Flat" }
+        "hyforged:life-on-hit-flat": {
+          "MinValue": 3,
+          "MaxValue": 7,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 1,
       "Weight": 120,
       "Stats": {
-        "hyforged:life-on-hit-flat": { "MinValue": 1, "MaxValue": 3, "StackType": "Flat" }
+        "hyforged:life-on-hit-flat": {
+          "MinValue": 1,
+          "MaxValue": 3,
+          "StackType": "Flat"
+        }
       }
     }
   ]

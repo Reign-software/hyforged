@@ -6,7 +6,11 @@
       "Name": "Mana Siphon",
       "Description": "+1 Mana on Hit",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:mana-on-hit-flat", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:mana-on-hit-flat",
+          "Value": 1
+        }
       ]
     }
   ]

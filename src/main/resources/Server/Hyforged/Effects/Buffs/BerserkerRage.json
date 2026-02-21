@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Rage.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:attack-damage-increased-bps", "StackType": "More", "Amount": 4000 },
-    { "StatId": "hyforged:damage-taken-bps", "StackType": "Increased", "Amount": 1500 }
+    {
+      "StatId": "hyforged:attack-damage-increased-bps",
+      "StackType": "More",
+      "Amount": 4000
+    },
+    {
+      "StatId": "hyforged:damage-taken-bps",
+      "StackType": "Increased",
+      "Amount": 1500
+    }
   ]
 }

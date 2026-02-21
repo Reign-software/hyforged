@@ -20,9 +20,12 @@
   ],
   "TriggeredEffects": [
     {
-      "Trigger": { "Type": "on_hit", "Chance": 3500 },
-      "Effect": { 
-        "Type": "spawn_projectile", 
+      "Trigger": {
+        "Type": "on_hit",
+        "Chance": 3500
+      },
+      "Effect": {
+        "Type": "spawn_projectile",
         "ProjectileId": "Hyforged/ArcaneBolt",
         "Count": 3,
         "Pattern": "spread",

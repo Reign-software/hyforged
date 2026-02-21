@@ -9,7 +9,11 @@
       "ItemLevelReq": 60,
       "Weight": 40,
       "Stats": {
-        "hyforged:lightning-damage-increased-bps": { "MinValue": 3500, "MaxValue": 4500, "StackType": "Increased" }
+        "hyforged:lightning-damage-increased-bps": {
+          "MinValue": 3500,
+          "MaxValue": 4500,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 45,
       "Weight": 60,
       "Stats": {
-        "hyforged:lightning-damage-increased-bps": { "MinValue": 2500, "MaxValue": 3500, "StackType": "Increased" }
+        "hyforged:lightning-damage-increased-bps": {
+          "MinValue": 2500,
+          "MaxValue": 3500,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 30,
       "Weight": 80,
       "Stats": {
-        "hyforged:lightning-damage-increased-bps": { "MinValue": 1500, "MaxValue": 2500, "StackType": "Increased" }
+        "hyforged:lightning-damage-increased-bps": {
+          "MinValue": 1500,
+          "MaxValue": 2500,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 15,
       "Weight": 100,
       "Stats": {
-        "hyforged:lightning-damage-increased-bps": { "MinValue": 800, "MaxValue": 1500, "StackType": "Increased" }
+        "hyforged:lightning-damage-increased-bps": {
+          "MinValue": 800,
+          "MaxValue": 1500,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 1,
       "Weight": 120,
       "Stats": {
-        "hyforged:lightning-damage-increased-bps": { "MinValue": 300, "MaxValue": 800, "StackType": "Increased" }
+        "hyforged:lightning-damage-increased-bps": {
+          "MinValue": 300,
+          "MaxValue": 800,
+          "StackType": "Increased"
+        }
       }
     }
   ]

@@ -7,7 +7,10 @@
       "Description": "Life Leech is instant\nLife Regeneration has no effect",
       "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
-        { "Type": "unlock-flag", "FlagId": "hyforged:vaal-pact" }
+        {
+          "Type": "unlock-flag",
+          "FlagId": "hyforged:vaal-pact"
+        }
       ]
     }
   ]

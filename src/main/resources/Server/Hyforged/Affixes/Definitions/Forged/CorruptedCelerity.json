@@ -9,7 +9,11 @@
       "ItemLevelReq": 78,
       "Weight": 35,
       "Stats": {
-        "hyforged:cast-speed-bps": { "MinValue": 3000, "MaxValue": 4000, "StackType": "Increased" }
+        "hyforged:cast-speed-bps": {
+          "MinValue": 3000,
+          "MaxValue": 4000,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 58,
       "Weight": 65,
       "Stats": {
-        "hyforged:cast-speed-bps": { "MinValue": 2000, "MaxValue": 3000, "StackType": "Increased" }
+        "hyforged:cast-speed-bps": {
+          "MinValue": 2000,
+          "MaxValue": 3000,
+          "StackType": "Increased"
+        }
       }
     }
   ]

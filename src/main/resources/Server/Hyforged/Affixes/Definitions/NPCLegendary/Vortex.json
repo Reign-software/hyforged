@@ -10,14 +10,21 @@
       "ItemLevelReq": 35,
       "Weight": 100,
       "Stats": {
-        "hyforged:max-health-flat": { "MinValue": 1500, "MaxValue": 2500, "StackType": "More" }
+        "hyforged:max-health-flat": {
+          "MinValue": 1500,
+          "MaxValue": 2500,
+          "StackType": "More"
+        }
       }
     }
   ],
   "TriggeredEffects": [
     {
-      "Trigger": { "Type": "interval", "IntervalSeconds": 10.0 },
-      "Effect": { 
+      "Trigger": {
+        "Type": "interval",
+        "IntervalSeconds": 10.0
+      },
+      "Effect": {
         "Type": "run_interaction",
         "InteractionId": "hyforged:vortex_pull",
         "Radius": 12,

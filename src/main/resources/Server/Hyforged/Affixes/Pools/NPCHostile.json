@@ -2,13 +2,16 @@
   "Priority": 100,
   "Description": "Affix pool for all hostile NPCs",
   "AppliesTo": {
-    "Categories": ["Entities.NPC"],
-    "Tags": ["Type:NPC"]
+    "Categories": [
+      "Entities.NPC"
+    ],
+    "Tags": [
+      "Type:NPC"
+    ]
   },
   "Affixes": {
     "npc": [
       "hyforged:npc_tough",
-      "hyforged:npc_mighty",
       "hyforged:npc_swift",
       "hyforged:npc_armored",
       "hyforged:npc_fireproof",
@@ -35,7 +38,6 @@
       "hyforged:npc_reflective",
       "hyforged:npc_teleporting",
       "hyforged:npc_knockback",
-      "hyforged:npc_rallying",
       "hyforged:npc_shielding",
       "hyforged:npc_poisonous",
       "hyforged:npc_blinding",

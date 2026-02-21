@@ -7,8 +7,16 @@
       "Description": "+5% Reservation Efficiency\n+3 Mana on Hit",
       "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:reservation-efficiency-bps", "Value": 500 },
-        { "Type": "stat-modifier", "Stat": "hyforged:mana-on-hit-flat", "Value": 3 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:reservation-efficiency-bps",
+          "Value": 500
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:mana-on-hit-flat",
+          "Value": 3
+        }
       ]
     }
   ]

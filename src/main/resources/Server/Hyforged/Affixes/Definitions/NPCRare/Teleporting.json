@@ -10,8 +10,16 @@
       "ItemLevelReq": 25,
       "Weight": 100,
       "Stats": {
-        "hyforged:teleport-cooldown-flat": { "MinValue": 8, "MaxValue": 12, "StackType": "Flat" },
-        "hyforged:teleport-range-flat": { "MinValue": 5, "MaxValue": 8, "StackType": "Flat" }
+        "hyforged:teleport-cooldown-flat": {
+          "MinValue": 8,
+          "MaxValue": 12,
+          "StackType": "Flat"
+        },
+        "hyforged:teleport-range-flat": {
+          "MinValue": 5,
+          "MaxValue": 8,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -19,8 +27,16 @@
       "ItemLevelReq": 50,
       "Weight": 60,
       "Stats": {
-        "hyforged:teleport-cooldown-flat": { "MinValue": 5, "MaxValue": 8, "StackType": "Flat" },
-        "hyforged:teleport-range-flat": { "MinValue": 8, "MaxValue": 12, "StackType": "Flat" }
+        "hyforged:teleport-cooldown-flat": {
+          "MinValue": 5,
+          "MaxValue": 8,
+          "StackType": "Flat"
+        },
+        "hyforged:teleport-range-flat": {
+          "MinValue": 8,
+          "MaxValue": 12,
+          "StackType": "Flat"
+        }
       }
     }
   ]

@@ -6,6 +6,10 @@
     "StatusEffectIcon": "UI/StatusEffects/Concentration.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:concentration-regen-rate-bps", "StackType": "Increased", "Amount": 2500 }
+    {
+      "StatId": "hyforged:concentration-regen-rate-bps",
+      "StackType": "Increased",
+      "Amount": 2500
+    }
   ]
 }

@@ -3,12 +3,17 @@
   "Description": "Default quality rolling for armor",
   "WeightProfileId": "Default",
   "AppliesTo": {
-    "Categories": ["Items.Armor"],
+    "Categories": [
+      "Items.Armor"
+    ],
     "Tags": [],
     "ItemIds": []
   },
   "Excludes": {
-    "Tags": ["Unique", "Quest"],
+    "Tags": [
+      "Unique",
+      "Quest"
+    ],
     "ItemIds": []
   },
   "SourceFilter": {

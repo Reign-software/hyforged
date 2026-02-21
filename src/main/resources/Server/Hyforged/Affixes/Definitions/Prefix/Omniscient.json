@@ -9,7 +9,11 @@
       "ItemLevelReq": 72,
       "Weight": 25,
       "Stats": {
-        "hyforged:all-skill-levels": { "MinValue": 2, "MaxValue": 3, "StackType": "Flat" }
+        "hyforged:all-skill-levels": {
+          "MinValue": 2,
+          "MaxValue": 3,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 50,
       "Weight": 45,
       "Stats": {
-        "hyforged:all-skill-levels": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" }
+        "hyforged:all-skill-levels": {
+          "MinValue": 1,
+          "MaxValue": 2,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 1,
       "Weight": 75,
       "Stats": {
-        "hyforged:all-skill-levels": { "MinValue": 1, "MaxValue": 1, "StackType": "Flat" }
+        "hyforged:all-skill-levels": {
+          "MinValue": 1,
+          "MaxValue": 1,
+          "StackType": "Flat"
+        }
       }
     }
   ]

@@ -4,7 +4,14 @@
   "ConcentrationCost": 15,
   "DefaultPriority": 5,
   "BaseDuration": 60,
-  "SpawnOffset": { "X": 1.5, "Y": 0.0, "Z": 1.5 },
-  "Tags": ["nature", "ranged"],
+  "SpawnOffset": {
+    "X": 1.5,
+    "Y": 0.0,
+    "Z": 1.5
+  },
+  "Tags": [
+    "nature",
+    "ranged"
+  ],
   "StatOverrides": {}
 }

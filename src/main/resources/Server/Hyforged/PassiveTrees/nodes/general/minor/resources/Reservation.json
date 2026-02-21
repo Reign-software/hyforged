@@ -6,7 +6,11 @@
       "Name": "Reserved Focus",
       "Description": "+2% Reservation Efficiency",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:reservation-efficiency-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:reservation-efficiency-bps",
+          "Value": 200
+        }
       ]
     }
   ]

@@ -10,9 +10,21 @@
       "ItemLevelReq": 40,
       "Weight": 100,
       "Stats": {
-        "hyforged:crit-chance-bps": { "MinValue": 1200, "MaxValue": 2200, "StackType": "Flat" },
-        "hyforged:crit-multiplier-bps": { "MinValue": 2500, "MaxValue": 4000, "StackType": "More" },
-        "hyforged:life-leech-bps": { "MinValue": 1200, "MaxValue": 2000, "StackType": "Flat" }
+        "hyforged:crit-chance-bps": {
+          "MinValue": 1200,
+          "MaxValue": 2200,
+          "StackType": "Flat"
+        },
+        "hyforged:crit-multiplier-bps": {
+          "MinValue": 2500,
+          "MaxValue": 4000,
+          "StackType": "More"
+        },
+        "hyforged:life-leech-bps": {
+          "MinValue": 1200,
+          "MaxValue": 2000,
+          "StackType": "Flat"
+        }
       }
     }
   ]

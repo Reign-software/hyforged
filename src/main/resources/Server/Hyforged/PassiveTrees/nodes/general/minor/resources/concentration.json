@@ -6,8 +6,16 @@
       "Name": "Focused Mind",
       "Description": "+2 Concentration\n+2% Concentration Regen Rate",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:concentration", "Value": 2 },
-        { "Type": "stat-modifier", "Stat": "hyforged:concentration-regen-rate-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:concentration",
+          "Value": 2
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:concentration-regen-rate-bps",
+          "Value": 200
+        }
       ]
     }
   ]

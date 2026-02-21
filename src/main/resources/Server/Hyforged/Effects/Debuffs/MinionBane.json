@@ -6,8 +6,20 @@
     "StatusEffectIcon": "UI/StatusEffects/MinionBane.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:minion-damage-bps", "StackType": "Increased", "Amount": -4000 },
-    { "StatId": "hyforged:minion-life-bps", "StackType": "Increased", "Amount": -3000 },
-    { "StatId": "hyforged:minion-speed-bps", "StackType": "Increased", "Amount": -2500 }
+    {
+      "StatId": "hyforged:minion-damage-bps",
+      "StackType": "Increased",
+      "Amount": -4000
+    },
+    {
+      "StatId": "hyforged:minion-life-bps",
+      "StackType": "Increased",
+      "Amount": -3000
+    },
+    {
+      "StatId": "hyforged:minion-speed-bps",
+      "StackType": "Increased",
+      "Amount": -2500
+    }
   ]
 }

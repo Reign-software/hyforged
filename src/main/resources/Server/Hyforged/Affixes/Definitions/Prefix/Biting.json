@@ -9,7 +9,11 @@
       "ItemLevelReq": 60,
       "Weight": 38,
       "Stats": {
-        "hyforged:cold-penetration-bps": { "MinValue": 1400, "MaxValue": 1800, "StackType": "Flat" }
+        "hyforged:cold-penetration-bps": {
+          "MinValue": 1400,
+          "MaxValue": 1800,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 44,
       "Weight": 55,
       "Stats": {
-        "hyforged:cold-penetration-bps": { "MinValue": 900, "MaxValue": 1400, "StackType": "Flat" }
+        "hyforged:cold-penetration-bps": {
+          "MinValue": 900,
+          "MaxValue": 1400,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 28,
       "Weight": 75,
       "Stats": {
-        "hyforged:cold-penetration-bps": { "MinValue": 500, "MaxValue": 900, "StackType": "Flat" }
+        "hyforged:cold-penetration-bps": {
+          "MinValue": 500,
+          "MaxValue": 900,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 14,
       "Weight": 95,
       "Stats": {
-        "hyforged:cold-penetration-bps": { "MinValue": 200, "MaxValue": 500, "StackType": "Flat" }
+        "hyforged:cold-penetration-bps": {
+          "MinValue": 200,
+          "MaxValue": 500,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 1,
       "Weight": 115,
       "Stats": {
-        "hyforged:cold-penetration-bps": { "MinValue": 50, "MaxValue": 200, "StackType": "Flat" }
+        "hyforged:cold-penetration-bps": {
+          "MinValue": 50,
+          "MaxValue": 200,
+          "StackType": "Flat"
+        }
       }
     }
   ]

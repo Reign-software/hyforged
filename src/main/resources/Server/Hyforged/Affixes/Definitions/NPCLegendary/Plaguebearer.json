@@ -10,14 +10,21 @@
       "ItemLevelReq": 45,
       "Weight": 100,
       "Stats": {
-        "hyforged:poison-resistance-bps": { "MinValue": 5000, "MaxValue": 7500, "StackType": "More" }
+        "hyforged:poison-resistance-bps": {
+          "MinValue": 5000,
+          "MaxValue": 7500,
+          "StackType": "More"
+        }
       }
     }
   ],
   "TriggeredEffects": [
     {
-      "Trigger": { "Type": "on_hit", "Chance": 2000 },
-      "Effect": { 
+      "Trigger": {
+        "Type": "on_hit",
+        "Chance": 2000
+      },
+      "Effect": {
         "Type": "apply_effect",
         "EffectId": "Hyforged/Entity/Effects/Status/SpreadingPlague",
         "Duration": 10.0,

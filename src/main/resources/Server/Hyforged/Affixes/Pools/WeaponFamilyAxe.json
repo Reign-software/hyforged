@@ -3,7 +3,9 @@
     "Description": "Axe-family weapon affix pool",
     "AppliesTo": {
         "Categories": [],
-        "Tags": ["Family=Axe"]
+        "Tags": [
+            "Family=Axe"
+        ]
     },
     "Prefixes": [
         "hyforged:brutish",

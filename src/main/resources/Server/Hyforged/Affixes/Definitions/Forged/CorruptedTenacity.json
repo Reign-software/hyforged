@@ -9,9 +9,21 @@
       "ItemLevelReq": 75,
       "Weight": 30,
       "Stats": {
-        "hyforged:constitution": { "MinValue": 60, "MaxValue": 75, "StackType": "Flat" },
-        "hyforged:life-leech-bps": { "MinValue": 120, "MaxValue": 170, "StackType": "Flat" },
-        "hyforged:physical-resistance-bps": { "MinValue": 1800, "MaxValue": 2600, "StackType": "Flat" }
+        "hyforged:constitution": {
+          "MinValue": 60,
+          "MaxValue": 75,
+          "StackType": "Flat"
+        },
+        "hyforged:life-leech-bps": {
+          "MinValue": 120,
+          "MaxValue": 170,
+          "StackType": "Flat"
+        },
+        "hyforged:physical-resistance-bps": {
+          "MinValue": 1800,
+          "MaxValue": 2600,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -19,9 +31,21 @@
       "ItemLevelReq": 55,
       "Weight": 55,
       "Stats": {
-        "hyforged:constitution": { "MinValue": 45, "MaxValue": 60, "StackType": "Flat" },
-        "hyforged:life-leech-bps": { "MinValue": 70, "MaxValue": 120, "StackType": "Flat" },
-        "hyforged:physical-resistance-bps": { "MinValue": 1200, "MaxValue": 1800, "StackType": "Flat" }
+        "hyforged:constitution": {
+          "MinValue": 45,
+          "MaxValue": 60,
+          "StackType": "Flat"
+        },
+        "hyforged:life-leech-bps": {
+          "MinValue": 70,
+          "MaxValue": 120,
+          "StackType": "Flat"
+        },
+        "hyforged:physical-resistance-bps": {
+          "MinValue": 1200,
+          "MaxValue": 1800,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -29,9 +53,21 @@
       "ItemLevelReq": 35,
       "Weight": 80,
       "Stats": {
-        "hyforged:constitution": { "MinValue": 30, "MaxValue": 45, "StackType": "Flat" },
-        "hyforged:life-leech-bps": { "MinValue": 35, "MaxValue": 70, "StackType": "Flat" },
-        "hyforged:physical-resistance-bps": { "MinValue": 700, "MaxValue": 1200, "StackType": "Flat" }
+        "hyforged:constitution": {
+          "MinValue": 30,
+          "MaxValue": 45,
+          "StackType": "Flat"
+        },
+        "hyforged:life-leech-bps": {
+          "MinValue": 35,
+          "MaxValue": 70,
+          "StackType": "Flat"
+        },
+        "hyforged:physical-resistance-bps": {
+          "MinValue": 700,
+          "MaxValue": 1200,
+          "StackType": "Flat"
+        }
       }
     }
   ]

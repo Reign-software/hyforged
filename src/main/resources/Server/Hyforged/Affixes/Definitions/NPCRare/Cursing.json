@@ -20,9 +20,12 @@
   ],
   "TriggeredEffects": [
     {
-      "Trigger": { "Type": "on_hit", "Chance": 2500 },
-      "Effect": { 
-        "Type": "apply_effect", 
+      "Trigger": {
+        "Type": "on_hit",
+        "Chance": 2500
+      },
+      "Effect": {
+        "Type": "apply_effect",
         "EffectId": "hyforged:curse_of_weakness",
         "Duration": 8.0,
         "StatModifiers": {

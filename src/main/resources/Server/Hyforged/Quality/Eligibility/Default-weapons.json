@@ -3,12 +3,17 @@
   "Description": "Default quality rolling for weapons",
   "WeightProfileId": "Default",
   "AppliesTo": {
-    "Categories": ["Items.Weapons"],
+    "Categories": [
+      "Items.Weapons"
+    ],
     "Tags": [],
     "ItemIds": []
   },
   "Excludes": {
-    "Tags": ["Unique", "Quest"],
+    "Tags": [
+      "Unique",
+      "Quest"
+    ],
     "ItemIds": []
   },
   "SourceFilter": {

@@ -1,331 +1,1558 @@
 {
   "TreeId": "hyforged:passive-tree-general",
   "Placements": [
-    { "NodeId": "hyforged:minor-regen-1", "Position": { "X": 180, "Y": 50 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-regen-01" },
-    { "NodeId": "hyforged:minor-concentration-1", "Position": { "X": 210, "Y": 50 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-conc-01" },
-    { "NodeId": "hyforged:minor-resistance-1", "Position": { "X": 240, "Y": 50 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-resist-01" },
-
-    { "NodeId": "hyforged:minor-regen-1", "Position": { "X": 180, "Y": 100 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-regen-02" },
-    { "NodeId": "hyforged:minor-concentration-1", "Position": { "X": 210, "Y": 100 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-conc-02" },
-    { "NodeId": "hyforged:minor-resistance-1", "Position": { "X": 240, "Y": 100 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-resist-02" },
-
-    { "NodeId": "hyforged:vitality", "Position": { "X": 180, "Y": 150 }, "Region": "wisdom" },
-    { "NodeId": "hyforged:focused-mind", "Position": { "X": 210, "Y": 150 }, "Region": "wisdom" },
-    { "NodeId": "hyforged:elemental-ward", "Position": { "X": 240, "Y": 150 }, "Region": "wisdom" },
-
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": 180, "Y": 200 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-health-01" },
-    { "NodeId": "hyforged:minor-cooldown-1", "Position": { "X": 210, "Y": 200 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-cd-01" },
-    { "NodeId": "hyforged:minor-fire-resist-1", "Position": { "X": 240, "Y": 200 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-fire-01" },
-
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": 180, "Y": 250 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-health-02" },
-    { "NodeId": "hyforged:minor-cooldown-1", "Position": { "X": 210, "Y": 250 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-cd-02" },
-    { "NodeId": "hyforged:minor-cold-resist-1", "Position": { "X": 240, "Y": 250 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-cold-01" },
-
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 180, "Y": 300 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-t01" },
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 210, "Y": 300 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-t01" },
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 240, "Y": 300 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-t01" },
-
-    { "NodeId": "hyforged:minor-regen-1", "Position": { "X": 180, "Y": 350 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-regen-03" },
-    { "NodeId": "hyforged:minor-concentration-1", "Position": { "X": 210, "Y": 350 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-conc-03" },
-    { "NodeId": "hyforged:minor-lightning-resist-1", "Position": { "X": 240, "Y": 350 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-light-01" },
-
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": 180, "Y": 400 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-health-03" },
-    { "NodeId": "hyforged:minor-aura-1", "Position": { "X": 210, "Y": 400 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-aura-01" },
-    { "NodeId": "hyforged:minor-resistance-1", "Position": { "X": 240, "Y": 400 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-resist-03" },
-
-    { "NodeId": "hyforged:fortitude", "Position": { "X": 180, "Y": 450 }, "Region": "wisdom" },
-    { "NodeId": "hyforged:meditation", "Position": { "X": 210, "Y": 450 }, "Region": "wisdom" },
-    { "NodeId": "hyforged:frost-ward", "Position": { "X": 240, "Y": 450 }, "Region": "wisdom" },
-
-    { "NodeId": "hyforged:minor-regen-1", "Position": { "X": 180, "Y": 500 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-regen-04" },
-    { "NodeId": "hyforged:minor-cooldown-1", "Position": { "X": 210, "Y": 500 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-cd-03" },
-    { "NodeId": "hyforged:minor-fire-resist-1", "Position": { "X": 240, "Y": 500 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-fire-02" },
-
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": 180, "Y": 550 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-health-04" },
-    { "NodeId": "hyforged:minor-concentration-1", "Position": { "X": 210, "Y": 550 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-conc-04" },
-    { "NodeId": "hyforged:minor-cold-resist-1", "Position": { "X": 240, "Y": 550 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-cold-02" },
-
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 180, "Y": 600 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-t02" },
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 210, "Y": 600 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-t02" },
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 240, "Y": 600 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-t02" },
-
-    { "NodeId": "hyforged:zealots-oath", "Position": { "X": 180, "Y": 650 }, "Region": "wisdom" },
-    { "NodeId": "hyforged:minor-aura-1", "Position": { "X": 210, "Y": 650 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-aura-02" },
-    { "NodeId": "hyforged:minor-lightning-resist-1", "Position": { "X": 240, "Y": 650 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-light-02" },
-
-    { "NodeId": "hyforged:minor-regen-1", "Position": { "X": 180, "Y": 700 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-regen-05" },
-    { "NodeId": "hyforged:minor-cooldown-1", "Position": { "X": 210, "Y": 700 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-cd-04" },
-    { "NodeId": "hyforged:minor-resistance-1", "Position": { "X": 240, "Y": 700 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-resist-04" },
-
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": 180, "Y": 750 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-health-05" },
-    { "NodeId": "hyforged:minor-concentration-1", "Position": { "X": 210, "Y": 750 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-conc-05" },
-    { "NodeId": "hyforged:minor-fire-resist-1", "Position": { "X": 240, "Y": 750 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-fire-03" },
-
-    { "NodeId": "hyforged:swift-recovery", "Position": { "X": 180, "Y": 800 }, "Region": "wisdom" },
-    { "NodeId": "hyforged:inner-calm", "Position": { "X": 210, "Y": 800 }, "Region": "wisdom" },
-    { "NodeId": "hyforged:flame-ward", "Position": { "X": 240, "Y": 800 }, "Region": "wisdom" },
-
-    { "NodeId": "hyforged:minor-regen-1", "Position": { "X": 180, "Y": 850 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-regen-06" },
-    { "NodeId": "hyforged:minor-aura-1", "Position": { "X": 210, "Y": 850 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-aura-03" },
-    { "NodeId": "hyforged:minor-cold-resist-1", "Position": { "X": 240, "Y": 850 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-cold-03" },
-
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 180, "Y": 900 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-t03" },
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 210, "Y": 900 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-t03" },
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 240, "Y": 900 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-t03" },
-
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": 180, "Y": 950 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-health-06" },
-    { "NodeId": "hyforged:minor-cooldown-1", "Position": { "X": 210, "Y": 950 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-cd-05" },
-    { "NodeId": "hyforged:minor-lightning-resist-1", "Position": { "X": 240, "Y": 950 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-light-03" },
-
-    { "NodeId": "hyforged:minor-regen-1", "Position": { "X": 180, "Y": 1000 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-regen-07" },
-    { "NodeId": "hyforged:minor-concentration-1", "Position": { "X": 210, "Y": 1000 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-conc-06" },
-    { "NodeId": "hyforged:minor-resistance-1", "Position": { "X": 240, "Y": 1000 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-resist-05" },
-
-    { "NodeId": "hyforged:inner-peace", "Position": { "X": 180, "Y": 1050 }, "Region": "wisdom" },
-    { "NodeId": "hyforged:aura-mastery", "Position": { "X": 210, "Y": 1050 }, "Region": "wisdom" },
-    { "NodeId": "hyforged:storm-ward", "Position": { "X": 240, "Y": 1050 }, "Region": "wisdom" },
-
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": 180, "Y": 1100 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-health-07" },
-    { "NodeId": "hyforged:minor-aura-1", "Position": { "X": 210, "Y": 1100 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-aura-04" },
-    { "NodeId": "hyforged:minor-fire-resist-1", "Position": { "X": 240, "Y": 1100 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-fire-04" },
-
-    { "NodeId": "hyforged:minor-regen-1", "Position": { "X": 180, "Y": 1150 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-regen-08" },
-    { "NodeId": "hyforged:minor-cooldown-1", "Position": { "X": 210, "Y": 1150 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-cd-06" },
-    { "NodeId": "hyforged:minor-cold-resist-1", "Position": { "X": 240, "Y": 1150 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-cold-04" },
-
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 180, "Y": 1200 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-t04" },
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 210, "Y": 1200 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-t04" },
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 240, "Y": 1200 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-t04" },
-
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": 180, "Y": 1250 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-health-08" },
-    { "NodeId": "hyforged:minor-concentration-1", "Position": { "X": 210, "Y": 1250 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-conc-07" },
-    { "NodeId": "hyforged:minor-lightning-resist-1", "Position": { "X": 240, "Y": 1250 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-light-04" },
-
-    { "NodeId": "hyforged:minor-regen-1", "Position": { "X": 180, "Y": 1300 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-regen-09" },
-    { "NodeId": "hyforged:minor-aura-1", "Position": { "X": 210, "Y": 1300 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-aura-05" },
-    { "NodeId": "hyforged:minor-resistance-1", "Position": { "X": 240, "Y": 1300 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-resist-06" },
-
-    { "NodeId": "hyforged:enlightenment", "Position": { "X": 180, "Y": 1350 }, "Region": "wisdom" },
-    { "NodeId": "hyforged:sacred-ground", "Position": { "X": 210, "Y": 1350 }, "Region": "wisdom" },
-    { "NodeId": "hyforged:prismatic-ward", "Position": { "X": 240, "Y": 1350 }, "Region": "wisdom" },
-
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": 180, "Y": 1400 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-health-09" },
-    { "NodeId": "hyforged:minor-cooldown-1", "Position": { "X": 210, "Y": 1400 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-cd-07" },
-    { "NodeId": "hyforged:minor-fire-resist-1", "Position": { "X": 240, "Y": 1400 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-fire-05" },
-
-    { "NodeId": "hyforged:minor-regen-1", "Position": { "X": 180, "Y": 1450 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-regen-10" },
-    { "NodeId": "hyforged:minor-concentration-1", "Position": { "X": 210, "Y": 1450 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-conc-08" },
-    { "NodeId": "hyforged:minor-cold-resist-1", "Position": { "X": 240, "Y": 1450 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-cold-05" },
-
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 180, "Y": 1500 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-t05" },
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 210, "Y": 1500 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-t05" },
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 240, "Y": 1500 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-t05" },
-
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": 180, "Y": 1550 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-health-10" },
-    { "NodeId": "hyforged:minor-aura-1", "Position": { "X": 210, "Y": 1550 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-aura-06" },
-    { "NodeId": "hyforged:minor-lightning-resist-1", "Position": { "X": 240, "Y": 1550 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-light-05" },
-
-    { "NodeId": "hyforged:minor-regen-1", "Position": { "X": 180, "Y": 1600 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-regen-11" },
-    { "NodeId": "hyforged:minor-cooldown-1", "Position": { "X": 210, "Y": 1600 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-cd-08" },
-    { "NodeId": "hyforged:minor-resistance-1", "Position": { "X": 240, "Y": 1600 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-resist-07" },
-
-    { "NodeId": "hyforged:transcendence", "Position": { "X": 180, "Y": 1650 }, "Region": "wisdom" },
-    { "NodeId": "hyforged:divine-guidance", "Position": { "X": 210, "Y": 1650 }, "Region": "wisdom" },
-    { "NodeId": "hyforged:divine-flesh", "Position": { "X": 240, "Y": 1650 }, "Region": "wisdom" },
-
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": 180, "Y": 1700 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-health-11" },
-    { "NodeId": "hyforged:minor-concentration-1", "Position": { "X": 210, "Y": 1700 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-conc-09" },
-    { "NodeId": "hyforged:minor-fire-resist-1", "Position": { "X": 240, "Y": 1700 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-fire-06" },
-
-    { "NodeId": "hyforged:minor-regen-1", "Position": { "X": 180, "Y": 1750 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-regen-12" },
-    { "NodeId": "hyforged:minor-aura-1", "Position": { "X": 210, "Y": 1750 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-aura-07" },
-    { "NodeId": "hyforged:minor-cold-resist-1", "Position": { "X": 240, "Y": 1750 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-cold-06" },
-
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 180, "Y": 1800 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-t06" },
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 210, "Y": 1800 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-t06" },
-    { "NodeId": "hyforged:travel-wisdom", "Position": { "X": 240, "Y": 1800 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-t06" },
-
-    { "NodeId": "hyforged:minor-health-1", "Position": { "X": 180, "Y": 1850 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-health-12" },
-    { "NodeId": "hyforged:minor-cooldown-1", "Position": { "X": 210, "Y": 1850 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-cd-09" },
-    { "NodeId": "hyforged:minor-lightning-resist-1", "Position": { "X": 240, "Y": 1850 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-light-06" },
-
-    { "NodeId": "hyforged:minor-regen-1", "Position": { "X": 180, "Y": 1900 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p1-regen-13" },
-    { "NodeId": "hyforged:minor-concentration-1", "Position": { "X": 210, "Y": 1900 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p2-conc-10" },
-    { "NodeId": "hyforged:minor-resistance-1", "Position": { "X": 240, "Y": 1900 }, "Region": "wisdom", "InstanceId": "hyforged:wis-p3-resist-08" },
-
-    { "NodeId": "hyforged:eternal-youth", "Position": { "X": 180, "Y": 1950 }, "Region": "wisdom" },
-    { "NodeId": "hyforged:avatar-of-light", "Position": { "X": 210, "Y": 1950 }, "Region": "wisdom" },
-    { "NodeId": "hyforged:aegis", "Position": { "X": 240, "Y": 1950 }, "Region": "wisdom" }
+    {
+      "NodeId": "hyforged:minor-regen-1",
+      "Position": {
+        "X": 180,
+        "Y": 50
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-regen-01"
+    },
+    {
+      "NodeId": "hyforged:minor-concentration-1",
+      "Position": {
+        "X": 210,
+        "Y": 50
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-conc-01"
+    },
+    {
+      "NodeId": "hyforged:minor-resistance-1",
+      "Position": {
+        "X": 240,
+        "Y": 50
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-resist-01"
+    },
+    {
+      "NodeId": "hyforged:minor-regen-1",
+      "Position": {
+        "X": 180,
+        "Y": 100
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-regen-02"
+    },
+    {
+      "NodeId": "hyforged:minor-concentration-1",
+      "Position": {
+        "X": 210,
+        "Y": 100
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-conc-02"
+    },
+    {
+      "NodeId": "hyforged:minor-resistance-1",
+      "Position": {
+        "X": 240,
+        "Y": 100
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-resist-02"
+    },
+    {
+      "NodeId": "hyforged:vitality",
+      "Position": {
+        "X": 180,
+        "Y": 150
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:focused-mind",
+      "Position": {
+        "X": 210,
+        "Y": 150
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:elemental-ward",
+      "Position": {
+        "X": 240,
+        "Y": 150
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": 180,
+        "Y": 200
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-health-01"
+    },
+    {
+      "NodeId": "hyforged:minor-cooldown-1",
+      "Position": {
+        "X": 210,
+        "Y": 200
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-cd-01"
+    },
+    {
+      "NodeId": "hyforged:minor-fire-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 200
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-fire-01"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": 180,
+        "Y": 250
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-health-02"
+    },
+    {
+      "NodeId": "hyforged:minor-cooldown-1",
+      "Position": {
+        "X": 210,
+        "Y": 250
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-cd-02"
+    },
+    {
+      "NodeId": "hyforged:minor-cold-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 250
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-cold-01"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 180,
+        "Y": 300
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-t01"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 210,
+        "Y": 300
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-t01"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 240,
+        "Y": 300
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-t01"
+    },
+    {
+      "NodeId": "hyforged:minor-regen-1",
+      "Position": {
+        "X": 180,
+        "Y": 350
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-regen-03"
+    },
+    {
+      "NodeId": "hyforged:minor-concentration-1",
+      "Position": {
+        "X": 210,
+        "Y": 350
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-conc-03"
+    },
+    {
+      "NodeId": "hyforged:minor-lightning-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 350
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-light-01"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": 180,
+        "Y": 400
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-health-03"
+    },
+    {
+      "NodeId": "hyforged:minor-aura-1",
+      "Position": {
+        "X": 210,
+        "Y": 400
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-aura-01"
+    },
+    {
+      "NodeId": "hyforged:minor-resistance-1",
+      "Position": {
+        "X": 240,
+        "Y": 400
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-resist-03"
+    },
+    {
+      "NodeId": "hyforged:fortitude",
+      "Position": {
+        "X": 180,
+        "Y": 450
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:meditation",
+      "Position": {
+        "X": 210,
+        "Y": 450
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:frost-ward",
+      "Position": {
+        "X": 240,
+        "Y": 450
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:minor-regen-1",
+      "Position": {
+        "X": 180,
+        "Y": 500
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-regen-04"
+    },
+    {
+      "NodeId": "hyforged:minor-cooldown-1",
+      "Position": {
+        "X": 210,
+        "Y": 500
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-cd-03"
+    },
+    {
+      "NodeId": "hyforged:minor-fire-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 500
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-fire-02"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": 180,
+        "Y": 550
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-health-04"
+    },
+    {
+      "NodeId": "hyforged:minor-concentration-1",
+      "Position": {
+        "X": 210,
+        "Y": 550
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-conc-04"
+    },
+    {
+      "NodeId": "hyforged:minor-cold-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 550
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-cold-02"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 180,
+        "Y": 600
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-t02"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 210,
+        "Y": 600
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-t02"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 240,
+        "Y": 600
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-t02"
+    },
+    {
+      "NodeId": "hyforged:zealots-oath",
+      "Position": {
+        "X": 180,
+        "Y": 650
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:minor-aura-1",
+      "Position": {
+        "X": 210,
+        "Y": 650
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-aura-02"
+    },
+    {
+      "NodeId": "hyforged:minor-lightning-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 650
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-light-02"
+    },
+    {
+      "NodeId": "hyforged:minor-regen-1",
+      "Position": {
+        "X": 180,
+        "Y": 700
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-regen-05"
+    },
+    {
+      "NodeId": "hyforged:minor-cooldown-1",
+      "Position": {
+        "X": 210,
+        "Y": 700
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-cd-04"
+    },
+    {
+      "NodeId": "hyforged:minor-resistance-1",
+      "Position": {
+        "X": 240,
+        "Y": 700
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-resist-04"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": 180,
+        "Y": 750
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-health-05"
+    },
+    {
+      "NodeId": "hyforged:minor-concentration-1",
+      "Position": {
+        "X": 210,
+        "Y": 750
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-conc-05"
+    },
+    {
+      "NodeId": "hyforged:minor-fire-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 750
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-fire-03"
+    },
+    {
+      "NodeId": "hyforged:swift-recovery",
+      "Position": {
+        "X": 180,
+        "Y": 800
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:inner-calm",
+      "Position": {
+        "X": 210,
+        "Y": 800
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:flame-ward",
+      "Position": {
+        "X": 240,
+        "Y": 800
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:minor-regen-1",
+      "Position": {
+        "X": 180,
+        "Y": 850
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-regen-06"
+    },
+    {
+      "NodeId": "hyforged:minor-aura-1",
+      "Position": {
+        "X": 210,
+        "Y": 850
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-aura-03"
+    },
+    {
+      "NodeId": "hyforged:minor-cold-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 850
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-cold-03"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 180,
+        "Y": 900
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-t03"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 210,
+        "Y": 900
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-t03"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 240,
+        "Y": 900
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-t03"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": 180,
+        "Y": 950
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-health-06"
+    },
+    {
+      "NodeId": "hyforged:minor-cooldown-1",
+      "Position": {
+        "X": 210,
+        "Y": 950
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-cd-05"
+    },
+    {
+      "NodeId": "hyforged:minor-lightning-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 950
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-light-03"
+    },
+    {
+      "NodeId": "hyforged:minor-regen-1",
+      "Position": {
+        "X": 180,
+        "Y": 1000
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-regen-07"
+    },
+    {
+      "NodeId": "hyforged:minor-concentration-1",
+      "Position": {
+        "X": 210,
+        "Y": 1000
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-conc-06"
+    },
+    {
+      "NodeId": "hyforged:minor-resistance-1",
+      "Position": {
+        "X": 240,
+        "Y": 1000
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-resist-05"
+    },
+    {
+      "NodeId": "hyforged:inner-peace",
+      "Position": {
+        "X": 180,
+        "Y": 1050
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:aura-mastery",
+      "Position": {
+        "X": 210,
+        "Y": 1050
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:storm-ward",
+      "Position": {
+        "X": 240,
+        "Y": 1050
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": 180,
+        "Y": 1100
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-health-07"
+    },
+    {
+      "NodeId": "hyforged:minor-aura-1",
+      "Position": {
+        "X": 210,
+        "Y": 1100
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-aura-04"
+    },
+    {
+      "NodeId": "hyforged:minor-fire-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 1100
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-fire-04"
+    },
+    {
+      "NodeId": "hyforged:minor-regen-1",
+      "Position": {
+        "X": 180,
+        "Y": 1150
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-regen-08"
+    },
+    {
+      "NodeId": "hyforged:minor-cooldown-1",
+      "Position": {
+        "X": 210,
+        "Y": 1150
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-cd-06"
+    },
+    {
+      "NodeId": "hyforged:minor-cold-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 1150
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-cold-04"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 180,
+        "Y": 1200
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-t04"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 210,
+        "Y": 1200
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-t04"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 240,
+        "Y": 1200
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-t04"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": 180,
+        "Y": 1250
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-health-08"
+    },
+    {
+      "NodeId": "hyforged:minor-concentration-1",
+      "Position": {
+        "X": 210,
+        "Y": 1250
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-conc-07"
+    },
+    {
+      "NodeId": "hyforged:minor-lightning-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 1250
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-light-04"
+    },
+    {
+      "NodeId": "hyforged:minor-regen-1",
+      "Position": {
+        "X": 180,
+        "Y": 1300
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-regen-09"
+    },
+    {
+      "NodeId": "hyforged:minor-aura-1",
+      "Position": {
+        "X": 210,
+        "Y": 1300
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-aura-05"
+    },
+    {
+      "NodeId": "hyforged:minor-resistance-1",
+      "Position": {
+        "X": 240,
+        "Y": 1300
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-resist-06"
+    },
+    {
+      "NodeId": "hyforged:enlightenment",
+      "Position": {
+        "X": 180,
+        "Y": 1350
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:sacred-ground",
+      "Position": {
+        "X": 210,
+        "Y": 1350
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:prismatic-ward",
+      "Position": {
+        "X": 240,
+        "Y": 1350
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": 180,
+        "Y": 1400
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-health-09"
+    },
+    {
+      "NodeId": "hyforged:minor-cooldown-1",
+      "Position": {
+        "X": 210,
+        "Y": 1400
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-cd-07"
+    },
+    {
+      "NodeId": "hyforged:minor-fire-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 1400
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-fire-05"
+    },
+    {
+      "NodeId": "hyforged:minor-regen-1",
+      "Position": {
+        "X": 180,
+        "Y": 1450
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-regen-10"
+    },
+    {
+      "NodeId": "hyforged:minor-concentration-1",
+      "Position": {
+        "X": 210,
+        "Y": 1450
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-conc-08"
+    },
+    {
+      "NodeId": "hyforged:minor-cold-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 1450
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-cold-05"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 180,
+        "Y": 1500
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-t05"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 210,
+        "Y": 1500
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-t05"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 240,
+        "Y": 1500
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-t05"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": 180,
+        "Y": 1550
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-health-10"
+    },
+    {
+      "NodeId": "hyforged:minor-aura-1",
+      "Position": {
+        "X": 210,
+        "Y": 1550
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-aura-06"
+    },
+    {
+      "NodeId": "hyforged:minor-lightning-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 1550
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-light-05"
+    },
+    {
+      "NodeId": "hyforged:minor-regen-1",
+      "Position": {
+        "X": 180,
+        "Y": 1600
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-regen-11"
+    },
+    {
+      "NodeId": "hyforged:minor-cooldown-1",
+      "Position": {
+        "X": 210,
+        "Y": 1600
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-cd-08"
+    },
+    {
+      "NodeId": "hyforged:minor-resistance-1",
+      "Position": {
+        "X": 240,
+        "Y": 1600
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-resist-07"
+    },
+    {
+      "NodeId": "hyforged:transcendence",
+      "Position": {
+        "X": 180,
+        "Y": 1650
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:divine-guidance",
+      "Position": {
+        "X": 210,
+        "Y": 1650
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:divine-flesh",
+      "Position": {
+        "X": 240,
+        "Y": 1650
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": 180,
+        "Y": 1700
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-health-11"
+    },
+    {
+      "NodeId": "hyforged:minor-concentration-1",
+      "Position": {
+        "X": 210,
+        "Y": 1700
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-conc-09"
+    },
+    {
+      "NodeId": "hyforged:minor-fire-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 1700
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-fire-06"
+    },
+    {
+      "NodeId": "hyforged:minor-regen-1",
+      "Position": {
+        "X": 180,
+        "Y": 1750
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-regen-12"
+    },
+    {
+      "NodeId": "hyforged:minor-aura-1",
+      "Position": {
+        "X": 210,
+        "Y": 1750
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-aura-07"
+    },
+    {
+      "NodeId": "hyforged:minor-cold-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 1750
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-cold-06"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 180,
+        "Y": 1800
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-t06"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 210,
+        "Y": 1800
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-t06"
+    },
+    {
+      "NodeId": "hyforged:travel-wisdom",
+      "Position": {
+        "X": 240,
+        "Y": 1800
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-t06"
+    },
+    {
+      "NodeId": "hyforged:minor-health-1",
+      "Position": {
+        "X": 180,
+        "Y": 1850
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-health-12"
+    },
+    {
+      "NodeId": "hyforged:minor-cooldown-1",
+      "Position": {
+        "X": 210,
+        "Y": 1850
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-cd-09"
+    },
+    {
+      "NodeId": "hyforged:minor-lightning-resist-1",
+      "Position": {
+        "X": 240,
+        "Y": 1850
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-light-06"
+    },
+    {
+      "NodeId": "hyforged:minor-regen-1",
+      "Position": {
+        "X": 180,
+        "Y": 1900
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p1-regen-13"
+    },
+    {
+      "NodeId": "hyforged:minor-concentration-1",
+      "Position": {
+        "X": 210,
+        "Y": 1900
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p2-conc-10"
+    },
+    {
+      "NodeId": "hyforged:minor-resistance-1",
+      "Position": {
+        "X": 240,
+        "Y": 1900
+      },
+      "Region": "wisdom",
+      "InstanceId": "hyforged:wis-p3-resist-08"
+    },
+    {
+      "NodeId": "hyforged:eternal-youth",
+      "Position": {
+        "X": 180,
+        "Y": 1950
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:avatar-of-light",
+      "Position": {
+        "X": 210,
+        "Y": 1950
+      },
+      "Region": "wisdom"
+    },
+    {
+      "NodeId": "hyforged:aegis",
+      "Position": {
+        "X": 240,
+        "Y": 1950
+      },
+      "Region": "wisdom"
+    }
   ],
   "Connections": [
-    { "From": "hyforged:start-wisdom", "To": "hyforged:wis-p1-regen-01" },
-    { "From": "hyforged:start-wisdom", "To": "hyforged:wis-p2-conc-01" },
-    { "From": "hyforged:start-wisdom", "To": "hyforged:wis-p3-resist-01" },
-
-    { "From": "hyforged:wis-p1-regen-01", "To": "hyforged:wis-p1-regen-02" },
-    { "From": "hyforged:wis-p2-conc-01", "To": "hyforged:wis-p2-conc-02" },
-    { "From": "hyforged:wis-p3-resist-01", "To": "hyforged:wis-p3-resist-02" },
-
-    { "From": "hyforged:wis-p1-regen-02", "To": "hyforged:vitality" },
-    { "From": "hyforged:wis-p2-conc-02", "To": "hyforged:focused-mind" },
-    { "From": "hyforged:wis-p3-resist-02", "To": "hyforged:elemental-ward" },
-
-    { "From": "hyforged:vitality", "To": "hyforged:wis-p1-health-01" },
-    { "From": "hyforged:focused-mind", "To": "hyforged:wis-p2-cd-01" },
-    { "From": "hyforged:elemental-ward", "To": "hyforged:wis-p3-fire-01" },
-
-    { "From": "hyforged:wis-p1-health-01", "To": "hyforged:wis-p1-health-02" },
-    { "From": "hyforged:wis-p2-cd-01", "To": "hyforged:wis-p2-cd-02" },
-    { "From": "hyforged:wis-p3-fire-01", "To": "hyforged:wis-p3-cold-01" },
-
-    { "From": "hyforged:wis-p1-health-02", "To": "hyforged:wis-p1-t01" },
-    { "From": "hyforged:wis-p2-cd-02", "To": "hyforged:wis-p2-t01" },
-    { "From": "hyforged:wis-p3-cold-01", "To": "hyforged:wis-p3-t01" },
-
-    { "From": "hyforged:wis-p1-t01", "To": "hyforged:wis-p1-regen-03" },
-    { "From": "hyforged:wis-p2-t01", "To": "hyforged:wis-p2-conc-03" },
-    { "From": "hyforged:wis-p3-t01", "To": "hyforged:wis-p3-light-01" },
-
-    { "From": "hyforged:wis-p1-regen-03", "To": "hyforged:wis-p1-health-03" },
-    { "From": "hyforged:wis-p2-conc-03", "To": "hyforged:wis-p2-aura-01" },
-    { "From": "hyforged:wis-p3-light-01", "To": "hyforged:wis-p3-resist-03" },
-
-    { "From": "hyforged:wis-p1-health-03", "To": "hyforged:fortitude" },
-    { "From": "hyforged:wis-p2-aura-01", "To": "hyforged:meditation" },
-    { "From": "hyforged:wis-p3-resist-03", "To": "hyforged:frost-ward" },
-
-    { "From": "hyforged:fortitude", "To": "hyforged:wis-p1-regen-04" },
-    { "From": "hyforged:meditation", "To": "hyforged:wis-p2-cd-03" },
-    { "From": "hyforged:frost-ward", "To": "hyforged:wis-p3-fire-02" },
-
-    { "From": "hyforged:wis-p1-regen-04", "To": "hyforged:wis-p1-health-04" },
-    { "From": "hyforged:wis-p2-cd-03", "To": "hyforged:wis-p2-conc-04" },
-    { "From": "hyforged:wis-p3-fire-02", "To": "hyforged:wis-p3-cold-02" },
-
-    { "From": "hyforged:wis-p1-health-04", "To": "hyforged:wis-p1-t02" },
-    { "From": "hyforged:wis-p2-conc-04", "To": "hyforged:wis-p2-t02" },
-    { "From": "hyforged:wis-p3-cold-02", "To": "hyforged:wis-p3-t02" },
-
-    { "From": "hyforged:wis-p1-t02", "To": "hyforged:zealots-oath" },
-    { "From": "hyforged:wis-p2-t02", "To": "hyforged:wis-p2-aura-02" },
-    { "From": "hyforged:wis-p3-t02", "To": "hyforged:wis-p3-light-02" },
-
-    { "From": "hyforged:zealots-oath", "To": "hyforged:wis-p1-regen-05" },
-    { "From": "hyforged:wis-p2-aura-02", "To": "hyforged:wis-p2-cd-04" },
-    { "From": "hyforged:wis-p3-light-02", "To": "hyforged:wis-p3-resist-04" },
-
-    { "From": "hyforged:wis-p1-regen-05", "To": "hyforged:wis-p1-health-05" },
-    { "From": "hyforged:wis-p2-cd-04", "To": "hyforged:wis-p2-conc-05" },
-    { "From": "hyforged:wis-p3-resist-04", "To": "hyforged:wis-p3-fire-03" },
-
-    { "From": "hyforged:wis-p1-health-05", "To": "hyforged:swift-recovery" },
-    { "From": "hyforged:wis-p2-conc-05", "To": "hyforged:inner-calm" },
-    { "From": "hyforged:wis-p3-fire-03", "To": "hyforged:flame-ward" },
-
-    { "From": "hyforged:swift-recovery", "To": "hyforged:wis-p1-regen-06" },
-    { "From": "hyforged:inner-calm", "To": "hyforged:wis-p2-aura-03" },
-    { "From": "hyforged:flame-ward", "To": "hyforged:wis-p3-cold-03" },
-
-    { "From": "hyforged:wis-p1-regen-06", "To": "hyforged:wis-p1-t03" },
-    { "From": "hyforged:wis-p2-aura-03", "To": "hyforged:wis-p2-t03" },
-    { "From": "hyforged:wis-p3-cold-03", "To": "hyforged:wis-p3-t03" },
-
-    { "From": "hyforged:wis-p1-t03", "To": "hyforged:wis-p1-health-06" },
-    { "From": "hyforged:wis-p2-t03", "To": "hyforged:wis-p2-cd-05" },
-    { "From": "hyforged:wis-p3-t03", "To": "hyforged:wis-p3-light-03" },
-
-    { "From": "hyforged:wis-p1-health-06", "To": "hyforged:wis-p1-regen-07" },
-    { "From": "hyforged:wis-p2-cd-05", "To": "hyforged:wis-p2-conc-06" },
-    { "From": "hyforged:wis-p3-light-03", "To": "hyforged:wis-p3-resist-05" },
-
-    { "From": "hyforged:wis-p1-regen-07", "To": "hyforged:inner-peace" },
-    { "From": "hyforged:wis-p2-conc-06", "To": "hyforged:aura-mastery" },
-    { "From": "hyforged:wis-p3-resist-05", "To": "hyforged:storm-ward" },
-
-    { "From": "hyforged:inner-peace", "To": "hyforged:wis-p1-health-07" },
-    { "From": "hyforged:aura-mastery", "To": "hyforged:wis-p2-aura-04" },
-    { "From": "hyforged:storm-ward", "To": "hyforged:wis-p3-fire-04" },
-
-    { "From": "hyforged:wis-p1-health-07", "To": "hyforged:wis-p1-regen-08" },
-    { "From": "hyforged:wis-p2-aura-04", "To": "hyforged:wis-p2-cd-06" },
-    { "From": "hyforged:wis-p3-fire-04", "To": "hyforged:wis-p3-cold-04" },
-
-    { "From": "hyforged:wis-p1-regen-08", "To": "hyforged:wis-p1-t04" },
-    { "From": "hyforged:wis-p2-cd-06", "To": "hyforged:wis-p2-t04" },
-    { "From": "hyforged:wis-p3-cold-04", "To": "hyforged:wis-p3-t04" },
-
-    { "From": "hyforged:wis-p1-t04", "To": "hyforged:wis-p1-health-08" },
-    { "From": "hyforged:wis-p2-t04", "To": "hyforged:wis-p2-conc-07" },
-    { "From": "hyforged:wis-p3-t04", "To": "hyforged:wis-p3-light-04" },
-
-    { "From": "hyforged:wis-p1-health-08", "To": "hyforged:wis-p1-regen-09" },
-    { "From": "hyforged:wis-p2-conc-07", "To": "hyforged:wis-p2-aura-05" },
-    { "From": "hyforged:wis-p3-light-04", "To": "hyforged:wis-p3-resist-06" },
-
-    { "From": "hyforged:wis-p1-regen-09", "To": "hyforged:enlightenment" },
-    { "From": "hyforged:wis-p2-aura-05", "To": "hyforged:sacred-ground" },
-    { "From": "hyforged:wis-p3-resist-06", "To": "hyforged:prismatic-ward" },
-
-    { "From": "hyforged:enlightenment", "To": "hyforged:wis-p1-health-09" },
-    { "From": "hyforged:sacred-ground", "To": "hyforged:wis-p2-cd-07" },
-    { "From": "hyforged:prismatic-ward", "To": "hyforged:wis-p3-fire-05" },
-
-    { "From": "hyforged:wis-p1-health-09", "To": "hyforged:wis-p1-regen-10" },
-    { "From": "hyforged:wis-p2-cd-07", "To": "hyforged:wis-p2-conc-08" },
-    { "From": "hyforged:wis-p3-fire-05", "To": "hyforged:wis-p3-cold-05" },
-
-    { "From": "hyforged:wis-p1-regen-10", "To": "hyforged:wis-p1-t05" },
-    { "From": "hyforged:wis-p2-conc-08", "To": "hyforged:wis-p2-t05" },
-    { "From": "hyforged:wis-p3-cold-05", "To": "hyforged:wis-p3-t05" },
-
-    { "From": "hyforged:wis-p1-t05", "To": "hyforged:wis-p1-health-10" },
-    { "From": "hyforged:wis-p2-t05", "To": "hyforged:wis-p2-aura-06" },
-    { "From": "hyforged:wis-p3-t05", "To": "hyforged:wis-p3-light-05" },
-
-    { "From": "hyforged:wis-p1-health-10", "To": "hyforged:wis-p1-regen-11" },
-    { "From": "hyforged:wis-p2-aura-06", "To": "hyforged:wis-p2-cd-08" },
-    { "From": "hyforged:wis-p3-light-05", "To": "hyforged:wis-p3-resist-07" },
-
-    { "From": "hyforged:wis-p1-regen-11", "To": "hyforged:transcendence" },
-    { "From": "hyforged:wis-p2-cd-08", "To": "hyforged:divine-guidance" },
-    { "From": "hyforged:wis-p3-resist-07", "To": "hyforged:divine-flesh" },
-
-    { "From": "hyforged:transcendence", "To": "hyforged:wis-p1-health-11" },
-    { "From": "hyforged:divine-guidance", "To": "hyforged:wis-p2-conc-09" },
-    { "From": "hyforged:divine-flesh", "To": "hyforged:wis-p3-fire-06" },
-
-    { "From": "hyforged:wis-p1-health-11", "To": "hyforged:wis-p1-regen-12" },
-    { "From": "hyforged:wis-p2-conc-09", "To": "hyforged:wis-p2-aura-07" },
-    { "From": "hyforged:wis-p3-fire-06", "To": "hyforged:wis-p3-cold-06" },
-
-    { "From": "hyforged:wis-p1-regen-12", "To": "hyforged:wis-p1-t06" },
-    { "From": "hyforged:wis-p2-aura-07", "To": "hyforged:wis-p2-t06" },
-    { "From": "hyforged:wis-p3-cold-06", "To": "hyforged:wis-p3-t06" },
-
-    { "From": "hyforged:wis-p1-t06", "To": "hyforged:wis-p1-health-12" },
-    { "From": "hyforged:wis-p2-t06", "To": "hyforged:wis-p2-cd-09" },
-    { "From": "hyforged:wis-p3-t06", "To": "hyforged:wis-p3-light-06" },
-
-    { "From": "hyforged:wis-p1-health-12", "To": "hyforged:wis-p1-regen-13" },
-    { "From": "hyforged:wis-p2-cd-09", "To": "hyforged:wis-p2-conc-10" },
-    { "From": "hyforged:wis-p3-light-06", "To": "hyforged:wis-p3-resist-08" },
-
-    { "From": "hyforged:wis-p1-regen-13", "To": "hyforged:eternal-youth" },
-    { "From": "hyforged:wis-p2-conc-10", "To": "hyforged:avatar-of-light" },
-    { "From": "hyforged:wis-p3-resist-08", "To": "hyforged:aegis" },
-
-    { "From": "hyforged:vitality", "To": "hyforged:focused-mind" },
-    { "From": "hyforged:wis-p1-t01", "To": "hyforged:wis-p2-t01" },
-    { "From": "hyforged:meditation", "To": "hyforged:frost-ward" },
-    { "From": "hyforged:wis-p2-t02", "To": "hyforged:wis-p3-t02" },
-    { "From": "hyforged:zealots-oath", "To": "hyforged:wis-p2-aura-02" },
-    { "From": "hyforged:wis-p1-t03", "To": "hyforged:wis-p2-t03" },
-    { "From": "hyforged:inner-peace", "To": "hyforged:aura-mastery" },
-    { "From": "hyforged:wis-p2-t04", "To": "hyforged:wis-p3-t04" },
-    { "From": "hyforged:enlightenment", "To": "hyforged:sacred-ground" },
-    { "From": "hyforged:wis-p1-t05", "To": "hyforged:wis-p2-t05" },
-    { "From": "hyforged:transcendence", "To": "hyforged:divine-guidance" },
-    { "From": "hyforged:divine-guidance", "To": "hyforged:divine-flesh" },
-    { "From": "hyforged:eternal-youth", "To": "hyforged:avatar-of-light" }
+    {
+      "From": "hyforged:start-wisdom",
+      "To": "hyforged:wis-p1-regen-01"
+    },
+    {
+      "From": "hyforged:start-wisdom",
+      "To": "hyforged:wis-p2-conc-01"
+    },
+    {
+      "From": "hyforged:start-wisdom",
+      "To": "hyforged:wis-p3-resist-01"
+    },
+    {
+      "From": "hyforged:wis-p1-regen-01",
+      "To": "hyforged:wis-p1-regen-02"
+    },
+    {
+      "From": "hyforged:wis-p2-conc-01",
+      "To": "hyforged:wis-p2-conc-02"
+    },
+    {
+      "From": "hyforged:wis-p3-resist-01",
+      "To": "hyforged:wis-p3-resist-02"
+    },
+    {
+      "From": "hyforged:wis-p1-regen-02",
+      "To": "hyforged:vitality"
+    },
+    {
+      "From": "hyforged:wis-p2-conc-02",
+      "To": "hyforged:focused-mind"
+    },
+    {
+      "From": "hyforged:wis-p3-resist-02",
+      "To": "hyforged:elemental-ward"
+    },
+    {
+      "From": "hyforged:vitality",
+      "To": "hyforged:wis-p1-health-01"
+    },
+    {
+      "From": "hyforged:focused-mind",
+      "To": "hyforged:wis-p2-cd-01"
+    },
+    {
+      "From": "hyforged:elemental-ward",
+      "To": "hyforged:wis-p3-fire-01"
+    },
+    {
+      "From": "hyforged:wis-p1-health-01",
+      "To": "hyforged:wis-p1-health-02"
+    },
+    {
+      "From": "hyforged:wis-p2-cd-01",
+      "To": "hyforged:wis-p2-cd-02"
+    },
+    {
+      "From": "hyforged:wis-p3-fire-01",
+      "To": "hyforged:wis-p3-cold-01"
+    },
+    {
+      "From": "hyforged:wis-p1-health-02",
+      "To": "hyforged:wis-p1-t01"
+    },
+    {
+      "From": "hyforged:wis-p2-cd-02",
+      "To": "hyforged:wis-p2-t01"
+    },
+    {
+      "From": "hyforged:wis-p3-cold-01",
+      "To": "hyforged:wis-p3-t01"
+    },
+    {
+      "From": "hyforged:wis-p1-t01",
+      "To": "hyforged:wis-p1-regen-03"
+    },
+    {
+      "From": "hyforged:wis-p2-t01",
+      "To": "hyforged:wis-p2-conc-03"
+    },
+    {
+      "From": "hyforged:wis-p3-t01",
+      "To": "hyforged:wis-p3-light-01"
+    },
+    {
+      "From": "hyforged:wis-p1-regen-03",
+      "To": "hyforged:wis-p1-health-03"
+    },
+    {
+      "From": "hyforged:wis-p2-conc-03",
+      "To": "hyforged:wis-p2-aura-01"
+    },
+    {
+      "From": "hyforged:wis-p3-light-01",
+      "To": "hyforged:wis-p3-resist-03"
+    },
+    {
+      "From": "hyforged:wis-p1-health-03",
+      "To": "hyforged:fortitude"
+    },
+    {
+      "From": "hyforged:wis-p2-aura-01",
+      "To": "hyforged:meditation"
+    },
+    {
+      "From": "hyforged:wis-p3-resist-03",
+      "To": "hyforged:frost-ward"
+    },
+    {
+      "From": "hyforged:fortitude",
+      "To": "hyforged:wis-p1-regen-04"
+    },
+    {
+      "From": "hyforged:meditation",
+      "To": "hyforged:wis-p2-cd-03"
+    },
+    {
+      "From": "hyforged:frost-ward",
+      "To": "hyforged:wis-p3-fire-02"
+    },
+    {
+      "From": "hyforged:wis-p1-regen-04",
+      "To": "hyforged:wis-p1-health-04"
+    },
+    {
+      "From": "hyforged:wis-p2-cd-03",
+      "To": "hyforged:wis-p2-conc-04"
+    },
+    {
+      "From": "hyforged:wis-p3-fire-02",
+      "To": "hyforged:wis-p3-cold-02"
+    },
+    {
+      "From": "hyforged:wis-p1-health-04",
+      "To": "hyforged:wis-p1-t02"
+    },
+    {
+      "From": "hyforged:wis-p2-conc-04",
+      "To": "hyforged:wis-p2-t02"
+    },
+    {
+      "From": "hyforged:wis-p3-cold-02",
+      "To": "hyforged:wis-p3-t02"
+    },
+    {
+      "From": "hyforged:wis-p1-t02",
+      "To": "hyforged:zealots-oath"
+    },
+    {
+      "From": "hyforged:wis-p2-t02",
+      "To": "hyforged:wis-p2-aura-02"
+    },
+    {
+      "From": "hyforged:wis-p3-t02",
+      "To": "hyforged:wis-p3-light-02"
+    },
+    {
+      "From": "hyforged:zealots-oath",
+      "To": "hyforged:wis-p1-regen-05"
+    },
+    {
+      "From": "hyforged:wis-p2-aura-02",
+      "To": "hyforged:wis-p2-cd-04"
+    },
+    {
+      "From": "hyforged:wis-p3-light-02",
+      "To": "hyforged:wis-p3-resist-04"
+    },
+    {
+      "From": "hyforged:wis-p1-regen-05",
+      "To": "hyforged:wis-p1-health-05"
+    },
+    {
+      "From": "hyforged:wis-p2-cd-04",
+      "To": "hyforged:wis-p2-conc-05"
+    },
+    {
+      "From": "hyforged:wis-p3-resist-04",
+      "To": "hyforged:wis-p3-fire-03"
+    },
+    {
+      "From": "hyforged:wis-p1-health-05",
+      "To": "hyforged:swift-recovery"
+    },
+    {
+      "From": "hyforged:wis-p2-conc-05",
+      "To": "hyforged:inner-calm"
+    },
+    {
+      "From": "hyforged:wis-p3-fire-03",
+      "To": "hyforged:flame-ward"
+    },
+    {
+      "From": "hyforged:swift-recovery",
+      "To": "hyforged:wis-p1-regen-06"
+    },
+    {
+      "From": "hyforged:inner-calm",
+      "To": "hyforged:wis-p2-aura-03"
+    },
+    {
+      "From": "hyforged:flame-ward",
+      "To": "hyforged:wis-p3-cold-03"
+    },
+    {
+      "From": "hyforged:wis-p1-regen-06",
+      "To": "hyforged:wis-p1-t03"
+    },
+    {
+      "From": "hyforged:wis-p2-aura-03",
+      "To": "hyforged:wis-p2-t03"
+    },
+    {
+      "From": "hyforged:wis-p3-cold-03",
+      "To": "hyforged:wis-p3-t03"
+    },
+    {
+      "From": "hyforged:wis-p1-t03",
+      "To": "hyforged:wis-p1-health-06"
+    },
+    {
+      "From": "hyforged:wis-p2-t03",
+      "To": "hyforged:wis-p2-cd-05"
+    },
+    {
+      "From": "hyforged:wis-p3-t03",
+      "To": "hyforged:wis-p3-light-03"
+    },
+    {
+      "From": "hyforged:wis-p1-health-06",
+      "To": "hyforged:wis-p1-regen-07"
+    },
+    {
+      "From": "hyforged:wis-p2-cd-05",
+      "To": "hyforged:wis-p2-conc-06"
+    },
+    {
+      "From": "hyforged:wis-p3-light-03",
+      "To": "hyforged:wis-p3-resist-05"
+    },
+    {
+      "From": "hyforged:wis-p1-regen-07",
+      "To": "hyforged:inner-peace"
+    },
+    {
+      "From": "hyforged:wis-p2-conc-06",
+      "To": "hyforged:aura-mastery"
+    },
+    {
+      "From": "hyforged:wis-p3-resist-05",
+      "To": "hyforged:storm-ward"
+    },
+    {
+      "From": "hyforged:inner-peace",
+      "To": "hyforged:wis-p1-health-07"
+    },
+    {
+      "From": "hyforged:aura-mastery",
+      "To": "hyforged:wis-p2-aura-04"
+    },
+    {
+      "From": "hyforged:storm-ward",
+      "To": "hyforged:wis-p3-fire-04"
+    },
+    {
+      "From": "hyforged:wis-p1-health-07",
+      "To": "hyforged:wis-p1-regen-08"
+    },
+    {
+      "From": "hyforged:wis-p2-aura-04",
+      "To": "hyforged:wis-p2-cd-06"
+    },
+    {
+      "From": "hyforged:wis-p3-fire-04",
+      "To": "hyforged:wis-p3-cold-04"
+    },
+    {
+      "From": "hyforged:wis-p1-regen-08",
+      "To": "hyforged:wis-p1-t04"
+    },
+    {
+      "From": "hyforged:wis-p2-cd-06",
+      "To": "hyforged:wis-p2-t04"
+    },
+    {
+      "From": "hyforged:wis-p3-cold-04",
+      "To": "hyforged:wis-p3-t04"
+    },
+    {
+      "From": "hyforged:wis-p1-t04",
+      "To": "hyforged:wis-p1-health-08"
+    },
+    {
+      "From": "hyforged:wis-p2-t04",
+      "To": "hyforged:wis-p2-conc-07"
+    },
+    {
+      "From": "hyforged:wis-p3-t04",
+      "To": "hyforged:wis-p3-light-04"
+    },
+    {
+      "From": "hyforged:wis-p1-health-08",
+      "To": "hyforged:wis-p1-regen-09"
+    },
+    {
+      "From": "hyforged:wis-p2-conc-07",
+      "To": "hyforged:wis-p2-aura-05"
+    },
+    {
+      "From": "hyforged:wis-p3-light-04",
+      "To": "hyforged:wis-p3-resist-06"
+    },
+    {
+      "From": "hyforged:wis-p1-regen-09",
+      "To": "hyforged:enlightenment"
+    },
+    {
+      "From": "hyforged:wis-p2-aura-05",
+      "To": "hyforged:sacred-ground"
+    },
+    {
+      "From": "hyforged:wis-p3-resist-06",
+      "To": "hyforged:prismatic-ward"
+    },
+    {
+      "From": "hyforged:enlightenment",
+      "To": "hyforged:wis-p1-health-09"
+    },
+    {
+      "From": "hyforged:sacred-ground",
+      "To": "hyforged:wis-p2-cd-07"
+    },
+    {
+      "From": "hyforged:prismatic-ward",
+      "To": "hyforged:wis-p3-fire-05"
+    },
+    {
+      "From": "hyforged:wis-p1-health-09",
+      "To": "hyforged:wis-p1-regen-10"
+    },
+    {
+      "From": "hyforged:wis-p2-cd-07",
+      "To": "hyforged:wis-p2-conc-08"
+    },
+    {
+      "From": "hyforged:wis-p3-fire-05",
+      "To": "hyforged:wis-p3-cold-05"
+    },
+    {
+      "From": "hyforged:wis-p1-regen-10",
+      "To": "hyforged:wis-p1-t05"
+    },
+    {
+      "From": "hyforged:wis-p2-conc-08",
+      "To": "hyforged:wis-p2-t05"
+    },
+    {
+      "From": "hyforged:wis-p3-cold-05",
+      "To": "hyforged:wis-p3-t05"
+    },
+    {
+      "From": "hyforged:wis-p1-t05",
+      "To": "hyforged:wis-p1-health-10"
+    },
+    {
+      "From": "hyforged:wis-p2-t05",
+      "To": "hyforged:wis-p2-aura-06"
+    },
+    {
+      "From": "hyforged:wis-p3-t05",
+      "To": "hyforged:wis-p3-light-05"
+    },
+    {
+      "From": "hyforged:wis-p1-health-10",
+      "To": "hyforged:wis-p1-regen-11"
+    },
+    {
+      "From": "hyforged:wis-p2-aura-06",
+      "To": "hyforged:wis-p2-cd-08"
+    },
+    {
+      "From": "hyforged:wis-p3-light-05",
+      "To": "hyforged:wis-p3-resist-07"
+    },
+    {
+      "From": "hyforged:wis-p1-regen-11",
+      "To": "hyforged:transcendence"
+    },
+    {
+      "From": "hyforged:wis-p2-cd-08",
+      "To": "hyforged:divine-guidance"
+    },
+    {
+      "From": "hyforged:wis-p3-resist-07",
+      "To": "hyforged:divine-flesh"
+    },
+    {
+      "From": "hyforged:transcendence",
+      "To": "hyforged:wis-p1-health-11"
+    },
+    {
+      "From": "hyforged:divine-guidance",
+      "To": "hyforged:wis-p2-conc-09"
+    },
+    {
+      "From": "hyforged:divine-flesh",
+      "To": "hyforged:wis-p3-fire-06"
+    },
+    {
+      "From": "hyforged:wis-p1-health-11",
+      "To": "hyforged:wis-p1-regen-12"
+    },
+    {
+      "From": "hyforged:wis-p2-conc-09",
+      "To": "hyforged:wis-p2-aura-07"
+    },
+    {
+      "From": "hyforged:wis-p3-fire-06",
+      "To": "hyforged:wis-p3-cold-06"
+    },
+    {
+      "From": "hyforged:wis-p1-regen-12",
+      "To": "hyforged:wis-p1-t06"
+    },
+    {
+      "From": "hyforged:wis-p2-aura-07",
+      "To": "hyforged:wis-p2-t06"
+    },
+    {
+      "From": "hyforged:wis-p3-cold-06",
+      "To": "hyforged:wis-p3-t06"
+    },
+    {
+      "From": "hyforged:wis-p1-t06",
+      "To": "hyforged:wis-p1-health-12"
+    },
+    {
+      "From": "hyforged:wis-p2-t06",
+      "To": "hyforged:wis-p2-cd-09"
+    },
+    {
+      "From": "hyforged:wis-p3-t06",
+      "To": "hyforged:wis-p3-light-06"
+    },
+    {
+      "From": "hyforged:wis-p1-health-12",
+      "To": "hyforged:wis-p1-regen-13"
+    },
+    {
+      "From": "hyforged:wis-p2-cd-09",
+      "To": "hyforged:wis-p2-conc-10"
+    },
+    {
+      "From": "hyforged:wis-p3-light-06",
+      "To": "hyforged:wis-p3-resist-08"
+    },
+    {
+      "From": "hyforged:wis-p1-regen-13",
+      "To": "hyforged:eternal-youth"
+    },
+    {
+      "From": "hyforged:wis-p2-conc-10",
+      "To": "hyforged:avatar-of-light"
+    },
+    {
+      "From": "hyforged:wis-p3-resist-08",
+      "To": "hyforged:aegis"
+    },
+    {
+      "From": "hyforged:vitality",
+      "To": "hyforged:focused-mind"
+    },
+    {
+      "From": "hyforged:wis-p1-t01",
+      "To": "hyforged:wis-p2-t01"
+    },
+    {
+      "From": "hyforged:meditation",
+      "To": "hyforged:frost-ward"
+    },
+    {
+      "From": "hyforged:wis-p2-t02",
+      "To": "hyforged:wis-p3-t02"
+    },
+    {
+      "From": "hyforged:zealots-oath",
+      "To": "hyforged:wis-p2-aura-02"
+    },
+    {
+      "From": "hyforged:wis-p1-t03",
+      "To": "hyforged:wis-p2-t03"
+    },
+    {
+      "From": "hyforged:inner-peace",
+      "To": "hyforged:aura-mastery"
+    },
+    {
+      "From": "hyforged:wis-p2-t04",
+      "To": "hyforged:wis-p3-t04"
+    },
+    {
+      "From": "hyforged:enlightenment",
+      "To": "hyforged:sacred-ground"
+    },
+    {
+      "From": "hyforged:wis-p1-t05",
+      "To": "hyforged:wis-p2-t05"
+    },
+    {
+      "From": "hyforged:transcendence",
+      "To": "hyforged:divine-guidance"
+    },
+    {
+      "From": "hyforged:divine-guidance",
+      "To": "hyforged:divine-flesh"
+    },
+    {
+      "From": "hyforged:eternal-youth",
+      "To": "hyforged:avatar-of-light"
+    }
   ]
 }

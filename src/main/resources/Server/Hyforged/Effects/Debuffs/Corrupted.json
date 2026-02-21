@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Corruption.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:chaos-resistance-bps", "StackType": "Flat", "Amount": -3000 },
-    { "StatId": "hyforged:chaos-damage-taken-bps", "StackType": "Increased", "Amount": 2500 }
+    {
+      "StatId": "hyforged:chaos-resistance-bps",
+      "StackType": "Flat",
+      "Amount": -3000
+    },
+    {
+      "StatId": "hyforged:chaos-damage-taken-bps",
+      "StackType": "Increased",
+      "Amount": 2500
+    }
   ]
 }

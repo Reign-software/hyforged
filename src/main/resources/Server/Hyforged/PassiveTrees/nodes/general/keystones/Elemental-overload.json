@@ -7,7 +7,10 @@
       "Description": "+25% more Elemental Damage if you've Crit Recently\nElemental Crit Multiplier has no effect",
       "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
-        { "Type": "unlock-flag", "FlagId": "hyforged:elemental-overload" }
+        {
+          "Type": "unlock-flag",
+          "FlagId": "hyforged:elemental-overload"
+        }
       ]
     }
   ]

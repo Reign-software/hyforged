@@ -7,7 +7,11 @@
       "Description": "Begin your journey with +2 Strength",
       "Icon": "Hyforged/Textures/Strength.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:strength", "Value": 2 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:strength",
+          "Value": 2
+        }
       ]
     },
     {
@@ -17,7 +21,11 @@
       "Description": "Begin your journey with +2 Dexterity",
       "Icon": "Hyforged/Textures/Dexterity.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:dexterity", "Value": 2 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:dexterity",
+          "Value": 2
+        }
       ]
     },
     {
@@ -27,7 +35,11 @@
       "Description": "Begin your journey with +2 Intelligence",
       "Icon": "Hyforged/Textures/Intelligence.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:intelligence", "Value": 2 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:intelligence",
+          "Value": 2
+        }
       ]
     },
     {
@@ -37,7 +49,11 @@
       "Description": "Begin your journey with +2 Spirit",
       "Icon": "Hyforged/Textures/Spirit.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:spirit", "Value": 2 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:spirit",
+          "Value": 2
+        }
       ]
     },
     {
@@ -47,7 +63,11 @@
       "Description": "Begin your journey with +2 Wisdom",
       "Icon": "Hyforged/Textures/Wisdom.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:wisdom", "Value": 2 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:wisdom",
+          "Value": 2
+        }
       ]
     },
     {
@@ -57,7 +77,11 @@
       "Description": "Begin your journey with +2 Constitution",
       "Icon": "Hyforged/Textures/Constitution.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:constitution", "Value": 2 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:constitution",
+          "Value": 2
+        }
       ]
     },
     {
@@ -67,7 +91,11 @@
       "Description": "Begin your journey with +2 Luck",
       "Icon": "Hyforged/Textures/Luck.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:luck", "Value": 2 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:luck",
+          "Value": 2
+        }
       ]
     }
   ]

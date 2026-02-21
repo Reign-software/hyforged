@@ -1,0 +1,34 @@
+{
+    "TranslationProperties": {
+        "Name": "server.items.Armor_Steel_Head.name"
+    },
+    "Parent": "Armor_Iron_Head",
+    "Recipe": {
+        "Input": [],
+        "BenchRequirement": []
+    },
+    "Icon": "Icons/ItemsGenerated/Armor_Steel_Head.png",
+    "Model": "Items/Armors/Steel/Head.blockymodel",
+    "Texture": "Items/Armors/Steel/Head_default.png",
+    "Armor": {
+        "ArmorSlot": "Head",
+        "BaseDamageResistance": 0,
+        "CosmeticsToHide": [
+            "EarAccessory",
+            "Ear",
+            "Haircut",
+            "HeadAccessory"
+        ]
+    },
+    "MaxDurability": 150,
+    "Tags": {
+        "Type": [
+            "Armor"
+        ],
+        "Family": [
+            "Steel"
+        ]
+    },
+    "ItemSoundSetId": "ISS_Armor_Heavy",
+    "Quality": "Uncommon"
+}

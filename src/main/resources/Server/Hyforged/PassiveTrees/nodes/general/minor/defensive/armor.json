@@ -6,8 +6,16 @@
       "Name": "Hardened",
       "Description": "+5 Armor Rating\n+1% Physical Resistance",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:armor-rating", "Value": 5 },
-        { "Type": "stat-modifier", "Stat": "hyforged:physical-resistance-bps", "Value": 100 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:armor-rating",
+          "Value": 5
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:physical-resistance-bps",
+          "Value": 100
+        }
       ]
     }
   ]

@@ -9,7 +9,11 @@
       "ItemLevelReq": 78,
       "Weight": 40,
       "Stats": {
-        "hyforged:life-leech-bps": { "MinValue": 280, "MaxValue": 380, "StackType": "Flat" }
+        "hyforged:life-leech-bps": {
+          "MinValue": 280,
+          "MaxValue": 380,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 55,
       "Weight": 70,
       "Stats": {
-        "hyforged:life-leech-bps": { "MinValue": 180, "MaxValue": 280, "StackType": "Flat" }
+        "hyforged:life-leech-bps": {
+          "MinValue": 180,
+          "MaxValue": 280,
+          "StackType": "Flat"
+        }
       }
     }
   ]

@@ -3,7 +3,9 @@
     "Description": "Wand-family weapon affix pool",
     "AppliesTo": {
         "Categories": [],
-        "Tags": ["Family=Wand"]
+        "Tags": [
+            "Family=Wand"
+        ]
     },
     "Prefixes": [
         "hyforged:arcane",

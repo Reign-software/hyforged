@@ -6,6 +6,10 @@
     "StatusEffectIcon": "UI/StatusEffects/PoisonResist.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:poison-resistance-bps", "StackType": "Flat", "Amount": 7500 }
+    {
+      "StatId": "hyforged:poison-resistance-bps",
+      "StackType": "Flat",
+      "Amount": 7500
+    }
   ]
 }

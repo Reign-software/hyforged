@@ -7,7 +7,10 @@
       "Description": "Immune to Chaos Damage\nMaximum Health becomes 1",
       "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
-        { "Type": "unlock-flag", "FlagId": "hyforged:chaos-inoculation" }
+        {
+          "Type": "unlock-flag",
+          "FlagId": "hyforged:chaos-inoculation"
+        }
       ]
     }
   ]

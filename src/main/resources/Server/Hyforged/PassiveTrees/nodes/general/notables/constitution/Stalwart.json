@@ -7,8 +7,16 @@
       "Description": "+5% Block Chance\n+3% Physical Resistance",
       "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:block-chance-bps", "Value": 500 },
-        { "Type": "stat-modifier", "Stat": "hyforged:physical-resistance-bps", "Value": 300 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:block-chance-bps",
+          "Value": 500
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:physical-resistance-bps",
+          "Value": 300
+        }
       ]
     }
   ]

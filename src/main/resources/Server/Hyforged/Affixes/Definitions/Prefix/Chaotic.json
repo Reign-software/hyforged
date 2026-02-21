@@ -9,7 +9,11 @@
       "ItemLevelReq": 60,
       "Weight": 40,
       "Stats": {
-        "hyforged:added-chaos-damage-flat": { "MinValue": 35, "MaxValue": 50, "StackType": "Flat" }
+        "hyforged:added-chaos-damage-flat": {
+          "MinValue": 35,
+          "MaxValue": 50,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 45,
       "Weight": 60,
       "Stats": {
-        "hyforged:added-chaos-damage-flat": { "MinValue": 24, "MaxValue": 35, "StackType": "Flat" }
+        "hyforged:added-chaos-damage-flat": {
+          "MinValue": 24,
+          "MaxValue": 35,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 30,
       "Weight": 80,
       "Stats": {
-        "hyforged:added-chaos-damage-flat": { "MinValue": 15, "MaxValue": 24, "StackType": "Flat" }
+        "hyforged:added-chaos-damage-flat": {
+          "MinValue": 15,
+          "MaxValue": 24,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 15,
       "Weight": 100,
       "Stats": {
-        "hyforged:added-chaos-damage-flat": { "MinValue": 8, "MaxValue": 15, "StackType": "Flat" }
+        "hyforged:added-chaos-damage-flat": {
+          "MinValue": 8,
+          "MaxValue": 15,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 1,
       "Weight": 120,
       "Stats": {
-        "hyforged:added-chaos-damage-flat": { "MinValue": 2, "MaxValue": 8, "StackType": "Flat" }
+        "hyforged:added-chaos-damage-flat": {
+          "MinValue": 2,
+          "MaxValue": 8,
+          "StackType": "Flat"
+        }
       }
     }
   ]

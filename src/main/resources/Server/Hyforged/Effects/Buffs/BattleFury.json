@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/AttackPower.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:attack-power", "StackType": "Flat", "Amount": 75 },
-    { "StatId": "hyforged:attack-damage-increased-bps", "StackType": "Increased", "Amount": 2500 }
+    {
+      "StatId": "hyforged:attack-power",
+      "StackType": "Flat",
+      "Amount": 75
+    },
+    {
+      "StatId": "hyforged:attack-damage-increased-bps",
+      "StackType": "Increased",
+      "Amount": 2500
+    }
   ]
 }

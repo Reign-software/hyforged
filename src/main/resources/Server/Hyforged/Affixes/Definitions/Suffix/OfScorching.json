@@ -9,7 +9,11 @@
       "ItemLevelReq": 60,
       "Weight": 40,
       "Stats": {
-        "hyforged:fire-penetration-bps": { "MinValue": 1200, "MaxValue": 1600, "StackType": "Flat" }
+        "hyforged:fire-penetration-bps": {
+          "MinValue": 1200,
+          "MaxValue": 1600,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 44,
       "Weight": 58,
       "Stats": {
-        "hyforged:fire-penetration-bps": { "MinValue": 700, "MaxValue": 1200, "StackType": "Flat" }
+        "hyforged:fire-penetration-bps": {
+          "MinValue": 700,
+          "MaxValue": 1200,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 28,
       "Weight": 78,
       "Stats": {
-        "hyforged:fire-penetration-bps": { "MinValue": 350, "MaxValue": 700, "StackType": "Flat" }
+        "hyforged:fire-penetration-bps": {
+          "MinValue": 350,
+          "MaxValue": 700,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 14,
       "Weight": 100,
       "Stats": {
-        "hyforged:fire-penetration-bps": { "MinValue": 100, "MaxValue": 350, "StackType": "Flat" }
+        "hyforged:fire-penetration-bps": {
+          "MinValue": 100,
+          "MaxValue": 350,
+          "StackType": "Flat"
+        }
       }
     }
   ]

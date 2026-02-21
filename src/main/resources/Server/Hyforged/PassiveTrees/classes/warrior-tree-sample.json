@@ -13,10 +13,17 @@
             "Name": "Warrior's Resolve",
             "Description": "Starting point for the Warrior class tree.",
             "Icon": "hyforged:icons/passive/warrior-start",
-            "Position": { "X": 0, "Y": 0 },
+            "Position": {
+                "X": 0,
+                "Y": 0
+            },
             "Region": "core",
             "Effects": [
-                { "Type": "stat-modifier", "Stat": "hyforged:strength", "Value": 5 }
+                {
+                    "Type": "stat-modifier",
+                    "Stat": "hyforged:strength",
+                    "Value": 5
+                }
             ]
         },
         {
@@ -25,10 +32,17 @@
             "Name": "Hardened Skin",
             "Description": "+10 to Armor",
             "Icon": "hyforged:icons/passive/armor",
-            "Position": { "X": 0, "Y": -20 },
+            "Position": {
+                "X": 0,
+                "Y": -20
+            },
             "Region": "defense",
             "Effects": [
-                { "Type": "stat-modifier", "Stat": "hyforged:armor-rating", "Value": 10 }
+                {
+                    "Type": "stat-modifier",
+                    "Stat": "hyforged:armor-rating",
+                    "Value": 10
+                }
             ]
         },
         {
@@ -37,11 +51,22 @@
             "Name": "Cleaving Strikes",
             "Description": "15% increased Melee Damage.\n5% increased Attack Speed.",
             "Icon": "hyforged:icons/passive/cleaving",
-            "Position": { "X": 20, "Y": -40 },
+            "Position": {
+                "X": 20,
+                "Y": -40
+            },
             "Region": "offense",
             "Effects": [
-                { "Type": "stat-modifier", "Stat": "hyforged:melee-damage-increased-bps", "Value": 1500 },
-                { "Type": "stat-modifier", "Stat": "hyforged:attack-speed-bps", "Value": 500 }
+                {
+                    "Type": "stat-modifier",
+                    "Stat": "hyforged:melee-damage-increased-bps",
+                    "Value": 1500
+                },
+                {
+                    "Type": "stat-modifier",
+                    "Stat": "hyforged:attack-speed-bps",
+                    "Value": 500
+                }
             ],
             "Requirements": {
                 "AllocatedNodes": 2
@@ -53,10 +78,16 @@
             "Name": "Warcry Mastery",
             "Description": "Unlocks the Rallying Cry skill.",
             "Icon": "hyforged:icons/passive/warcry",
-            "Position": { "X": -20, "Y": -40 },
+            "Position": {
+                "X": -20,
+                "Y": -40
+            },
             "Region": "utility",
             "Effects": [
-                { "Type": "spell-grant", "SpellId": "hyforged:rallying-cry" }
+                {
+                    "Type": "spell-grant",
+                    "SpellId": "hyforged:rallying-cry"
+                }
             ]
         },
         {
@@ -65,14 +96,25 @@
             "Name": "Berserker Mastery",
             "Description": "Choose a berserker specialization.",
             "Icon": "hyforged:icons/passive/berserker",
-            "Position": { "X": 0, "Y": -60 },
+            "Position": {
+                "X": 0,
+                "Y": -60
+            },
             "Region": "mastery",
             "Effects": [
                 {
                     "Type": "mastery-choice",
                     "Choices": [
-                        { "Type": "stat-modifier", "Stat": "hyforged:attack-damage-increased-bps", "Value": 2000 },
-                        { "Type": "stat-modifier", "Stat": "hyforged:life-leech-bps", "Value": 500 }
+                        {
+                            "Type": "stat-modifier",
+                            "Stat": "hyforged:attack-damage-increased-bps",
+                            "Value": 2000
+                        },
+                        {
+                            "Type": "stat-modifier",
+                            "Stat": "hyforged:life-leech-bps",
+                            "Value": 500
+                        }
                     ]
                 }
             ],
@@ -82,10 +124,25 @@
         }
     ],
     "Connections": [
-        { "From": "hyforged:warrior-start", "To": "hyforged:warrior-armor-1" },
-        { "From": "hyforged:warrior-armor-1", "To": "hyforged:warrior-melee-notable" },
-        { "From": "hyforged:warrior-armor-1", "To": "hyforged:warrior-warcry-unlock" },
-        { "From": "hyforged:warrior-melee-notable", "To": "hyforged:warrior-mastery-berserker" },
-        { "From": "hyforged:warrior-warcry-unlock", "To": "hyforged:warrior-mastery-berserker" }
+        {
+            "From": "hyforged:warrior-start",
+            "To": "hyforged:warrior-armor-1"
+        },
+        {
+            "From": "hyforged:warrior-armor-1",
+            "To": "hyforged:warrior-melee-notable"
+        },
+        {
+            "From": "hyforged:warrior-armor-1",
+            "To": "hyforged:warrior-warcry-unlock"
+        },
+        {
+            "From": "hyforged:warrior-melee-notable",
+            "To": "hyforged:warrior-mastery-berserker"
+        },
+        {
+            "From": "hyforged:warrior-warcry-unlock",
+            "To": "hyforged:warrior-mastery-berserker"
+        }
     ]
 }

@@ -7,7 +7,10 @@
       "Description": "Spend Life instead of Mana for Skills",
       "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
-        { "Type": "unlock-flag", "FlagId": "hyforged:blood-magic" }
+        {
+          "Type": "unlock-flag",
+          "FlagId": "hyforged:blood-magic"
+        }
       ]
     }
   ]

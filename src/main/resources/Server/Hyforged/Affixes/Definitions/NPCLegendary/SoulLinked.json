@@ -10,15 +10,21 @@
       "ItemLevelReq": 35,
       "Weight": 100,
       "Stats": {
-        "hyforged:max-health-flat": { "MinValue": 1500, "MaxValue": 2500, "StackType": "More" }
+        "hyforged:max-health-flat": {
+          "MinValue": 1500,
+          "MaxValue": 2500,
+          "StackType": "More"
+        }
       }
     }
   ],
   "TriggeredEffects": [
     {
-      "Trigger": { "Type": "on_damaged" },
-      "Effect": { 
-        "Type": "damage_area", 
+      "Trigger": {
+        "Type": "on_damaged"
+      },
+      "Effect": {
+        "Type": "damage_area",
         "TargetAllies": true,
         "DamageType": "True",
         "DamagePercent": 0.5,

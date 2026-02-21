@@ -7,8 +7,16 @@
       "Description": "+8% Minion Life\n+5% Minion Damage",
       "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:minion-life-bps", "Value": 800 },
-        { "Type": "stat-modifier", "Stat": "hyforged:minion-damage-bps", "Value": 500 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:minion-life-bps",
+          "Value": 800
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:minion-damage-bps",
+          "Value": 500
+        }
       ]
     }
   ]

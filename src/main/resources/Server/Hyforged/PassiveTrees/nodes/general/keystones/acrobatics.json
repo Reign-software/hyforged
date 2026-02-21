@@ -7,9 +7,21 @@
       "Description": "+15% Dodge Chance\n-30% Armor Rating\n-15% Block Chance",
       "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:dodge-chance-bps", "Value": 1500 },
-        { "Type": "stat-modifier", "Stat": "hyforged:armor-rating", "Value": -300 },
-        { "Type": "stat-modifier", "Stat": "hyforged:block-chance-bps", "Value": -1500 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:dodge-chance-bps",
+          "Value": 1500
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:armor-rating",
+          "Value": -300
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:block-chance-bps",
+          "Value": -1500
+        }
       ]
     }
   ]

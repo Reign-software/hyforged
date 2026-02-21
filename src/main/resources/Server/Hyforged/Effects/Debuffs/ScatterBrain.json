@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Distraction.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:concentration", "StackType": "Flat", "Amount": -20 },
-    { "StatId": "hyforged:mana-cost-bps", "StackType": "Increased", "Amount": 3000 }
+    {
+      "StatId": "hyforged:concentration",
+      "StackType": "Flat",
+      "Amount": -20
+    },
+    {
+      "StatId": "hyforged:mana-cost-bps",
+      "StackType": "Increased",
+      "Amount": 3000
+    }
   ]
 }

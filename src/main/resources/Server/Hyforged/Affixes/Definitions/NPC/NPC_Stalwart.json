@@ -10,7 +10,11 @@
       "ItemLevelReq": 1,
       "Weight": 100,
       "Stats": {
-        "hyforged:constitution": { "MinValue": 7, "MaxValue": 16, "StackType": "Flat" }
+        "hyforged:constitution": {
+          "MinValue": 7,
+          "MaxValue": 16,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -18,7 +22,11 @@
       "ItemLevelReq": 25,
       "Weight": 80,
       "Stats": {
-        "hyforged:constitution": { "MinValue": 16, "MaxValue": 28, "StackType": "Flat" }
+        "hyforged:constitution": {
+          "MinValue": 16,
+          "MaxValue": 28,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -26,7 +34,11 @@
       "ItemLevelReq": 50,
       "Weight": 60,
       "Stats": {
-        "hyforged:constitution": { "MinValue": 28, "MaxValue": 45, "StackType": "Flat" }
+        "hyforged:constitution": {
+          "MinValue": 28,
+          "MaxValue": 45,
+          "StackType": "Flat"
+        }
       }
     }
   ]

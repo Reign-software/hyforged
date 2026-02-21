@@ -6,8 +6,16 @@
       "Name": "Projectile Precision",
       "Description": "+2% Projectile Damage\n+2% Projectile Speed",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:projectile-damage-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:projectile-speed-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:projectile-damage-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:projectile-speed-bps",
+          "Value": 200
+        }
       ]
     }
   ]

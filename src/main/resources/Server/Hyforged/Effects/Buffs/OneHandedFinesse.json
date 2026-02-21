@@ -6,6 +6,10 @@
     "StatusEffectIcon": "UI/StatusEffects/OneHanded.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:one-handed-damage-bps", "StackType": "Increased", "Amount": 3000 }
+    {
+      "StatId": "hyforged:one-handed-damage-bps",
+      "StackType": "Increased",
+      "Amount": 3000
+    }
   ]
 }

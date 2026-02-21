@@ -3,7 +3,7 @@
   "Category": "recovery",
   "DisplayName": "Health Regen",
   "Description": "Health regenerated per second. Scales with Constitution.",
-  "DefaultValue": 1,
+  "DefaultValue": 5,
   "MinValue": 0,
   "MaxValue": 2147483647,
   "Tags": {
@@ -13,7 +13,9 @@
     "Type": [
       "resource"
     ],
-    "Resource": ["health"],
+    "Resource": [
+      "health"
+    ],
     "Source": [
       "derived"
     ]
@@ -22,7 +24,7 @@
     {
       "Type": "threshold",
       "Source": "hyforged:constitution",
-      "PerPoints": 10,
+      "PerPoints": 5,
       "BonusBps": 1
     }
   ]

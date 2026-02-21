@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/ColdVuln.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:cold-resistance-bps", "StackType": "Flat", "Amount": -3000 },
-    { "StatId": "hyforged:freeze-duration-bps", "StackType": "Increased", "Amount": 2500 }
+    {
+      "StatId": "hyforged:cold-resistance-bps",
+      "StackType": "Flat",
+      "Amount": -3000
+    },
+    {
+      "StatId": "hyforged:freeze-duration-bps",
+      "StackType": "Increased",
+      "Amount": 2500
+    }
   ]
 }

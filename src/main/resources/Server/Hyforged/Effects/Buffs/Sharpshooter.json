@@ -6,8 +6,20 @@
     "StatusEffectIcon": "UI/StatusEffects/Ranged.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:ranged-damage-increased-bps", "StackType": "Increased", "Amount": 3000 },
-    { "StatId": "hyforged:projectile-speed-bps", "StackType": "Increased", "Amount": 2000 },
-    { "StatId": "hyforged:projectile-pierce-count", "StackType": "Flat", "Amount": 1 }
+    {
+      "StatId": "hyforged:ranged-damage-increased-bps",
+      "StackType": "Increased",
+      "Amount": 3000
+    },
+    {
+      "StatId": "hyforged:projectile-speed-bps",
+      "StackType": "Increased",
+      "Amount": 2000
+    },
+    {
+      "StatId": "hyforged:projectile-pierce-count",
+      "StackType": "Flat",
+      "Amount": 1
+    }
   ]
 }

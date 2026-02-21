@@ -9,7 +9,11 @@
       "ItemLevelReq": 76,
       "Weight": 35,
       "Stats": {
-        "hyforged:health-regen-flat": { "MinValue": 40, "MaxValue": 55, "StackType": "Flat" }
+        "hyforged:health-regen-flat": {
+          "MinValue": 40,
+          "MaxValue": 55,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 55,
       "Weight": 65,
       "Stats": {
-        "hyforged:health-regen-flat": { "MinValue": 28, "MaxValue": 40, "StackType": "Flat" }
+        "hyforged:health-regen-flat": {
+          "MinValue": 28,
+          "MaxValue": 40,
+          "StackType": "Flat"
+        }
       }
     }
   ]

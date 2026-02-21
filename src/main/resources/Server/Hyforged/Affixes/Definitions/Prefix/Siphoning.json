@@ -9,7 +9,11 @@
       "ItemLevelReq": 60,
       "Weight": 45,
       "Stats": {
-        "hyforged:life-leech-bps": { "MinValue": 150, "MaxValue": 200, "StackType": "Flat" }
+        "hyforged:life-leech-bps": {
+          "MinValue": 150,
+          "MaxValue": 200,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 40,
       "Weight": 70,
       "Stats": {
-        "hyforged:life-leech-bps": { "MinValue": 100, "MaxValue": 150, "StackType": "Flat" }
+        "hyforged:life-leech-bps": {
+          "MinValue": 100,
+          "MaxValue": 150,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 20,
       "Weight": 100,
       "Stats": {
-        "hyforged:life-leech-bps": { "MinValue": 50, "MaxValue": 100, "StackType": "Flat" }
+        "hyforged:life-leech-bps": {
+          "MinValue": 50,
+          "MaxValue": 100,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 1,
       "Weight": 130,
       "Stats": {
-        "hyforged:life-leech-bps": { "MinValue": 20, "MaxValue": 50, "StackType": "Flat" }
+        "hyforged:life-leech-bps": {
+          "MinValue": 20,
+          "MaxValue": 50,
+          "StackType": "Flat"
+        }
       }
     }
   ]

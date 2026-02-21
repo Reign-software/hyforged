@@ -9,7 +9,11 @@
       "ItemLevelReq": 62,
       "Weight": 38,
       "Stats": {
-        "hyforged:melee-damage-increased-bps": { "MinValue": 4000, "MaxValue": 5000, "StackType": "Increased" }
+        "hyforged:melee-damage-increased-bps": {
+          "MinValue": 4000,
+          "MaxValue": 5000,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 48,
       "Weight": 55,
       "Stats": {
-        "hyforged:melee-damage-increased-bps": { "MinValue": 3000, "MaxValue": 4000, "StackType": "Increased" }
+        "hyforged:melee-damage-increased-bps": {
+          "MinValue": 3000,
+          "MaxValue": 4000,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 34,
       "Weight": 75,
       "Stats": {
-        "hyforged:melee-damage-increased-bps": { "MinValue": 2000, "MaxValue": 3000, "StackType": "Increased" }
+        "hyforged:melee-damage-increased-bps": {
+          "MinValue": 2000,
+          "MaxValue": 3000,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 20,
       "Weight": 95,
       "Stats": {
-        "hyforged:melee-damage-increased-bps": { "MinValue": 1200, "MaxValue": 2000, "StackType": "Increased" }
+        "hyforged:melee-damage-increased-bps": {
+          "MinValue": 1200,
+          "MaxValue": 2000,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 8,
       "Weight": 115,
       "Stats": {
-        "hyforged:melee-damage-increased-bps": { "MinValue": 600, "MaxValue": 1200, "StackType": "Increased" }
+        "hyforged:melee-damage-increased-bps": {
+          "MinValue": 600,
+          "MaxValue": 1200,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -49,7 +69,11 @@
       "ItemLevelReq": 1,
       "Weight": 135,
       "Stats": {
-        "hyforged:melee-damage-increased-bps": { "MinValue": 200, "MaxValue": 600, "StackType": "Increased" }
+        "hyforged:melee-damage-increased-bps": {
+          "MinValue": 200,
+          "MaxValue": 600,
+          "StackType": "Increased"
+        }
       }
     }
   ]

@@ -18,6 +18,8 @@
       "leech",
       "resource"
     ],
-    "Resource": ["mana"]
+    "Resource": [
+      "mana"
+    ]
   }
 }

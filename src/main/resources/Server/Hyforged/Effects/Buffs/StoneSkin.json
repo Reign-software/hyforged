@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Armor.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:armor-rating", "StackType": "Flat", "Amount": 500 },
-    { "StatId": "hyforged:physical-resistance-bps", "StackType": "Flat", "Amount": 1500 }
+    {
+      "StatId": "hyforged:armor-rating",
+      "StackType": "Flat",
+      "Amount": 500
+    },
+    {
+      "StatId": "hyforged:physical-resistance-bps",
+      "StackType": "Flat",
+      "Amount": 1500
+    }
   ]
 }

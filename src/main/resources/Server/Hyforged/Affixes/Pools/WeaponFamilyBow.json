@@ -3,7 +3,9 @@
     "Description": "Bow-family weapon affix pool",
     "AppliesTo": {
         "Categories": [],
-        "Tags": ["Family=Bow"]
+        "Tags": [
+            "Family=Bow"
+        ]
     },
     "Prefixes": [
         "hyforged:hunters",

@@ -2,17 +2,13 @@
     "$schema": "../../../.schema/xp-config.schema.json",
     "Id": "hyforged:xp_config",
     "Comment": "XP Configuration for Hyforged Progression System",
-    
     "CombatBaseXp": 10,
-    
     "DiscoveryBiomeXp": 100,
     "DiscoveryLandmarkXp": 50,
-    
     "ObjectiveMinorXp": 25,
     "ObjectiveStandardXp": 50,
     "ObjectiveMajorXp": 100,
     "ObjectiveLegendaryXp": 250,
-    
     "ClassXpRatio": 1.0,
     "MaxCharacterLevel": 100,
     "MaxClassLevel": 20

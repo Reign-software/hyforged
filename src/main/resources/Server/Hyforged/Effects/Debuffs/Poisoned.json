@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Poison.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:damage-over-time-taken-bps", "StackType": "Increased", "Amount": 2500 },
-    { "StatId": "hyforged:healing-received-bps", "StackType": "Increased", "Amount": -2500 }
+    {
+      "StatId": "hyforged:damage-over-time-taken-bps",
+      "StackType": "Increased",
+      "Amount": 2500
+    },
+    {
+      "StatId": "hyforged:healing-received-bps",
+      "StackType": "Increased",
+      "Amount": -2500
+    }
   ]
 }

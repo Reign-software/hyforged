@@ -9,7 +9,11 @@
       "ItemLevelReq": 64,
       "Weight": 35,
       "Stats": {
-        "hyforged:spell-skill-levels": { "MinValue": 2, "MaxValue": 2, "StackType": "Flat" }
+        "hyforged:spell-skill-levels": {
+          "MinValue": 2,
+          "MaxValue": 2,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 28,
       "Weight": 60,
       "Stats": {
-        "hyforged:spell-skill-levels": { "MinValue": 1, "MaxValue": 1, "StackType": "Flat" }
+        "hyforged:spell-skill-levels": {
+          "MinValue": 1,
+          "MaxValue": 1,
+          "StackType": "Flat"
+        }
       }
     }
   ]

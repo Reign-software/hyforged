@@ -29,9 +29,25 @@
     "Legendary": 175
   },
   "AffixSlots": {
-    "Uncommon": { "npc": 1, "npc_rare": 1, "npc_legendary": 0 },
-    "Rare": { "npc": 2, "npc_rare": 1, "npc_legendary": 0 },
-    "Epic": { "npc": 2, "npc_rare": 2, "npc_legendary": 1 },
-    "Legendary": { "npc": 2, "npc_rare": 2, "npc_legendary": 2 }
+    "Uncommon": {
+      "npc": 1,
+      "npc_rare": 1,
+      "npc_legendary": 0
+    },
+    "Rare": {
+      "npc": 2,
+      "npc_rare": 1,
+      "npc_legendary": 0
+    },
+    "Epic": {
+      "npc": 2,
+      "npc_rare": 2,
+      "npc_legendary": 1
+    },
+    "Legendary": {
+      "npc": 2,
+      "npc_rare": 2,
+      "npc_legendary": 2
+    }
   }
 }

@@ -73,6 +73,42 @@ public class EquipmentAffixListener {
             globalRegistration = null;
         }
     }
+
+    /**
+     * Re-apply all equipment affix modifiers for an entity.
+     * <p>
+     * Call this on player login ({@code PlayerReadyEvent}) or any time the in-memory
+     * modifier list needs to be rebuilt from scratch (e.g. after a reload). Without
+     * this call, equipment modifiers are missing until the player physically moves an
+     * item because {@link LivingEntityInventoryChangeEvent} does not fire during the
+     * initial inventory restore.
+     *
+     * @param entity The living entity to re-apply equipment modifiers for
+     */
+    public void reapplyAllEquipmentModifiers(@Nonnull LivingEntity entity) {
+        Ref<EntityStore> entityRef = entity.getReference();
+        if (entityRef == null || !entityRef.isValid()) {
+            return;
+        }
+
+        Inventory inventory = entity.getInventory();
+        if (inventory == null) {
+            return;
+        }
+
+        EntityStatMap entityStatMap = getEntityStatMap(entityRef);
+        HyforgedStatComponent statComponent = getHyforgedStatComponent(entityRef);
+        if (entityStatMap == null && statComponent == null) {
+            return;
+        }
+
+        processArmorChange(entity, entityStatMap, statComponent, inventory);
+        processHotbarChange(entity, entityStatMap, statComponent, inventory);
+
+        ActiveEffectInitializer.refreshFromEquipment(entityRef, inventory, entityRef.getStore());
+
+        LOGGER.atInfo().log("Re-applied equipment modifiers for entity on login");
+    }
     
     /**
      * Handle inventory change events.

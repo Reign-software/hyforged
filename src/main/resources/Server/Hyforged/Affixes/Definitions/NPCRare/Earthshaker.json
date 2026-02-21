@@ -20,9 +20,12 @@
   ],
   "TriggeredEffects": [
     {
-      "Trigger": { "Type": "interval", "IntervalSeconds": 12.0 },
-      "Effect": { 
-        "Type": "damage_area", 
+      "Trigger": {
+        "Type": "interval",
+        "IntervalSeconds": 12.0
+      },
+      "Effect": {
+        "Type": "damage_area",
         "DamageType": "Physical",
         "BaseDamage": 20,
         "DamageScaling": 0.3,

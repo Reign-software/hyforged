@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/ChaosResist.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:chaos-resistance-bps", "StackType": "Flat", "Amount": 4000 },
-    { "StatId": "hyforged:maximum-resistance-chaos-bps", "StackType": "Flat", "Amount": 500 }
+    {
+      "StatId": "hyforged:chaos-resistance-bps",
+      "StackType": "Flat",
+      "Amount": 4000
+    },
+    {
+      "StatId": "hyforged:maximum-resistance-chaos-bps",
+      "StackType": "Flat",
+      "Amount": 500
+    }
   ]
 }

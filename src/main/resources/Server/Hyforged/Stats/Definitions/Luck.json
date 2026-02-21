@@ -13,5 +13,12 @@
     "Domain": [
       "attributes"
     ]
-  }
+  },
+  "Scaling": [
+    {
+      "Type": "linear",
+      "Source": "hyforged:attribute-all",
+      "Ratio": 1.0
+    }
+  ]
 }

@@ -9,7 +9,11 @@
       "ItemLevelReq": 75,
       "Weight": 30,
       "Stats": {
-        "hyforged:dexterity": { "MinValue": 65, "MaxValue": 80, "StackType": "Flat" }
+        "hyforged:dexterity": {
+          "MinValue": 65,
+          "MaxValue": 80,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 55,
       "Weight": 55,
       "Stats": {
-        "hyforged:dexterity": { "MinValue": 50, "MaxValue": 65, "StackType": "Flat" }
+        "hyforged:dexterity": {
+          "MinValue": 50,
+          "MaxValue": 65,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 35,
       "Weight": 80,
       "Stats": {
-        "hyforged:dexterity": { "MinValue": 35, "MaxValue": 50, "StackType": "Flat" }
+        "hyforged:dexterity": {
+          "MinValue": 35,
+          "MaxValue": 50,
+          "StackType": "Flat"
+        }
       }
     }
   ]

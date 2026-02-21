@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Fork.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:projectile-fork-count", "StackType": "Flat", "Amount": 1 },
-    { "StatId": "hyforged:additional-projectiles", "StackType": "Flat", "Amount": 1 }
+    {
+      "StatId": "hyforged:projectile-fork-count",
+      "StackType": "Flat",
+      "Amount": 1
+    },
+    {
+      "StatId": "hyforged:additional-projectiles",
+      "StackType": "Flat",
+      "Amount": 1
+    }
   ]
 }

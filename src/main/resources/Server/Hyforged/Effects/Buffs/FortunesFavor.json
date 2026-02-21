@@ -6,6 +6,10 @@
     "StatusEffectIcon": "UI/StatusEffects/Luck.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:luck", "StackType": "Flat", "Amount": 15 }
+    {
+      "StatId": "hyforged:luck",
+      "StackType": "Flat",
+      "Amount": 15
+    }
   ]
 }

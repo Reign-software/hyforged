@@ -7,7 +7,11 @@
       "Description": "+5 to Strength",
       "Icon": "Hyforged/Textures/Strength.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:strength", "Value": 5 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:strength",
+          "Value": 5
+        }
       ]
     }
   ]

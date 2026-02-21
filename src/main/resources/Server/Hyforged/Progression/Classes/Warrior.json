@@ -8,27 +8,96 @@
     "Wisdom": 1,
     "Spirit": 1,
     "Luck": 1,
-    "WeaponTagFamilies": ["Family=Sword", "Family=Axe", "Family=Mace"],
+    "WeaponTagFamilies": [
+        "Family=Sword",
+        "Family=Axe",
+        "Family=Mace"
+    ],
     "LevelRewards": [
-        { "Level": 1, "Strength": 1 },
-        { "Level": 2, "Constitution": 1 },
-        { "Level": 3, "Strength": 1 },
-        { "Level": 4, "Constitution": 1 },
-        { "Level": 5, "Strength": 1 },
-        { "Level": 6, "Strength": 1 },
-        { "Level": 7, "Constitution": 1 },
-        { "Level": 8, "Strength": 1, "Dexterity": 1 },
-        { "Level": 9, "Constitution": 1 },
-        { "Level": 10, "Strength": 1, "Constitution": 1 },
-        { "Level": 11, "Strength": 1 },
-        { "Level": 12, "Constitution": 1 },
-        { "Level": 13, "Strength": 1 },
-        { "Level": 14, "Constitution": 1 },
-        { "Level": 15, "Strength": 1, "Constitution": 1 },
-        { "Level": 16, "Strength": 1, "Dexterity": 1 },
-        { "Level": 17, "Constitution": 1 },
-        { "Level": 18, "Strength": 1 },
-        { "Level": 19, "Constitution": 1 },
-        { "Level": 20, "Strength": 1, "Constitution": 2 }
+        {
+            "Level": 1,
+            "Strength": 1
+        },
+        {
+            "Level": 2,
+            "Constitution": 1
+        },
+        {
+            "Level": 3,
+            "Strength": 1
+        },
+        {
+            "Level": 4,
+            "Constitution": 1
+        },
+        {
+            "Level": 5,
+            "Strength": 1
+        },
+        {
+            "Level": 6,
+            "Strength": 1
+        },
+        {
+            "Level": 7,
+            "Constitution": 1
+        },
+        {
+            "Level": 8,
+            "Strength": 1,
+            "Dexterity": 1
+        },
+        {
+            "Level": 9,
+            "Constitution": 1
+        },
+        {
+            "Level": 10,
+            "Strength": 1,
+            "Constitution": 1
+        },
+        {
+            "Level": 11,
+            "Strength": 1
+        },
+        {
+            "Level": 12,
+            "Constitution": 1
+        },
+        {
+            "Level": 13,
+            "Strength": 1
+        },
+        {
+            "Level": 14,
+            "Constitution": 1
+        },
+        {
+            "Level": 15,
+            "Strength": 1,
+            "Constitution": 1
+        },
+        {
+            "Level": 16,
+            "Strength": 1,
+            "Dexterity": 1
+        },
+        {
+            "Level": 17,
+            "Constitution": 1
+        },
+        {
+            "Level": 18,
+            "Strength": 1
+        },
+        {
+            "Level": 19,
+            "Constitution": 1
+        },
+        {
+            "Level": 20,
+            "Strength": 1,
+            "Constitution": 2
+        }
     ]
 }

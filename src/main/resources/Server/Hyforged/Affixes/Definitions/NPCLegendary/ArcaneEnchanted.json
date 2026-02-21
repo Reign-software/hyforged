@@ -10,14 +10,20 @@
       "ItemLevelReq": 35,
       "Weight": 100,
       "Stats": {
-        "hyforged:damage-increased-bps": { "MinValue": 1000, "MaxValue": 1500, "StackType": "More" }
+        "hyforged:damage-increased-bps": {
+          "MinValue": 1000,
+          "MaxValue": 1500,
+          "StackType": "More"
+        }
       }
     }
   ],
   "TriggeredEffects": [
     {
-      "Trigger": { "Type": "on_combat_start" },
-      "Effect": { 
+      "Trigger": {
+        "Type": "on_combat_start"
+      },
+      "Effect": {
         "Type": "spawn_projectile",
         "ProjectileId": "Hyforged/ArcaneSentry",
         "Count": 4,

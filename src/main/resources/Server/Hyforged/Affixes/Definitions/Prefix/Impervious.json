@@ -9,7 +9,11 @@
       "ItemLevelReq": 64,
       "Weight": 40,
       "Stats": {
-        "hyforged:physical-damage-taken-bps": { "MinValue": -2000, "MaxValue": -1400, "StackType": "Flat" }
+        "hyforged:physical-damage-taken-bps": {
+          "MinValue": -2000,
+          "MaxValue": -1400,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 48,
       "Weight": 60,
       "Stats": {
-        "hyforged:physical-damage-taken-bps": { "MinValue": -1400, "MaxValue": -900, "StackType": "Flat" }
+        "hyforged:physical-damage-taken-bps": {
+          "MinValue": -1400,
+          "MaxValue": -900,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 32,
       "Weight": 80,
       "Stats": {
-        "hyforged:physical-damage-taken-bps": { "MinValue": -900, "MaxValue": -500, "StackType": "Flat" }
+        "hyforged:physical-damage-taken-bps": {
+          "MinValue": -900,
+          "MaxValue": -500,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 18,
       "Weight": 100,
       "Stats": {
-        "hyforged:physical-damage-taken-bps": { "MinValue": -500, "MaxValue": -250, "StackType": "Flat" }
+        "hyforged:physical-damage-taken-bps": {
+          "MinValue": -500,
+          "MaxValue": -250,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 1,
       "Weight": 120,
       "Stats": {
-        "hyforged:physical-damage-taken-bps": { "MinValue": -250, "MaxValue": -80, "StackType": "Flat" }
+        "hyforged:physical-damage-taken-bps": {
+          "MinValue": -250,
+          "MaxValue": -80,
+          "StackType": "Flat"
+        }
       }
     }
   ]

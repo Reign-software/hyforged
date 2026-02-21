@@ -1,328 +1,1546 @@
 {
   "TreeId": "hyforged:passive-tree-general",
   "Placements": [
-    { "NodeId": "hyforged:minor-evasion-1", "Position": { "X": -100, "Y": 50 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-eva-01" },
-    { "NodeId": "hyforged:minor-accuracy-1", "Position": { "X": -70, "Y": 50 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-acc-01" },
-    { "NodeId": "hyforged:minor-movement-1", "Position": { "X": -40, "Y": 50 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-move-01" },
-
-    { "NodeId": "hyforged:minor-evasion-1", "Position": { "X": -100, "Y": 100 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-eva-02" },
-    { "NodeId": "hyforged:minor-accuracy-1", "Position": { "X": -70, "Y": 100 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-acc-02" },
-    { "NodeId": "hyforged:minor-movement-1", "Position": { "X": -40, "Y": 100 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-move-02" },
-
-    { "NodeId": "hyforged:fleet-footed", "Position": { "X": -100, "Y": 150 }, "Region": "dexterity" },
-    { "NodeId": "hyforged:deadly-aim", "Position": { "X": -70, "Y": 150 }, "Region": "dexterity" },
-    { "NodeId": "hyforged:windrunner", "Position": { "X": -40, "Y": 150 }, "Region": "dexterity" },
-
-    { "NodeId": "hyforged:minor-evasion-1", "Position": { "X": -100, "Y": 200 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-eva-03" },
-    { "NodeId": "hyforged:minor-projectile-1", "Position": { "X": -70, "Y": 200 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-proj-01" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -40, "Y": 200 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-speed-01" },
-
-    { "NodeId": "hyforged:minor-dodge-1", "Position": { "X": -100, "Y": 250 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-dodge-01" },
-    { "NodeId": "hyforged:minor-projectile-1", "Position": { "X": -70, "Y": 250 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-proj-02" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -40, "Y": 250 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-speed-02" },
-
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -100, "Y": 300 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-t01" },
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -70, "Y": 300 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-t01" },
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -40, "Y": 300 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-t01" },
-
-    { "NodeId": "hyforged:minor-evasion-1", "Position": { "X": -100, "Y": 350 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-eva-04" },
-    { "NodeId": "hyforged:minor-accuracy-1", "Position": { "X": -70, "Y": 350 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-acc-03" },
-    { "NodeId": "hyforged:minor-movement-1", "Position": { "X": -40, "Y": 350 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-move-03" },
-
-    { "NodeId": "hyforged:minor-evasion-1", "Position": { "X": -100, "Y": 400 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-eva-05" },
-    { "NodeId": "hyforged:minor-crit-1", "Position": { "X": -70, "Y": 400 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-crit-01" },
-    { "NodeId": "hyforged:minor-stamina-1", "Position": { "X": -40, "Y": 400 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-stamina-01" },
-
-    { "NodeId": "hyforged:graceful-dodge", "Position": { "X": -100, "Y": 450 }, "Region": "dexterity" },
-    { "NodeId": "hyforged:precision-strikes", "Position": { "X": -70, "Y": 450 }, "Region": "dexterity" },
-    { "NodeId": "hyforged:dash-master", "Position": { "X": -40, "Y": 450 }, "Region": "dexterity" },
-
-    { "NodeId": "hyforged:minor-dodge-1", "Position": { "X": -100, "Y": 500 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-dodge-02" },
-    { "NodeId": "hyforged:minor-projectile-1", "Position": { "X": -70, "Y": 500 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-proj-03" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -40, "Y": 500 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-speed-03" },
-
-    { "NodeId": "hyforged:minor-evasion-1", "Position": { "X": -100, "Y": 550 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-eva-06" },
-    { "NodeId": "hyforged:minor-crit-1", "Position": { "X": -70, "Y": 550 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-crit-02" },
-    { "NodeId": "hyforged:minor-stamina-1", "Position": { "X": -40, "Y": 550 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-stamina-02" },
-
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -100, "Y": 600 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-t02" },
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -70, "Y": 600 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-t02" },
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -40, "Y": 600 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-t02" },
-
-    { "NodeId": "hyforged:acrobatics", "Position": { "X": -100, "Y": 650 }, "Region": "dexterity" },
-    { "NodeId": "hyforged:minor-accuracy-1", "Position": { "X": -70, "Y": 650 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-acc-04" },
-    { "NodeId": "hyforged:minor-movement-1", "Position": { "X": -40, "Y": 650 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-move-04" },
-
-    { "NodeId": "hyforged:minor-evasion-1", "Position": { "X": -100, "Y": 700 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-eva-07" },
-    { "NodeId": "hyforged:minor-projectile-1", "Position": { "X": -70, "Y": 700 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-proj-04" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -40, "Y": 700 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-speed-04" },
-
-    { "NodeId": "hyforged:minor-dodge-1", "Position": { "X": -100, "Y": 750 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-dodge-03" },
-    { "NodeId": "hyforged:minor-crit-1", "Position": { "X": -70, "Y": 750 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-crit-03" },
-    { "NodeId": "hyforged:minor-stamina-1", "Position": { "X": -40, "Y": 750 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-stamina-03" },
-
-    { "NodeId": "hyforged:shadow-step", "Position": { "X": -100, "Y": 800 }, "Region": "dexterity" },
-    { "NodeId": "hyforged:volley-adept", "Position": { "X": -70, "Y": 800 }, "Region": "dexterity" },
-    { "NodeId": "hyforged:endless-endurance", "Position": { "X": -40, "Y": 800 }, "Region": "dexterity" },
-
-    { "NodeId": "hyforged:minor-evasion-1", "Position": { "X": -100, "Y": 850 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-eva-08" },
-    { "NodeId": "hyforged:minor-accuracy-1", "Position": { "X": -70, "Y": 850 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-acc-05" },
-    { "NodeId": "hyforged:minor-movement-1", "Position": { "X": -40, "Y": 850 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-move-05" },
-
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -100, "Y": 900 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-t03" },
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -70, "Y": 900 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-t03" },
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -40, "Y": 900 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-t03" },
-
-    { "NodeId": "hyforged:minor-evasion-1", "Position": { "X": -100, "Y": 950 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-eva-09" },
-    { "NodeId": "hyforged:minor-projectile-1", "Position": { "X": -70, "Y": 950 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-proj-05" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -40, "Y": 950 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-speed-05" },
-
-    { "NodeId": "hyforged:minor-dodge-1", "Position": { "X": -100, "Y": 1000 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-dodge-04" },
-    { "NodeId": "hyforged:minor-crit-1", "Position": { "X": -70, "Y": 1000 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-crit-04" },
-    { "NodeId": "hyforged:minor-stamina-1", "Position": { "X": -40, "Y": 1000 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-stamina-04" },
-
-    { "NodeId": "hyforged:point-blank", "Position": { "X": -100, "Y": 1050 }, "Region": "dexterity" },
-    { "NodeId": "hyforged:assassins-mark", "Position": { "X": -70, "Y": 1050 }, "Region": "dexterity" },
-    { "NodeId": "hyforged:wind-dancer", "Position": { "X": -40, "Y": 1050 }, "Region": "dexterity" },
-
-    { "NodeId": "hyforged:minor-evasion-1", "Position": { "X": -100, "Y": 1100 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-eva-10" },
-    { "NodeId": "hyforged:minor-accuracy-1", "Position": { "X": -70, "Y": 1100 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-acc-06" },
-    { "NodeId": "hyforged:minor-movement-1", "Position": { "X": -40, "Y": 1100 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-move-06" },
-
-    { "NodeId": "hyforged:minor-dodge-1", "Position": { "X": -100, "Y": 1150 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-dodge-05" },
-    { "NodeId": "hyforged:minor-projectile-1", "Position": { "X": -70, "Y": 1150 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-proj-06" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -40, "Y": 1150 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-speed-06" },
-
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -100, "Y": 1200 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-t04" },
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -70, "Y": 1200 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-t04" },
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -40, "Y": 1200 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-t04" },
-
-    { "NodeId": "hyforged:minor-evasion-1", "Position": { "X": -100, "Y": 1250 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-eva-11" },
-    { "NodeId": "hyforged:minor-crit-1", "Position": { "X": -70, "Y": 1250 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-crit-05" },
-    { "NodeId": "hyforged:minor-stamina-1", "Position": { "X": -40, "Y": 1250 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-stamina-05" },
-
-    { "NodeId": "hyforged:minor-dodge-1", "Position": { "X": -100, "Y": 1300 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-dodge-06" },
-    { "NodeId": "hyforged:minor-accuracy-1", "Position": { "X": -70, "Y": 1300 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-acc-07" },
-    { "NodeId": "hyforged:minor-movement-1", "Position": { "X": -40, "Y": 1300 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-move-07" },
-
-    { "NodeId": "hyforged:rapid-assault", "Position": { "X": -100, "Y": 1350 }, "Region": "dexterity" },
-    { "NodeId": "hyforged:sniper", "Position": { "X": -70, "Y": 1350 }, "Region": "dexterity" },
-    { "NodeId": "hyforged:blur", "Position": { "X": -40, "Y": 1350 }, "Region": "dexterity" },
-
-    { "NodeId": "hyforged:minor-evasion-1", "Position": { "X": -100, "Y": 1400 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-eva-12" },
-    { "NodeId": "hyforged:minor-projectile-1", "Position": { "X": -70, "Y": 1400 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-proj-07" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -40, "Y": 1400 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-speed-07" },
-
-    { "NodeId": "hyforged:minor-dodge-1", "Position": { "X": -100, "Y": 1450 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-dodge-07" },
-    { "NodeId": "hyforged:minor-crit-1", "Position": { "X": -70, "Y": 1450 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-crit-06" },
-    { "NodeId": "hyforged:minor-stamina-1", "Position": { "X": -40, "Y": 1450 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-stamina-06" },
-
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -100, "Y": 1500 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-t05" },
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -70, "Y": 1500 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-t05" },
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -40, "Y": 1500 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-t05" },
-
-    { "NodeId": "hyforged:minor-evasion-1", "Position": { "X": -100, "Y": 1550 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-eva-13" },
-    { "NodeId": "hyforged:minor-accuracy-1", "Position": { "X": -70, "Y": 1550 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-acc-08" },
-    { "NodeId": "hyforged:minor-movement-1", "Position": { "X": -40, "Y": 1550 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-move-08" },
-
-    { "NodeId": "hyforged:minor-dodge-1", "Position": { "X": -100, "Y": 1600 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-dodge-08" },
-    { "NodeId": "hyforged:minor-projectile-1", "Position": { "X": -70, "Y": 1600 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-proj-08" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -40, "Y": 1600 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-speed-08" },
-
-    { "NodeId": "hyforged:perfect-agony", "Position": { "X": -100, "Y": 1650 }, "Region": "dexterity" },
-    { "NodeId": "hyforged:ricochet", "Position": { "X": -70, "Y": 1650 }, "Region": "dexterity" },
-    { "NodeId": "hyforged:lightning-reflexes", "Position": { "X": -40, "Y": 1650 }, "Region": "dexterity" },
-
-    { "NodeId": "hyforged:minor-evasion-1", "Position": { "X": -100, "Y": 1700 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-eva-14" },
-    { "NodeId": "hyforged:minor-crit-1", "Position": { "X": -70, "Y": 1700 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-crit-07" },
-    { "NodeId": "hyforged:minor-stamina-1", "Position": { "X": -40, "Y": 1700 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-stamina-07" },
-
-    { "NodeId": "hyforged:minor-dodge-1", "Position": { "X": -100, "Y": 1750 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-dodge-09" },
-    { "NodeId": "hyforged:minor-accuracy-1", "Position": { "X": -70, "Y": 1750 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-acc-09" },
-    { "NodeId": "hyforged:minor-movement-1", "Position": { "X": -40, "Y": 1750 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-move-09" },
-
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -100, "Y": 1800 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-t06" },
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -70, "Y": 1800 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-t06" },
-    { "NodeId": "hyforged:travel-dexterity", "Position": { "X": -40, "Y": 1800 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-t06" },
-
-    { "NodeId": "hyforged:minor-evasion-1", "Position": { "X": -100, "Y": 1850 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-eva-15" },
-    { "NodeId": "hyforged:minor-projectile-1", "Position": { "X": -70, "Y": 1850 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-proj-09" },
-    { "NodeId": "hyforged:minor-attack-speed-1", "Position": { "X": -40, "Y": 1850 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-speed-09" },
-
-    { "NodeId": "hyforged:minor-dodge-1", "Position": { "X": -100, "Y": 1900 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p1-dodge-10" },
-    { "NodeId": "hyforged:minor-crit-1", "Position": { "X": -70, "Y": 1900 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p2-crit-08" },
-    { "NodeId": "hyforged:minor-stamina-1", "Position": { "X": -40, "Y": 1900 }, "Region": "dexterity", "InstanceId": "hyforged:dex-p3-stamina-08" },
-
-    { "NodeId": "hyforged:phase-acrobatics", "Position": { "X": -100, "Y": 1950 }, "Region": "dexterity" },
-    { "NodeId": "hyforged:deadeye", "Position": { "X": -70, "Y": 1950 }, "Region": "dexterity" },
-    { "NodeId": "hyforged:avatar-of-the-chase", "Position": { "X": -40, "Y": 1950 }, "Region": "dexterity" }
+    {
+      "NodeId": "hyforged:minor-evasion-1",
+      "Position": {
+        "X": -100,
+        "Y": 50
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-eva-01"
+    },
+    {
+      "NodeId": "hyforged:minor-accuracy-1",
+      "Position": {
+        "X": -70,
+        "Y": 50
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-acc-01"
+    },
+    {
+      "NodeId": "hyforged:minor-movement-1",
+      "Position": {
+        "X": -40,
+        "Y": 50
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-move-01"
+    },
+    {
+      "NodeId": "hyforged:minor-evasion-1",
+      "Position": {
+        "X": -100,
+        "Y": 100
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-eva-02"
+    },
+    {
+      "NodeId": "hyforged:minor-accuracy-1",
+      "Position": {
+        "X": -70,
+        "Y": 100
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-acc-02"
+    },
+    {
+      "NodeId": "hyforged:minor-movement-1",
+      "Position": {
+        "X": -40,
+        "Y": 100
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-move-02"
+    },
+    {
+      "NodeId": "hyforged:fleet-footed",
+      "Position": {
+        "X": -100,
+        "Y": 150
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:deadly-aim",
+      "Position": {
+        "X": -70,
+        "Y": 150
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:windrunner",
+      "Position": {
+        "X": -40,
+        "Y": 150
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:minor-evasion-1",
+      "Position": {
+        "X": -100,
+        "Y": 200
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-eva-03"
+    },
+    {
+      "NodeId": "hyforged:minor-projectile-1",
+      "Position": {
+        "X": -70,
+        "Y": 200
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-proj-01"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -40,
+        "Y": 200
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-speed-01"
+    },
+    {
+      "NodeId": "hyforged:minor-dodge-1",
+      "Position": {
+        "X": -100,
+        "Y": 250
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-dodge-01"
+    },
+    {
+      "NodeId": "hyforged:minor-projectile-1",
+      "Position": {
+        "X": -70,
+        "Y": 250
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-proj-02"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -40,
+        "Y": 250
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-speed-02"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -100,
+        "Y": 300
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-t01"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -70,
+        "Y": 300
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-t01"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -40,
+        "Y": 300
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-t01"
+    },
+    {
+      "NodeId": "hyforged:minor-evasion-1",
+      "Position": {
+        "X": -100,
+        "Y": 350
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-eva-04"
+    },
+    {
+      "NodeId": "hyforged:minor-accuracy-1",
+      "Position": {
+        "X": -70,
+        "Y": 350
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-acc-03"
+    },
+    {
+      "NodeId": "hyforged:minor-movement-1",
+      "Position": {
+        "X": -40,
+        "Y": 350
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-move-03"
+    },
+    {
+      "NodeId": "hyforged:minor-evasion-1",
+      "Position": {
+        "X": -100,
+        "Y": 400
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-eva-05"
+    },
+    {
+      "NodeId": "hyforged:minor-crit-1",
+      "Position": {
+        "X": -70,
+        "Y": 400
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-crit-01"
+    },
+    {
+      "NodeId": "hyforged:minor-stamina-1",
+      "Position": {
+        "X": -40,
+        "Y": 400
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-stamina-01"
+    },
+    {
+      "NodeId": "hyforged:graceful-dodge",
+      "Position": {
+        "X": -100,
+        "Y": 450
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:precision-strikes",
+      "Position": {
+        "X": -70,
+        "Y": 450
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:dash-master",
+      "Position": {
+        "X": -40,
+        "Y": 450
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:minor-dodge-1",
+      "Position": {
+        "X": -100,
+        "Y": 500
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-dodge-02"
+    },
+    {
+      "NodeId": "hyforged:minor-projectile-1",
+      "Position": {
+        "X": -70,
+        "Y": 500
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-proj-03"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -40,
+        "Y": 500
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-speed-03"
+    },
+    {
+      "NodeId": "hyforged:minor-evasion-1",
+      "Position": {
+        "X": -100,
+        "Y": 550
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-eva-06"
+    },
+    {
+      "NodeId": "hyforged:minor-crit-1",
+      "Position": {
+        "X": -70,
+        "Y": 550
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-crit-02"
+    },
+    {
+      "NodeId": "hyforged:minor-stamina-1",
+      "Position": {
+        "X": -40,
+        "Y": 550
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-stamina-02"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -100,
+        "Y": 600
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-t02"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -70,
+        "Y": 600
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-t02"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -40,
+        "Y": 600
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-t02"
+    },
+    {
+      "NodeId": "hyforged:acrobatics",
+      "Position": {
+        "X": -100,
+        "Y": 650
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:minor-accuracy-1",
+      "Position": {
+        "X": -70,
+        "Y": 650
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-acc-04"
+    },
+    {
+      "NodeId": "hyforged:minor-movement-1",
+      "Position": {
+        "X": -40,
+        "Y": 650
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-move-04"
+    },
+    {
+      "NodeId": "hyforged:minor-evasion-1",
+      "Position": {
+        "X": -100,
+        "Y": 700
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-eva-07"
+    },
+    {
+      "NodeId": "hyforged:minor-projectile-1",
+      "Position": {
+        "X": -70,
+        "Y": 700
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-proj-04"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -40,
+        "Y": 700
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-speed-04"
+    },
+    {
+      "NodeId": "hyforged:minor-dodge-1",
+      "Position": {
+        "X": -100,
+        "Y": 750
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-dodge-03"
+    },
+    {
+      "NodeId": "hyforged:minor-crit-1",
+      "Position": {
+        "X": -70,
+        "Y": 750
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-crit-03"
+    },
+    {
+      "NodeId": "hyforged:minor-stamina-1",
+      "Position": {
+        "X": -40,
+        "Y": 750
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-stamina-03"
+    },
+    {
+      "NodeId": "hyforged:shadow-step",
+      "Position": {
+        "X": -100,
+        "Y": 800
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:volley-adept",
+      "Position": {
+        "X": -70,
+        "Y": 800
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:endless-endurance",
+      "Position": {
+        "X": -40,
+        "Y": 800
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:minor-evasion-1",
+      "Position": {
+        "X": -100,
+        "Y": 850
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-eva-08"
+    },
+    {
+      "NodeId": "hyforged:minor-accuracy-1",
+      "Position": {
+        "X": -70,
+        "Y": 850
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-acc-05"
+    },
+    {
+      "NodeId": "hyforged:minor-movement-1",
+      "Position": {
+        "X": -40,
+        "Y": 850
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-move-05"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -100,
+        "Y": 900
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-t03"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -70,
+        "Y": 900
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-t03"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -40,
+        "Y": 900
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-t03"
+    },
+    {
+      "NodeId": "hyforged:minor-evasion-1",
+      "Position": {
+        "X": -100,
+        "Y": 950
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-eva-09"
+    },
+    {
+      "NodeId": "hyforged:minor-projectile-1",
+      "Position": {
+        "X": -70,
+        "Y": 950
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-proj-05"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -40,
+        "Y": 950
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-speed-05"
+    },
+    {
+      "NodeId": "hyforged:minor-dodge-1",
+      "Position": {
+        "X": -100,
+        "Y": 1000
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-dodge-04"
+    },
+    {
+      "NodeId": "hyforged:minor-crit-1",
+      "Position": {
+        "X": -70,
+        "Y": 1000
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-crit-04"
+    },
+    {
+      "NodeId": "hyforged:minor-stamina-1",
+      "Position": {
+        "X": -40,
+        "Y": 1000
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-stamina-04"
+    },
+    {
+      "NodeId": "hyforged:point-blank",
+      "Position": {
+        "X": -100,
+        "Y": 1050
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:assassins-mark",
+      "Position": {
+        "X": -70,
+        "Y": 1050
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:wind-dancer",
+      "Position": {
+        "X": -40,
+        "Y": 1050
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:minor-evasion-1",
+      "Position": {
+        "X": -100,
+        "Y": 1100
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-eva-10"
+    },
+    {
+      "NodeId": "hyforged:minor-accuracy-1",
+      "Position": {
+        "X": -70,
+        "Y": 1100
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-acc-06"
+    },
+    {
+      "NodeId": "hyforged:minor-movement-1",
+      "Position": {
+        "X": -40,
+        "Y": 1100
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-move-06"
+    },
+    {
+      "NodeId": "hyforged:minor-dodge-1",
+      "Position": {
+        "X": -100,
+        "Y": 1150
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-dodge-05"
+    },
+    {
+      "NodeId": "hyforged:minor-projectile-1",
+      "Position": {
+        "X": -70,
+        "Y": 1150
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-proj-06"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -40,
+        "Y": 1150
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-speed-06"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -100,
+        "Y": 1200
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-t04"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -70,
+        "Y": 1200
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-t04"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -40,
+        "Y": 1200
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-t04"
+    },
+    {
+      "NodeId": "hyforged:minor-evasion-1",
+      "Position": {
+        "X": -100,
+        "Y": 1250
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-eva-11"
+    },
+    {
+      "NodeId": "hyforged:minor-crit-1",
+      "Position": {
+        "X": -70,
+        "Y": 1250
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-crit-05"
+    },
+    {
+      "NodeId": "hyforged:minor-stamina-1",
+      "Position": {
+        "X": -40,
+        "Y": 1250
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-stamina-05"
+    },
+    {
+      "NodeId": "hyforged:minor-dodge-1",
+      "Position": {
+        "X": -100,
+        "Y": 1300
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-dodge-06"
+    },
+    {
+      "NodeId": "hyforged:minor-accuracy-1",
+      "Position": {
+        "X": -70,
+        "Y": 1300
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-acc-07"
+    },
+    {
+      "NodeId": "hyforged:minor-movement-1",
+      "Position": {
+        "X": -40,
+        "Y": 1300
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-move-07"
+    },
+    {
+      "NodeId": "hyforged:rapid-assault",
+      "Position": {
+        "X": -100,
+        "Y": 1350
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:sniper",
+      "Position": {
+        "X": -70,
+        "Y": 1350
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:blur",
+      "Position": {
+        "X": -40,
+        "Y": 1350
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:minor-evasion-1",
+      "Position": {
+        "X": -100,
+        "Y": 1400
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-eva-12"
+    },
+    {
+      "NodeId": "hyforged:minor-projectile-1",
+      "Position": {
+        "X": -70,
+        "Y": 1400
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-proj-07"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -40,
+        "Y": 1400
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-speed-07"
+    },
+    {
+      "NodeId": "hyforged:minor-dodge-1",
+      "Position": {
+        "X": -100,
+        "Y": 1450
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-dodge-07"
+    },
+    {
+      "NodeId": "hyforged:minor-crit-1",
+      "Position": {
+        "X": -70,
+        "Y": 1450
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-crit-06"
+    },
+    {
+      "NodeId": "hyforged:minor-stamina-1",
+      "Position": {
+        "X": -40,
+        "Y": 1450
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-stamina-06"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -100,
+        "Y": 1500
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-t05"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -70,
+        "Y": 1500
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-t05"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -40,
+        "Y": 1500
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-t05"
+    },
+    {
+      "NodeId": "hyforged:minor-evasion-1",
+      "Position": {
+        "X": -100,
+        "Y": 1550
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-eva-13"
+    },
+    {
+      "NodeId": "hyforged:minor-accuracy-1",
+      "Position": {
+        "X": -70,
+        "Y": 1550
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-acc-08"
+    },
+    {
+      "NodeId": "hyforged:minor-movement-1",
+      "Position": {
+        "X": -40,
+        "Y": 1550
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-move-08"
+    },
+    {
+      "NodeId": "hyforged:minor-dodge-1",
+      "Position": {
+        "X": -100,
+        "Y": 1600
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-dodge-08"
+    },
+    {
+      "NodeId": "hyforged:minor-projectile-1",
+      "Position": {
+        "X": -70,
+        "Y": 1600
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-proj-08"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -40,
+        "Y": 1600
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-speed-08"
+    },
+    {
+      "NodeId": "hyforged:perfect-agony",
+      "Position": {
+        "X": -100,
+        "Y": 1650
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:ricochet",
+      "Position": {
+        "X": -70,
+        "Y": 1650
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:lightning-reflexes",
+      "Position": {
+        "X": -40,
+        "Y": 1650
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:minor-evasion-1",
+      "Position": {
+        "X": -100,
+        "Y": 1700
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-eva-14"
+    },
+    {
+      "NodeId": "hyforged:minor-crit-1",
+      "Position": {
+        "X": -70,
+        "Y": 1700
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-crit-07"
+    },
+    {
+      "NodeId": "hyforged:minor-stamina-1",
+      "Position": {
+        "X": -40,
+        "Y": 1700
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-stamina-07"
+    },
+    {
+      "NodeId": "hyforged:minor-dodge-1",
+      "Position": {
+        "X": -100,
+        "Y": 1750
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-dodge-09"
+    },
+    {
+      "NodeId": "hyforged:minor-accuracy-1",
+      "Position": {
+        "X": -70,
+        "Y": 1750
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-acc-09"
+    },
+    {
+      "NodeId": "hyforged:minor-movement-1",
+      "Position": {
+        "X": -40,
+        "Y": 1750
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-move-09"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -100,
+        "Y": 1800
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-t06"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -70,
+        "Y": 1800
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-t06"
+    },
+    {
+      "NodeId": "hyforged:travel-dexterity",
+      "Position": {
+        "X": -40,
+        "Y": 1800
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-t06"
+    },
+    {
+      "NodeId": "hyforged:minor-evasion-1",
+      "Position": {
+        "X": -100,
+        "Y": 1850
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-eva-15"
+    },
+    {
+      "NodeId": "hyforged:minor-projectile-1",
+      "Position": {
+        "X": -70,
+        "Y": 1850
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-proj-09"
+    },
+    {
+      "NodeId": "hyforged:minor-attack-speed-1",
+      "Position": {
+        "X": -40,
+        "Y": 1850
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-speed-09"
+    },
+    {
+      "NodeId": "hyforged:minor-dodge-1",
+      "Position": {
+        "X": -100,
+        "Y": 1900
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p1-dodge-10"
+    },
+    {
+      "NodeId": "hyforged:minor-crit-1",
+      "Position": {
+        "X": -70,
+        "Y": 1900
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p2-crit-08"
+    },
+    {
+      "NodeId": "hyforged:minor-stamina-1",
+      "Position": {
+        "X": -40,
+        "Y": 1900
+      },
+      "Region": "dexterity",
+      "InstanceId": "hyforged:dex-p3-stamina-08"
+    },
+    {
+      "NodeId": "hyforged:phase-acrobatics",
+      "Position": {
+        "X": -100,
+        "Y": 1950
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:deadeye",
+      "Position": {
+        "X": -70,
+        "Y": 1950
+      },
+      "Region": "dexterity"
+    },
+    {
+      "NodeId": "hyforged:avatar-of-the-chase",
+      "Position": {
+        "X": -40,
+        "Y": 1950
+      },
+      "Region": "dexterity"
+    }
   ],
   "Connections": [
-    { "From": "hyforged:start-dexterity", "To": "hyforged:dex-p1-eva-01" },
-    { "From": "hyforged:start-dexterity", "To": "hyforged:dex-p2-acc-01" },
-    { "From": "hyforged:start-dexterity", "To": "hyforged:dex-p3-move-01" },
-
-    { "From": "hyforged:dex-p1-eva-01", "To": "hyforged:dex-p1-eva-02" },
-    { "From": "hyforged:dex-p2-acc-01", "To": "hyforged:dex-p2-acc-02" },
-    { "From": "hyforged:dex-p3-move-01", "To": "hyforged:dex-p3-move-02" },
-
-    { "From": "hyforged:dex-p1-eva-02", "To": "hyforged:fleet-footed" },
-    { "From": "hyforged:dex-p2-acc-02", "To": "hyforged:deadly-aim" },
-    { "From": "hyforged:dex-p3-move-02", "To": "hyforged:windrunner" },
-
-    { "From": "hyforged:fleet-footed", "To": "hyforged:dex-p1-eva-03" },
-    { "From": "hyforged:deadly-aim", "To": "hyforged:dex-p2-proj-01" },
-    { "From": "hyforged:windrunner", "To": "hyforged:dex-p3-speed-01" },
-
-    { "From": "hyforged:dex-p1-eva-03", "To": "hyforged:dex-p1-dodge-01" },
-    { "From": "hyforged:dex-p2-proj-01", "To": "hyforged:dex-p2-proj-02" },
-    { "From": "hyforged:dex-p3-speed-01", "To": "hyforged:dex-p3-speed-02" },
-
-    { "From": "hyforged:dex-p1-dodge-01", "To": "hyforged:dex-p1-t01" },
-    { "From": "hyforged:dex-p2-proj-02", "To": "hyforged:dex-p2-t01" },
-    { "From": "hyforged:dex-p3-speed-02", "To": "hyforged:dex-p3-t01" },
-
-    { "From": "hyforged:dex-p1-t01", "To": "hyforged:dex-p1-eva-04" },
-    { "From": "hyforged:dex-p2-t01", "To": "hyforged:dex-p2-acc-03" },
-    { "From": "hyforged:dex-p3-t01", "To": "hyforged:dex-p3-move-03" },
-
-    { "From": "hyforged:dex-p1-eva-04", "To": "hyforged:dex-p1-eva-05" },
-    { "From": "hyforged:dex-p2-acc-03", "To": "hyforged:dex-p2-crit-01" },
-    { "From": "hyforged:dex-p3-move-03", "To": "hyforged:dex-p3-stamina-01" },
-
-    { "From": "hyforged:dex-p1-eva-05", "To": "hyforged:graceful-dodge" },
-    { "From": "hyforged:dex-p2-crit-01", "To": "hyforged:precision-strikes" },
-    { "From": "hyforged:dex-p3-stamina-01", "To": "hyforged:dash-master" },
-
-    { "From": "hyforged:graceful-dodge", "To": "hyforged:dex-p1-dodge-02" },
-    { "From": "hyforged:precision-strikes", "To": "hyforged:dex-p2-proj-03" },
-    { "From": "hyforged:dash-master", "To": "hyforged:dex-p3-speed-03" },
-
-    { "From": "hyforged:dex-p1-dodge-02", "To": "hyforged:dex-p1-eva-06" },
-    { "From": "hyforged:dex-p2-proj-03", "To": "hyforged:dex-p2-crit-02" },
-    { "From": "hyforged:dex-p3-speed-03", "To": "hyforged:dex-p3-stamina-02" },
-
-    { "From": "hyforged:dex-p1-eva-06", "To": "hyforged:dex-p1-t02" },
-    { "From": "hyforged:dex-p2-crit-02", "To": "hyforged:dex-p2-t02" },
-    { "From": "hyforged:dex-p3-stamina-02", "To": "hyforged:dex-p3-t02" },
-
-    { "From": "hyforged:dex-p1-t02", "To": "hyforged:acrobatics" },
-    { "From": "hyforged:dex-p2-t02", "To": "hyforged:dex-p2-acc-04" },
-    { "From": "hyforged:dex-p3-t02", "To": "hyforged:dex-p3-move-04" },
-
-    { "From": "hyforged:acrobatics", "To": "hyforged:dex-p1-eva-07" },
-    { "From": "hyforged:dex-p2-acc-04", "To": "hyforged:dex-p2-proj-04" },
-    { "From": "hyforged:dex-p3-move-04", "To": "hyforged:dex-p3-speed-04" },
-
-    { "From": "hyforged:dex-p1-eva-07", "To": "hyforged:dex-p1-dodge-03" },
-    { "From": "hyforged:dex-p2-proj-04", "To": "hyforged:dex-p2-crit-03" },
-    { "From": "hyforged:dex-p3-speed-04", "To": "hyforged:dex-p3-stamina-03" },
-
-    { "From": "hyforged:dex-p1-dodge-03", "To": "hyforged:shadow-step" },
-    { "From": "hyforged:dex-p2-crit-03", "To": "hyforged:volley-adept" },
-    { "From": "hyforged:dex-p3-stamina-03", "To": "hyforged:endless-endurance" },
-
-    { "From": "hyforged:shadow-step", "To": "hyforged:dex-p1-eva-08" },
-    { "From": "hyforged:volley-adept", "To": "hyforged:dex-p2-acc-05" },
-    { "From": "hyforged:endless-endurance", "To": "hyforged:dex-p3-move-05" },
-
-    { "From": "hyforged:dex-p1-eva-08", "To": "hyforged:dex-p1-t03" },
-    { "From": "hyforged:dex-p2-acc-05", "To": "hyforged:dex-p2-t03" },
-    { "From": "hyforged:dex-p3-move-05", "To": "hyforged:dex-p3-t03" },
-
-    { "From": "hyforged:dex-p1-t03", "To": "hyforged:dex-p1-eva-09" },
-    { "From": "hyforged:dex-p2-t03", "To": "hyforged:dex-p2-proj-05" },
-    { "From": "hyforged:dex-p3-t03", "To": "hyforged:dex-p3-speed-05" },
-
-    { "From": "hyforged:dex-p1-eva-09", "To": "hyforged:dex-p1-dodge-04" },
-    { "From": "hyforged:dex-p2-proj-05", "To": "hyforged:dex-p2-crit-04" },
-    { "From": "hyforged:dex-p3-speed-05", "To": "hyforged:dex-p3-stamina-04" },
-
-    { "From": "hyforged:dex-p1-dodge-04", "To": "hyforged:point-blank" },
-    { "From": "hyforged:dex-p2-crit-04", "To": "hyforged:assassins-mark" },
-    { "From": "hyforged:dex-p3-stamina-04", "To": "hyforged:wind-dancer" },
-
-    { "From": "hyforged:point-blank", "To": "hyforged:dex-p1-eva-10" },
-    { "From": "hyforged:assassins-mark", "To": "hyforged:dex-p2-acc-06" },
-    { "From": "hyforged:wind-dancer", "To": "hyforged:dex-p3-move-06" },
-
-    { "From": "hyforged:dex-p1-eva-10", "To": "hyforged:dex-p1-dodge-05" },
-    { "From": "hyforged:dex-p2-acc-06", "To": "hyforged:dex-p2-proj-06" },
-    { "From": "hyforged:dex-p3-move-06", "To": "hyforged:dex-p3-speed-06" },
-
-    { "From": "hyforged:dex-p1-dodge-05", "To": "hyforged:dex-p1-t04" },
-    { "From": "hyforged:dex-p2-proj-06", "To": "hyforged:dex-p2-t04" },
-    { "From": "hyforged:dex-p3-speed-06", "To": "hyforged:dex-p3-t04" },
-
-    { "From": "hyforged:dex-p1-t04", "To": "hyforged:dex-p1-eva-11" },
-    { "From": "hyforged:dex-p2-t04", "To": "hyforged:dex-p2-crit-05" },
-    { "From": "hyforged:dex-p3-t04", "To": "hyforged:dex-p3-stamina-05" },
-
-    { "From": "hyforged:dex-p1-eva-11", "To": "hyforged:dex-p1-dodge-06" },
-    { "From": "hyforged:dex-p2-crit-05", "To": "hyforged:dex-p2-acc-07" },
-    { "From": "hyforged:dex-p3-stamina-05", "To": "hyforged:dex-p3-move-07" },
-
-    { "From": "hyforged:dex-p1-dodge-06", "To": "hyforged:rapid-assault" },
-    { "From": "hyforged:dex-p2-acc-07", "To": "hyforged:sniper" },
-    { "From": "hyforged:dex-p3-move-07", "To": "hyforged:blur" },
-
-    { "From": "hyforged:rapid-assault", "To": "hyforged:dex-p1-eva-12" },
-    { "From": "hyforged:sniper", "To": "hyforged:dex-p2-proj-07" },
-    { "From": "hyforged:blur", "To": "hyforged:dex-p3-speed-07" },
-
-    { "From": "hyforged:dex-p1-eva-12", "To": "hyforged:dex-p1-dodge-07" },
-    { "From": "hyforged:dex-p2-proj-07", "To": "hyforged:dex-p2-crit-06" },
-    { "From": "hyforged:dex-p3-speed-07", "To": "hyforged:dex-p3-stamina-06" },
-
-    { "From": "hyforged:dex-p1-dodge-07", "To": "hyforged:dex-p1-t05" },
-    { "From": "hyforged:dex-p2-crit-06", "To": "hyforged:dex-p2-t05" },
-    { "From": "hyforged:dex-p3-stamina-06", "To": "hyforged:dex-p3-t05" },
-
-    { "From": "hyforged:dex-p1-t05", "To": "hyforged:dex-p1-eva-13" },
-    { "From": "hyforged:dex-p2-t05", "To": "hyforged:dex-p2-acc-08" },
-    { "From": "hyforged:dex-p3-t05", "To": "hyforged:dex-p3-move-08" },
-
-    { "From": "hyforged:dex-p1-eva-13", "To": "hyforged:dex-p1-dodge-08" },
-    { "From": "hyforged:dex-p2-acc-08", "To": "hyforged:dex-p2-proj-08" },
-    { "From": "hyforged:dex-p3-move-08", "To": "hyforged:dex-p3-speed-08" },
-
-    { "From": "hyforged:dex-p1-dodge-08", "To": "hyforged:perfect-agony" },
-    { "From": "hyforged:dex-p2-proj-08", "To": "hyforged:ricochet" },
-    { "From": "hyforged:dex-p3-speed-08", "To": "hyforged:lightning-reflexes" },
-
-    { "From": "hyforged:perfect-agony", "To": "hyforged:dex-p1-eva-14" },
-    { "From": "hyforged:ricochet", "To": "hyforged:dex-p2-crit-07" },
-    { "From": "hyforged:lightning-reflexes", "To": "hyforged:dex-p3-stamina-07" },
-
-    { "From": "hyforged:dex-p1-eva-14", "To": "hyforged:dex-p1-dodge-09" },
-    { "From": "hyforged:dex-p2-crit-07", "To": "hyforged:dex-p2-acc-09" },
-    { "From": "hyforged:dex-p3-stamina-07", "To": "hyforged:dex-p3-move-09" },
-
-    { "From": "hyforged:dex-p1-dodge-09", "To": "hyforged:dex-p1-t06" },
-    { "From": "hyforged:dex-p2-acc-09", "To": "hyforged:dex-p2-t06" },
-    { "From": "hyforged:dex-p3-move-09", "To": "hyforged:dex-p3-t06" },
-
-    { "From": "hyforged:dex-p1-t06", "To": "hyforged:dex-p1-eva-15" },
-    { "From": "hyforged:dex-p2-t06", "To": "hyforged:dex-p2-proj-09" },
-    { "From": "hyforged:dex-p3-t06", "To": "hyforged:dex-p3-speed-09" },
-
-    { "From": "hyforged:dex-p1-eva-15", "To": "hyforged:dex-p1-dodge-10" },
-    { "From": "hyforged:dex-p2-proj-09", "To": "hyforged:dex-p2-crit-08" },
-    { "From": "hyforged:dex-p3-speed-09", "To": "hyforged:dex-p3-stamina-08" },
-
-    { "From": "hyforged:dex-p1-dodge-10", "To": "hyforged:phase-acrobatics" },
-    { "From": "hyforged:dex-p2-crit-08", "To": "hyforged:deadeye" },
-    { "From": "hyforged:dex-p3-stamina-08", "To": "hyforged:avatar-of-the-chase" },
-
-    { "From": "hyforged:deadly-aim", "To": "hyforged:windrunner" },
-    { "From": "hyforged:dex-p1-t01", "To": "hyforged:dex-p2-t01" },
-    { "From": "hyforged:dex-p2-t02", "To": "hyforged:dex-p3-t02" },
-    { "From": "hyforged:point-blank", "To": "hyforged:wind-dancer" },
-    { "From": "hyforged:dex-p1-t03", "To": "hyforged:dex-p2-t03" },
-    { "From": "hyforged:dex-p2-t04", "To": "hyforged:dex-p3-t04" },
-    { "From": "hyforged:dex-p1-t05", "To": "hyforged:dex-p2-t05" },
-    { "From": "hyforged:perfect-agony", "To": "hyforged:ricochet" },
-    { "From": "hyforged:ricochet", "To": "hyforged:lightning-reflexes" },
-    { "From": "hyforged:phase-acrobatics", "To": "hyforged:deadeye" }
+    {
+      "From": "hyforged:start-dexterity",
+      "To": "hyforged:dex-p1-eva-01"
+    },
+    {
+      "From": "hyforged:start-dexterity",
+      "To": "hyforged:dex-p2-acc-01"
+    },
+    {
+      "From": "hyforged:start-dexterity",
+      "To": "hyforged:dex-p3-move-01"
+    },
+    {
+      "From": "hyforged:dex-p1-eva-01",
+      "To": "hyforged:dex-p1-eva-02"
+    },
+    {
+      "From": "hyforged:dex-p2-acc-01",
+      "To": "hyforged:dex-p2-acc-02"
+    },
+    {
+      "From": "hyforged:dex-p3-move-01",
+      "To": "hyforged:dex-p3-move-02"
+    },
+    {
+      "From": "hyforged:dex-p1-eva-02",
+      "To": "hyforged:fleet-footed"
+    },
+    {
+      "From": "hyforged:dex-p2-acc-02",
+      "To": "hyforged:deadly-aim"
+    },
+    {
+      "From": "hyforged:dex-p3-move-02",
+      "To": "hyforged:windrunner"
+    },
+    {
+      "From": "hyforged:fleet-footed",
+      "To": "hyforged:dex-p1-eva-03"
+    },
+    {
+      "From": "hyforged:deadly-aim",
+      "To": "hyforged:dex-p2-proj-01"
+    },
+    {
+      "From": "hyforged:windrunner",
+      "To": "hyforged:dex-p3-speed-01"
+    },
+    {
+      "From": "hyforged:dex-p1-eva-03",
+      "To": "hyforged:dex-p1-dodge-01"
+    },
+    {
+      "From": "hyforged:dex-p2-proj-01",
+      "To": "hyforged:dex-p2-proj-02"
+    },
+    {
+      "From": "hyforged:dex-p3-speed-01",
+      "To": "hyforged:dex-p3-speed-02"
+    },
+    {
+      "From": "hyforged:dex-p1-dodge-01",
+      "To": "hyforged:dex-p1-t01"
+    },
+    {
+      "From": "hyforged:dex-p2-proj-02",
+      "To": "hyforged:dex-p2-t01"
+    },
+    {
+      "From": "hyforged:dex-p3-speed-02",
+      "To": "hyforged:dex-p3-t01"
+    },
+    {
+      "From": "hyforged:dex-p1-t01",
+      "To": "hyforged:dex-p1-eva-04"
+    },
+    {
+      "From": "hyforged:dex-p2-t01",
+      "To": "hyforged:dex-p2-acc-03"
+    },
+    {
+      "From": "hyforged:dex-p3-t01",
+      "To": "hyforged:dex-p3-move-03"
+    },
+    {
+      "From": "hyforged:dex-p1-eva-04",
+      "To": "hyforged:dex-p1-eva-05"
+    },
+    {
+      "From": "hyforged:dex-p2-acc-03",
+      "To": "hyforged:dex-p2-crit-01"
+    },
+    {
+      "From": "hyforged:dex-p3-move-03",
+      "To": "hyforged:dex-p3-stamina-01"
+    },
+    {
+      "From": "hyforged:dex-p1-eva-05",
+      "To": "hyforged:graceful-dodge"
+    },
+    {
+      "From": "hyforged:dex-p2-crit-01",
+      "To": "hyforged:precision-strikes"
+    },
+    {
+      "From": "hyforged:dex-p3-stamina-01",
+      "To": "hyforged:dash-master"
+    },
+    {
+      "From": "hyforged:graceful-dodge",
+      "To": "hyforged:dex-p1-dodge-02"
+    },
+    {
+      "From": "hyforged:precision-strikes",
+      "To": "hyforged:dex-p2-proj-03"
+    },
+    {
+      "From": "hyforged:dash-master",
+      "To": "hyforged:dex-p3-speed-03"
+    },
+    {
+      "From": "hyforged:dex-p1-dodge-02",
+      "To": "hyforged:dex-p1-eva-06"
+    },
+    {
+      "From": "hyforged:dex-p2-proj-03",
+      "To": "hyforged:dex-p2-crit-02"
+    },
+    {
+      "From": "hyforged:dex-p3-speed-03",
+      "To": "hyforged:dex-p3-stamina-02"
+    },
+    {
+      "From": "hyforged:dex-p1-eva-06",
+      "To": "hyforged:dex-p1-t02"
+    },
+    {
+      "From": "hyforged:dex-p2-crit-02",
+      "To": "hyforged:dex-p2-t02"
+    },
+    {
+      "From": "hyforged:dex-p3-stamina-02",
+      "To": "hyforged:dex-p3-t02"
+    },
+    {
+      "From": "hyforged:dex-p1-t02",
+      "To": "hyforged:acrobatics"
+    },
+    {
+      "From": "hyforged:dex-p2-t02",
+      "To": "hyforged:dex-p2-acc-04"
+    },
+    {
+      "From": "hyforged:dex-p3-t02",
+      "To": "hyforged:dex-p3-move-04"
+    },
+    {
+      "From": "hyforged:acrobatics",
+      "To": "hyforged:dex-p1-eva-07"
+    },
+    {
+      "From": "hyforged:dex-p2-acc-04",
+      "To": "hyforged:dex-p2-proj-04"
+    },
+    {
+      "From": "hyforged:dex-p3-move-04",
+      "To": "hyforged:dex-p3-speed-04"
+    },
+    {
+      "From": "hyforged:dex-p1-eva-07",
+      "To": "hyforged:dex-p1-dodge-03"
+    },
+    {
+      "From": "hyforged:dex-p2-proj-04",
+      "To": "hyforged:dex-p2-crit-03"
+    },
+    {
+      "From": "hyforged:dex-p3-speed-04",
+      "To": "hyforged:dex-p3-stamina-03"
+    },
+    {
+      "From": "hyforged:dex-p1-dodge-03",
+      "To": "hyforged:shadow-step"
+    },
+    {
+      "From": "hyforged:dex-p2-crit-03",
+      "To": "hyforged:volley-adept"
+    },
+    {
+      "From": "hyforged:dex-p3-stamina-03",
+      "To": "hyforged:endless-endurance"
+    },
+    {
+      "From": "hyforged:shadow-step",
+      "To": "hyforged:dex-p1-eva-08"
+    },
+    {
+      "From": "hyforged:volley-adept",
+      "To": "hyforged:dex-p2-acc-05"
+    },
+    {
+      "From": "hyforged:endless-endurance",
+      "To": "hyforged:dex-p3-move-05"
+    },
+    {
+      "From": "hyforged:dex-p1-eva-08",
+      "To": "hyforged:dex-p1-t03"
+    },
+    {
+      "From": "hyforged:dex-p2-acc-05",
+      "To": "hyforged:dex-p2-t03"
+    },
+    {
+      "From": "hyforged:dex-p3-move-05",
+      "To": "hyforged:dex-p3-t03"
+    },
+    {
+      "From": "hyforged:dex-p1-t03",
+      "To": "hyforged:dex-p1-eva-09"
+    },
+    {
+      "From": "hyforged:dex-p2-t03",
+      "To": "hyforged:dex-p2-proj-05"
+    },
+    {
+      "From": "hyforged:dex-p3-t03",
+      "To": "hyforged:dex-p3-speed-05"
+    },
+    {
+      "From": "hyforged:dex-p1-eva-09",
+      "To": "hyforged:dex-p1-dodge-04"
+    },
+    {
+      "From": "hyforged:dex-p2-proj-05",
+      "To": "hyforged:dex-p2-crit-04"
+    },
+    {
+      "From": "hyforged:dex-p3-speed-05",
+      "To": "hyforged:dex-p3-stamina-04"
+    },
+    {
+      "From": "hyforged:dex-p1-dodge-04",
+      "To": "hyforged:point-blank"
+    },
+    {
+      "From": "hyforged:dex-p2-crit-04",
+      "To": "hyforged:assassins-mark"
+    },
+    {
+      "From": "hyforged:dex-p3-stamina-04",
+      "To": "hyforged:wind-dancer"
+    },
+    {
+      "From": "hyforged:point-blank",
+      "To": "hyforged:dex-p1-eva-10"
+    },
+    {
+      "From": "hyforged:assassins-mark",
+      "To": "hyforged:dex-p2-acc-06"
+    },
+    {
+      "From": "hyforged:wind-dancer",
+      "To": "hyforged:dex-p3-move-06"
+    },
+    {
+      "From": "hyforged:dex-p1-eva-10",
+      "To": "hyforged:dex-p1-dodge-05"
+    },
+    {
+      "From": "hyforged:dex-p2-acc-06",
+      "To": "hyforged:dex-p2-proj-06"
+    },
+    {
+      "From": "hyforged:dex-p3-move-06",
+      "To": "hyforged:dex-p3-speed-06"
+    },
+    {
+      "From": "hyforged:dex-p1-dodge-05",
+      "To": "hyforged:dex-p1-t04"
+    },
+    {
+      "From": "hyforged:dex-p2-proj-06",
+      "To": "hyforged:dex-p2-t04"
+    },
+    {
+      "From": "hyforged:dex-p3-speed-06",
+      "To": "hyforged:dex-p3-t04"
+    },
+    {
+      "From": "hyforged:dex-p1-t04",
+      "To": "hyforged:dex-p1-eva-11"
+    },
+    {
+      "From": "hyforged:dex-p2-t04",
+      "To": "hyforged:dex-p2-crit-05"
+    },
+    {
+      "From": "hyforged:dex-p3-t04",
+      "To": "hyforged:dex-p3-stamina-05"
+    },
+    {
+      "From": "hyforged:dex-p1-eva-11",
+      "To": "hyforged:dex-p1-dodge-06"
+    },
+    {
+      "From": "hyforged:dex-p2-crit-05",
+      "To": "hyforged:dex-p2-acc-07"
+    },
+    {
+      "From": "hyforged:dex-p3-stamina-05",
+      "To": "hyforged:dex-p3-move-07"
+    },
+    {
+      "From": "hyforged:dex-p1-dodge-06",
+      "To": "hyforged:rapid-assault"
+    },
+    {
+      "From": "hyforged:dex-p2-acc-07",
+      "To": "hyforged:sniper"
+    },
+    {
+      "From": "hyforged:dex-p3-move-07",
+      "To": "hyforged:blur"
+    },
+    {
+      "From": "hyforged:rapid-assault",
+      "To": "hyforged:dex-p1-eva-12"
+    },
+    {
+      "From": "hyforged:sniper",
+      "To": "hyforged:dex-p2-proj-07"
+    },
+    {
+      "From": "hyforged:blur",
+      "To": "hyforged:dex-p3-speed-07"
+    },
+    {
+      "From": "hyforged:dex-p1-eva-12",
+      "To": "hyforged:dex-p1-dodge-07"
+    },
+    {
+      "From": "hyforged:dex-p2-proj-07",
+      "To": "hyforged:dex-p2-crit-06"
+    },
+    {
+      "From": "hyforged:dex-p3-speed-07",
+      "To": "hyforged:dex-p3-stamina-06"
+    },
+    {
+      "From": "hyforged:dex-p1-dodge-07",
+      "To": "hyforged:dex-p1-t05"
+    },
+    {
+      "From": "hyforged:dex-p2-crit-06",
+      "To": "hyforged:dex-p2-t05"
+    },
+    {
+      "From": "hyforged:dex-p3-stamina-06",
+      "To": "hyforged:dex-p3-t05"
+    },
+    {
+      "From": "hyforged:dex-p1-t05",
+      "To": "hyforged:dex-p1-eva-13"
+    },
+    {
+      "From": "hyforged:dex-p2-t05",
+      "To": "hyforged:dex-p2-acc-08"
+    },
+    {
+      "From": "hyforged:dex-p3-t05",
+      "To": "hyforged:dex-p3-move-08"
+    },
+    {
+      "From": "hyforged:dex-p1-eva-13",
+      "To": "hyforged:dex-p1-dodge-08"
+    },
+    {
+      "From": "hyforged:dex-p2-acc-08",
+      "To": "hyforged:dex-p2-proj-08"
+    },
+    {
+      "From": "hyforged:dex-p3-move-08",
+      "To": "hyforged:dex-p3-speed-08"
+    },
+    {
+      "From": "hyforged:dex-p1-dodge-08",
+      "To": "hyforged:perfect-agony"
+    },
+    {
+      "From": "hyforged:dex-p2-proj-08",
+      "To": "hyforged:ricochet"
+    },
+    {
+      "From": "hyforged:dex-p3-speed-08",
+      "To": "hyforged:lightning-reflexes"
+    },
+    {
+      "From": "hyforged:perfect-agony",
+      "To": "hyforged:dex-p1-eva-14"
+    },
+    {
+      "From": "hyforged:ricochet",
+      "To": "hyforged:dex-p2-crit-07"
+    },
+    {
+      "From": "hyforged:lightning-reflexes",
+      "To": "hyforged:dex-p3-stamina-07"
+    },
+    {
+      "From": "hyforged:dex-p1-eva-14",
+      "To": "hyforged:dex-p1-dodge-09"
+    },
+    {
+      "From": "hyforged:dex-p2-crit-07",
+      "To": "hyforged:dex-p2-acc-09"
+    },
+    {
+      "From": "hyforged:dex-p3-stamina-07",
+      "To": "hyforged:dex-p3-move-09"
+    },
+    {
+      "From": "hyforged:dex-p1-dodge-09",
+      "To": "hyforged:dex-p1-t06"
+    },
+    {
+      "From": "hyforged:dex-p2-acc-09",
+      "To": "hyforged:dex-p2-t06"
+    },
+    {
+      "From": "hyforged:dex-p3-move-09",
+      "To": "hyforged:dex-p3-t06"
+    },
+    {
+      "From": "hyforged:dex-p1-t06",
+      "To": "hyforged:dex-p1-eva-15"
+    },
+    {
+      "From": "hyforged:dex-p2-t06",
+      "To": "hyforged:dex-p2-proj-09"
+    },
+    {
+      "From": "hyforged:dex-p3-t06",
+      "To": "hyforged:dex-p3-speed-09"
+    },
+    {
+      "From": "hyforged:dex-p1-eva-15",
+      "To": "hyforged:dex-p1-dodge-10"
+    },
+    {
+      "From": "hyforged:dex-p2-proj-09",
+      "To": "hyforged:dex-p2-crit-08"
+    },
+    {
+      "From": "hyforged:dex-p3-speed-09",
+      "To": "hyforged:dex-p3-stamina-08"
+    },
+    {
+      "From": "hyforged:dex-p1-dodge-10",
+      "To": "hyforged:phase-acrobatics"
+    },
+    {
+      "From": "hyforged:dex-p2-crit-08",
+      "To": "hyforged:deadeye"
+    },
+    {
+      "From": "hyforged:dex-p3-stamina-08",
+      "To": "hyforged:avatar-of-the-chase"
+    },
+    {
+      "From": "hyforged:deadly-aim",
+      "To": "hyforged:windrunner"
+    },
+    {
+      "From": "hyforged:dex-p1-t01",
+      "To": "hyforged:dex-p2-t01"
+    },
+    {
+      "From": "hyforged:dex-p2-t02",
+      "To": "hyforged:dex-p3-t02"
+    },
+    {
+      "From": "hyforged:point-blank",
+      "To": "hyforged:wind-dancer"
+    },
+    {
+      "From": "hyforged:dex-p1-t03",
+      "To": "hyforged:dex-p2-t03"
+    },
+    {
+      "From": "hyforged:dex-p2-t04",
+      "To": "hyforged:dex-p3-t04"
+    },
+    {
+      "From": "hyforged:dex-p1-t05",
+      "To": "hyforged:dex-p2-t05"
+    },
+    {
+      "From": "hyforged:perfect-agony",
+      "To": "hyforged:ricochet"
+    },
+    {
+      "From": "hyforged:ricochet",
+      "To": "hyforged:lightning-reflexes"
+    },
+    {
+      "From": "hyforged:phase-acrobatics",
+      "To": "hyforged:deadeye"
+    }
   ]
 }

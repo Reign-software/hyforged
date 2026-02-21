@@ -10,7 +10,11 @@
       "ItemLevelReq": 1,
       "Weight": 100,
       "Stats": {
-        "hyforged:crit-multiplier-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "More" }
+        "hyforged:crit-multiplier-bps": {
+          "MinValue": 1000,
+          "MaxValue": 2000,
+          "StackType": "More"
+        }
       }
     },
     {
@@ -18,7 +22,11 @@
       "ItemLevelReq": 30,
       "Weight": 75,
       "Stats": {
-        "hyforged:crit-multiplier-bps": { "MinValue": 2000, "MaxValue": 3500, "StackType": "More" }
+        "hyforged:crit-multiplier-bps": {
+          "MinValue": 2000,
+          "MaxValue": 3500,
+          "StackType": "More"
+        }
       }
     },
     {
@@ -26,7 +34,11 @@
       "ItemLevelReq": 55,
       "Weight": 50,
       "Stats": {
-        "hyforged:crit-multiplier-bps": { "MinValue": 3500, "MaxValue": 5000, "StackType": "More" }
+        "hyforged:crit-multiplier-bps": {
+          "MinValue": 3500,
+          "MaxValue": 5000,
+          "StackType": "More"
+        }
       }
     }
   ]

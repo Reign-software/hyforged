@@ -276,7 +276,9 @@ public class HyforgedStatComputeSystem extends EntityTickingSystem<EntityStore> 
             @Nonnull StatDefinitionRegistry registry
     ) {
         if (statDef.hasScaling()) {
-            return ScalingEngine.computeScaledBase(
+            // DefaultValue is the flat base; scaling contributes on top of it.
+            // e.g. MaxHealth DefaultValue=100 + CON*5=50 → 150 total base.
+            return statDef.defaultValue() + ScalingEngine.computeScaledBase(
                 statDef,
                 component::getCachedValue,
                 registry

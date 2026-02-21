@@ -11,7 +11,10 @@
   "Quality": "Rare",
   "MaxStack": 10,
   "Tags": {
-    "Type": ["VaultUpgrade", "Hyforged"],
+    "Type": [
+      "VaultUpgrade",
+      "Hyforged"
+    ],
     "UpgradeTier": 3
   }
 }

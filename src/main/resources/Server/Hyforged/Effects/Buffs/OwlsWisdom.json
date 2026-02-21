@@ -6,6 +6,10 @@
     "StatusEffectIcon": "UI/StatusEffects/Wisdom.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:wisdom", "StackType": "Flat", "Amount": 15 }
+    {
+      "StatId": "hyforged:wisdom",
+      "StackType": "Flat",
+      "Amount": 15
+    }
   ]
 }

@@ -3,7 +3,11 @@
     "Description": "Affix pool for tribal and exotic armor families",
     "AppliesTo": {
         "Categories": [],
-        "Tags": ["Family=Kweebec", "Family=Trooper", "Family=Trork"]
+        "Tags": [
+            "Family=Kweebec",
+            "Family=Trooper",
+            "Family=Trork"
+        ]
     },
     "Prefixes": [
         "hyforged:sturdy",

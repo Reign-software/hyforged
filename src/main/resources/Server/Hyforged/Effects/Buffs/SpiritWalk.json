@@ -6,8 +6,20 @@
     "StatusEffectIcon": "UI/StatusEffects/Spirit.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:spirit", "StackType": "Flat", "Amount": 30 },
-    { "StatId": "hyforged:minion-damage-bps", "StackType": "Increased", "Amount": 2000 },
-    { "StatId": "hyforged:minion-duration-bps", "StackType": "Increased", "Amount": 2500 }
+    {
+      "StatId": "hyforged:spirit",
+      "StackType": "Flat",
+      "Amount": 30
+    },
+    {
+      "StatId": "hyforged:minion-damage-bps",
+      "StackType": "Increased",
+      "Amount": 2000
+    },
+    {
+      "StatId": "hyforged:minion-duration-bps",
+      "StackType": "Increased",
+      "Amount": 2500
+    }
   ]
 }

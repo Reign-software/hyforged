@@ -10,8 +10,16 @@
       "ItemLevelReq": 20,
       "Weight": 100,
       "Stats": {
-        "hyforged:ally-damage-aura-bps": { "MinValue": 1000, "MaxValue": 1500, "StackType": "More" },
-        "hyforged:ally-aura-radius-flat": { "MinValue": 5, "MaxValue": 8, "StackType": "Flat" }
+        "hyforged:ally-damage-aura-bps": {
+          "MinValue": 1000,
+          "MaxValue": 1500,
+          "StackType": "More"
+        },
+        "hyforged:ally-aura-radius-flat": {
+          "MinValue": 5,
+          "MaxValue": 8,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -19,8 +27,16 @@
       "ItemLevelReq": 45,
       "Weight": 60,
       "Stats": {
-        "hyforged:ally-damage-aura-bps": { "MinValue": 1500, "MaxValue": 2500, "StackType": "More" },
-        "hyforged:ally-aura-radius-flat": { "MinValue": 8, "MaxValue": 12, "StackType": "Flat" }
+        "hyforged:ally-damage-aura-bps": {
+          "MinValue": 1500,
+          "MaxValue": 2500,
+          "StackType": "More"
+        },
+        "hyforged:ally-aura-radius-flat": {
+          "MinValue": 8,
+          "MaxValue": 12,
+          "StackType": "Flat"
+        }
       }
     }
   ]

@@ -10,14 +10,20 @@
       "ItemLevelReq": 40,
       "Weight": 100,
       "Stats": {
-        "hyforged:max-health-flat": { "MinValue": 2000, "MaxValue": 3000, "StackType": "More" }
+        "hyforged:max-health-flat": {
+          "MinValue": 2000,
+          "MaxValue": 3000,
+          "StackType": "More"
+        }
       }
     }
   ],
   "TriggeredEffects": [
     {
-      "Trigger": { "Type": "on_death" },
-      "Effect": { 
+      "Trigger": {
+        "Type": "on_death"
+      },
+      "Effect": {
         "Type": "resurrect",
         "HealthPercent": 0.5,
         "Invulnerability": true,

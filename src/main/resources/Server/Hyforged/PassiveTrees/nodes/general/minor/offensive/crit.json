@@ -6,7 +6,11 @@
       "Name": "Critical Focus",
       "Description": "+1% Critical Strike Chance",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:crit-chance-bps", "Value": 100 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:crit-chance-bps",
+          "Value": 100
+        }
       ]
     },
     {
@@ -15,8 +19,16 @@
       "Name": "Deadly Precision",
       "Description": "+1% Critical Strike Chance\n+3% Critical Strike Multiplier",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:crit-chance-bps", "Value": 100 },
-        { "Type": "stat-modifier", "Stat": "hyforged:crit-multiplier-bps", "Value": 300 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:crit-chance-bps",
+          "Value": 100
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:crit-multiplier-bps",
+          "Value": 300
+        }
       ]
     }
   ]

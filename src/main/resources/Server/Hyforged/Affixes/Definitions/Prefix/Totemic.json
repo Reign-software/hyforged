@@ -9,7 +9,11 @@
       "ItemLevelReq": 68,
       "Weight": 28,
       "Stats": {
-        "hyforged:max-totems": { "MinValue": 2, "MaxValue": 3, "StackType": "Flat" }
+        "hyforged:max-totems": {
+          "MinValue": 2,
+          "MaxValue": 3,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 42,
       "Weight": 50,
       "Stats": {
-        "hyforged:max-totems": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" }
+        "hyforged:max-totems": {
+          "MinValue": 1,
+          "MaxValue": 2,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 1,
       "Weight": 82,
       "Stats": {
-        "hyforged:max-totems": { "MinValue": 1, "MaxValue": 1, "StackType": "Flat" }
+        "hyforged:max-totems": {
+          "MinValue": 1,
+          "MaxValue": 1,
+          "StackType": "Flat"
+        }
       }
     }
   ]

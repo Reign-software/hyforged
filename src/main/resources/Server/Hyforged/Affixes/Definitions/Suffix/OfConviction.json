@@ -9,8 +9,16 @@
       "ItemLevelReq": 66,
       "Weight": 40,
       "Stats": {
-        "hyforged:spirit": { "MinValue": 32, "MaxValue": 42, "StackType": "Flat" },
-        "hyforged:all-resistance-bps": { "MinValue": 1600, "MaxValue": 2200, "StackType": "Flat" }
+        "hyforged:spirit": {
+          "MinValue": 32,
+          "MaxValue": 42,
+          "StackType": "Flat"
+        },
+        "hyforged:all-resistance-bps": {
+          "MinValue": 1600,
+          "MaxValue": 2200,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -18,8 +26,16 @@
       "ItemLevelReq": 50,
       "Weight": 58,
       "Stats": {
-        "hyforged:spirit": { "MinValue": 24, "MaxValue": 32, "StackType": "Flat" },
-        "hyforged:all-resistance-bps": { "MinValue": 1100, "MaxValue": 1600, "StackType": "Flat" }
+        "hyforged:spirit": {
+          "MinValue": 24,
+          "MaxValue": 32,
+          "StackType": "Flat"
+        },
+        "hyforged:all-resistance-bps": {
+          "MinValue": 1100,
+          "MaxValue": 1600,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -27,8 +43,16 @@
       "ItemLevelReq": 34,
       "Weight": 78,
       "Stats": {
-        "hyforged:spirit": { "MinValue": 16, "MaxValue": 24, "StackType": "Flat" },
-        "hyforged:all-resistance-bps": { "MinValue": 700, "MaxValue": 1100, "StackType": "Flat" }
+        "hyforged:spirit": {
+          "MinValue": 16,
+          "MaxValue": 24,
+          "StackType": "Flat"
+        },
+        "hyforged:all-resistance-bps": {
+          "MinValue": 700,
+          "MaxValue": 1100,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -36,8 +60,16 @@
       "ItemLevelReq": 18,
       "Weight": 102,
       "Stats": {
-        "hyforged:spirit": { "MinValue": 9, "MaxValue": 16, "StackType": "Flat" },
-        "hyforged:all-resistance-bps": { "MinValue": 350, "MaxValue": 700, "StackType": "Flat" }
+        "hyforged:spirit": {
+          "MinValue": 9,
+          "MaxValue": 16,
+          "StackType": "Flat"
+        },
+        "hyforged:all-resistance-bps": {
+          "MinValue": 350,
+          "MaxValue": 700,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -45,8 +77,16 @@
       "ItemLevelReq": 1,
       "Weight": 128,
       "Stats": {
-        "hyforged:spirit": { "MinValue": 3, "MaxValue": 9, "StackType": "Flat" },
-        "hyforged:all-resistance-bps": { "MinValue": 120, "MaxValue": 350, "StackType": "Flat" }
+        "hyforged:spirit": {
+          "MinValue": 3,
+          "MaxValue": 9,
+          "StackType": "Flat"
+        },
+        "hyforged:all-resistance-bps": {
+          "MinValue": 120,
+          "MaxValue": 350,
+          "StackType": "Flat"
+        }
       }
     }
   ]

@@ -7,7 +7,10 @@
       "Description": "Cannot deal damage yourself\n+1 Maximum Totems",
       "Icon": "Hyforged/Textures/Keystone.png",
       "Effects": [
-        { "Type": "unlock-flag", "FlagId": "hyforged:ancestral-bond" }
+        {
+          "Type": "unlock-flag",
+          "FlagId": "hyforged:ancestral-bond"
+        }
       ]
     }
   ]

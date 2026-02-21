@@ -9,9 +9,21 @@
       "ItemLevelReq": 75,
       "Weight": 30,
       "Stats": {
-        "hyforged:spirit": { "MinValue": 60, "MaxValue": 75, "StackType": "Flat" },
-        "hyforged:mana-regen": { "MinValue": 35, "MaxValue": 50, "StackType": "Flat" },
-        "hyforged:magic-resistance-bps": { "MinValue": 2200, "MaxValue": 3000, "StackType": "Flat" }
+        "hyforged:spirit": {
+          "MinValue": 60,
+          "MaxValue": 75,
+          "StackType": "Flat"
+        },
+        "hyforged:mana-regen": {
+          "MinValue": 35,
+          "MaxValue": 50,
+          "StackType": "Flat"
+        },
+        "hyforged:magic-resistance-bps": {
+          "MinValue": 2200,
+          "MaxValue": 3000,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -19,9 +31,21 @@
       "ItemLevelReq": 55,
       "Weight": 55,
       "Stats": {
-        "hyforged:spirit": { "MinValue": 45, "MaxValue": 60, "StackType": "Flat" },
-        "hyforged:mana-regen": { "MinValue": 24, "MaxValue": 35, "StackType": "Flat" },
-        "hyforged:magic-resistance-bps": { "MinValue": 1500, "MaxValue": 2200, "StackType": "Flat" }
+        "hyforged:spirit": {
+          "MinValue": 45,
+          "MaxValue": 60,
+          "StackType": "Flat"
+        },
+        "hyforged:mana-regen": {
+          "MinValue": 24,
+          "MaxValue": 35,
+          "StackType": "Flat"
+        },
+        "hyforged:magic-resistance-bps": {
+          "MinValue": 1500,
+          "MaxValue": 2200,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -29,9 +53,21 @@
       "ItemLevelReq": 35,
       "Weight": 80,
       "Stats": {
-        "hyforged:spirit": { "MinValue": 30, "MaxValue": 45, "StackType": "Flat" },
-        "hyforged:mana-regen": { "MinValue": 15, "MaxValue": 24, "StackType": "Flat" },
-        "hyforged:magic-resistance-bps": { "MinValue": 900, "MaxValue": 1500, "StackType": "Flat" }
+        "hyforged:spirit": {
+          "MinValue": 30,
+          "MaxValue": 45,
+          "StackType": "Flat"
+        },
+        "hyforged:mana-regen": {
+          "MinValue": 15,
+          "MaxValue": 24,
+          "StackType": "Flat"
+        },
+        "hyforged:magic-resistance-bps": {
+          "MinValue": 900,
+          "MaxValue": 1500,
+          "StackType": "Flat"
+        }
       }
     }
   ]

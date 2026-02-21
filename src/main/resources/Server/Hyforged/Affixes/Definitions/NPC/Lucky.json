@@ -10,7 +10,11 @@
       "ItemLevelReq": 1,
       "Weight": 100,
       "Stats": {
-        "hyforged:luck": { "MinValue": 6, "MaxValue": 14, "StackType": "Flat" }
+        "hyforged:luck": {
+          "MinValue": 6,
+          "MaxValue": 14,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -18,7 +22,11 @@
       "ItemLevelReq": 25,
       "Weight": 80,
       "Stats": {
-        "hyforged:luck": { "MinValue": 14, "MaxValue": 24, "StackType": "Flat" }
+        "hyforged:luck": {
+          "MinValue": 14,
+          "MaxValue": 24,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -26,7 +34,11 @@
       "ItemLevelReq": 50,
       "Weight": 60,
       "Stats": {
-        "hyforged:luck": { "MinValue": 24, "MaxValue": 38, "StackType": "Flat" }
+        "hyforged:luck": {
+          "MinValue": 24,
+          "MaxValue": 38,
+          "StackType": "Flat"
+        }
       }
     }
   ]

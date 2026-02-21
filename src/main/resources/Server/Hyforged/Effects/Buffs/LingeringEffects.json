@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Duration.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:effect-duration-bps", "StackType": "Increased", "Amount": 4000 },
-    { "StatId": "hyforged:curse-duration-bps", "StackType": "Increased", "Amount": 3000 }
+    {
+      "StatId": "hyforged:effect-duration-bps",
+      "StackType": "Increased",
+      "Amount": 4000
+    },
+    {
+      "StatId": "hyforged:curse-duration-bps",
+      "StackType": "Increased",
+      "Amount": 3000
+    }
   ]
 }

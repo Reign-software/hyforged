@@ -9,7 +9,11 @@
       "ItemLevelReq": 68,
       "Weight": 28,
       "Stats": {
-        "hyforged:maximum-resistance-chaos-bps": { "MinValue": 300, "MaxValue": 500, "StackType": "Increased" }
+        "hyforged:maximum-resistance-chaos-bps": {
+          "MinValue": 300,
+          "MaxValue": 500,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 50,
       "Weight": 48,
       "Stats": {
-        "hyforged:maximum-resistance-chaos-bps": { "MinValue": 200, "MaxValue": 300, "StackType": "Increased" }
+        "hyforged:maximum-resistance-chaos-bps": {
+          "MinValue": 200,
+          "MaxValue": 300,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 32,
       "Weight": 72,
       "Stats": {
-        "hyforged:maximum-resistance-chaos-bps": { "MinValue": 100, "MaxValue": 200, "StackType": "Increased" }
+        "hyforged:maximum-resistance-chaos-bps": {
+          "MinValue": 100,
+          "MaxValue": 200,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 16,
       "Weight": 100,
       "Stats": {
-        "hyforged:maximum-resistance-chaos-bps": { "MinValue": 50, "MaxValue": 100, "StackType": "Increased" }
+        "hyforged:maximum-resistance-chaos-bps": {
+          "MinValue": 50,
+          "MaxValue": 100,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 1,
       "Weight": 130,
       "Stats": {
-        "hyforged:maximum-resistance-chaos-bps": { "MinValue": 25, "MaxValue": 50, "StackType": "Increased" }
+        "hyforged:maximum-resistance-chaos-bps": {
+          "MinValue": 25,
+          "MaxValue": 50,
+          "StackType": "Increased"
+        }
       }
     }
   ]

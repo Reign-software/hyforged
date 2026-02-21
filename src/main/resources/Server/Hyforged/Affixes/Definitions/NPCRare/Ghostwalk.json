@@ -10,8 +10,16 @@
       "ItemLevelReq": 10,
       "Weight": 100,
       "Stats": {
-        "hyforged:evasion-rating": { "MinValue": 300, "MaxValue": 550, "StackType": "Flat" },
-        "hyforged:dodge-chance-bps": { "MinValue": 220, "MaxValue": 420, "StackType": "Flat" }
+        "hyforged:evasion-rating": {
+          "MinValue": 300,
+          "MaxValue": 550,
+          "StackType": "Flat"
+        },
+        "hyforged:dodge-chance-bps": {
+          "MinValue": 220,
+          "MaxValue": 420,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -19,8 +27,16 @@
       "ItemLevelReq": 35,
       "Weight": 70,
       "Stats": {
-        "hyforged:evasion-rating": { "MinValue": 550, "MaxValue": 900, "StackType": "Flat" },
-        "hyforged:dodge-chance-bps": { "MinValue": 420, "MaxValue": 750, "StackType": "Flat" }
+        "hyforged:evasion-rating": {
+          "MinValue": 550,
+          "MaxValue": 900,
+          "StackType": "Flat"
+        },
+        "hyforged:dodge-chance-bps": {
+          "MinValue": 420,
+          "MaxValue": 750,
+          "StackType": "Flat"
+        }
       }
     }
   ]

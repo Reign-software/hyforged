@@ -449,8 +449,9 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
         }
         
         if (statDef.hasScaling()) {
-            // For scaling stats, recompute the scaled base from source stat cached values
-            return ScalingEngine.computeScaledBase(
+            // For scaling stats, base = DefaultValue + scaling contributions.
+            // DefaultValue is the flat floor; scaling layers on top.
+            return statDef.defaultValue() + ScalingEngine.computeScaledBase(
                     statDef,
                     component::getCachedValue,
                     registry
@@ -863,7 +864,7 @@ public class CharacterStatsPage extends InteractiveCustomUIPage<CharacterStatsPa
         String rangeStr = formatRange(definition);
         if (!"-".equals(rangeStr)) {
             if (tooltip.length() > 0) {
-                tooltip.append("\n");
+                tooltip.append("  ");
             }
             tooltip.append("Range: ").append(rangeStr);
         }

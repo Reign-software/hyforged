@@ -20,9 +20,11 @@
   ],
   "TriggeredEffects": [
     {
-      "Trigger": { "Type": "on_death" },
-      "Effect": { 
-        "Type": "damage_area", 
+      "Trigger": {
+        "Type": "on_death"
+      },
+      "Effect": {
+        "Type": "damage_area",
         "DamageType": "Fire",
         "BaseDamage": 25,
         "DamageScaling": 0.5,

@@ -3,7 +3,9 @@
     "Description": "Mace-family weapon affix pool",
     "AppliesTo": {
         "Categories": [],
-        "Tags": ["Family=Mace"]
+        "Tags": [
+            "Family=Mace"
+        ]
     },
     "Prefixes": [
         "hyforged:heavy",

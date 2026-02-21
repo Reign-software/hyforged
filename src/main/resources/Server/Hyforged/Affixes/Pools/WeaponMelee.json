@@ -2,8 +2,12 @@
     "Priority": 100,
     "Description": "Fallback weapon affix pool for weapons without a specific family pool",
     "AppliesTo": {
-        "Categories": ["Items.Weapons"],
-        "Tags": ["Type:Weapon"]
+        "Categories": [
+            "Items.Weapons"
+        ],
+        "Tags": [
+            "Type:Weapon"
+        ]
     },
     "Prefixes": [
         "hyforged:sharp",

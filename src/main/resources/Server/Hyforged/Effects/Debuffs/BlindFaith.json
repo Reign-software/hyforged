@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Confusion.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:wisdom", "StackType": "Flat", "Amount": -20 },
-    { "StatId": "hyforged:mana-regen-percent-bps", "StackType": "Increased", "Amount": -3000 }
+    {
+      "StatId": "hyforged:wisdom",
+      "StackType": "Flat",
+      "Amount": -20
+    },
+    {
+      "StatId": "hyforged:mana-regen-percent-bps",
+      "StackType": "Increased",
+      "Amount": -3000
+    }
   ]
 }

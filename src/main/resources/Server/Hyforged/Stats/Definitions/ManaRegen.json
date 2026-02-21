@@ -13,7 +13,9 @@
     "Type": [
       "resource"
     ],
-    "Resource": ["mana"],
+    "Resource": [
+      "mana"
+    ],
     "Source": [
       "derived"
     ]

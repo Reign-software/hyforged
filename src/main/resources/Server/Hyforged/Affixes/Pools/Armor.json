@@ -2,8 +2,13 @@
     "Priority": 100,
     "Description": "Fallback affix pool for all armor",
     "AppliesTo": {
-        "Categories": ["Items.Armor", "Items.Armors"],
-        "Tags": ["Type:Armor"]
+        "Categories": [
+            "Items.Armor",
+            "Items.Armors"
+        ],
+        "Tags": [
+            "Type:Armor"
+        ]
     },
     "Prefixes": [
         "hyforged:sturdy",

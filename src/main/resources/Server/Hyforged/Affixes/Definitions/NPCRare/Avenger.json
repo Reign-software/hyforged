@@ -14,9 +14,12 @@
   ],
   "TriggeredEffects": [
     {
-      "Trigger": { "Type": "on_ally_death", "Radius": 15 },
-      "Effect": { 
-        "Type": "apply_effect", 
+      "Trigger": {
+        "Type": "on_ally_death",
+        "Radius": 15
+      },
+      "Effect": {
+        "Type": "apply_effect",
         "EffectId": "hyforged:avengers_wrath",
         "Duration": 20.0,
         "TargetSelf": true,

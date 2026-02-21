@@ -3,7 +3,9 @@
     "Description": "Staff-family weapon affix pool",
     "AppliesTo": {
         "Categories": [],
-        "Tags": ["Family=Staff"]
+        "Tags": [
+            "Family=Staff"
+        ]
     },
     "Prefixes": [
         "hyforged:arcane",

@@ -3,7 +3,9 @@
     "Description": "Crossbow-family weapon affix pool",
     "AppliesTo": {
         "Categories": [],
-        "Tags": ["Family=Crossbow"]
+        "Tags": [
+            "Family=Crossbow"
+        ]
     },
     "Prefixes": [
         "hyforged:hunters",

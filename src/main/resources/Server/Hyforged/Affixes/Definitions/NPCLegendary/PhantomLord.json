@@ -10,9 +10,21 @@
       "ItemLevelReq": 40,
       "Weight": 100,
       "Stats": {
-        "hyforged:evasion-bps": { "MinValue": 2200, "MaxValue": 3600, "StackType": "More" },
-        "hyforged:dodge-chance-bps": { "MinValue": 700, "MaxValue": 1200, "StackType": "Flat" },
-        "hyforged:crit-chance-bps": { "MinValue": 700, "MaxValue": 1200, "StackType": "Flat" }
+        "hyforged:evasion-bps": {
+          "MinValue": 2200,
+          "MaxValue": 3600,
+          "StackType": "More"
+        },
+        "hyforged:dodge-chance-bps": {
+          "MinValue": 700,
+          "MaxValue": 1200,
+          "StackType": "Flat"
+        },
+        "hyforged:crit-chance-bps": {
+          "MinValue": 700,
+          "MaxValue": 1200,
+          "StackType": "Flat"
+        }
       }
     }
   ]

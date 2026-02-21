@@ -4,8 +4,15 @@
   "ConcentrationCost": 25,
   "DefaultPriority": 10,
   "BaseDuration": 0,
-  "SpawnOffset": { "X": 2.0, "Y": 0.0, "Z": 0.0 },
-  "Tags": ["undead", "melee"],
+  "SpawnOffset": {
+    "X": 2.0,
+    "Y": 0.0,
+    "Z": 0.0
+  },
+  "Tags": [
+    "undead",
+    "melee"
+  ],
   "StatOverrides": {
     "hyforged:minion-damage-bps": 500
   }

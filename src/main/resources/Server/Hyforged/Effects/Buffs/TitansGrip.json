@@ -6,6 +6,10 @@
     "StatusEffectIcon": "UI/StatusEffects/Strength.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:strength", "StackType": "Increased", "Amount": 2500 }
+    {
+      "StatId": "hyforged:strength",
+      "StackType": "Increased",
+      "Amount": 2500
+    }
   ]
 }

@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Silence.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:spell-damage-increased-bps", "StackType": "Increased", "Amount": -5000 },
-    { "StatId": "hyforged:cast-speed-bps", "StackType": "Increased", "Amount": -5000 }
+    {
+      "StatId": "hyforged:spell-damage-increased-bps",
+      "StackType": "Increased",
+      "Amount": -5000
+    },
+    {
+      "StatId": "hyforged:cast-speed-bps",
+      "StackType": "Increased",
+      "Amount": -5000
+    }
   ]
 }

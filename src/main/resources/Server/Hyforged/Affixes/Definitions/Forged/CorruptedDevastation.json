@@ -9,7 +9,11 @@
       "ItemLevelReq": 76,
       "Weight": 30,
       "Stats": {
-        "hyforged:crit-multiplier-bps": { "MinValue": 6000, "MaxValue": 8000, "StackType": "Increased" }
+        "hyforged:crit-multiplier-bps": {
+          "MinValue": 6000,
+          "MaxValue": 8000,
+          "StackType": "Increased"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 56,
       "Weight": 60,
       "Stats": {
-        "hyforged:crit-multiplier-bps": { "MinValue": 4000, "MaxValue": 6000, "StackType": "Increased" }
+        "hyforged:crit-multiplier-bps": {
+          "MinValue": 4000,
+          "MaxValue": 6000,
+          "StackType": "Increased"
+        }
       }
     }
   ]

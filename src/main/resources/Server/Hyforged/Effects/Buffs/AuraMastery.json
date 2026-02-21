@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Aura.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:aura-area-bps", "StackType": "Increased", "Amount": 4000 },
-    { "StatId": "hyforged:aura-effect-bps", "StackType": "Increased", "Amount": 2500 }
+    {
+      "StatId": "hyforged:aura-area-bps",
+      "StackType": "Increased",
+      "Amount": 4000
+    },
+    {
+      "StatId": "hyforged:aura-effect-bps",
+      "StackType": "Increased",
+      "Amount": 2500
+    }
   ]
 }

@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/Chain.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:projectile-chain-count", "StackType": "Flat", "Amount": 2 },
-    { "StatId": "hyforged:projectile-damage-bps", "StackType": "Increased", "Amount": 2000 }
+    {
+      "StatId": "hyforged:projectile-chain-count",
+      "StackType": "Flat",
+      "Amount": 2
+    },
+    {
+      "StatId": "hyforged:projectile-damage-bps",
+      "StackType": "Increased",
+      "Amount": 2000
+    }
   ]
 }

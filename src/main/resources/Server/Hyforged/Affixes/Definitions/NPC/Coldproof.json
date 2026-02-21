@@ -10,7 +10,11 @@
       "ItemLevelReq": 1,
       "Weight": 100,
       "Stats": {
-        "hyforged:cold-resistance-bps": { "MinValue": 1500, "MaxValue": 2500, "StackType": "More" }
+        "hyforged:cold-resistance-bps": {
+          "MinValue": 1500,
+          "MaxValue": 2500,
+          "StackType": "More"
+        }
       }
     },
     {
@@ -18,7 +22,11 @@
       "ItemLevelReq": 30,
       "Weight": 70,
       "Stats": {
-        "hyforged:cold-resistance-bps": { "MinValue": 2500, "MaxValue": 4000, "StackType": "More" }
+        "hyforged:cold-resistance-bps": {
+          "MinValue": 2500,
+          "MaxValue": 4000,
+          "StackType": "More"
+        }
       }
     }
   ]

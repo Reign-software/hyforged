@@ -6,6 +6,10 @@
     "StatusEffectIcon": "UI/StatusEffects/AllAttributes.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:attribute-all", "StackType": "Flat", "Amount": 10 }
+    {
+      "StatId": "hyforged:attribute-all",
+      "StackType": "Flat",
+      "Amount": 10
+    }
   ]
 }

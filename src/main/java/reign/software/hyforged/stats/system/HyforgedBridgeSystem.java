@@ -222,9 +222,15 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
         
         int currentValue = hyforgedStats.getCachedValue(maxHealthIndex);
         int lastBridged = hyforgedStats.getLastBridgedMaxHealth();
-        
+
+        // Also re-apply if modifier was wiped (e.g. by an interaction that reinitialises EntityStatMap)
+        boolean modifierMissing = entityStatMap.getModifier(DefaultEntityStatTypes.getHealth(), MODIFIER_KEY_MAX_HEALTH) == null;
+
         int delta = currentValue - lastBridged;
-        if (Math.abs(delta) >= UPDATE_THRESHOLD) {
+        if (modifierMissing || Math.abs(delta) >= UPDATE_THRESHOLD) {
+            // firstBridge is true only on the very first login (lastBridged == 0).
+            // When the modifier is merely missing (interaction reset), do NOT maximize
+            // so current HP is preserved at whatever Hytale already has.
             boolean firstBridge = lastBridged == 0;
             applyModifier(entityStatMap, DefaultEntityStatTypes.getHealth(), MODIFIER_KEY_MAX_HEALTH, currentValue);
             hyforgedStats.setLastBridgedMaxHealth(currentValue);
@@ -251,9 +257,11 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
         
         int currentValue = hyforgedStats.getCachedValue(maxManaIndex);
         int lastBridged = hyforgedStats.getLastBridgedMaxMana();
-        
+
+        boolean modifierMissing = entityStatMap.getModifier(DefaultEntityStatTypes.getMana(), MODIFIER_KEY_MAX_MANA) == null;
+
         int delta = currentValue - lastBridged;
-        if (Math.abs(delta) >= UPDATE_THRESHOLD) {
+        if (modifierMissing || Math.abs(delta) >= UPDATE_THRESHOLD) {
             boolean firstBridge = lastBridged == 0;
             applyModifier(entityStatMap, DefaultEntityStatTypes.getMana(), MODIFIER_KEY_MAX_MANA, currentValue);
             hyforgedStats.setLastBridgedMaxMana(currentValue);
@@ -279,9 +287,11 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
         
         int currentValue = hyforgedStats.getCachedValue(maxStaminaIndex);
         int lastBridged = hyforgedStats.getLastBridgedMaxStamina();
-        
+
+        boolean modifierMissing = entityStatMap.getModifier(DefaultEntityStatTypes.getStamina(), MODIFIER_KEY_MAX_STAMINA) == null;
+
         int delta = currentValue - lastBridged;
-        if (Math.abs(delta) >= UPDATE_THRESHOLD) {
+        if (modifierMissing || Math.abs(delta) >= UPDATE_THRESHOLD) {
             boolean firstBridge = lastBridged == 0;
             applyModifier(entityStatMap, DefaultEntityStatTypes.getStamina(), MODIFIER_KEY_MAX_STAMINA, currentValue);
             hyforgedStats.setLastBridgedMaxStamina(currentValue);
@@ -307,8 +317,10 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
         int currentValue = hyforgedStats.getCachedValue(maxConcentrationIndex);
         int lastBridged = hyforgedStats.getLastBridgedMaxConcentration();
 
+        boolean modifierMissing = entityStatMap.getModifier(concentrationEntityStatIndex, MODIFIER_KEY_MAX_CONCENTRATION) == null;
+
         int delta = currentValue - lastBridged;
-        if (Math.abs(delta) >= UPDATE_THRESHOLD) {
+        if (modifierMissing || Math.abs(delta) >= UPDATE_THRESHOLD) {
             applyModifier(entityStatMap, concentrationEntityStatIndex, MODIFIER_KEY_MAX_CONCENTRATION, currentValue);
             hyforgedStats.setLastBridgedMaxConcentration(currentValue);
             logBridge("Concentration", currentValue, lastBridged);
@@ -329,8 +341,10 @@ public class HyforgedBridgeSystem extends EntityTickingSystem<EntityStore> {
         int currentValue = hyforgedStats.getCachedValue(maxRageIndex);
         int lastBridged = hyforgedStats.getLastBridgedMaxRage();
 
+        boolean modifierMissing = entityStatMap.getModifier(rageEntityStatIndex, MODIFIER_KEY_MAX_RAGE) == null;
+
         int delta = currentValue - lastBridged;
-        if (Math.abs(delta) >= UPDATE_THRESHOLD) {
+        if (modifierMissing || Math.abs(delta) >= UPDATE_THRESHOLD) {
             applyModifier(entityStatMap, rageEntityStatIndex, MODIFIER_KEY_MAX_RAGE, currentValue);
             hyforgedStats.setLastBridgedMaxRage(currentValue);
             logBridge("Rage", currentValue, lastBridged);

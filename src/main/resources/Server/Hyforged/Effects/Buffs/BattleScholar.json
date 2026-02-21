@@ -6,6 +6,10 @@
     "StatusEffectIcon": "UI/StatusEffects/Experience.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:experience-gain-bps", "StackType": "Increased", "Amount": 5000 }
+    {
+      "StatId": "hyforged:experience-gain-bps",
+      "StackType": "Increased",
+      "Amount": 5000
+    }
   ]
 }

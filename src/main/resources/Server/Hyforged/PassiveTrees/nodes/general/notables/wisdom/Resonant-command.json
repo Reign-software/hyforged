@@ -7,10 +7,26 @@
       "Description": "+6% Aura Area\n+6% Aura Effect\n+1 Aura Skill Level\n+4% Banner Effect",
       "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:aura-area-bps", "Value": 600 },
-        { "Type": "stat-modifier", "Stat": "hyforged:aura-effect-bps", "Value": 600 },
-        { "Type": "stat-modifier", "Stat": "hyforged:aura-skill-levels", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:banner-effect-bps", "Value": 400 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:aura-area-bps",
+          "Value": 600
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:aura-effect-bps",
+          "Value": 600
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:aura-skill-levels",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:banner-effect-bps",
+          "Value": 400
+        }
       ]
     }
   ]

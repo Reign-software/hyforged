@@ -10,14 +10,25 @@
       "ItemLevelReq": 40,
       "Weight": 100,
       "Stats": {
-        "hyforged:evasion-bps": { "MinValue": 1500, "MaxValue": 2500, "StackType": "More" }
+        "hyforged:evasion-bps": {
+          "MinValue": 1500,
+          "MaxValue": 2500,
+          "StackType": "More"
+        }
       }
     }
   ],
   "TriggeredEffects": [
     {
-      "Trigger": { "Type": "on_damaged", "HealthThresholds": [75, 50, 25] },
-      "Effect": { 
+      "Trigger": {
+        "Type": "on_damaged",
+        "HealthThresholds": [
+          75,
+          50,
+          25
+        ]
+      },
+      "Effect": {
         "Type": "spawn_prefab",
         "PrefabId": "hyforged:mirror_image",
         "Count": 2,

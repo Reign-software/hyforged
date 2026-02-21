@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/ArmorPen.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:armor-penetration-bps", "StackType": "Flat", "Amount": 3000 },
-    { "StatId": "hyforged:physical-damage-increased-bps", "StackType": "Increased", "Amount": 2000 }
+    {
+      "StatId": "hyforged:armor-penetration-bps",
+      "StackType": "Flat",
+      "Amount": 3000
+    },
+    {
+      "StatId": "hyforged:physical-damage-increased-bps",
+      "StackType": "Increased",
+      "Amount": 2000
+    }
   ]
 }

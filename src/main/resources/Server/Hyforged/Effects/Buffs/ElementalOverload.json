@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/ElementalDamage.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:elemental-damage-increased-bps", "StackType": "More", "Amount": 4000 },
-    { "StatId": "hyforged:elemental-penetration-bps", "StackType": "Flat", "Amount": 1500 }
+    {
+      "StatId": "hyforged:elemental-damage-increased-bps",
+      "StackType": "More",
+      "Amount": 4000
+    },
+    {
+      "StatId": "hyforged:elemental-penetration-bps",
+      "StackType": "Flat",
+      "Amount": 1500
+    }
   ]
 }

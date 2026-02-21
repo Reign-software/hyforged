@@ -10,14 +10,21 @@
       "ItemLevelReq": 40,
       "Weight": 100,
       "Stats": {
-        "hyforged:movement-speed-bps": { "MinValue": 1000, "MaxValue": 2000, "StackType": "More" }
+        "hyforged:movement-speed-bps": {
+          "MinValue": 1000,
+          "MaxValue": 2000,
+          "StackType": "More"
+        }
       }
     }
   ],
   "TriggeredEffects": [
     {
-      "Trigger": { "Type": "interval", "IntervalSeconds": 20.0 },
-      "Effect": { 
+      "Trigger": {
+        "Type": "interval",
+        "IntervalSeconds": 20.0
+      },
+      "Effect": {
         "Type": "apply_effect",
         "EffectId": "hyforged:time_warp",
         "Duration": 4.0,

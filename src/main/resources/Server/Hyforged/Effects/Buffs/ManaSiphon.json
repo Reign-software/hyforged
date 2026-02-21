@@ -6,8 +6,20 @@
     "StatusEffectIcon": "UI/StatusEffects/ManaLeech.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:mana-leech-bps", "StackType": "Flat", "Amount": 300 },
-    { "StatId": "hyforged:mana-on-hit-flat", "StackType": "Flat", "Amount": 5 },
-    { "StatId": "hyforged:mana-recovery-rate-bps", "StackType": "Increased", "Amount": 2000 }
+    {
+      "StatId": "hyforged:mana-leech-bps",
+      "StackType": "Flat",
+      "Amount": 300
+    },
+    {
+      "StatId": "hyforged:mana-on-hit-flat",
+      "StackType": "Flat",
+      "Amount": 5
+    },
+    {
+      "StatId": "hyforged:mana-recovery-rate-bps",
+      "StackType": "Increased",
+      "Amount": 2000
+    }
   ]
 }

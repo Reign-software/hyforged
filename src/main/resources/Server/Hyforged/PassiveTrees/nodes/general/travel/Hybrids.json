@@ -6,8 +6,16 @@
       "Name": "Strength-Dexterity Bridge",
       "Description": "+1 Strength\n+1 Dexterity",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:strength", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:dexterity", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:strength",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:dexterity",
+          "Value": 1
+        }
       ]
     },
     {
@@ -16,8 +24,16 @@
       "Name": "Dexterity-Intelligence Bridge",
       "Description": "+1 Dexterity\n+1 Intelligence",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:dexterity", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:intelligence", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:dexterity",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:intelligence",
+          "Value": 1
+        }
       ]
     },
     {
@@ -26,8 +42,16 @@
       "Name": "Intelligence-Spirit Bridge",
       "Description": "+1 Intelligence\n+1 Spirit",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:intelligence", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:spirit", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:intelligence",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:spirit",
+          "Value": 1
+        }
       ]
     },
     {
@@ -36,8 +60,16 @@
       "Name": "Spirit-Wisdom Bridge",
       "Description": "+1 Spirit\n+1 Wisdom",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:spirit", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:wisdom", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:spirit",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:wisdom",
+          "Value": 1
+        }
       ]
     },
     {
@@ -46,8 +78,16 @@
       "Name": "Wisdom-Constitution Bridge",
       "Description": "+1 Wisdom\n+1 Constitution",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:wisdom", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:constitution", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:wisdom",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:constitution",
+          "Value": 1
+        }
       ]
     },
     {
@@ -56,8 +96,16 @@
       "Name": "Constitution-Strength Bridge",
       "Description": "+1 Constitution\n+1 Strength",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:constitution", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:strength", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:constitution",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:strength",
+          "Value": 1
+        }
       ]
     },
     {
@@ -66,8 +114,16 @@
       "Name": "Strength-Luck Bridge",
       "Description": "+1 Strength\n+1 Luck",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:strength", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:luck", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:strength",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:luck",
+          "Value": 1
+        }
       ]
     },
     {
@@ -76,8 +132,16 @@
       "Name": "Luck-Dexterity Bridge",
       "Description": "+1 Luck\n+1 Dexterity",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:luck", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:dexterity", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:luck",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:dexterity",
+          "Value": 1
+        }
       ]
     },
     {
@@ -86,8 +150,16 @@
       "Name": "Luck-Intelligence Bridge",
       "Description": "+1 Luck\n+1 Intelligence",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:luck", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:intelligence", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:luck",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:intelligence",
+          "Value": 1
+        }
       ]
     },
     {
@@ -96,8 +168,16 @@
       "Name": "Luck-Spirit Bridge",
       "Description": "+1 Luck\n+1 Spirit",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:luck", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:spirit", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:luck",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:spirit",
+          "Value": 1
+        }
       ]
     },
     {
@@ -106,8 +186,16 @@
       "Name": "Luck-Wisdom Bridge",
       "Description": "+1 Luck\n+1 Wisdom",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:luck", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:wisdom", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:luck",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:wisdom",
+          "Value": 1
+        }
       ]
     },
     {
@@ -116,8 +204,16 @@
       "Name": "Luck-Constitution Bridge",
       "Description": "+1 Luck\n+1 Constitution",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:luck", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:constitution", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:luck",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:constitution",
+          "Value": 1
+        }
       ]
     },
     {
@@ -126,8 +222,16 @@
       "Name": "Spirit-Dexterity Bridge",
       "Description": "+1 Spirit\n+1 Dexterity",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:spirit", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:dexterity", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:spirit",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:dexterity",
+          "Value": 1
+        }
       ]
     },
     {
@@ -136,8 +240,16 @@
       "Name": "Spirit-Strength Bridge",
       "Description": "+1 Spirit\n+1 Strength",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:spirit", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:strength", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:spirit",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:strength",
+          "Value": 1
+        }
       ]
     },
     {
@@ -146,8 +258,16 @@
       "Name": "Intelligence-Wisdom Bridge",
       "Description": "+1 Intelligence\n+1 Wisdom",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:intelligence", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:wisdom", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:intelligence",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:wisdom",
+          "Value": 1
+        }
       ]
     },
     {
@@ -156,8 +276,16 @@
       "Name": "Constitution-Wisdom Bridge",
       "Description": "+1 Constitution\n+1 Wisdom",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:constitution", "Value": 1 },
-        { "Type": "stat-modifier", "Stat": "hyforged:wisdom", "Value": 1 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:constitution",
+          "Value": 1
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:wisdom",
+          "Value": 1
+        }
       ]
     }
   ]

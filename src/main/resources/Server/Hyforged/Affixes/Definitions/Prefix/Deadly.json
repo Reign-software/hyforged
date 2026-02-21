@@ -9,7 +9,11 @@
       "ItemLevelReq": 55,
       "Weight": 45,
       "Stats": {
-        "hyforged:crit-chance-bps": { "MinValue": 350, "MaxValue": 500, "StackType": "Flat" }
+        "hyforged:crit-chance-bps": {
+          "MinValue": 350,
+          "MaxValue": 500,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 40,
       "Weight": 65,
       "Stats": {
-        "hyforged:crit-chance-bps": { "MinValue": 250, "MaxValue": 350, "StackType": "Flat" }
+        "hyforged:crit-chance-bps": {
+          "MinValue": 250,
+          "MaxValue": 350,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 25,
       "Weight": 85,
       "Stats": {
-        "hyforged:crit-chance-bps": { "MinValue": 150, "MaxValue": 250, "StackType": "Flat" }
+        "hyforged:crit-chance-bps": {
+          "MinValue": 150,
+          "MaxValue": 250,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 10,
       "Weight": 105,
       "Stats": {
-        "hyforged:crit-chance-bps": { "MinValue": 80, "MaxValue": 150, "StackType": "Flat" }
+        "hyforged:crit-chance-bps": {
+          "MinValue": 80,
+          "MaxValue": 150,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -41,7 +57,11 @@
       "ItemLevelReq": 1,
       "Weight": 125,
       "Stats": {
-        "hyforged:crit-chance-bps": { "MinValue": 30, "MaxValue": 80, "StackType": "Flat" }
+        "hyforged:crit-chance-bps": {
+          "MinValue": 30,
+          "MaxValue": 80,
+          "StackType": "Flat"
+        }
       }
     }
   ]

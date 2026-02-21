@@ -2,6 +2,9 @@
   "Order": 0,
   "Enabled": true,
   "Segments": [
-    { "TranslationKey": "hyforged.welcome.header", "Color": "#FFAA00" }
+    {
+      "TranslationKey": "hyforged.welcome.header",
+      "Color": "#FFAA00"
+    }
   ]
 }

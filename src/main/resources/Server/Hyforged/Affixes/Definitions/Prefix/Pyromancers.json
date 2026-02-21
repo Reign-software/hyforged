@@ -9,7 +9,11 @@
       "ItemLevelReq": 64,
       "Weight": 35,
       "Stats": {
-        "hyforged:fire-skill-levels": { "MinValue": 3, "MaxValue": 5, "StackType": "Flat" }
+        "hyforged:fire-skill-levels": {
+          "MinValue": 3,
+          "MaxValue": 5,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -17,7 +21,11 @@
       "ItemLevelReq": 42,
       "Weight": 55,
       "Stats": {
-        "hyforged:fire-skill-levels": { "MinValue": 2, "MaxValue": 3, "StackType": "Flat" }
+        "hyforged:fire-skill-levels": {
+          "MinValue": 2,
+          "MaxValue": 3,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -25,7 +33,11 @@
       "ItemLevelReq": 22,
       "Weight": 80,
       "Stats": {
-        "hyforged:fire-skill-levels": { "MinValue": 1, "MaxValue": 2, "StackType": "Flat" }
+        "hyforged:fire-skill-levels": {
+          "MinValue": 1,
+          "MaxValue": 2,
+          "StackType": "Flat"
+        }
       }
     },
     {
@@ -33,7 +45,11 @@
       "ItemLevelReq": 1,
       "Weight": 110,
       "Stats": {
-        "hyforged:fire-skill-levels": { "MinValue": 1, "MaxValue": 1, "StackType": "Flat" }
+        "hyforged:fire-skill-levels": {
+          "MinValue": 1,
+          "MaxValue": 1,
+          "StackType": "Flat"
+        }
       }
     }
   ]

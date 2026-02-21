@@ -6,6 +6,10 @@
     "StatusEffectIcon": "UI/StatusEffects/AllSkills.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:all-skill-levels", "StackType": "Flat", "Amount": 2 }
+    {
+      "StatId": "hyforged:all-skill-levels",
+      "StackType": "Flat",
+      "Amount": 2
+    }
   ]
 }

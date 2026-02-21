@@ -3,7 +3,9 @@
     "Description": "Dagger-family weapon affix pool",
     "AppliesTo": {
         "Categories": [],
-        "Tags": ["Family=Dagger"]
+        "Tags": [
+            "Family=Dagger"
+        ]
     },
     "Prefixes": [
         "hyforged:nimble",

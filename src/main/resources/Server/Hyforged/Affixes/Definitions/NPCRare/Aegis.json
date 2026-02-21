@@ -10,8 +10,16 @@
       "ItemLevelReq": 10,
       "Weight": 100,
       "Stats": {
-        "hyforged:block-chance-bps": { "MinValue": 260, "MaxValue": 500, "StackType": "Flat" },
-        "hyforged:physical-resistance-bps": { "MinValue": 400, "MaxValue": 900, "StackType": "More" }
+        "hyforged:block-chance-bps": {
+          "MinValue": 260,
+          "MaxValue": 500,
+          "StackType": "Flat"
+        },
+        "hyforged:physical-resistance-bps": {
+          "MinValue": 400,
+          "MaxValue": 900,
+          "StackType": "More"
+        }
       }
     },
     {
@@ -19,8 +27,16 @@
       "ItemLevelReq": 35,
       "Weight": 70,
       "Stats": {
-        "hyforged:block-chance-bps": { "MinValue": 500, "MaxValue": 850, "StackType": "Flat" },
-        "hyforged:physical-resistance-bps": { "MinValue": 900, "MaxValue": 1600, "StackType": "More" }
+        "hyforged:block-chance-bps": {
+          "MinValue": 500,
+          "MaxValue": 850,
+          "StackType": "Flat"
+        },
+        "hyforged:physical-resistance-bps": {
+          "MinValue": 900,
+          "MaxValue": 1600,
+          "StackType": "More"
+        }
       }
     }
   ]

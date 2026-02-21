@@ -7,10 +7,26 @@
       "Description": "+6% Chaos Damage\n+4% Chaos Penetration\n+6% Poison Damage\n+4% Damage Over Time",
       "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:chaos-damage-increased-bps", "Value": 600 },
-        { "Type": "stat-modifier", "Stat": "hyforged:chaos-penetration-bps", "Value": 400 },
-        { "Type": "stat-modifier", "Stat": "hyforged:poison-damage-increased-bps", "Value": 600 },
-        { "Type": "stat-modifier", "Stat": "hyforged:damage-over-time-bps", "Value": 400 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:chaos-damage-increased-bps",
+          "Value": 600
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:chaos-penetration-bps",
+          "Value": 400
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:poison-damage-increased-bps",
+          "Value": 600
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:damage-over-time-bps",
+          "Value": 400
+        }
       ]
     }
   ]

@@ -73,7 +73,6 @@ public class HyforgedDamageBonusSystem extends DamageEventSystem {
      *
      * @see <a href="hyforged:stun-duration-bps">StunDuration stat definition</a>
      */
-    @SuppressWarnings("unused")
     private static final StatId STUN_DURATION = StatId.hyforged("stun-duration-bps");
 
     /**

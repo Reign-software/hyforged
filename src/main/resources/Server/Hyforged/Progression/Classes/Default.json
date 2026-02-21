@@ -10,25 +10,109 @@
     "Luck": 1,
     "WeaponTagFamilies": [],
     "LevelRewards": [
-        { "Level": 5, "Constitution": 1 },
-        { "Level": 10, "Strength": 1, "Intelligence": 1, "Constitution": 1 },
-        { "Level": 15, "Dexterity": 1,"Constitution": 1 },
-        { "Level": 20, "Dexterity": 1, "Constitution": 1 },
-        { "Level": 25, "Constitution": 1, "Wisdom": 1 },
-        { "Level": 30, "Constitution": 2 },
-        { "Level": 35, "Intelligence": 1, "Strength": 1, "Constitution": 1 },
-        { "Level": 40, "Dexterity": 1, "Constitution": 1 },
-        { "Level": 45, "Constitution": 1, "Strength": 1, "Intelligence": 1 },
-        { "Level": 50, "Dexterity": 1, "Constitution": 1 },
-        { "Level": 55, "Spirit": 1, "Constitution": 1 },
-        { "Level": 60, "Constitution": 2 },
-        { "Level": 65, "Strength": 1, "Constitution": 1 },
-        { "Level": 70, "Dexterity": 1, "Constitution": 1 },
-        { "Level": 75, "Constitution": 1, "Intelligence": 1 },
-        { "Level": 80, "Dexterity": 1,"Constitution": 1 },
-        { "Level": 85, "Luck": 1, "Constitution": 1 },
-        { "Level": 90, "Dexterity": 1, "Constitution": 2 },
-        { "Level": 95, "Wisdom": 1, "Constitution": 1 },
-        { "Level": 100, "Wisdom": 1, "Spirit": 1, "Luck": 1, "Strength": 1, "Dexterity": 1, "Constitution": 1 }
+        {
+            "Level": 5,
+            "Constitution": 1
+        },
+        {
+            "Level": 10,
+            "Strength": 1,
+            "Intelligence": 1,
+            "Constitution": 1
+        },
+        {
+            "Level": 15,
+            "Dexterity": 1,
+            "Constitution": 1
+        },
+        {
+            "Level": 20,
+            "Dexterity": 1,
+            "Constitution": 1
+        },
+        {
+            "Level": 25,
+            "Constitution": 1,
+            "Wisdom": 1
+        },
+        {
+            "Level": 30,
+            "Constitution": 2
+        },
+        {
+            "Level": 35,
+            "Intelligence": 1,
+            "Strength": 1,
+            "Constitution": 1
+        },
+        {
+            "Level": 40,
+            "Dexterity": 1,
+            "Constitution": 1
+        },
+        {
+            "Level": 45,
+            "Constitution": 1,
+            "Strength": 1,
+            "Intelligence": 1
+        },
+        {
+            "Level": 50,
+            "Dexterity": 1,
+            "Constitution": 1
+        },
+        {
+            "Level": 55,
+            "Spirit": 1,
+            "Constitution": 1
+        },
+        {
+            "Level": 60,
+            "Constitution": 2
+        },
+        {
+            "Level": 65,
+            "Strength": 1,
+            "Constitution": 1
+        },
+        {
+            "Level": 70,
+            "Dexterity": 1,
+            "Constitution": 1
+        },
+        {
+            "Level": 75,
+            "Constitution": 1,
+            "Intelligence": 1
+        },
+        {
+            "Level": 80,
+            "Dexterity": 1,
+            "Constitution": 1
+        },
+        {
+            "Level": 85,
+            "Luck": 1,
+            "Constitution": 1
+        },
+        {
+            "Level": 90,
+            "Dexterity": 1,
+            "Constitution": 2
+        },
+        {
+            "Level": 95,
+            "Wisdom": 1,
+            "Constitution": 1
+        },
+        {
+            "Level": 100,
+            "Wisdom": 1,
+            "Spirit": 1,
+            "Luck": 1,
+            "Strength": 1,
+            "Dexterity": 1,
+            "Constitution": 1
+        }
     ]
 }

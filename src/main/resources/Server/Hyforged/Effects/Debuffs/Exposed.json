@@ -6,8 +6,20 @@
     "StatusEffectIcon": "UI/StatusEffects/Exposed.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:block-chance-bps", "StackType": "Flat", "Amount": -3000 },
-    { "StatId": "hyforged:dodge-chance-bps", "StackType": "Flat", "Amount": -2000 },
-    { "StatId": "hyforged:evasion-chance-bps", "StackType": "Flat", "Amount": -2500 }
+    {
+      "StatId": "hyforged:block-chance-bps",
+      "StackType": "Flat",
+      "Amount": -3000
+    },
+    {
+      "StatId": "hyforged:dodge-chance-bps",
+      "StackType": "Flat",
+      "Amount": -2000
+    },
+    {
+      "StatId": "hyforged:evasion-chance-bps",
+      "StackType": "Flat",
+      "Amount": -2500
+    }
   ]
 }

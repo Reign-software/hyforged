@@ -6,6 +6,10 @@
     "StatusEffectIcon": "UI/StatusEffects/Weakness.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:strength", "StackType": "Flat", "Amount": -10 }
+    {
+      "StatId": "hyforged:strength",
+      "StackType": "Flat",
+      "Amount": -10
+    }
   ]
 }

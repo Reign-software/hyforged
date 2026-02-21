@@ -6,8 +6,16 @@
       "Name": "Chaos Infusion",
       "Description": "+2% Chaos Damage\n+2% Chaos Penetration",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:chaos-damage-increased-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:chaos-penetration-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:chaos-damage-increased-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:chaos-penetration-bps",
+          "Value": 200
+        }
       ]
     },
     {
@@ -16,8 +24,16 @@
       "Name": "Venomous",
       "Description": "+2% Poison Damage\n+2% Poison Chance",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:poison-damage-increased-bps", "Value": 200 },
-        { "Type": "stat-modifier", "Stat": "hyforged:poison-chance-bps", "Value": 200 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:poison-damage-increased-bps",
+          "Value": 200
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:poison-chance-bps",
+          "Value": 200
+        }
       ]
     }
   ]

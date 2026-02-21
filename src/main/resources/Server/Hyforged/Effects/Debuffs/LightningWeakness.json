@@ -6,7 +6,15 @@
     "StatusEffectIcon": "UI/StatusEffects/LightningVuln.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:lightning-resistance-bps", "StackType": "Flat", "Amount": -3000 },
-    { "StatId": "hyforged:shock-duration-bps", "StackType": "Increased", "Amount": 2500 }
+    {
+      "StatId": "hyforged:lightning-resistance-bps",
+      "StackType": "Flat",
+      "Amount": -3000
+    },
+    {
+      "StatId": "hyforged:shock-duration-bps",
+      "StackType": "Increased",
+      "Amount": 2500
+    }
   ]
 }

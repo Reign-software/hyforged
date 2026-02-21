@@ -7,9 +7,21 @@
       "Description": "+4% Reservation Efficiency\n+4% Mana Recovery Rate\n+4% Curse Effect",
       "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:reservation-efficiency-bps", "Value": 400 },
-        { "Type": "stat-modifier", "Stat": "hyforged:mana-recovery-rate-bps", "Value": 400 },
-        { "Type": "stat-modifier", "Stat": "hyforged:curse-effect-bps", "Value": 400 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:reservation-efficiency-bps",
+          "Value": 400
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:mana-recovery-rate-bps",
+          "Value": 400
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:curse-effect-bps",
+          "Value": 400
+        }
       ]
     }
   ]

@@ -6,8 +6,20 @@
     "StatusEffectIcon": "UI/StatusEffects/Shield.png"
   },
   "HyforgedModifiers": [
-    { "StatId": "hyforged:shield-damage-bps", "StackType": "Increased", "Amount": 3000 },
-    { "StatId": "hyforged:block-chance-bps", "StackType": "Flat", "Amount": 1500 },
-    { "StatId": "hyforged:block-mitigation-bps", "StackType": "Increased", "Amount": 2000 }
+    {
+      "StatId": "hyforged:shield-damage-bps",
+      "StackType": "Increased",
+      "Amount": 3000
+    },
+    {
+      "StatId": "hyforged:block-chance-bps",
+      "StackType": "Flat",
+      "Amount": 1500
+    },
+    {
+      "StatId": "hyforged:block-mitigation-bps",
+      "StackType": "Increased",
+      "Amount": 2000
+    }
   ]
 }

@@ -7,8 +7,16 @@
       "Description": "+6% Mana Recovery Rate\n+8 Max Mana",
       "Icon": "Hyforged/Textures/Notable.png",
       "Effects": [
-        { "Type": "stat-modifier", "Stat": "hyforged:mana-recovery-rate-bps", "Value": 600 },
-        { "Type": "stat-modifier", "Stat": "hyforged:max-mana-flat", "Value": 8 }
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:mana-recovery-rate-bps",
+          "Value": 600
+        },
+        {
+          "Type": "stat-modifier",
+          "Stat": "hyforged:max-mana-flat",
+          "Value": 8
+        }
       ]
     }
   ]
