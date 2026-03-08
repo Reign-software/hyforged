@@ -98,6 +98,7 @@ This script:
 - Copies Server assets to `../lib/Server`
 - Copies UI assets to `../lib/UI`
 - Updates HytaleServer.jar in lib root
+- Updates `hytale.server.version` in pom.xml
 
 ## Script Configuration
 

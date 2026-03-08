@@ -301,6 +301,17 @@ if exist "%UI_SOURCE%" (
     echo   Make sure Hytale is installed via the launcher.
 )
 
+REM Update pom.xml hytale.server.version
+set "POM_FILE=%WORKSPACE_ROOT%pom.xml"
+if exist "%POM_FILE%" (
+    echo.
+    echo Updating pom.xml hytale.server.version...
+    powershell -NoProfile -Command "(Get-Content '%POM_FILE%') -replace '<hytale.server.version>[^<]+</hytale.server.version>', '<hytale.server.version>%SERVER_VERSION%</hytale.server.version>' | Set-Content '%POM_FILE%'"
+    echo   pom.xml updated to: %SERVER_VERSION%
+) else (
+    echo Warning: pom.xml not found at: %POM_FILE%
+)
+
 REM Save version info
 echo %SERVER_VERSION%> "%SCRIPT_DIR%..\LAST_VERSION.txt"
 
